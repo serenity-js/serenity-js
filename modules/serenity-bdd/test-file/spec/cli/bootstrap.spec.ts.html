@@ -134,13 +134,13 @@
 
 <span class="hljs-keyword">import</span> { bootstrap } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli/bootstrap'</span>;
 
-describe(<span class="hljs-string">'Serenity BDD CLI'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Serenity BDD CLI'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">'should tell its version'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'should tell its version'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>);  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-        bootstrap([<span class="hljs-string">'--version'</span>], <span class="hljs-function">(<span class="hljs-params">error, parsed, output</span>) =&gt;</span> {
-            expect(output).to.equal(pkg.version);
+        <span class="hljs-title function_">bootstrap</span>([<span class="hljs-string">'--version'</span>], <span class="hljs-function">(<span class="hljs-params">error, parsed, output</span>) =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(output).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(pkg.<span class="hljs-property">version</span>);
         });
     });
 });

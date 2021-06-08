@@ -144,12 +144,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/isTrue.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 <span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'./equals'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isTrue</span>(<span class="hljs-params"></span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">boolean</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> Expectation.to&lt;<span class="hljs-built_in">boolean</span>&gt;(<span class="hljs-string">`equal true`</span>).soThatActual(equals(<span class="hljs-literal">true</span>));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isTrue</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>.<span class="hljs-property">to</span>&lt;<span class="hljs-built_in">boolean</span>&gt;(<span class="hljs-string">`equal true`</span>).<span class="hljs-title function_">soThatActual</span>(<span class="hljs-title function_">equals</span>(<span class="hljs-literal">true</span>));
 }
 </code></pre>
 

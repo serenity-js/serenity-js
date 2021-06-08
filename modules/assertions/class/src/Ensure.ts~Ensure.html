@@ -144,7 +144,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Ensure} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Ensure</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -183,38 +183,38 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with static values</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Erica'</span>);
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>);
 
- actor.attemptsTo(
-   Ensure.that(<span class="hljs-string">'Hello world!'</span>, equals(<span class="hljs-string">'Hello world!'</span>))
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+   <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-string">'Hello world!'</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Hello world!'</span>))
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Composing expectations with `and`</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { and, Ensure, startsWith, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { and, <span class="hljs-title class_">Ensure</span>, startsWith, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Erica'</span>);
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>);
 
- actor.attemptsTo(
-   Ensure.that(<span class="hljs-string">'Hello world!'</span>, and(startsWith(<span class="hljs-string">'Hello'</span>), endsWith(<span class="hljs-string">'!'</span>))
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+   <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-string">'Hello world!'</span>, <span class="hljs-title function_">and</span>(<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'Hello'</span>), <span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'!'</span>))
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Overriding the type of Error thrown upon assertion failure</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { and, Ensure, startsWith, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { and, <span class="hljs-title class_">Ensure</span>, startsWith, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 
- <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Erica'</span>)
-     .whoCan(CallAnApi.at(<span class="hljs-string">'https://example.com'</span>));
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://example.com'</span>));
 
- actor.attemptsTo(
-   Send.a(GetRequest.to(<span class="hljs-string">'/api/health'</span>)),
-   Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>))
-     .otherwiseFailWith(TestCompromisedError, <span class="hljs-string">'The server is down, please cheer it up!'</span>)
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+   <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/api/health'</span>)),
+   <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>))
+     .<span class="hljs-title function_">otherwiseFailWith</span>(<span class="hljs-title class_">TestCompromisedError</span>, <span class="hljs-string">'The server is down, please cheer it up!'</span>)
  );</code></pre>
     </div>
 </div>

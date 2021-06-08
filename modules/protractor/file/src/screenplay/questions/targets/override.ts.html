@@ -191,13 +191,13 @@
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">obj</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">name</span></span> - name of the method or field to override
- * <span class="hljs-doctag">@param <span class="hljs-variable">implementation</span></span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">obj</span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">name</span> - name of the method or field to override
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">implementation</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">override</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">object</span>, <span class="hljs-title">K</span> <span class="hljs-title">extends</span> <span class="hljs-title">keyof</span> <span class="hljs-title">T</span>&gt;(<span class="hljs-params">obj: T, name: K, implementation: T[K]</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>&lt;T&gt;(obj, {
-        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">o: T, property: <span class="hljs-built_in">string</span> | symbol</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> override&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>, K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">obj</span>: T, <span class="hljs-attr">name</span>: K, <span class="hljs-attr">implementation</span>: T[K]) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>&lt;T&gt;(obj, {
+        <span class="hljs-title function_">get</span>(<span class="hljs-params">o: T, property: <span class="hljs-built_in">string</span> | symbol</span>) {
             <span class="hljs-keyword">return</span> property === name
                 ? implementation
                 : obj[property];

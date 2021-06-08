@@ -299,27 +299,27 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled, Expectation, ExpectationMet, ExpectationNotMet, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 <span class="hljs-keyword">import</span> { isIdenticalTo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../isIdenticalTo'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation}</span> </span>*/</span>
-describe(<span class="hljs-string">'Expectation'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Expectation'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Ellie = actorCalled(<span class="hljs-string">'Ellie'</span>);
+    <span class="hljs-keyword">const</span> <span class="hljs-title class_">Ellie</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Ellie'</span>);
 
     <span class="hljs-keyword">const</span> p = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        <span class="hljs-built_in">Promise</span>.resolve(value);
+        <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value);
 
     <span class="hljs-keyword">const</span> q = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        Question.about(<span class="hljs-string">`some value`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
+        <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`some value`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.thatActualShould}</span> </span>*/</span>
-    describe(<span class="hljs-string">'thatActualShould()'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.thatActualShould</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'thatActualShould()'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> value = <span class="hljs-number">42</span>;
 
-        describe(<span class="hljs-string">'provides a way to easily create custom expectation that'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a way to easily create custom expectation that'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-keyword">const</span> examples = [{
                 <span class="hljs-attr">description</span>:    <span class="hljs-string">'number'</span>,
@@ -327,78 +327,78 @@ describe(<span class="hljs-string">'Expectation'</span>, <span class="hljs-funct
                 <span class="hljs-attr">message</span>:        <span class="hljs-string">`have value identical to <span class="hljs-subst">${ value }</span>`</span>
             }, {
                 <span class="hljs-attr">description</span>:    <span class="hljs-string">'Question&lt;number&gt;'</span>,
-                <span class="hljs-attr">expected</span>:       q(value),
+                <span class="hljs-attr">expected</span>:       <span class="hljs-title function_">q</span>(value),
                 <span class="hljs-attr">message</span>:        <span class="hljs-string">`have value identical to some value`</span>
             }, {
                 <span class="hljs-attr">description</span>:    <span class="hljs-string">'Promise&lt;number&gt;'</span>,
-                <span class="hljs-attr">expected</span>:       p(value),
+                <span class="hljs-attr">expected</span>:       <span class="hljs-title function_">p</span>(value),
                 <span class="hljs-attr">message</span>:        <span class="hljs-string">`have value identical to a Promise`</span>
             }, {
                 <span class="hljs-attr">description</span>:    <span class="hljs-string">'Question&lt;Promise&lt;number&gt;&gt;'</span>,
-                <span class="hljs-attr">expected</span>:       q(p(value)),
+                <span class="hljs-attr">expected</span>:       <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(value)),
                 <span class="hljs-attr">message</span>:        <span class="hljs-string">`have value identical to some value`</span>
             }];
 
-            given(examples).
-            it(<span class="hljs-string">'resolves to ExpectationMet when the expectation is met'</span>, <span class="hljs-function">(<span class="hljs-params">{ expected, message }</span>) =&gt;</span> {
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'resolves to ExpectationMet when the expectation is met'</span>, <span class="hljs-function">(<span class="hljs-params">{ expected, message }</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">return</span> expect(
-                    isIdenticalTo(expected).answeredBy(Ellie)(value)
-                ).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
-                    expect(outcome).to.be.instanceOf(ExpectationMet);
-                    expect(outcome.message).to.equal(message);
-                    expect(outcome.expected).to.equal(value);
-                    expect(outcome.actual).to.equal(value);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(
+                    <span class="hljs-title function_">isIdenticalTo</span>(expected).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Ellie</span>)(value)
+                ).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExpectationMet</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(message);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(value);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(value);
                 })
             });
 
-            given(examples).
-            it(<span class="hljs-string">'resolves with ExpectationNotMet when the expectation is not met'</span>, <span class="hljs-function">(<span class="hljs-params">{ expected, message }</span>) =&gt;</span> {
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'resolves with ExpectationNotMet when the expectation is not met'</span>, <span class="hljs-function">(<span class="hljs-params">{ expected, message }</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">return</span> expect(
-                    isIdenticalTo(expected).answeredBy(Ellie)(value)
-                ).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
-                    expect(outcome).to.be.instanceOf(ExpectationMet);
-                    expect(outcome.message).to.equal(message);
-                    expect(outcome.expected).to.equal(value);
-                    expect(outcome.actual).to.equal(value);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(
+                    <span class="hljs-title function_">isIdenticalTo</span>(expected).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Ellie</span>)(value)
+                ).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExpectationMet</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(message);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(value);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(value);
                 })
             });
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
-    describe(<span class="hljs-string">'to()'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.to</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'to()'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> value = <span class="hljs-number">42</span>;
 
         <span class="hljs-keyword">const</span> isTheSameAs = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">expected: T</span>) =&gt;</span>
-            Expectation.to&lt;T&gt;(<span class="hljs-string">`have value same as <span class="hljs-subst">${ expected }</span>`</span>)
-                .soThatActual(isIdenticalTo(expected));
+            <span class="hljs-title class_">Expectation</span>.<span class="hljs-property">to</span>&lt;T&gt;(<span class="hljs-string">`have value same as <span class="hljs-subst">${ expected }</span>`</span>)
+                .<span class="hljs-title function_">soThatActual</span>(<span class="hljs-title function_">isIdenticalTo</span>(expected));
 
-        describe(<span class="hljs-string">'provides a way to alias and compose expectations'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a way to alias and compose expectations'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'resolves to ExpectationMet when the expectation is met and the message alias'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'resolves to ExpectationMet when the expectation is met and the message alias'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">return</span> expect(
-                    isTheSameAs(value).answeredBy(Ellie)(value)
-                ).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
-                    expect(outcome).to.be.instanceOf(ExpectationMet);
-                    expect(outcome.message).to.equal(<span class="hljs-string">`have value same as 42`</span>);
-                    expect(outcome.expected).to.equal(value);
-                    expect(outcome.actual).to.equal(value);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(
+                    <span class="hljs-title function_">isTheSameAs</span>(value).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Ellie</span>)(value)
+                ).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExpectationMet</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`have value same as 42`</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(value);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(value);
                 })
             });
 
-            it(<span class="hljs-string">'resolves with ExpectationNotMet when the expectation is not met and the original message for any unmet expectations'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'resolves with ExpectationNotMet when the expectation is not met and the original message for any unmet expectations'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">return</span> expect(
-                    isTheSameAs(<span class="hljs-string">'hello'</span>).answeredBy(Ellie)(<span class="hljs-string">'world'</span>)
-                ).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
-                    expect(outcome).to.be.instanceOf(ExpectationNotMet);
-                    expect(outcome.message).to.equal(<span class="hljs-string">`have value identical to 'hello'`</span>);
-                    expect(outcome.expected).to.equal(<span class="hljs-string">'hello'</span>);
-                    expect(outcome.actual).to.equal(<span class="hljs-string">'world'</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(
+                    <span class="hljs-title function_">isTheSameAs</span>(<span class="hljs-string">'hello'</span>).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Ellie</span>)(<span class="hljs-string">'world'</span>)
+                ).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExpectationNotMet</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`have value identical to 'hello'`</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'hello'</span>);
+                    <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'world'</span>);
                 })
             });
         });

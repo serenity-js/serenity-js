@@ -294,28 +294,28 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/proxies/describePath.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { PropertyPathKey } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PropertyPathKey'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PropertyPathKey</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PropertyPathKey'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">describePath</span>(<span class="hljs-params">parts: PropertyPathKey[]</span>): <span class="hljs-title">string</span> </span>{
-    <span class="hljs-keyword">return</span> parts.reduce(
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">describePath</span>(<span class="hljs-params">parts: PropertyPathKey[]</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">return</span> parts.<span class="hljs-title function_">reduce</span>(
         <span class="hljs-function">(<span class="hljs-params">acc, segment</span>) =&gt;</span>
-            acc.concat(
-                isNumber(segment)
+            acc.<span class="hljs-title function_">concat</span>(
+                <span class="hljs-title function_">isNumber</span>(segment)
                     ? <span class="hljs-string">`[<span class="hljs-subst">${ segment }</span>]`</span>
                     : segment
             ),
         [],
-    ).join(<span class="hljs-string">'.'</span>);
+    ).<span class="hljs-title function_">join</span>(<span class="hljs-string">'.'</span>);
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNumber</span>(<span class="hljs-params">segment: PropertyPathKey</span>): <span class="hljs-title">segment</span> <span class="hljs-title">is</span> <span class="hljs-title">number</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>.parseInt(<span class="hljs-built_in">String</span>(segment), <span class="hljs-number">10</span>).toString() === segment;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isNumber</span>(<span class="hljs-params">segment: PropertyPathKey</span>): segment is <span class="hljs-built_in">number</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Number</span>.<span class="hljs-built_in">parseInt</span>(<span class="hljs-title class_">String</span>(segment), <span class="hljs-number">10</span>).<span class="hljs-title function_">toString</span>() === segment;
 }
 </code></pre>
 

@@ -299,105 +299,105 @@
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled, Check, Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Check</span>, <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 <span class="hljs-keyword">import</span> { isIdenticalTo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../isIdenticalTo'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check}</span> </span>*/</span>
-describe(<span class="hljs-string">'Check'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Check'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Call = <span class="hljs-function">(<span class="hljs-params">fn: () =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span>
-        Interaction.where(<span class="hljs-string">`#actor calls a function`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> fn());
+    <span class="hljs-keyword">const</span> <span class="hljs-title function_">Call</span> = (<span class="hljs-params">fn: () =&gt; <span class="hljs-built_in">void</span></span>) =&gt;
+        <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor calls a function`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-title function_">fn</span>());
 
-    <span class="hljs-keyword">let</span> spy: sinon.SinonSpy;
-    beforeEach(<span class="hljs-function">() =&gt;</span> spy = sinon.spy());
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">spy</span>: sinon.<span class="hljs-property">SinonSpy</span>;
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> spy = sinon.<span class="hljs-title function_">spy</span>());
 
-    describe(<span class="hljs-string">'(if branch)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(if branch)'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
-        it(<span class="hljs-string">'makes the actor execute the activities when the expectation is met'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
-                Check.whether(<span class="hljs-string">'Hello World'</span>, isIdenticalTo(<span class="hljs-string">'Hello World'</span>))
-                    .andIfSo(
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">true</span>)),
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">true</span>)),
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor execute the activities when the expectation is met'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'Hello World'</span>))
+                    .<span class="hljs-title function_">andIfSo</span>(
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
                     ),
-            )).to.be.fulfilled.
-            then(<span class="hljs-function">() =&gt;</span> {
-                expect(spy).to.have.been.calledWith(<span class="hljs-literal">true</span>).callCount(<span class="hljs-number">2</span>);
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_">callCount</span>(<span class="hljs-number">2</span>);
             }),
         );
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
-        it(<span class="hljs-string">'makes the actor ignore the activities when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
-                Check.whether(<span class="hljs-string">'Hello World'</span>, isIdenticalTo(<span class="hljs-string">'¡Hola'</span>))
-                    .andIfSo(
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">true</span>)),
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor ignore the activities when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'¡Hola'</span>))
+                    .<span class="hljs-title function_">andIfSo</span>(
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
                     ),
-            )).to.be.fulfilled.
-            then(<span class="hljs-function">() =&gt;</span> {
-                expect(spy).to.not.have.been.called;
-            }),
-        );
-    });
-
-    describe(<span class="hljs-string">'(if/else branches)'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#otherwise}</span> </span>*/</span>
-        it(<span class="hljs-string">'makes the actor execute the activities when the expectation is met'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
-                Check.whether(<span class="hljs-string">'Hello World'</span>, isIdenticalTo(<span class="hljs-string">'Hello World'</span>))
-                    .andIfSo(
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">true</span>)),
-                    )
-                    .otherwise(
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">false</span>)),
-                    ),
-            )).to.be.fulfilled.
-            then(<span class="hljs-function">() =&gt;</span> {
-                expect(spy).to.have.been.calledWith(<span class="hljs-literal">true</span>).callCount(<span class="hljs-number">1</span>);
-            }),
-        );
-
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#andIfSo}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#otherwise}</span> </span>*/</span>
-        it(<span class="hljs-string">'makes the actor execute the alternative activities when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(actorCalled(<span class="hljs-string">'Enrique'</span>).attemptsTo(
-                Check.whether(<span class="hljs-string">'Hello World'</span>, isIdenticalTo(<span class="hljs-string">'¡Hola'</span>))
-                    .andIfSo(
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">true</span>)),
-                    )
-                    .otherwise(
-                        Call(<span class="hljs-function">() =&gt;</span> spy(<span class="hljs-literal">false</span>)),
-                    ),
-            )).to.be.fulfilled.
-            then(<span class="hljs-function">() =&gt;</span> {
-                expect(spy).to.have.been.calledWith(<span class="hljs-literal">false</span>).callCount(<span class="hljs-number">1</span>);
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">not</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">called</span>;
             }),
         );
     });
 
-    describe(<span class="hljs-string">'reporting'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(if/else branches)'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#otherwise</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor execute the activities when the expectation is met'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'Hello World'</span>))
+                    .<span class="hljs-title function_">andIfSo</span>(
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
+                    )
+                    .<span class="hljs-title function_">otherwise</span>(
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">false</span>)),
+                    ),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_">callCount</span>(<span class="hljs-number">1</span>);
+            }),
+        );
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#whether}</span> </span>*/</span>
-        it(<span class="hljs-string">'provides a description of the check'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(Check.whether(<span class="hljs-number">4</span>, isIdenticalTo(<span class="hljs-number">7</span>)).andIfSo().toString()).to.equal(<span class="hljs-string">`#actor checks whether 4 does have value identical to 7`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#otherwise</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor execute the alternative activities when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'¡Hola'</span>))
+                    .<span class="hljs-title function_">andIfSo</span>(
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
+                    )
+                    .<span class="hljs-title function_">otherwise</span>(
+                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">false</span>)),
+                    ),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-literal">false</span>).<span class="hljs-title function_">callCount</span>(<span class="hljs-number">1</span>);
+            }),
+        );
+    });
+
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'reporting'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#whether</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a description of the check'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-number">4</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-number">7</span>)).<span class="hljs-title function_">andIfSo</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor checks whether 4 does have value identical to 7`</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check.whether}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Check#whether}</span> </span>*/</span>
-        it(<span class="hljs-string">'provides a description of the check while correctly cleaning the output from new line characters'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(Check.whether({ <span class="hljs-attr">person</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }}, isIdenticalTo({
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#whether</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a description of the check while correctly cleaning the output from new line characters'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>({ <span class="hljs-attr">person</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }}, <span class="hljs-title function_">isIdenticalTo</span>({
                 <span class="hljs-attr">person</span>: {
                     <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span>,
                 },
-            })).andIfSo().toString()).to.equal(<span class="hljs-string">`#actor checks whether { "person": { "name": "Jan" } } does have value identical to { "person": { "name": "Jan" } }`</span>);
+            })).<span class="hljs-title function_">andIfSo</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor checks whether { "person": { "name": "Jan" } } does have value identical to { "person": { "name": "Jan" } }`</span>);
         });
     })
 });

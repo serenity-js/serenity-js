@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {RuntimeError} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">RuntimeError</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -330,28 +330,28 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Custom Error definition</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">RuntimeError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
-  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
-      <span class="hljs-built_in">super</span>(CustomError, message, cause);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CustomError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">RuntimeError</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+      <span class="hljs-variable language_">super</span>(<span class="hljs-title class_">CustomError</span>, message, cause);
   }
 }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Sync error handling</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">try</span> {
-    operationThatMightThrowAnError();
+    <span class="hljs-title function_">operationThatMightThrowAnError</span>();
 } <span class="hljs-keyword">catch</span>(error) {
     <span class="hljs-comment">// catch and re-throw</span>
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">'operationThatMightThrowAnError has failed'</span>, error);
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomError</span>(<span class="hljs-string">'operationThatMightThrowAnError has failed'</span>, error);
 }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Async error handling</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">operationThatMightRejectAPromise().catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-title function_">operationThatMightRejectAPromise</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
     <span class="hljs-comment">// catch and re-throw</span>
-    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> CustomError(<span class="hljs-string">'operationThatMightThrowAnError has failed'</span>, error);
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CustomError</span>(<span class="hljs-string">'operationThatMightThrowAnError has failed'</span>, error);
 });</code></pre>
     </div>
 </div>

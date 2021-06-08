@@ -298,67 +298,67 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { FileFinder, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileFinder</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileFinder}</span> </span>*/</span>
-describe(<span class="hljs-string">'FileFinder'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileFinder</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'FileFinder'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> cwd = Path.from(__dirname, <span class="hljs-string">'finder-examples'</span>);
-    <span class="hljs-keyword">let</span> finder: FileFinder;
+    <span class="hljs-keyword">const</span> cwd = <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(__dirname, <span class="hljs-string">'finder-examples'</span>);
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">finder</span>: <span class="hljs-title class_">FileFinder</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        finder = <span class="hljs-keyword">new</span> FileFinder(cwd);
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        finder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileFinder</span>(cwd);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         <span class="hljs-literal">null</span>,       <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
         <span class="hljs-literal">undefined</span>
     ]).
-    it(<span class="hljs-string">'returns an empty list when given an undefined pattern'</span>, <span class="hljs-function">(<span class="hljs-params">pattern: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-        expect(finder.filesMatching(pattern)).to.deep.equal([])
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns an empty list when given an undefined pattern'</span>, <span class="hljs-function">(<span class="hljs-params">pattern: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(finder.<span class="hljs-title function_">filesMatching</span>(pattern)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([])
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileFinder}</span> </span>*/</span>
-    it(<span class="hljs-string">`returns an empty list when the pattern provided doesn't match any files`</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(finder.filesMatching(<span class="hljs-string">'non-existent.txt'</span>)).to.deep.equal([])
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileFinder</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`returns an empty list when the pattern provided doesn't match any files`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(finder.<span class="hljs-title function_">filesMatching</span>(<span class="hljs-string">'non-existent.txt'</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([])
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileFinder}</span> </span>*/</span>
-    it(<span class="hljs-string">'returns a list with an exact match'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> matches = finder.filesMatching(<span class="hljs-string">'file1.txt'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileFinder</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a list with an exact match'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> matches = finder.<span class="hljs-title function_">filesMatching</span>(<span class="hljs-string">'file1.txt'</span>);
 
-        expect(matches).to.have.lengthOf(<span class="hljs-number">1</span>);
-        expect(matches[<span class="hljs-number">0</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file1.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file1.txt'</span>)));
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileFinder}</span> </span>*/</span>
-    it(<span class="hljs-string">'returns a list with exact matches'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> matches = finder.filesMatching([ <span class="hljs-string">'file1.txt'</span>, <span class="hljs-string">'file2.txt'</span> ]);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileFinder</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a list with exact matches'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> matches = finder.<span class="hljs-title function_">filesMatching</span>([ <span class="hljs-string">'file1.txt'</span>, <span class="hljs-string">'file2.txt'</span> ]);
 
-        expect(matches).to.have.lengthOf(<span class="hljs-number">2</span>);
-        expect(matches[<span class="hljs-number">0</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file1.txt'</span>)));
-        expect(matches[<span class="hljs-number">1</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file2.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">2</span>);
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file1.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">1</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file2.txt'</span>)));
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileFinder}</span> </span>*/</span>
-    it(<span class="hljs-string">'supports glob patterns'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> matches = finder.filesMatching([ <span class="hljs-string">'file*.txt'</span> ]);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileFinder</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports glob patterns'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> matches = finder.<span class="hljs-title function_">filesMatching</span>([ <span class="hljs-string">'file*.txt'</span> ]);
 
-        expect(matches).to.have.lengthOf(<span class="hljs-number">2</span>);
-        expect(matches[<span class="hljs-number">0</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file1.txt'</span>)));
-        expect(matches[<span class="hljs-number">1</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file2.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">2</span>);
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file1.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">1</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file2.txt'</span>)));
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileFinder}</span> </span>*/</span>
-    it(<span class="hljs-string">'supports globstar patterns'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> matches = finder.filesMatching([ <span class="hljs-string">'**/file*.txt'</span> ]);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileFinder</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports globstar patterns'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> matches = finder.<span class="hljs-title function_">filesMatching</span>([ <span class="hljs-string">'**/file*.txt'</span> ]);
 
-        expect(matches).to.have.lengthOf(<span class="hljs-number">4</span>);
-        expect(matches[<span class="hljs-number">0</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file1.txt'</span>)));
-        expect(matches[<span class="hljs-number">1</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'file2.txt'</span>)));
-        expect(matches[<span class="hljs-number">2</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'nested/file3.txt'</span>)));
-        expect(matches[<span class="hljs-number">3</span>]).to.equal(cwd.join(Path.from(<span class="hljs-string">'nested/file4.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">4</span>);
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file1.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">1</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'file2.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">2</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'nested/file3.txt'</span>)));
+        <span class="hljs-title function_">expect</span>(matches[<span class="hljs-number">3</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(cwd.<span class="hljs-title function_">join</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'nested/file4.txt'</span>)));
     });
 })
 </code></pre>

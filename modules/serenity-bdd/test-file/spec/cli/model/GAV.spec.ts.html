@@ -132,62 +132,62 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/cli/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-variable constant_">GAV</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/cli/model'</span>;
 
-describe(<span class="hljs-string">'GAV'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'GAV'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'can be described using a string which format'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'can be described using a string which format'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'follows group:artifact:version'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">'net.serenity-bdd:serenity-cli:2.1.9'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'follows group:artifact:version'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> gav = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(<span class="hljs-string">'net.serenity-bdd:serenity-cli:2.1.9'</span>);
 
-            expect(gav.groupId).to.equal(<span class="hljs-string">'net.serenity-bdd'</span>);
-            expect(gav.artifactId).to.equal(<span class="hljs-string">'serenity-cli'</span>);
-            expect(gav.extension).to.equal(<span class="hljs-string">'jar'</span>);
-            expect(gav.version).to.equal(<span class="hljs-string">'2.1.9'</span>);
-            expect(gav.classifier).to.equal(<span class="hljs-literal">undefined</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">groupId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'net.serenity-bdd'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">artifactId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'serenity-cli'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">extension</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'jar'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">version</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'2.1.9'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">classifier</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">undefined</span>);
         });
 
-        it(<span class="hljs-string">'follows group:artifact:extension:version'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">'net.serenity-bdd:serenity:war:2.1.9'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'follows group:artifact:extension:version'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> gav = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(<span class="hljs-string">'net.serenity-bdd:serenity:war:2.1.9'</span>);
 
-            expect(gav.groupId).to.equal(<span class="hljs-string">'net.serenity-bdd'</span>);
-            expect(gav.artifactId).to.equal(<span class="hljs-string">'serenity'</span>);
-            expect(gav.extension).to.equal(<span class="hljs-string">'war'</span>);
-            expect(gav.version).to.equal(<span class="hljs-string">'2.1.9'</span>);
-            expect(gav.classifier).to.equal(<span class="hljs-literal">undefined</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">groupId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'net.serenity-bdd'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">artifactId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'serenity'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">extension</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'war'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">version</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'2.1.9'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">classifier</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">undefined</span>);
         });
 
-        it(<span class="hljs-string">'follows group:artifact:extension:classifier:version'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">'net.serenity-bdd:serenity-cli:jar:all:2.1.9'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'follows group:artifact:extension:classifier:version'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> gav = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(<span class="hljs-string">'net.serenity-bdd:serenity-cli:jar:all:2.1.9'</span>);
 
-            expect(gav.groupId).to.equal(<span class="hljs-string">'net.serenity-bdd'</span>);
-            expect(gav.artifactId).to.equal(<span class="hljs-string">'serenity-cli'</span>);
-            expect(gav.extension).to.equal(<span class="hljs-string">'jar'</span>);
-            expect(gav.version).to.equal(<span class="hljs-string">'2.1.9'</span>);
-            expect(gav.classifier).to.equal(<span class="hljs-string">'all'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">groupId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'net.serenity-bdd'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">artifactId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'serenity-cli'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">extension</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'jar'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">version</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'2.1.9'</span>);
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-property">classifier</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'all'</span>);
         });
     });
 
-    describe(<span class="hljs-string">'can be converted to a file name when the identifier'</span>, <span class="hljs-function">() =&gt;</span> {
-        it(<span class="hljs-string">'follows group:artifact:version'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">'net.serenity-bdd:serenity-cli:2.1.9'</span>);
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'can be converted to a file name when the identifier'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'follows group:artifact:version'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> gav = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(<span class="hljs-string">'net.serenity-bdd:serenity-cli:2.1.9'</span>);
 
-            expect(gav.toPath()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'serenity-cli-2.1.9.jar'</span>));
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-title function_">toPath</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'serenity-cli-2.1.9.jar'</span>));
         });
 
-        it(<span class="hljs-string">'follows group:artifact:extension:version'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">'net.serenity-bdd:serenity:war:2.1.9'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'follows group:artifact:extension:version'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> gav = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(<span class="hljs-string">'net.serenity-bdd:serenity:war:2.1.9'</span>);
 
-            expect(gav.toPath()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'serenity-2.1.9.war'</span>));
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-title function_">toPath</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'serenity-2.1.9.war'</span>));
         });
 
-        it(<span class="hljs-string">'follows group:artifact:extension:classifier:version'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> gav = GAV.fromString(<span class="hljs-string">'net.serenity-bdd:serenity-cli:jar:all:2.1.9'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'follows group:artifact:extension:classifier:version'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> gav = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(<span class="hljs-string">'net.serenity-bdd:serenity-cli:jar:all:2.1.9'</span>);
 
-            expect(gav.toPath()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'serenity-cli-2.1.9-all.jar'</span>));
+            <span class="hljs-title function_">expect</span>(gav.<span class="hljs-title function_">toPath</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'serenity-cli-2.1.9-all.jar'</span>));
         });
     });
 });

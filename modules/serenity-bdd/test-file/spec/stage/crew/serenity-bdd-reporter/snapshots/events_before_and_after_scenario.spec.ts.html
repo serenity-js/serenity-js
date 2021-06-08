@@ -131,53 +131,53 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { contentsOf, EventRecorder, EventStreamEmitter, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Actor, Cast, Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { contentsOf, <span class="hljs-title class_">EventRecorder</span>, <span class="hljs-title class_">EventStreamEmitter</span>, expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">Duration</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestReport</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
 
-describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> reporter: SerenityBDDReporter,
-        <span class="hljs-attr">stage</span>: Stage,
-        <span class="hljs-attr">emitter</span>: EventStreamEmitter,
-        <span class="hljs-attr">recorder</span>: EventRecorder;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">Serenity</span>BDDReporter,
+        <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>,
+        <span class="hljs-attr">emitter</span>: <span class="hljs-title class_">EventStreamEmitter</span>,
+        <span class="hljs-attr">recorder</span>: <span class="hljs-title class_">EventRecorder</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock()));
-        emitter = <span class="hljs-keyword">new</span> EventStreamEmitter(stage);
-        recorder = <span class="hljs-keyword">new</span> EventRecorder([], stage);
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>()));
+        emitter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventStreamEmitter</span>(stage);
+        recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>([], stage);
 
-        reporter = <span class="hljs-keyword">new</span> SerenityBDDReporter(stage);
+        reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(stage);
 
-        stage.assign(recorder);
-        stage.assign(reporter);
+        stage.<span class="hljs-title function_">assign</span>(recorder);
+        stage.<span class="hljs-title function_">assign</span>(reporter);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
-    it(<span class="hljs-string">`includes orphaned events that happened before the scenario in first scenario, and those that happened after - in last scenario`</span>, <span class="hljs-function">() =&gt;</span> emitter.emit(
-        contentsOf(__dirname, <span class="hljs-string">'examples'</span>, <span class="hljs-string">'scenario_with_interactions_in_before_and_after_hooks.events'</span>)
-    ).then(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> reports: TestReport[] = testReportsFrom(recorder.events);
-        expect(reports).to.have.lengthOf(<span class="hljs-number">1</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`includes orphaned events that happened before the scenario in first scenario, and those that happened after - in last scenario`</span>, <span class="hljs-function">() =&gt;</span> emitter.<span class="hljs-title function_">emit</span>(
+        <span class="hljs-title function_">contentsOf</span>(__dirname, <span class="hljs-string">'examples'</span>, <span class="hljs-string">'scenario_with_interactions_in_before_and_after_hooks.events'</span>)
+    ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">reports</span>: <span class="hljs-title class_">TestReport</span>[] = <span class="hljs-title function_">testReportsFrom</span>(recorder.<span class="hljs-property">events</span>);
+        <span class="hljs-title function_">expect</span>(reports).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
 
-        <span class="hljs-keyword">const</span> generated = reports[<span class="hljs-number">0</span>].map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> report);
-        <span class="hljs-keyword">const</span> expected = <span class="hljs-built_in">JSON</span>.parse(contentsOf(__dirname, <span class="hljs-string">'examples'</span>, <span class="hljs-string">'scenario_with_interactions_in_before_and_after_hooks.json'</span>));
+        <span class="hljs-keyword">const</span> generated = reports[<span class="hljs-number">0</span>].<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> report);
+        <span class="hljs-keyword">const</span> expected = <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">contentsOf</span>(__dirname, <span class="hljs-string">'examples'</span>, <span class="hljs-string">'scenario_with_interactions_in_before_and_after_hooks.json'</span>));
 
-        expect(generated).to.deep.equal(expected);
+        <span class="hljs-title function_">expect</span>(generated).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(expected);
     }));
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">testReportsFrom</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-title">TestReport</span>[] </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">testReportsFrom</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-title class_">TestReport</span>[] {
     <span class="hljs-keyword">return</span> events
-        .filter(<span class="hljs-function">(<span class="hljs-params">e: DomainEvent</span>) =&gt;</span> e <span class="hljs-keyword">instanceof</span> ArtifactGenerated &amp;&amp; e.artifact <span class="hljs-keyword">instanceof</span> TestReport)
-        .map(<span class="hljs-function">(<span class="hljs-params">e: ArtifactGenerated</span>) =&gt;</span> e.artifact);
+        .<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">e: DomainEvent</span>) =&gt;</span> e <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArtifactGenerated</span> &amp;&amp; e.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TestReport</span>)
+        .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">e: ArtifactGenerated</span>) =&gt;</span> e.<span class="hljs-property">artifact</span>);
 }
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-    prepare(actor: Actor): Actor {
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
         <span class="hljs-keyword">return</span> actor;
     }
 }

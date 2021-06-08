@@ -191,17 +191,18 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { contain, Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, engage, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { contain, <span class="hljs-title class_">Ensure</span>, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { by, ElementArrayFinder, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { Click, CSSClasses, Navigate, Pick, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { by, <span class="hljs-title class_">ElementArrayFinder</span>, <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Click</span>, CSSClasses, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Pick</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
-describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> shoppingListPage = pageFromTemplate(<span class="hljs-string">`
+    <span class="hljs-keyword">const</span> shoppingListPage = <span class="hljs-title function_">pageFromTemplate</span>(<span class="hljs-string">`
         &lt;html&gt;
         &lt;body&gt;
         &lt;div id="shopping-list-app"&gt;
@@ -230,84 +231,84 @@ describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">()
         &lt;/html&gt;
     `</span>);
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingList</span> </span>{
-        <span class="hljs-keyword">static</span> Items        = Target.all(<span class="hljs-string">'shopping list items'</span>).located(by.css(<span class="hljs-string">'li'</span>));
-        <span class="hljs-keyword">static</span> Item         = Target.the(<span class="hljs-string">'shopping list item'</span>).located(by.css(<span class="hljs-string">'li'</span>));
-        <span class="hljs-keyword">static</span> Titles       = Target.all(<span class="hljs-string">'shopping list item titles'</span>).located(by.css(<span class="hljs-string">'li span.item-name'</span>));
-        <span class="hljs-keyword">static</span> Item_Name    = Target.the(<span class="hljs-string">'item name'</span>).located(by.tagName(<span class="hljs-string">'span.item-name'</span>));
-        <span class="hljs-keyword">static</span> Item_Names   = Target.all(<span class="hljs-string">'item names'</span>).located(by.tagName(<span class="hljs-string">'span.item-name'</span>));
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">ShoppingList</span> {
+        <span class="hljs-keyword">static</span> <span class="hljs-title class_">Items</span>        = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'shopping list items'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'li'</span>));
+        <span class="hljs-keyword">static</span> <span class="hljs-title class_">Item</span>         = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'shopping list item'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'li'</span>));
+        <span class="hljs-keyword">static</span> <span class="hljs-title class_">Titles</span>       = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'shopping list item titles'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'li span.item-name'</span>));
+        <span class="hljs-keyword">static</span> <span class="hljs-title class_">Item</span>_Name    = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'item name'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">tagName</span>(<span class="hljs-string">'span.item-name'</span>));
+        <span class="hljs-keyword">static</span> <span class="hljs-title class_">Item</span>_Names   = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'item names'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">tagName</span>(<span class="hljs-string">'span.item-name'</span>));
     }
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>()));
 
-    describe(<span class="hljs-string">'(when no filters are applied)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(when no filters are applied)'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'lets the actor interact with the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'lets the actor interact with the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> picked = Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Titles);
+            <span class="hljs-keyword">const</span> picked = <span class="hljs-title class_">Pick</span>.<span class="hljs-property">from</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt;(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Titles</span>);
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(picked.count(), equals(<span class="hljs-number">3</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(picked.<span class="hljs-title function_">count</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">3</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.ofAll(picked.all()), contain(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">ofAll</span>(picked.<span class="hljs-title function_">all</span>()), <span class="hljs-title function_">contain</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.first()), equals(<span class="hljs-string">'oats'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">first</span>()), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'oats'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.last()), equals(<span class="hljs-string">'coffee'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">last</span>()), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'coffee'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.get(<span class="hljs-number">1</span>)), equals(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">get</span>(<span class="hljs-number">1</span>)), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
 
         });
 
-        describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> picked = Pick.from(ShoppingList.Items);
+            <span class="hljs-keyword">const</span> picked = <span class="hljs-title class_">Pick</span>.<span class="hljs-title function_">from</span>(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Items</span>);
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.count().toString())
-                    .to.equal(<span class="hljs-string">'the number of the shopping list items'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">count</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'the number of the shopping list items'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.all().toString())
-                    .to.equal(<span class="hljs-string">'the shopping list items'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">all</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'the shopping list items'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.first().toString())
-                    .to.equal(<span class="hljs-string">'the first of the shopping list items'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">first</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'the first of the shopping list items'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.last().toString())
-                    .to.equal(<span class="hljs-string">'the last of the shopping list items'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">last</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'the last of the shopping list items'</span>));
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
@@ -321,109 +322,109 @@ describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">()
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
 
             ]).
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
-                expect(picked.get(index).toString())
-                    .to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items`</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">get</span>(index).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items`</span>);
             });
         });
 
-        describe(<span class="hljs-string">'provides a custom description when the name of its subject is overridden and it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a custom description when the name of its subject is overridden and it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> picked = Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Titles);
+            <span class="hljs-keyword">const</span> picked = <span class="hljs-title class_">Pick</span>.<span class="hljs-property">from</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt;(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Titles</span>);
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.count().describedAs(<span class="hljs-string">'item count'</span>).toString())
-                    .to.equal(<span class="hljs-string">'item count'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">count</span>().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'item count'</span>).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'item count'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.all().describedAs(<span class="hljs-string">'all items'</span>).toString())
-                    .to.equal(<span class="hljs-string">'all items'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">all</span>().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'all items'</span>).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'all items'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.first().describedAs(<span class="hljs-string">'top item'</span>).toString())
-                    .to.equal(<span class="hljs-string">'top item'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">first</span>().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'top item'</span>).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'top item'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.last().describedAs(<span class="hljs-string">'last one'</span>).toString())
-                    .to.equal(<span class="hljs-string">'last one'</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">last</span>().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'last one'</span>).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'last one'</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(picked.get(<span class="hljs-number">0</span>).describedAs(<span class="hljs-string">'first one'</span>).toString())
-                    .to.equal(<span class="hljs-string">`first one`</span>);
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">get</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'first one'</span>).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`first one`</span>);
             });
         });
     });
 
-    describe(<span class="hljs-string">'(when a filter is applied)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(when a filter is applied)'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> picked = Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Items).where(CSSClasses, contain(<span class="hljs-string">'buy'</span>));
+        <span class="hljs-keyword">const</span> picked = <span class="hljs-title class_">Pick</span>.<span class="hljs-property">from</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt;(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Items</span>).<span class="hljs-title function_">where</span>(CSSClasses, <span class="hljs-title function_">contain</span>(<span class="hljs-string">'buy'</span>));
 
-        describe(<span class="hljs-string">'lets the actor filter the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'lets the actor filter the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(picked.count(), equals(<span class="hljs-number">2</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(picked.<span class="hljs-title function_">count</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">2</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.ofAll(picked.all()), contain(<span class="hljs-string">'coconut milk x'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">ofAll</span>(picked.<span class="hljs-title function_">all</span>()), <span class="hljs-title function_">contain</span>(<span class="hljs-string">'coconut milk x'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.first()), startsWith(<span class="hljs-string">'oats'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">first</span>()), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'oats'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.last()), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">last</span>()), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.get(<span class="hljs-number">1</span>)), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">get</span>(<span class="hljs-number">1</span>)), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
         });
 
-        describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'returns the number of answers'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.count().toString())
-                    .to.equal(<span class="hljs-string">`the number of the shopping list items where CSSClasses property does contain 'buy'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of answers'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">count</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the number of the shopping list items where CSSClasses property does contain 'buy'`</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.all().toString())
-                    .to.equal(<span class="hljs-string">`the shopping list items where CSSClasses property does contain 'buy'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">all</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the shopping list items where CSSClasses property does contain 'buy'`</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.first().toString())
-                    .to.equal(<span class="hljs-string">`the first of the shopping list items where CSSClasses property does contain 'buy'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">first</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the first of the shopping list items where CSSClasses property does contain 'buy'`</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.last().toString())
-                    .to.equal(<span class="hljs-string">`the last of the shopping list items where CSSClasses property does contain 'buy'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">last</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the last of the shopping list items where CSSClasses property does contain 'buy'`</span>));
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
@@ -436,77 +437,77 @@ describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">()
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'115th'</span>,  <span class="hljs-attr">index</span>: <span class="hljs-number">114</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
             ]).
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
-                expect(picked.get(index).toString()).to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items where CSSClasses property does contain 'buy'`</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">get</span>(index).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items where CSSClasses property does contain 'buy'`</span>);
             });
         });
     });
 
-    describe(<span class="hljs-string">'(when multiple filters are applied)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(when multiple filters are applied)'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> picked = Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Items).where(CSSClasses, contain(<span class="hljs-string">'buy'</span>)).where(Text, startsWith(<span class="hljs-string">'coconut'</span>));
+        <span class="hljs-keyword">const</span> picked = <span class="hljs-title class_">Pick</span>.<span class="hljs-property">from</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt;(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Items</span>).<span class="hljs-title function_">where</span>(CSSClasses, <span class="hljs-title function_">contain</span>(<span class="hljs-string">'buy'</span>)).<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Text</span>, <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'coconut'</span>));
 
-        describe(<span class="hljs-string">'lets the actor filter the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'lets the actor filter the list of matching elements so that it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'gets the number of items'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(picked.count(), equals(<span class="hljs-number">1</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(picked.<span class="hljs-title function_">count</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">1</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.ofAll(picked.all()), contain(<span class="hljs-string">'coconut milk x'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">ofAll</span>(picked.<span class="hljs-title function_">all</span>()), <span class="hljs-title function_">contain</span>(<span class="hljs-string">'coconut milk x'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.first()), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">first</span>()), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.last()), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">last</span>()), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-                Navigate.to(shoppingListPage),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-                Ensure.that(Text.of(picked.get(<span class="hljs-number">0</span>)), startsWith(<span class="hljs-string">'coconut milk'</span>)),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(picked.<span class="hljs-title function_">get</span>(<span class="hljs-number">0</span>)), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'coconut milk'</span>)),
             ));
         });
 
-        describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'returns the number of answers'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.count().toString())
-                    .to.equal(<span class="hljs-string">`the number of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of answers'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">count</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the number of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.all().toString())
-                    .to.equal(<span class="hljs-string">`the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks all the items'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">all</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.first().toString())
-                    .to.equal(<span class="hljs-string">`the first of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the first item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">first</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the first of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-            it(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(picked.last().toString())
-                    .to.equal(<span class="hljs-string">`the last of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the last item'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">last</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the last of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>));
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
@@ -519,43 +520,43 @@ describe(<span class="hljs-string">'Pick'</span>, <span class="hljs-function">()
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'115th'</span>,  <span class="hljs-attr">index</span>: <span class="hljs-number">114</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
             ]).
-            it(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
-                expect(picked.get(index).toString())
-                    .to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'picks the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(picked.<span class="hljs-title function_">get</span>(index).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of the shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`</span>);
             });
         });
     });
 
-    describe(<span class="hljs-string">'(when interacting with elements on screen)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(when interacting with elements on screen)'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> ItemCalled = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-            Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Items)
-                .where(Text.of(ShoppingList.Item_Name), equals(name)).first();
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">ItemCalled</span> = (<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;
+            <span class="hljs-title class_">Pick</span>.<span class="hljs-property">from</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt;(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Items</span>)
+                .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Item_Name</span>), <span class="hljs-title function_">equals</span>(name)).<span class="hljs-title function_">first</span>();
 
-        <span class="hljs-keyword">const</span> ItemsLeftToBuy = <span class="hljs-function">() =&gt;</span>
-            Pick.from&lt;ElementFinder, ElementArrayFinder&gt;(ShoppingList.Items)
-                .where(CSSClasses, contain(<span class="hljs-string">'buy'</span>))
-                .all();
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">ItemsLeftToBuy</span> = (<span class="hljs-params"></span>) =&gt;
+            <span class="hljs-title class_">Pick</span>.<span class="hljs-property">from</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt;(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">Items</span>)
+                .<span class="hljs-title function_">where</span>(CSSClasses, <span class="hljs-title function_">contain</span>(<span class="hljs-string">'buy'</span>))
+                .<span class="hljs-title function_">all</span>();
 
-        <span class="hljs-keyword">const</span> LinkTo = <span class="hljs-function">(<span class="hljs-params">item: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> Target.the(<span class="hljs-string">'link to element'</span>).of(item).located(by.css(<span class="hljs-string">'a'</span>));
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">LinkTo</span> = (<span class="hljs-params">item: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt; <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'link to element'</span>).<span class="hljs-title function_">of</span>(item).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'a'</span>));
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-        it(<span class="hljs-string">'makes it easy for an actor to pick the element of interest'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-            Navigate.to(shoppingListPage),
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes it easy for an actor to pick the element of interest'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-            Click.on(LinkTo(ItemCalled(<span class="hljs-string">'coffee'</span>))),
+            <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">LinkTo</span>(<span class="hljs-title class_">ItemCalled</span>(<span class="hljs-string">'coffee'</span>))),
 
-            Ensure.that(CSSClasses.of(ItemCalled(<span class="hljs-string">'coffee'</span>)), contain(<span class="hljs-string">'buy'</span>)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(CSSClasses.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">ItemCalled</span>(<span class="hljs-string">'coffee'</span>)), <span class="hljs-title function_">contain</span>(<span class="hljs-string">'buy'</span>)),
         ));
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Pick}</span> </span>*/</span>
-        it(<span class="hljs-string">'makes it easy for an actor to pick all elements of interest'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Peter'</span>).attemptsTo(
-            Navigate.to(shoppingListPage),
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Pick</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes it easy for an actor to pick all elements of interest'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(shoppingListPage),
 
-            Click.on(LinkTo(ItemCalled(<span class="hljs-string">'coconut milk'</span>))),
-            Click.on(LinkTo(ItemCalled(<span class="hljs-string">'coffee'</span>))),
+            <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">LinkTo</span>(<span class="hljs-title class_">ItemCalled</span>(<span class="hljs-string">'coconut milk'</span>))),
+            <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">LinkTo</span>(<span class="hljs-title class_">ItemCalled</span>(<span class="hljs-string">'coffee'</span>))),
 
-            Ensure.that(Text.ofAll(ItemsLeftToBuy()), equals([ <span class="hljs-string">'oats x'</span>, <span class="hljs-string">'coffee x'</span> ])),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">ofAll</span>(<span class="hljs-title class_">ItemsLeftToBuy</span>()), <span class="hljs-title function_">equals</span>([ <span class="hljs-string">'oats x'</span>, <span class="hljs-string">'coffee x'</span> ])),
         ));
     });
 });

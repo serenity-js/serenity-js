@@ -187,98 +187,99 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/runner/TestRunnerDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Config <span class="hljs-keyword">as</span> ProtractorConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { TestRunnerLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TestRunnerLoader'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProtractorConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunnerLoader</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TestRunnerLoader'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Detects the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/io~TestRunnerAdapter} to use,
+ *  Detects the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/io~TestRunnerAdapter} to use,
  *  based on Protractor configuration.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerDetector</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestRunnerDetector</span> {
 
     <span class="hljs-keyword">static</span> cucumberOpts = <span class="hljs-string">'cucumberOpts'</span>;
     <span class="hljs-keyword">static</span> jasmineNodeOpts = <span class="hljs-string">'jasmineNodeOpts'</span>;
     <span class="hljs-keyword">static</span> mochaOpts = <span class="hljs-string">'mochaOpts'</span>;
 
-    <span class="hljs-keyword">static</span> protractorCliOptions(): <span class="hljs-built_in">string</span>[] {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">protractorCliOptions</span>(): <span class="hljs-built_in">string</span>[] {
         <span class="hljs-keyword">return</span> [
-            TestRunnerDetector.cucumberOpts,
-            TestRunnerDetector.jasmineNodeOpts,
-            TestRunnerDetector.mochaOpts,
+            <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">cucumberOpts</span>,
+            <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">jasmineNodeOpts</span>,
+            <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">mochaOpts</span>,
         ];
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{TestRunnerLoader}</span> <span class="hljs-variable">testRunnerLoader</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">TestRunnerLoader</span>} <span class="hljs-variable">testRunnerLoader</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> testRunnerLoader: TestRunnerLoader</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> testRunnerLoader: TestRunnerLoader</span>) {
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{protractor~ProtractorConfig}</span> <span class="hljs-variable">config</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{TestRunnerAdapter}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">protractor~ProtractorConfig</span>} <span class="hljs-variable">config</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">TestRunnerAdapter</span>}
      */</span>
-    runnerFor(config: ProtractorConfig): TestRunnerAdapter {
+    <span class="hljs-title function_">runnerFor</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
 
         <span class="hljs-keyword">const</span>
-            specifiesRunnerFor = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-                !!config.serenity &amp;&amp;
-                !!config.serenity.runner &amp;&amp;
-                config.serenity.runner === <span class="hljs-keyword">type</span>;
+            <span class="hljs-title function_">specifiesRunnerFor</span> = (<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) =&gt;
+                !!config.<span class="hljs-property">serenity</span> &amp;&amp;
+                !!config.<span class="hljs-property">serenity</span>.<span class="hljs-property">runner</span> &amp;&amp;
+                config.<span class="hljs-property">serenity</span>.<span class="hljs-property">runner</span> === <span class="hljs-keyword">type</span>;
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'cucumber'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'jasmine'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
-            <span class="hljs-keyword">case</span> specifiesRunnerFor(<span class="hljs-string">'mocha'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
-            <span class="hljs-keyword">case</span> !! config.cucumberOpts:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useCucumber(config);
-            <span class="hljs-keyword">case</span> !! config.mochaOpts:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useMocha(config);
-            <span class="hljs-keyword">case</span> !! config.jasmineNodeOpts:
-            <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.useJasmine(config);
+            <span class="hljs-keyword">case</span> <span class="hljs-title function_">specifiesRunnerFor</span>(<span class="hljs-string">'cucumber'</span>):
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useCucumber</span>(config);
+            <span class="hljs-keyword">case</span> <span class="hljs-title function_">specifiesRunnerFor</span>(<span class="hljs-string">'jasmine'</span>):
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useJasmine</span>(config);
+            <span class="hljs-keyword">case</span> <span class="hljs-title function_">specifiesRunnerFor</span>(<span class="hljs-string">'mocha'</span>):
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useMocha</span>(config);
+            <span class="hljs-keyword">case</span> !! config.<span class="hljs-property">cucumberOpts</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useCucumber</span>(config);
+            <span class="hljs-keyword">case</span> !! config.<span class="hljs-property">mochaOpts</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useMocha</span>(config);
+            <span class="hljs-keyword">case</span> !! config.<span class="hljs-property">jasmineNodeOpts</span>:
+            <span class="hljs-attr">default</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useJasmine</span>(config);
         }
     }
 
-    <span class="hljs-keyword">private</span> useJasmine(config: ProtractorConfig): TestRunnerAdapter {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forJasmine(<span class="hljs-built_in">this</span>.mergedConfigFor(config, TestRunnerDetector.jasmineNodeOpts));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">useJasmine</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">testRunnerLoader</span>.<span class="hljs-title function_">forJasmine</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mergedConfigFor</span>(config, <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">jasmineNodeOpts</span>));
     }
 
-    <span class="hljs-keyword">private</span> useMocha(config: ProtractorConfig): TestRunnerAdapter {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forMocha(<span class="hljs-built_in">this</span>.mergedConfigFor(config, TestRunnerDetector.mochaOpts));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">useMocha</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">testRunnerLoader</span>.<span class="hljs-title function_">forMocha</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mergedConfigFor</span>(config, <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">mochaOpts</span>));
     }
 
-    <span class="hljs-keyword">private</span> useCucumber(config: ProtractorConfig): TestRunnerAdapter {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">useCucumber</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
 
-        <span class="hljs-keyword">const</span> serenityReportingServicesConfigured  = config?.serenity?.crew?.length &gt; <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">const</span> serenityReportingServicesConfigured  = config?.<span class="hljs-property">serenity</span>?.<span class="hljs-property">crew</span>?.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.testRunnerLoader.forCucumber(<span class="hljs-built_in">this</span>.mergedConfigFor(config, TestRunnerDetector.cucumberOpts), {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">testRunnerLoader</span>.<span class="hljs-title function_">forCucumber</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mergedConfigFor</span>(config, <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">cucumberOpts</span>), {
             <span class="hljs-attr">useStandardOutput</span>:      serenityReportingServicesConfigured,
-            <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-built_in">this</span>.multiCapabilitiesOrTestShardingEnabled(config),
+            <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">multiCapabilitiesOrTestShardingEnabled</span>(config),
         })
     }
 
-    <span class="hljs-keyword">private</span> mergedConfigFor&lt;K <span class="hljs-keyword">extends</span> keyof ProtractorConfig&gt;(config: ProtractorConfig = {}, <span class="hljs-attr">key</span>: K): ProtractorConfig[K] {
+    <span class="hljs-keyword">private</span> mergedConfigFor&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> <span class="hljs-title class_">ProtractorConfig</span>&gt;(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span> = {}, <span class="hljs-attr">key</span>: K): <span class="hljs-title class_">ProtractorConfig</span>[K] {
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(
             {},
             config[key],
-            (config.capabilities || {})[key],
+            (config.<span class="hljs-property">capabilities</span> || {})[key],
         );
     }
 
-    <span class="hljs-keyword">private</span> multiCapabilitiesOrTestShardingEnabled(config: ProtractorConfig): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">multiCapabilitiesOrTestShardingEnabled</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">return</span> !! (
-            (<span class="hljs-built_in">Array</span>.isArray(config.multiCapabilities) &amp;&amp; config.multiCapabilities.length &gt; <span class="hljs-number">0</span>)
-            || <span class="hljs-keyword">typeof</span> config.getMultiCapabilities === <span class="hljs-string">'function'</span>
-            || config.capabilities?.shardTestFiles
+            (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(config.<span class="hljs-property">multiCapabilities</span>) &amp;&amp; config.<span class="hljs-property">multiCapabilities</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>)
+            || <span class="hljs-keyword">typeof</span> config.<span class="hljs-property">getMultiCapabilities</span> === <span class="hljs-string">'function'</span>
+            || config.<span class="hljs-property">capabilities</span>?.<span class="hljs-property">shardTestFiles</span>
         );
     }
 }

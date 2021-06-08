@@ -133,128 +133,128 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberCLIAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
 <span class="hljs-comment">/* istanbul ignore file covered in integration tests */</span>
-<span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ExecutionIgnored, ImplementationPending, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">TestRunnerAdapter</span>, <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExecutionIgnored</span>, <span class="hljs-title class_">ImplementationPending</span>, <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
-<span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberOptions'</span>;
-<span class="hljs-keyword">import</span> { OutputDescriptor, SerenityFormatterOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'./output'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberOptions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputDescriptor</span>, <span class="hljs-title class_">SerenityFormatterOutput</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./output'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Allows for programmatic execution of Cucumber test scenarios.
  *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberCLIAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CucumberCLIAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">TestRunnerAdapter</span> {
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> options: CucumberOptions;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">options</span>: <span class="hljs-title class_">CucumberOptions</span>;
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~Config&lt;CucumberConfig&gt;}</span> <span class="hljs-variable">config</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~ModuleLoader}</span> <span class="hljs-variable">loader</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{SerenityFormatterOutput}</span> <span class="hljs-variable">output</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~Config&lt;CucumberConfig&gt;</span>} <span class="hljs-variable">config</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~ModuleLoader</span>} <span class="hljs-variable">loader</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">SerenityFormatterOutput</span>} <span class="hljs-variable">output</span>
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link CucumberConfig}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link CucumberConfig</span>}
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         config: CucumberConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> output: SerenityFormatterOutput,
-    </span>)</span> {
-        <span class="hljs-built_in">this</span>.options = <span class="hljs-keyword">new</span> CucumberOptions(config);
+    </span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>(config);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Scenario success threshold for this test runner, calculated based on {<span class="hljs-doctag">@link </span>CucumberConfig}
+     *  Scenario success threshold for this test runner, calculated based on {<span class="hljs-doctag">@link</span> CucumberConfig}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Outcome | { Code: number </span>}}
      */</span>
-    successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.options.isStrict()
-            ? ExecutionIgnored
-            : ImplementationPending;
+    <span class="hljs-title function_">successThreshold</span>(): <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> } {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-title function_">isStrict</span>()
+            ? <span class="hljs-title class_">ExecutionIgnored</span>
+            : <span class="hljs-title class_">ImplementationPending</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Instructs Cucumber to execute feature files located at `pathsToScenarios`
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">pathsToScenarios</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">pathsToScenarios</span>
      *  Absolute or relative paths to feature files
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    <span class="hljs-keyword">async</span> run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> version = <span class="hljs-built_in">this</span>.loader.hasAvailable(<span class="hljs-string">'@cucumber/cucumber'</span>)
-            ? <span class="hljs-built_in">this</span>.loader.versionOf(<span class="hljs-string">'@cucumber/cucumber'</span>)
-            : <span class="hljs-built_in">this</span>.loader.versionOf(<span class="hljs-string">'cucumber'</span>);
+    <span class="hljs-keyword">async</span> <span class="hljs-title function_">run</span>(<span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> version = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-title function_">hasAvailable</span>(<span class="hljs-string">'@cucumber/cucumber'</span>)
+            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'@cucumber/cucumber'</span>)
+            : <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'cucumber'</span>);
 
-        <span class="hljs-keyword">const</span> serenityListener = <span class="hljs-built_in">this</span>.loader.resolve(<span class="hljs-string">'@serenity-js/cucumber'</span>);
+        <span class="hljs-keyword">const</span> serenityListener = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/cucumber'</span>);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runScenarios(version, serenityListener, pathsToScenarios);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">runScenarios</span>(version, serenityListener, pathsToScenarios);
     }
 
-    <span class="hljs-keyword">private</span> runScenarios(version: Version, <span class="hljs-attr">serenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> argv = <span class="hljs-built_in">this</span>.options.asArgumentsForCucumber(version);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">runScenarios</span>(<span class="hljs-attr">version</span>: <span class="hljs-title class_">Version</span>, <span class="hljs-attr">serenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> argv = <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>.<span class="hljs-title function_">asArgumentsForCucumber</span>(version);
 
-        <span class="hljs-keyword">if</span> (version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runWithCucumber7(argv, serenityListener, pathsToScenarios);
+        <span class="hljs-keyword">if</span> (version.<span class="hljs-title function_">isAtLeast</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'7.0.0'</span>))) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">runWithCucumber7</span>(argv, serenityListener, pathsToScenarios);
         }
 
-        <span class="hljs-keyword">if</span> (version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>))) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runWithCucumber3to6(argv, serenityListener, pathsToScenarios);
+        <span class="hljs-keyword">if</span> (version.<span class="hljs-title function_">isAtLeast</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>))) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">runWithCucumber3to6</span>(argv, serenityListener, pathsToScenarios);
         }
 
-        <span class="hljs-keyword">if</span> (version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>))) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runWithCucumber2(argv, serenityListener, pathsToScenarios);
+        <span class="hljs-keyword">if</span> (version.<span class="hljs-title function_">isAtLeast</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>))) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">runWithCucumber2</span>(argv, serenityListener, pathsToScenarios);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.runWithCucumber0to1(argv, serenityListener, pathsToScenarios);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">runWithCucumber0to1</span>(argv, serenityListener, pathsToScenarios);
     }
 
-    <span class="hljs-keyword">private</span> runWithCucumber7(argv: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> cucumber  = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'@cucumber/cucumber'</span>);
-        <span class="hljs-keyword">const</span> output    = <span class="hljs-built_in">this</span>.output.get();
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">runWithCucumber7</span>(<span class="hljs-attr">argv</span>: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> cucumber  = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@cucumber/cucumber'</span>);
+        <span class="hljs-keyword">const</span> output    = <span class="hljs-variable language_">this</span>.<span class="hljs-property">output</span>.<span class="hljs-title function_">get</span>();
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.Cli({
-            <span class="hljs-attr">argv</span>:   argv.concat(<span class="hljs-string">'--format'</span>, <span class="hljs-string">`<span class="hljs-subst">${ pathToSerenityListener }</span>:<span class="hljs-subst">${ output.value() }</span>`</span>, ...pathsToScenarios),
-            <span class="hljs-attr">cwd</span>:    <span class="hljs-built_in">this</span>.loader.cwd,
-            <span class="hljs-attr">stdout</span>: process.stdout,
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.<span class="hljs-title class_">Cli</span>({
+            <span class="hljs-attr">argv</span>:   argv.<span class="hljs-title function_">concat</span>(<span class="hljs-string">'--format'</span>, <span class="hljs-string">`<span class="hljs-subst">${ pathToSerenityListener }</span>:<span class="hljs-subst">${ output.value() }</span>`</span>, ...pathsToScenarios),
+            <span class="hljs-attr">cwd</span>:    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-property">cwd</span>,
+            <span class="hljs-attr">stdout</span>: process.<span class="hljs-property">stdout</span>,
         })
-        .run()
-        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));
+        .<span class="hljs-title function_">run</span>()
+        .<span class="hljs-title function_">then</span>(<span class="hljs-title function_">cleanUpAndPassThrough</span>(output), <span class="hljs-title function_">cleanUpAndReThrow</span>(output));
     }
 
-    <span class="hljs-keyword">private</span> runWithCucumber3to6(argv: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> cucumber  = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'cucumber'</span>);
-        <span class="hljs-keyword">const</span> output    = <span class="hljs-built_in">this</span>.output.get();
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">runWithCucumber3to6</span>(<span class="hljs-attr">argv</span>: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> cucumber  = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>);
+        <span class="hljs-keyword">const</span> output    = <span class="hljs-variable language_">this</span>.<span class="hljs-property">output</span>.<span class="hljs-title function_">get</span>();
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.Cli({
-            <span class="hljs-attr">argv</span>:   argv.concat(<span class="hljs-string">'--format'</span>, <span class="hljs-string">`<span class="hljs-subst">${ pathToSerenityListener }</span>:<span class="hljs-subst">${ output.value() }</span>`</span>, ...pathsToScenarios),
-            <span class="hljs-attr">cwd</span>:    <span class="hljs-built_in">this</span>.loader.cwd,
-            <span class="hljs-attr">stdout</span>: process.stdout,
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.<span class="hljs-title class_">Cli</span>({
+            <span class="hljs-attr">argv</span>:   argv.<span class="hljs-title function_">concat</span>(<span class="hljs-string">'--format'</span>, <span class="hljs-string">`<span class="hljs-subst">${ pathToSerenityListener }</span>:<span class="hljs-subst">${ output.value() }</span>`</span>, ...pathsToScenarios),
+            <span class="hljs-attr">cwd</span>:    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-property">cwd</span>,
+            <span class="hljs-attr">stdout</span>: process.<span class="hljs-property">stdout</span>,
         })
-        .run()
-        .then(cleanUpAndPassThrough(output), cleanUpAndReThrow(output));
+        .<span class="hljs-title function_">run</span>()
+        .<span class="hljs-title function_">then</span>(<span class="hljs-title function_">cleanUpAndPassThrough</span>(output), <span class="hljs-title function_">cleanUpAndReThrow</span>(output));
     }
 
-    <span class="hljs-keyword">private</span> runWithCucumber2(argv: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> cucumber = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'cucumber'</span>);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">runWithCucumber2</span>(<span class="hljs-attr">argv</span>: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> cucumber = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.Cli({
-            <span class="hljs-attr">argv</span>:   argv.concat(<span class="hljs-string">'--require'</span>, pathToSerenityListener, ...pathsToScenarios),
-            <span class="hljs-attr">cwd</span>:    <span class="hljs-built_in">this</span>.loader.cwd,
-            <span class="hljs-attr">stdout</span>: process.stdout,
-        }).run();
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> cucumber.<span class="hljs-title class_">Cli</span>({
+            <span class="hljs-attr">argv</span>:   argv.<span class="hljs-title function_">concat</span>(<span class="hljs-string">'--require'</span>, pathToSerenityListener, ...pathsToScenarios),
+            <span class="hljs-attr">cwd</span>:    <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-property">cwd</span>,
+            <span class="hljs-attr">stdout</span>: process.<span class="hljs-property">stdout</span>,
+        }).<span class="hljs-title function_">run</span>();
     }
 
-    <span class="hljs-keyword">private</span> runWithCucumber0to1(argv: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-            <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'cucumber'</span>)
-                .Cli(argv.concat(<span class="hljs-string">'--require'</span>, pathToSerenityListener, ...pathsToScenarios))
-                .run(<span class="hljs-function">(<span class="hljs-params">wasSuccessful: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> resolve());
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">runWithCucumber0to1</span>(<span class="hljs-attr">argv</span>: <span class="hljs-built_in">string</span>[], <span class="hljs-attr">pathToSerenityListener</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>)
+                .<span class="hljs-title class_">Cli</span>(argv.<span class="hljs-title function_">concat</span>(<span class="hljs-string">'--require'</span>, pathToSerenityListener, ...pathsToScenarios))
+                .<span class="hljs-title function_">run</span>(<span class="hljs-function">(<span class="hljs-params">wasSuccessful: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> <span class="hljs-title function_">resolve</span>());
         })
     }
 }
@@ -262,20 +262,20 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cleanUpAndPassThrough</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">output: OutputDescriptor</span>): (<span class="hljs-params">result: T</span>) =&gt; <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+<span class="hljs-keyword">function</span> cleanUpAndPassThrough&lt;T&gt;(<span class="hljs-attr">output</span>: <span class="hljs-title class_">OutputDescriptor</span>): <span class="hljs-function">(<span class="hljs-params">result: T</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;T&gt; {
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">result: T</span>) =&gt;</span> {
-        <span class="hljs-keyword">return</span> output.cleanUp()
-            .then(<span class="hljs-function">() =&gt;</span> result);
+        <span class="hljs-keyword">return</span> output.<span class="hljs-title function_">cleanUp</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> result);
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cleanUpAndReThrow</span>(<span class="hljs-params">output: OutputDescriptor</span>): (<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) =&gt; <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">void</span>&gt; </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">cleanUpAndReThrow</span>(<span class="hljs-params">output: OutputDescriptor</span>): <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) =&gt;</span> {
-        <span class="hljs-keyword">return</span> output.cleanUp()
-            .then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> output.<span class="hljs-title function_">cleanUp</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">throw</span> error;
             }, <span class="hljs-function"><span class="hljs-params">ignoredError</span> =&gt;</span> {
                 <span class="hljs-keyword">throw</span> error;

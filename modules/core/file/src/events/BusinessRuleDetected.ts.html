@@ -296,36 +296,36 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/BusinessRuleDetected.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { BusinessRule, CorrelationId, ScenarioDetails, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./DomainEvent'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BusinessRule</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">ScenarioDetails</span>, <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./DomainEvent'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Emitted by [<span class="hljs-doctag">@serenity</span>-js/cucumber](https://serenity-js.org/modules/cucumber)
  *  when a [business rule](https://cucumber.io/docs/gherkin/reference/#rule) is detected.
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{DomainEvent}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">DomainEvent</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BusinessRuleDetected</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> fromJSON(o: JSONObject): BusinessRuleDetected {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BusinessRuleDetected(
-            CorrelationId.fromJSON(o.sceneId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            ScenarioDetails.fromJSON(o.details <span class="hljs-keyword">as</span> JSONObject),
-            BusinessRule.fromJSON(o.rule <span class="hljs-keyword">as</span> JSONObject),
-            Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BusinessRuleDetected</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">DomainEvent</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: JSONObject): <span class="hljs-title class_">BusinessRuleDetected</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRuleDetected</span>(
+            <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">sceneId</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            <span class="hljs-title class_">ScenarioDetails</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">details</span> <span class="hljs-keyword">as</span> JSONObject),
+            <span class="hljs-title class_">BusinessRule</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">rule</span> <span class="hljs-keyword">as</span> JSONObject),
+            <span class="hljs-title class_">Timestamp</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">timestamp</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> sceneId: CorrelationId,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> details: ScenarioDetails,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> rule: BusinessRule,
         timestamp?: Timestamp,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(timestamp);
-        ensure(<span class="hljs-string">'sceneId'</span>, sceneId, isDefined());
-        ensure(<span class="hljs-string">'details'</span>, details, isDefined());
-        ensure(<span class="hljs-string">'rule'</span>, rule, isDefined());
+    </span>) {
+        <span class="hljs-variable language_">super</span>(timestamp);
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'sceneId'</span>, sceneId, <span class="hljs-title function_">isDefined</span>());
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'details'</span>, details, <span class="hljs-title function_">isDefined</span>());
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'rule'</span>, rule, <span class="hljs-title function_">isDefined</span>());
     }
 }
 </code></pre>

@@ -130,169 +130,169 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { AssertionError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    ProblemIndication,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">ProblemIndication</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { strictEqual } <span class="hljs-keyword">from</span> <span class="hljs-string">'assert'</span>;
-<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Test</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { MochaOutcomeMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MochaOutcomeMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
 
-describe(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaOutcomeMapper();
-    <span class="hljs-keyword">const</span> someScenario = <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/consistent-function-scoping</span>
+    <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MochaOutcomeMapper</span>();
+    <span class="hljs-keyword">const</span> <span class="hljs-title function_">someScenario</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/consistent-function-scoping</span>
 
-    it(<span class="hljs-string">'recognises passing tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises passing tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
-        test.state = <span class="hljs-string">'passed'</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
+        test.<span class="hljs-property">state</span> = <span class="hljs-string">'passed'</span>;
 
-        <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-        expect(outcome).to.be.instanceof(ExecutionSuccessful);
+        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionSuccessful</span>);
     });
 
-    it(<span class="hljs-string">'recognises pending tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises pending tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, <span class="hljs-literal">undefined</span>);
-        test.pending = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, <span class="hljs-literal">undefined</span>);
+        test.<span class="hljs-property">pending</span> = <span class="hljs-literal">true</span>;
 
-        <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-        expect(outcome).to.be.instanceof(ImplementationPending);
+        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ImplementationPending</span>);
     });
 
-    it(<span class="hljs-string">'recognises skipped tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises skipped tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
-        test.pending = <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
+        test.<span class="hljs-property">pending</span> = <span class="hljs-literal">true</span>;
 
-        <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-        expect(outcome).to.be.instanceof(ExecutionSkipped);
+        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionSkipped</span>);
     });
 
-    it(<span class="hljs-string">'recognises compromised tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises compromised tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'DB is down'</span>);
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
-        test.state = <span class="hljs-string">'failed'</span>;
-        test.err = error;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
+        test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
+        test.<span class="hljs-property">err</span> = error;
 
-        <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-        expect(outcome).to.be.instanceof(ExecutionCompromised);
-        expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
+        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionCompromised</span>);
+        <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
     });
 
-    it(<span class="hljs-string">'recognises tests that failed with a Serenity/JS AssertionError'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises tests that failed with a Serenity/JS AssertionError'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">'Expected false to be true'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(<span class="hljs-string">'Expected false to be true'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>);
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
-        test.state = <span class="hljs-string">'failed'</span>;
-        test.err = error;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
+        test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
+        test.<span class="hljs-property">err</span> = error;
 
-        <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-        expect(outcome).to.be.instanceof(ExecutionFailedWithAssertionError);
-        expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
+        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
+        <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
     });
 
-    it(<span class="hljs-string">'recognises tests that failed with a generic AssertionError'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises tests that failed with a generic AssertionError'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
 
         <span class="hljs-keyword">try</span> {
-            strictEqual(<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+            <span class="hljs-title function_">strictEqual</span>(<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
 
-            <span class="hljs-built_in">this</span>.fail()
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fail</span>()
         } <span class="hljs-keyword">catch</span> (error) {
-            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
-            test.state = <span class="hljs-string">'failed'</span>;
-            test.err = error;
+            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
+            test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
+            test.<span class="hljs-property">err</span> = error;
 
-            <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+            <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-            expect(outcome).to.be.instanceof(ExecutionFailedWithAssertionError);
-            expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
+            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
+            <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
         }
     });
 
-    it(<span class="hljs-string">'recognises tests that failed with an Error'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises tests that failed with an Error'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
+        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'example'</span>, someScenario);
-        test.state = <span class="hljs-string">'failed'</span>;
-        test.err = error;
+        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
+        test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
+        test.<span class="hljs-property">err</span> = error;
 
-        <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test);
+        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
 
-        expect(outcome).to.be.instanceof(ExecutionFailedWithError);
-        expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error).to.equal(error);
+        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+        <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
     });
 
-    describe(<span class="hljs-string">'when working with retryable tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when working with retryable tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> errorThrownInTest = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something happened`</span>)
+        <span class="hljs-keyword">const</span> errorThrownInTest = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Something happened`</span>)
 
-        it(<span class="hljs-string">'ignores the failure as long as execution is going to be retried'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores the failure as long as execution is going to be retried'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'has retries left'</span>, someScenario);
-            test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
-            test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-            test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-            test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-            test.retries = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
-            (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'has retries left'</span>, someScenario);
+            test.<span class="hljs-property">err</span> = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
+            test.<span class="hljs-property">isPending</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+            test.<span class="hljs-property">isPassed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+            test.<span class="hljs-property">isFailed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+            test.<span class="hljs-property">retries</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+            (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">currentRetry</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">0</span>;
 
-            <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, errorThrownInTest);
+            <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test, errorThrownInTest);
 
-            expect(outcome).to.be.instanceof(ExecutionIgnored);
-            expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">'Something happened'</span>);
+            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionIgnored</span>);
+            <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Something happened'</span>);
         });
 
-        describe(<span class="hljs-string">'when there are no retries left'</span>, <span class="hljs-function">() =&gt;</span> {
-            it(<span class="hljs-string">`marks execution as failed if there's an error`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when there are no retries left'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`marks execution as failed if there's an error`</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'has no retries left'</span>, someScenario);
-                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
-                test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.retries = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
-                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'has no retries left'</span>, someScenario);
+                test.<span class="hljs-property">err</span> = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
+                test.<span class="hljs-property">isPending</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.<span class="hljs-property">isPassed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.<span class="hljs-property">isFailed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.<span class="hljs-property">retries</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">currentRetry</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
 
-                <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, errorThrownInTest);
+                <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test, errorThrownInTest);
 
-                expect(outcome).to.be.instanceof(ExecutionFailedWithError);
-                expect((outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message).to.equal(<span class="hljs-string">'Something happened'</span>);
+                <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Something happened'</span>);
             });
 
-            it(<span class="hljs-string">`marks execution as successful if there are no errors`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`marks execution as successful if there are no errors`</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> noError = <span class="hljs-literal">undefined</span>;
 
-                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> Test(<span class="hljs-string">'has no retries left'</span>, someScenario);
-                test.err = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
-                test.isPending = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.isPassed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.isFailed = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.retries = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
-                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'has no retries left'</span>, someScenario);
+                test.<span class="hljs-property">err</span> = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
+                test.<span class="hljs-property">isPending</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.<span class="hljs-property">isPassed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.<span class="hljs-property">isFailed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
+                test.<span class="hljs-property">retries</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">currentRetry</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
 
-                <span class="hljs-keyword">const</span> outcome = mapper.outcomeOf(test, noError);
+                <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test, noError);
 
-                expect(outcome).to.be.instanceof(ExecutionSuccessful);
+                <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionSuccessful</span>);
             });
         });
     });

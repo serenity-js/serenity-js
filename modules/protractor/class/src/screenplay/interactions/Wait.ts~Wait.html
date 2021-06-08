@@ -187,7 +187,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Wait} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Wait</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -228,39 +228,39 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;!--
-     After about <span class="hljs-number">1</span> second, the text will change <span class="hljs-keyword">from</span> <span class="hljs-string">'Loading...'</span> to <span class="hljs-string">'Ready!'</span>
+     <span class="hljs-title class_">After</span> about <span class="hljs-number">1</span> second, the text will change <span class="hljs-keyword">from</span> <span class="hljs-string">'Loading...'</span> to <span class="hljs-string">'Ready!'</span>
  --&gt;
- <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"status"</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
- <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-     (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-         <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-             <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'status'</span>).textContent = <span class="hljs-string">'Ready!'</span>
+ <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"status"</span>&gt;</span>Loading...<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+ <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+     (<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+         <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+             <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'status'</span>).<span class="hljs-property">textContent</span> = <span class="hljs-string">'Ready!'</span>
          }, <span class="hljs-number">1000</span>);
      })();
  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
-     <span class="hljs-keyword">static</span> status = Target.the(<span class="hljs-string">'status widget'</span>)
-         .located(by.id(<span class="hljs-string">'status'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">App</span> {
+     <span class="hljs-keyword">static</span> status = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'status widget'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'status'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Waiting for a set amount of time</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Wait</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Aurora'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Wait.for(Duration.ofSeconds(<span class="hljs-number">1.5</span>)),
-         Ensure.that(App.status, equals(<span class="hljs-string">'Ready!'</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Aurora'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">for</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">1.5</span>)),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">App</span>.<span class="hljs-property">status</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Ready!'</span>)),
      );
 
  <span class="hljs-comment">// Please note that while the above implementation works,</span>
@@ -273,14 +273,14 @@
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Waiting until a condition is met</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Wait, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Wait</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Aurora'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Wait.until(Text.of(App.status), equals(<span class="hljs-string">'Ready!'</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Aurora'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">App</span>.<span class="hljs-property">status</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Ready!'</span>)),
          <span class="hljs-comment">// app is ready, proceed with the scenario</span>
      );
 
@@ -293,16 +293,16 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Changing the default timeout</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Wait, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Wait</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Aurora'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Wait.upTo(Duration.ofSeconds(<span class="hljs-number">3</span>))
-             .until(Text.of(App.status), equals(<span class="hljs-string">'Ready!'</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Aurora'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">upTo</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">3</span>))
+             .<span class="hljs-title function_">until</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">App</span>.<span class="hljs-property">status</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Ready!'</span>)),
          <span class="hljs-comment">// app is ready, proceed with the scenario</span>
      );</code></pre>
     </div>
@@ -683,7 +683,7 @@
       
     <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber55">Wait until pauses the actor flow until the expectation is met</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Wait.spec.ts.html#lineNumber65">Wait until fails the actor flow when the timeout expires</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber189">ModalDialog, when waiting allows the actor to wait until a modal dialog is present</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber190">ModalDialog, when waiting allows the actor to wait until a modal dialog is present</a></span></li>
 </ul>
   </div>
 

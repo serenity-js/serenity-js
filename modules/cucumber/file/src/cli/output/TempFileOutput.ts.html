@@ -132,21 +132,21 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/output/TempFileOutput.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations */</span>
-<span class="hljs-keyword">import</span> { FileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystem</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { OutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
-<span class="hljs-keyword">import</span> { SerenityFormatterOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityFormatterOutput'</span>;
-<span class="hljs-keyword">import</span> { TempFileOutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TempFileOutputDescriptor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputDescriptor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityFormatterOutput</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityFormatterOutput'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TempFileOutputDescriptor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TempFileOutputDescriptor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TempFileOutput</span> <span class="hljs-title">implements</span> <span class="hljs-title">SerenityFormatterOutput</span> </span>{    <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fs: FileSystem</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TempFileOutput</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SerenityFormatterOutput</span> {    <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fs: FileSystem</span>) {
     }
 
-    get(): OutputDescriptor {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TempFileOutputDescriptor(<span class="hljs-built_in">this</span>.fs);
+    <span class="hljs-title function_">get</span>(): <span class="hljs-title class_">OutputDescriptor</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TempFileOutputDescriptor</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>);
     }
 }
 </code></pre>

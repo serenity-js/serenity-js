@@ -294,39 +294,39 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/artifacts/Photo.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Artifact } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Artifact'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Artifact'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Artifact}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Artifact</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Photo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Artifact</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Photo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Artifact</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">value</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">value</span>
      */</span>
-    <span class="hljs-keyword">static</span> fromBase64(value: <span class="hljs-built_in">string</span>): Photo {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Photo(value);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromBase64</span>(<span class="hljs-attr">value</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Photo</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Photo</span>(value);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Buffer | ArrayBuffer}</span> <span class="hljs-variable">value</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Buffer | ArrayBuffer</span>} <span class="hljs-variable">value</span>
      */</span>
-    <span class="hljs-keyword">static</span> fromBuffer(value: Buffer | <span class="hljs-built_in">ArrayBuffer</span>): Photo {
-        <span class="hljs-keyword">const</span> buffer = value <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">ArrayBuffer</span>
-            ? Buffer.from(value)
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromBuffer</span>(<span class="hljs-attr">value</span>: <span class="hljs-title class_">Buffer</span> | <span class="hljs-title class_">ArrayBuffer</span>): <span class="hljs-title class_">Photo</span> {
+        <span class="hljs-keyword">const</span> buffer = value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArrayBuffer</span>
+            ? <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(value)
             : value;
 
-        <span class="hljs-keyword">return</span> Photo.fromBase64(buffer.toString(<span class="hljs-string">'base64'</span>));
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Photo</span>.<span class="hljs-title function_">fromBase64</span>(buffer.<span class="hljs-title function_">toString</span>(<span class="hljs-string">'base64'</span>));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-variable">fn</span></span>
+     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">fn</span>
      */</span>
-    map&lt;O&gt;(fn: <span class="hljs-function">(<span class="hljs-params">decodedValue: Buffer</span>) =&gt;</span> O): O {
-        <span class="hljs-keyword">return</span> fn(Buffer.from(<span class="hljs-built_in">this</span>.base64EncodedValue, <span class="hljs-string">'base64'</span>));
+    map&lt;O&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">decodedValue: Buffer</span>) =&gt;</span> O): O {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(<span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">base64EncodedValue</span>, <span class="hljs-string">'base64'</span>));
     }
 }
 </code></pre>

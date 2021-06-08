@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {TakeNotes} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/abilities'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">TakeNotes</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/abilities'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -681,32 +681,32 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { ManageALocalServer, StartLocalTestServer, StopLocalTestServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>
- <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Note</span>, <span class="hljs-title class_">TakeNote</span>, <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">StartLocalTestServer</span>, <span class="hljs-title class_">StopLocalTestServer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
 
- <span class="hljs-keyword">const</span> server = http.createServer(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) </span>{
-     response.setHeader(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
-     response.end(<span class="hljs-string">'Hello!'</span>);
+ <span class="hljs-keyword">const</span> server = http.<span class="hljs-title function_">createServer</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
+     response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
+     response.<span class="hljs-title function_">end</span>(<span class="hljs-string">'Hello!'</span>);
  });
 
- <span class="hljs-keyword">const</span> Adam = actorCalled(<span class="hljs-string">'Adam'</span>).whoCan(
-     ManageALocalServer.using(server),
-     TakeNotes.usingASharedNotepad(),
+ <span class="hljs-keyword">const</span> <span class="hljs-title class_">Adam</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Adam'</span>).<span class="hljs-title function_">whoCan</span>(
+     <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">using</span>(server),
+     <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">usingASharedNotepad</span>(),
  );
 
- <span class="hljs-keyword">const</span> Becky = actorCalled(<span class="hljs-string">'Becky'</span>).whoCan(
-     TakeNotes.usingASharedNotepad(),
-     BrowseTheWeb.using(protractor.browser),
+ <span class="hljs-keyword">const</span> <span class="hljs-title class_">Becky</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Becky'</span>).<span class="hljs-title function_">whoCan</span>(
+     <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">usingASharedNotepad</span>(),
+     <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
  );
 
- Adam.attemptsTo(
-     StartLocalTestServer.onRandomPort(),
-     TakeNote.of(LocalServer.url()),
+ <span class="hljs-title class_">Adam</span>.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">StartLocalTestServer</span>.<span class="hljs-title function_">onRandomPort</span>(),
+     <span class="hljs-title class_">TakeNote</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>()),
  );
 
- Becky.attemptsTo(
-     Navigate.to(Note.of(LocalServer.url())),
+ <span class="hljs-title class_">Becky</span>.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">Note</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>())),
      <span class="hljs-comment">// perform some UI interactions</span>
  );</code></pre>
     </div>
@@ -783,42 +783,42 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Log, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Log</span>, <span class="hljs-title class_">Note</span>, <span class="hljs-title class_">TakeNote</span>, <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
  <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisitt'</span>).whoCan(
-     TakeNotes.usingAnEmptyNotepad(),
-     CallAnApi.at(<span class="hljs-string">'https://api.example.org'</span>),
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Apisitt'</span>).<span class="hljs-title function_">whoCan</span>(
+     <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">usingAnEmptyNotepad</span>(),
+     <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://api.example.org'</span>),
  );
 
- actor.attemptsTo(
-     Send.a(GetRequest.to(<span class="hljs-string">'/customers'</span>)),
-     TakeNote.of(LastResponse.status()),     <span class="hljs-comment">// remember the LastResponse.status()</span>
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/customers'</span>)),
+     <span class="hljs-title class_">TakeNote</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>()),     <span class="hljs-comment">// remember the LastResponse.status()</span>
      <span class="hljs-comment">// ... perform some other activities</span>
-     Log.the(Note.of(LastResponse.body())),  <span class="hljs-comment">// log it later, or pass to any other interaction</span>
+     <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-title class_">Note</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">body</span>())),  <span class="hljs-comment">// log it later, or pass to any other interaction</span>
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Note, TakeNote, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Note</span>, <span class="hljs-title class_">TakeNote</span>, <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
  <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vouchers</span> </span>{
-     <span class="hljs-keyword">static</span> code             = Target.the(<span class="hljs-string">'voucher code'</span>).located(by.id(<span class="hljs-string">'voucher'</span>));
-     <span class="hljs-keyword">static</span> appliedVoucher   = Target.the(<span class="hljs-string">'voucher code'</span>).located(by.id(<span class="hljs-string">'applied-voucher'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Vouchers</span> {
+     <span class="hljs-keyword">static</span> code             = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'voucher code'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'voucher'</span>));
+     <span class="hljs-keyword">static</span> appliedVoucher   = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'voucher code'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'applied-voucher'</span>));
  }
 
- <span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Noah'</span>).whoCan(
-     TakeNotes.usingAnEmptyNotepad(),
-     BrowseTheWeb.using(protractor.browser),
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Noah'</span>).<span class="hljs-title function_">whoCan</span>(
+     <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">usingAnEmptyNotepad</span>(),
+     <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
  );
 
- actor.attemptsTo(
-     TakeNote.of(Text.of(Vouchers.code)),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">TakeNote</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Vouchers</span>.<span class="hljs-property">code</span>)),
      <span class="hljs-comment">// ... add the product to a basket, go to checkout, etc.</span>
-     Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Vouchers</span>.<span class="hljs-property">appliedVoucher</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-title class_">Note</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Vouchers</span>.<span class="hljs-property">code</span>)))),
  );</code></pre>
     </div>
 </div>

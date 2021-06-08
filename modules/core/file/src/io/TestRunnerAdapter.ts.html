@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/TestRunnerAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -309,18 +309,18 @@
      *  Runs test scenarios at pathsToScenarios using the given test runner.
      *
      * <span class="hljs-doctag">@abstract</span>
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function(pathsToScenarios: string[]): Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function(pathsToScenarios: string[]): Promise&lt;void&gt;</span>}
      */</span>
-    <span class="hljs-attr">run</span>: <span class="hljs-function">(<span class="hljs-params">pathsToScenarios: <span class="hljs-built_in">string</span>[]</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;;
+    <span class="hljs-attr">run</span>: <span class="hljs-function">(<span class="hljs-params">pathsToScenarios: <span class="hljs-built_in">string</span>[]</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Scenario success threshold for this test runner.
      *
      * <span class="hljs-doctag">@abstract</span>
-     * <span class="hljs-doctag">@type <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">Outcome | { Code: number </span>}}
      */</span>
-    successThreshold: <span class="hljs-function">() =&gt;</span> Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> };
+    <span class="hljs-attr">successThreshold</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> };
 }
 </code></pre>
 

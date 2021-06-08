@@ -294,37 +294,37 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/errors/ImplementationPendingError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./RuntimeError'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">RuntimeError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./RuntimeError'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Thrown to indicate that the {<span class="hljs-doctag">@link </span>Actor} attempted to perform
- *  a {<span class="hljs-doctag">@link </span>Task} or {<span class="hljs-doctag">@link </span>Interaction} that hasn't been implemented yet.
+ *  Thrown to indicate that the {<span class="hljs-doctag">@link</span> Actor} attempted to perform
+ *  a {<span class="hljs-doctag">@link</span> Task} or {<span class="hljs-doctag">@link</span> Interaction} that hasn't been implemented yet.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;A pending Task&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;A pending Task&lt;/caption&gt;
  *  import { Task } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *
  *  // A pending Task is one that encapsulates no other activities
  *  const Authenticate = () =&gt;
  *      Task.where(`#actor authenticates with the service up a test database` );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;A pending Interaction&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;A pending Interaction&lt;/caption&gt;
  *  import { Interaction } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *
  *  // A pending Interaction is one that doesn't perform any action
  *  const DoubleClick = () =&gt;
  *      Interaction.where(`#actor double-clicks`);
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{RuntimeError}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">RuntimeError</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImplementationPendingError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImplementationPendingError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">RuntimeError</span> {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">message</span></span> - Human-readable description of the error
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Error}</span> </span>[cause] - The root cause of this {<span class="hljs-doctag">@link </span>RuntimeError}, if any
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">message</span> - Human-readable description of the error
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Error</span>} [cause] - The root cause of this {<span class="hljs-doctag">@link</span> RuntimeError}, if any
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(ImplementationPendingError, message, cause);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-title class_">ImplementationPendingError</span>, message, cause);
     }
 }
 </code></pre>

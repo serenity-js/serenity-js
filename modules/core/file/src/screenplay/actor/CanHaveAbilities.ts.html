@@ -294,21 +294,21 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/CanHaveAbilities.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Ability'</span>;
-<span class="hljs-keyword">import</span> { UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'./UsesAbilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Ability'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./UsesAbilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link </span>Actor} to have an {<span class="hljs-doctag">@link </span>Ability} or Abilities to perform some {<span class="hljs-doctag">@link </span>Activity}.
+ *  Enables the {<span class="hljs-doctag">@link</span> Actor} to have an {<span class="hljs-doctag">@link</span> Ability} or Abilities to perform some {<span class="hljs-doctag">@link</span> Activity}.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CanHaveAbilities&lt;Returned_Type = UsesAbilities&gt; {
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Ability[]}</span> <span class="hljs-variable">abilities</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Ability[]</span>} <span class="hljs-variable">abilities</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Actor</span>}
      */</span>
-    whoCan(...abilities: Ability[]): Returned_Type;
+    <span class="hljs-title function_">whoCan</span>(...<span class="hljs-attr">abilities</span>: <span class="hljs-title class_">Ability</span>[]): <span class="hljs-title class_">Returned</span>_Type;
 }
 </code></pre>
 

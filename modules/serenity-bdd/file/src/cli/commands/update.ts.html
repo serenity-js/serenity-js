@@ -129,17 +129,17 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/update.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Check, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { URL } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Check</span>, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-variable constant_">URL</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
 
-<span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Argv'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Argv</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Argv'</span>;
 <span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">'../defaults'</span>;
 <span class="hljs-keyword">import</span> { axiosClient, formatError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
-<span class="hljs-keyword">import</span> { Credentials, GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
-<span class="hljs-keyword">import</span> { DownloadArtifact, FileExists, Notify } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
-<span class="hljs-keyword">import</span> { NotificationReporter, ProgressReporter, UpdateCommandActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Credentials</span>, <span class="hljs-variable constant_">GAV</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DownloadArtifact</span>, <span class="hljs-title class_">FileExists</span>, <span class="hljs-title class_">Notify</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">NotificationReporter</span>, <span class="hljs-title class_">ProgressReporter</span>, <span class="hljs-title class_">UpdateCommandActors</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
 
 <span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
@@ -148,7 +148,7 @@
     <span class="hljs-attr">desc</span>: <span class="hljs-string">'Makes sure the Serenity BDD CLI jar file is available and up to date'</span>,
     <span class="hljs-attr">builder</span>: {
         <span class="hljs-attr">cacheDir</span>: {
-            <span class="hljs-attr">default</span>:   defaults.cacheDir,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">cacheDir</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">'A relative path to where the Serenity BDD CLI jar file should be stored'</span>,
         },
         <span class="hljs-attr">ignoreSSL</span>: {
@@ -157,54 +157,54 @@
             <span class="hljs-attr">describe</span>: <span class="hljs-string">'Ignore SSL certificates'</span>,
         },
         <span class="hljs-attr">repository</span>: {
-            <span class="hljs-attr">default</span>:   defaults.repository,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">repository</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">'Maven repository url where we should look for the Serenity BDD CLI artifact'</span>,
         },
         <span class="hljs-attr">auth</span>: {
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`Credentials to authenticate with your repository - "&lt;username&gt;:&lt;password&gt;"`</span>,
         },
         <span class="hljs-attr">artifact</span>: {
-            <span class="hljs-attr">default</span>:   defaults.artifact,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">artifact</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.`</span>,
         },
     },
-    <span class="hljs-attr">handler</span>: (argv: Argv): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
+    <span class="hljs-attr">handler</span>: (<span class="hljs-attr">argv</span>: <span class="hljs-title class_">Argv</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
 
         <span class="hljs-keyword">const</span>
-            printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
-            artifactGAV     = GAV.fromString(argv.artifact),
-            pathToArtifact  = <span class="hljs-keyword">new</span> Path(argv.cacheDir).join(artifactGAV.toPath()),
-            repository      = <span class="hljs-keyword">new</span> URL(argv.repository);
+            printer         = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Printer</span>(process.<span class="hljs-property">stdout</span>, process.<span class="hljs-property">stderr</span>),
+            artifactGAV     = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(argv.<span class="hljs-property">artifact</span>),
+            pathToArtifact  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(argv.<span class="hljs-property">cacheDir</span>).<span class="hljs-title function_">join</span>(artifactGAV.<span class="hljs-title function_">toPath</span>()),
+            repository      = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(argv.<span class="hljs-property">repository</span>);
 
-        configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> UpdateCommandActors(
-                <span class="hljs-keyword">new</span> Path(process.cwd()),
-                <span class="hljs-function">() =&gt;</span> axiosClient(repository, !! argv.ignoreSSL, process.env, Credentials.fromString(argv.auth))
+        <span class="hljs-title function_">configure</span>({
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">UpdateCommandActors</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(process.<span class="hljs-title function_">cwd</span>()),
+                <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">axiosClient</span>(repository, !! argv.<span class="hljs-property">ignoreSSL</span>, process.<span class="hljs-property">env</span>, <span class="hljs-title class_">Credentials</span>.<span class="hljs-title function_">fromString</span>(argv.<span class="hljs-property">auth</span>))
             ),
             <span class="hljs-attr">crew</span>: [
-                <span class="hljs-keyword">new</span> NotificationReporter(printer),
-                <span class="hljs-keyword">new</span> ProgressReporter(printer),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">NotificationReporter</span>(printer),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressReporter</span>(printer),
             ],
         });
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">'Serenity/JS Updater'</span>).attemptsTo(
-                    Check.whether(FileExists.at(pathToArtifact), isTrue())
-                        .andIfSo(
-                            Notify.that(<span class="hljs-string">`Looks like you're good to go! Serenity BDD CLI is already at <span class="hljs-subst">${ pathToArtifact.value }</span>`</span>),
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Serenity/JS Updater'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                    <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-title class_">FileExists</span>.<span class="hljs-title function_">at</span>(pathToArtifact), <span class="hljs-title function_">isTrue</span>())
+                        .<span class="hljs-title function_">andIfSo</span>(
+                            <span class="hljs-title class_">Notify</span>.<span class="hljs-title function_">that</span>(<span class="hljs-string">`Looks like you're good to go! Serenity BDD CLI is already at <span class="hljs-subst">${ pathToArtifact.value }</span>`</span>),
                         )
-                        .otherwise(
-                            DownloadArtifact
-                                .identifiedBy(artifactGAV)
-                                .availableFrom(repository)
-                                .to(pathToArtifact.directory())
+                        .<span class="hljs-title function_">otherwise</span>(
+                            <span class="hljs-title class_">DownloadArtifact</span>
+                                .<span class="hljs-title function_">identifiedBy</span>(artifactGAV)
+                                .<span class="hljs-title function_">availableFrom</span>(repository)
+                                .<span class="hljs-title function_">to</span>(pathToArtifact.<span class="hljs-title function_">directory</span>())
                         ),
                 )
             )
-            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                printer.error(formatError(error));
-                yargs.exit(<span class="hljs-number">1</span>, error.message);
+            .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                printer.<span class="hljs-title function_">error</span>(<span class="hljs-title function_">formatError</span>(error));
+                yargs.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>, error.<span class="hljs-property">message</span>);
             });
     },
 };

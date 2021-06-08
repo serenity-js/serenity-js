@@ -294,16 +294,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/PerformsActivities.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Activity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link </span>Actor} to perform an {<span class="hljs-doctag">@link </span>Activity}, such as a {<span class="hljs-doctag">@link </span>Task} or an {<span class="hljs-doctag">@link </span>Interaction}
+ *  Enables the {<span class="hljs-doctag">@link</span> Actor} to perform an {<span class="hljs-doctag">@link</span> Activity}, such as a {<span class="hljs-doctag">@link</span> Task} or an {<span class="hljs-doctag">@link</span> Interaction}
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> PerformsActivities {
-    attemptsTo(...tasks: Activity[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;;
+    <span class="hljs-title function_">attemptsTo</span>(...<span class="hljs-attr">tasks</span>: <span class="hljs-title class_">Activity</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;;
 }
 </code></pre>
 

@@ -145,22 +145,22 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Ensure.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
-    Answerable,
-    AnswersQuestions,
-    AssertionError,
-    CollectsArtifacts,
-    Expectation,
-    ExpectationMet,
-    ExpectationNotMet,
-    ExpectationOutcome,
-    Interaction,
-    LogicError,
-    RuntimeError,
-    UsesAbilities,
+    <span class="hljs-title class_">Answerable</span>,
+    <span class="hljs-title class_">AnswersQuestions</span>,
+    <span class="hljs-title class_">AssertionError</span>,
+    <span class="hljs-title class_">CollectsArtifacts</span>,
+    <span class="hljs-title class_">Expectation</span>,
+    <span class="hljs-title class_">ExpectationMet</span>,
+    <span class="hljs-title class_">ExpectationNotMet</span>,
+    <span class="hljs-title class_">ExpectationOutcome</span>,
+    <span class="hljs-title class_">Interaction</span>,
+    <span class="hljs-title class_">LogicError</span>,
+    <span class="hljs-title class_">RuntimeError</span>,
+    <span class="hljs-title class_">UsesAbilities</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { inspected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io/inspected'</span>;
-<span class="hljs-keyword">import</span> { Artifact, AssertionReport, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span>, <span class="hljs-title class_">AssertionReport</span>, <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">/**
@@ -168,9 +168,9 @@
  *  Used to perform verification of the system under test.
  *
  *  Resolves any `Answerable` describing the actual
- *  state and ensures that its value meets the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation}s provided.
+ *  state and ensures that its value meets the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation}s provided.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with static values&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with static values&lt;/caption&gt;
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
@@ -180,7 +180,7 @@
  *    Ensure.that('Hello world!', equals('Hello world!'))
  *  );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Composing expectations with `and`&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Composing expectations with `and`&lt;/caption&gt;
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { and, Ensure, startsWith, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
@@ -190,7 +190,7 @@
  *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))
  *  );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Overriding the type of Error thrown upon assertion failure&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Overriding the type of Error thrown upon assertion failure&lt;/caption&gt;
  *  import { actorCalled, TestCompromisedError } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { and, Ensure, startsWith, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest';
@@ -204,59 +204,59 @@
  *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
  *  );
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Ensure</span>&lt;<span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Ensure</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
     <span class="hljs-comment">/**
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;}</span> <span class="hljs-variable">actual</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, A&gt;}</span> <span class="hljs-variable">expectation</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;</span>} <span class="hljs-variable">actual</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, A&gt;</span>} <span class="hljs-variable">expectation</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Ensure&lt;A&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Ensure&lt;A&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> that&lt;A&gt;(actual: Answerable&lt;A&gt;, expectation: Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;): Ensure&lt;A&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Ensure(actual, expectation);
+    <span class="hljs-keyword">static</span> that&lt;A&gt;(<span class="hljs-attr">actual</span>: <span class="hljs-title class_">Answerable</span>&lt;A&gt;, <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;): <span class="hljs-title class_">Ensure</span>&lt;A&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Ensure</span>(actual, expectation);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;}</span> <span class="hljs-variable">actual</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~Expectation&lt;T&gt;}</span> <span class="hljs-variable">expectation</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;</span>} <span class="hljs-variable">actual</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;T&gt;</span>} <span class="hljs-variable">expectation</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> actual: Answerable&lt;Actual&gt;,
         <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Actual&gt;,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions &amp; CollectsArtifacts): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-            actor.answer(<span class="hljs-built_in">this</span>.actual),
-            actor.answer(<span class="hljs-built_in">this</span>.expectation),
-        ]).then(<span class="hljs-function">(<span class="hljs-params">[ actual, expectation ]</span>) =&gt;</span>
-            expectation(actual).then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span>
-                match&lt;ExpectationOutcome&lt;unknown, Actual&gt;, <span class="hljs-built_in">void</span>&gt;(outcome)
-                    .when(ExpectationNotMet, <span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
-                        actor.collect(<span class="hljs-built_in">this</span>.artifactFrom(o.expected, o.actual), <span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Assertion Report`</span>));
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">CollectsArtifacts</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">actual</span>),
+            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>),
+        ]).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[ actual, expectation ]</span>) =&gt;</span>
+            <span class="hljs-title function_">expectation</span>(actual).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span>
+                match&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;unknown, <span class="hljs-title class_">Actual</span>&gt;, <span class="hljs-built_in">void</span>&gt;(outcome)
+                    .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
+                        actor.<span class="hljs-title function_">collect</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">artifactFrom</span>(o.<span class="hljs-property">expected</span>, o.<span class="hljs-property">actual</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Assertion Report`</span>));
 
-                        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">this</span>.errorForOutcome(o);
+                        <span class="hljs-keyword">throw</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">errorForOutcome</span>(o);
                     })
-                    .when(ExpectationMet, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
-                    .else(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
-                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(formatted <span class="hljs-string">`An Expectation should return an instance of an ExpectationOutcome, not <span class="hljs-subst">${ o }</span>`</span>);
+                    .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
+                    .<span class="hljs-title function_">else</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
+                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(formatted <span class="hljs-string">`An Expectation should return an instance of an ExpectationOutcome, not <span class="hljs-subst">${ o }</span>`</span>);
                     }),
             ),
         );
@@ -264,65 +264,65 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor ensures that <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.actual }</span> does <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.expectation }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor ensures that <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.actual }</span> does <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.expectation }</span>`</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Overrides the default {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/errors~AssertionError} thrown when
+     *  Overrides the default {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/errors~AssertionError} thrown when
      *  the actual value does not meet the expectations set.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Function}</span> <span class="hljs-variable">typeOfRuntimeError</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Function</span>} <span class="hljs-variable">typeOfRuntimeError</span>
      *  The type of RuntimeError to throw, i.e. TestCompromisedError
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">message</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">message</span>
      *  The message explaining the failure
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      */</span>
-    otherwiseFailWith(typeOfRuntimeError: <span class="hljs-keyword">new</span> (message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span>) =&gt; RuntimeError, message?: <span class="hljs-built_in">string</span>): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> EnsureOrFailWithCustomError(<span class="hljs-built_in">this</span>.actual, <span class="hljs-built_in">this</span>.expectation, typeOfRuntimeError, message);
+    <span class="hljs-title function_">otherwiseFailWith</span>(<span class="hljs-attr">typeOfRuntimeError</span>: <span class="hljs-keyword">new</span> (<span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-title class_">Error</span>) =&gt; <span class="hljs-title class_">RuntimeError</span>, message?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EnsureOrFailWithCustomError</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">actual</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>, typeOfRuntimeError, message);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Maps an {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} to appropriate {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/errors~RuntimeError}.
+     *  Maps an {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} to appropriate {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/errors~RuntimeError}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome}</span> <span class="hljs-variable">outcome</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/errors~RuntimeError}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome</span>} <span class="hljs-variable">outcome</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/errors~RuntimeError</span>}
      *
      * <span class="hljs-doctag">@protected</span>
      */</span>
-    <span class="hljs-keyword">protected</span> errorForOutcome(outcome: ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;): RuntimeError {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.asAssertionError(outcome);
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">errorForOutcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">RuntimeError</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asAssertionError</span>(outcome);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Maps an {<span class="hljs-doctag">@link </span>Outcome} to {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/errors~AssertionError}.
+     *  Maps an {<span class="hljs-doctag">@link</span> Outcome} to {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/errors~AssertionError}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Outcome}</span> <span class="hljs-variable">outcome</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/errors~AssertionError}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Outcome</span>} <span class="hljs-variable">outcome</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/errors~AssertionError</span>}
      *
      * <span class="hljs-doctag">@protected</span>
      */</span>
-    <span class="hljs-keyword">protected</span> asAssertionError(outcome: ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;): AssertionError {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AssertionError(
-            <span class="hljs-string">`Expected <span class="hljs-subst">${ formatted<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.actual }</span>`</span> }</span> to <span class="hljs-subst">${ outcome.message }</span>`</span>,
-            outcome.expected,
-            outcome.actual,
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">asAssertionError</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">AssertionError</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(
+            <span class="hljs-string">`Expected <span class="hljs-subst">${ formatted<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.actual }</span>`</span> }</span> to <span class="hljs-subst">${ outcome.message }</span>`</span>,
+            outcome.<span class="hljs-property">expected</span>,
+            outcome.<span class="hljs-property">actual</span>,
         );
     }
 
-    <span class="hljs-keyword">private</span> artifactFrom(expected: <span class="hljs-built_in">any</span>, <span class="hljs-attr">actual</span>: Actual): Artifact {
-        <span class="hljs-keyword">return</span> AssertionReport.fromJSON({
-            <span class="hljs-attr">expected</span>: inspected(expected),
-            <span class="hljs-attr">actual</span>: inspected(actual),
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">artifactFrom</span>(<span class="hljs-attr">expected</span>: <span class="hljs-built_in">any</span>, <span class="hljs-attr">actual</span>: <span class="hljs-title class_">Actual</span>): <span class="hljs-title class_">Artifact</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">AssertionReport</span>.<span class="hljs-title function_">fromJSON</span>({
+            <span class="hljs-attr">expected</span>: <span class="hljs-title function_">inspected</span>(expected),
+            <span class="hljs-attr">actual</span>: <span class="hljs-title function_">inspected</span>(actual),
         });
     }
 }
@@ -330,20 +330,20 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EnsureOrFailWithCustomError</span>&lt;<span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Ensure</span>&lt;<span class="hljs-title">Actual</span>&gt; </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">EnsureOrFailWithCustomError</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Ensure</span>&lt;<span class="hljs-title class_">Actual</span>&gt; {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         actual: Answerable&lt;Actual&gt;,
         expectation: Expectation&lt;Actual&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> typeOfRuntimeError: <span class="hljs-keyword">new</span> (message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span>) =&gt; RuntimeError,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> message?: <span class="hljs-built_in">string</span>,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(actual, expectation);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(actual, expectation);
     }
 
-    <span class="hljs-keyword">protected</span> errorForOutcome(outcome: ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;): RuntimeError {
-        <span class="hljs-keyword">const</span> assertionError = <span class="hljs-built_in">this</span>.asAssertionError(outcome);
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">errorForOutcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">RuntimeError</span> {
+        <span class="hljs-keyword">const</span> assertionError = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asAssertionError</span>(outcome);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">this</span>.typeOfRuntimeError(<span class="hljs-built_in">this</span>.message || assertionError.message, assertionError);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">typeOfRuntimeError</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">message</span> || assertionError.<span class="hljs-property">message</span>, assertionError);
     }
 }
 </code></pre>

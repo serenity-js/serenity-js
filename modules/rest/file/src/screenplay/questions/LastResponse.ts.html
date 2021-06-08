@@ -138,16 +138,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/LastResponse.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Provides access to the properties of the last {<span class="hljs-doctag">@link </span>AxiosResponse} object,
- *  cached on the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}.
+ *  Provides access to the properties of the last {<span class="hljs-doctag">@link</span> AxiosResponse} object,
+ *  cached on the {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
  *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -169,25 +169,25 @@
  *      })),
  *  );
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LastResponse</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LastResponse</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Enables asserting on the {<span class="hljs-doctag">@link </span>LastResponse} status
+     *  Enables asserting on the {<span class="hljs-doctag">@link</span> LastResponse} status
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;number&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;number&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> status(): Question&lt;<span class="hljs-built_in">number</span>&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the status of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.status);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">status</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-built_in">number</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the status of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">mapLastResponse</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.<span class="hljs-property">status</span>);
         });
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Enables asserting on the {<span class="hljs-doctag">@link </span>LastResponse} body
+     *  Enables asserting on the {<span class="hljs-doctag">@link</span> LastResponse} body
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;A type-safe approach using generics&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;A type-safe approach using generics&lt;/caption&gt;
      *  interface Book {
      *      title: string;
      *      author: string
@@ -201,7 +201,7 @@
      *      })),
      *  );
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;A non-type-safe approach using `any`&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;A non-type-safe approach using `any`&lt;/caption&gt;
      *  actor.attemptsTo(
      *      // ...
      *      Ensure.that(LastResponse.body&lt;any&gt;(), equals({
@@ -210,7 +210,7 @@
      *      })),
      *  );
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving an item at path using Property.of&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving an item at path using Property.of&lt;/caption&gt;
      *  import { Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *
      *  actor.attemptsTo(
@@ -220,7 +220,7 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Filtering response body using List&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Filtering response body using List&lt;/caption&gt;
      *  import { Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { property, startsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -234,40 +234,40 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;any&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;any&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~Property}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~List}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/questions~Property</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/questions~List</span>}
      */</span>
-    <span class="hljs-keyword">static</span> body&lt;T = <span class="hljs-built_in">any</span>&gt;(): Question&lt;T&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;T&gt;(<span class="hljs-string">`the body of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse&lt;T&gt;(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.data <span class="hljs-keyword">as</span> T);
+    <span class="hljs-keyword">static</span> body&lt;T = <span class="hljs-built_in">any</span>&gt;(): <span class="hljs-title class_">Question</span>&lt;T&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;T&gt;(<span class="hljs-string">`the body of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-property">mapLastResponse</span>&lt;T&gt;(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.<span class="hljs-property">data</span> <span class="hljs-keyword">as</span> T);
         });
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Enables asserting on one of the {<span class="hljs-doctag">@link </span>LastResponse}'s headers
+     *  Enables asserting on one of the {<span class="hljs-doctag">@link</span> LastResponse}'s headers
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;string&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> header(name: <span class="hljs-built_in">string</span>): Question&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">`the '<span class="hljs-subst">${ name }</span>' header of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.headers[name]);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">header</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">`the '<span class="hljs-subst">${ name }</span>' header of the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">mapLastResponse</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.<span class="hljs-property">headers</span>[name]);
         });
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Enables asserting on all of the {<span class="hljs-doctag">@link </span>LastResponse}'s headers,
+     *  Enables asserting on all of the {<span class="hljs-doctag">@link</span> LastResponse}'s headers,
      *  returned as an object where the keys represent header names.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;Record&lt;string, string&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;Record&lt;string, string&gt;&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> headers(): Question&lt;Record&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;Record&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">`the headers or the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.headers);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">headers</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">`the headers or the last response`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">mapLastResponse</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.<span class="hljs-property">headers</span>);
         });
     }
 }

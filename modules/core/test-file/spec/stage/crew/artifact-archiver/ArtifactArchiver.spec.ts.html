@@ -298,222 +298,222 @@
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { Actor, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
-<span class="hljs-keyword">import</span> { ArtifactArchived, ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/io'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Duration, JSONData, Name, TestReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/model'</span>;
-<span class="hljs-keyword">import</span> { ArtifactArchiver, Cast, Clock, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactArchived</span>, <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Duration</span>, JSONData, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">TestReport</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactArchiver</span>, <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../expect'</span>;
 <span class="hljs-keyword">import</span> { photo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../samples'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span> </span>*/</span>
-describe(<span class="hljs-string">'ArtifactArchiver'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ArtifactArchiver'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         json = { <span class="hljs-attr">key</span>: <span class="hljs-string">'value'</span> },
         jsonValueShortHash = <span class="hljs-string">'64cdd772d3'</span>,
         photoShortHash = <span class="hljs-string">'6808b2e9fe'</span>,
-        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'a-scene'</span>);
+        sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'a-scene'</span>);
 
-    <span class="hljs-keyword">let</span> stage:          Stage,
-        <span class="hljs-attr">fs</span>:             sinon.SinonStubbedInstance&lt;FileSystem&gt;,
-        archiver:       StageCrewMember;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">stage</span>:          <span class="hljs-title class_">Stage</span>,
+        <span class="hljs-attr">fs</span>:             sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">FileSystem</span>&gt;,
+        <span class="hljs-attr">archiver</span>:       <span class="hljs-title class_">StageCrewMember</span>;
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-        prepare(actor: Actor): Actor {
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+        <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
             <span class="hljs-keyword">return</span> actor;
         }
     }
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        fs = sinon.createStubInstance(FileSystem);
-        fs.store.callsFake(<span class="hljs-function">(<span class="hljs-params">path: Path, contents: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(path));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        fs = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">FileSystem</span>);
+        fs.<span class="hljs-property">store</span>.<span class="hljs-title function_">callsFake</span>(<span class="hljs-function">(<span class="hljs-params">path: Path, contents: <span class="hljs-built_in">any</span></span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(path));
     });
 
-    describe(<span class="hljs-string">'stores the artifacts generated by other stage crew members'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stores the artifacts generated by other stage crew members'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        beforeEach(<span class="hljs-function">() =&gt;</span> {
-            stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock()));
+        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+            stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>()));
 
-            archiver = <span class="hljs-keyword">new</span> ArtifactArchiver(fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, stage);
-            stage.assign(archiver);
+            archiver = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactArchiver</span>(fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, stage);
+            stage.<span class="hljs-title function_">assign</span>(archiver);
         });
 
         <span class="hljs-keyword">const</span>
-            jsonArtifactName = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Scenario Name'</span>),
+            jsonArtifactName = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Scenario Name'</span>),
             expectedJsonFileName = <span class="hljs-string">'scenario-name'</span>,
-            pngArtifactName  = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'PNG Artifact name'</span>),
+            pngArtifactName  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'PNG Artifact name'</span>),
             expectedPngFileName = <span class="hljs-string">'png-artifact-name'</span>;
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
          */</span>
-        it(<span class="hljs-string">'notifies the StageManager when an artifact is saved so that the promise of a stage cue can be fulfilled'</span>, <span class="hljs-function">() =&gt;</span> {
-            stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'notifies the StageManager when an artifact is saved so that the promise of a stage cue can be fulfilled'</span>, <span class="hljs-function">() =&gt;</span> {
+            stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
                 sceneId,
                 jsonArtifactName,
-                JSONData.fromJSON(json),
+                JSONData.<span class="hljs-title function_">fromJSON</span>(json),
             ));
 
-            <span class="hljs-keyword">return</span> expect(stage.waitForNextCue()).to.be.fulfilled;
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">waitForNextCue</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
          */</span>
-        it(<span class="hljs-string">'notifies the StageManager when an artifact cannot be saved so that the promise of a stage cue can be rejected'</span>, <span class="hljs-function">() =&gt;</span> {
-            fs.store.returns(<span class="hljs-built_in">Promise</span>.reject(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Something happened'</span>)));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'notifies the StageManager when an artifact cannot be saved so that the promise of a stage cue can be rejected'</span>, <span class="hljs-function">() =&gt;</span> {
+            fs.<span class="hljs-property">store</span>.<span class="hljs-title function_">returns</span>(<span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Something happened'</span>)));
 
-            stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+            stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
                 sceneId,
                 pngArtifactName,
                 photo,
             ));
 
-            <span class="hljs-keyword">return</span> expect(stage.waitForNextCue()).to.be.rejected;
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">waitForNextCue</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">rejected</span>;
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
          */</span>
-        it(<span class="hljs-string">'correctly saves the test report to a unique file'</span>, <span class="hljs-function">() =&gt;</span> {
-            stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly saves the test report to a unique file'</span>, <span class="hljs-function">() =&gt;</span> {
+            stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
                 sceneId,
                 jsonArtifactName,
-                TestReport.fromJSON(json),
+                <span class="hljs-title class_">TestReport</span>.<span class="hljs-title function_">fromJSON</span>(json),
             ));
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-                expect(fs.store).to.have.been.calledWith(
-                    <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`scenario-<span class="hljs-subst">${ expectedJsonFileName }</span>-<span class="hljs-subst">${ jsonValueShortHash }</span>.json`</span>),
-                    <span class="hljs-built_in">JSON</span>.stringify(json),
+            <span class="hljs-keyword">return</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(fs.<span class="hljs-property">store</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`scenario-<span class="hljs-subst">${ expectedJsonFileName }</span>-<span class="hljs-subst">${ jsonValueShortHash }</span>.json`</span>),
+                    <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(json),
                 );
             });
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
          */</span>
-        it(<span class="hljs-string">'correctly saves PNG content to a file'</span>, <span class="hljs-function">() =&gt;</span> {
-            stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly saves PNG content to a file'</span>, <span class="hljs-function">() =&gt;</span> {
+            stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
                 sceneId,
                 pngArtifactName,
                 photo,
             ));
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-                expect(fs.store).to.have.been.calledWith(
-                    <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`photo-<span class="hljs-subst">${ expectedPngFileName }</span>-<span class="hljs-subst">${ photoShortHash }</span>.png`</span>),
-                    photo.base64EncodedValue,
+            <span class="hljs-keyword">return</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(fs.<span class="hljs-property">store</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`photo-<span class="hljs-subst">${ expectedPngFileName }</span>-<span class="hljs-subst">${ photoShortHash }</span>.png`</span>),
+                    photo.<span class="hljs-property">base64EncodedValue</span>,
                     <span class="hljs-string">'base64'</span>,
                 );
             });
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
          *
-         * <span class="hljs-doctag">@see </span>https://github.com/serenity-js/serenity-js/issues/634
+         * <span class="hljs-doctag">@see</span> https://github.com/serenity-js/serenity-js/issues/634
          */</span>
-        it(<span class="hljs-string">`ensures that the generate file name doesn't contain special characters`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`ensures that the generate file name doesn't contain special characters`</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> emittedEventName = <span class="hljs-string">'linux-chrome-87-0.4280.88-jasmine-navigates-to-https://www.bounteous.com/#sr=g&amp;m=o&amp;cp=or&amp;ct=-tmc&amp;st=(opu%20qspwjefe)&amp;ts=1402322447'</span>;
             <span class="hljs-keyword">const</span> expectedFileName = <span class="hljs-string">`photo-linux-chrome-87-0.4280.88-jasmine-navigates-to-https-www.bount-<span class="hljs-subst">${ photoShortHash }</span>.png`</span>;
 
-            stage.announce(<span class="hljs-keyword">new</span> ArtifactGenerated(
+            stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
                 sceneId,
-                <span class="hljs-keyword">new</span> Name(emittedEventName),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(emittedEventName),
                 photo,
             ));
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-                expect(fs.store).to.have.been.calledWith(
-                    <span class="hljs-keyword">new</span> Path(expectedFileName),
-                    photo.base64EncodedValue,
+            <span class="hljs-keyword">return</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(fs.<span class="hljs-property">store</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(expectedFileName),
+                    photo.<span class="hljs-property">base64EncodedValue</span>,
                     <span class="hljs-string">'base64'</span>,
                 );
             });
         });
     });
 
-    describe(<span class="hljs-string">`when it encounters events it's not interested in`</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">`when it encounters events it's not interested in`</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
-            <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-                <span class="hljs-built_in">super</span>();
+        <span class="hljs-keyword">class</span> <span class="hljs-title class_">SomeEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">DomainEvent</span> {
+            <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-variable language_">super</span>();
             }
         }
 
-        <span class="hljs-keyword">const</span> someEvent = <span class="hljs-keyword">new</span> SomeEvent();
+        <span class="hljs-keyword">const</span> someEvent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SomeEvent</span>();
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
          */</span>
-        it(<span class="hljs-string">'ignores them'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> stageManager = sinon.createStubInstance(StageManager);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores them'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> stageManager = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">StageManager</span>);
 
-            fs           = sinon.createStubInstance(FileSystem);
-            stage        = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> StageManager);
+            fs           = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">FileSystem</span>);
+            stage        = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
 
-            archiver     = <span class="hljs-keyword">new</span> ArtifactArchiver(fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, stage);
-            stage.assign(archiver);
+            archiver     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactArchiver</span>(fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, stage);
+            stage.<span class="hljs-title function_">assign</span>(archiver);
 
-            archiver.notifyOf(
+            archiver.<span class="hljs-title function_">notifyOf</span>(
                 someEvent,
             );
 
-            expect(stageManager.notifyOf).to.not.have.been.called;
-            expect(fs.store).to.not.have.been.called;
+            <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-property">notifyOf</span>).<span class="hljs-property">to</span>.<span class="hljs-property">not</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">called</span>;
+            <span class="hljs-title function_">expect</span>(fs.<span class="hljs-property">store</span>).<span class="hljs-property">to</span>.<span class="hljs-property">not</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">called</span>;
         });
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchiver}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactArchived}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchiver</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactArchived</span>}
      */</span>
-    it(<span class="hljs-string">'notifies the StageManager when the artifact is correctly archived'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'notifies the StageManager when the artifact is correctly archived'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock());
+        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-        stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), stageManager);
+        stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), stageManager);
 
-        archiver = <span class="hljs-keyword">new</span> ArtifactArchiver(fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, stage);
-        stage.assign(archiver);
+        archiver = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactArchiver</span>(fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, stage);
+        stage.<span class="hljs-title function_">assign</span>(archiver);
 
-        <span class="hljs-keyword">const</span> notifyOf = sinon.spy(stageManager, <span class="hljs-string">'notifyOf'</span>);
+        <span class="hljs-keyword">const</span> notifyOf = sinon.<span class="hljs-title function_">spy</span>(stageManager, <span class="hljs-string">'notifyOf'</span>);
 
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> ArtifactGenerated(
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
             sceneId,
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Some Report Name'</span>),
-            TestReport.fromJSON(json),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Some Report Name'</span>),
+            <span class="hljs-title class_">TestReport</span>.<span class="hljs-title function_">fromJSON</span>(json),
         ));
 
-        <span class="hljs-keyword">return</span> expect(stageManager.waitForNextCue()).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-title function_">waitForNextCue</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> archived: ArtifactArchived = notifyOf.getCall(<span class="hljs-number">2</span>).lastArg;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">archived</span>: <span class="hljs-title class_">ArtifactArchived</span> = notifyOf.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">2</span>).<span class="hljs-property">lastArg</span>;
 
-            expect(archived).to.be.instanceOf(ArtifactArchived);
-            expect(archived.sceneId).to.equal(sceneId);
-            expect(archived.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Some Report Name'</span>));
-            expect(archived.type).to.equal(TestReport);
-            expect(archived.path).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">`scenario-some-report-name-<span class="hljs-subst">${ jsonValueShortHash }</span>.json`</span>));
+            <span class="hljs-title function_">expect</span>(archived).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ArtifactArchived</span>);
+            <span class="hljs-title function_">expect</span>(archived.<span class="hljs-property">sceneId</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(sceneId);
+            <span class="hljs-title function_">expect</span>(archived.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Some Report Name'</span>));
+            <span class="hljs-title function_">expect</span>(archived.<span class="hljs-property">type</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title class_">TestReport</span>);
+            <span class="hljs-title function_">expect</span>(archived.<span class="hljs-property">path</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`scenario-some-report-name-<span class="hljs-subst">${ jsonValueShortHash }</span>.json`</span>));
         });
     });
 
-    describe(<span class="hljs-string">'when instantiated using a factory method'</span>, <span class="hljs-function">() =&gt;</span> {
-        it(<span class="hljs-string">'joins the path segments provided so that the developer doesn\'t need to worry about cross-OS compatibility of the path'</span>, <span class="hljs-function">() =&gt;</span> {
-            archiver = ArtifactArchiver.storingArtifactsAt(process.cwd(), <span class="hljs-string">'target'</span>, <span class="hljs-string">'site/serenity'</span>);
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when instantiated using a factory method'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'joins the path segments provided so that the developer doesn\'t need to worry about cross-OS compatibility of the path'</span>, <span class="hljs-function">() =&gt;</span> {
+            archiver = <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(process.<span class="hljs-title function_">cwd</span>(), <span class="hljs-string">'target'</span>, <span class="hljs-string">'site/serenity'</span>);
 
-            expect((archiver <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).fileSystem.root).to.equal(<span class="hljs-keyword">new</span> Path(process.cwd()).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity'</span>)));
+            <span class="hljs-title function_">expect</span>((archiver <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">fileSystem</span>.<span class="hljs-property">root</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(process.<span class="hljs-title function_">cwd</span>()).<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity'</span>)));
         });
 
-        it(<span class="hljs-string">'complains if the destination is not provided'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(<span class="hljs-function">() =&gt;</span> ArtifactArchiver.storingArtifactsAt()).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`Path to destination directory should have a property "length" that is greater than 0`</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the destination is not provided'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>()).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`Path to destination directory should have a property "length" that is greater than 0`</span>);
         });
     });
 });

@@ -128,17 +128,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/interactions/TerminateFlow.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">import</span> { ExecutionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExecutionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> TerminateFlow = {
-    <span class="hljs-attr">because</span>: (message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span>): <span class="hljs-function"><span class="hljs-params">Interaction</span> =&gt;</span>
-        Interaction.where(<span class="hljs-string">`#actor terminates the flow because "<span class="hljs-subst">${ message }</span>"`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ExecutionError(message, cause);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">TerminateFlow</span> = {
+    <span class="hljs-attr">because</span>: (<span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-title class_">Error</span>): <span class="hljs-function"><span class="hljs-params">Interaction</span> =&gt;</span>
+        <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor terminates the flow because "<span class="hljs-subst">${ message }</span>"`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionError</span>(message, cause);
         }),
 };
 </code></pre>

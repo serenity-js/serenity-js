@@ -294,12 +294,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/UsesAbilities.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Ability'</span>;
-<span class="hljs-keyword">import</span> { AbilityType } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AbilityType'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Ability'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbilityType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AbilityType'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link </span>Actor} to use an {<span class="hljs-doctag">@link </span>Ability} to perform some {<span class="hljs-doctag">@link </span>Activity}.
+ *  Enables the {<span class="hljs-doctag">@link</span> Actor} to use an {<span class="hljs-doctag">@link</span> Ability} to perform some {<span class="hljs-doctag">@link</span> Activity}.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
@@ -309,10 +309,10 @@
      * <span class="hljs-doctag">@desc</span>
      *  Grants access to the Actor's ability
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AbilityType&lt;T extends Ability&gt;}</span> <span class="hljs-variable">doSomething</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{T}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AbilityType&lt;T extends Ability&gt;</span>} <span class="hljs-variable">doSomething</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">T</span>}
      */</span>
-    abilityTo&lt;T <span class="hljs-keyword">extends</span> Ability&gt;(doSomething: AbilityType&lt;T&gt;): T;
+    abilityTo&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Ability</span>&gt;(<span class="hljs-attr">doSomething</span>: <span class="hljs-title class_">AbilityType</span>&lt;T&gt;): T;
 }
 </code></pre>
 

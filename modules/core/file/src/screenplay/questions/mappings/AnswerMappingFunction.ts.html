@@ -294,8 +294,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/mappings/AnswerMappingFunction.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { MappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../io/collections'</span>;
-<span class="hljs-keyword">import</span> { AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">MappingFunction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../io/collections'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -303,10 +303,10 @@
  *
  * <span class="hljs-doctag">@public</span>
  *
- * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(actor: AnswersQuestions) =&gt; MappingFunction&lt;V,O&gt;}</span> </span>AnswerMappingFunction&lt;V, O&gt;
+ * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">function(actor: AnswersQuestions) =&gt; MappingFunction&lt;V,O&gt;</span>} AnswerMappingFunction&lt;V, O&gt;
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> AnswerMappingFunction&lt;V, O&gt; =
-    <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span> MappingFunction&lt;V, <span class="hljs-built_in">Promise</span>&lt;O&gt; | O&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">AnswerMappingFunction</span>&lt;V, O&gt; =
+    <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span> <span class="hljs-title class_">MappingFunction</span>&lt;V, <span class="hljs-title class_">Promise</span>&lt;O&gt; | O&gt;
 </code></pre>
 
 </article>

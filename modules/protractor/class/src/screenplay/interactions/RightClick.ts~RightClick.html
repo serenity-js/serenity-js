@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {RightClick} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">RightClick</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber69">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber70">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -227,44 +227,44 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;form&gt;
-   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"field"</span>
+   <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"field"</span>
      <span class="hljs-attr">oncontextmenu</span>=<span class="hljs-string">"showMenu(); return false;"</span> /&gt;</span></span>
 
-   <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"context-menu"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display:none"</span>&gt;</span>
+   <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"context-menu"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"display:none"</span>&gt;</span>
      Custom context menu
    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
  &lt;/form&gt;
 
- <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-   <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showMenu</span>(<span class="hljs-params"></span>) </span>{
-     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"context-menu"</span>).style.display = <span class="hljs-string">'block'</span>;
+ <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="language-javascript">
+   <span class="hljs-keyword">function</span> <span class="hljs-title function_">showMenu</span>(<span class="hljs-params"></span>) {
+     <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">"context-menu"</span>).<span class="hljs-property">style</span>.<span class="hljs-property">display</span> = <span class="hljs-string">'block'</span>;
    }
  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> </span>{
-     <span class="hljs-keyword">static</span> exampleInput = Target.the(<span class="hljs-string">'example input'</span>)
-         .located(by.id(<span class="hljs-string">'example'</span>));
-     <span class="hljs-keyword">static</span> exampleContextMenu = Target.the(<span class="hljs-string">'example context menu'</span>)
-         .located(by.id(<span class="hljs-string">'context-menu'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Form</span> {
+     <span class="hljs-keyword">static</span> exampleInput = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'example input'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'example'</span>));
+     <span class="hljs-keyword">static</span> exampleContextMenu = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'example context menu'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'context-menu'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Right-click on an element</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, RightClick, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">RightClick</span>, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Chloé'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         RightClick.on(Form.exampleInput),
-         Ensure.that(Form.exampleContextMenu, isVisible()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Chloé'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">RightClick</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">exampleInput</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">exampleContextMenu</span>, <span class="hljs-title function_">isVisible</span>()),
      );</code></pre>
     </div>
 </div>
@@ -273,7 +273,7 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber12">RightClick</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber13">RightClick</a></span></li>
 </ul>
   </div>
 
@@ -442,7 +442,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber94">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber95">source</a></span></span>
     </span>
   </h3>
 
@@ -502,7 +502,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber22">RightClick allows the actor to click on an element</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber23">RightClick allows the actor to click on an element</a></span></li>
 </ul>
   </div>
 
@@ -524,7 +524,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber102">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber103">source</a></span></span>
     </span>
   </h3>
 
@@ -588,7 +588,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber133">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -664,7 +664,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber156">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/RightClick.ts.html#lineNumber157">source</a></span></span>
     </span>
   </h3>
 
@@ -707,7 +707,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber45">RightClick provides a sensible description of the interaction being performed</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber46">RightClick provides a sensible description of the interaction being performed</a></span></li>
 </ul>
   </div>
 

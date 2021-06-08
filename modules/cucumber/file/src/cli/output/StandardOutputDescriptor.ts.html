@@ -131,18 +131,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/output/StandardOutputDescriptor.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { OutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputDescriptor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StandardOutputDescriptor</span> <span class="hljs-title">implements</span> <span class="hljs-title">OutputDescriptor</span> </span>{
-    value(): <span class="hljs-built_in">string</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StandardOutputDescriptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">OutputDescriptor</span> {
+    <span class="hljs-title function_">value</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
     }
 
-    cleanUp(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve();
+    <span class="hljs-title function_">cleanUp</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>();
     }
 }
 </code></pre>

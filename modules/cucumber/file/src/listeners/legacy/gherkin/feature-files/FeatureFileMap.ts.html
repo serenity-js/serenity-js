@@ -133,38 +133,38 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileMap.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/ban-types */</span>
 
-<span class="hljs-keyword">import</span> { Constructor } <span class="hljs-keyword">from</span> <span class="hljs-string">'../constructables'</span>;
-<span class="hljs-keyword">import</span> { ItemNotFoundError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Constructor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../constructables'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ItemNotFoundError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeatureFileMap</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureFileMap</span> {
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> map: { [line: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">object</span> } = {}</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> map: { [line: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">object</span> } = {}</span>) {
     }
 
-    <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">item: <span class="hljs-built_in">object</span></span>)</span> {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+    <span class="hljs-title function_">set</span>(<span class="hljs-params">item: <span class="hljs-built_in">object</span></span>) {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">onLine</span>: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
-                <span class="hljs-built_in">this</span>.map[line] = item;
+            <span class="hljs-attr">onLine</span>: (<span class="hljs-attr">line</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>[line] = item;
 
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
             },
         });
     }
 
-    get&lt;T&gt;(<span class="hljs-keyword">type</span>: Constructor&lt;T&gt;) {  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+    get&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-title class_">Constructor</span>&lt;T&gt;) {  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">onLine</span>: (line: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">T</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">this</span>.map[line];
+            <span class="hljs-attr">onLine</span>: (<span class="hljs-attr">line</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">T</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> found = <span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>[line];
 
                 <span class="hljs-keyword">if</span> (! found) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ItemNotFoundError(<span class="hljs-string">`Nothing was found on line <span class="hljs-subst">${ line }</span>`</span>);
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemNotFoundError</span>(<span class="hljs-string">`Nothing was found on line <span class="hljs-subst">${ line }</span>`</span>);
                 }
 
                 <span class="hljs-keyword">if</span> (! (found <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>))  {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ItemNotFoundError(<span class="hljs-string">`Item on line <span class="hljs-subst">${ line }</span> is a <span class="hljs-subst">${ found.constructor.name }</span>, not a <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span>`</span>);
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemNotFoundError</span>(<span class="hljs-string">`Item on line <span class="hljs-subst">${ line }</span> is a <span class="hljs-subst">${ found.constructor.name }</span>, not a <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span>`</span>);
                 }
 
                 <span class="hljs-keyword">return</span> found <span class="hljs-keyword">as</span> T;
@@ -172,22 +172,22 @@
         });
     }
 
-    getFirst&lt;T&gt;(<span class="hljs-keyword">type</span>: Constructor&lt;T&gt;): T {
+    getFirst&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-title class_">Constructor</span>&lt;T&gt;): T {
         <span class="hljs-keyword">const</span>
-            items = <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.map).map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-built_in">this</span>.map[line]),
-            found = items.find(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> value <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>);
+            items = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>[line]),
+            found = items.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> value <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>);
 
         <span class="hljs-keyword">if</span> (! found) {
-            <span class="hljs-keyword">const</span> existingTypes = items.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.constructor.name).join(<span class="hljs-string">', '</span>) || <span class="hljs-string">'no items.'</span>;
+            <span class="hljs-keyword">const</span> existingTypes = items.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">', '</span>) || <span class="hljs-string">'no items.'</span>;
 
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ItemNotFoundError(<span class="hljs-string">`Didn't find any <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span> amongst <span class="hljs-subst">${ existingTypes }</span>`</span>);
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemNotFoundError</span>(<span class="hljs-string">`Didn't find any <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span> amongst <span class="hljs-subst">${ existingTypes }</span>`</span>);
         }
 
         <span class="hljs-keyword">return</span> found;
     }
 
-    size(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.map).length;
+    <span class="hljs-title function_">size</span>(): <span class="hljs-built_in">number</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>).<span class="hljs-property">length</span>;
     }
 }
 </code></pre>

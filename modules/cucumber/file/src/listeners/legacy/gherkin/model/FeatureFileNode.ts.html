@@ -131,19 +131,19 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/model/FeatureFileNode.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeatureFileNode</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureFileNode</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> location: FileSystemLocation,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 }
 </code></pre>

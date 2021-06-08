@@ -140,25 +140,25 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/LastResponse.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LogicError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">import</span> { GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span> </span>*/</span>
-describe(<span class="hljs-string">'LastResponse'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'LastResponse'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
+    <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
 
-    afterEach(<span class="hljs-function">() =&gt;</span>  mock.reset());
+    <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">reset</span>());
 
-    describe(<span class="hljs-string">'when asserting on the response to the last HTTP request'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when asserting on the response to the last HTTP request'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">interface</span> Product {
             <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-            name: <span class="hljs-built_in">string</span>;
+            <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
         }
 
         <span class="hljs-keyword">const</span>
@@ -166,52 +166,52 @@ describe(<span class="hljs-string">'LastResponse'</span>, <span class="hljs-func
             body    = { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
             headers = { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json;charset=utf-8'</span> };
 
-        beforeEach(<span class="hljs-function">() =&gt;</span>  mock.onGet(url).reply(<span class="hljs-number">200</span>, body, headers));
+        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">onGet</span>(url).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, body, headers));
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.status}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.status</span>}
          */</span>
-        it(<span class="hljs-string">'enables access to the response status'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to the response status'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
         ));
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.body}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.body</span>}
          */</span>
-        it(<span class="hljs-string">'enables access to the response body'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.body&lt;Product&gt;(), equals(body)),
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to the response body'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">Product</span>&gt;(), <span class="hljs-title function_">equals</span>(body)),
         ));
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.header}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.header</span>}
          */</span>
-        it(<span class="hljs-string">'enables access to a specific response header'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.header(<span class="hljs-string">'Content-Type'</span>), equals(headers[<span class="hljs-string">'Content-Type'</span>])),
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to a specific response header'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Content-Type'</span>), <span class="hljs-title function_">equals</span>(headers[<span class="hljs-string">'Content-Type'</span>])),
         ));
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.headers}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.headers</span>}
          */</span>
-        it(<span class="hljs-string">'enables access to all response headers'</span>, <span class="hljs-function">() =&gt;</span> actor.attemptsTo(
-            Send.a(GetRequest.to(url)),
-            Ensure.that(LastResponse.headers(), equals(headers)),
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to all response headers'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">headers</span>(), <span class="hljs-title function_">equals</span>(headers)),
         ));
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{CallAnApi.mapLastResponse}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">CallAnApi.mapLastResponse</span>}
      */</span>
-    it(<span class="hljs-string">'complains if the last response is attempted to be retrieved without making a request first'</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.attemptsTo(
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-        )).to.be.rejectedWith(LogicError, <span class="hljs-string">'Make sure to perform a HTTP API call before checking on the response'</span>),
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the last response is attempted to be retrieved without making a request first'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">'Make sure to perform a HTTP API call before checking on the response'</span>),
     );
 });
 </code></pre>

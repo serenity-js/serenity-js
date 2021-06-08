@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {List} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">List</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -333,11 +333,11 @@
       <div class="example-caption" data-ice="exampleCaption">Example data structure</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">interface</span> TestAccount {
      <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;
-     role: <span class="hljs-built_in">string</span>;
-     environments: <span class="hljs-built_in">string</span>[];
+     <span class="hljs-attr">role</span>: <span class="hljs-built_in">string</span>;
+     <span class="hljs-attr">environments</span>: <span class="hljs-built_in">string</span>[];
  }
 
- <span class="hljs-keyword">const</span> testAccounts: TestAccount[] = [
+ <span class="hljs-keyword">const</span> <span class="hljs-attr">testAccounts</span>: <span class="hljs-title class_">TestAccount</span>[] = [
      {
          <span class="hljs-string">"username"</span>: <span class="hljs-string">"tester.one@example.com"</span>,
          <span class="hljs-string">"role"</span>: <span class="hljs-string">"test-automation"</span>
@@ -357,18 +357,18 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using with Property</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List, Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { contain, Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span>, <span class="hljs-title class_">Property</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { contain, <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         Property.of(
-             List.of(testAccounts)
-                 .where(Property.at&lt;TestAccount&gt;().environments, contain(<span class="hljs-string">'prod'</span>))
-                 .where(Property.at&lt;TestAccount&gt;().role, equals(<span class="hljs-string">'test-automation'</span>))
-                 .first()
-             ).username,
-         equals(<span class="hljs-string">'tester.two@example.com'</span>)
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(
+             <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(testAccounts)
+                 .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">environments</span>, <span class="hljs-title function_">contain</span>(<span class="hljs-string">'prod'</span>))
+                 .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">role</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'test-automation'</span>))
+                 .<span class="hljs-title function_">first</span>()
+             ).<span class="hljs-property">username</span>,
+         <span class="hljs-title function_">equals</span>(<span class="hljs-string">'tester.two@example.com'</span>)
      )
  )</code></pre>
     </div>
@@ -1098,13 +1098,13 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Counting items</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         List.of(testAccounts).count(),
-         equals(<span class="hljs-number">3</span>)
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(testAccounts).<span class="hljs-title function_">count</span>(),
+         <span class="hljs-title function_">equals</span>(<span class="hljs-number">3</span>)
      )
  )</code></pre>
     </div>
@@ -1169,13 +1169,13 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the first item</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         List.of(testAccounts).first(),
-         property(<span class="hljs-string">'username'</span>, equals(<span class="hljs-string">'tester.one@example.com'</span>))
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(testAccounts).<span class="hljs-title function_">first</span>(),
+         <span class="hljs-title function_">property</span>(<span class="hljs-string">'username'</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'tester.one@example.com'</span>))
      )
  )</code></pre>
     </div>
@@ -1257,13 +1257,13 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the nth item</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         List.of(testAccounts).get(<span class="hljs-number">1</span>),
-         property(<span class="hljs-string">'username'</span>, equals(<span class="hljs-string">'tester.two@example.com'</span>))
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(testAccounts).<span class="hljs-title function_">get</span>(<span class="hljs-number">1</span>),
+         <span class="hljs-title function_">property</span>(<span class="hljs-string">'username'</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'tester.two@example.com'</span>))
      )
  )</code></pre>
     </div>
@@ -1328,13 +1328,13 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the last item</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         List.of(testAccounts).last(),
-         property(<span class="hljs-string">'username'</span>, equals(<span class="hljs-string">'release.bot@example.com'</span>))
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(testAccounts).<span class="hljs-title function_">last</span>(),
+         <span class="hljs-title function_">property</span>(<span class="hljs-string">'username'</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'release.bot@example.com'</span>))
      )
  )</code></pre>
     </div>
@@ -1421,16 +1421,16 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Filtering a list</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List, Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { contain, Ensure, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span>, <span class="hljs-title class_">Property</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { contain, <span class="hljs-title class_">Ensure</span>, equals, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         List.of(testAccounts)
-             .where(Property.at&lt;TestAccount&gt;().environments, contain(<span class="hljs-string">'prod'</span>))
-             .where(Property.at&lt;TestAccount&gt;().role, equals(<span class="hljs-string">'test-automation'</span>))
-             .first(),
-         property(<span class="hljs-string">'username'</span>, equals(<span class="hljs-string">'tester.two@example.com'</span>))
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(testAccounts)
+             .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">environments</span>, <span class="hljs-title function_">contain</span>(<span class="hljs-string">'prod'</span>))
+             .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">role</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'test-automation'</span>))
+             .<span class="hljs-title function_">first</span>(),
+         <span class="hljs-title function_">property</span>(<span class="hljs-string">'username'</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'tester.two@example.com'</span>))
      )
  )</code></pre>
     </div>

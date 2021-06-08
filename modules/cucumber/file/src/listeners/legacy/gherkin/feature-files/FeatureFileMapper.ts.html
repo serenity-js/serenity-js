@@ -131,215 +131,215 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Description, Name, ScenarioParameters, Tag, Tags } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioParameters</span>, <span class="hljs-title class_">Tag</span>, <span class="hljs-title class_">Tags</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { Background, Feature, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Background</span>, <span class="hljs-title class_">Feature</span>, <span class="hljs-title class_">Scenario</span>, <span class="hljs-title class_">ScenarioOutline</span>, <span class="hljs-title class_">Step</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodes <span class="hljs-keyword">from</span> <span class="hljs-string">'../nodes'</span>;
-<span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMap'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureFileMap</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMap'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeatureFileMapper</span> </span>{
-    map(<span class="hljs-built_in">document</span>: nodes.GherkinDocument, <span class="hljs-attr">path</span>: Path): FeatureFileMap {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureFileMapper</span> {
+    <span class="hljs-title function_">map</span>(<span class="hljs-attr">document</span>: nodes.<span class="hljs-property">GherkinDocument</span>, <span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">FeatureFileMap</span> {
 
-        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap();
+        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMap</span>();
 
-        <span class="hljs-keyword">if</span> (! (<span class="hljs-built_in">document</span> &amp;&amp; <span class="hljs-built_in">document</span>.feature)) {
+        <span class="hljs-keyword">if</span> (! (<span class="hljs-variable language_">document</span> &amp;&amp; <span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>)) {
             <span class="hljs-keyword">return</span> map;
         }
 
-        <span class="hljs-keyword">let</span> background: Background;
+        <span class="hljs-keyword">let</span> <span class="hljs-attr">background</span>: <span class="hljs-title class_">Background</span>;
 
-        <span class="hljs-built_in">document</span>.feature.children.forEach(<span class="hljs-function"><span class="hljs-params">scenarioDefinition</span> =&gt;</span> {
-            <span class="hljs-keyword">switch</span> (scenarioDefinition.type) {
+        <span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">children</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">scenarioDefinition</span> =&gt;</span> {
+            <span class="hljs-keyword">switch</span> (scenarioDefinition.<span class="hljs-property">type</span>) {
 
                 <span class="hljs-keyword">case</span> <span class="hljs-string">'Background'</span>:
 
-                    background = <span class="hljs-keyword">new</span> Background(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(
+                    background = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Background</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                             path,
-                            scenarioDefinition.location.line,
-                            scenarioDefinition.location.column,
+                            scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                            scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
                         ),
-                        <span class="hljs-keyword">new</span> Name(scenarioDefinition.name),
-                        scenarioDefinition.description &amp;&amp; <span class="hljs-keyword">new</span> Description(scenarioDefinition.description),
-                        scenarioDefinition.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-built_in">this</span>.asStep(path, step)),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(scenarioDefinition.<span class="hljs-property">name</span>),
+                        scenarioDefinition.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(scenarioDefinition.<span class="hljs-property">description</span>),
+                        scenarioDefinition.<span class="hljs-property">steps</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asStep</span>(path, step)),
                     );
 
-                    map.set(background).onLine(scenarioDefinition.location.line);
+                    map.<span class="hljs-title function_">set</span>(background).<span class="hljs-title function_">onLine</span>(scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>);
 
                     <span class="hljs-keyword">break</span>;
 
                 <span class="hljs-keyword">case</span> <span class="hljs-string">'Scenario'</span>:
 
-                    map.set(<span class="hljs-keyword">new</span> Scenario(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(
+                    map.<span class="hljs-title function_">set</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Scenario</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                             path,
-                            scenarioDefinition.location.line,
-                            scenarioDefinition.location.column,
+                            scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                            scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
                         ),
-                        <span class="hljs-keyword">new</span> Name(scenarioDefinition.name),
-                        scenarioDefinition.description &amp;&amp; <span class="hljs-keyword">new</span> Description(scenarioDefinition.description),
-                        (background ? background.steps : []).concat(scenarioDefinition.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-built_in">this</span>.asStep(path, step))),
-                        <span class="hljs-built_in">this</span>.tagsFrom(<span class="hljs-built_in">document</span>.feature.tags, scenarioDefinition.tags),
-                    )).onLine(scenarioDefinition.location.line);
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(scenarioDefinition.<span class="hljs-property">name</span>),
+                        scenarioDefinition.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(scenarioDefinition.<span class="hljs-property">description</span>),
+                        (background ? background.<span class="hljs-property">steps</span> : []).<span class="hljs-title function_">concat</span>(scenarioDefinition.<span class="hljs-property">steps</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asStep</span>(path, step))),
+                        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">tagsFrom</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">tags</span>, scenarioDefinition.<span class="hljs-property">tags</span>),
+                    )).<span class="hljs-title function_">onLine</span>(scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>);
 
                     <span class="hljs-keyword">break</span>;
 
                 <span class="hljs-keyword">case</span> <span class="hljs-string">'ScenarioOutline'</span>: {
 
                     <span class="hljs-keyword">const</span>
-                        outline = scenarioDefinition <span class="hljs-keyword">as</span> nodes.ScenarioOutline,
-                        <span class="hljs-attr">parameters</span>: { [line: <span class="hljs-built_in">number</span>]: ScenarioParameters } = {};
+                        outline = scenarioDefinition <span class="hljs-keyword">as</span> nodes.<span class="hljs-property">ScenarioOutline</span>,
+                        <span class="hljs-attr">parameters</span>: { [<span class="hljs-attr">line</span>: <span class="hljs-built_in">number</span>]: <span class="hljs-title class_">ScenarioParameters</span> } = {};
 
                     <span class="hljs-comment">// @see https://github.com/cucumber/gherkin-javascript/blob/v5.1.0/lib/gherkin/pickles/compiler.js#L45</span>
-                    outline.examples.filter(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.tableHeader !== <span class="hljs-literal">undefined</span>).forEach(<span class="hljs-function"><span class="hljs-params">examples</span> =&gt;</span> {
+                    outline.<span class="hljs-property">examples</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e.<span class="hljs-property">tableHeader</span> !== <span class="hljs-literal">undefined</span>).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">examples</span> =&gt;</span> {
 
                         <span class="hljs-keyword">const</span>
-                            exampleSetName = <span class="hljs-keyword">new</span> Name(examples.name),
-                            exampleSetDescription = <span class="hljs-keyword">new</span> Description(examples.description || <span class="hljs-string">''</span>),
-                            variableCells = examples.tableHeader.cells;
+                            exampleSetName = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(examples.<span class="hljs-property">name</span>),
+                            exampleSetDescription = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(examples.<span class="hljs-property">description</span> || <span class="hljs-string">''</span>),
+                            variableCells = examples.<span class="hljs-property">tableHeader</span>.<span class="hljs-property">cells</span>;
 
-                        examples.tableBody.forEach(<span class="hljs-function"><span class="hljs-params">values</span> =&gt;</span> {
+                        examples.<span class="hljs-property">tableBody</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">values</span> =&gt;</span> {
                             <span class="hljs-keyword">const</span>
-                                valueCells = values.cells,
-                                steps = background ? background.steps : [];
+                                valueCells = values.<span class="hljs-property">cells</span>,
+                                steps = background ? background.<span class="hljs-property">steps</span> : [];
 
-                            outline.steps.forEach(<span class="hljs-function"><span class="hljs-params">scenarioOutlineStep</span> =&gt;</span> {
+                            outline.<span class="hljs-property">steps</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">scenarioOutlineStep</span> =&gt;</span> {
                                 <span class="hljs-keyword">const</span>
-                                    interpolatedStepText = <span class="hljs-built_in">this</span>.interpolate(scenarioOutlineStep.text, variableCells, valueCells),
-                                    interpolatedStepArgument = <span class="hljs-built_in">this</span>.interpolateStepArgument(scenarioOutlineStep.argument, variableCells, valueCells);
+                                    interpolatedStepText = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">interpolate</span>(scenarioOutlineStep.<span class="hljs-property">text</span>, variableCells, valueCells),
+                                    interpolatedStepArgument = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">interpolateStepArgument</span>(scenarioOutlineStep.<span class="hljs-property">argument</span>, variableCells, valueCells);
 
-                                steps.push(<span class="hljs-keyword">new</span> Step(
-                                    <span class="hljs-keyword">new</span> FileSystemLocation(
+                                steps.<span class="hljs-title function_">push</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                                         path,
-                                        scenarioOutlineStep.location.line,
-                                        scenarioOutlineStep.location.column,
+                                        scenarioOutlineStep.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                                        scenarioOutlineStep.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
                                     ),
-                                    <span class="hljs-keyword">new</span> Name([
-                                        scenarioOutlineStep.keyword,
+                                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>([
+                                        scenarioOutlineStep.<span class="hljs-property">keyword</span>,
                                         interpolatedStepText,
                                         interpolatedStepArgument,
-                                    ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">''</span>)),
+                                    ].<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>)),
                                 ));
                             });
 
                             <span class="hljs-keyword">const</span> scenarioParameters = variableCells
-                                .map(<span class="hljs-function">(<span class="hljs-params">cell, i</span>) =&gt;</span> ({ [cell.value]: valueCells[i].value }))
-                                .reduce(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> {
+                                .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">cell, i</span>) =&gt;</span> ({ [cell.<span class="hljs-property">value</span>]: valueCells[i].<span class="hljs-property">value</span> }))
+                                .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> {
                                     <span class="hljs-comment">// ESDoc doesn't understand object spreads</span>
-                                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.assign(
+                                    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(
                                         {},
                                         acc,
                                         current,
                                     );
                                 }, {});
 
-                            parameters[values.location.line] = <span class="hljs-keyword">new</span> ScenarioParameters(
+                            parameters[values.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>] = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
                                 exampleSetName,
                                 exampleSetDescription,
                                 scenarioParameters,
                             );
 
-                            map.set(<span class="hljs-keyword">new</span> Scenario(
-                                <span class="hljs-keyword">new</span> FileSystemLocation(
+                            map.<span class="hljs-title function_">set</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Scenario</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                                     path,
-                                    values.location.line,
-                                    values.location.column,
+                                    values.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                                    values.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
                                 ),
-                                <span class="hljs-keyword">new</span> Name(outline.name),
-                                outline.description &amp;&amp; <span class="hljs-keyword">new</span> Description(outline.description),
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(outline.<span class="hljs-property">name</span>),
+                                outline.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(outline.<span class="hljs-property">description</span>),
                                 steps,
-                                <span class="hljs-built_in">this</span>.tagsFrom(<span class="hljs-built_in">document</span>.feature.tags, outline.tags, examples.tags),
-                                <span class="hljs-keyword">new</span> FileSystemLocation(
+                                <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">tagsFrom</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">tags</span>, outline.<span class="hljs-property">tags</span>, examples.<span class="hljs-property">tags</span>),
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                                     path,
-                                    outline.location.line,
-                                    outline.location.column,
+                                    outline.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                                    outline.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
                                 ),
-                            )).onLine(values.location.line);
+                            )).<span class="hljs-title function_">onLine</span>(values.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>);
                         });
                     });
 
-                    map.set(<span class="hljs-keyword">new</span> ScenarioOutline(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(
+                    map.<span class="hljs-title function_">set</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioOutline</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                             path,
-                            outline.location.line,
-                            outline.location.column,
+                            outline.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                            outline.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
                         ),
-                        <span class="hljs-keyword">new</span> Name(outline.name),
-                        outline.description &amp;&amp; <span class="hljs-keyword">new</span> Description(outline.description),
-                        (background ? background.steps : []).concat(outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-built_in">this</span>.asStep(path, step, [], []))),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(outline.<span class="hljs-property">name</span>),
+                        outline.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(outline.<span class="hljs-property">description</span>),
+                        (background ? background.<span class="hljs-property">steps</span> : []).<span class="hljs-title function_">concat</span>(outline.<span class="hljs-property">steps</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asStep</span>(path, step, [], []))),
                         parameters,
-                    )).onLine(scenarioDefinition.location.line);
+                    )).<span class="hljs-title function_">onLine</span>(scenarioDefinition.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>);
 
                     <span class="hljs-keyword">break</span>;
                 }
             }
         });
 
-        map.set(<span class="hljs-keyword">new</span> Feature(
-            <span class="hljs-keyword">new</span> FileSystemLocation(
+        map.<span class="hljs-title function_">set</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Feature</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                 path,
-                <span class="hljs-built_in">document</span>.feature.location.line,
-                <span class="hljs-built_in">document</span>.feature.location.column,
+                <span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                <span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
             ),
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-built_in">document</span>.feature.name),
-            <span class="hljs-built_in">document</span>.feature.description &amp;&amp; <span class="hljs-keyword">new</span> Description(<span class="hljs-built_in">document</span>.feature.description),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">name</span>),
+            <span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">description</span>),
             background,
-        )).onLine(<span class="hljs-built_in">document</span>.feature.location.line);
+        )).<span class="hljs-title function_">onLine</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">feature</span>.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>);
 
         <span class="hljs-keyword">return</span> map;
     }
 
-    <span class="hljs-keyword">private</span> asStep(path: Path, <span class="hljs-attr">step</span>: nodes.Step, <span class="hljs-attr">variableCells</span>: nodes.TableCell[] = [], <span class="hljs-attr">valueCells</span>: nodes.TableCell[] = []): Step {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Step(
-            <span class="hljs-keyword">new</span> FileSystemLocation(
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">asStep</span>(<span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>, <span class="hljs-attr">step</span>: nodes.<span class="hljs-property">Step</span>, <span class="hljs-attr">variableCells</span>: nodes.<span class="hljs-property">TableCell</span>[] = [], <span class="hljs-attr">valueCells</span>: nodes.<span class="hljs-property">TableCell</span>[] = []): <span class="hljs-title class_">Step</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
                 path,
-                step.location.line,
-                step.location.column,
+                step.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>,
+                step.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>,
             ),
-            <span class="hljs-keyword">new</span> Name([
-                step.keyword,
-                step.text,
-                <span class="hljs-built_in">this</span>.interpolateStepArgument(step.argument, variableCells, valueCells),
-            ].filter(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).join(<span class="hljs-string">''</span>)),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>([
+                step.<span class="hljs-property">keyword</span>,
+                step.<span class="hljs-property">text</span>,
+                <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">interpolateStepArgument</span>(step.<span class="hljs-property">argument</span>, variableCells, valueCells),
+            ].<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> !!_).<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>)),
         );
     }
 
-    <span class="hljs-keyword">private</span> tagsFrom(...listsOfTags: nodes.Tag[][]): Tag[] {
-        <span class="hljs-keyword">return</span> flattened(
-            flattened(listsOfTags).map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> Tags.from(tag.name)),
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">tagsFrom</span>(...<span class="hljs-attr">listsOfTags</span>: nodes.<span class="hljs-property">Tag</span>[][]): <span class="hljs-title class_">Tag</span>[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">flattened</span>(
+            <span class="hljs-title function_">flattened</span>(listsOfTags).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-title class_">Tags</span>.<span class="hljs-title function_">from</span>(tag.<span class="hljs-property">name</span>)),
         );
     }
 
-    <span class="hljs-keyword">private</span> interpolateStepArgument(argument: nodes.StepArgument, <span class="hljs-attr">variableCells</span>: nodes.TableCell[], <span class="hljs-attr">valueCells</span>: nodes.TableCell[]): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">interpolateStepArgument</span>(<span class="hljs-attr">argument</span>: nodes.<span class="hljs-property">StepArgument</span>, <span class="hljs-attr">variableCells</span>: nodes.<span class="hljs-property">TableCell</span>[], <span class="hljs-attr">valueCells</span>: nodes.<span class="hljs-property">TableCell</span>[]): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">'DocString'</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'\n'</span> + <span class="hljs-built_in">this</span>.interpolate((argument <span class="hljs-keyword">as</span> nodes.DocString).content, variableCells, valueCells) ;
-            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.type === <span class="hljs-string">'DataTable'</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'\n'</span> + <span class="hljs-built_in">this</span>.interpolate(
-                    (argument <span class="hljs-keyword">as</span> nodes.DataTable).rows
-                        .map(<span class="hljs-function"><span class="hljs-params">row</span> =&gt;</span> <span class="hljs-string">`| <span class="hljs-subst">${ row.cells.map(cell =&gt; cell.value).join(<span class="hljs-string">' | '</span>) }</span> |`</span>)
-                        .join(<span class="hljs-string">'\n'</span>),
+            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.<span class="hljs-property">type</span> === <span class="hljs-string">'DocString'</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'\n'</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">interpolate</span>((argument <span class="hljs-keyword">as</span> nodes.<span class="hljs-property">DocString</span>).<span class="hljs-property">content</span>, variableCells, valueCells) ;
+            <span class="hljs-keyword">case</span> argument &amp;&amp; argument.<span class="hljs-property">type</span> === <span class="hljs-string">'DataTable'</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-string">'\n'</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">interpolate</span>(
+                    (argument <span class="hljs-keyword">as</span> nodes.<span class="hljs-property">DataTable</span>).<span class="hljs-property">rows</span>
+                        .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">row</span> =&gt;</span> <span class="hljs-string">`| <span class="hljs-subst">${ row.cells.map(cell =&gt; cell.value).join(<span class="hljs-string">' | '</span>) }</span> |`</span>)
+                        .<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>),
                     variableCells,
                     valueCells,
                 );
-            <span class="hljs-keyword">default</span>:
+            <span class="hljs-attr">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
         }
     }
 
     <span class="hljs-comment">// @see https://github.com/cucumber/gherkin-javascript/blob/v5.1.0/lib/gherkin/pickles/compiler.js#L115</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">interpolate</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]</span>)</span> {
-        variableCells.forEach(<span class="hljs-function">(<span class="hljs-params">variableCell, n</span>) =&gt;</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">interpolate</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, variableCells: nodes.TableCell[], valueCells: nodes.TableCell[]</span>) {
+        variableCells.<span class="hljs-title function_">forEach</span>(<span class="hljs-function">(<span class="hljs-params">variableCell, n</span>) =&gt;</span> {
             <span class="hljs-keyword">const</span> valueCell = valueCells[n];
-            <span class="hljs-keyword">const</span> search = <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'&lt;'</span> + variableCell.value + <span class="hljs-string">'&gt;'</span>, <span class="hljs-string">'g'</span>);
+            <span class="hljs-keyword">const</span> search = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-string">'&lt;'</span> + variableCell.<span class="hljs-property">value</span> + <span class="hljs-string">'&gt;'</span>, <span class="hljs-string">'g'</span>);
             <span class="hljs-comment">// JS Specific - dollar sign needs to be escaped with another dollar sign</span>
             <span class="hljs-comment">// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_string_as_a_parameter</span>
-            <span class="hljs-keyword">const</span> replacement = valueCell.value.replace(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'\\$'</span>, <span class="hljs-string">'g'</span>), <span class="hljs-string">'$$$$'</span>);
-            text = text.replace(search, replacement);
+            <span class="hljs-keyword">const</span> replacement = valueCell.<span class="hljs-property">value</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-string">'\\$'</span>, <span class="hljs-string">'g'</span>), <span class="hljs-string">'$$$$'</span>);
+            text = text.<span class="hljs-title function_">replace</span>(search, replacement);
         });
         <span class="hljs-keyword">return</span> text;
     }
@@ -348,8 +348,8 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flattened</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">listsOfLists: T[][]</span>): <span class="hljs-title">T</span>[] </span>{
-    <span class="hljs-keyword">return</span> listsOfLists.reduce(<span class="hljs-function">(<span class="hljs-params">acc, list</span>) =&gt;</span> acc.concat(list), []);
+<span class="hljs-keyword">function</span> flattened&lt;T&gt;(<span class="hljs-attr">listsOfLists</span>: T[][]): T[] {
+    <span class="hljs-keyword">return</span> listsOfLists.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, list</span>) =&gt;</span> acc.<span class="hljs-title function_">concat</span>(list), []);
 }
 </code></pre>
 

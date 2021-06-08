@@ -187,17 +187,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/DeleteCookies.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+ *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
  *  remove cookies from the browser.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing a single cookie&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Removing a single cookie&lt;/caption&gt;
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Navigate, DeleteCookies } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { protractor } from 'protractor';
@@ -210,7 +211,7 @@
  *          Navigate.reloadPage(),
  *      );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing all cookies before each Jasmine test&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Removing all cookies before each Jasmine test&lt;/caption&gt;
  *  import 'jasmine';
  *
  *  import { actorInTheSpotlight } from '<span class="hljs-doctag">@serenity</span>-js/core';
@@ -221,7 +222,7 @@
  *          DeleteCookies.all(),
  *      ));
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing all cookies before each Mocha test&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Removing all cookies before each Mocha test&lt;/caption&gt;
  *  import 'mocha';
  *
  *  import { actorInTheSpotlight } from '<span class="hljs-doctag">@serenity</span>-js/core';
@@ -232,7 +233,7 @@
  *          DeleteCookies.all(),
  *      ));
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Removing all cookies before each Cucumber scenario&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Removing all cookies before each Cucumber scenario&lt;/caption&gt;
  *  import { actorInTheSpotlight } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { DeleteCookies } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { Before } from 'cucumber';
@@ -242,101 +243,101 @@
  *          DeleteCookies.all(),
  *      ));
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Navigate}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Navigate</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteCookies</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DeleteCookies</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Removes a single cookie identified by `cookieName`.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string&gt;}</span> <span class="hljs-variable">cookieName</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;string&gt;</span>} <span class="hljs-variable">cookieName</span>
      *  The name of the cookie to be deleted
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay~Interaction</span>}
      */</span>
-    <span class="hljs-keyword">static</span> called(cookieName: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DeleteCookieCalled(cookieName);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">called</span>(<span class="hljs-attr">cookieName</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">string</span>&gt;): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DeleteCookieCalled</span>(cookieName);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Removes any cookies set.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay~Interaction</span>}
      */</span>
-    <span class="hljs-keyword">static</span> all(): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DeletesAllCookies();
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">all</span>(): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DeletesAllCookies</span>();
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeleteCookieCalled</span> <span class="hljs-title">implements</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>)</span> {
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">DeleteCookieCalled</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Interaction</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) {
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PromiseLike&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">PromiseLike&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.name)
-            .then(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> BrowseTheWeb.as(actor).manage().deleteCookie(name));
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">manage</span>().<span class="hljs-title function_">deleteCookie</span>(name));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor deletes the "<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.name }</span>" cookie`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor deletes the "<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.name }</span>" cookie`</span>;
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DeletesAllCookies</span> <span class="hljs-title">implements</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">DeletesAllCookies</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Interaction</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PromiseLike&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">PromiseLike&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(BrowseTheWeb.as(actor).manage().deleteAllCookies());
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">manage</span>().<span class="hljs-title function_">deleteAllCookies</span>());
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor deletes all cookies`</span>;
     }
 }

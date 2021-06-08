@@ -295,27 +295,27 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/artifact-archiver/Hash.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { createHash } <span class="hljs-keyword">from</span> <span class="hljs-string">'crypto'</span>;
-<span class="hljs-keyword">import</span> { ensure, isDefined, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Hash</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(value: <span class="hljs-built_in">string</span>): Hash {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Hash(createHash(<span class="hljs-string">'sha1'</span>).update(value).digest(<span class="hljs-string">'hex'</span>));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hash</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-attr">value</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Hash</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Hash</span>(<span class="hljs-title function_">createHash</span>(<span class="hljs-string">'sha1'</span>).<span class="hljs-title function_">update</span>(value).<span class="hljs-title function_">digest</span>(<span class="hljs-string">'hex'</span>));
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">super</span>();
-        ensure(<span class="hljs-built_in">this</span>.constructor.name, value, isDefined());
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">super</span>();
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>, value, <span class="hljs-title function_">isDefined</span>());
     }
 
-    long(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.value;
+    <span class="hljs-title function_">long</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>;
     }
 
-    short(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.value.slice(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>);
+    <span class="hljs-title function_">short</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span>.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>);
     }
 }
 </code></pre>

@@ -187,62 +187,63 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Attribute.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">// todo: it might be better to swap the order of arguments</span>
 <span class="hljs-comment">//  - Attribute.called('href').of(link) to make it work with ArrayListFilter</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Attribute</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt;&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Attribute</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">target</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{AttributeBuilder}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">target</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">AttributeBuilder</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(target: Question&lt;ElementFinder&gt; | ElementFinder): AttributeBuilder {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-attr">target</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>): <span class="hljs-title class_">AttributeBuilder</span> {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">called</span>: <span class="hljs-function">(<span class="hljs-params">name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) =&gt;</span> <span class="hljs-keyword">new</span> Attribute(target, name),
+            <span class="hljs-attr">called</span>: <span class="hljs-function">(<span class="hljs-params">name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Attribute</span>(target, name),
         };
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementFinder&gt; | ElementFinder,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`the value of the <span class="hljs-subst">${ name }</span> attribute of <span class="hljs-subst">${ target}</span>`</span>);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(formatted <span class="hljs-string">`the value of the <span class="hljs-subst">${ name }</span> attribute of <span class="hljs-subst">${ target}</span>`</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  answer this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
      */</span>
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.name)
-            .then(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.target, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span>
-                elf.getAttribute(name).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> <span class="hljs-title function_">withAnswerOf</span>(actor, <span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span>
+                elf.<span class="hljs-title function_">getAttribute</span>(name).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
                     <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">null</span>               <span class="hljs-comment">// workaround for bug in Chromium 91 - https://bugs.chromium.org/p/chromium/issues/detail?id=1205107&amp;start=300</span>
                         ? value
-                        : BrowseTheWeb.as(actor).executeFunction(
+                        : <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">executeFunction</span>(
                             <span class="hljs-comment">/* istanbul ignore next */</span>
-                            <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getAttribute</span>(<span class="hljs-params">webElement, attributeName: <span class="hljs-built_in">string</span></span>) </span>{
+                            <span class="hljs-keyword">function</span> <span class="hljs-title function_">getAttribute</span>(<span class="hljs-params">webElement, attributeName: <span class="hljs-built_in">string</span></span>) {
                                 <span class="hljs-comment">// eslint-disable-next-line no-var</span>
-                                <span class="hljs-keyword">var</span> value = (webElement[attributeName] || webElement.getAttribute(attributeName));
+                                <span class="hljs-keyword">var</span> value = (webElement[attributeName] || webElement.<span class="hljs-title function_">getAttribute</span>(attributeName));
                                 <span class="hljs-keyword">if</span> (value !== <span class="hljs-literal">null</span> &amp;&amp; value !== <span class="hljs-literal">undefined</span>) {
                                     <span class="hljs-keyword">return</span> <span class="hljs-string">''</span> + value;
                                 }
                                 <span class="hljs-keyword">return</span> value;
                             },
-                            elf.getWebElement(),
+                            elf.<span class="hljs-title function_">getWebElement</span>(),
                             name
                         );
                 })
@@ -251,7 +252,7 @@
 }
 
 <span class="hljs-keyword">interface</span> AttributeBuilder {
-    called(name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;): Attribute;
+    <span class="hljs-title function_">called</span>(<span class="hljs-attr">name</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">string</span>&gt;): <span class="hljs-title class_">Attribute</span>;
 }
 </code></pre>
 

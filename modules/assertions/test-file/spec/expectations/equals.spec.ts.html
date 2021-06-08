@@ -147,46 +147,46 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">AssertionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { TinyTypeOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TinyTypeOf</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{equals}</span> </span>*/</span>
-describe(<span class="hljs-string">'equals'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">equals</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'equals'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Name</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyTypeOf</span>&lt;<span class="hljs-title">string</span>&gt;() </span>{}
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Name</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyTypeOf</span>&lt;<span class="hljs-built_in">string</span>&gt;() {}
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,    <span class="hljs-attr">expected</span>: <span class="hljs-string">'hello'</span>,          <span class="hljs-attr">actual</span>: <span class="hljs-string">'hello'</span>             },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'number'</span>,    <span class="hljs-attr">expected</span>: <span class="hljs-number">42</span>,               <span class="hljs-attr">actual</span>: <span class="hljs-number">42</span>                  },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'boolean'</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span>,            <span class="hljs-attr">actual</span>: <span class="hljs-literal">false</span>               },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'object'</span>,    <span class="hljs-attr">expected</span>: { <span class="hljs-attr">k</span>: <span class="hljs-string">'v'</span> },       <span class="hljs-attr">actual</span>: { <span class="hljs-attr">k</span>: <span class="hljs-string">'v'</span> }          },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'TinyType'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jan'</span>),  <span class="hljs-attr">actual</span>: <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jan'</span>)     },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'TinyType'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Jan'</span>),  <span class="hljs-attr">actual</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Jan'</span>)     },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'array'</span>,     <span class="hljs-attr">expected</span>: [ <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'3'</span> ], <span class="hljs-attr">actual</span>: [ <span class="hljs-literal">null</span>, <span class="hljs-number">2</span>, <span class="hljs-string">'3'</span> ]    },      <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'Date'</span>,      <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'Jan 27, 2019'</span>), <span class="hljs-attr">actual</span>: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'Jan 27, 2019'</span>) },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'Date'</span>,      <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'Jan 27, 2019'</span>), <span class="hljs-attr">actual</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'Jan 27, 2019'</span>) },
     ]).
-    it(<span class="hljs-string">'compares the value of "actual" and "expected" and allows for the actor flow to continue when they match'</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-            Ensure.that(actual, equals(expected)),
-        )).to.be.fulfilled;
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'compares the value of "actual" and "expected" and allows for the actor flow to continue when they match'</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(actual, <span class="hljs-title function_">equals</span>(expected)),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{equals}</span> </span>*/</span>
-    it(<span class="hljs-string">'breaks the actor flow when the values of "actual" and "expected" don\'t match'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-            Ensure.that(<span class="hljs-number">27</span>, equals(<span class="hljs-number">42</span>)),
-        )).to.be.rejectedWith(AssertionError, <span class="hljs-string">'Expected 27 to equal 42'</span>)
-            .then(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
-                expect(error.expected).to.equal(<span class="hljs-number">42</span>);
-                expect(error.actual).to.equal(<span class="hljs-number">27</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">equals</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'breaks the actor flow when the values of "actual" and "expected" don\'t match'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">27</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-number">42</span>)),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">AssertionError</span>, <span class="hljs-string">'Expected 27 to equal 42'</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">error: AssertionError</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">42</span>);
+                <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">27</span>);
             });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{equals}</span> </span>*/</span>
-    it(<span class="hljs-string">'contributes to a human-readable description'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(Ensure.that(<span class="hljs-number">27</span>, equals(<span class="hljs-number">42</span>)).toString()).to.equal(<span class="hljs-string">'#actor ensures that 27 does equal 42'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">equals</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'contributes to a human-readable description'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">27</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-number">42</span>)).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'#actor ensures that 27 does equal 42'</span>);
     });
 });
 </code></pre>

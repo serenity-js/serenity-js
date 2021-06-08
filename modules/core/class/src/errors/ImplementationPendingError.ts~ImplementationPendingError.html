@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ImplementationPendingError} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">ImplementationPendingError</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -331,19 +331,19 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A pending Task</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
  <span class="hljs-comment">// A pending Task is one that encapsulates no other activities</span>
- <span class="hljs-keyword">const</span> Authenticate = <span class="hljs-function">() =&gt;</span>
-     Task.where(<span class="hljs-string">`#actor authenticates with the service up a test database`</span> );</code></pre>
+ <span class="hljs-keyword">const</span> <span class="hljs-title function_">Authenticate</span> = (<span class="hljs-params"></span>) =&gt;
+     <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor authenticates with the service up a test database`</span> );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A pending Interaction</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
  <span class="hljs-comment">// A pending Interaction is one that doesn't perform any action</span>
- <span class="hljs-keyword">const</span> DoubleClick = <span class="hljs-function">() =&gt;</span>
-     Interaction.where(<span class="hljs-string">`#actor double-clicks`</span>);</code></pre>
+ <span class="hljs-keyword">const</span> <span class="hljs-title function_">DoubleClick</span> = (<span class="hljs-params"></span>) =&gt;
+     <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor double-clicks`</span>);</code></pre>
     </div>
 </div>
 

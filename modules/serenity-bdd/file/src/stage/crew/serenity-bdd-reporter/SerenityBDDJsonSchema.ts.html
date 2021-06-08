@@ -135,33 +135,33 @@
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/tree/50a3b1824001f192da2cdca6326d7525d4dd7f25/serenity-model/src/test/resources</span>
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@package</span> */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerenityBDDReport <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    id: <span class="hljs-built_in">string</span>;
-    testSteps: TestStep[];
-    userStory: UserStory;
+    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">testSteps</span>: <span class="hljs-title class_">TestStep</span>[];
+    <span class="hljs-attr">userStory</span>: <span class="hljs-title class_">UserStory</span>;
     <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/</span>
     <span class="hljs-comment">// serenity-core/src/test/resources/historical-reports/sample-report-4.json</span>
 
-    featureTag: Tag;
-    title: <span class="hljs-built_in">string</span>;
-    description: <span class="hljs-built_in">string</span>;
-    tags: Tag[];
-    startTime: <span class="hljs-built_in">number</span>;
-    duration: <span class="hljs-built_in">number</span>;
-    rule: BusinessRule;
-    projectKey: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
+    <span class="hljs-attr">featureTag</span>: <span class="hljs-title class_">Tag</span>;
+    <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">tags</span>: <span class="hljs-title class_">Tag</span>[];
+    <span class="hljs-attr">startTime</span>: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">rule</span>: <span class="hljs-title class_">BusinessRule</span>;
+    <span class="hljs-attr">projectKey</span>: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
     sessionId?: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
     driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     'chrome:jill'</span>
     context?: <span class="hljs-built_in">string</span>;
-    dataTable?: DataTable;
-    manual: <span class="hljs-built_in">boolean</span>;
+    dataTable?: <span class="hljs-title class_">DataTable</span>;
+    <span class="hljs-attr">manual</span>: <span class="hljs-built_in">boolean</span>;
     issues?: <span class="hljs-built_in">string</span>[];
     additionalIssues?: <span class="hljs-built_in">string</span>[];
-    testSource: <span class="hljs-built_in">string</span>;
-    result: <span class="hljs-built_in">string</span>;
-    testFailureCause?: ErrorDetails;
+    <span class="hljs-attr">testSource</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">result</span>: <span class="hljs-built_in">string</span>;
+    testFailureCause?: <span class="hljs-title class_">ErrorDetails</span>;
     testFailureClassname?: <span class="hljs-built_in">string</span>;
     testFailureMessage?: <span class="hljs-built_in">string</span>;
     testFailureSummary?: <span class="hljs-built_in">string</span>;
@@ -176,25 +176,25 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TestStep <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">number</span>: <span class="hljs-built_in">number</span>;
-    description: <span class="hljs-built_in">string</span>;
-    duration: <span class="hljs-built_in">number</span>;
-    startTime: <span class="hljs-built_in">number</span>;
-    result: <span class="hljs-built_in">string</span>;
-    children?: TestStep[];
-    screenshots?: Screenshot[];
-    reportData: ReportData[];
+    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">startTime</span>: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">result</span>: <span class="hljs-built_in">string</span>;
+    children?: <span class="hljs-title class_">TestStep</span>[];
+    screenshots?: <span class="hljs-title class_">Screenshot</span>[];
+    <span class="hljs-attr">reportData</span>: <span class="hljs-title class_">ReportData</span>[];
     restQuery?: RESTQuery;
-    exception?: ErrorDetails;
+    exception?: <span class="hljs-title class_">ErrorDetails</span>;
     <span class="hljs-comment">// precondition: false;             // not needed?</span>
 }
 
 <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ReportData.java</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ReportData <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
-    isEvidence: <span class="hljs-built_in">boolean</span>;
-    path: <span class="hljs-built_in">string</span>;
-    title: <span class="hljs-built_in">string</span>;
-    contents: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">isEvidence</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">contents</span>: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-comment">/**
@@ -202,30 +202,30 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Screenshot <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">screenshot</span>: <span class="hljs-built_in">string</span>;
-    timeStamp: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">timeStamp</span>: <span class="hljs-built_in">number</span>;
     htmlSource?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// "htmlSource": "pagesource7953468346968205961.html.txt"</span>
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> UserStory <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;             <span class="hljs-comment">// dashified feature name</span>
-    storyName: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// feature name</span>
-    path: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// relative feature file path</span>
-    <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// 'feature'</span>
+    <span class="hljs-attr">storyName</span>: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// feature name</span>
+    <span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// relative feature file path</span>
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// 'feature'</span>
     narrative?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// cucumber narrative, if any</span>
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Tag <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    displayName: <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">displayName</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTable <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">headers</span>: <span class="hljs-built_in">string</span>[];
-    rows: DataTableRow[];
-    predefinedRows: <span class="hljs-built_in">boolean</span>;
-    scenarioOutline: <span class="hljs-built_in">string</span>;
-    dataSetDescriptors: DataTableDataSetDescriptor[];
+    <span class="hljs-attr">rows</span>: <span class="hljs-title class_">DataTableRow</span>[];
+    <span class="hljs-attr">predefinedRows</span>: <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">scenarioOutline</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">dataSetDescriptors</span>: <span class="hljs-title class_">DataTableDataSetDescriptor</span>[];
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTableRow <span class="hljs-keyword">extends</span> JSONObject {
@@ -235,34 +235,34 @@
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTableDataSetDescriptor <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">startRow</span>: <span class="hljs-built_in">number</span>;
-    rowCount: <span class="hljs-built_in">number</span>;
-    name: <span class="hljs-built_in">string</span>;
-    description: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">rowCount</span>: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> RESTQuery <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">method</span>: <span class="hljs-built_in">string</span>;
-    path: <span class="hljs-built_in">string</span>;
-    content: <span class="hljs-built_in">string</span>;
-    contentType: <span class="hljs-built_in">string</span>;
-    requestHeaders: <span class="hljs-built_in">string</span>;
-    requestCookies: <span class="hljs-built_in">string</span>;
-    responseHeaders: <span class="hljs-built_in">string</span>;
-    responseCookies: <span class="hljs-built_in">string</span>;
-    responseBody: <span class="hljs-built_in">string</span>;
-    statusCode: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">content</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">contentType</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">requestHeaders</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">requestCookies</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">responseHeaders</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">responseCookies</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">responseBody</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">statusCode</span>: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ErrorDetails <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">errorType</span>: <span class="hljs-built_in">string</span>;
-    message: <span class="hljs-built_in">string</span>;
-    stackTrace: <span class="hljs-built_in">Array</span>&lt;{
+    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">stackTrace</span>: <span class="hljs-title class_">Array</span>&lt;{
         <span class="hljs-attr">declaringClass</span>: <span class="hljs-built_in">string</span>,
         <span class="hljs-attr">methodName</span>: <span class="hljs-built_in">string</span>,
         <span class="hljs-attr">fileName</span>: <span class="hljs-built_in">string</span>,
         <span class="hljs-attr">lineNumber</span>: <span class="hljs-built_in">number</span>,
     }&gt;;
-    rootCause?: ErrorDetails;
+    rootCause?: <span class="hljs-title class_">ErrorDetails</span>;
 }
 </code></pre>
 

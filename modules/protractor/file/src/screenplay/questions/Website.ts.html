@@ -187,29 +187,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Website.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Website</span> </span>{
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Website</span> {
     <span class="hljs-comment">/**
      * Retrieves the title of the current page.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> title(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the title of the current page`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).getTitle(),
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">title</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the title of the current page`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getTitle</span>(),
         );
     }
 
     <span class="hljs-comment">/**
      * Retrieves the url of the current page.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;string&gt;&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> url(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the url of the current page`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).getCurrentUrl(),
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">url</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the url of the current page`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getCurrentUrl</span>(),
         );
     }
 }

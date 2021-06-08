@@ -127,66 +127,66 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/mappers/MochaOutcomeMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Outcome</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Test</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MochaOutcomeMapper</span> </span>{
-    <span class="hljs-keyword">public</span> outcomeOf(test: Test, maybeError?: <span class="hljs-built_in">Error</span>): Outcome {
-        <span class="hljs-keyword">const</span> error = maybeError || test.err;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MochaOutcomeMapper</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">outcomeOf</span>(<span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>, maybeError?: <span class="hljs-title class_">Error</span>): <span class="hljs-title class_">Outcome</span> {
+        <span class="hljs-keyword">const</span> error = maybeError || test.<span class="hljs-property">err</span>;
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-built_in">this</span>.isGoingToBeRetried(test):
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionIgnored(error);
+            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isGoingToBeRetried</span>(test):
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(error);
 
-            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-built_in">this</span>.isAssertionError(error):
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error <span class="hljs-keyword">as</span> AssertionError);
+            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isAssertionError</span>(error):
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(error <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>);
 
-            <span class="hljs-keyword">case</span> !! error &amp;&amp; error <span class="hljs-keyword">instanceof</span> TestCompromisedError:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error <span class="hljs-keyword">as</span> TestCompromisedError);
+            <span class="hljs-keyword">case</span> !! error &amp;&amp; error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TestCompromisedError</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(error <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestCompromisedError</span>);
 
-            <span class="hljs-keyword">case</span> !! error:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
+            <span class="hljs-keyword">case</span> !! <span class="hljs-attr">error</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error);
 
-            <span class="hljs-keyword">case</span> test.isPending() &amp;&amp; !! test.fn:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
+            <span class="hljs-keyword">case</span> test.<span class="hljs-title function_">isPending</span>() &amp;&amp; !! test.<span class="hljs-property">fn</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>();
 
-            <span class="hljs-keyword">case</span> test.isPending() &amp;&amp; ! test.fn:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">`Scenario not implemented`</span>));
+            <span class="hljs-keyword">case</span> test.<span class="hljs-title function_">isPending</span>() &amp;&amp; ! test.<span class="hljs-property">fn</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">`Scenario not implemented`</span>));
 
-            <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
+            <span class="hljs-attr">default</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>();
         }
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">isGoingToBeRetried</span>(<span class="hljs-params">test: Test</span>)</span> {
-        <span class="hljs-keyword">return</span> ! test.isPassed()
-            &amp;&amp; ! test.isFailed()
-            &amp;&amp; ! test.isPending()
-            &amp;&amp; (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).currentRetry() &lt; test.retries();
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isGoingToBeRetried</span>(<span class="hljs-params">test: Test</span>) {
+        <span class="hljs-keyword">return</span> ! test.<span class="hljs-title function_">isPassed</span>()
+            &amp;&amp; ! test.<span class="hljs-title function_">isFailed</span>()
+            &amp;&amp; ! test.<span class="hljs-title function_">isPending</span>()
+            &amp;&amp; (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-title function_">currentRetry</span>() &lt; test.<span class="hljs-title function_">retries</span>();
     }
 
-    <span class="hljs-keyword">private</span> isAssertionError(error: <span class="hljs-built_in">Error</span>): error is AssertionError {
-        <span class="hljs-keyword">return</span> error <span class="hljs-keyword">instanceof</span> AssertionError
-            || <span class="hljs-built_in">this</span>.looksLikeAnAssertionError(error);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isAssertionError</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>): error is <span class="hljs-title class_">AssertionError</span> {
+        <span class="hljs-keyword">return</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionError</span>
+            || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">looksLikeAnAssertionError</span>(error);
     }
 
-    <span class="hljs-keyword">private</span> looksLikeAnAssertionError(error: <span class="hljs-built_in">Error</span>): error is AssertionError {
-        <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^AssertionError/</span>.test(error.name)   <span class="hljs-comment">// eslint-disable-line unicorn/prefer-string-starts-ends-with</span>
-            &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(error, <span class="hljs-string">'expected'</span>)
-            &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(error, <span class="hljs-string">'actual'</span>)
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">looksLikeAnAssertionError</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>): error is <span class="hljs-title class_">AssertionError</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^AssertionError/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">name</span>)   <span class="hljs-comment">// eslint-disable-line unicorn/prefer-string-starts-ends-with</span>
+            &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(error, <span class="hljs-string">'expected'</span>)
+            &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(error, <span class="hljs-string">'actual'</span>)
     }
 }
 </code></pre>

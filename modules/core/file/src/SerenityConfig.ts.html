@@ -294,33 +294,33 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityConfig.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
-<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'./model'</span>;
-<span class="hljs-keyword">import</span> { Cast, StageCrewMember, StageCrewMemberBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">StageCrewMember</span>, <span class="hljs-title class_">StageCrewMemberBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@interface</span>
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link configure}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link configure</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SerenityConfig</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SerenityConfig</span> {
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  A {<span class="hljs-doctag">@link </span>Cast} of {<span class="hljs-doctag">@link </span>Actor}s to be used when {<span class="hljs-doctag">@link </span>actorCalled}
-     *  and {<span class="hljs-doctag">@link </span>actorInTheSpotlight} functions are called.
+     *  A {<span class="hljs-doctag">@link</span> Cast} of {<span class="hljs-doctag">@link</span> Actor}s to be used when {<span class="hljs-doctag">@link</span> actorCalled}
+     *  and {<span class="hljs-doctag">@link</span> actorInTheSpotlight} functions are called.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{?Cast}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?Cast</span>}
      */</span>
-    actors?:        Cast;
+    actors?:        <span class="hljs-title class_">Cast</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  A list of {<span class="hljs-doctag">@link </span>StageCrewMemberBuilder}s or {<span class="hljs-doctag">@link </span>StageCrewMember}s
-     *  to be notified of {<span class="hljs-doctag">@link </span>DomainEvent}s that occur during the scenario execution.
+     *  A list of {<span class="hljs-doctag">@link</span> StageCrewMemberBuilder}s or {<span class="hljs-doctag">@link</span> StageCrewMember}s
+     *  to be notified of {<span class="hljs-doctag">@link</span> DomainEvent}s that occur during the scenario execution.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{?Array&lt;StageCrewMember | StageCrewMemberBuilder&gt;}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?Array&lt;StageCrewMember | StageCrewMemberBuilder&gt;</span>}
      */</span>
-    crew?:          <span class="hljs-built_in">Array</span>&lt;StageCrewMember | StageCrewMemberBuilder&gt;;
+    crew?:          <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">StageCrewMember</span> | <span class="hljs-title class_">StageCrewMemberBuilder</span>&gt;;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -329,19 +329,19 @@
      *  saving reports to disk and so on. **Please note** that this is not
      *  a scenario timeout, which should be configured in your test runner.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{?Duration}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?Duration</span>}
      */</span>
-    cueTimeout?:    Duration;
+    cueTimeout?:    <span class="hljs-title class_">Duration</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  An output stream to be injected into {<span class="hljs-doctag">@link </span>StageCrewMemberBuilder}s
+     *  An output stream to be injected into {<span class="hljs-doctag">@link</span> StageCrewMemberBuilder}s
      *
      *  Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{?OutputStream}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?OutputStream</span>}
      */</span>
-    outputStream?: OutputStream;
+    outputStream?: <span class="hljs-title class_">OutputStream</span>;
 }
 </code></pre>
 

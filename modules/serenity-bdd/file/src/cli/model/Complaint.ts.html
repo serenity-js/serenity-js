@@ -136,10 +136,10 @@
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Complaint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JSONData</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(value: { <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, stack?: <span class="hljs-built_in">string</span> }): Complaint {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Complaint(
-            Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>), <span class="hljs-string">'utf8'</span>).toString(<span class="hljs-string">'base64'</span>)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Complaint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">JSONData</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">value</span>: { <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, stack?: <span class="hljs-built_in">string</span> }): <span class="hljs-title class_">Complaint</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Complaint</span>(
+            <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>), <span class="hljs-string">'utf8'</span>).<span class="hljs-title function_">toString</span>(<span class="hljs-string">'base64'</span>)
         );
     }
 }

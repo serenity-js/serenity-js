@@ -132,44 +132,44 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    BusinessRuleDetected,
-    SceneFinished,
-    SceneParametersDetected,
-    SceneSequenceDetected,
-    SceneStarts,
-    SceneTemplateDetected,
-    TestRunFinishes,
+    <span class="hljs-title class_">BusinessRuleDetected</span>,
+    <span class="hljs-title class_">SceneFinished</span>,
+    <span class="hljs-title class_">SceneParametersDetected</span>,
+    <span class="hljs-title class_">SceneSequenceDetected</span>,
+    <span class="hljs-title class_">SceneStarts</span>,
+    <span class="hljs-title class_">SceneTemplateDetected</span>,
+    <span class="hljs-title class_">TestRunFinishes</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { BusinessRule, Category, CorrelationId, Description, ExecutionSuccessful, Name, ScenarioDetails, ScenarioParameters } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BusinessRule</span>, <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioDetails</span>, <span class="hljs-title class_">ScenarioParameters</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
-<span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../given'</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'../create'</span>;
 
-describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
-        reporter: SerenityBDDReporter;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">stageManager</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">StageManager</span>&gt;,
+        <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">Serenity</span>BDDReporter;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> env = create();
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> env = <span class="hljs-title function_">create</span>();
 
-        stageManager    = env.stageManager;
-        reporter        = env.reporter;
+        stageManager    = env.<span class="hljs-property">stageManager</span>;
+        reporter        = env.<span class="hljs-property">reporter</span>;
     });
 
     <span class="hljs-comment">// see examples/cucumber/features/reporting_results/reports_scenario_outlines.feature for more context</span>
     <span class="hljs-keyword">const</span>
-        sceneIds = [ <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'scene-0'</span>), <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'scene-1'</span>) ],
-        category = <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Reporting results'</span>),
-        name     = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Reports scenario outlines'</span>),
-        path     = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`reporting_results/reports_scenario_outlines.feature`</span>),
-        template = <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`
+        sceneIds = [ <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'scene-0'</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'scene-1'</span>) ],
+        category = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Reporting results'</span>),
+        name     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Reports scenario outlines'</span>),
+        path     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`reporting_results/reports_scenario_outlines.feature`</span>),
+        template = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`
             When &lt;Developer&gt; makes a contribution of:
               | value      |
               | time       |
@@ -177,76 +177,76 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
               | great code |
             Then they help bring serenity to fellow devs
         `</span>),
-        sequence = <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(
+        sequence = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(name, category, <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
             path,
             <span class="hljs-number">7</span>,
         )),
         scenarios = [
-            <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">25</span>)),
-            <span class="hljs-keyword">new</span> ScenarioDetails(name, category, <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">26</span>)),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(name, category, <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">25</span>)),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(name, category, <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">26</span>)),
         ]
     ;
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneBackgroundDetected}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneBackgroundDetected</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
      */</span>
-    it(<span class="hljs-string">'captures information about the business rule for single-scene scenarios'</span>, <span class="hljs-function">() =&gt;</span> {
-        given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
-            <span class="hljs-keyword">new</span> BusinessRuleDetected(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> BusinessRule(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'my rule name'</span>), <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'my rule description'</span>))),
-            <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-            <span class="hljs-keyword">new</span> TestRunFinishes(),
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'captures information about the business rule for single-scene scenarios'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRuleDetected</span>(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRule</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'my rule name'</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'my rule description'</span>))),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
         );
 
-        <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-        expect(report.rule.name).to.equal(<span class="hljs-string">'my rule name'</span>);
-        expect(report.rule.description).to.equal(<span class="hljs-string">'my rule description'</span>);
+        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rule</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'my rule name'</span>);
+        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rule</span>.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'my rule description'</span>);
     });
 
-    it(<span class="hljs-string">'captures information about the business rule for scene sequences'</span>, <span class="hljs-function">() =&gt;</span> {
-        given(reporter).isNotifiedOfFollowingEvents(
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">0</span>], sequence),
-            <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">0</span>], template),
-            <span class="hljs-keyword">new</span> SceneParametersDetected(
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'captures information about the business rule for scene sequences'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneSequenceDetected</span>(sceneIds[<span class="hljs-number">0</span>], sequence),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTemplateDetected</span>(sceneIds[<span class="hljs-number">0</span>], template),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneParametersDetected</span>(
                 sceneIds[<span class="hljs-number">0</span>],
                 scenarios[<span class="hljs-number">0</span>],
-                <span class="hljs-keyword">new</span> ScenarioParameters(
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Serenity/JS contributors'</span>),
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                    { <span class="hljs-attr">Developer</span>: <span class="hljs-string">'jan-molak'</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">'@JanMolak'</span> },
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Serenity/JS contributors'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
+                    { <span class="hljs-title class_">Developer</span>: <span class="hljs-string">'jan-molak'</span>, <span class="hljs-title class_">Twitter</span><span class="hljs-attr">_Handle</span>: <span class="hljs-string">'@JanMolak'</span> },
                 ),
             ),
-            <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
-            <span class="hljs-keyword">new</span> BusinessRuleDetected(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> BusinessRule(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'my rule name'</span>), <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'my rule description'</span>))),
-            <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>]),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRuleDetected</span>(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRule</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'my rule name'</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'my rule description'</span>))),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneIds[<span class="hljs-number">0</span>], scenarios[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
 
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneIds[<span class="hljs-number">1</span>], sequence),
-            <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneIds[<span class="hljs-number">1</span>], template),
-            <span class="hljs-keyword">new</span> SceneParametersDetected(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneSequenceDetected</span>(sceneIds[<span class="hljs-number">1</span>], sequence),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTemplateDetected</span>(sceneIds[<span class="hljs-number">1</span>], template),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneParametersDetected</span>(
                 sceneIds[<span class="hljs-number">1</span>],
                 scenarios[<span class="hljs-number">1</span>],
-                <span class="hljs-keyword">new</span> ScenarioParameters(
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Serenity/JS contributors'</span>),
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
-                    { <span class="hljs-attr">Developer</span>: <span class="hljs-string">'wakaleo'</span>, <span class="hljs-attr">Twitter_Handle</span>: <span class="hljs-string">'@wakaleo'</span> },
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Serenity/JS contributors'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`Some of the people who have contributed their time and talent to the Serenity/JS project`</span>),
+                    { <span class="hljs-title class_">Developer</span>: <span class="hljs-string">'wakaleo'</span>, <span class="hljs-title class_">Twitter</span><span class="hljs-attr">_Handle</span>: <span class="hljs-string">'@wakaleo'</span> },
                 ),
             ),
-            <span class="hljs-keyword">new</span> SceneStarts(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>]),
-            <span class="hljs-keyword">new</span> BusinessRuleDetected(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> BusinessRule(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'my rule name'</span>), <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'my rule description'</span>))),
-            <span class="hljs-keyword">new</span> SceneFinished(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-            <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>]),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRuleDetected</span>(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessRule</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'my rule name'</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'my rule description'</span>))),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneIds[<span class="hljs-number">1</span>], scenarios[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
         );
 
-        <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-        expect(report.rule.name).to.equal(<span class="hljs-string">'my rule name'</span>);
-        expect(report.rule.description).to.equal(<span class="hljs-string">'my rule description'</span>);
+        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rule</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'my rule name'</span>);
+        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rule</span>.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'my rule description'</span>);
     });
 });
 </code></pre>

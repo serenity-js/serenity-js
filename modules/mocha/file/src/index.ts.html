@@ -129,12 +129,12 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/index.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file covered in integration tests */</span>
 <span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { MochaOptions, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MochaOptions</span>, <span class="hljs-title class_">Runner</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityReporterForMocha } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityReporterForMocha'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityReporterForMocha</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityReporterForMocha'</span>;
 
-<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">runner: Runner, options?: MochaOptions</span>): <span class="hljs-title">SerenityReporterForMocha</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SerenityReporterForMocha(serenity, runner, options);
+<span class="hljs-keyword">export</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">runner: Runner, options?: MochaOptions</span>): <span class="hljs-title class_">SerenityReporterForMocha</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SerenityReporterForMocha</span>(serenity, runner, options);
 }
 </code></pre>
 

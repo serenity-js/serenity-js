@@ -294,15 +294,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/q.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
-<span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  A Screenplay-flavour of a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),
- *  `q` is a tag function capable of resolving any `Answerable&lt;string | number&gt;` you parametrise it with (i.e. a {<span class="hljs-doctag">@link </span>Question}).
+ *  `q` is a tag function capable of resolving any `Answerable&lt;string | number&gt;` you parametrise it with (i.e. a {<span class="hljs-doctag">@link</span> Question}).
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Interpolating `Questions`&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Interpolating `Questions`&lt;/caption&gt;
  *  import { q, actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { Send, DeleteRequest } from '<span class="hljs-doctag">@serenity</span>-js/rest';
  *
@@ -312,7 +312,7 @@
  *      ))
  *  )
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a custom description&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using a custom description&lt;/caption&gt;
  *  import { q, actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { Send, DeleteRequest } from '<span class="hljs-doctag">@serenity</span>-js/rest';
  *
@@ -322,26 +322,26 @@
  *      ))
  *  )
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{TemplateStringsArray}</span> <span class="hljs-variable">templates</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-type">{Array&lt;Answerable&lt;string | number&gt;&gt;}</span> <span class="hljs-variable">parameters</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">TemplateStringsArray</span>} <span class="hljs-variable">templates</span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Array&lt;Answerable&lt;string | number&gt;&gt;</span>} <span class="hljs-variable">parameters</span>
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;string&gt;&gt;}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;string&gt;&gt;</span>}
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Question}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Question</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">q</span>(<span class="hljs-params">templates: TemplateStringsArray, ...parameters: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;&gt;</span>): <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt;&gt; </span>{
-    <span class="hljs-keyword">return</span> Question.about(templates.join(<span class="hljs-string">'{}'</span>), <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-        <span class="hljs-built_in">Promise</span>.all(parameters.map(<span class="hljs-function"><span class="hljs-params">parameter</span> =&gt;</span> actor.answer(parameter)))
-            .then(<span class="hljs-function"><span class="hljs-params">answers</span> =&gt;</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">q</span>(<span class="hljs-params">templates: TemplateStringsArray, ...parameters: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;&gt;</span>): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(templates.<span class="hljs-title function_">join</span>(<span class="hljs-string">'{}'</span>), <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+        <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(parameters.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">parameter</span> =&gt;</span> actor.<span class="hljs-title function_">answer</span>(parameter)))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">answers</span> =&gt;</span>
                 templates
-                    .map(<span class="hljs-function">(<span class="hljs-params">template, i</span>) =&gt;</span>
-                        i &lt; answers.length
+                    .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">template, i</span>) =&gt;</span>
+                        i &lt; answers.<span class="hljs-property">length</span>
                             ? [ template, answers[i] ]
                             : [ template ])
-                    .reduce(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span>
-                        acc.concat(tuple)
+                    .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span>
+                        acc.<span class="hljs-title function_">concat</span>(tuple)
                     )
-                    .join(<span class="hljs-string">''</span>)
+                    .<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>)
             )
     );
 }

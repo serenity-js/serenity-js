@@ -129,47 +129,47 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/model/GAV.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { ensure, isDefined, isInRange, isInteger, matches, property, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">GAV</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> fromString(gav: <span class="hljs-built_in">string</span>): GAV {
-        <span class="hljs-keyword">const</span> parts = gav.split(<span class="hljs-string">':'</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GAV</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromString</span>(<span class="hljs-attr">gav</span>: <span class="hljs-built_in">string</span>): <span class="hljs-variable constant_">GAV</span> {
+        <span class="hljs-keyword">const</span> parts = gav.<span class="hljs-title function_">split</span>(<span class="hljs-string">':'</span>);
 
-        ensure(<span class="hljs-string">'GAV segments'</span>, parts, property(<span class="hljs-string">'length'</span>, isInteger(), isInRange(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)));
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'GAV segments'</span>, parts, <span class="hljs-title function_">property</span>(<span class="hljs-string">'length'</span>, <span class="hljs-title function_">isInteger</span>(), <span class="hljs-title function_">isInRange</span>(<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)));
 
-        <span class="hljs-keyword">switch</span> (parts.length) {
-            <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GAV(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">4</span>], parts[<span class="hljs-number">2</span>], parts[<span class="hljs-number">3</span>]);
-            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GAV(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">3</span>], parts[<span class="hljs-number">2</span>]);
-            <span class="hljs-keyword">default</span>:    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> GAV(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">2</span>]);
+        <span class="hljs-keyword">switch</span> (parts.<span class="hljs-property">length</span>) {
+            <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">GAV</span>(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">4</span>], parts[<span class="hljs-number">2</span>], parts[<span class="hljs-number">3</span>]);
+            <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">GAV</span>(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">3</span>], parts[<span class="hljs-number">2</span>]);
+            <span class="hljs-attr">default</span>:    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">GAV</span>(parts[<span class="hljs-number">0</span>], parts[<span class="hljs-number">1</span>], parts[<span class="hljs-number">2</span>]);
         }
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> groupId: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> artifactId: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> version: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> extension: <span class="hljs-built_in">string</span> = <span class="hljs-string">'jar'</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> classifier?: <span class="hljs-built_in">string</span>,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
-        ensure(<span class="hljs-string">'groupId'</span>, groupId, isDefined(), matches(<span class="hljs-regexp">/^[a-z][\d_a-z-]+(?:\.[\d_a-z-]+)+[\d_a-z-]$/</span>));
-        ensure(<span class="hljs-string">'artifactId'</span>, artifactId, isDefined(), matches(<span class="hljs-regexp">/^[\d_a-z-]+$/</span>));
-        ensure(<span class="hljs-string">'version'</span>, version, isDefined(), matches(<span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
-        ensure(<span class="hljs-string">'extension'</span>, extension, isDefined(), matches(<span class="hljs-regexp">/^[a-z]+$/</span>));
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'groupId'</span>, groupId, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">matches</span>(<span class="hljs-regexp">/^[a-z][\d_a-z-]+(?:\.[\d_a-z-]+)+[\d_a-z-]$/</span>));
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'artifactId'</span>, artifactId, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">matches</span>(<span class="hljs-regexp">/^[\d_a-z-]+$/</span>));
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'version'</span>, version, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">matches</span>(<span class="hljs-regexp">/^(?:\d+\.?){3}$/</span>));
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'extension'</span>, extension, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">matches</span>(<span class="hljs-regexp">/^[a-z]+$/</span>));
     }
 
-    toPath(): Path {
+    <span class="hljs-title function_">toPath</span>(): <span class="hljs-title class_">Path</span> {
         <span class="hljs-keyword">const</span> name = [
-            <span class="hljs-built_in">this</span>.artifactId,
-            <span class="hljs-built_in">this</span>.version,
-            <span class="hljs-built_in">this</span>.classifier,
-        ].filter(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> !!s).join(<span class="hljs-string">'-'</span>);
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">artifactId</span>,
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">version</span>,
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">classifier</span>,
+        ].<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> !!s).<span class="hljs-title function_">join</span>(<span class="hljs-string">'-'</span>);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`<span class="hljs-subst">${ name }</span>.<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.extension}</span>`</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`<span class="hljs-subst">${ name }</span>.<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.extension}</span>`</span>);
     }
 }
 </code></pre>

@@ -190,27 +190,28 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
 
 <span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { ProtractorFrameworkAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ProtractorFrameworkAdapter'</span>;
-<span class="hljs-keyword">import</span> { ProtractorReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'./reporter'</span>;
-<span class="hljs-keyword">import</span> { TestRunnerDetector, TestRunnerLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'./runner'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Runner</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtractorFrameworkAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ProtractorFrameworkAdapter'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtractorReport</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./reporter'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunnerDetector</span>, <span class="hljs-title class_">TestRunnerLoader</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./runner'</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@param <span class="hljs-type">{protractor~Runner}</span> <span class="hljs-variable">runner</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">specs</span></span>
- * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;ProtractorReport&gt;}</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">protractor~Runner</span>} <span class="hljs-variable">runner</span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">specs</span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;ProtractorReport&gt;</span>}
  *
- * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor
+ * <span class="hljs-doctag">@see</span> https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">run</span>(<span class="hljs-params">runner: Runner, specs: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">ProtractorReport</span>&gt; </span>{
-    <span class="hljs-keyword">const</span> cwd = Path.from(runner.getConfig().configDir);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">runner: Runner, specs: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ProtractorReport</span>&gt; {
+    <span class="hljs-keyword">const</span> cwd = <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(runner.<span class="hljs-title function_">getConfig</span>().<span class="hljs-property">configDir</span>);
 
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProtractorFrameworkAdapter(
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorFrameworkAdapter</span>(
         serenity,
         runner,
-        <span class="hljs-keyword">new</span> TestRunnerDetector(<span class="hljs-keyword">new</span> TestRunnerLoader(cwd, process.pid)),
-    ).run(specs);
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunnerDetector</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunnerLoader</span>(cwd, process.<span class="hljs-property">pid</span>)),
+    ).<span class="hljs-title function_">run</span>(specs);
 }
 </code></pre>
 

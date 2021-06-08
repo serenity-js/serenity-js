@@ -296,94 +296,94 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/ErrorSerialiser.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
-<span class="hljs-keyword">import</span> { ErrorSerialiser, parse } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorSerialiser</span>, parse } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
 describe (<span class="hljs-string">'ErrorSerialiser'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ErrorSerialiser}</span> </span>*/</span>
-    it(<span class="hljs-string">'serialises an Error object to JSON'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something happened`</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ErrorSerialiser</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'serialises an Error object to JSON'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> e = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Something happened`</span>);
 
-        expect(ErrorSerialiser.serialise(e)).to.equal(<span class="hljs-built_in">JSON</span>.stringify({
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">serialise</span>(e)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>({
             <span class="hljs-attr">name</span>: <span class="hljs-string">'Error'</span>,
-            <span class="hljs-attr">stack</span>: e.stack,
+            <span class="hljs-attr">stack</span>: e.<span class="hljs-property">stack</span>,
             <span class="hljs-attr">message</span>: <span class="hljs-string">'Something happened'</span>,
         }));
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ErrorSerialiser}</span> </span>*/</span>
-    it(<span class="hljs-string">'deserialises a serialised Error object from JSON'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ErrorSerialiser</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'deserialises a serialised Error object from JSON'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> stack = [
             <span class="hljs-string">'Error: Something happened'</span>,
             <span class="hljs-string">'    at /app/index.js:38:20'</span>,
             <span class="hljs-string">'    at Generator.next (&lt;anonymous&gt;)'</span>,
-        ].join(<span class="hljs-string">'\n'</span>);
+        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
 
-        <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialise(<span class="hljs-built_in">JSON</span>.stringify({
+        <span class="hljs-keyword">const</span> error = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>({
             <span class="hljs-attr">name</span>: <span class="hljs-string">'Error'</span>,
             <span class="hljs-attr">message</span>: <span class="hljs-string">'Something happened'</span>,
             stack,
         }));
 
-        expect(error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-        expect(error.name).to.equal(<span class="hljs-string">`Error`</span>);
-        expect(error.message).to.equal(<span class="hljs-string">`Something happened`</span>);
-        expect(error.stack).to.equal(stack);
+        <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Error`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Something happened`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">stack</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(stack);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ErrorSerialiser}</span> </span>*/</span>
-    it(<span class="hljs-string">'serialises a custom Error object to JSON'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ErrorSerialiser</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'serialises a custom Error object to JSON'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
-            error = <span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">`Expected false to equal true`</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>),
-            serialised = ErrorSerialiser.serialise(error);
+            error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(<span class="hljs-string">`Expected false to equal true`</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>),
+            serialised = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">serialise</span>(error);
 
-        expect(parse(serialised).name).to.equal(<span class="hljs-string">'AssertionError'</span>);
-        expect(parse(serialised).message).to.equal(<span class="hljs-string">'Expected false to equal true'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(serialised).<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'AssertionError'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(serialised).<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Expected false to equal true'</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ErrorSerialiser}</span> </span>*/</span>
-    it(<span class="hljs-string">'deserialises a serialised custom Error object from JSON'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ErrorSerialiser</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'deserialises a serialised custom Error object from JSON'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> stack = [
             <span class="hljs-string">'AssertionError: Expected false to equal true'</span>,
             <span class="hljs-string">'    at /app/index.js:38:20'</span>,
             <span class="hljs-string">'    at Generator.next (&lt;anonymous&gt;)'</span>,
-        ].join(<span class="hljs-string">'\n'</span>);
+        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
 
-        <span class="hljs-keyword">const</span> error = ErrorSerialiser.deserialise(<span class="hljs-built_in">JSON</span>.stringify({
+        <span class="hljs-keyword">const</span> error = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>({
             <span class="hljs-attr">name</span>: <span class="hljs-string">'AssertionError'</span>,
             <span class="hljs-attr">message</span>: <span class="hljs-string">'Expected false to equal true'</span>,
             stack,
         }));
 
-        expect(error).to.be.instanceOf(AssertionError);
-        expect(error.name).to.equal(<span class="hljs-string">`AssertionError`</span>);
-        expect(error.message).to.equal(<span class="hljs-string">`Expected false to equal true`</span>);
-        expect(error.stack).to.equal(stack);
+        <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AssertionError</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`AssertionError`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Expected false to equal true`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">stack</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(stack);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ErrorSerialiser}</span> </span>*/</span>
-    it(<span class="hljs-string">'deserialises the error object from a stack trace alone (Cucumber event protocol)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ErrorSerialiser</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'deserialises the error object from a stack trace alone (Cucumber event protocol)'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> stack = <span class="hljs-string">`Error: Something's wrong\n    at World.&lt;anonymous&gt; (features/step_definitions/synchronous.steps.ts:9:15)`</span>;
 
-        <span class="hljs-keyword">const</span> error: <span class="hljs-built_in">Error</span> = ErrorSerialiser.deserialiseFromStackTrace(stack);
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span> = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialiseFromStackTrace</span>(stack);
 
-        expect(error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-        expect(error.name).to.equal(<span class="hljs-string">`Error`</span>);
-        expect(error.message).to.equal(<span class="hljs-string">`Something's wrong`</span>);
-        expect(error.stack).to.equal(stack);
+        <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Error`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Something's wrong`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">stack</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(stack);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ErrorSerialiser}</span> </span>*/</span>
-    it(<span class="hljs-string">'deserialises the error object from a string (Cucumber event protocol)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ErrorSerialiser</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'deserialises the error object from a string (Cucumber event protocol)'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> stack = <span class="hljs-string">`function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`</span>;
 
-        <span class="hljs-keyword">const</span> error: <span class="hljs-built_in">Error</span> = ErrorSerialiser.deserialiseFromStackTrace(stack);
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span> = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialiseFromStackTrace</span>(stack);
 
-        expect(error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-        expect(error.name).to.equal(<span class="hljs-string">`Error`</span>);
-        expect(error.message).to.equal(<span class="hljs-string">`function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`</span>);
+        <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Error`</span>);
+        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`function has 2 arguments, should have 3 (if synchronous or returning a promise) or 4 (if accepting a callback)`</span>);
     });
 });
 </code></pre>

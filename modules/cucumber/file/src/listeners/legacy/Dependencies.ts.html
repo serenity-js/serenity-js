@@ -131,23 +131,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/Dependencies.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
-<span class="hljs-keyword">import</span> { Notifier, ResultMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./notifier'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">FeatureFileLoader</span>, <span class="hljs-title class_">FeatureFileMap</span>, <span class="hljs-title class_">FeatureFileMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Notifier</span>, <span class="hljs-title class_">ResultMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./notifier'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Dependencies {
-    <span class="hljs-attr">serenity</span>: Serenity;
-    notifier: Notifier;
-    mapper: FeatureFileMapper;
-    resultMapper: ResultMapper
-    <span class="hljs-attr">cache</span>: Cache&lt;Path, FeatureFileMap&gt;;
-    loader: FeatureFileLoader;
-    cucumber: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">serenity</span>: <span class="hljs-title class_">Serenity</span>;
+    <span class="hljs-attr">notifier</span>: <span class="hljs-title class_">Notifier</span>;
+    <span class="hljs-attr">mapper</span>: <span class="hljs-title class_">FeatureFileMapper</span>;
+    <span class="hljs-attr">resultMapper</span>: <span class="hljs-title class_">ResultMapper</span>
+    <span class="hljs-attr">cache</span>: <span class="hljs-title class_">Cache</span>&lt;<span class="hljs-title class_">Path</span>, <span class="hljs-title class_">FeatureFileMap</span>&gt;;
+    <span class="hljs-attr">loader</span>: <span class="hljs-title class_">FeatureFileLoader</span>;
+    <span class="hljs-attr">cucumber</span>: <span class="hljs-built_in">any</span>;
 }
 </code></pre>
 

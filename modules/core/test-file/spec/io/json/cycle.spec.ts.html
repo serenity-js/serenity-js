@@ -302,44 +302,44 @@
 <span class="hljs-keyword">import</span> { parse, stringify } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
-describe(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'when used with primitives'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used with primitives'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'number'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-number">1.5</span>          },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'hi'</span>         },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'boolean'</span>,   <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>         },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,      <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>         },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'undefined'</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>       },
             ]).
-            it(<span class="hljs-string">'behaves just like JSON.stringify'</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-                expect(stringify(value)).to.equal(<span class="hljs-built_in">JSON</span>.stringify(value));
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.stringify'</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value));
             });
         });
 
-        describe(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'number'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'1.5'</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-number">1.5</span>       },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'"hi"'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'hi'</span>      },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'boolean'</span>,   <span class="hljs-attr">value</span>: <span class="hljs-string">'true'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>      },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,      <span class="hljs-attr">value</span>: <span class="hljs-string">'null'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-literal">null</span>      },
             ]).
-            it(<span class="hljs-string">'behaves just like JSON.parse'</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
-                expect(parse(value)).to.equal(<span class="hljs-built_in">JSON</span>.parse(value));
-                expect(parse(value)).to.equal(expected);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.parse'</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(value));
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
             });
         });
     });
 
-    describe(<span class="hljs-string">'when used with acyclic objects'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used with acyclic objects'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty object'</span>,  <span class="hljs-attr">value</span>: { }                               },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'simple object'</span>, <span class="hljs-attr">value</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }                   },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested object'</span>, <span class="hljs-attr">value</span>: { <span class="hljs-attr">l1</span>: { <span class="hljs-attr">l2</span>: <span class="hljs-string">'value'</span>} }            },
@@ -348,14 +348,14 @@ describe(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">(
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested array'</span>,  <span class="hljs-attr">value</span>: [ [ <span class="hljs-string">'1'</span> ], [[<span class="hljs-string">'2'</span>]], <span class="hljs-string">'3'</span> ]         },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'mixed'</span>,         <span class="hljs-attr">value</span>: [{ <span class="hljs-attr">values</span>: [<span class="hljs-number">1</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }]}] },
             ]).
-            it(<span class="hljs-string">'behaves just like JSON.stringify'</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-                expect(stringify(value)).to.equal(<span class="hljs-built_in">JSON</span>.stringify(value));
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.stringify'</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value));
             });
         });
 
-        describe(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty object'</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">'{}'</span>,                                <span class="hljs-attr">expected</span>: { }                               },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'simple object'</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">'{"name":"Jan"}'</span>,                    <span class="hljs-attr">expected</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span>}                    },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested object'</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">'{"l1":{"l2":"value"}}'</span>,             <span class="hljs-attr">expected</span>: { <span class="hljs-attr">l1</span>: { <span class="hljs-attr">l2</span>: <span class="hljs-string">'value'</span>} }            },
@@ -364,84 +364,84 @@ describe(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">(
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested array'</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">'[["1"],[["2"]],"3"]'</span>,               <span class="hljs-attr">expected</span>: [ [ <span class="hljs-string">'1'</span> ], [[<span class="hljs-string">'2'</span>]], <span class="hljs-string">'3'</span> ]         },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'mixed'</span>,         <span class="hljs-attr">value</span>: <span class="hljs-string">'[{"values":[1,{"name":"Jan"}]}]'</span>,   <span class="hljs-attr">expected</span>: [{ <span class="hljs-attr">values</span>: [<span class="hljs-number">1</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }]}] },
             ]).
-            it(<span class="hljs-string">'behaves just like JSON.parse'</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
-                expect(parse(value)).to.deep.equal(<span class="hljs-built_in">JSON</span>.parse(value));
-                expect(parse(value)).to.deep.equal(expected);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.parse'</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(value));
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(expected);
             });
         });
     });
 
-    describe(<span class="hljs-string">'when used with cyclic objects'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used with cyclic objects'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'JSON.stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'JSON.stringify'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'should fail because of a circular reference in a round robin list'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(roundRobin(<span class="hljs-number">2</span>)))
-                    .to.throw(<span class="hljs-built_in">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a circular reference in a round robin list'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">2</span>)))
+                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
             });
 
-            it(<span class="hljs-string">'should fail because of a circular reference in simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(simpleNestedObject()))
-                    .to.throw(<span class="hljs-built_in">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a circular reference in simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">simpleNestedObject</span>()))
+                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
             });
 
-            it(<span class="hljs-string">'should fail because of a circular reference in complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(complexNestedObject()))
-                    .to.throw(<span class="hljs-built_in">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a circular reference in complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">complexNestedObject</span>()))
+                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
             });
 
-            it(<span class="hljs-string">'should fail because of a cycles in object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">JSON</span>.stringify(objectWithParallelReferences()))
-                    .to.throw(<span class="hljs-built_in">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
-            });
-        });
-
-        describe(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
-            it(<span class="hljs-string">'should serialise a round robin list data structure'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(stringify(roundRobin(<span class="hljs-number">1</span>)))
-                    .to.equal(<span class="hljs-string">'[{"prev":{"$ref":"$[0]"}}]'</span>);
-            });
-
-            it(<span class="hljs-string">'should serialise a simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(stringify(simpleNestedObject()))
-                    .to.equal(<span class="hljs-string">'{"property":"value","self":{"$ref":"$"}}'</span>);
-            });
-
-            it(<span class="hljs-string">'should serialise a complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(stringify(complexNestedObject()))
-                    .to.equal(<span class="hljs-string">'{"property":"value","another":{"property":"another value","self":{"$ref":"$[\\"another\\"]"}},"self":{"$ref":"$"}}'</span>);
-            });
-
-            it(<span class="hljs-string">'should serialise an object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(stringify(objectWithParallelReferences()))
-                    .to.equal(<span class="hljs-string">'{"property1":{"value":42,"sibling":{"$ref":"$[\\"property1\\"]"}},"property2":{"$ref":"$[\\"property1\\"]"}}'</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a cycles in object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">objectWithParallelReferences</span>()))
+                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
             });
         });
 
-        describe(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
-
-            it(<span class="hljs-string">'should deserialise a round robin list data structure'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(parse(stringify(roundRobin(<span class="hljs-number">1</span>))))
-                    .to.deep.equal(roundRobin(<span class="hljs-number">1</span>));
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise a round robin list data structure'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">1</span>)))
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'[{"prev":{"$ref":"$[0]"}}]'</span>);
             });
 
-            it(<span class="hljs-string">'should deserialise a simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(parse(stringify(simpleNestedObject())))
-                    .to.deep.equal(simpleNestedObject());
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise a simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">simpleNestedObject</span>()))
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{"property":"value","self":{"$ref":"$"}}'</span>);
             });
 
-            it(<span class="hljs-string">'should deserialise a complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(parse(stringify(complexNestedObject())))
-                    .to.deep.equal(complexNestedObject());
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise a complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">complexNestedObject</span>()))
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{"property":"value","another":{"property":"another value","self":{"$ref":"$[\\"another\\"]"}},"self":{"$ref":"$"}}'</span>);
             });
 
-            it(<span class="hljs-string">'should deserialise an object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
-                expect(parse(stringify(objectWithParallelReferences())))
-                    .to.deep.equal(objectWithParallelReferences());
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise an object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">objectWithParallelReferences</span>()))
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{"property1":{"value":42,"sibling":{"$ref":"$[\\"property1\\"]"}},"property2":{"$ref":"$[\\"property1\\"]"}}'</span>);
             });
         });
 
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">roundRobin</span>(<span class="hljs-params">segments: <span class="hljs-built_in">number</span></span>) </span>{
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
+
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise a round robin list data structure'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">1</span>))))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">1</span>));
+            });
+
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise a simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">simpleNestedObject</span>())))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">simpleNestedObject</span>());
+            });
+
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise a complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">complexNestedObject</span>())))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">complexNestedObject</span>());
+            });
+
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise an object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">objectWithParallelReferences</span>())))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">objectWithParallelReferences</span>());
+            });
+        });
+
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">roundRobin</span>(<span class="hljs-params">segments: <span class="hljs-built_in">number</span></span>) {
             <span class="hljs-keyword">if</span> (segments &lt;= <span class="hljs-number">0</span>) {
                 <span class="hljs-keyword">return</span> [];
             }
@@ -453,23 +453,23 @@ describe(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">(
                 prev = list[i] = { prev }
             }
 
-            list[<span class="hljs-number">0</span>].prev = list[segments - <span class="hljs-number">1</span>];
+            list[<span class="hljs-number">0</span>].<span class="hljs-property">prev</span> = list[segments - <span class="hljs-number">1</span>];
 
             <span class="hljs-keyword">return</span> list;
         }
 
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">simpleNestedObject</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">simpleNestedObject</span>(<span class="hljs-params"></span>) {
 
             <span class="hljs-keyword">const</span> sample = {
                 <span class="hljs-attr">property</span>: <span class="hljs-string">'value'</span>,
                 <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
             };
-            sample.self = sample;
+            sample.<span class="hljs-property">self</span> = sample;
 
             <span class="hljs-keyword">return</span> sample;
         }
 
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">complexNestedObject</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">complexNestedObject</span>(<span class="hljs-params"></span>) {
 
             <span class="hljs-keyword">const</span> sample = {
                 <span class="hljs-attr">property</span>: <span class="hljs-string">'value'</span>,
@@ -479,13 +479,13 @@ describe(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">(
                 },
                 <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
             };
-            sample.another.self = sample.another;
-            sample.self = sample;
+            sample.<span class="hljs-property">another</span>.<span class="hljs-property">self</span> = sample.<span class="hljs-property">another</span>;
+            sample.<span class="hljs-property">self</span> = sample;
 
             <span class="hljs-keyword">return</span> sample;
         }
 
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objectWithParallelReferences</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">objectWithParallelReferences</span>(<span class="hljs-params"></span>) {
 
             <span class="hljs-keyword">const</span> property = {
                 <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>,
@@ -497,8 +497,8 @@ describe(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">(
                 <span class="hljs-attr">property2</span>: property,
             };
 
-            sample.property1.sibling = sample.property2;
-            sample.property2.sibling = sample.property1;
+            sample.<span class="hljs-property">property1</span>.<span class="hljs-property">sibling</span> = sample.<span class="hljs-property">property2</span>;
+            sample.<span class="hljs-property">property2</span>.<span class="hljs-property">sibling</span> = sample.<span class="hljs-property">property1</span>;
 
             <span class="hljs-keyword">return</span> sample;
         }

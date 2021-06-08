@@ -294,20 +294,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Description.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Description</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Description</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">value</span>: <span class="hljs-built_in">string</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON(v: <span class="hljs-built_in">string</span>): Description {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Description(v);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">v</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Description</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(v);
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">super</span>();
-        ensure(<span class="hljs-string">'value'</span>, value, isDefined());
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">super</span>();
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'value'</span>, value, <span class="hljs-title function_">isDefined</span>());
 
-        <span class="hljs-built_in">this</span>.value = value.split(<span class="hljs-string">'\n'</span>).map(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.trim()).join(<span class="hljs-string">'\n'</span>);
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">trim</span>()).<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
     }
 }
 </code></pre>

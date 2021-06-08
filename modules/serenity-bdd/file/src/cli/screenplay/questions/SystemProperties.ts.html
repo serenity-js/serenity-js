@@ -128,18 +128,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/SystemProperties.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Argv'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Argv</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Argv'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> SystemProperties = {
-    <span class="hljs-attr">of</span>: (argv: Argv): Question&lt;<span class="hljs-built_in">string</span>[]&gt; =&gt;
-        Question.about&lt;<span class="hljs-built_in">string</span>[]&gt;(<span class="hljs-string">'system properties'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            <span class="hljs-built_in">Object</span>.keys(argv)
-                .map(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> <span class="hljs-string">`-D<span class="hljs-subst">${ arg }</span>=<span class="hljs-subst">${ argv[arg] }</span>`</span>)),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">SystemProperties</span> = {
+    <span class="hljs-attr">of</span>: (<span class="hljs-attr">argv</span>: <span class="hljs-title class_">Argv</span>): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-built_in">string</span>[]&gt; =&gt;
+        <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">string</span>[]&gt;(<span class="hljs-string">'system properties'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(argv)
+                .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> <span class="hljs-string">`-D<span class="hljs-subst">${ arg }</span>=<span class="hljs-subst">${ argv[arg] }</span>`</span>)),
 }
 </code></pre>
 

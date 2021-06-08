@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Log} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Log</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -332,11 +332,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Log } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Website</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actor.attemptsTo(
-     Log.the(<span class="hljs-string">'Current page'</span>, Website.title(), Website.url()),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'Current page'</span>, <span class="hljs-title class_">Website</span>.<span class="hljs-title function_">title</span>(), <span class="hljs-title class_">Website</span>.<span class="hljs-title function_">url</span>()),
  );</code></pre>
     </div>
 </div>

@@ -296,44 +296,44 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/proxies/createMetaQuestionProxy.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/ban-types */</span>
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../io'</span>;
-<span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Answerable'</span>;
-<span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Question'</span>;
-<span class="hljs-keyword">import</span> { MetaQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'../MetaQuestion'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Question'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MetaQuestion</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../MetaQuestion'</span>;
 <span class="hljs-keyword">import</span> { describePath } <span class="hljs-keyword">from</span> <span class="hljs-string">'./describePath'</span>;
 <span class="hljs-keyword">import</span> { key } <span class="hljs-keyword">from</span> <span class="hljs-string">'./key'</span>;
-<span class="hljs-keyword">import</span> { PropertyPathKey } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PropertyPathKey'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PropertyPathKey</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PropertyPathKey'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> WithPropertiesAsMetaQuestions&lt;Original_Type, Nested_Type = Original_Type&gt; = {
-    [Key <span class="hljs-keyword">in</span> keyof Nested_Type]: Nested_Type[Key] <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>
-        ? Question&lt;<span class="hljs-built_in">Promise</span>&lt;Nested_Type[Key]&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;Original_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;Nested_Type[Key]&gt;&gt; &amp; WithPropertiesAsMetaQuestions&lt;Original_Type, Nested_Type[Key]&gt;
-        : Question&lt;<span class="hljs-built_in">Promise</span>&lt;Nested_Type[Key]&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;Original_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;Nested_Type[Key]&gt;&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">WithPropertiesAsMetaQuestions</span>&lt;<span class="hljs-title class_">Original</span>_Type, <span class="hljs-title class_">Nested</span>_Type = <span class="hljs-title class_">Original</span>_Type&gt; = {
+    [<span class="hljs-title class_">Key</span> <span class="hljs-keyword">in</span> keyof <span class="hljs-title class_">Nested</span>_Type]: <span class="hljs-title class_">Nested</span>_Type[<span class="hljs-title class_">Key</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>
+        ? <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Nested</span>_Type[<span class="hljs-title class_">Key</span>]&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Original</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Nested</span>_Type[<span class="hljs-title class_">Key</span>]&gt;&gt; &amp; <span class="hljs-title class_">WithPropertiesAsMetaQuestions</span>&lt;<span class="hljs-title class_">Original</span>_Type, <span class="hljs-title class_">Nested</span>_Type[<span class="hljs-title class_">Key</span>]&gt;
+        : <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Nested</span>_Type[<span class="hljs-title class_">Key</span>]&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Original</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Nested</span>_Type[<span class="hljs-title class_">Key</span>]&gt;&gt;
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createMetaQuestionProxy</span>&lt;<span class="hljs-title">Original_Type</span> <span class="hljs-title">extends</span> <span class="hljs-title">object</span>&gt;(<span class="hljs-params">path: PropertyPathKey[] = []</span>): <span class="hljs-title">WithPropertiesAsMetaQuestions</span>&lt;<span class="hljs-title">Original_Type</span>&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> createMetaQuestionProxy&lt;<span class="hljs-title class_">Original</span>_Type <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>&gt;(<span class="hljs-attr">path</span>: <span class="hljs-title class_">PropertyPathKey</span>[] = []): <span class="hljs-title class_">WithPropertiesAsMetaQuestions</span>&lt;<span class="hljs-title class_">Original</span>_Type&gt; {
 
     <span class="hljs-keyword">const</span> empty = {};
 
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>&lt;Original_Type&gt;(empty <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, {
-        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">target: unknown, name: PropertyPathKey</span>)</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>&lt;<span class="hljs-title class_">Original</span>_Type&gt;(empty <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>, {
+        <span class="hljs-title function_">get</span>(<span class="hljs-params">target: unknown, name: PropertyPathKey</span>) {
 
-            <span class="hljs-keyword">if</span> (key(name).isOneOf&lt;MetaQuestion&lt;Answerable&lt;Original_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;&gt;&gt;(<span class="hljs-string">'of'</span>)) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-title function_">key</span>(name).<span class="hljs-property">isOneOf</span>&lt;<span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Original</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;&gt;&gt;(<span class="hljs-string">'of'</span>)) {
 
-                <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">of</span>(<span class="hljs-params">subject: Answerable&lt;Original_Type&gt;</span>) </span>{
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">subject: Answerable&lt;Original_Type&gt;</span>) {
 
-                    <span class="hljs-keyword">return</span> Question.about(formatted <span class="hljs-string">`property <span class="hljs-subst">${ describePath(path) }</span> of <span class="hljs-subst">${ subject }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-                        <span class="hljs-keyword">return</span> actor.answer(subject).then(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(formatted <span class="hljs-string">`property <span class="hljs-subst">${ describePath(path) }</span> of <span class="hljs-subst">${ subject }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+                        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(subject).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> {
 
-                            <span class="hljs-keyword">return</span> path.reduce(<span class="hljs-function">(<span class="hljs-params">subObject, keyName, index</span>) =&gt;</span> {
+                            <span class="hljs-keyword">return</span> path.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">subObject, keyName, index</span>) =&gt;</span> {
                                 <span class="hljs-keyword">if</span> (keyName <span class="hljs-keyword">in</span> subObject) {
                                     <span class="hljs-keyword">return</span> subObject[keyName];
                                 }
-                                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(formatted <span class="hljs-string">`property <span class="hljs-subst">${ describePath(path.slice(<span class="hljs-number">0</span>, index + <span class="hljs-number">1</span>)) }</span> of <span class="hljs-subst">${ subject }</span> doesn't exist`</span>);
+                                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(formatted <span class="hljs-string">`property <span class="hljs-subst">${ describePath(path.slice(<span class="hljs-number">0</span>, index + <span class="hljs-number">1</span>)) }</span> of <span class="hljs-subst">${ subject }</span> doesn't exist`</span>);
                             }, answer);
 
                         });
@@ -341,9 +341,9 @@
                 }
             }
 
-            <span class="hljs-keyword">return</span> createMetaQuestionProxy&lt;Original_Type&gt;(path.concat(name));
+            <span class="hljs-keyword">return</span> createMetaQuestionProxy&lt;<span class="hljs-title class_">Original</span>_Type&gt;(path.<span class="hljs-title function_">concat</span>(name));
         }
-    }) <span class="hljs-keyword">as</span> WithPropertiesAsMetaQuestions&lt;Original_Type&gt;;
+    }) <span class="hljs-keyword">as</span> <span class="hljs-title class_">WithPropertiesAsMetaQuestions</span>&lt;<span class="hljs-title class_">Original</span>_Type&gt;;
 }
 </code></pre>
 

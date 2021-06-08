@@ -135,94 +135,94 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { CucumberOptions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli/CucumberOptions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberOptions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli/CucumberOptions'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CucumberOptions}</span> </span>*/</span>
-describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">CucumberOptions</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'strict mode'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'strict mode'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given([
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
+        <span class="hljs-title function_">given</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'4.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>),
         ]).
-        it(<span class="hljs-string">'is strict by default'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({ });
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'is strict by default'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({ });
 
-            expect(options.isStrict()).to.equal(<span class="hljs-literal">true</span>);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">isStrict</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
 
-            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>]);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(majorVersion)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>]);
         });
 
-        given([
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
+        <span class="hljs-title function_">given</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'4.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>),
         ]).
-        it(<span class="hljs-string">'can be explicitly enabled'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> });
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be explicitly enabled'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">true</span> });
 
-            expect(options.isStrict()).to.equal(<span class="hljs-literal">true</span>);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">isStrict</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
 
-            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--strict'</span>]);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(majorVersion)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--strict'</span>]);
         });
 
-        given([
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
+        <span class="hljs-title function_">given</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'4.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>),
         ]).
-        it(<span class="hljs-string">'can be disabled'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">false</span> });
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be disabled'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({ <span class="hljs-attr">strict</span>: <span class="hljs-literal">false</span> });
 
-            expect(options.isStrict()).to.equal(<span class="hljs-literal">false</span>);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">isStrict</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
 
-            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--no-strict'</span>]);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(majorVersion)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--no-strict'</span>]);
         });
 
-        given([
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
+        <span class="hljs-title function_">given</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'4.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>),
         ]).
-        it(<span class="hljs-string">'can be disabled via cucumberOpts.noStrict'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({ <span class="hljs-attr">noStrict</span>: <span class="hljs-literal">true</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be disabled via cucumberOpts.noStrict'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({ <span class="hljs-attr">noStrict</span>: <span class="hljs-literal">true</span> } <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
 
-            expect(options.isStrict()).to.equal(<span class="hljs-literal">false</span>);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">isStrict</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
 
-            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--no-strict'</span>]);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(majorVersion)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--no-strict'</span>]);
         });
 
     });
 
-    describe(<span class="hljs-string">'when used to produce command line arguments for Cucumber CLI'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used to produce command line arguments for Cucumber CLI'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given([
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'4.0.0'</span>),
-            <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>),
+        <span class="hljs-title function_">given</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'4.0.0'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>),
         ]).
-        it(<span class="hljs-string">'returns no additional arguments when the config is empty'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({});
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns no additional arguments when the config is empty'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({});
 
-            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>]);
+            <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(majorVersion)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>]);
         });
 
-        describe(<span class="hljs-string">'tags'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'tags'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-keyword">const</span> emptyTags = [
                 {   <span class="hljs-attr">description</span>: <span class="hljs-string">'empty string'</span>,            <span class="hljs-attr">tags</span>: <span class="hljs-string">''</span>,                   },
@@ -232,28 +232,28 @@ describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-f
                 {   <span class="hljs-attr">description</span>: <span class="hljs-string">'list with empty values'</span>,  <span class="hljs-attr">tags</span>: [<span class="hljs-string">''</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">undefined</span>] },
             ];
 
-            given(emptyTags).it(<span class="hljs-string">'ignores empty tags when generating tag expressions (&gt;=2.x)'</span>, <span class="hljs-function">(<span class="hljs-params">{ tags }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({ tags });
+            <span class="hljs-title function_">given</span>(emptyTags).<span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores empty tags when generating tag expressions (&gt;=2.x)'</span>, <span class="hljs-function">(<span class="hljs-params">{ tags }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({ tags });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>))).to.deep.equal([
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                     <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>,
                 ]);
             });
 
-            given(emptyTags).it(<span class="hljs-string">'ignores empty tags when working with Cucumber 1.x'</span>, <span class="hljs-function">(<span class="hljs-params">{ tags }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({ tags });
+            <span class="hljs-title function_">given</span>(emptyTags).<span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores empty tags when working with Cucumber 1.x'</span>, <span class="hljs-function">(<span class="hljs-params">{ tags }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({ tags });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>))).to.deep.equal([
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                     <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>,
                 ]);
             });
 
-            given([
-                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>),
-                <span class="hljs-keyword">new</span> Version(<span class="hljs-string">'3.0.0'</span>),
+            <span class="hljs-title function_">given</span>([
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'3.0.0'</span>),
             ]).
-            it(<span class="hljs-string">'converts a list of tags into a Cucumber expression for Cucumber 2.x and newer'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'converts a list of tags into a Cucumber expression for Cucumber 2.x and newer'</span>, <span class="hljs-function">(<span class="hljs-params">majorVersion: Version</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     <span class="hljs-attr">tags</span>: [
                         <span class="hljs-string">'@smoke-test'</span>,
                         <span class="hljs-string">'~@wip'</span>,
@@ -261,13 +261,13 @@ describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-f
                     ],
                 });
 
-                expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(majorVersion)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                     <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'@smoke-test and not @wip and not @failing and not @flaky'</span>,
                 ]);
             });
 
-            it(<span class="hljs-string">'passes the tags individually to Cucumber 1.x'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'passes the tags individually to Cucumber 1.x'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     <span class="hljs-attr">tags</span>: [
                         <span class="hljs-string">'@smoke-test'</span>,
                         <span class="hljs-string">'~@wip'</span>,
@@ -275,15 +275,15 @@ describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-f
                     ],
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>))).to.deep.equal([
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                     <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'@smoke-test'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'~@wip'</span>, <span class="hljs-string">'--tags'</span>, <span class="hljs-string">'~@failing'</span>,
                 ]);
             });
         });
 
-        describe(<span class="hljs-string">'flags'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'flags'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace off'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-backtrace'</span>   },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace on'</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">'backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--backtrace'</span>      },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'dry-run off'</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">'dry-run'</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-dry-run'</span>     },
@@ -297,17 +297,17 @@ describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-f
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors off'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-colors'</span>      },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors on'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-string">'--colors'</span>         },
             ]).
-            it(<span class="hljs-string">'correctly interprets boolean options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly interprets boolean options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     [option]: state,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>))).to.deep.equal([
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                     <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, expected,
                 ]);
             });
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace off'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'no-backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-backtrace'</span>   },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'backtrace on'</span>,     <span class="hljs-attr">option</span>: <span class="hljs-string">'no-backtrace'</span>,    <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--backtrace'</span>      },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'dry-run off'</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">'no-dry-run'</span>,      <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-dry-run'</span>     },
@@ -321,85 +321,85 @@ describe(<span class="hljs-string">'CucumberOptions'</span>, <span class="hljs-f
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors off'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'no-colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'--no-colors'</span>      },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'colors on'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'no-colors'</span>,       <span class="hljs-attr">state</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">expected</span>: <span class="hljs-string">'--colors'</span>         },
             ]).
-            it(<span class="hljs-string">'correctly interprets negated boolean options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly interprets negated boolean options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, state, expected }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     [option]: state,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>))).to.deep.equal([
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                     <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, expected,
                 ]);
             });
         });
 
-        describe(<span class="hljs-string">'other options'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'other options'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'profile'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'profile'</span>,    <span class="hljs-attr">value</span>: [<span class="hljs-string">'dry'</span>, <span class="hljs-string">'progress'</span>],          <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--profile'</span>, <span class="hljs-string">'dry'</span>, <span class="hljs-string">'--profile'</span>, <span class="hljs-string">'progress'</span> ] },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'require'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'require'</span>,    <span class="hljs-attr">value</span>: [ <span class="hljs-string">'features/**/*.ts'</span> ],       <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--require'</span>, <span class="hljs-string">'features/**/*.ts'</span> ] },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'name'</span>,       <span class="hljs-attr">option</span>: <span class="hljs-string">'name'</span>,       <span class="hljs-attr">value</span>: [ <span class="hljs-string">'checkout.*'</span>, <span class="hljs-string">'smoke.*'</span> ],  <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--name'</span>, <span class="hljs-string">'checkout.*'</span>,  <span class="hljs-string">'--name'</span>, <span class="hljs-string">'smoke.*'</span>  ] },
             ]).
-            it(<span class="hljs-string">'includes any other options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value, expected }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'includes any other options'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value, expected }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     [option]: value,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>))).to.deep.equal(
-                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>].concat(expected),
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(
+                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>].<span class="hljs-title function_">concat</span>(expected),
                 );
             });
         });
 
-        describe(<span class="hljs-string">'camelCase to kebab-case'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'camelCase to kebab-case'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'dryRun on'</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">'dryRun'</span>,           <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>,        <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--dry-run'</span> ] },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'dryRun off'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'dryRun'</span>,           <span class="hljs-attr">value</span>: <span class="hljs-literal">false</span>,       <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--no-dry-run'</span> ] },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'noFailFast'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'noFailFast'</span>,       <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>,        <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--no-fail-fast'</span> ] },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'retryTagFilter'</span>,    <span class="hljs-attr">option</span>: <span class="hljs-string">'retryTagFilter'</span>,   <span class="hljs-attr">value</span>: <span class="hljs-string">'@flaky'</span>,    <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'--retry-tag-filter'</span>, <span class="hljs-string">'@flaky'</span> ] },
             ]).
-            it(<span class="hljs-string">'converts camelCased options to kebab-case'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value, expected }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'converts camelCased options to kebab-case'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value, expected }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     [option]: value,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))).to.deep.equal(
-                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>].concat(expected),
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'7.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(
+                    [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>].<span class="hljs-title function_">concat</span>(expected),
                 );
             });
         });
 
-        describe(<span class="hljs-string">'empty values'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'empty values'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'undefined'</span>,         <span class="hljs-attr">option</span>: <span class="hljs-string">'format'</span>,           <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>,   },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,              <span class="hljs-attr">option</span>: <span class="hljs-string">'format'</span>,           <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>,        },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty list'</span>,        <span class="hljs-attr">option</span>: <span class="hljs-string">'format'</span>,           <span class="hljs-attr">value</span>: [],          },
             ]).
-            it(<span class="hljs-string">'ignores empty values'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores empty values'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     [option]: value,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))).to.deep.equal(
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'7.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(
                     [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>],
                 );
             });
         });
 
-        describe(<span class="hljs-string">'objects'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'objects'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'camelCase'</span>,   <span class="hljs-attr">option</span>: <span class="hljs-string">'worldParameters'</span>,    <span class="hljs-attr">value</span>: { <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'https://example.org'</span> }   },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'kebab-case'</span>,  <span class="hljs-attr">option</span>: <span class="hljs-string">'world-parameters'</span>,   <span class="hljs-attr">value</span>: { <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'https://example.org'</span> }   },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,      <span class="hljs-attr">option</span>: <span class="hljs-string">'worldParameters'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'{"baseUrl":"https://example.org"}'</span>  },
             ]).
-            it(<span class="hljs-string">'ignores empty values'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value }</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> CucumberOptions({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores empty values'</span>, <span class="hljs-function">(<span class="hljs-params">{ option, value }</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> options = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberOptions</span>({
                     [option]: value,
                 });
 
-                expect(options.asArgumentsForCucumber(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))).to.deep.equal(
+                <span class="hljs-title function_">expect</span>(options.<span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'7.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(
                     [<span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span>, <span class="hljs-string">'--world-parameters'</span>, <span class="hljs-string">'{"baseUrl":"https://example.org"}'</span>],
                 );
             });

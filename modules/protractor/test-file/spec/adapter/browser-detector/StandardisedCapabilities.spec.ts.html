@@ -191,13 +191,13 @@
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { Capabilities, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Capabilities</span>, <span class="hljs-title class_">ProtractorBrowser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter/browser-detector'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StandardisedCapabilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter/browser-detector'</span>;
 
-describe(<span class="hljs-string">'StandardisedCapabilities'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'StandardisedCapabilities'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    given([
+    <span class="hljs-title function_">given</span>([
         {
             <span class="hljs-attr">description</span>: <span class="hljs-string">'Edge on Windows'</span>,
             <span class="hljs-attr">actual</span>: { <span class="hljs-attr">browserName</span>: <span class="hljs-string">'MicrosoftEdge'</span>, <span class="hljs-attr">browserVersion</span>: <span class="hljs-string">'42.17134.1.0'</span>, <span class="hljs-attr">platformName</span>: <span class="hljs-string">'windows'</span>, <span class="hljs-attr">platform</span>: <span class="hljs-string">'WINDOWS'</span>, <span class="hljs-attr">platformVersion</span>: <span class="hljs-string">'10'</span> },
@@ -284,18 +284,18 @@ describe(<span class="hljs-string">'StandardisedCapabilities'</span>, <span clas
             },
         },
     ]).
-    it(<span class="hljs-string">`standardises the WebDriver capabilities across browsers and platforms`</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`standardises the WebDriver capabilities across browsers and platforms`</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> fakeBrowser = {
-            <span class="hljs-attr">getCapabilities</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-keyword">new</span> Capabilities(actual)),
+            <span class="hljs-attr">getCapabilities</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Capabilities</span>(actual)),
         };
 
-        <span class="hljs-keyword">const</span> capabilities = StandardisedCapabilities.of(<span class="hljs-function">() =&gt;</span> fakeBrowser <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> ProtractorBrowser);
+        <span class="hljs-keyword">const</span> capabilities = <span class="hljs-title class_">StandardisedCapabilities</span>.<span class="hljs-title function_">of</span>(<span class="hljs-function">() =&gt;</span> fakeBrowser <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProtractorBrowser</span>);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-            expect(capabilities.browserName()).to.eventually.equal(expected.browserName),
-            expect(capabilities.browserVersion()).to.eventually.equal(expected.browserVersion),
-            expect(capabilities.platformName()).to.eventually.equal(expected.platformName),
-            expect(capabilities.platformVersion()).to.eventually.equal(expected.platformVersion),
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+            <span class="hljs-title function_">expect</span>(capabilities.<span class="hljs-title function_">browserName</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expected.<span class="hljs-property">browserName</span>),
+            <span class="hljs-title function_">expect</span>(capabilities.<span class="hljs-title function_">browserVersion</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expected.<span class="hljs-property">browserVersion</span>),
+            <span class="hljs-title function_">expect</span>(capabilities.<span class="hljs-title function_">platformName</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expected.<span class="hljs-property">platformName</span>),
+            <span class="hljs-title function_">expect</span>(capabilities.<span class="hljs-title function_">platformVersion</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expected.<span class="hljs-property">platformVersion</span>),
         ]);
     });
 });

@@ -128,34 +128,34 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/JavaExecutable.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 <span class="hljs-keyword">import</span> { promisify } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
-<span class="hljs-keyword">const</span> findJavaHome = promisify(<span class="hljs-built_in">require</span>(<span class="hljs-string">'find-java-home'</span>));  <span class="hljs-comment">// eslint-disable-line  @typescript-eslint/no-var-requires</span>
+<span class="hljs-keyword">const</span> findJavaHome = <span class="hljs-title function_">promisify</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'find-java-home'</span>));  <span class="hljs-comment">// eslint-disable-line  @typescript-eslint/no-var-requires</span>
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaExecutable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">Path</span>&gt;&gt; </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">super</span>(<span class="hljs-string">`java executable`</span>);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JavaExecutable</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Path</span>&gt;&gt; {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`java executable`</span>);
     }
 
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
-        <span class="hljs-keyword">return</span> findJavaHome({ <span class="hljs-attr">allowJre</span>: <span class="hljs-literal">true</span> })
-            .then(<span class="hljs-function"><span class="hljs-params">pathToJavaHome</span> =&gt;</span> path.join(pathToJavaHome, <span class="hljs-string">'bin'</span>, <span class="hljs-built_in">this</span>.javaFileName()))
-            .then(Path.fromJSON);
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Path</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">findJavaHome</span>({ <span class="hljs-attr">allowJre</span>: <span class="hljs-literal">true</span> })
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">pathToJavaHome</span> =&gt;</span> path.<span class="hljs-title function_">join</span>(pathToJavaHome, <span class="hljs-string">'bin'</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">javaFileName</span>()))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-property">fromJSON</span>);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">javaFileName</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.isWindows()
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">javaFileName</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isWindows</span>()
             ? <span class="hljs-string">'java.exe'</span>
             : <span class="hljs-string">'java'</span>;
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">isWindows</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-keyword">return</span> process.platform.indexOf(<span class="hljs-string">'win'</span>) === <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isWindows</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> process.<span class="hljs-property">platform</span>.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">'win'</span>) === <span class="hljs-number">0</span>;
     }
 }
 </code></pre>

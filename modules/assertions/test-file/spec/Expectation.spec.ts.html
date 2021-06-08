@@ -147,97 +147,97 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, Answerable, AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AssertionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { and, Ensure, equals, Expectation, isGreaterThan, isLessThan, or } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
+<span class="hljs-keyword">import</span> { and, <span class="hljs-title class_">Ensure</span>, equals, <span class="hljs-title class_">Expectation</span>, isGreaterThan, isLessThan, or } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
 <span class="hljs-keyword">import</span> { isIdenticalTo, p, q } <span class="hljs-keyword">from</span> <span class="hljs-string">'./fixtures'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation}</span> </span>*/</span>
-describe(<span class="hljs-string">'Expectation'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Expectation'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'allows to easily define an assertion, which'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'allows to easily define an assertion, which'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.that}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Ensure.that}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.that</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Ensure.that</span>}
          */</span>
-        it(<span class="hljs-string">'allows the actor flow to continue when the assertion passes'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                Ensure.that(<span class="hljs-number">4</span>, isIdenticalTo(<span class="hljs-number">4</span>)),
-            )).to.be.fulfilled;
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the actor flow to continue when the assertion passes'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">4</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-number">4</span>)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.that}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Ensure.that}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.that</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Ensure.that</span>}
          */</span>
-        it(<span class="hljs-string">'stops the actor flow when the assertion fails'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                Ensure.that(<span class="hljs-number">4</span>, isIdenticalTo(<span class="hljs-string">'4'</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>)),
-            )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 4 to have value identical to '4'`</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'stops the actor flow when the assertion fails'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">4</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'4'</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">AssertionError</span>, <span class="hljs-string">`Expected 4 to have value identical to '4'`</span>);
         });
 
-        given&lt;Answerable&lt;<span class="hljs-built_in">number</span>&gt;&gt;(
+        given&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt;(
             <span class="hljs-number">42</span>,
-            p(<span class="hljs-number">42</span>),
-            q(<span class="hljs-number">42</span>),
-            q(p(<span class="hljs-number">42</span>)),
+            <span class="hljs-title function_">p</span>(<span class="hljs-number">42</span>),
+            <span class="hljs-title function_">q</span>(<span class="hljs-number">42</span>),
+            <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(<span class="hljs-number">42</span>)),
         ).
-        it(<span class="hljs-string">'allows for the expected value to be defined as any Answerable&lt;T&gt;'</span>, <span class="hljs-function">(<span class="hljs-params">expected: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>) =&gt;</span> {
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                Ensure.that(<span class="hljs-number">42</span>, isIdenticalTo(expected)),
-            )).to.be.fulfilled;
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for the expected value to be defined as any Answerable&lt;T&gt;'</span>, <span class="hljs-function">(<span class="hljs-params">expected: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">42</span>, <span class="hljs-title function_">isIdenticalTo</span>(expected)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
         });
     });
 
-    describe(<span class="hljs-string">'allows to alias an expectation, so that the alias'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'allows to alias an expectation, so that the alias'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) </span>{
-            <span class="hljs-keyword">return</span> Expectation
-                .to(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>)
-                .soThatActual(and(
-                    or(isGreaterThan(lowerBound), equals(lowerBound)),
-                    or(isLessThan(upperBound), equals(upperBound)),
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>
+                .<span class="hljs-title function_">to</span>(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>)
+                .<span class="hljs-title function_">soThatActual</span>(<span class="hljs-title function_">and</span>(
+                    <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isGreaterThan</span>(lowerBound), <span class="hljs-title function_">equals</span>(lowerBound)),
+                    <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isLessThan</span>(upperBound), <span class="hljs-title function_">equals</span>(upperBound)),
                 ));
         }
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
-        it(<span class="hljs-string">'contributes to a human-readable description'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(Ensure.that(<span class="hljs-number">5</span>, isWithin(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)).toString())
-                .to.equal(<span class="hljs-string">`#actor ensures that 5 does have value within 3 and 6`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.to</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'contributes to a human-readable description'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">5</span>, <span class="hljs-title function_">isWithin</span>(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)).<span class="hljs-title function_">toString</span>())
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor ensures that 5 does have value within 3 and 6`</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
-        it(<span class="hljs-string">'provides a precise failure message when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                Ensure.that(<span class="hljs-number">9</span>, isWithin(<span class="hljs-number">7</span>, <span class="hljs-number">8</span>)),
-            )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 9 to have value that's less than 8 or equal 8`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.to</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a precise failure message when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">9</span>, <span class="hljs-title function_">isWithin</span>(<span class="hljs-number">7</span>, <span class="hljs-number">8</span>)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">AssertionError</span>, <span class="hljs-string">`Expected 9 to have value that's less than 8 or equal 8`</span>);
         });
     });
 
-    describe(<span class="hljs-string">'allows to override the description of an expectation, so that the new version'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'allows to override the description of an expectation, so that the new version'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) </span>{
-            <span class="hljs-keyword">return</span> and(
-                or(isGreaterThan(lowerBound), equals(lowerBound)),
-                or(isLessThan(upperBound), equals(upperBound)),
-            ).describedAs(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>);
+        <span class="hljs-keyword">function</span> <span class="hljs-title function_">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">and</span>(
+                <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isGreaterThan</span>(lowerBound), <span class="hljs-title function_">equals</span>(lowerBound)),
+                <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isLessThan</span>(upperBound), <span class="hljs-title function_">equals</span>(upperBound)),
+            ).<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>);
         }
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
-        it(<span class="hljs-string">'replaces the old description'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(Ensure.that(<span class="hljs-number">5</span>, isWithin(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)).toString())
-                .to.equal(<span class="hljs-string">`#actor ensures that 5 does have value within 3 and 6`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.to</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'replaces the old description'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">5</span>, <span class="hljs-title function_">isWithin</span>(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)).<span class="hljs-title function_">toString</span>())
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor ensures that 5 does have value within 3 and 6`</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Expectation.to}</span> </span>*/</span>
-        it(<span class="hljs-string">'provides a precise failure message when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Astrid'</span>).attemptsTo(
-                Ensure.that(<span class="hljs-number">9</span>, isWithin(<span class="hljs-number">7</span>, <span class="hljs-number">8</span>)),
-            )).to.be.rejectedWith(AssertionError, <span class="hljs-string">`Expected 9 to have value that's less than 8 or equal 8`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Expectation.to</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a precise failure message when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Astrid'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">9</span>, <span class="hljs-title function_">isWithin</span>(<span class="hljs-number">7</span>, <span class="hljs-number">8</span>)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">AssertionError</span>, <span class="hljs-string">`Expected 9 to have value that's less than 8 or equal 8`</span>);
         });
     });
 });

@@ -294,23 +294,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/Clock.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc </span>A {<span class="hljs-doctag">@link </span>Clock} tells the time.
+ * <span class="hljs-doctag">@desc</span> A {<span class="hljs-doctag">@link</span> Clock} tells the time.
  *
  * <span class="hljs-doctag">@example</span>
  * const now: Timestamp = new Clock().now()
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Clock</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> checkTime: () =&gt; <span class="hljs-built_in">Date</span> = () =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Clock</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> checkTime: () =&gt; <span class="hljs-built_in">Date</span> = () =&gt; <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</span>) {
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Timestamp}</span> </span>current time
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Timestamp</span>} current time
      */</span>
-    now(): Timestamp {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-built_in">this</span>.checkTime());
+    <span class="hljs-title function_">now</span>(): <span class="hljs-title class_">Timestamp</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">checkTime</span>());
     }
 }
 </code></pre>

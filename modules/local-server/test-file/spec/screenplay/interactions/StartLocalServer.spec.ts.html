@@ -135,74 +135,74 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { and, Ensure, equals, isGreaterThan, isLessThan, or } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, actorInTheSpotlight, Cast, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { and, <span class="hljs-title class_">Ensure</span>, equals, isGreaterThan, isLessThan, or } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled, actorInTheSpotlight, <span class="hljs-title class_">Cast</span>, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { Server } <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Server</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
 <span class="hljs-keyword">import</span> { satisfies } <span class="hljs-keyword">from</span> <span class="hljs-string">'semver'</span>;
 
-<span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { RequestListener } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/screenplay/abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LocalServer</span>, <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">StartLocalServer</span>, <span class="hljs-title class_">StopLocalServer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">RequestListener</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/screenplay/abilities'</span>;
 <span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../servers'</span>);
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{StartALocalServer}</span> </span>*/</span>
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LocalServer.url}</span> </span>*/</span>
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{LocalServer.port}</span> </span>*/</span>
-describe(<span class="hljs-string">'StartALocalServer'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">StartALocalServer</span>} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">LocalServer.url</span>} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">LocalServer.port</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'StartALocalServer'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> listener: () =&gt; RequestListener | Server</span>)</span> {
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> listener: () =&gt; RequestListener | Server</span>) {
         }
 
-        prepare(actor: Actor): Actor {
-            <span class="hljs-keyword">return</span> actor.whoCan(ManageALocalServer.runningAHttpListener(<span class="hljs-built_in">this</span>.listener()));
+        <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+            <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">runningAHttpListener</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">listener</span>()));
         }
     }
 
-    given(servers).
-    it(<span class="hljs-string">'allows the Actor to start the server on a preferred port'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
-        <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
+    <span class="hljs-title function_">given</span>(servers).
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the Actor to start the server on a preferred port'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">satisfies</span>(process.<span class="hljs-property">versions</span>.<span class="hljs-property">node</span>, node)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">skip</span>();
         }
 
-        configure({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(handler) });
+        <span class="hljs-title function_">configure</span>({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>(handler) });
 
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(
-            StartLocalServer.onPort(<span class="hljs-number">30000</span>),
-            Ensure.that(LocalServer.port(), equals(<span class="hljs-number">30000</span>)),
-        )).to.be.fulfilled;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nadia'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onPort</span>(<span class="hljs-number">30000</span>),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">port</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">30000</span>)),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
     });
 
-    given(servers).
-    it(<span class="hljs-string">'allows the Actor to start the server on a random port'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
-        <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
+    <span class="hljs-title function_">given</span>(servers).
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the Actor to start the server on a random port'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">satisfies</span>(process.<span class="hljs-property">versions</span>.<span class="hljs-property">node</span>, node)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">skip</span>();
         }
 
-        configure({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(handler) });
+        <span class="hljs-title function_">configure</span>({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>(handler) });
 
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(
-            StartLocalServer.onRandomPort(),
-            Ensure.that(LocalServer.port(), and(or(equals(<span class="hljs-number">8000</span>), isGreaterThan(<span class="hljs-number">8000</span>)), or(isLessThan(<span class="hljs-number">65535</span>), equals(<span class="hljs-number">65535</span>)))),
-        )).to.be.fulfilled;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nadia'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onRandomPort</span>(),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">port</span>(), <span class="hljs-title function_">and</span>(<span class="hljs-title function_">or</span>(<span class="hljs-title function_">equals</span>(<span class="hljs-number">8000</span>), <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">8000</span>)), <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isLessThan</span>(<span class="hljs-number">65535</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-number">65535</span>)))),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
     });
 
-    given(servers).
-    it(<span class="hljs-string">'allows the Actor to start the server on a random port within a range'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) </span>{
-        <span class="hljs-keyword">if</span> (! satisfies(process.versions.node, node)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.skip();
+    <span class="hljs-title function_">given</span>(servers).
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the Actor to start the server on a random port within a range'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">satisfies</span>(process.<span class="hljs-property">versions</span>.<span class="hljs-property">node</span>, node)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">skip</span>();
         }
 
-        configure({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(handler) });
+        <span class="hljs-title function_">configure</span>({ <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>(handler) });
 
-        <span class="hljs-keyword">return</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(
-            StartLocalServer.onRandomPortBetween(<span class="hljs-number">8080</span>, <span class="hljs-number">9090</span>),
-            Ensure.that(LocalServer.port(), and(or(equals(<span class="hljs-number">8080</span>), isGreaterThan(<span class="hljs-number">8080</span>)), or(isLessThan(<span class="hljs-number">9090</span>), equals(<span class="hljs-number">9090</span>)))),
-        )).to.be.fulfilled;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nadia'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onRandomPortBetween</span>(<span class="hljs-number">8080</span>, <span class="hljs-number">9090</span>),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">port</span>(), <span class="hljs-title function_">and</span>(<span class="hljs-title function_">or</span>(<span class="hljs-title function_">equals</span>(<span class="hljs-number">8080</span>), <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">8080</span>)), <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isLessThan</span>(<span class="hljs-number">9090</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-number">9090</span>)))),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
     });
 
-    afterEach(<span class="hljs-function">() =&gt;</span> actorInTheSpotlight().attemptsTo(
-        StopLocalServer.ifRunning(),
+    <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
+        <span class="hljs-title class_">StopLocalServer</span>.<span class="hljs-title function_">ifRunning</span>(),
     ));
 });
 </code></pre>

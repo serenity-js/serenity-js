@@ -294,16 +294,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Note.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
-<span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
-<span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link </span>Actor} to recall an answer to a given {<span class="hljs-doctag">@link </span>Question},
- *  recorded using {<span class="hljs-doctag">@link </span>TakeNote}.
+ *  Enables the {<span class="hljs-doctag">@link</span> Actor} to recall an answer to a given {<span class="hljs-doctag">@link</span> Question},
+ *  recorded using {<span class="hljs-doctag">@link</span> TakeNote}.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using default subject name based on the name of the question&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using default subject name based on the name of the question&lt;/caption&gt;
  *  import { actorCalled, Note, TakeNote, TakeNotes } from '<span class="hljs-doctag">@serenity</span>-js/core'
  *  import { BrowseTheWeb, Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor'
  *  import { by, protractor } from 'protractor';
@@ -324,53 +324,53 @@
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  *  );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using custom subject name&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using custom subject name&lt;/caption&gt;
  *  actor.attemptsTo(
  *      TakeNote.of(Text.of(Vouchers.code)).as('voucher code'),
  *      // ... add the product to a basket, go to checkout, etc.
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of('voucher code'))),
  *  );
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link TakeNote}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link TakeNotes}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link TakeNote</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link TakeNotes</span>}
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Question}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Question</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Note</span>&lt;<span class="hljs-title">Answer</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">Answer</span>&gt;&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Note</span>&lt;<span class="hljs-title class_">Answer</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>&gt;&gt; {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Retrieves the previously recorded answer to a given {<span class="hljs-doctag">@link </span>Question}
+     *  Retrieves the previously recorded answer to a given {<span class="hljs-doctag">@link</span> Question}
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string}</span> <span class="hljs-variable">topic</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string</span>} <span class="hljs-variable">topic</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Note&lt;A&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Note&lt;A&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;A&gt;(topic: Question&lt;<span class="hljs-built_in">Promise</span>&lt;A&gt;&gt; | Question&lt;A&gt; | <span class="hljs-built_in">string</span>): Note&lt;A&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Note&lt;A&gt;(topic);
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;A&gt;(<span class="hljs-attr">topic</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;A&gt;&gt; | <span class="hljs-title class_">Question</span>&lt;A&gt; | <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Note</span>&lt;A&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Note</span>&lt;A&gt;(topic);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string}</span> <span class="hljs-variable">topic</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>} <span class="hljs-variable">topic</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> topic: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(<span class="hljs-string">`a note of <span class="hljs-subst">${ topic }</span>`</span>);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> topic: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`a note of <span class="hljs-subst">${ topic }</span>`</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
-     *  answer this {<span class="hljs-doctag">@link </span>Question}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> Question}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;Answer&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;Answer&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link UsesAbilities</span>}
      */</span>
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;Answer&gt; {
-        <span class="hljs-keyword">return</span> TakeNotes.as(actor).answerTo(<span class="hljs-built_in">this</span>.topic);
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">answerTo</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">topic</span>);
     }
 }
 </code></pre>

@@ -187,12 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/UseAngular.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+ *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
  *  enable or disable automated synchronisation between Protractor and Angular.
  *
  *  Useful when a test scenario needs to interact with both Angular-based
@@ -203,7 +204,7 @@
  *  **Please note** if your tests interact with a non-Angular app you can disable
  *  synchronisation altogether in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Disabling synchronisation temporarily&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Disabling synchronisation temporarily&lt;/caption&gt;
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, UseAngular, Navigate } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { protractor } from 'protractor';
@@ -220,7 +221,7 @@
  *          // navigate to an Angular app, perform some more activities...
  *      );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Disabling synchronisation in protractor.conf.js&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Disabling synchronisation in protractor.conf.js&lt;/caption&gt;
  *  exports.config = {
  *      onPrepare: function () {
  *          return browser.waitForAngularEnabled(false);
@@ -228,32 +229,32 @@
  *      // ... other config
  *  };
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseAngular</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UseAngular</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+     *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
      *  disable synchronisation between Protractor and Angular.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      */</span>
-    <span class="hljs-keyword">static</span> disableSynchronisation(): Interaction {
-        <span class="hljs-keyword">return</span> Interaction.where(<span class="hljs-string">`#actor disables synchronisation with Angular`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).enableAngularSynchronisation(<span class="hljs-literal">false</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">disableSynchronisation</span>(): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor disables synchronisation with Angular`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">enableAngularSynchronisation</span>(<span class="hljs-literal">false</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+     *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
      *  enable synchronisation between Protractor and Angular.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      */</span>
-    <span class="hljs-keyword">static</span> enableSynchronisation(): Interaction {
-        <span class="hljs-keyword">return</span> Interaction.where(<span class="hljs-string">`#actor enables synchronisation with Angular`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).enableAngularSynchronisation(<span class="hljs-literal">true</span>).then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">enableSynchronisation</span>(): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor enables synchronisation with Angular`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">enableAngularSynchronisation</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
     }
 }
 </code></pre>

@@ -299,61 +299,61 @@
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { ImplementationPendingError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
-<span class="hljs-keyword">import</span> { Actor, Interaction, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ImplementationPendingError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-describe(<span class="hljs-string">'Task'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Task'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> stage: sinon.SinonStubbedInstance&lt;Stage&gt;;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">stage</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">Stage</span>&gt;;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        stage = sinon.createStubInstance(Stage);
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        stage = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Stage</span>);
 
         <span class="hljs-keyword">const</span>
-            sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'some-scene-id'</span>),
-            activityId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'some-activity-id'</span>);
+            sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'some-scene-id'</span>),
+            activityId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'some-activity-id'</span>);
 
-        stage.currentSceneId.returns(sceneId);
-        stage.assignNewActivityId.returns(activityId);
-        stage.currentActivityId.returns(activityId);
+        stage.<span class="hljs-property">currentSceneId</span>.<span class="hljs-title function_">returns</span>(sceneId);
+        stage.<span class="hljs-property">assignNewActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
+        stage.<span class="hljs-property">currentActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
     });
 
     <span class="hljs-keyword">const</span>
-        Nock    = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor places an arrow on the bow`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-        Draw    = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor pulls back the bow string`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-        Loose   = <span class="hljs-function">() =&gt;</span> Interaction.where(<span class="hljs-string">`#actor releases an arrow from the bow`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
+        <span class="hljs-title function_">Nock</span>    = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor places an arrow on the bow`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+        <span class="hljs-title class_">Draw</span>    = <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor pulls back the bow string`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
+        <span class="hljs-title class_">Loose</span>   = <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor releases an arrow from the bow`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
 
-    <span class="hljs-keyword">const</span> ShootAnArrow = <span class="hljs-function">() =&gt;</span> Task.where(<span class="hljs-string">`#actor shoots an arrow`</span>,
-        Nock(),
-        Draw(),
-        Loose(),
+    <span class="hljs-keyword">const</span> <span class="hljs-title function_">ShootAnArrow</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor shoots an arrow`</span>,
+        <span class="hljs-title class_">Nock</span>(),
+        <span class="hljs-title class_">Draw</span>(),
+        <span class="hljs-title class_">Loose</span>(),
     );
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Task}</span> </span>*/</span>
-    it(<span class="hljs-string">'provides a convenient factory method for defining tasks'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Task</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a convenient factory method for defining tasks'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> Lara = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">'Lara'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
+        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Lara</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(<span class="hljs-string">'Lara'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
 
-        <span class="hljs-keyword">return</span> expect(Lara.attemptsTo(ShootAnArrow())).to.be.fulfilled;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Lara</span>.<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-title class_">ShootAnArrow</span>())).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Task}</span> </span>*/</span>
-    it(<span class="hljs-string">'provides a way to describe a collection of activities'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(ShootAnArrow().toString()).to.equal(<span class="hljs-string">`#actor shoots an arrow`</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Task</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a way to describe a collection of activities'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">ShootAnArrow</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor shoots an arrow`</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Task}</span> </span>*/</span>
-    it(<span class="hljs-string">'generates a pending task if no activities are provided'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Task</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'generates a pending task if no activities are provided'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> Lara = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">'Lara'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
+        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Lara</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(<span class="hljs-string">'Lara'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
 
-        <span class="hljs-keyword">const</span> ClimbAMountain = <span class="hljs-function">() =&gt;</span> Task.where(<span class="hljs-string">`#actor climbs a mountain`</span>);
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">ClimbAMountain</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor climbs a mountain`</span>);
 
-        <span class="hljs-keyword">return</span> expect(Lara.attemptsTo(ClimbAMountain()))
-            .to.be.rejectedWith(ImplementationPendingError, <span class="hljs-string">`A task where "#actor climbs a mountain" has not been implemented yet`</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Lara</span>.<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-title class_">Climb</span>AMountain()))
+            .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-string">`A task where "#actor climbs a mountain" has not been implemented yet`</span>);
     });
 });
 </code></pre>

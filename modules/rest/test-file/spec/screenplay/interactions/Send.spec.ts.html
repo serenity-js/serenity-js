@@ -140,114 +140,114 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Send.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>, <span class="hljs-title class_">ActivityStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { HTTPRequestResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Clock } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Clock</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-<span class="hljs-keyword">import</span> MockAdapter <span class="hljs-keyword">from</span> <span class="hljs-string">'axios-mock-adapter'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">MockAdapter</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'axios-mock-adapter'</span>;
 
-<span class="hljs-keyword">import</span> { GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance, APIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Send}</span> </span>*/</span>
-describe(<span class="hljs-string">'Send'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Send'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">interface</span> ExampleResponse {
         <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{Send.a}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{HTTPRequest}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{GetRequest.to}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.status}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.body}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send.a</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HTTPRequest</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">GetRequest.to</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.status</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.body</span>}
      */</span>
-    it(<span class="hljs-string">'enables the actor to send a HTTPRequest'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables the actor to send a HTTPRequest'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
 
-        mock.onGet(<span class="hljs-string">'/products/2'</span>).reply(<span class="hljs-number">200</span>, {
+        mock.<span class="hljs-title function_">onGet</span>(<span class="hljs-string">'/products/2'</span>).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, {
             <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
         });
 
-        <span class="hljs-keyword">return</span> actor.attemptsTo(
-            Send.a(GetRequest.to(<span class="hljs-string">'/products/2'</span>)),
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-            Ensure.that(LastResponse.body&lt;ExampleResponse&gt;(), equals({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })),
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/products/2'</span>)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">ExampleResponse</span>&gt;(), <span class="hljs-title function_">equals</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })),
         );
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{Send.a}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{HTTPRequest}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{GetRequest.to}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.status}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{LastResponse.body}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send.a</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HTTPRequest</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">GetRequest.to</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.status</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.body</span>}
      */</span>
-    it(<span class="hljs-string">'enables the actor to send an Axios Request'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> { actor, mock } = actorUsingAMockedAxiosInstance();
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables the actor to send an Axios Request'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
 
-        mock.onGet(<span class="hljs-string">'/products/2'</span>).reply(<span class="hljs-number">200</span>, {
+        mock.<span class="hljs-title function_">onGet</span>(<span class="hljs-string">'/products/2'</span>).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, {
             <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
         });
 
-        <span class="hljs-keyword">return</span> actor.attemptsTo(
-            Send.a({
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>({
                 <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
                 <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
             }),
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-            Ensure.that(LastResponse.body&lt;ExampleResponse&gt;(), equals({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">ExampleResponse</span>&gt;(), <span class="hljs-title function_">equals</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })),
         );
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{Send.a}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{HTTPRequest}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{GetRequest.to}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send.a</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HTTPRequest</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">GetRequest.to</span>}
      */</span>
-    it(<span class="hljs-string">'emits the events so that the details of the HTTP interaction can be reported'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1970-01-01'</span>));
-        <span class="hljs-keyword">const</span> axiosInstance = axios.create({
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'emits the events so that the details of the HTTP interaction can be reported'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'1970-01-01'</span>));
+        <span class="hljs-keyword">const</span> axiosInstance = axios.<span class="hljs-title function_">create</span>({
             <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://myapp.com/api'</span>
         });
-        <span class="hljs-keyword">const</span> mock     = <span class="hljs-keyword">new</span> MockAdapter(axiosInstance);
-        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
-        <span class="hljs-keyword">const</span> recorder = <span class="hljs-keyword">new</span> EventRecorder();
+        <span class="hljs-keyword">const</span> mock     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MockAdapter</span>(axiosInstance);
+        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(frozenClock);
+        <span class="hljs-keyword">const</span> recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>();
 
-        serenity.configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> APIActors(axiosInstance),
+        serenity.<span class="hljs-title function_">configure</span>({
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title function_">APIActors</span>(axiosInstance),
             <span class="hljs-attr">crew</span>: [ recorder ],
         });
 
-        mock.onGet(<span class="hljs-string">'products/2'</span>).reply(<span class="hljs-number">200</span>, {   <span class="hljs-comment">// axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')</span>
+        mock.<span class="hljs-title function_">onGet</span>(<span class="hljs-string">'products/2'</span>).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, {   <span class="hljs-comment">// axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')</span>
             <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
         }, {
             <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
         });
 
-        <span class="hljs-keyword">return</span> serenity.theActorCalled(<span class="hljs-string">'Apisitt'</span>).attemptsTo(
-            Send.a(GetRequest.to(<span class="hljs-string">'products/2'</span>)),
-        ).then(<span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> events = recorder.events;
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Apisitt'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'products/2'</span>)),
+        ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> events = recorder.<span class="hljs-property">events</span>;
 
-            expect(events).to.have.lengthOf(<span class="hljs-number">3</span>);
-            expect(events[ <span class="hljs-number">0</span> ]).to.be.instanceOf(ActivityStarts);
-            expect(events[ <span class="hljs-number">1</span> ]).to.be.instanceOf(ActivityRelatedArtifactGenerated);
-            expect(events[ <span class="hljs-number">2</span> ]).to.be.instanceOf(ActivityFinished);
+            <span class="hljs-title function_">expect</span>(events).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">3</span>);
+            <span class="hljs-title function_">expect</span>(events[ <span class="hljs-number">0</span> ]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityStarts</span>);
+            <span class="hljs-title function_">expect</span>(events[ <span class="hljs-number">1</span> ]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>);
+            <span class="hljs-title function_">expect</span>(events[ <span class="hljs-number">2</span> ]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityFinished</span>);
 
-            <span class="hljs-keyword">const</span> artifactGenerated = events[ <span class="hljs-number">1</span> ] <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated;
+            <span class="hljs-keyword">const</span> artifactGenerated = events[ <span class="hljs-number">1</span> ] <span class="hljs-keyword">as</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>;
 
-            expect(artifactGenerated.name.value).to.equal(<span class="hljs-string">`GET https://myapp.com/api/products/2`</span>);
-            expect(artifactGenerated.artifact.equals(HTTPRequestResponse.fromJSON({
+            <span class="hljs-title function_">expect</span>(artifactGenerated.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`GET https://myapp.com/api/products/2`</span>);
+            <span class="hljs-title function_">expect</span>(artifactGenerated.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">equals</span>(HTTPRequestResponse.<span class="hljs-title function_">fromJSON</span>({
                 <span class="hljs-attr">request</span>: {
                     <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
                     <span class="hljs-attr">url</span>: <span class="hljs-string">'https://myapp.com/api/products/2'</span>,
-                    <span class="hljs-attr">headers</span>: { <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json, text/plain, */*'</span> },
+                    <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Accept</span>: <span class="hljs-string">'application/json, text/plain, */*'</span> },
                 },
                 <span class="hljs-attr">response</span>: {
                     <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
@@ -256,10 +256,10 @@ describe(<span class="hljs-string">'Send'</span>, <span class="hljs-function">()
                     },
                     <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> },
                 },
-            }))).to.equal(<span class="hljs-literal">true</span>, <span class="hljs-built_in">JSON</span>.stringify(artifactGenerated.artifact.toJSON()));
+            }))).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>, <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(artifactGenerated.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">toJSON</span>()));
 
-            expect(artifactGenerated.timestamp.equals(frozenClock.now()))
-                .to.equal(<span class="hljs-literal">true</span>, artifactGenerated.timestamp.toString());
+            <span class="hljs-title function_">expect</span>(artifactGenerated.<span class="hljs-property">timestamp</span>.<span class="hljs-title function_">equals</span>(frozenClock.<span class="hljs-title function_">now</span>()))
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>, artifactGenerated.<span class="hljs-property">timestamp</span>.<span class="hljs-title function_">toString</span>());
         });
     });
 });

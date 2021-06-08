@@ -297,31 +297,31 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
 <span class="hljs-keyword">import</span> { ensure, isDefined, isString } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../actor'</span>;
-<span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../Answerable'</span>;
-<span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AnswerMappingFunction'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswerMappingFunction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AnswerMappingFunction'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Returns the calling string value converted to upper case, according to any locale-specific case mappings.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string | string[]&gt;}</span> </span>[locales]
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;string | string[]&gt;</span>} [locales]
  *  The `locale` parameter indicates the locale to be used to convert to lower case according to any
  *  locale-specific case mappings. If multiple locales are given in an `Array`,
  *  the [best available locale](https://tc39.es/ecma402/#sec-bestavailablelocale) is used.
  *  The default locale is the host environment’s current locale.
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{AnswerMappingFunction&lt;string, string&gt;}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">AnswerMappingFunction&lt;string, string&gt;</span>}
  *
- * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleLowerCase
+ * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleLowerCase
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toLocaleLowerCase</span>(<span class="hljs-params">locales?: Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]&gt;</span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">toLocaleLowerCase</span>(<span class="hljs-params">locales?: Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]&gt;</span>): <span class="hljs-title class_">AnswerMappingFunction</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; {
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
         <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
-            ensure(<span class="hljs-string">'The value to be mapped'</span>, value, isDefined(), isString());
+            <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'The value to be mapped'</span>, value, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isString</span>());
 
-            <span class="hljs-keyword">return</span> actor.answer(locales)
-                .then(<span class="hljs-function"><span class="hljs-params">l</span> =&gt;</span> value.toLocaleLowerCase(l));
+            <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(locales)
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">l</span> =&gt;</span> value.<span class="hljs-title function_">toLocaleLowerCase</span>(l));
         }
 
 }

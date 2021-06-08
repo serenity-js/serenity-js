@@ -132,8 +132,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/TerminalTheme.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionReportDiffer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -143,18 +143,18 @@
  * <span class="hljs-doctag">@public</span>
  * <span class="hljs-doctag">@abstract</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TerminalTheme</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TerminalTheme</span> {
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~AssertionReportDiffer}</span> <span class="hljs-variable">differ</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~AssertionReportDiffer</span>} <span class="hljs-variable">differ</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> differ: AssertionReportDiffer</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> differ: AssertionReportDiffer</span>) {
     }
 
-    <span class="hljs-keyword">abstract</span> heading(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> outcome(outcome: Outcome | <span class="hljs-built_in">string</span>, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> separator(pattern: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> diff(expected: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actual</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> log(...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">heading</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">outcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span> | <span class="hljs-built_in">string</span>, ...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">separator</span>(<span class="hljs-attr">pattern</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">diff</span>(<span class="hljs-attr">expected</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actual</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">log</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -162,12 +162,12 @@
      *
      * <span class="hljs-doctag">@protected</span>
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{any[]}</span> <span class="hljs-variable">parts</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any[]</span>} <span class="hljs-variable">parts</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    <span class="hljs-keyword">protected</span> joined(parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> parts.map(<span class="hljs-built_in">String</span>).join(<span class="hljs-string">''</span>);
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">joined</span>(<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> parts.<span class="hljs-title function_">map</span>(<span class="hljs-title class_">String</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);
     }
 
     <span class="hljs-comment">/**
@@ -177,19 +177,19 @@
      *
      * <span class="hljs-doctag">@protected</span>
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">pattern</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> </span>[maxLength=80] maxLength
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">pattern</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} [maxLength=80] maxLength
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    <span class="hljs-keyword">protected</span> repeat(pattern: <span class="hljs-built_in">string</span>, maxLength = <span class="hljs-number">80</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">repeat</span>(<span class="hljs-attr">pattern</span>: <span class="hljs-built_in">string</span>, maxLength = <span class="hljs-number">80</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">if</span> (! pattern) {
             <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
         }
 
-        <span class="hljs-keyword">const</span> repetitions = <span class="hljs-built_in">Math</span>.floor(maxLength / pattern.length);
+        <span class="hljs-keyword">const</span> repetitions = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(maxLength / pattern.<span class="hljs-property">length</span>);
 
-        <span class="hljs-keyword">return</span> pattern.repeat(repetitions);
+        <span class="hljs-keyword">return</span> pattern.<span class="hljs-title function_">repeat</span>(repetitions);
     }
 }
 </code></pre>

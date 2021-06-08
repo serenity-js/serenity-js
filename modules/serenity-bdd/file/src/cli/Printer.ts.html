@@ -133,20 +133,20 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Printer</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Printer</span> {
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> out: NodeJS.WritableStream,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> err: NodeJS.WritableStream,     <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
-    </span>)</span> {
+    </span>) {
     }
 
-    info(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.out.write(chalk.green(message) + <span class="hljs-string">'\n'</span>);
+    <span class="hljs-title function_">info</span>(<span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">write</span>(chalk.<span class="hljs-title function_">green</span>(message) + <span class="hljs-string">'\n'</span>);
     }
 
-    error(message: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.out.write(chalk.red(message) + <span class="hljs-string">'\n'</span>);
+    <span class="hljs-title function_">error</span>(<span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">out</span>.<span class="hljs-title function_">write</span>(chalk.<span class="hljs-title function_">red</span>(message) + <span class="hljs-string">'\n'</span>);
     }
 }
 </code></pre>

@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Browser} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Browser</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/Browser.ts.html#lineNumber6">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/Browser.ts.html#lineNumber7">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -285,7 +285,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Browser.ts.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Browser.ts.html#lineNumber71">source</a></span></span>
     </span>
   </h3>
 
@@ -331,7 +331,7 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Enabling Protractor browser logging</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// protractor.conf.js</span>
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
   <span class="hljs-attr">capabilities</span>: {
     <span class="hljs-attr">loggingPrefs</span>: {
         <span class="hljs-comment">// available options: OFF, SEVERE, WARNING, INFO, CONFIG, FINE, FINER, FINEST, ALL</span>
@@ -342,24 +342,24 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Ensure the app didn't log anything to the console during the test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Browser } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Ensure, property, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Browser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, property, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-actor.attemptsTo(
-  Ensure.that(Browser.log(), property(<span class="hljs-string">'length'</span>, equals(<span class="hljs-number">0</span>))),
+actor.<span class="hljs-title function_">attemptsTo</span>(
+  <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Browser</span>.<span class="hljs-title function_">log</span>(), <span class="hljs-title function_">property</span>(<span class="hljs-string">'length'</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-number">0</span>))),
 );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Mark the test as "compromised" if the server responds with a 500 to any AJAX request during the test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor, BrowseTheWeb, Browser, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Ensure, property, equals, not, contrainAtLeastOneItemThat } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Browser</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, property, equals, not, contrainAtLeastOneItemThat } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>
 
-actor.attemptsTo(
-  Ensure.that(Browser.log(),
-    not(contrainAtLeastOneItemThat(
-      property(<span class="hljs-string">'message'</span>, includes(<span class="hljs-string">'the server responded with a status of 500'</span>))
+actor.<span class="hljs-title function_">attemptsTo</span>(
+  <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Browser</span>.<span class="hljs-title function_">log</span>(),
+    <span class="hljs-title function_">not</span>(<span class="hljs-title function_">contrainAtLeastOneItemThat</span>(
+      <span class="hljs-title function_">property</span>(<span class="hljs-string">'message'</span>, <span class="hljs-title function_">includes</span>(<span class="hljs-string">'the server responded with a status of 500'</span>))
     ))
-  ).otherwiseFailWith(TestCompromisedError, <span class="hljs-string">'The server is down'</span>),
+  ).<span class="hljs-title function_">otherwiseFailWith</span>(<span class="hljs-title class_">TestCompromisedError</span>, <span class="hljs-string">'The server is down'</span>),
 );</code></pre>
     </div>
 </div>

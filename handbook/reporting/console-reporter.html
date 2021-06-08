@@ -157,7 +157,7 @@
 
 <h2 id="installation">Installation</h2>
 <p>To install the module, run the following command in your computer terminal:</p>
-<pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-built_in">console</span>-reporter}
+<pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-variable language_">console</span>-reporter}
 </code></pre>
 <h2 id="integration">Integration</h2>
 <p><a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a> listens to <a href="/modules/core/identifiers.html#events"><code>DomainEvents</code></a> emitted by <a href="/handbook/design/actors.html"><code>Actors</code></a> and Serenity/JS test runner adapters.</p>
@@ -195,11 +195,11 @@ graph TB
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
-        ConsoleReporter.forDarkTerminals(),
+        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">forDarkTerminals</span>(),
     ],
 });
 </code></pre>

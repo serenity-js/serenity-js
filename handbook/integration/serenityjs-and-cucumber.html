@@ -205,7 +205,7 @@ graph TB
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/config.ts</span>
 <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
         <span class="hljs-comment">// ... reporting services</span>
     ],
@@ -215,7 +215,7 @@ configure({
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// features/support/config.js</span>
 <span class="hljs-keyword">const</span> { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
         <span class="hljs-comment">// ... reporting services</span>
     ],
@@ -231,7 +231,7 @@ configure({
 </code></pre>
 <p>To make Cucumber support step definitions and configuration written in TypeScript, you'll need to add a dev dependency on <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a> and register it via <a href="https://github.com/cucumber/cucumber-js/blob/master/features/require_module.feature"><code>--require-module</code></a>:</p>
 <pre><code class="lang-console hljs typescript">npx cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
-    --<span class="hljs-built_in">require</span>-<span class="hljs-built_in">module</span> <span class="hljs-string">'ts-node/register'</span> \
+    --<span class="hljs-built_in">require</span>-<span class="hljs-variable language_">module</span> <span class="hljs-string">'ts-node/register'</span> \
     --<span class="hljs-built_in">require</span> <span class="hljs-string">'features/support/config.ts'</span> \ 
     [... <span class="hljs-built_in">any</span> other options]
 </code></pre>

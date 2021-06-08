@@ -131,67 +131,67 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/notifier/ResultMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Outcome</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AmbiguousStepDefinitionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../errors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResultMapper</span> </span>{
-    outcomeFor(status: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maybeError</span>: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): Outcome {
-        <span class="hljs-keyword">const</span> error = <span class="hljs-built_in">this</span>.errorFrom(maybeError);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ResultMapper</span> {
+    <span class="hljs-title function_">outcomeFor</span>(<span class="hljs-attr">status</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maybeError</span>: <span class="hljs-title class_">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-title class_">Outcome</span> {
+        <span class="hljs-keyword">const</span> error = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">errorFrom</span>(maybeError);
 
-        <span class="hljs-keyword">if</span> (error &amp;&amp; <span class="hljs-regexp">/timed out/</span>.test(error.message)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
+        <span class="hljs-keyword">if</span> (error &amp;&amp; <span class="hljs-regexp">/timed out/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error);
         }
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'undefined'</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">'Step not implemented'</span>));
 
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'ambiguous'</span>:
                 <span class="hljs-keyword">if</span> (! error) {
                     <span class="hljs-comment">// Only the step result contains the "ambiguous step def error", the scenario itself doesn't</span>
-                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> AmbiguousStepDefinitionError(<span class="hljs-string">'Multiple step definitions match'</span>));
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AmbiguousStepDefinitionError</span>(<span class="hljs-string">'Multiple step definitions match'</span>));
                 }
 
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error);
 
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'failed'</span>:
                 <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-                    <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> AssertionError:       <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error <span class="hljs-keyword">as</span> AssertionError);
-                    <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> TestCompromisedError: <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error <span class="hljs-keyword">as</span> TestCompromisedError);
-                    <span class="hljs-keyword">default</span>:                                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error);
+                    <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionError</span>:       <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(error <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>);
+                    <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TestCompromisedError</span>: <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(error <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestCompromisedError</span>);
+                    <span class="hljs-attr">default</span>:                                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error);
                 }
 
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'pending'</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step not implemented'</span>));
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">'Step not implemented'</span>));
 
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'passed'</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>();
 
             <span class="hljs-keyword">case</span> status === <span class="hljs-string">'skipped'</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>();
         }
 
     }
 
-    errorFrom(error: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-built_in">Error</span> | <span class="hljs-literal">undefined</span> {
+    <span class="hljs-title function_">errorFrom</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span> | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-title class_">Error</span> | <span class="hljs-literal">undefined</span> {
         <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">typeof</span> error) {
-            <span class="hljs-keyword">case</span> <span class="hljs-string">'string'</span>:   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(error <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
-            <span class="hljs-keyword">case</span> <span class="hljs-string">'object'</span>:   <span class="hljs-keyword">return</span> error <span class="hljs-keyword">as</span> <span class="hljs-built_in">Error</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-string">'function'</span>: <span class="hljs-keyword">return</span> error <span class="hljs-keyword">as</span> <span class="hljs-built_in">Error</span>;
-            <span class="hljs-keyword">default</span>:         <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'string'</span>:   <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(error <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>);
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'object'</span>:   <span class="hljs-keyword">return</span> error <span class="hljs-keyword">as</span> <span class="hljs-title class_">Error</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-string">'function'</span>: <span class="hljs-keyword">return</span> error <span class="hljs-keyword">as</span> <span class="hljs-title class_">Error</span>;
+            <span class="hljs-attr">default</span>:         <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
         }
     }
 }

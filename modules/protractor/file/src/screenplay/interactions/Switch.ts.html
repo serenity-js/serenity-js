@@ -187,18 +187,19 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Switch.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Activity</span>, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">PerformsActivities</span>, <span class="hljs-title class_">Task</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+ *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
  *  to switch to a different [frame](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame),
  *  [inline frame](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe),
  *  or browser window/tab.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing a login form, embedded in an iframe&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Lean Page Object describing a login form, embedded in an iframe&lt;/caption&gt;
  *
  *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { by } from 'protractor';
@@ -210,7 +211,7 @@
  *      static submitButton     = Target.the('submit button').located(by.css(`button[type='submit']`));
  *  }
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Switch to an iframe and back&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Switch to an iframe and back&lt;/caption&gt;
  *
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Switch, Enter, Click } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
@@ -228,7 +229,7 @@
  *          Switch.toParentFrame(),
  *      );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform activities in the context of an iframe&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Perform activities in the context of an iframe&lt;/caption&gt;
  *
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Switch, Enter, Click } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
@@ -245,7 +246,7 @@
  *          // Note that Switch.toParentFrame() is invoked automatically
  *      );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Switch to a new window/tab and back&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Switch to a new window/tab and back&lt;/caption&gt;
  *
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Switch, Close } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
@@ -263,7 +264,7 @@
  *          Switch.toOriginalWindow(),
  *      );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform activities in the context of a different window/tab&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Perform activities in the context of a different window/tab&lt;/caption&gt;
  *
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Switch, Close } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
@@ -281,10 +282,10 @@
  *          // Note that Switch.toOriginalWindow() is invoked automatically
  *      );
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Close}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link BrowseTheWeb}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Close</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link BrowseTheWeb</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Switch</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Switch</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -293,16 +294,16 @@
      *  or an [inline frame](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
      *  identified by its name, index or `Question&lt;ElementFinder&gt;`.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;ElementFinder | number | string&gt;}</span> <span class="hljs-variable">targetOrIndex</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;ElementFinder | number | string&gt;</span>} <span class="hljs-variable">targetOrIndex</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{SwitchToFrame}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">SwitchToFrame</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch.toParentFrame}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch.toDefaultContent}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Switch.toParentFrame</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Switch.toDefaultContent</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
      */</span>
-    <span class="hljs-keyword">static</span> toFrame(targetOrIndex: Answerable&lt;ElementFinder | <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>&gt;): SwitchToFrame {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToFrame(targetOrIndex);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">toFrame</span>(<span class="hljs-attr">targetOrIndex</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">ElementFinder</span> | <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>&gt;): <span class="hljs-title class_">SwitchToFrame</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToFrame</span>(targetOrIndex);
     }
 
     <span class="hljs-comment">/**
@@ -313,14 +314,14 @@
      *
      *  If the current context is the top-level browsing context, the context remains unchanged.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch.toFrame}</span></span>
-     * <span class="hljs-doctag">@see </span>https://w3c.github.io/webdriver/#switch-to-parent-frame
-     * <span class="hljs-doctag">@see </span>https://w3c.github.io/webdriver/#dfn-current-browsing-context
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Switch.toFrame</span>}
+     * <span class="hljs-doctag">@see</span> https://w3c.github.io/webdriver/#switch-to-parent-frame
+     * <span class="hljs-doctag">@see</span> https://w3c.github.io/webdriver/#dfn-current-browsing-context
      */</span>
-    <span class="hljs-keyword">static</span> toParentFrame(): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToParentFrame();
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">toParentFrame</span>(): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToParentFrame</span>();
     }
 
     <span class="hljs-comment">/**
@@ -329,12 +330,12 @@
      *  for future commands to the first frame on the page, or the main document
      *  when a page contains [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)s.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Switch.toFrame}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Switch.toFrame</span>}
      */</span>
-    <span class="hljs-keyword">static</span> toDefaultContent(): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToDefaultContent();
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">toDefaultContent</span>(): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToDefaultContent</span>();
     }
 
     <span class="hljs-comment">/**
@@ -343,11 +344,11 @@
      *  for future commands to a browser tab/window identified by its
      *  name, index or [window handle](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Commands/GetWindowHandles).
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string | number&gt;}</span> <span class="hljs-variable">nameOrHandleOrIndex</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{SwitchToWindow}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;string | number&gt;</span>} <span class="hljs-variable">nameOrHandleOrIndex</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">SwitchToWindow</span>}
      */</span>
-    <span class="hljs-keyword">static</span> toWindow(nameOrHandleOrIndex: Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;): SwitchToWindow {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToWindow(nameOrHandleOrIndex);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">toWindow</span>(<span class="hljs-attr">nameOrHandleOrIndex</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;): <span class="hljs-title class_">SwitchToWindow</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToWindow</span>(nameOrHandleOrIndex);
     }
 
     <span class="hljs-comment">/**
@@ -358,89 +359,89 @@
      *  **Please note** that this behaviour might vary in some browsers if there are more than two windows opened
      *  at the same time.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{SwitchToNewWindow}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">SwitchToNewWindow</span>}
      */</span>
-    <span class="hljs-keyword">static</span> toNewWindow(): SwitchToNewWindow {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToNewWindow();
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">toNewWindow</span>(): <span class="hljs-title class_">SwitchToNewWindow</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToNewWindow</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Switches the current [browsing context](https://w3c.github.io/webdriver/#dfn-current-browsing-context)
-     *  for future commands to the original window used when the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  performed an interaction to {<span class="hljs-doctag">@link </span>Navigate}.
+     *  for future commands to the original window used when the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  performed an interaction to {<span class="hljs-doctag">@link</span> Navigate}.
      *
      *  **Please note** that this behaviour might vary in some browsers if there are more than two windows opened
      *  at the same time, as window handles might be ordered alphabetically instead of the order in which they were created.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{SwitchToOriginalWindow}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">SwitchToOriginalWindow</span>}
      */</span>
-    <span class="hljs-keyword">static</span> toOriginalWindow(): SwitchToOriginalWindow {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToOriginalWindow();
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">toOriginalWindow</span>(): <span class="hljs-title class_">SwitchToOriginalWindow</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToOriginalWindow</span>();
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToFrame</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> targetOrIndex: Answerable&lt;ElementFinder | <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>&gt;</span>)</span> {
-        <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToFrame</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> targetOrIndex: Answerable&lt;ElementFinder | <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>&gt;</span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    and(...activities: Activity[]): Task {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToFrameAndPerformActivities(<span class="hljs-built_in">this</span>.targetOrIndex, activities);
+    <span class="hljs-title function_">and</span>(...<span class="hljs-attr">activities</span>: <span class="hljs-title class_">Activity</span>[]): <span class="hljs-title class_">Task</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToFrameAndPerformActivities</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">targetOrIndex</span>, activities);
     }
 
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.targetOrIndex)
-            .then(<span class="hljs-function"><span class="hljs-params">targetOrIndex</span> =&gt;</span>
-                BrowseTheWeb.as(actor).switchToFrame(
-                    targetOrIndex <span class="hljs-keyword">instanceof</span> ElementFinder
-                        ? targetOrIndex.getWebElement() <span class="hljs-comment">// https://github.com/angular/protractor/issues/1846#issuecomment-82634739</span>
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">targetOrIndex</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">targetOrIndex</span> =&gt;</span>
+                <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToFrame</span>(
+                    targetOrIndex <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ElementFinder</span>
+                        ? targetOrIndex.<span class="hljs-title function_">getWebElement</span>() <span class="hljs-comment">// https://github.com/angular/protractor/issues/1846#issuecomment-82634739</span>
                         : targetOrIndex,
                 ),
             );
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to frame: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.targetOrIndex }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to frame: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.targetOrIndex }</span>`</span>;
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToFrameAndPerformActivities</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToFrameAndPerformActivities</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Task</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> targetOrIndex: Answerable&lt;ElementFinder | <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span>&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities: Activity[]
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    performAs(actor: PerformsActivities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.attemptsTo(
-            <span class="hljs-keyword">new</span> SwitchToFrame(<span class="hljs-built_in">this</span>.targetOrIndex),
-            ...this.activities,
-            <span class="hljs-keyword">new</span> SwitchToParentFrame()
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsActivities</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToFrame</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">targetOrIndex</span>),
+            ...<span class="hljs-variable language_">this</span>.<span class="hljs-property">activities</span>,
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToParentFrame</span>()
         )
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to frame: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.targetOrIndex }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to frame: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.targetOrIndex }</span>`</span>;
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToParentFrame</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).switchToParentFrame();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToParentFrame</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToParentFrame</span>();
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to parent frame`</span>;
     }
 }
@@ -448,12 +449,12 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToDefaultContent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).switchToDefaultContent();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToDefaultContent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToDefaultContent</span>();
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to default content`</span>;
     }
 }
@@ -461,79 +462,79 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> nameOrHandleOrIndex: Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;</span>)</span> {
-        <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> nameOrHandleOrIndex: Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;</span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    and(...activities: Activity[]): Task {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToWindowAndPerformActivities(<span class="hljs-built_in">this</span>.nameOrHandleOrIndex, activities);
+    <span class="hljs-title function_">and</span>(...<span class="hljs-attr">activities</span>: <span class="hljs-title class_">Activity</span>[]): <span class="hljs-title class_">Task</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToWindowAndPerformActivities</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">nameOrHandleOrIndex</span>, activities);
     }
 
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.nameOrHandleOrIndex).then(<span class="hljs-function"><span class="hljs-params">index</span> =&gt;</span> BrowseTheWeb.as(actor).switchToWindow(index));
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">nameOrHandleOrIndex</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">index</span> =&gt;</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToWindow</span>(index));
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to window: <span class="hljs-subst">${<span class="hljs-built_in">this</span>.nameOrHandleOrIndex}</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to window: <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.nameOrHandleOrIndex}</span>`</span>;
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToWindowAndPerformActivities</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToWindowAndPerformActivities</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Task</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> nameOrHandleOrIndex: Answerable&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities: Activity[],
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    performAs(actor: PerformsActivities &amp; UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).getCurrentWindowHandle()
-            .then(<span class="hljs-function"><span class="hljs-params">currentWindow</span> =&gt;</span> {
-                <span class="hljs-keyword">return</span> actor.attemptsTo(
-                    <span class="hljs-keyword">new</span> SwitchToWindow(<span class="hljs-built_in">this</span>.nameOrHandleOrIndex),
-                    ...this.activities,
-                    <span class="hljs-keyword">new</span> SwitchToWindow(currentWindow),
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsActivities</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getCurrentWindowHandle</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">currentWindow</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToWindow</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">nameOrHandleOrIndex</span>),
+                    ...<span class="hljs-variable language_">this</span>.<span class="hljs-property">activities</span>,
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToWindow</span>(currentWindow),
                 );
             });
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to window: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.nameOrHandleOrIndex }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to window: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.nameOrHandleOrIndex }</span>`</span>;
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToNewWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToNewWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    and(...activities: Activity[]): Task {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> SwitchToNewWindowAndPerformActivities(activities);
+    <span class="hljs-title function_">and</span>(...<span class="hljs-attr">activities</span>: <span class="hljs-title class_">Activity</span>[]): <span class="hljs-title class_">Task</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToNewWindowAndPerformActivities</span>(activities);
     }
 
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-            BrowseTheWeb.as(actor).getCurrentWindowHandle(),
-            BrowseTheWeb.as(actor).getAllWindowHandles(),
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getCurrentWindowHandle</span>(),
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getAllWindowHandles</span>(),
         ])
-        .then(<span class="hljs-function">(<span class="hljs-params">[ currentHandle, handles ]: [ <span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>[] ]</span>) =&gt;</span> handles.filter(<span class="hljs-function"><span class="hljs-params">handle</span> =&gt;</span> handle !== currentHandle))
-        .then(<span class="hljs-function"><span class="hljs-params">handles</span> =&gt;</span> {
-            <span class="hljs-keyword">if</span> (handles.length === <span class="hljs-number">0</span>) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`No new window has been opened to switch to`</span>)
+        .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[ currentHandle, handles ]: [ <span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>[] ]</span>) =&gt;</span> handles.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">handle</span> =&gt;</span> handle !== currentHandle))
+        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">handles</span> =&gt;</span> {
+            <span class="hljs-keyword">if</span> (handles.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`No new window has been opened to switch to`</span>)
             }
 
-            <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).switchToWindow(handles[handles.length - <span class="hljs-number">1</span>]);
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToWindow</span>(handles[handles.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>]);
         });
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to the new browser window`</span>;
     }
 }
@@ -541,23 +542,23 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToNewWindowAndPerformActivities</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities: Activity[]</span>)</span> {
-        <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToNewWindowAndPerformActivities</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Task</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities: Activity[]</span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    performAs(actor: PerformsActivities &amp; UsesAbilities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).getCurrentWindowHandle()
-            .then(<span class="hljs-function"><span class="hljs-params">currentWindow</span> =&gt;</span> {
-                <span class="hljs-keyword">return</span> actor.attemptsTo(
-                    <span class="hljs-keyword">new</span> SwitchToNewWindow(),
-                    ...this.activities,
-                    <span class="hljs-keyword">new</span> SwitchToWindow(currentWindow),
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsActivities</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getCurrentWindowHandle</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">currentWindow</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToNewWindow</span>(),
+                    ...<span class="hljs-variable language_">this</span>.<span class="hljs-property">activities</span>,
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SwitchToWindow</span>(currentWindow),
                 );
             });
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches to the new window`</span>;
     }
 }
@@ -565,16 +566,16 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SwitchToOriginalWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">super</span>();
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">SwitchToOriginalWindow</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).switchToOriginalWindow();
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToOriginalWindow</span>();
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor switches back to the original browser window`</span>;
     }
 }

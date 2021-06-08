@@ -295,16 +295,16 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/proxies/key.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/ban-types,@typescript-eslint/explicit-module-boundary-types */</span>
-<span class="hljs-keyword">import</span> { PropertyPathKey } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PropertyPathKey'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PropertyPathKey</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PropertyPathKey'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@param <span class="hljs-type">{PropertyPathKey}</span> <span class="hljs-variable">keyName</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">PropertyPathKey</span>} <span class="hljs-variable">keyName</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">key</span>(<span class="hljs-params">keyName: PropertyPathKey</span>) </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">key</span>(<span class="hljs-params">keyName: PropertyPathKey</span>) {
     <span class="hljs-keyword">return</span> {
-        isOneOf&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span> = <span class="hljs-built_in">object</span>&gt;(...keys: <span class="hljs-built_in">Array</span>&lt;keyof T&gt;) {
-            <span class="hljs-keyword">return</span> !!~keys.indexOf(keyName <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+        isOneOf&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span> = <span class="hljs-built_in">object</span>&gt;(...<span class="hljs-attr">keys</span>: <span class="hljs-title class_">Array</span>&lt;keyof T&gt;) {
+            <span class="hljs-keyword">return</span> !!~keys.<span class="hljs-title function_">indexOf</span>(keyName <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
         }
     }
 }

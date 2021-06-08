@@ -132,7 +132,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/Expectation.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/global.html#Expectation
+ * <span class="hljs-doctag">@see</span> https://jasmine.github.io/api/edge/global.html#Expectation
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Expectation {
 
@@ -140,13 +140,13 @@
     <span class="hljs-attr">matcherName</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The failure message for the expectation. */</span>
-    message: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The stack trace for the failure if available. */</span>
     stack?: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** Whether the expectation passed or failed. */</span>
-    passed:	<span class="hljs-built_in">boolean</span>;
+    <span class="hljs-attr">passed</span>:	<span class="hljs-built_in">boolean</span>;
 
     <span class="hljs-comment">/** If the expectation failed, what was the expected value. */</span>
     expected?: <span class="hljs-built_in">any</span>;

@@ -294,20 +294,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/MetaQuestion.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
-<span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  A {<span class="hljs-doctag">@link </span>Question} about another {<span class="hljs-doctag">@link </span>Answerable}, used to retrieve a transformed version of the value it holds, or to compose {<span class="hljs-doctag">@link </span>Question}s.
+ *  A {<span class="hljs-doctag">@link</span> Question} about another {<span class="hljs-doctag">@link</span> Answerable}, used to retrieve a transformed version of the value it holds, or to compose {<span class="hljs-doctag">@link</span> Question}s.
  *
  *  For example, the question [`Text.of`](/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html)
- *  returns text content of an {<span class="hljs-doctag">@link </span>ElementFinder} returned by [`Target`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),
+ *  returns text content of an {<span class="hljs-doctag">@link</span> ElementFinder} returned by [`Target`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),
  *  which is a `Question&lt;ElementFinder&gt;`.
  *
- *  `MetaQuestion`s are typically used when filtering a {<span class="hljs-doctag">@link </span>List}.
+ *  `MetaQuestion`s are typically used when filtering a {<span class="hljs-doctag">@link</span> List}.
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link List}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List</span>}
  *
  * <span class="hljs-doctag">@public</span>
  * <span class="hljs-doctag">@interface</span>
@@ -316,23 +316,23 @@
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Transforms a given `answerable`
-     *  to another {<span class="hljs-doctag">@link </span>Question}.
+     *  to another {<span class="hljs-doctag">@link</span> Question}.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function&lt;T&gt;(another: Answerable): Question&lt;Answer&gt;}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function&lt;T&gt;(another: Answerable): Question&lt;Answer&gt;</span>}
      * <span class="hljs-doctag">@public</span>
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link List}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List</span>}
      */</span>
-    <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">answerable: Supported_Answerable_Type</span>) =&gt;</span> Question&lt;Answer&gt;;
+    <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">answerable: Supported_Answerable_Type</span>) =&gt;</span> <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Answer</span>&gt;;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Human-readable description of a given {<span class="hljs-doctag">@link </span>MetaQuestion},
+     *  Human-readable description of a given {<span class="hljs-doctag">@link</span> MetaQuestion},
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function(): string}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function(): string</span>}
      * <span class="hljs-doctag">@public</span>
      */</span>
-    toString: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">toString</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span>;
 }
 </code></pre>
 

@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Check} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Check</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -333,28 +333,28 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Choose from two alternatives</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { Check } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Check</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- actor.attemptsTo(
-     Check.whether(process.env.MODE, equals(<span class="hljs-string">'prod'</span>))
-         .andIfSo(
-             LogInAsProdUser(),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">MODE</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'prod'</span>))
+         .<span class="hljs-title function_">andIfSo</span>(
+             <span class="hljs-title class_">LogInAsProdUser</span>(),
          )
-         .otherwise(
-             LogInAsTestUser(),
+         .<span class="hljs-title function_">otherwise</span>(
+             <span class="hljs-title class_">LogInAsTestUser</span>(),
          )
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Choose whether or not to perform an activity</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { Check } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Check</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
  <span class="hljs-keyword">import</span> { isDisplayed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actor.attemptsTo(
-     Check.whether(NewsletterModal(), isDisplayed())
-         .andIfSo(
-             DismissModal(),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-title class_">NewsletterModal</span>(), <span class="hljs-title function_">isDisplayed</span>())
+         .<span class="hljs-title function_">andIfSo</span>(
+             <span class="hljs-title class_">DismissModal</span>(),
          )
  );</code></pre>
     </div>

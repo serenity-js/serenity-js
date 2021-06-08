@@ -295,34 +295,34 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/ModuleLoader.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/no-var-requires</span>
-<span class="hljs-keyword">const</span> Module = <span class="hljs-built_in">require</span>(<span class="hljs-string">'module'</span>); <span class="hljs-comment">// No type definitions available</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Module</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'module'</span>); <span class="hljs-comment">// No type definitions available</span>
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 
-<span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Version'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Version'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Dynamically loads Node modules located relative to `cwd`.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ModuleLoader</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ModuleLoader</span> {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">cwd</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">cwd</span>
      *  Current working directory, relative to which Node modules should be resolved.
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cwd: <span class="hljs-built_in">string</span></span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cwd: <span class="hljs-built_in">string</span></span>) {
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns true if a given module is available to be required, false otherwise.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">moduleId</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">moduleId</span>
      *  NPM module id, for example 'cucumber' or '<span class="hljs-doctag">@serenity</span>-js/core'
      */</span>
-    hasAvailable(moduleId: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-title function_">hasAvailable</span>(<span class="hljs-attr">moduleId</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">boolean</span> {
         <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.require(moduleId);
+            <span class="hljs-keyword">return</span> !! <span class="hljs-variable language_">this</span>.<span class="hljs-built_in">require</span>(moduleId);
         } <span class="hljs-keyword">catch</span> {
             <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
         }
@@ -332,19 +332,19 @@
      * <span class="hljs-doctag">@desc</span>
      *  Works like `require.resolve`, but relative to specified current working directory
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">moduleId</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">moduleId</span>
      *  NPM module id, for example `cucumber` or `<span class="hljs-doctag">@serenity</span>-js/core`
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      *  Path a given Node module
      */</span>
-    resolve(moduleId: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> fromFile = path.join(<span class="hljs-built_in">this</span>.cwd, <span class="hljs-string">'noop.js'</span>);
+    <span class="hljs-title function_">resolve</span>(<span class="hljs-attr">moduleId</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> fromFile = path.<span class="hljs-title function_">join</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">cwd</span>, <span class="hljs-string">'noop.js'</span>);
 
-        <span class="hljs-keyword">return</span> Module._resolveFilename(moduleId, {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">_resolveFilename</span>(moduleId, {
             <span class="hljs-attr">id</span>: fromFile,
             <span class="hljs-attr">filename</span>: fromFile,
-            <span class="hljs-attr">paths</span>: Module._nodeModulePaths(<span class="hljs-built_in">this</span>.cwd),
+            <span class="hljs-attr">paths</span>: <span class="hljs-title class_">Module</span>.<span class="hljs-title function_">_nodeModulePaths</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">cwd</span>),
         });
     }
 
@@ -352,13 +352,13 @@
      * <span class="hljs-doctag">@desc</span>
      *  Works like `require`, but relative to specified current working directory
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">moduleId</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">moduleId</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{any}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">any</span>}
      */</span>
-    <span class="hljs-built_in">require</span>(moduleId: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">any</span> {
+    <span class="hljs-built_in">require</span>(<span class="hljs-attr">moduleId</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">any</span> {
         <span class="hljs-keyword">try</span> {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-built_in">this</span>.resolve(moduleId));
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">resolve</span>(moduleId));
         }
         <span class="hljs-keyword">catch</span> {
             <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(moduleId);
@@ -367,13 +367,13 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Returns {<span class="hljs-doctag">@link </span>Version} of module specified by `moduleId`, based on its `package.json`.
+     *  Returns {<span class="hljs-doctag">@link</span> Version} of module specified by `moduleId`, based on its `package.json`.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">moduleId</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Version}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">moduleId</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Version</span>}
      */</span>
-    versionOf(moduleId: <span class="hljs-built_in">string</span>): Version {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Version(<span class="hljs-built_in">this</span>.require(<span class="hljs-string">`<span class="hljs-subst">${ moduleId }</span>/package.json`</span>).version);
+    <span class="hljs-title function_">versionOf</span>(<span class="hljs-attr">moduleId</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Version</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">`<span class="hljs-subst">${ moduleId }</span>/package.json`</span>).<span class="hljs-property">version</span>);
     }
 }
 </code></pre>

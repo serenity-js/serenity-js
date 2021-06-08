@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Loop} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/tasks'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Loop</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/tasks'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -338,37 +338,37 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Basic scenario - Iterating over a static list of items</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Loop, Log } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span>, <span class="hljs-title class_">Log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- actorCalled(<span class="hljs-string">'Joe'</span>).attemptsTo(
-     Loop.over([ <span class="hljs-string">'apple'</span>, <span class="hljs-string">'banana'</span>, <span class="hljs-string">'candy'</span> ]).to(
-         Log.the(<span class="hljs-string">'current element'</span>, Loop.item&lt;<span class="hljs-built_in">string</span>&gt;()),
-         Log.the(<span class="hljs-string">'current index'</span>, Loop.index()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>([ <span class="hljs-string">'apple'</span>, <span class="hljs-string">'banana'</span>, <span class="hljs-string">'candy'</span> ]).<span class="hljs-title function_">to</span>(
+         <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'current element'</span>, <span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-built_in">string</span>&gt;()),
+         <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'current index'</span>, <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">index</span>()),
      ),
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">API scenario - Iterating over items in an API response</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
- <span class="hljs-keyword">import</span> { actorCalled, Loop } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Send, GetRequest, CallAnApi, LastResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
- <span class="hljs-keyword">import</span> { Ensure, property, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Send</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">LastResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, property, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
  <span class="hljs-keyword">interface</span> TodoItem {
      <span class="hljs-attr">userId</span>: <span class="hljs-built_in">number</span>;
-     id: <span class="hljs-built_in">number</span>;
-     title: <span class="hljs-built_in">string</span>;
-     completed: <span class="hljs-built_in">boolean</span>;
+     <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+     <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
+     <span class="hljs-attr">completed</span>: <span class="hljs-built_in">boolean</span>;
  }
 
- actorCalled(<span class="hljs-string">'Joe'</span>).whoCan(
-     CallAnApi.at(<span class="hljs-string">'https://jsonplaceholder.typicode.com'</span>)
- ).attemptsTo(
-     Send.a(GetRequest.to(<span class="hljs-string">'/todos'</span>)),
-     Loop.over(LastResponse.body&lt;TodoItem[]&gt;()).to(
-         Ensure.that(
-             Loop.item&lt;TodoItem&gt;(),
-             property(<span class="hljs-string">'userId'</span>, isGreaterThan(<span class="hljs-number">0</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>).<span class="hljs-title function_">whoCan</span>(
+     <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://jsonplaceholder.typicode.com'</span>)
+ ).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/todos'</span>)),
+     <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">TodoItem</span>[]&gt;()).<span class="hljs-title function_">to</span>(
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+             <span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">TodoItem</span>&gt;(),
+             <span class="hljs-title function_">property</span>(<span class="hljs-string">'userId'</span>, <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">0</span>)),
          ),
      )
  );</code></pre>
@@ -376,7 +376,7 @@
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">UI scenario - Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;nav&gt;
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-test</span>=<span class="hljs-string">"cookies"</span>&gt;</span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-test</span>=<span class="hljs-string">"cookies"</span>&gt;</span>
          <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"functional-cookies"</span>&gt;</span>
              <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"functional-cookies"</span> /&gt;</span>Allow functional cookies
          <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
@@ -391,37 +391,37 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">UI scenario - Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cookies</span> </span>{
-     <span class="hljs-keyword">static</span> labels = Target.all(<span class="hljs-string">'cookie options'</span>)
-         .located(by.css(<span class="hljs-string">'[data-test="cookies"]'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cookies</span> {
+     <span class="hljs-keyword">static</span> labels = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'cookie options'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="cookies"]'</span>));
 
-     <span class="hljs-keyword">static</span> checkbox = Target.the(<span class="hljs-string">'checkbox'</span>)
-         .located(by.tagName(<span class="hljs-string">'input'</span>)),
+     <span class="hljs-keyword">static</span> checkbox = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'checkbox'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">tagName</span>(<span class="hljs-string">'input'</span>)),
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">UI scenario - Performing the same set of activities with each element</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Loop } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Click, Text, isSelected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">Text</span>, isSelected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Joe'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Loop.over(Cookies.labels).to(
-              Ensure.that(
-                 Text.of(Loop.item&lt;ElementFinder&gt;()),
-                 startsWith(<span class="hljs-string">'Allow'</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>(<span class="hljs-title class_">Cookies</span>.<span class="hljs-property">labels</span>).<span class="hljs-title function_">to</span>(
+              <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+                 <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;()),
+                 <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'Allow'</span>),
              ),
 
-             Click.on(Loop.item&lt;ElementFinder&gt;()),
-             Ensure.that(
-                 Cookies.checkbox.of(Loop.item&lt;ElementFinder&gt;()),
-                 isSelected(),
+             <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;()),
+             <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+                 <span class="hljs-title class_">Cookies</span>.<span class="hljs-property">checkbox</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;()),
+                 <span class="hljs-title function_">isSelected</span>(),
              ),
          ),
      );</code></pre>

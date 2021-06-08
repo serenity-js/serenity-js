@@ -294,14 +294,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Property.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
-<span class="hljs-keyword">import</span> { createMetaQuestionProxy, createQuestionProxy, WithPropertiesAsMetaQuestions, WithPropertiesAsQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">'./proxies'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
+<span class="hljs-keyword">import</span> { createMetaQuestionProxy, createQuestionProxy, <span class="hljs-title class_">WithPropertiesAsMetaQuestions</span>, <span class="hljs-title class_">WithPropertiesAsQuestions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./proxies'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables easy access to properties of the value of a given {<span class="hljs-doctag">@link </span>Answerable}.
+ *  Enables easy access to properties of the value of a given {<span class="hljs-doctag">@link</span> Answerable}.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example API response&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Example API response&lt;/caption&gt;
  *  interface EnvironmentDetails {
  *      name: string;
  *      url:  string;
@@ -324,7 +324,7 @@
  *     ]
  *  }
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Combining Property.of and Property.at&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Combining Property.of and Property.at&lt;/caption&gt;
  *  import { actorCalled, List, Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
@@ -339,17 +339,17 @@
  *      )
  *  )
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Question}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link List}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Question</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Property</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Property</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a {<span class="hljs-doctag">@link </span>Proxy} around a given {<span class="hljs-doctag">@link </span>Answerable} `subject`
-     *  to turn the properties of the value it will resolve to into {<span class="hljs-doctag">@link </span>Question}s.
+     *  Generates a {<span class="hljs-doctag">@link</span> Proxy} around a given {<span class="hljs-doctag">@link</span> Answerable} `subject`
+     *  to turn the properties of the value it will resolve to into {<span class="hljs-doctag">@link</span> Question}s.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Reading a property&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Reading a property&lt;/caption&gt;
      *  import { actorCalled, Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -360,20 +360,20 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;Subject&gt;}</span> <span class="hljs-variable">subject</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Proxy&lt;Subject&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;Subject&gt;</span>} <span class="hljs-variable">subject</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Proxy&lt;Subject&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;Subject <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>&gt;(subject: Answerable&lt;Subject&gt;): WithPropertiesAsQuestions&lt;Subject&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">return</span> createQuestionProxy&lt;Subject&gt;(subject);
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;<span class="hljs-title class_">Subject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>&gt;(<span class="hljs-attr">subject</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Subject</span>&gt;): <span class="hljs-title class_">WithPropertiesAsQuestions</span>&lt;<span class="hljs-title class_">Subject</span>&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="hljs-keyword">return</span> createQuestionProxy&lt;<span class="hljs-title class_">Subject</span>&gt;(subject);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a {<span class="hljs-doctag">@link </span>Proxy} around a given {<span class="hljs-doctag">@link </span>Answerable} `subject`
-     *  to turn any of its properties into {<span class="hljs-doctag">@link </span>MetaQuestion}s
-     *  to be used when filtering a {<span class="hljs-doctag">@link </span>List},
+     *  Generates a {<span class="hljs-doctag">@link</span> Proxy} around a given {<span class="hljs-doctag">@link</span> Answerable} `subject`
+     *  to turn any of its properties into {<span class="hljs-doctag">@link</span> MetaQuestion}s
+     *  to be used when filtering a {<span class="hljs-doctag">@link</span> List},
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Reading a property&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Reading a property&lt;/caption&gt;
      *  import { actorCalled, Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -386,10 +386,10 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Proxy&lt;Subject&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Proxy&lt;Subject&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> at&lt;Subject <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>&gt;(): WithPropertiesAsMetaQuestions&lt;Subject&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">return</span> createMetaQuestionProxy&lt;Subject&gt;();
+    <span class="hljs-keyword">static</span> at&lt;<span class="hljs-title class_">Subject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>&gt;(): <span class="hljs-title class_">WithPropertiesAsMetaQuestions</span>&lt;<span class="hljs-title class_">Subject</span>&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="hljs-keyword">return</span> createMetaQuestionProxy&lt;<span class="hljs-title class_">Subject</span>&gt;();
     }
 }
 </code></pre>

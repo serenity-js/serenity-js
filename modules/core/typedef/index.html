@@ -593,11 +593,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Basic scenario - Iterating over a static list of items</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { actorCalled, Loop, Log } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span>, <span class="hljs-title class_">Log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- actorCalled(<span class="hljs-string">'Joe'</span>).attemptsTo(
-     Loop.over([ <span class="hljs-string">'apple'</span>, <span class="hljs-string">'banana'</span>, <span class="hljs-string">'candy'</span> ]).to(
-         Log.the(<span class="hljs-string">'current element'</span>, Loop.item&lt;<span class="hljs-built_in">string</span>&gt;()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>([ <span class="hljs-string">'apple'</span>, <span class="hljs-string">'banana'</span>, <span class="hljs-string">'candy'</span> ]).<span class="hljs-title function_">to</span>(
+         <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'current element'</span>, <span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-built_in">string</span>&gt;()),
      ),
  );</code></pre>
     </div>

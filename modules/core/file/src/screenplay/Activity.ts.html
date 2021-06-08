@@ -294,39 +294,39 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Activity.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, PerformsActivities, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">PerformsActivities</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  A command object representing an activity that an {<span class="hljs-doctag">@link </span>Actor} can perform.
+ *  A command object representing an activity that an {<span class="hljs-doctag">@link</span> Actor} can perform.
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
- * <span class="hljs-doctag">@see </span>https://en.wikipedia.org/wiki/Command_pattern
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+ * <span class="hljs-doctag">@see</span> https://en.wikipedia.org/wiki/Command_pattern
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Activity {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor}
+     *  Makes the provided {<span class="hljs-doctag">@link</span> Actor}
      *  perform this Activity.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{PerformsActivities | UsesAbilities | AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">PerformsActivities | UsesAbilities | AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link PerformsActivities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link PerformsActivities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AnswersQuestions</span>}
      */</span>
-    performAs(actor: PerformsActivities | UsesAbilities | AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">any</span>&gt;;
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsActivities</span> | <span class="hljs-title class_">UsesAbilities</span> | <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">any</span>&gt;;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Generates a description to be used when reporting this Activity.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span>;
 }
 </code></pre>
 

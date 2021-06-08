@@ -130,29 +130,29 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Category, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioDetails</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { MochaTestMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MochaTestMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
 <span class="hljs-keyword">import</span> { exampleTest } <span class="hljs-keyword">from</span> <span class="hljs-string">'../exampleTest'</span>;
 
-describe(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> MochaTestMapper();
+    <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MochaTestMapper</span>();
 
-    it(<span class="hljs-string">'treats the outer-most describe as the name of the feature'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> feature = mapper.featureNameFor(exampleTest)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'treats the outer-most describe as the name of the feature'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> feature = mapper.<span class="hljs-title function_">featureNameFor</span>(exampleTest)
 
-        expect(feature).to.equal(<span class="hljs-string">'Mocha reporting'</span>);
+        <span class="hljs-title function_">expect</span>(feature).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Mocha reporting'</span>);
     });
 
-    it(<span class="hljs-string">'maps a Mocha test to Serenity/JS ScenarioDetails'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> scenario = mapper.detailsOf(exampleTest)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps a Mocha test to Serenity/JS ScenarioDetails'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> scenario = mapper.<span class="hljs-title function_">detailsOf</span>(exampleTest)
 
-        expect(scenario).to.equal(<span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'A scenario passes'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Mocha reporting'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js'</span>))
+        <span class="hljs-title function_">expect</span>(scenario).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'A scenario passes'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Mocha reporting'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/Users/jan/Projects/serenity-js/integration/mocha/examples/passing.spec.js'</span>))
         ));
     });
 });

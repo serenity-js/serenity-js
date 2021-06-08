@@ -300,68 +300,68 @@
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { Actor, Answerable, Question, Transform } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">Transform</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TransformAnswer}</span> </span>*/</span>
-describe(<span class="hljs-string">'TransformAnswer'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">TransformAnswer</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'TransformAnswer'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> stage = sinon.createStubInstance(Stage);
+    <span class="hljs-keyword">const</span> stage = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Stage</span>);
 
     <span class="hljs-keyword">const</span> expectedAnswer = {
         <span class="hljs-attr">headers</span>: { <span class="hljs-attr">header</span>: <span class="hljs-string">'value'</span> },
         <span class="hljs-attr">body</span>: <span class="hljs-string">'some content'</span>,
     };
 
-    <span class="hljs-keyword">type</span> EA = <span class="hljs-keyword">typeof</span> expectedAnswer;
+    <span class="hljs-keyword">type</span> <span class="hljs-variable constant_">EA</span> = <span class="hljs-keyword">typeof</span> expectedAnswer;
 
-    <span class="hljs-keyword">const</span> actor = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">'Bumblebee'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
+    <span class="hljs-keyword">const</span> actor = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(<span class="hljs-string">'Bumblebee'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
 
-    given([
+    <span class="hljs-title function_">given</span>([
         expectedAnswer,
-        p(expectedAnswer),
-        q(expectedAnswer),
-        q(p(expectedAnswer)),
+        <span class="hljs-title function_">p</span>(expectedAnswer),
+        <span class="hljs-title function_">q</span>(expectedAnswer),
+        <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(expectedAnswer)),
     ]).
-    it(<span class="hljs-string">'transforms an answer to Answerable&lt;T&gt; to another type'</span>, <span class="hljs-function">(<span class="hljs-params">answerable: Answerable&lt;EA&gt;</span>) =&gt;</span>
-        expect(
-            Transform.the(answerable, <span class="hljs-function"><span class="hljs-params">complexObject</span> =&gt;</span> complexObject.headers.header).answeredBy(actor),
-        ).to.eventually.equal(expectedAnswer.headers.header)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'transforms an answer to Answerable&lt;T&gt; to another type'</span>, <span class="hljs-function">(<span class="hljs-params">answerable: Answerable&lt;EA&gt;</span>) =&gt;</span>
+        <span class="hljs-title function_">expect</span>(
+            <span class="hljs-title class_">Transform</span>.<span class="hljs-title function_">the</span>(answerable, <span class="hljs-function"><span class="hljs-params">complexObject</span> =&gt;</span> complexObject.<span class="hljs-property">headers</span>.<span class="hljs-property">header</span>).<span class="hljs-title function_">answeredBy</span>(actor),
+        ).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expectedAnswer.<span class="hljs-property">headers</span>.<span class="hljs-property">header</span>)
     );
 
-    it(<span class="hljs-string">'transforms answers to Array&lt;Answerable&lt;T&gt;&gt; to another type'</span>, <span class="hljs-function">() =&gt;</span>
-        expect(
-            Transform.the(
-                [ q(p(expectedAnswer)), q(expectedAnswer), expectedAnswer],
-                <span class="hljs-function">(<span class="hljs-params">ea1: EA, ea2: EA, ea3: EA</span>) =&gt;</span> ea1.headers.header + ea2.body + <span class="hljs-built_in">Object</span>.keys(ea3).length,
-            ).answeredBy(actor),
-        ).to.eventually.equal(expectedAnswer.headers.header + expectedAnswer.body + <span class="hljs-built_in">Object</span>.keys(expectedAnswer).length)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'transforms answers to Array&lt;Answerable&lt;T&gt;&gt; to another type'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">expect</span>(
+            <span class="hljs-title class_">Transform</span>.<span class="hljs-title function_">the</span>(
+                [ <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(expectedAnswer)), <span class="hljs-title function_">q</span>(expectedAnswer), expectedAnswer],
+                <span class="hljs-function">(<span class="hljs-params">ea1: EA, ea2: EA, ea3: EA</span>) =&gt;</span> ea1.<span class="hljs-property">headers</span>.<span class="hljs-property">header</span> + ea2.<span class="hljs-property">body</span> + <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(ea3).<span class="hljs-property">length</span>,
+            ).<span class="hljs-title function_">answeredBy</span>(actor),
+        ).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expectedAnswer.<span class="hljs-property">headers</span>.<span class="hljs-property">header</span> + expectedAnswer.<span class="hljs-property">body</span> + <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(expectedAnswer).<span class="hljs-property">length</span>)
     );
 
-    it(<span class="hljs-string">'transforms answers to questions of different types to another type'</span>, <span class="hljs-function">() =&gt;</span>
-        expect(
-            Transform.the(
-                [ q(<span class="hljs-string">'the answer to life the universe and everything'</span>), q(p(<span class="hljs-number">42</span>)) ],
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'transforms answers to questions of different types to another type'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">expect</span>(
+            <span class="hljs-title class_">Transform</span>.<span class="hljs-title function_">the</span>(
+                [ <span class="hljs-title function_">q</span>(<span class="hljs-string">'the answer to life the universe and everything'</span>), <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(<span class="hljs-number">42</span>)) ],
                 <span class="hljs-function">(<span class="hljs-params">a1: <span class="hljs-built_in">string</span>, a2: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ a1 }</span> is <span class="hljs-subst">${ a2 }</span>`</span>,
-            ).answeredBy(actor),
-        ).to.eventually.equal(<span class="hljs-string">`the answer to life the universe and everything is 42`</span>)
+            ).<span class="hljs-title function_">answeredBy</span>(actor),
+        ).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the answer to life the universe and everything is 42`</span>)
     );
 
-    it(<span class="hljs-string">'provides a sensible default description'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(Transform.the(expectedAnswer, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).toString()).to.equal(<span class="hljs-string">'a transformed answer'</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible default description'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Transform</span>.<span class="hljs-title function_">the</span>(expectedAnswer, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'a transformed answer'</span>);
     });
 
-    it(<span class="hljs-string">'allows for the default description to be changed'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(Transform.the(expectedAnswer, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).as(<span class="hljs-string">'a better description'</span>).toString()).to.equal(<span class="hljs-string">'a better description'</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for the default description to be changed'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Transform</span>.<span class="hljs-title function_">the</span>(expectedAnswer, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).<span class="hljs-title function_">as</span>(<span class="hljs-string">'a better description'</span>).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'a better description'</span>);
     });
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">q</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">value: T</span>): <span class="hljs-title">Question</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`something`</span>, <span class="hljs-function"><span class="hljs-params">someActor</span> =&gt;</span> value);
+    <span class="hljs-keyword">function</span> q&lt;T&gt;(<span class="hljs-attr">value</span>: T): <span class="hljs-title class_">Question</span>&lt;T&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`something`</span>, <span class="hljs-function"><span class="hljs-params">someActor</span> =&gt;</span> value);
     }
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">p</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">value: T</span>) </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(value);
+    <span class="hljs-keyword">function</span> p&lt;T&gt;(<span class="hljs-attr">value</span>: T) {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value);
     }
 });
 </code></pre>

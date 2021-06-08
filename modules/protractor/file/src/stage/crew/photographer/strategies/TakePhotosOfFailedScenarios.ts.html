@@ -187,29 +187,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent, InteractionFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { ImplementationPending } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PhotoTakingStrategy'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">InteractionFinished</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ImplementationPending</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PhotoTakingStrategy</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PhotoTakingStrategy'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots) when
- *  the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
- *  by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.
+ *  Configures the {<span class="hljs-doctag">@link</span> Photographer} to take photos (a.k.a. screenshots) when
+ *  the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
+ *  by the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.
  *
  *  This strategy works best when you are interested in the screenshots only when
  *  the a fails.
  *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{PhotoTakingStrategy}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">PhotoTakingStrategy</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakePhotosOfFailures</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
-    <span class="hljs-keyword">protected</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionFinished
-            &amp;&amp; event.outcome.isWorseThan(ImplementationPending);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TakePhotosOfFailures</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">PhotoTakingStrategy</span> {
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">shouldTakeAPhotoOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">InteractionFinished</span>
+            &amp;&amp; event.<span class="hljs-property">outcome</span>.<span class="hljs-title function_">isWorseThan</span>(<span class="hljs-title class_">ImplementationPending</span>);
     }
 
-    <span class="hljs-keyword">protected</span> photoNameFor(event: InteractionFinished): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> event.details.name.value;
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">photoNameFor</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">InteractionFinished</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>;
     }
 }
 </code></pre>

@@ -294,33 +294,33 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/StageCrewMember.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ListensToDomainEvents'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ListensToDomainEvents</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ListensToDomainEvents'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  You can think of the {<span class="hljs-doctag">@link </span>StageCrewMember} as an in-memory micro-service that reacts to {<span class="hljs-doctag">@link </span>DomainEvent}s
- *  from the {<span class="hljs-doctag">@link </span>StageManager}.
+ *  You can think of the {<span class="hljs-doctag">@link</span> StageCrewMember} as an in-memory micro-service that reacts to {<span class="hljs-doctag">@link</span> DomainEvent}s
+ *  from the {<span class="hljs-doctag">@link</span> StageManager}.
  *
- *  Every {<span class="hljs-doctag">@link </span>StageCrewMember} receives a reference to the {<span class="hljs-doctag">@link </span>Stage},
- *  and therefore {<span class="hljs-doctag">@link </span>StageManager} as well, which enables them to emit {<span class="hljs-doctag">@link </span>DomainEvent}s back.
+ *  Every {<span class="hljs-doctag">@link</span> StageCrewMember} receives a reference to the {<span class="hljs-doctag">@link</span> Stage},
+ *  and therefore {<span class="hljs-doctag">@link</span> StageManager} as well, which enables them to emit {<span class="hljs-doctag">@link</span> DomainEvent}s back.
  *
  *  Useful when you're interested in implementing [custom reporters](/handbook/reporting/index.html).
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{ListensToDomainEvents}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMemberBuilder}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link SerenityConfig#crew}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">ListensToDomainEvents</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMemberBuilder</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link SerenityConfig#crew</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> StageCrewMember <span class="hljs-keyword">extends</span> ListensToDomainEvents {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Assigns a {<span class="hljs-doctag">@link </span>Stage} to this {<span class="hljs-doctag">@link </span>StageCrewMember}
+     *  Assigns a {<span class="hljs-doctag">@link</span> Stage} to this {<span class="hljs-doctag">@link</span> StageCrewMember}
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function(stage: Stage): StageCrewMember}</span></span>
-     *  An instance of a {<span class="hljs-doctag">@link </span>Stage} this {<span class="hljs-doctag">@link </span>StageCrewMember} will be assigned to
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function(stage: Stage): StageCrewMember</span>}
+     *  An instance of a {<span class="hljs-doctag">@link</span> Stage} this {<span class="hljs-doctag">@link</span> StageCrewMember} will be assigned to
      */</span>
-    <span class="hljs-attr">assignedTo</span>: <span class="hljs-function">(<span class="hljs-params">stage: Stage</span>) =&gt;</span> StageCrewMember;
+    <span class="hljs-attr">assignedTo</span>: <span class="hljs-function">(<span class="hljs-params">stage: Stage</span>) =&gt;</span> <span class="hljs-title class_">StageCrewMember</span>;
 }
 </code></pre>
 

@@ -190,54 +190,55 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { AssertionError, Duration, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">Duration</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
-    Category,
-    CorrelationId,
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Name,
-    Outcome,
-    ProblemIndication,
-    ScenarioDetails,
-    Timestamp,
+    <span class="hljs-title class_">Category</span>,
+    <span class="hljs-title class_">CorrelationId</span>,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Name</span>,
+    <span class="hljs-title class_">Outcome</span>,
+    <span class="hljs-title class_">ProblemIndication</span>,
+    <span class="hljs-title class_">ScenarioDetails</span>,
+    <span class="hljs-title class_">Timestamp</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Runner</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
-<span class="hljs-keyword">import</span> { ProtractorReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter/reporter'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtractorReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter/reporter'</span>;
 
 <span class="hljs-comment">/**
- * See the {<span class="hljs-doctag">@link </span>ProtractorFrameworkAdapter} specs to see how the {<span class="hljs-doctag">@link </span>ProtractorReporter} is used in the context
+ * See the {<span class="hljs-doctag">@link</span> ProtractorFrameworkAdapter} specs to see how the {<span class="hljs-doctag">@link</span> ProtractorReporter} is used in the context
  */</span>
-describe(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        id = CorrelationId.create(),
-        details = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'example scenario'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'example category'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'./some/scenario.spec.ts'</span>)),
+        id = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>(),
+        details = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'example scenario'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'example category'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'./some/scenario.spec.ts'</span>)),
         ),
-        now = Timestamp.fromMillisecondTimestamp(<span class="hljs-number">0</span>),
-        later = now.plus(Duration.ofMilliseconds(<span class="hljs-number">1</span>)),
+        now = <span class="hljs-title class_">Timestamp</span>.<span class="hljs-title function_">fromMillisecondTimestamp</span>(<span class="hljs-number">0</span>),
+        later = now.<span class="hljs-title function_">plus</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">1</span>)),
 
-        execuctionSuccessful    = <span class="hljs-keyword">new</span> ExecutionSuccessful(),
-        executionSkipped        = <span class="hljs-keyword">new</span> ExecutionSkipped(),
-        executionIgnored        = <span class="hljs-keyword">new</span> ExecutionIgnored(thrown(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Execution ignored'</span>))),
-        implementationPending   = <span class="hljs-keyword">new</span> ImplementationPending(thrown(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'Step missing'</span>))),
-        failedWithAssertion     = <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(thrown(<span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">'Expected false to be true'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>))),
-        failedWithError         = <span class="hljs-keyword">new</span> ExecutionFailedWithError(thrown(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>))),
-        compromised             = <span class="hljs-keyword">new</span> ExecutionCompromised(thrown(<span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>)));
+        execuctionSuccessful    = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(),
+        executionSkipped        = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>(),
+        executionIgnored        = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Execution ignored'</span>))),
+        implementationPending   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">'Step missing'</span>))),
+        failedWithAssertion     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(<span class="hljs-string">'Expected false to be true'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>))),
+        failedWithError         = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>))),
+        compromised             = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'DB is down'</span>)));
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrown</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">Error</span>&gt;(<span class="hljs-params">error: T</span>): <span class="hljs-title">T</span> </span>{
+    <span class="hljs-keyword">function</span> thrown&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Error</span>&gt;(<span class="hljs-attr">error</span>: T): T {
         <span class="hljs-keyword">try</span> {
             <span class="hljs-keyword">throw</span> error;
         } <span class="hljs-keyword">catch</span> (thrownError) {
@@ -245,20 +246,20 @@ describe(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hlj
         }
     }
 
-    describe(<span class="hljs-string">'with default threshold'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'with default threshold'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given([
+        <span class="hljs-title function_">given</span>([
             execuctionSuccessful,
             executionSkipped,
         ]).
-        it(<span class="hljs-string">`considers a scenario to be successful when its outcome is better that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`considers a scenario to be successful when its outcome is better that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> ProtractorReporter(sinon.createStubInstance(Runner));
+            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorReporter</span>(sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Runner</span>));
 
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(id, details, now));
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(id, details, outcome, later));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(id, details, now));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(id, details, outcome, later));
 
-            expect(reporter.report()).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(reporter.<span class="hljs-title function_">report</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-attr">failedCount</span>: <span class="hljs-number">0</span>,
                 <span class="hljs-attr">specResults</span>: [{
                     <span class="hljs-attr">assertions</span>: [{
@@ -270,27 +271,27 @@ describe(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hlj
             });
         });
 
-        given([
+        <span class="hljs-title function_">given</span>([
             executionIgnored,
             implementationPending,
             failedWithAssertion,
             failedWithError,
             compromised,
         ]).
-        it(<span class="hljs-string">`considers a scenario to be unsuccessful when its outcome is worse that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: ProblemIndication</span>) =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`considers a scenario to be unsuccessful when its outcome is worse that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: ProblemIndication</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> ProtractorReporter(sinon.createStubInstance(Runner));
+            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorReporter</span>(sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Runner</span>));
 
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(id, details, now));
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(id, details, outcome, later));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(id, details, now));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(id, details, outcome, later));
 
-            expect(reporter.report()).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(reporter.<span class="hljs-title function_">report</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-attr">failedCount</span>: <span class="hljs-number">1</span>,
                 <span class="hljs-attr">specResults</span>: [{
                     <span class="hljs-attr">assertions</span>: [{
                         <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                        <span class="hljs-attr">errorMsg</span>: outcome.error.message,
-                        <span class="hljs-attr">stackTrace</span>: outcome.error.stack,
+                        <span class="hljs-attr">errorMsg</span>: outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>,
+                        <span class="hljs-attr">stackTrace</span>: outcome.<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>,
                     }],
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'example category example scenario'</span>,
                     <span class="hljs-attr">duration</span>: <span class="hljs-number">1</span>,
@@ -299,24 +300,24 @@ describe(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hlj
         });
     });
 
-    describe(<span class="hljs-string">'with custom threshold'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'with custom threshold'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> successThreshold = implementationPending;
 
-        given([
+        <span class="hljs-title function_">given</span>([
             execuctionSuccessful,
             executionSkipped,
             executionIgnored,
             implementationPending,
         ]).
-        it(<span class="hljs-string">`considers a scenario to be successful when its outcome is better that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`considers a scenario to be successful when its outcome is better that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> ProtractorReporter(sinon.createStubInstance(Runner), successThreshold);
+            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorReporter</span>(sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Runner</span>), successThreshold);
 
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(id, details, now));
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(id, details, outcome, later));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(id, details, now));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(id, details, outcome, later));
 
-            expect(reporter.report()).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(reporter.<span class="hljs-title function_">report</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-attr">failedCount</span>: <span class="hljs-number">0</span>,
                 <span class="hljs-attr">specResults</span>: [{
                     <span class="hljs-attr">assertions</span>: [{
@@ -328,25 +329,25 @@ describe(<span class="hljs-string">'ProtractorReporter'</span>, <span class="hlj
             });
         });
 
-        given([
+        <span class="hljs-title function_">given</span>([
             failedWithAssertion,
             failedWithError,
             compromised,
         ]).
-        it(<span class="hljs-string">`considers a scenario to be unsuccessful when its outcome is worse that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: ProblemIndication</span>) =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`considers a scenario to be unsuccessful when its outcome is worse that the success threshold`</span>, <span class="hljs-function">(<span class="hljs-params">outcome: ProblemIndication</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> ProtractorReporter(sinon.createStubInstance(Runner), successThreshold);
+            <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorReporter</span>(sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Runner</span>), successThreshold);
 
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(id, details, now));
-            reporter.notifyOf(<span class="hljs-keyword">new</span> SceneFinished(id, details, outcome, later));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(id, details, now));
+            reporter.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(id, details, outcome, later));
 
-            expect(reporter.report()).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(reporter.<span class="hljs-title function_">report</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-attr">failedCount</span>: <span class="hljs-number">1</span>,
                 <span class="hljs-attr">specResults</span>: [{
                     <span class="hljs-attr">assertions</span>: [{
                         <span class="hljs-attr">passed</span>: <span class="hljs-literal">false</span>,
-                        <span class="hljs-attr">errorMsg</span>: outcome.error.message,
-                        <span class="hljs-attr">stackTrace</span>: outcome.error.stack,
+                        <span class="hljs-attr">errorMsg</span>: outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>,
+                        <span class="hljs-attr">stackTrace</span>: outcome.<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>,
                     }],
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'example category example scenario'</span>,
                     <span class="hljs-attr">duration</span>: <span class="hljs-number">1</span>,

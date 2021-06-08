@@ -130,7 +130,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/Result.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Result {
 
@@ -138,22 +138,22 @@
     <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The description passed to the 'it' that created this spec. */</span>
-    description: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The full description including all ancestors of this spec. */</span>
-    fullName: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">fullName</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The list of expectations that failed during execution of this spec. */</span>
-    failedExpectations: Expectation[];
+    <span class="hljs-attr">failedExpectations</span>: <span class="hljs-title class_">Expectation</span>[];
 
     <span class="hljs-comment">/** The list of deprecation warnings that occurred during execution this spec. */</span>
-    deprecationWarnings: Expectation[];
+    <span class="hljs-attr">deprecationWarnings</span>: <span class="hljs-title class_">Expectation</span>[];
 
     <span class="hljs-comment">/** Once the spec has completed, this string represents the pass/fail status of this spec. */</span>
     status?: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The time in ms used by the spec execution, including any before/afterEach. */</span>
-    duration: <span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>;
+    <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>;
 }
 </code></pre>
 

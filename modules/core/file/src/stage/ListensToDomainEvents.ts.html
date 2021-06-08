@@ -294,25 +294,25 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/ListensToDomainEvents.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../events'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../events'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  A {<span class="hljs-doctag">@link </span>StageCrewMember} that can listen and react to {<span class="hljs-doctag">@link </span>DomainEvent}s
+ *  A {<span class="hljs-doctag">@link</span> StageCrewMember} that can listen and react to {<span class="hljs-doctag">@link</span> DomainEvent}s
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMember}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMemberBuilder}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Serenity#configure}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link SerenityConfig#crew}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMember</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMemberBuilder</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Serenity#configure</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link SerenityConfig#crew</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ListensToDomainEvents {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link </span>DomainEvent} objects emitted by the {<span class="hljs-doctag">@link </span>Stage}
-     *  that this {<span class="hljs-doctag">@link </span>StageCrewMember} is assigned to.
+     *  Handles {<span class="hljs-doctag">@link</span> DomainEvent} objects emitted by the {<span class="hljs-doctag">@link</span> Stage}
+     *  that this {<span class="hljs-doctag">@link</span> StageCrewMember} is assigned to.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function(event: DomainEvent): void}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function(event: DomainEvent): void</span>}
      */</span>
     <span class="hljs-attr">notifyOf</span>: <span class="hljs-function">(<span class="hljs-params">event: DomainEvent</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 }

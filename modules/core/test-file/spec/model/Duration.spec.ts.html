@@ -298,66 +298,66 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Duration}</span> </span>*/</span>
-describe(<span class="hljs-string">'Duration'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Duration</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Duration'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'represents a duration of time that'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'represents a duration of time that'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given&lt;Duration, <span class="hljs-built_in">number</span>&gt;(
-            [ Duration.ofMilliseconds(<span class="hljs-number">1</span>),     <span class="hljs-number">1</span>                               ],
-            [ Duration.ofSeconds(<span class="hljs-number">1</span>),          <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>                        ],
-            [ Duration.ofMinutes(<span class="hljs-number">1</span>),          <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>                   ],
-            [ Duration.ofHours(<span class="hljs-number">1</span>),            <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>              ],
-            [ Duration.ofDays(<span class="hljs-number">1</span>),             <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>         ],
-            [ Duration.ofYears(<span class="hljs-number">1</span>),            <span class="hljs-number">365</span> * <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>   ],
+        given&lt;<span class="hljs-title class_">Duration</span>, <span class="hljs-built_in">number</span>&gt;(
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">1</span>),     <span class="hljs-number">1</span>                               ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">1</span>),          <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>                        ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMinutes</span>(<span class="hljs-number">1</span>),          <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>                   ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofHours</span>(<span class="hljs-number">1</span>),            <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>              ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofDays</span>(<span class="hljs-number">1</span>),             <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>         ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofYears</span>(<span class="hljs-number">1</span>),            <span class="hljs-number">365</span> * <span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span> * <span class="hljs-number">1</span> * <span class="hljs-number">1000</span>   ],
         ).
-        it(<span class="hljs-string">'can be easily converted to milliseconds'</span>, <span class="hljs-function">(<span class="hljs-params">duration: Duration, expectedMilliseconds: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
-            expect(duration.inMilliseconds()).to.equal(expectedMilliseconds);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be easily converted to milliseconds'</span>, <span class="hljs-function">(<span class="hljs-params">duration: Duration, expectedMilliseconds: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(duration.<span class="hljs-title function_">inMilliseconds</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedMilliseconds);
         });
 
-        given&lt;Duration, <span class="hljs-built_in">string</span>&gt;(
-            [ Duration.ofMilliseconds(<span class="hljs-number">100</span>),       <span class="hljs-string">'100ms'</span>     ],
-            [ Duration.ofMilliseconds(<span class="hljs-number">2200</span>),      <span class="hljs-string">'2s 200ms'</span>  ],
-            [ Duration.ofMilliseconds(<span class="hljs-number">132000</span>),    <span class="hljs-string">'2m 12s'</span>    ],
-            [ Duration.ofMilliseconds(<span class="hljs-number">7921000</span>),   <span class="hljs-string">'2h 12m 1s'</span> ],
-            [ Duration.ofMilliseconds(<span class="hljs-number">190080000</span>), <span class="hljs-string">'2d 4h 48m'</span> ],
+        given&lt;<span class="hljs-title class_">Duration</span>, <span class="hljs-built_in">string</span>&gt;(
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">100</span>),       <span class="hljs-string">'100ms'</span>     ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">2200</span>),      <span class="hljs-string">'2s 200ms'</span>  ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">132000</span>),    <span class="hljs-string">'2m 12s'</span>    ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">7921000</span>),   <span class="hljs-string">'2h 12m 1s'</span> ],
+            [ <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">190080000</span>), <span class="hljs-string">'2d 4h 48m'</span> ],
         ).
-        it(<span class="hljs-string">'can be presented in a human-friendly format'</span>, <span class="hljs-function">(<span class="hljs-params">duration: Duration, expected: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
-            expect(duration.toString()).to.equal(expected);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be presented in a human-friendly format'</span>, <span class="hljs-function">(<span class="hljs-params">duration: Duration, expected: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(duration.<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
         });
     });
 
-    describe(<span class="hljs-string">'when performing computations'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when performing computations'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
-            oneMinute   = Duration.ofMinutes(<span class="hljs-number">1</span>),
-            tenSeconds  = Duration.ofSeconds(<span class="hljs-number">10</span>);
+            oneMinute   = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMinutes</span>(<span class="hljs-number">1</span>),
+            tenSeconds  = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">10</span>);
 
-        it(<span class="hljs-string">'allows for durations to be added'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for durations to be added'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(oneMinute.plus(tenSeconds)).to.equal(Duration.ofSeconds(<span class="hljs-number">70</span>));
+            <span class="hljs-title function_">expect</span>(oneMinute.<span class="hljs-title function_">plus</span>(tenSeconds)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">70</span>));
         });
     });
 
-    describe(<span class="hljs-string">'when comparing'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when comparing'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
-            oneMinute   = Duration.ofMinutes(<span class="hljs-number">1</span>),
-            tenSeconds  = Duration.ofSeconds(<span class="hljs-number">10</span>);
+            oneMinute   = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMinutes</span>(<span class="hljs-number">1</span>),
+            tenSeconds  = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">10</span>);
 
-        given([
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThan (positive)'</span>,            <span class="hljs-attr">result</span>: oneMinute.isGreaterThan(tenSeconds),            <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThan (negative)'</span>,            <span class="hljs-attr">result</span>: tenSeconds.isGreaterThan(oneMinute),            <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThanOrEqualTo(positive)'</span>,    <span class="hljs-attr">result</span>: oneMinute.isGreaterThanOrEqualTo(oneMinute),    <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThanOrEqualTo(negative)'</span>,    <span class="hljs-attr">result</span>: tenSeconds.isGreaterThanOrEqualTo(oneMinute),   <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThan(positive)'</span>,                <span class="hljs-attr">result</span>: tenSeconds.isLessThan(oneMinute),               <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThan(negative)'</span>,                <span class="hljs-attr">result</span>: oneMinute.isLessThan(tenSeconds),               <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThanOrEqualTo(positive)'</span>,       <span class="hljs-attr">result</span>: oneMinute.isLessThanOrEqualTo(oneMinute),       <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThanOrEqualTo(negative)'</span>,       <span class="hljs-attr">result</span>: oneMinute.isLessThanOrEqualTo(tenSeconds),      <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+        <span class="hljs-title function_">given</span>([
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThan (positive)'</span>,            <span class="hljs-attr">result</span>: oneMinute.<span class="hljs-title function_">isGreaterThan</span>(tenSeconds),            <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThan (negative)'</span>,            <span class="hljs-attr">result</span>: tenSeconds.<span class="hljs-title function_">isGreaterThan</span>(oneMinute),            <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThanOrEqualTo(positive)'</span>,    <span class="hljs-attr">result</span>: oneMinute.<span class="hljs-title function_">isGreaterThanOrEqualTo</span>(oneMinute),    <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isGreaterThanOrEqualTo(negative)'</span>,    <span class="hljs-attr">result</span>: tenSeconds.<span class="hljs-title function_">isGreaterThanOrEqualTo</span>(oneMinute),   <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThan(positive)'</span>,                <span class="hljs-attr">result</span>: tenSeconds.<span class="hljs-title function_">isLessThan</span>(oneMinute),               <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThan(negative)'</span>,                <span class="hljs-attr">result</span>: oneMinute.<span class="hljs-title function_">isLessThan</span>(tenSeconds),               <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThanOrEqualTo(positive)'</span>,       <span class="hljs-attr">result</span>: oneMinute.<span class="hljs-title function_">isLessThanOrEqualTo</span>(oneMinute),       <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>  },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'isLessThanOrEqualTo(negative)'</span>,       <span class="hljs-attr">result</span>: oneMinute.<span class="hljs-title function_">isLessThanOrEqualTo</span>(tenSeconds),      <span class="hljs-attr">expected</span>: <span class="hljs-literal">false</span> },
         ]).
-        it(<span class="hljs-string">'allows for durations to be compared'</span>, <span class="hljs-function">(<span class="hljs-params">{ result, expected }</span>) =&gt;</span> {
-            expect(result).to.equal(expected);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for durations to be compared'</span>, <span class="hljs-function">(<span class="hljs-params">{ result, expected }</span>) =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(result).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
         });
     });
 });

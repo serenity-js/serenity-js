@@ -130,37 +130,37 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/SuiteResult.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
-<span class="hljs-keyword">import</span> { Location } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Location'</span>;
-<span class="hljs-keyword">import</span> { Result } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Result'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Location</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Location'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Result</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Result'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/global.html#SuiteResult
+ * <span class="hljs-doctag">@see</span> https://jasmine.github.io/api/edge/global.html#SuiteResult
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SuiteResult <span class="hljs-keyword">extends</span> Result {
     <span class="hljs-comment">/** The unique id of this suite. */</span>
     <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The description text passed to the `describe` that made this suite. */</span>
-    description: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The full description including all ancestors of this suite. */</span>
-    fullName: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">fullName</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The list of expectations that failed in an afterAll for this suite. */</span>
-    failedExpectations:	Expectation[];
+    <span class="hljs-attr">failedExpectations</span>:	<span class="hljs-title class_">Expectation</span>[];
 
     <span class="hljs-comment">/** The list of deprecation warnings that occurred on this suite. */</span>
-    deprecationWarnings: Expectation[];
+    <span class="hljs-attr">deprecationWarnings</span>: <span class="hljs-title class_">Expectation</span>[];
 
     <span class="hljs-comment">/** Once the suite has completed, this string represents the pass/fail status of this suite. */</span>
     status?:	<span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/** The time in ms for Suite execution, including any before/afterAll, before/afterEach. */</span>
-    duration: <span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>;
+    <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span> | <span class="hljs-literal">null</span>;
 
-    location: Location;
+    <span class="hljs-attr">location</span>: <span class="hljs-title class_">Location</span>;
 }
 </code></pre>
 

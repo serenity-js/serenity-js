@@ -140,45 +140,45 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/HeadRequest.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { HeadRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">HeadRequest</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
 <span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actors'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{HeadRequest}</span> </span>*/</span>
-describe(<span class="hljs-string">'HeadRequest'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">HeadRequest</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'HeadRequest'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> { actor } = actorUsingAMockedAxiosInstance();
+    <span class="hljs-keyword">const</span> { actor } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{HeadRequest.to}</span> </span>*/</span>
-    it(<span class="hljs-string">'represents an Axios request'</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(HeadRequest.to(<span class="hljs-string">'/products/2'</span>)))
-            .to.eventually.deep.equal({
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">HeadRequest.to</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'represents an Axios request'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">answer</span>(<span class="hljs-title class_">HeadRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/products/2'</span>)))
+            .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-attr">method</span>: <span class="hljs-string">'HEAD'</span>,
                 <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
             }));
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{HeadRequest.to}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{HeadRequest#using}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HeadRequest.to</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HeadRequest#using</span>}
      */</span>
-    it(<span class="hljs-string">'allows for additional request properties to be specified'</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actor.answer(HeadRequest.to(<span class="hljs-string">'/products/2'</span>).using({
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for additional request properties to be specified'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">answer</span>(<span class="hljs-title class_">HeadRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/products/2'</span>).<span class="hljs-title function_">using</span>({
             <span class="hljs-attr">headers</span>: {
-                <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+                <span class="hljs-title class_">Accept</span>: <span class="hljs-string">'application/json'</span>,
             },
         }))).
-        to.eventually.deep.equal({
+        to.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
             <span class="hljs-attr">method</span>: <span class="hljs-string">'HEAD'</span>,
             <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
             <span class="hljs-attr">headers</span>: {
-                <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json'</span>,
+                <span class="hljs-title class_">Accept</span>: <span class="hljs-string">'application/json'</span>,
             },
         }));
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{HeadRequest#toString}</span> </span>*/</span>
-    it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(HeadRequest.to(<span class="hljs-string">'/products/2'</span>).toString())
-            .to.equal(<span class="hljs-string">`a HEAD request to '/products/2'`</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">HeadRequest#toString</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">HeadRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/products/2'</span>).<span class="hljs-title function_">toString</span>())
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`a HEAD request to '/products/2'`</span>);
     });
 });
 </code></pre>

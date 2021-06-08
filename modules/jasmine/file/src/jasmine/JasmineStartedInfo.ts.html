@@ -130,14 +130,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/JasmineStartedInfo.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Order } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Order'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Order</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Order'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Information passed to the Reporter#jasmineStarted event.
  *
  * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo
+ * <span class="hljs-doctag">@see</span> https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> JasmineStartedInfo {
 
@@ -145,7 +145,7 @@
     <span class="hljs-attr">totalSpecsDefined</span>: <span class="hljs-built_in">number</span>;
 
     <span class="hljs-comment">/** Information about the ordering (random or not) of this execution of the suite. */</span>
-    order: Order;
+    <span class="hljs-attr">order</span>: <span class="hljs-title class_">Order</span>;
 }
 </code></pre>
 

@@ -153,20 +153,20 @@ separately.</p>
 </code></pre><p>To install <a href="https://www.npmjs.com/package/cucumber">Cucumber 6.x</a> or earlier, run:</p>
 <pre><code class="hljs plaintext">npm install --save-dev cucumber 
 </code></pre><h3 id="command-line-usage">Command line usage</h3><h4 id="cucumber-7-x">Cucumber 7.x</h4><pre><code class="hljs typescript">cucumber-js --format <span class="hljs-meta">@serenity</span>-js/cucumber \
-    --<span class="hljs-built_in">require</span> ./features/support/setup.js \
-    --<span class="hljs-built_in">require</span> ./features/step_definitions/sample.steps.js 
+    --<span class="hljs-built_in">require</span> ./features/support/setup.<span class="hljs-property">js</span> \
+    --<span class="hljs-built_in">require</span> ./features/step_definitions/sample.<span class="hljs-property">steps</span>.<span class="hljs-property">js</span> 
 </code></pre><h4 id="cucumber-3-x-to-6-x">Cucumber 3.x to 6.x</h4><pre><code class="hljs typescript">cucumber-js --format node_modules/<span class="hljs-meta">@serenity</span>-js/cucumber \
-    --<span class="hljs-built_in">require</span> ./features/support/setup.js \
-    --<span class="hljs-built_in">require</span> ./features/step_definitions/sample.steps.js 
-</code></pre><h4 id="cucumber-0-x-to-2-x">Cucumber 0.x to 2.x</h4><pre><code class="hljs typescript">cucumber-js --<span class="hljs-built_in">require</span>=node_modules/<span class="hljs-meta">@serenity</span>-js/cucumber/lib/index.js \
-    --<span class="hljs-built_in">require</span> ./features/support/setup.js \
-    --<span class="hljs-built_in">require</span> ./features/step_definitions/sample.steps.js 
+    --<span class="hljs-built_in">require</span> ./features/support/setup.<span class="hljs-property">js</span> \
+    --<span class="hljs-built_in">require</span> ./features/step_definitions/sample.<span class="hljs-property">steps</span>.<span class="hljs-property">js</span> 
+</code></pre><h4 id="cucumber-0-x-to-2-x">Cucumber 0.x to 2.x</h4><pre><code class="hljs typescript">cucumber-js --<span class="hljs-built_in">require</span>=node_modules/<span class="hljs-meta">@serenity</span>-js/cucumber/lib/index.<span class="hljs-property">js</span> \
+    --<span class="hljs-built_in">require</span> ./features/support/setup.<span class="hljs-property">js</span> \
+    --<span class="hljs-built_in">require</span> ./features/step_definitions/sample.<span class="hljs-property">steps</span>.<span class="hljs-property">js</span> 
 </code></pre><h3 id="configuration">Configuration</h3><p>When used with a configuration file written in JavaScript:</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// features/support/setup.js</span>
 
 <span class="hljs-keyword">const</span> { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-comment">// ... configure Serenity/JS </span>
 });
 </code></pre>
@@ -175,7 +175,7 @@ configure({
 
 <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-comment">// ... configure Serenity/JS </span>
 });
 </code></pre>

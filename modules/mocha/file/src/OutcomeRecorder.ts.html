@@ -127,39 +127,39 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/OutcomeRecorder.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Test } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Test</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OutcomeRecorder</span> </span>{
-    <span class="hljs-keyword">private</span> recordedOutcomes: RecordedOutcome[] = [];
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OutcomeRecorder</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">recordedOutcomes</span>: <span class="hljs-title class_">RecordedOutcome</span>[] = [];
 
-    <span class="hljs-keyword">public</span> started(test: Test): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.recordedOutcomes.push({ test });
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">started</span>(<span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">recordedOutcomes</span>.<span class="hljs-title function_">push</span>({ test });
     }
 
-    <span class="hljs-keyword">public</span> finished(test: Test, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.recordedOutcomes = <span class="hljs-built_in">this</span>.recordedOutcomes.map(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span>
-            recordedOutcome.test === test
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">finished</span>(<span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">recordedOutcomes</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">recordedOutcomes</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span>
+            recordedOutcome.<span class="hljs-property">test</span> === test
                 ? {...recordedOutcome, outcome }
                 : recordedOutcome
         )
     }
 
-    <span class="hljs-keyword">public</span> outcomeOf(test: Test): Outcome {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.recordedOutcomes.find(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.test === test)?.outcome;
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">outcomeOf</span>(<span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>): <span class="hljs-title class_">Outcome</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">recordedOutcomes</span>.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.<span class="hljs-property">test</span> === test)?.<span class="hljs-property">outcome</span>;
     }
 
-    <span class="hljs-keyword">public</span> erase(test: Test): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.recordedOutcomes = <span class="hljs-built_in">this</span>.recordedOutcomes.filter(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.test !== test);
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">erase</span>(<span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">recordedOutcomes</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">recordedOutcomes</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">recordedOutcome</span> =&gt;</span> recordedOutcome.<span class="hljs-property">test</span> !== test);
     }
 }
 
 <span class="hljs-keyword">interface</span> RecordedOutcome {
-    <span class="hljs-attr">test</span>: Test;
-    outcome?: Outcome;
+    <span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>;
+    outcome?: <span class="hljs-title class_">Outcome</span>;
 }
 </code></pre>
 

@@ -132,17 +132,17 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/index.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(process.cwd());
+<span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(process.<span class="hljs-title function_">cwd</span>());
 
-<span class="hljs-keyword">const</span> version = loader.hasAvailable(<span class="hljs-string">'@cucumber/cucumber'</span>)
-    ? loader.versionOf(<span class="hljs-string">'@cucumber/cucumber'</span>)
-    : loader.versionOf(<span class="hljs-string">'cucumber'</span>);
+<span class="hljs-keyword">const</span> version = loader.<span class="hljs-title function_">hasAvailable</span>(<span class="hljs-string">'@cucumber/cucumber'</span>)
+    ? loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'@cucumber/cucumber'</span>)
+    : loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'cucumber'</span>);
 
-<span class="hljs-keyword">export</span> = version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'7.0.0'</span>))
-    ? <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/messages'</span>).createListener(serenity, loader)  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
-    : <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/legacy'</span>).createListener(serenity, loader)    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+<span class="hljs-keyword">export</span> = version.<span class="hljs-title function_">isAtLeast</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'7.0.0'</span>))
+    ? <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/messages'</span>).<span class="hljs-title function_">createListener</span>(serenity, loader)  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+    : <span class="hljs-built_in">require</span>(<span class="hljs-string">'./listeners/legacy'</span>).<span class="hljs-title function_">createListener</span>(serenity, loader)    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 </code></pre>
 
 </article>

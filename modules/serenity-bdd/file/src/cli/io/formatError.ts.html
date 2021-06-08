@@ -128,54 +128,54 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/io/formatError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">RuntimeError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">formatError</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span></span>): <span class="hljs-title">string</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">formatError</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span></span>): <span class="hljs-built_in">string</span> {
 
     <span class="hljs-keyword">const</span> learnMore = <span class="hljs-string">`Learn more at https://serenity-js.org/modules/serenity-bdd`</span>;
 
     <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/ETIMEDOUT/</span>.test(error.message):
-            <span class="hljs-keyword">return</span> lines(
+        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/ETIMEDOUT/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
                 <span class="hljs-string">`Are you behind a proxy or a firewall that needs to be configured?`</span>,
-                ...messages(error),
+                ...<span class="hljs-title function_">messages</span>(error),
                 <span class="hljs-string">''</span>,
                 learnMore,
             );
 
-        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.test(error.message):
-            <span class="hljs-keyword">return</span> lines(
+        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
                 <span class="hljs-string">`If you're using a self-signed certificate please check if it's configured correctly or use the --ignoreSSL option.`</span>,
                 <span class="hljs-string">''</span>,
                 learnMore,
             );
 
-        <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> RuntimeError:
-            <span class="hljs-keyword">return</span> lines(
-                ...messages(error),
+        <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">RuntimeError</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
+                ...<span class="hljs-title function_">messages</span>(error),
                 <span class="hljs-string">''</span>,
                 learnMore
             );
 
-        <span class="hljs-keyword">default</span>:
-            <span class="hljs-keyword">return</span> lines(
+        <span class="hljs-attr">default</span>:
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
                 <span class="hljs-string">`I'm terribly sorry, but something didn't go according to plan:`</span>,
-                ...messages(error),
+                ...<span class="hljs-title function_">messages</span>(error),
             );
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">messages</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span>, acc: <span class="hljs-built_in">string</span>[] = []</span>): <span class="hljs-title">string</span>[] </span>{
-    <span class="hljs-keyword">return</span> error.message &amp;&amp; (error <span class="hljs-keyword">as</span> RuntimeError).cause
-        ? messages((error <span class="hljs-keyword">as</span> RuntimeError).cause, acc.concat(error.message))
-        : acc.concat(error.message || <span class="hljs-string">`<span class="hljs-subst">${ error }</span>`</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">messages</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span>, acc: <span class="hljs-built_in">string</span>[] = []</span>): <span class="hljs-built_in">string</span>[] {
+    <span class="hljs-keyword">return</span> error.<span class="hljs-property">message</span> &amp;&amp; (error <span class="hljs-keyword">as</span> <span class="hljs-title class_">RuntimeError</span>).<span class="hljs-property">cause</span>
+        ? <span class="hljs-title function_">messages</span>((error <span class="hljs-keyword">as</span> <span class="hljs-title class_">RuntimeError</span>).<span class="hljs-property">cause</span>, acc.<span class="hljs-title function_">concat</span>(error.<span class="hljs-property">message</span>))
+        : acc.<span class="hljs-title function_">concat</span>(error.<span class="hljs-property">message</span> || <span class="hljs-string">`<span class="hljs-subst">${ error }</span>`</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">lines</span>(<span class="hljs-params">...entries: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-title">string</span> </span>{
-    <span class="hljs-keyword">return</span> entries.filter(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line !== <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>).join(<span class="hljs-string">'\n'</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">lines</span>(<span class="hljs-params">...entries: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">return</span> entries.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line !== <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
 }
 </code></pre>
 

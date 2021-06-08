@@ -294,26 +294,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/StageCrewMemberBuilder.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ListensToDomainEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ListensToDomainEvents'</span>;
-<span class="hljs-keyword">import</span> { StageCrewMemberBuilderDependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StageCrewMemberBuilderDependencies'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ListensToDomainEvents</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ListensToDomainEvents'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMemberBuilderDependencies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StageCrewMemberBuilderDependencies'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Use a {<span class="hljs-doctag">@link </span>StageCrewMemberBuilder} to configure complex {<span class="hljs-doctag">@link </span>StageCrewMember} objects.
+ *  Use a {<span class="hljs-doctag">@link</span> StageCrewMemberBuilder} to configure complex {<span class="hljs-doctag">@link</span> StageCrewMember} objects.
  *  Useful when you're interested in implementing custom reporters with multiple configuration options.
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMember}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMemberBuilderDependencies}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link SerenityConfig#crew}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMember</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMemberBuilderDependencies</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link SerenityConfig#crew</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> StageCrewMemberBuilder&lt;T <span class="hljs-keyword">extends</span> ListensToDomainEvents = ListensToDomainEvents&gt; {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates a {<span class="hljs-doctag">@link </span>StageCrewMember}, giving it access to shared dependencies
-     *  such as {<span class="hljs-doctag">@link </span>Stage} or {<span class="hljs-doctag">@link </span>OutputStream}
+     *  Instantiates a {<span class="hljs-doctag">@link</span> StageCrewMember}, giving it access to shared dependencies
+     *  such as {<span class="hljs-doctag">@link</span> Stage} or {<span class="hljs-doctag">@link</span> OutputStream}
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function(dependencies: StageCrewMemberBuilderDependencies): T}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function(dependencies: StageCrewMemberBuilderDependencies): T</span>}
      */</span>
     <span class="hljs-attr">build</span>: <span class="hljs-function">(<span class="hljs-params">dependencies: StageCrewMemberBuilderDependencies</span>) =&gt;</span> T;
 }

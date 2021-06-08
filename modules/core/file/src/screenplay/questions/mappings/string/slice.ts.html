@@ -297,22 +297,22 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
 <span class="hljs-keyword">import</span> { ensure, isDefined, isInteger, isString } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../actor'</span>;
-<span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../Answerable'</span>;
-<span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AnswerMappingFunction'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswerMappingFunction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AnswerMappingFunction'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Extracts the part of the string between the `startIndex` and `endIndex` indexes, or to the end of the string if `endIndex` is `undefined`.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;number&gt;}</span> <span class="hljs-variable">startIndex</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;number&gt;</span>} <span class="hljs-variable">startIndex</span>
  *  The zero-based index at which to begin extraction.
  *
  *  If negative, it is treated as `str.length + startIndex`. For example, if `startIndex` is `-3`, it is treated as `str.length - 3`
  *
  *  If `startIndex` is greater than or equal to `str.length`, an empty string is returned.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;number&gt;}</span> </span>[endIndex]
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;number&gt;</span>} [endIndex]
  *  The zero-based index _before_ which to endIndex extraction.
  *  The character at this index will not be included.
  *
@@ -322,28 +322,28 @@
  *  If negative, it is treated as `str.length + endIndex`.
  *  For example, if `endIndex` is `-3`, it is treated as `str.length - 3`.
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{AnswerMappingFunction&lt;string, string&gt;}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">AnswerMappingFunction&lt;string, string&gt;</span>}
  *
- * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
+ * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">slice</span>(<span class="hljs-params">startIndex: Answerable&lt;<span class="hljs-built_in">number</span>&gt;, endIndex?: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">slice</span>(<span class="hljs-params">startIndex: Answerable&lt;<span class="hljs-built_in">number</span>&gt;, endIndex?: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title class_">AnswerMappingFunction</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>&gt; {
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
         <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
 
-            ensure(<span class="hljs-string">'The value to be mapped'</span>, value, isDefined(), isString())
+            <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'The value to be mapped'</span>, value, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isString</span>())
 
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-                actor.answer(startIndex),
-                actor.answer(endIndex),
-            ]).then(<span class="hljs-function">(<span class="hljs-params">[ start, end ]</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+                actor.<span class="hljs-title function_">answer</span>(startIndex),
+                actor.<span class="hljs-title function_">answer</span>(endIndex),
+            ]).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[ start, end ]</span>) =&gt;</span> {
 
-                ensure(<span class="hljs-string">'startIndex'</span>, start, isDefined(), isInteger())
+                <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'startIndex'</span>, start, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isInteger</span>())
 
                 <span class="hljs-keyword">if</span> (end !== <span class="hljs-literal">undefined</span>) {
-                    ensure(<span class="hljs-string">'endIndex'</span>, end, isInteger());
+                    <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'endIndex'</span>, end, <span class="hljs-title function_">isInteger</span>());
                 }
 
-                <span class="hljs-keyword">return</span> value.slice(start, end);
+                <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">slice</span>(start, end);
             });
         };
 }

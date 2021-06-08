@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {UseAngular} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">UseAngular</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/UseAngular.ts.html#lineNumber51">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/UseAngular.ts.html#lineNumber52">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -230,26 +230,26 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Disabling synchronisation temporarily</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, UseAngular, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">UseAngular</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Angie'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         UseAngular.disableSynchronisation(),
-         Navigate.to(<span class="hljs-string">'https://mycompany.com/login'</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Angie'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">disableSynchronisation</span>(),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'https://mycompany.com/login'</span>),
          <span class="hljs-comment">// navigate to a non-Angular app, perform some activities...</span>
 
-         UseAngular.disableSynchronisation(),
-         Navigate.to(<span class="hljs-string">'https://myapp.com'</span>),
+         <span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">disableSynchronisation</span>(),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'https://myapp.com'</span>),
          <span class="hljs-comment">// navigate to an Angular app, perform some more activities...</span>
      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Disabling synchronisation in protractor.conf.js</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.config = {
-     <span class="hljs-attr">onPrepare</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-         <span class="hljs-keyword">return</span> browser.waitForAngularEnabled(<span class="hljs-literal">false</span>);
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
+     <span class="hljs-attr">onPrepare</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+         <span class="hljs-keyword">return</span> browser.<span class="hljs-title function_">waitForAngularEnabled</span>(<span class="hljs-literal">false</span>);
      },
      <span class="hljs-comment">// ... other config</span>
  };</code></pre>
@@ -358,7 +358,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/UseAngular.ts.html#lineNumber73">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/UseAngular.ts.html#lineNumber74">source</a></span></span>
     </span>
   </h3>
 
@@ -422,7 +422,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/UseAngular.ts.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/UseAngular.ts.html#lineNumber99">source</a></span></span>
     </span>
   </h3>
 

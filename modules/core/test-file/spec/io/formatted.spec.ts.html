@@ -301,21 +301,21 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> util <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
-<span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{formatted}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">formatted</span>} */</span>
 describe (<span class="hljs-string">'`formatted` tag function'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        p  = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(value),
-        q  = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> Question.about(<span class="hljs-string">`the meaning of life`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value),
-        i  = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> ({ [util.inspect.custom]: <span class="hljs-function">() =&gt;</span> value }),
+        <span class="hljs-title function_">p</span>  = value =&gt; <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value),
+        q  = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the meaning of life`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value),
+        i  = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> ({ [util.<span class="hljs-property">inspect</span>.<span class="hljs-property">custom</span>]: <span class="hljs-function">() =&gt;</span> value }),
         ts = <span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> ({ <span class="hljs-attr">toString</span>: <span class="hljs-function">() =&gt;</span> value });
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SomeAttribute</span> </span>{}
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">SomeAttribute</span> {}
 
-    given(
+    <span class="hljs-title function_">given</span>(
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'no parameters'</span>,             <span class="hljs-attr">actual</span>: formatted <span class="hljs-string">`Hello World!`</span>,                           <span class="hljs-attr">expected</span>: <span class="hljs-string">'Hello World!'</span>                              },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'an undefined parameter'</span>,    <span class="hljs-attr">actual</span>: formatted <span class="hljs-string">`param: <span class="hljs-subst">${ <span class="hljs-literal">undefined</span> }</span>`</span>,                  <span class="hljs-attr">expected</span>: <span class="hljs-string">'param: undefined'</span>                          },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'a number parameter'</span>,        <span class="hljs-attr">actual</span>: formatted <span class="hljs-string">`Answer: <span class="hljs-subst">${ <span class="hljs-number">42</span> }</span>`</span>,                        <span class="hljs-attr">expected</span>: <span class="hljs-string">'Answer: 42'</span>                                },
@@ -332,14 +332,14 @@ describe (<span class="hljs-string">'`formatted` tag function'</span>, <span cla
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'an "toStringable" object'</span>,  <span class="hljs-attr">actual</span>: formatted <span class="hljs-string">`<span class="hljs-subst">${ ts(<span class="hljs-string">'result'</span>) }</span>`</span>,                <span class="hljs-attr">expected</span>: <span class="hljs-string">'result'</span>                                    },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'a function parameter'</span>,      <span class="hljs-attr">actual</span>: formatted <span class="hljs-string">`<span class="hljs-subst">${ SomeAttribute }</span>`</span>,                     <span class="hljs-attr">expected</span>: <span class="hljs-string">'SomeAttribute property'</span>                    },
     ).
-    it(<span class="hljs-string">'produces a human-readable description when given a template with'</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
-        expect(actual).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'produces a human-readable description when given a template with'</span>, <span class="hljs-function">(<span class="hljs-params">{ actual, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(actual).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{formatted}</span> </span>*/</span>
-    it(<span class="hljs-string">'produces a human-readable description when given a template with multiple parameters'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(formatted <span class="hljs-string">`Hello, <span class="hljs-subst">${ <span class="hljs-string">'World'</span> }</span>! I've got <span class="hljs-subst">${ p(<span class="hljs-string">'result'</span>) }</span> for you!`</span>)
-            .to.equal(<span class="hljs-string">"Hello, 'World'! I've got a Promise for you!"</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">formatted</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'produces a human-readable description when given a template with multiple parameters'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(formatted <span class="hljs-string">`Hello, <span class="hljs-subst">${ <span class="hljs-string">'World'</span> }</span>! I've got <span class="hljs-subst">${ p(<span class="hljs-string">'result'</span>) }</span> for you!`</span>)
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">"Hello, 'World'! I've got a Promise for you!"</span>);
     });
 });
 </code></pre>

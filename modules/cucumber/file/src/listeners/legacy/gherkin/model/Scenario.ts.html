@@ -131,26 +131,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/model/Scenario.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Description, Name, Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Tag</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { FeatureFileNode } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileNode'</span>;
-<span class="hljs-keyword">import</span> { Hook } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Hook'</span>;
-<span class="hljs-keyword">import</span> { Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Step'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureFileNode</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileNode'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Hook</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Hook'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Step</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Step'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Scenario</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">FeatureFileNode</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Scenario</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">FeatureFileNode</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         location: FileSystemLocation,
         name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description: Description,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> steps: <span class="hljs-built_in">Array</span>&lt;Step | Hook&gt;,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> tags: Tag[] = [],
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> outline?: FileSystemLocation,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(location, name);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(location, name);
     }
 }
 </code></pre>

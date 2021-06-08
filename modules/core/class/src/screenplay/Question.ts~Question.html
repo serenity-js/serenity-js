@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Question} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Question</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -330,44 +330,44 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A basic Question</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor, AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>
 
- <span class="hljs-keyword">const</span> LastItemOf = &lt;T&gt;(list: T[]): Question&lt;T&gt; =&gt;
-     Question.about(<span class="hljs-string">'last item from the list'</span>, <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt;</span> {
-         <span class="hljs-keyword">return</span> list[list.length - <span class="hljs-number">1</span>];
+ <span class="hljs-keyword">const</span> <span class="hljs-title class_">LastItemOf</span> = &lt;T&gt;(<span class="hljs-attr">list</span>: T[]): <span class="hljs-title class_">Question</span>&lt;T&gt; =&gt;
+     <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'last item from the list'</span>, <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt;</span> {
+         <span class="hljs-keyword">return</span> list[list.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>];
      });
 
- Actor.named(<span class="hljs-string">'Quentin'</span>).attemptsTo(
-     Ensure.that(LastItemFrom([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]), equals(<span class="hljs-number">3</span>)),
+ <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Quentin'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastItemFrom</span>([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]), <span class="hljs-title function_">equals</span>(<span class="hljs-number">3</span>)),
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A question using the Actor's Ability to do something</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
 
- <span class="hljs-keyword">const</span> TextOfLastResponseStatus = <span class="hljs-function">() =&gt;</span>
-     Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the text of the last response status`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-         <span class="hljs-keyword">return</span> CallAnApi.as(actor).mapLastResponse(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.statusText);
+ <span class="hljs-keyword">const</span> <span class="hljs-title function_">TextOfLastResponseStatus</span> = (<span class="hljs-params"></span>) =&gt;
+     <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the text of the last response status`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+         <span class="hljs-keyword">return</span> <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">mapLastResponse</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> response.<span class="hljs-property">statusText</span>);
      });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Mapping answers to other questions</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor, AnswersQuestions, UsesAbilities, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { CallAnApi, LastResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">LastResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> RequestWasSuccessful = <span class="hljs-function">() =&gt;</span>
-     Question.about&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the text of the last response status`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-         <span class="hljs-keyword">return</span> LastResponse.status().answeredBy(actor) === <span class="hljs-number">200</span>;
+ <span class="hljs-keyword">const</span> <span class="hljs-title function_">RequestWasSuccessful</span> = (<span class="hljs-params"></span>) =&gt;
+     <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">`the text of the last response status`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+         <span class="hljs-keyword">return</span> <span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>().<span class="hljs-title function_">answeredBy</span>(actor) === <span class="hljs-number">200</span>;
      });
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Quentin'</span>).whoCan(CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>));
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Quentin'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://myapp.com/api'</span>));
 
- actor.attemptsTo(
-     Send.a(GetRequest.to(<span class="hljs-string">'/books/0-688-00230-7'</span>)),
-     Ensure.that(RequestWasSuccessful(), isTrue()),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/books/0-688-00230-7'</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">RequestWasSuccessful</span>(), <span class="hljs-title function_">isTrue</span>()),
  );</code></pre>
     </div>
 </div>
@@ -700,8 +700,8 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">const</span> EnvVariable = <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-     Question.about(<span class="hljs-string">`the <span class="hljs-subst">${ name }</span> env variable`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> process.env[name])</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">const</span> <span class="hljs-title function_">EnvVariable</span> = (<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;
+     <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the <span class="hljs-subst">${ name }</span> env variable`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> process.<span class="hljs-property">env</span>[name])</code></pre>
     </div>
 </div>
 
@@ -1062,46 +1062,46 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Mapping a Question&lt;Promise&lt;string&gt;&gt; to Question&lt;Promise&lt;number&gt;&gt;</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Question, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span>, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- Question.about(<span class="hljs-string">'the price of some item'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-string">'$3.99'</span>)
-     .map(replace(<span class="hljs-string">'$'</span>, <span class="hljs-string">''</span>))
-     .map(toNumber)
+ <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'the price of some item'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-string">'$3.99'</span>)
+     .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'$'</span>, <span class="hljs-string">''</span>))
+     .<span class="hljs-title function_">map</span>(toNumber)
 
  <span class="hljs-comment">// =&gt; Question&lt;Promise&lt;number&gt;&gt;</span>
  <span class="hljs-comment">//      3.99</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Mapping all items of Question&lt;string[]&gt; to Question&lt;Promise&lt;number&gt;&gt;</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Question, trim } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span>, trim } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- Question.about(<span class="hljs-string">'things to do'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-string">' walk the dog  '</span>, <span class="hljs-string">'  read a book  '</span> ])
-     .map(trim())
+ <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'things to do'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-string">' walk the dog  '</span>, <span class="hljs-string">'  read a book  '</span> ])
+     .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
 
  <span class="hljs-comment">// =&gt; Question&lt;Promise&lt;string[]&gt;&gt;</span>
  <span class="hljs-comment">//      [ 'walk the dog', 'read a book' ]</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using a custom mapping function</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- Question.about(<span class="hljs-string">'normalised percentages'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.6</span> ])
-     .map(<span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">number</span></span>) =&gt;</span> value * <span class="hljs-number">100</span>)
+ <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'normalised percentages'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> [ <span class="hljs-number">0.1</span>, <span class="hljs-number">0.3</span>, <span class="hljs-number">0.6</span> ])
+     .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">number</span></span>) =&gt;</span> value * <span class="hljs-number">100</span>)
 
  <span class="hljs-comment">// =&gt; Question&lt;Promise&lt;number[]&gt;&gt;</span>
  <span class="hljs-comment">//      [ 10, 30, 60 ]</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Extracting values from LastResponse.body()</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { LastResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">LastResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 
  <span class="hljs-keyword">interface</span> UserDetails {
      <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-     name: <span class="hljs-built_in">string</span>;
+     <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
  }
 
- LastResponse.body&lt;UserDetails&gt;().map(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">details</span> =&gt;</span> details.id)
+ <span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">UserDetails</span>&gt;().<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-function"><span class="hljs-params">details</span> =&gt;</span> details.<span class="hljs-property">id</span>)
 
  <span class="hljs-comment">// =&gt; Question&lt;number&gt;</span></code></pre>
     </div>

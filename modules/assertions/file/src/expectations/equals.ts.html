@@ -144,12 +144,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/equals.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { equal } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types/lib/objects'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">equals</span>&lt;<span class="hljs-title">Expected</span>&gt;(<span class="hljs-params">expectedValue: Answerable&lt;Expected&gt;</span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> Expectation.thatActualShould&lt;Expected, Expected&gt;(<span class="hljs-string">'equal'</span>, expectedValue)
-        .soThat(<span class="hljs-function">(<span class="hljs-params">actual, expected</span>) =&gt;</span> equal(actual, expected));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> equals&lt;<span class="hljs-title class_">Expected</span>&gt;(<span class="hljs-attr">expectedValue</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Expected</span>&gt;): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-title class_">Expected</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>.<span class="hljs-property">thatActualShould</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Expected</span>&gt;(<span class="hljs-string">'equal'</span>, expectedValue)
+        .<span class="hljs-title function_">soThat</span>(<span class="hljs-function">(<span class="hljs-params">actual, expected</span>) =&gt;</span> <span class="hljs-title function_">equal</span>(actual, expected));
 }
 </code></pre>
 

@@ -131,127 +131,127 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberOptions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberConfig'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CucumberOptions</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: CucumberConfig</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CucumberOptions</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: CucumberConfig</span>) {
     }
 
-    isStrict(): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.asBoolean(<span class="hljs-string">'strict'</span>, <span class="hljs-literal">true</span>);
+    <span class="hljs-title function_">isStrict</span>(): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asBoolean</span>(<span class="hljs-string">'strict'</span>, <span class="hljs-literal">true</span>);
     }
 
-    asArgumentsForCucumber(version: Version): <span class="hljs-built_in">string</span>[] {
+    <span class="hljs-title function_">asArgumentsForCucumber</span>(<span class="hljs-attr">version</span>: <span class="hljs-title class_">Version</span>): <span class="hljs-built_in">string</span>[] {
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.config)
-            .reduce(
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>)
+            .<span class="hljs-title function_">reduce</span>(
                 <span class="hljs-function">(<span class="hljs-params">acc, option: keyof CucumberConfig</span>) =&gt;</span>
-                    isNotEmpty(<span class="hljs-built_in">this</span>.config[option])
-                        ? acc.concat(<span class="hljs-built_in">this</span>.optionToValues(option, <span class="hljs-built_in">this</span>.config[option], version))
+                    <span class="hljs-title function_">isNotEmpty</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[option])
+                        ? acc.<span class="hljs-title function_">concat</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">optionToValues</span>(option, <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[option], version))
                         : acc,
 
                 <span class="hljs-comment">// Cucumber ignores the first two arguments anyway, but let's add them for completeness</span>
                 <span class="hljs-comment">//  https://github.com/cucumber/cucumber-js/blob/d74bc45ba98132bdd0af62e0e52d1fe9ff017006/src/cli/helpers.js#L15</span>
                 [ <span class="hljs-string">'node'</span>, <span class="hljs-string">'cucumber-js'</span> ],
             )
-            .concat(<span class="hljs-built_in">this</span>.config.rerun ?? []);
+            .<span class="hljs-title function_">concat</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>.<span class="hljs-property">rerun</span> ?? []);
     }
 
-    <span class="hljs-keyword">private</span> optionToValues&lt;O <span class="hljs-keyword">extends</span> keyof CucumberConfig&gt;(option: O, <span class="hljs-attr">value</span>: CucumberConfig[O], <span class="hljs-attr">version</span>: Version): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">const</span> cliOption = <span class="hljs-built_in">this</span>.asCliOptionName(option);
+    <span class="hljs-keyword">private</span> optionToValues&lt;O <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> <span class="hljs-title class_">CucumberConfig</span>&gt;(<span class="hljs-attr">option</span>: O, <span class="hljs-attr">value</span>: <span class="hljs-title class_">CucumberConfig</span>[O], <span class="hljs-attr">version</span>: <span class="hljs-title class_">Version</span>): <span class="hljs-built_in">string</span>[] {
+        <span class="hljs-keyword">const</span> cliOption = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asCliOptionName</span>(option);
 
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> cliOption === <span class="hljs-string">'tags'</span> &amp;&amp; version.isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'2.0.0'</span>)) &amp;&amp; value !== <span class="hljs-literal">false</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">this</span>.tagsToCucumberExpressions(listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
+            <span class="hljs-keyword">case</span> cliOption === <span class="hljs-string">'tags'</span> &amp;&amp; version.<span class="hljs-title function_">isAtLeast</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'2.0.0'</span>)) &amp;&amp; value !== <span class="hljs-attr">false</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">valuesToArgs</span>(cliOption, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">tagsToCucumberExpressions</span>(<span class="hljs-title function_">listOf</span>(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[])));
             <span class="hljs-keyword">case</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'boolean'</span>:
-                <span class="hljs-keyword">return</span> listOf(<span class="hljs-built_in">this</span>.flagToArg(cliOption, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
-            <span class="hljs-keyword">case</span> <span class="hljs-built_in">this</span>.isObject(value):
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, <span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>));
-            <span class="hljs-keyword">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.valuesToArgs(cliOption, listOf(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]));
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">listOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">flagToArg</span>(cliOption, value <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>));
+            <span class="hljs-keyword">case</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isObject</span>(value):
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">valuesToArgs</span>(cliOption, <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>));
+            <span class="hljs-attr">default</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">valuesToArgs</span>(cliOption, <span class="hljs-title function_">listOf</span>(value <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]));
         }
     }
 
-    <span class="hljs-keyword">private</span> asBoolean&lt;K <span class="hljs-keyword">extends</span> keyof CucumberConfig&gt;(key: K, <span class="hljs-attr">defaultValue</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.config[key] === <span class="hljs-string">'boolean'</span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.config[key] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-keyword">private</span> asBoolean&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> <span class="hljs-title class_">CucumberConfig</span>&gt;(<span class="hljs-attr">key</span>: K, <span class="hljs-attr">defaultValue</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[key] === <span class="hljs-string">'boolean'</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[key] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
         }
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-built_in">this</span>.config[negated(key)] === <span class="hljs-string">'boolean'</span>) {
-            <span class="hljs-keyword">return</span> ! <span class="hljs-built_in">this</span>.config[negated(key)] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[<span class="hljs-title function_">negated</span>(key)] === <span class="hljs-string">'boolean'</span>) {
+            <span class="hljs-keyword">return</span> ! <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[<span class="hljs-title function_">negated</span>(key)] <span class="hljs-keyword">as</span> <span class="hljs-built_in">boolean</span>;
         }
 
         <span class="hljs-keyword">return</span> defaultValue;
     }
 
-    <span class="hljs-keyword">private</span> isObject(value: <span class="hljs-built_in">any</span>): value is <span class="hljs-built_in">object</span> { <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isObject</span>(<span class="hljs-attr">value</span>: <span class="hljs-built_in">any</span>): value is <span class="hljs-built_in">object</span> { <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span>
-            &amp;&amp; <span class="hljs-built_in">Array</span>.isArray(value) === <span class="hljs-literal">false</span>
-            &amp;&amp; <span class="hljs-built_in">Object</span>.prototype.toString.call(value) === <span class="hljs-string">'[object Object]'</span>;
+            &amp;&amp; <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(value) === <span class="hljs-literal">false</span>
+            &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(value) === <span class="hljs-string">'[object Object]'</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Converts camelCase option names to kebab-case.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">option</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">option</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      *
      * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> asCliOptionName(option: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">asCliOptionName</span>(<span class="hljs-attr">option</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> option
-            .replace(<span class="hljs-regexp">/([\da-z]|(?=[A-Z]))([A-Z])/g</span>, <span class="hljs-string">'$1-$2'</span>)
-            .toLowerCase();
+            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/([\da-z]|(?=[A-Z]))([A-Z])/g</span>, <span class="hljs-string">'$1-$2'</span>)
+            .<span class="hljs-title function_">toLowerCase</span>();
     }
 
-    <span class="hljs-keyword">private</span> tagsToCucumberExpressions(tags: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> tags.filter(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> !! tag.replace)
-                .map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> tag.replace(<span class="hljs-regexp">/~/g</span>, <span class="hljs-string">'not '</span>))
-                .join(<span class="hljs-string">' and '</span>);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">tagsToCucumberExpressions</span>(<span class="hljs-attr">tags</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> tags.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> !! tag.<span class="hljs-property">replace</span>)
+                .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> tag.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/~/g</span>, <span class="hljs-string">'not '</span>))
+                .<span class="hljs-title function_">join</span>(<span class="hljs-string">' and '</span>);
     }
 
-    <span class="hljs-keyword">private</span> flagToArg(option: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">flagToArg</span>(<span class="hljs-attr">option</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> !! value:
+            <span class="hljs-keyword">case</span> !! <span class="hljs-attr">value</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`--<span class="hljs-subst">${ option }</span>`</span>;
-            <span class="hljs-keyword">case</span> isNegated(option) &amp;&amp; ! value:
+            <span class="hljs-keyword">case</span> <span class="hljs-title function_">isNegated</span>(option) &amp;&amp; ! <span class="hljs-attr">value</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`--<span class="hljs-subst">${ option.replace(<span class="hljs-regexp">/^no-/</span>, <span class="hljs-string">''</span>) }</span>`</span>;
-            <span class="hljs-keyword">default</span>:
+            <span class="hljs-attr">default</span>:
                 <span class="hljs-keyword">return</span> <span class="hljs-string">`--no-<span class="hljs-subst">${ option }</span>`</span>;
         }
     }
 
-    <span class="hljs-keyword">private</span> valuesToArgs(option: <span class="hljs-built_in">string</span>, <span class="hljs-attr">values</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">return</span> listOf(values)
-            .map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> [ <span class="hljs-string">`--<span class="hljs-subst">${ option }</span>`</span>, value])
-            .reduce(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span> acc.concat(tuple), []);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">valuesToArgs</span>(<span class="hljs-attr">option</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">values</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">string</span>[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">listOf</span>(values)
+            .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> [ <span class="hljs-string">`--<span class="hljs-subst">${ option }</span>`</span>, value])
+            .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span> acc.<span class="hljs-title function_">concat</span>(tuple), []);
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNegated</span>(<span class="hljs-params">optionName: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">return</span> optionName.startsWith(<span class="hljs-string">'no-'</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isNegated</span>(<span class="hljs-params">optionName: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> optionName.<span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'no-'</span>);
 }
 
 <span class="hljs-comment">// this method will need to be smarter if it was to be public, i.e. to avoid double negatives like noStrict=false</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">negated</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'no'</span> + name.charAt(<span class="hljs-number">0</span>).toUpperCase() + name.slice(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">negated</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'no'</span> + name.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">toUpperCase</span>() + name.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNotEmpty</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-title">boolean</span> </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isNotEmpty</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>): <span class="hljs-built_in">boolean</span> {
     <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">undefined</span>
         &amp;&amp; value !== <span class="hljs-literal">null</span>
         &amp;&amp; value !== <span class="hljs-string">''</span>
-        &amp;&amp; ! (<span class="hljs-built_in">Array</span>.isArray(value) &amp;&amp; value.length === <span class="hljs-number">0</span>);
+        &amp;&amp; ! (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(value) &amp;&amp; value.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">listOf</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">valueOrValues: T | T[]</span>): <span class="hljs-title">T</span>[] </span>{
-    <span class="hljs-keyword">return</span> [].concat(valueOrValues).filter(isNotEmpty);
+<span class="hljs-keyword">function</span> listOf&lt;T&gt;(<span class="hljs-attr">valueOrValues</span>: T | T[]): T[] {
+    <span class="hljs-keyword">return</span> [].<span class="hljs-title function_">concat</span>(valueOrValues).<span class="hljs-title function_">filter</span>(isNotEmpty);
 }
 </code></pre>
 

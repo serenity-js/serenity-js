@@ -136,12 +136,12 @@
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { CucumberFormat } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberFormat</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/cli'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{CucumberFormat}</span> </span>*/</span>
-describe(<span class="hljs-string">'CucumberFormat'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">CucumberFormat</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'CucumberFormat'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    given([ {
+    <span class="hljs-title function_">given</span>([ {
         <span class="hljs-attr">description</span>:    <span class="hljs-string">`outputs to standard output on Unix`</span>,
         <span class="hljs-attr">format</span>:         <span class="hljs-string">'../custom/formatter'</span>,
         <span class="hljs-attr">formatter</span>:      <span class="hljs-string">'../custom/formatter'</span>,
@@ -167,12 +167,12 @@ describe(<span class="hljs-string">'CucumberFormat'</span>, <span class="hljs-fu
         <span class="hljs-attr">formatter</span>:      <span class="hljs-string">'C:\\custom\\formatter'</span>,
         <span class="hljs-attr">output</span>:         <span class="hljs-string">'C:\\formatter\\output.txt'</span>,
     } ]).
-    it(<span class="hljs-string">'represents native Cucumber format that'</span>, <span class="hljs-function">(<span class="hljs-params">{ format, formatter, output }</span>) =&gt;</span> {
-        <span class="hljs-keyword">const</span> cucumberFormat = <span class="hljs-keyword">new</span> CucumberFormat(format);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'represents native Cucumber format that'</span>, <span class="hljs-function">(<span class="hljs-params">{ format, formatter, output }</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> cucumberFormat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberFormat</span>(format);
 
-        expect(cucumberFormat.value).to.equal(format);
-        expect(cucumberFormat.formatter).to.equal(formatter);
-        expect(cucumberFormat.output).to.equal(output);
+        <span class="hljs-title function_">expect</span>(cucumberFormat.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(format);
+        <span class="hljs-title function_">expect</span>(cucumberFormat.<span class="hljs-property">formatter</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(formatter);
+        <span class="hljs-title function_">expect</span>(cucumberFormat.<span class="hljs-property">output</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(output);
     });
 });
 </code></pre>

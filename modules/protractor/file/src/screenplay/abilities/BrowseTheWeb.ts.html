@@ -187,16 +187,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/BrowseTheWeb.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, LogicError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { AlertPromise, Capabilities, Navigation, Options, WebElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActionSequence</span>, <span class="hljs-title class_">ElementArrayFinder</span>, <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Locator</span>, <span class="hljs-title class_">ProtractorBrowser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AlertPromise</span>, <span class="hljs-title class_">Capabilities</span>, <span class="hljs-title class_">Navigation</span>, <span class="hljs-title class_">Options</span>, <span class="hljs-title class_">WebElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link </span>Actor} to interact with web front-ends using {<span class="hljs-doctag">@link </span>protractor}.
+ *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link</span> Actor} to interact with web front-ends using {<span class="hljs-doctag">@link</span> protractor}.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using the protractor.browser&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using the protractor.browser&lt;/caption&gt;
  *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Navigate, Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor'
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -215,52 +216,52 @@
  *      Ensure.that(Text.of(HomePage.Title), equals('Serenity/JS')),
  *  );
  *
- * <span class="hljs-doctag">@see </span>https://www.protractortest.org/
+ * <span class="hljs-doctag">@see</span> https://www.protractortest.org/
  *
  * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/screenplay~Ability}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Ability</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrowseTheWeb</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrowseTheWeb</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> lastScriptExecutionSummary: LastScriptExecutionSummary;
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">lastScriptExecutionSummary</span>: <span class="hljs-title class_">LastScriptExecutionSummary</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> originalWindowHandle: <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">originalWindowHandle</span>: <span class="hljs-built_in">string</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Ability to interact with web front-ends using a given protractor browser instance.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{ProtractorBrowser}</span> <span class="hljs-variable">browser</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{BrowseTheWeb}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">ProtractorBrowser</span>} <span class="hljs-variable">browser</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">BrowseTheWeb</span>}
      */</span>
-    <span class="hljs-keyword">static</span> using(browser: ProtractorBrowser): BrowseTheWeb {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowseTheWeb(browser);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">using</span>(<span class="hljs-attr">browser</span>: <span class="hljs-title class_">ProtractorBrowser</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowseTheWeb</span>(browser);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Used to access the Actor's ability to {<span class="hljs-doctag">@link </span>BrowseTheWeb} from within the {<span class="hljs-doctag">@link </span>Interaction} classes,
-     *  such as {<span class="hljs-doctag">@link </span>Navigate}.
+     *  Used to access the Actor's ability to {<span class="hljs-doctag">@link</span> BrowseTheWeb} from within the {<span class="hljs-doctag">@link</span> Interaction} classes,
+     *  such as {<span class="hljs-doctag">@link</span> Navigate}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@return <span class="hljs-type">{BrowseTheWeb}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">BrowseTheWeb</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities): BrowseTheWeb {
-        <span class="hljs-keyword">return</span> actor.abilityTo(BrowseTheWeb);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">BrowseTheWeb</span>);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{ProtractorBrowser}</span> <span class="hljs-variable">browser</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">ProtractorBrowser</span>} <span class="hljs-variable">browser</span>
      *  An instance of a protractor browser
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> browser: ProtractorBrowser</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> browser: ProtractorBrowser</span>) {
     }
 
     <span class="hljs-comment">/**
@@ -268,16 +269,16 @@
      *  Navigate to the given destination and loads mock modules before Angular.
      *  Assumes that the page being loaded uses Angular.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">destination</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number?}</span> <span class="hljs-variable">timeoutInMillis</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">destination</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number?</span>} <span class="hljs-variable">timeoutInMillis</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    get(destination: <span class="hljs-built_in">string</span>, timeoutInMillis?: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.get(destination, timeoutInMillis)
-            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.browser.getWindowHandle())
-            .then(<span class="hljs-function"><span class="hljs-params">handle</span> =&gt;</span> {
-                <span class="hljs-built_in">this</span>.originalWindowHandle = handle;
+    <span class="hljs-title function_">get</span>(<span class="hljs-attr">destination</span>: <span class="hljs-built_in">string</span>, timeoutInMillis?: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">get</span>(destination, timeoutInMillis)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getWindowHandle</span>())
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">handle</span> =&gt;</span> {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">originalWindowHandle</span> = handle;
             }),
         );
     }
@@ -286,10 +287,10 @@
      * <span class="hljs-doctag">@desc</span>
      *  Interface for navigating back and forth in the browser history.
      *
-     *  <span class="hljs-doctag">@returns <span class="hljs-type">{Navigation}</span></span>
+     *  <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Navigation</span>}
      */</span>
-    navigate(): Navigation {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.navigate();
+    <span class="hljs-title function_">navigate</span>(): <span class="hljs-title class_">Navigation</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">navigate</span>();
     }
 
     <span class="hljs-comment">/**
@@ -297,30 +298,30 @@
      *  Interface for defining sequences of complex user interactions.
      *  Each sequence will not be executed until `perform` is called.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{ActionSequence}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ActionSequence</span>}
      *
-     * <span class="hljs-doctag">@see </span>https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
+     * <span class="hljs-doctag">@see</span> https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
      */</span>
-    actions(): ActionSequence {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.actions();
+    <span class="hljs-title function_">actions</span>(): <span class="hljs-title class_">ActionSequence</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">actions</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Interface for managing browser and driver state.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Options}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Options</span>}
      *
-     * <span class="hljs-doctag">@see </span>https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
+     * <span class="hljs-doctag">@see</span> https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
      */</span>
-    manage(): Options {
+    <span class="hljs-title function_">manage</span>(): <span class="hljs-title class_">Options</span> {
         <span class="hljs-comment">/*
         this.browser.manage().deleteCookie();
         this.browser.manage().deleteAllCookies();
         return this.browser.manage().getCookie('asd');
          */</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.manage();
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">manage</span>();
     }
 
     <span class="hljs-comment">/**
@@ -334,27 +335,27 @@
      * The returned promise will be rejected with an [`error.NoSuchAlertError`](https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/error_exports_NoSuchAlertError.html)
      * if there are no open alerts.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{AlertPromise}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">AlertPromise</span>}
      *
-     * <span class="hljs-doctag">@see </span>https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_TargetLocator.html#alert
+     * <span class="hljs-doctag">@see</span> https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_TargetLocator.html#alert
      */</span>
-    alert(): AlertPromise {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.switchTo().alert();
+    <span class="hljs-title function_">alert</span>(): <span class="hljs-title class_">AlertPromise</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">alert</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Switches the focus to a [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
      *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) identified by `elementOrIndexOrName`,
-     *  which can be specified either as {<span class="hljs-doctag">@link <span class="hljs-variable">selenium</span></span>-webdriver~WebElement}, the name of the frame, or its index.
+     *  which can be specified either as {<span class="hljs-doctag">@link</span> <span class="hljs-variable">selenium</span>-webdriver~WebElement}, the name of the frame, or its index.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number | string | WebElement}</span> <span class="hljs-variable">elementOrIndexOrName</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number | string | WebElement</span>} <span class="hljs-variable">elementOrIndexOrName</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    switchToFrame(elementOrIndexOrName: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span> | WebElement): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-title function_">switchToFrame</span>(<span class="hljs-attr">elementOrIndexOrName</span>: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span> | <span class="hljs-title class_">WebElement</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-comment">// incorrect type definition in selenium-webdriver prevents us from providing a string arg</span>
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.switchTo().frame(elementOrIndexOrName <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>));
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">frame</span>(elementOrIndexOrName <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>));
     }
 
     <span class="hljs-comment">/**
@@ -362,10 +363,10 @@
      *  Switches the focus from any [`frame`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/frame) or
      *  [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to its parent iframe.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    switchToParentFrame(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.driver.switchToParentFrame());
+    <span class="hljs-title function_">switchToParentFrame</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-property">driver</span>.<span class="hljs-title function_">switchToParentFrame</span>());
     }
 
     <span class="hljs-comment">/**
@@ -374,10 +375,10 @@
      *  or [`iframe`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe) back to default content,
      *  a.k.a. "the main window".
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    switchToDefaultContent(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.switchTo().defaultContent());
+    <span class="hljs-title function_">switchToDefaultContent</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">defaultContent</span>());
     }
 
     <span class="hljs-comment">/**
@@ -385,77 +386,77 @@
      *  Switches browser window/tab to the one identified by `nameOrHandleOrIndex`,
      *  which can be specified as the name of the window to switch to, its handle, or numeric index.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string | number}</span> <span class="hljs-variable">nameOrHandleOrIndex</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string | number</span>} <span class="hljs-variable">nameOrHandleOrIndex</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    switchToWindow(nameOrHandleOrIndex: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-title function_">switchToWindow</span>(<span class="hljs-attr">nameOrHandleOrIndex</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> nameOrHandleOrIndex === <span class="hljs-string">'string'</span>
-            ? <span class="hljs-built_in">this</span>.switchToWindowByNameOrHandle(nameOrHandleOrIndex)
-            : <span class="hljs-built_in">this</span>.switchToWindowByIndex(nameOrHandleOrIndex);
+            ? <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">switchToWindowByNameOrHandle</span>(nameOrHandleOrIndex)
+            : <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">switchToWindowByIndex</span>(nameOrHandleOrIndex);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">nameOrHandle</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">nameOrHandle</span>
      * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> switchToWindowByNameOrHandle(nameOrHandle: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.switchTo().window(nameOrHandle));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">switchToWindowByNameOrHandle</span>(<span class="hljs-attr">nameOrHandle</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">window</span>(nameOrHandle));
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> <span class="hljs-variable">index</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">index</span>
      * <span class="hljs-doctag">@private</span>
      */</span>
-    <span class="hljs-keyword">private</span> switchToWindowByIndex(index: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.getAllWindowHandles().then(<span class="hljs-function"><span class="hljs-params">handles</span> =&gt;</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">switchToWindowByIndex</span>(<span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getAllWindowHandles</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">handles</span> =&gt;</span> {
             <span class="hljs-keyword">const</span> handle = handles[index];
 
             <span class="hljs-keyword">if</span> (! handle) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Window <span class="hljs-subst">${ index }</span> doesn't exist`</span>)
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`Window <span class="hljs-subst">${ index }</span> doesn't exist`</span>)
             }
 
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.switchTo().window(handle);
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">window</span>(handle);
         }));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Switches the window back to the original one that was used to call {<span class="hljs-doctag">@link </span>get}.
+     *  Switches the window back to the original one that was used to call {<span class="hljs-doctag">@link</span> get}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    switchToOriginalWindow(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.originalWindowHandle
-            ? promiseOf(<span class="hljs-built_in">this</span>.browser.switchTo().window(<span class="hljs-built_in">this</span>.originalWindowHandle))
-            : <span class="hljs-built_in">Promise</span>.resolve();
+    <span class="hljs-title function_">switchToOriginalWindow</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">originalWindowHandle</span>
+            ? <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">window</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">originalWindowHandle</span>))
+            : <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the handle of the browser window last used to navigate to a URL.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;string&gt;</span>}
      *  A window handle
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link get}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link get</span>}
      */</span>
-    getOriginalWindowHandle(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">this</span>.originalWindowHandle);
+    <span class="hljs-title function_">getOriginalWindowHandle</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">originalWindowHandle</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the current window handle.
-     *  Please note that the current handle changes with each browser window you {<span class="hljs-doctag">@link </span>Switch} to.
+     *  Please note that the current handle changes with each browser window you {<span class="hljs-doctag">@link</span> Switch} to.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;string&gt;</span>}
      *  A window handle
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link get}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link get</span>}
      */</span>
-    getCurrentWindowHandle(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.getWindowHandle());
+    <span class="hljs-title function_">getCurrentWindowHandle</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getWindowHandle</span>());
     }
 
     <span class="hljs-comment">/**
@@ -466,43 +467,43 @@
      *  new windows have been spawned, other browsers order it alphabetically.
      *  For this reason, you should not make any assumptions about how this list is ordered.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string[]&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;string[]&gt;</span>}
      *  A list of window handles
      */</span>
-    getAllWindowHandles(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.getAllWindowHandles());
+    <span class="hljs-title function_">getAllWindowHandles</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getAllWindowHandles</span>());
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Closes the currently active browser window/tab.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    closeCurrentWindow(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.close());
+    <span class="hljs-title function_">closeCurrentWindow</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">close</span>());
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Locates a single element identified by the locator
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Locator}</span> <span class="hljs-variable">locator</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{ElementFinder}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Locator</span>} <span class="hljs-variable">locator</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ElementFinder</span>}
      */</span>
-    locate(locator: Locator): ElementFinder {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.element(locator);
+    <span class="hljs-title function_">locate</span>(<span class="hljs-attr">locator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-title class_">ElementFinder</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">element</span>(locator);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Locates all elements identified by the locator
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Locator}</span> <span class="hljs-variable">locator</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{ElementArrayFinder}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Locator</span>} <span class="hljs-variable">locator</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ElementArrayFinder</span>}
      */</span>
-    locateAll(locator: Locator): ElementArrayFinder {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.element.all(locator);
+    <span class="hljs-title function_">locateAll</span>(<span class="hljs-attr">locator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-title class_">ElementArrayFinder</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-property">element</span>.<span class="hljs-title function_">all</span>(locator);
     }
 
     <span class="hljs-comment">/**
@@ -517,7 +518,7 @@
      * If you're not testing an Angular app, it's better to disable Angular synchronisation completely
      * in protractor configuration:
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;protractor.conf.js&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;protractor.conf.js&lt;/caption&gt;
      * exports.config = {
      *     onPrepare: function () {
      *         return browser.waitForAngularEnabled(false);
@@ -526,12 +527,12 @@
      *     // ... other config
      * };
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{boolean}</span> <span class="hljs-variable">enable</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">boolean</span>} <span class="hljs-variable">enable</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;boolean&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;boolean&gt;</span>}
      */</span>
-    enableAngularSynchronisation(enable: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.waitForAngularEnabled(enable));
+    <span class="hljs-title function_">enableAngularSynchronisation</span>(<span class="hljs-attr">enable</span>: <span class="hljs-built_in">boolean</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">waitForAngularEnabled</span>(enable));
     }
 
     <span class="hljs-comment">/**
@@ -560,26 +561,26 @@
      *  - Functions will resolve to their string representation
      *  - For arrays and objects, each member item will be converted according to the rules above
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform a sleep in the browser under test&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Perform a sleep in the browser under test&lt;/caption&gt;
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   return arguments[0].tagName;
      * `, Target.the('header').located(by.css(h1))
      *
-     * <span class="hljs-doctag">@see </span>https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript
-     * <span class="hljs-doctag">@see </span>https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
+     * <span class="hljs-doctag">@see</span> https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript
+     * <span class="hljs-doctag">@see</span> https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">description</span></span>  - useful for debugging
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string | Function}</span> <span class="hljs-variable">script</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{any[]}</span> <span class="hljs-variable">args</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">description</span>  - useful for debugging
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string | Function</span>} <span class="hljs-variable">script</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any[]</span>} <span class="hljs-variable">args</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;any&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;any&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link BrowseTheWeb#getLastScriptExecutionResult}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link BrowseTheWeb#getLastScriptExecutionResult</span>}
      */</span>
-    executeScript(description: <span class="hljs-built_in">string</span>, <span class="hljs-attr">script</span>: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>, ...args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.executeScriptWithDescription(script, description, ...args))
-            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
-                <span class="hljs-built_in">this</span>.lastScriptExecutionSummary = <span class="hljs-keyword">new</span> LastScriptExecutionSummary(
+    <span class="hljs-title function_">executeScript</span>(<span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">script</span>: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Function</span>, ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">executeScriptWithDescription</span>(script, description, ...args))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastScriptExecutionSummary</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LastScriptExecutionSummary</span>(
                     result,
                 );
                 <span class="hljs-keyword">return</span> result;
@@ -588,15 +589,15 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  A simplified version of {<span class="hljs-doctag">@link </span>BrowseTheWeb#executeScript} that doesn't affect {<span class="hljs-doctag">@link </span>LastScriptExecution.result()}.
+     *  A simplified version of {<span class="hljs-doctag">@link</span> BrowseTheWeb#executeScript} that doesn't affect {<span class="hljs-doctag">@link</span> LastScriptExecution.result()}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Function}</span> <span class="hljs-variable">fn</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Parameters&lt;fn&gt;}</span> <span class="hljs-variable">args</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Function</span>} <span class="hljs-variable">fn</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Parameters&lt;fn&gt;</span>} <span class="hljs-variable">args</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;ReturnType&lt;fn&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;ReturnType&lt;fn&gt;&gt;</span>}
      */</span>
-    executeFunction&lt;F <span class="hljs-keyword">extends</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; <span class="hljs-built_in">any</span>&gt;(fn: F, ...args: Parameters&lt;F&gt;): <span class="hljs-built_in">Promise</span>&lt;ReturnType&lt;F&gt;&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.executeScriptWithDescription(fn, fn.name, ...args));
+    executeFunction&lt;F <span class="hljs-keyword">extends</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]) =&gt; <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">fn</span>: F, ...<span class="hljs-attr">args</span>: <span class="hljs-title class_">Parameters</span>&lt;F&gt;): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ReturnType</span>&lt;F&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">executeScriptWithDescription</span>(fn, fn.<span class="hljs-property">name</span>, ...args));
     }
 
     <span class="hljs-comment">/**
@@ -611,7 +612,7 @@
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {<span class="hljs-doctag">@link </span>BrowseTheWeb#executeScript},
+     *  Unlike executing synchronous JavaScript with {<span class="hljs-doctag">@link</span> BrowseTheWeb#executeScript},
      *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      *  This callback will always be injected into the executed function as the last argument,
@@ -626,7 +627,7 @@
      *  - Functions will resolve to their string representation
      *  - For arrays and objects, each member item will be converted according to the rules above
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Perform a sleep in the browser under test&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Perform a sleep in the browser under test&lt;/caption&gt;
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   var delay    = arguments[0];
      *   var callback = arguments[arguments.length - 1];
@@ -634,27 +635,27 @@
      *   window.setTimeout(callback, delay);
      * `, 500)
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Return a value asynchronously&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Return a value asynchronously&lt;/caption&gt;
      * BrowseTheWeb.as(actor).executeAsyncScript(`
      *   var callback = arguments[arguments.length - 1];
      *
      *   callback('some return value')
      * `).then(value =&gt; doSomethingWithThe(value))
      *
-     * <span class="hljs-doctag">@see </span>https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript
-     * <span class="hljs-doctag">@see </span>https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-
+     * <span class="hljs-doctag">@see</span> https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript
+     * <span class="hljs-doctag">@see</span> https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string|Function}</span> <span class="hljs-variable">script</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{any[]}</span> <span class="hljs-variable">args</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string|Function</span>} <span class="hljs-variable">script</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any[]</span>} <span class="hljs-variable">args</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;any&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;any&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link BrowseTheWeb#getLastScriptExecutionResult}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link BrowseTheWeb#getLastScriptExecutionResult</span>}
      */</span>
-    executeAsyncScript(script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>, ...args: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.executeAsyncScript(script, ...args))
-            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
-                <span class="hljs-built_in">this</span>.lastScriptExecutionSummary = <span class="hljs-keyword">new</span> LastScriptExecutionSummary(
+    <span class="hljs-title function_">executeAsyncScript</span>(<span class="hljs-attr">script</span>: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Function</span>, ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">executeAsyncScript</span>(script, ...args))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastScriptExecutionSummary</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">LastScriptExecutionSummary</span>(
                     result,
                 );
                 <span class="hljs-keyword">return</span> result;
@@ -672,32 +673,32 @@
      *  3. Visible portion of the current frame
      *  4. The entire display containing the browser
      *
-     * <span class="hljs-doctag">@return <span class="hljs-type">{Promise&lt;string&gt;}</span> </span>A promise that will be resolved to a base64-encoded screenshot PNG
+     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">Promise&lt;string&gt;</span>} A promise that will be resolved to a base64-encoded screenshot PNG
      */</span>
-    takeScreenshot(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.takeScreenshot());
+    <span class="hljs-title function_">takeScreenshot</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">takeScreenshot</span>());
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the title of the current page.
      *
-     * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
+     * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;string&gt;</span>}
      */</span>
-    getTitle(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.getTitle());
+    <span class="hljs-title function_">getTitle</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getTitle</span>());
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the url of the current page.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;string&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;string&gt;</span>}
      */</span>
-    getCurrentUrl(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.getCurrentUrl());
+    <span class="hljs-title function_">getCurrentUrl</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getCurrentUrl</span>());
     }
 
     <span class="hljs-comment">/**
@@ -708,55 +709,55 @@
      *  indicate the _desired_ properties of the remote browser. However, if the remote cannot satisfy
      *  all the requirements, it will still create a session.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;Capabilities&gt;}</span> </span>The actual capabilities of this browser.
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;Capabilities&gt;</span>} The actual capabilities of this browser.
      */</span>
-    getCapabilities(): <span class="hljs-built_in">Promise</span>&lt;Capabilities&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.getCapabilities());
+    <span class="hljs-title function_">getCapabilities</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Capabilities</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getCapabilities</span>());
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Pause the actor flow for a specified number of milliseconds.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> <span class="hljs-variable">millis</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">millis</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    sleep(millis: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.sleep(millis));
+    <span class="hljs-title function_">sleep</span>(<span class="hljs-attr">millis</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">sleep</span>(millis));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Pause the actor flow until the condition is met or the timeout expires.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{function(): Promise&lt;boolean&gt;}</span> <span class="hljs-variable">condition</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> <span class="hljs-variable">timeoutInMillis</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;boolean&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function(): Promise&lt;boolean&gt;</span>} <span class="hljs-variable">condition</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">timeoutInMillis</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;boolean&gt;</span>}
      */</span>
-    wait(condition: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;, timeoutInMillis: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
-        <span class="hljs-keyword">return</span> promiseOf(<span class="hljs-built_in">this</span>.browser.wait(condition, timeoutInMillis));
+    <span class="hljs-title function_">wait</span>(<span class="hljs-attr">condition</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;, <span class="hljs-attr">timeoutInMillis</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">wait</span>(condition, timeoutInMillis));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Returns the last result of calling {<span class="hljs-doctag">@link </span>BrowseTheWeb#executeAsyncScript}
-     *  or {<span class="hljs-doctag">@link </span>BrowseTheWeb#executeScript}
+     *  Returns the last result of calling {<span class="hljs-doctag">@link</span> BrowseTheWeb#executeAsyncScript}
+     *  or {<span class="hljs-doctag">@link</span> BrowseTheWeb#executeScript}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{any}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">any</span>}
      */</span>
-    getLastScriptExecutionResult(): <span class="hljs-built_in">any</span> {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.lastScriptExecutionSummary) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Make sure to execute a script before checking on the result`</span>);
+    <span class="hljs-title function_">getLastScriptExecutionResult</span>(): <span class="hljs-built_in">any</span> {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastScriptExecutionSummary</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`Make sure to execute a script before checking on the result`</span>);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.lastScriptExecutionSummary.result;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastScriptExecutionSummary</span>.<span class="hljs-property">result</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns Protractor configuration parameter at `path`.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;protractor.conf.js&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;protractor.conf.js&lt;/caption&gt;
      *  exports.config = {
      *    params: {
      *        login: {
@@ -767,37 +768,37 @@
      *    // ...
      * }
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving config param by name&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving config param by name&lt;/caption&gt;
      *  BrowseTheWeb.as(actor).param('login') // returns object with username and password
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving config param by path&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving config param by path&lt;/caption&gt;
      *  BrowseTheWeb.as(actor).param('login.username') // returns string 'jane<span class="hljs-doctag">@example</span>.org'
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">path</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">path</span>
      *  Either a name or a dot-delimited path to the param.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{T}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">T</span>}
      *
-     * <span class="hljs-doctag">@throws <span class="hljs-type">{@serenity-js/core/lib/errors~ConfigurationError}</span></span>
+     * <span class="hljs-doctag">@throws</span> {<span class="hljs-type">@serenity-js/core/lib/errors~ConfigurationError</span>}
      *  Throws a `ConfigurationError` if the parameter is `undefined`
      */</span>
-    param&lt;T = <span class="hljs-built_in">any</span>&gt;(path: <span class="hljs-built_in">string</span>): T {
-        <span class="hljs-keyword">return</span> path.split(<span class="hljs-string">'.'</span>)
-            .reduce(<span class="hljs-function">(<span class="hljs-params">config, segment</span>) =&gt;</span> {
+    param&lt;T = <span class="hljs-built_in">any</span>&gt;(<span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>): T {
+        <span class="hljs-keyword">return</span> path.<span class="hljs-title function_">split</span>(<span class="hljs-string">'.'</span>)
+            .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">config, segment</span>) =&gt;</span> {
                 <span class="hljs-keyword">if</span> (! (config &amp;&amp; config[segment] !== <span class="hljs-literal">undefined</span>)) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Protractor param '<span class="hljs-subst">${ path }</span>' is undefined`</span>);
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Protractor param '<span class="hljs-subst">${ path }</span>' is undefined`</span>);
                 }
 
                 <span class="hljs-keyword">return</span> config[segment];
-            }, <span class="hljs-built_in">this</span>.browser.params);
+            }, <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-property">params</span>);
     }
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LastScriptExecutionSummary</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> result: <span class="hljs-built_in">any</span></span>)</span> {}
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">LastScriptExecutionSummary</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> result: <span class="hljs-built_in">any</span></span>) {}
 }
 </code></pre>
 

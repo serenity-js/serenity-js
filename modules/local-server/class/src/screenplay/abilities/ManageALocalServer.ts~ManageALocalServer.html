@@ -132,7 +132,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ManageALocalServer} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server/lib/screenplay/abilities'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Manage</span>ALocalServer} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server/lib/screenplay/abilities'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -169,30 +169,30 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using a raw Node.js server</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-<span class="hljs-keyword">import</span> { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">LocalTestServer</span>, <span class="hljs-title class_">StartLocalTestServer</span>, <span class="hljs-title class_">StopLocalTestServer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
 
-<span class="hljs-keyword">const</span> server = http.createServer(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) </span>{
-    response.setHeader(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
-    response.end(<span class="hljs-string">'Hello!'</span>);
+<span class="hljs-keyword">const</span> server = http.<span class="hljs-title function_">createServer</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
+    response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
+    response.<span class="hljs-title function_">end</span>(<span class="hljs-string">'Hello!'</span>);
 })
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
-    ManageALocalServer.using(server),
-    CallAnApi.using(axios.create()),
+<span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(
+    <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">using</span>(server),
+    <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(axios.<span class="hljs-title function_">create</span>()),
 );
 
-actor.attemptsTo(
-    StartLocalTestServer.onRandomPort(),
-    Send.a(GetRequest.to(LocalServer.url())),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-    Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;(), equals(<span class="hljs-string">'Hello!'</span>)),
-    StopLocalTestServer.ifRunning(),
+actor.<span class="hljs-title function_">attemptsTo</span>(
+    <span class="hljs-title class_">StartLocalTestServer</span>.<span class="hljs-title function_">onRandomPort</span>(),
+    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>())),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-built_in">string</span>&gt;(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Hello!'</span>)),
+    <span class="hljs-title class_">StopLocalTestServer</span>.<span class="hljs-title function_">ifRunning</span>(),
 );</code></pre>
     </div>
 </div>

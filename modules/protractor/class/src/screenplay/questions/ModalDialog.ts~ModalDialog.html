@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ModalDialog} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">ModalDialog</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber42">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber43">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -229,16 +229,16 @@
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;button
      data-test=<span class="hljs-string">"trigger"</span>
-     onclick=<span class="hljs-string">"alert('Hello!')"</span>&gt;Trigger Alert&lt;/button&gt;</code></pre>
+     onclick=<span class="hljs-string">"alert('Hello!')"</span>&gt;<span class="hljs-title class_">Trigger</span> <span class="hljs-title class_">Alert</span>&lt;/button&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Widget</span> </span>{
-     <span class="hljs-keyword">static</span> trigger = Target.the(<span class="hljs-string">'trigger button'</span>)
-         .located(by.css(<span class="hljs-string">'[data-test="trigger"]'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Widget</span> {
+     <span class="hljs-keyword">static</span> trigger = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'trigger button'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="trigger"]'</span>));
  }</code></pre>
     </div>
 </div>
@@ -247,7 +247,7 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber14">ModalDialog,</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber15">ModalDialog,</a></span></li>
 </ul>
   </div>
 
@@ -376,7 +376,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber138">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber139">source</a></span></span>
     </span>
   </h3>
 
@@ -419,31 +419,31 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Verifying if a modal dialog window is present</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, ModalDialog } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, isFalse, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">ModalDialog</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, isFalse, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Ensure.that(ModalDialog.hasPoppedUp(), isFalse()),
-         Click.on(Widget.trigger),
-         Ensure.that(ModalDialog.hasPoppedUp(), isTrue()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">hasPoppedUp</span>(), <span class="hljs-title function_">isFalse</span>()),
+         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Widget</span>.<span class="hljs-property">trigger</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">hasPoppedUp</span>(), <span class="hljs-title function_">isTrue</span>()),
      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Waiting for a modal dialog window</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, Dismiss, ModalDialog, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">Dismiss</span>, <span class="hljs-title class_">ModalDialog</span>, <span class="hljs-title class_">Wait</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Click.on(Widget.trigger),
-         Wait.until(ModalDialog.hasPoppedUp(), isTrue()),
-         Dismiss.the(ModalDialog.window()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Widget</span>.<span class="hljs-property">trigger</span>),
+         <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">hasPoppedUp</span>(), <span class="hljs-title function_">isTrue</span>()),
+         <span class="hljs-title class_">Dismiss</span>.<span class="hljs-title function_">the</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">window</span>()),
      );</code></pre>
     </div>
 </div>
@@ -466,7 +466,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber189">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber190">source</a></span></span>
     </span>
   </h3>
 
@@ -509,15 +509,15 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Verifying the message</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, ModalDialog } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">ModalDialog</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Click.on(Widget.trigger),
-         Ensure.that(ModalDialog.message(), equals(<span class="hljs-string">'Hello!'</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Widget</span>.<span class="hljs-property">trigger</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">message</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Hello!'</span>)),
      );</code></pre>
     </div>
 </div>
@@ -526,8 +526,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber109">ModalDialog, when working with confirm(), allows the actor to read the message on a confirmation dialog</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber153">ModalDialog, when working with prompt(), allows the actor to read the message on a prompt</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber110">ModalDialog, when working with confirm(), allows the actor to read the message on a confirmation dialog</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber154">ModalDialog, when working with prompt(), allows the actor to read the message on a prompt</a></span></li>
 </ul>
   </div>
 
@@ -547,7 +547,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber82">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/ModalDialog.ts.html#lineNumber83">source</a></span></span>
     </span>
   </h3>
 
@@ -592,14 +592,14 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Accepting an alert</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Accept, BrowseTheWeb, Click, ModalDialog } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Accept</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">ModalDialog</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Click.on(Widget.trigger),
-         Accept.the(ModalDialog.window()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Widget</span>.<span class="hljs-property">trigger</span>),
+         <span class="hljs-title class_">Accept</span>.<span class="hljs-title function_">the</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">window</span>()),
      );</code></pre>
     </div>
 </div>

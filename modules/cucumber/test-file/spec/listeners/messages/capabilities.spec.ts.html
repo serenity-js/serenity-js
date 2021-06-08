@@ -133,31 +133,31 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/listeners/messages/capabilities.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { SceneTagged } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { CapabilityTag, FeatureTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { expect, ifExitCodeIsOtherThan, logOutput, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SceneTagged</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CapabilityTag</span>, <span class="hljs-title class_">FeatureTag</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
 <span class="hljs-keyword">import</span> { cucumber7 } <span class="hljs-keyword">from</span> <span class="hljs-string">'./bin/cucumber-7'</span>;
 
-describe(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'CucumberMessagesListener'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
 
-    describe(<span class="hljs-string">'when working with Cucumber 7'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when working with Cucumber 7'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'recognises directories that features are grouped in as capabilities'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises directories that features are grouped in as capabilities'</span>, <span class="hljs-function">() =&gt;</span>
 
-            cucumber7(
+            <span class="hljs-title function_">cucumber7</span>(
                 <span class="hljs-string">'--format'</span>, <span class="hljs-string">'../../../src'</span>,
                 <span class="hljs-string">'--require'</span>, <span class="hljs-string">'./examples/support/serenity.config.ts'</span>,
                 <span class="hljs-string">'--require'</span>, <span class="hljs-string">'./examples/step_definitions/common.steps.ts'</span>,
                 <span class="hljs-string">'./examples/features/capability/example.feature'</span>,
             )
-            .then(ifExitCodeIsOtherThan(<span class="hljs-number">0</span>, logOutput))
-            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
-                expect(result.exitCode).to.equal(<span class="hljs-number">0</span>);
+            .<span class="hljs-title function_">then</span>(<span class="hljs-title function_">ifExitCodeIsOtherThan</span>(<span class="hljs-number">0</span>, logOutput))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(result.<span class="hljs-property">exitCode</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
 
-                PickEvent.from(result.events)
-                    .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> CapabilityTag(<span class="hljs-string">'capability'</span>)))
-                    .next(SceneTagged,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Serenity/JS recognises capabilities'</span>)))
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(result.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">CapabilityTag</span>(<span class="hljs-string">'capability'</span>)))
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>,         <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Serenity/JS recognises capabilities'</span>)))
                 ;
             }));
     });

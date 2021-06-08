@@ -299,22 +299,22 @@
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 <span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileSystemLocation}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileSystemLocation</span>} */</span>
 describe (<span class="hljs-string">'FileSystemLocation'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> path = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/file.json'</span>);
+    <span class="hljs-keyword">const</span> path = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/file.json'</span>);
 
-    given(
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'no line or column'</span>,                     <span class="hljs-attr">location</span>: <span class="hljs-keyword">new</span> FileSystemLocation(path)          },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'line available'</span>,                        <span class="hljs-attr">location</span>: <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">10</span>)      },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'line and column available available'</span>,   <span class="hljs-attr">location</span>: <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">10</span>, <span class="hljs-number">3</span>)   },
+    <span class="hljs-title function_">given</span>(
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'no line or column'</span>,                     <span class="hljs-attr">location</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path)          },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'line available'</span>,                        <span class="hljs-attr">location</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">10</span>)      },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'line and column available available'</span>,   <span class="hljs-attr">location</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">10</span>, <span class="hljs-number">3</span>)   },
     ).
-    it(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">(<span class="hljs-params">{ location }</span>) =&gt;</span> {
-        expect(FileSystemLocation.fromJSON(location.toJSON() <span class="hljs-keyword">as</span> JSONObject))
-            .to.equal(location);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">(<span class="hljs-params">{ location }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">FileSystemLocation</span>.<span class="hljs-title function_">fromJSON</span>(location.<span class="hljs-title function_">toJSON</span>() <span class="hljs-keyword">as</span> JSONObject))
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(location);
     });
 });
 </code></pre>

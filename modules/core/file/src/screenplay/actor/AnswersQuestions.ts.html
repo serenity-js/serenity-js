@@ -294,16 +294,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/AnswersQuestions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link </span>Actor} to answer a {<span class="hljs-doctag">@link </span>Question} about the system under test
+ *  Enables the {<span class="hljs-doctag">@link</span> Actor} to answer a {<span class="hljs-doctag">@link</span> Question} about the system under test
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> AnswersQuestions {
-    answer&lt;T&gt;(knownUnknown: Answerable&lt;T&gt;): <span class="hljs-built_in">Promise</span>&lt;T&gt;;
+    answer&lt;T&gt;(<span class="hljs-attr">knownUnknown</span>: <span class="hljs-title class_">Answerable</span>&lt;T&gt;): <span class="hljs-title class_">Promise</span>&lt;T&gt;;
 }
 </code></pre>
 

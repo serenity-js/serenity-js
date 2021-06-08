@@ -297,45 +297,45 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
-<span class="hljs-keyword">import</span> { ModuleLoader, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-describe(<span class="hljs-string">'ModuleLoader'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ModuleLoader'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">'returns the version number of a given package'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the version number of a given package'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
 
-        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>).version;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>).<span class="hljs-property">version</span>;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-        expect(loader.versionOf(<span class="hljs-string">'../../'</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
+        <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'../../'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(expectedVersion));
     });
 
-    it(<span class="hljs-string">'returns the version of the npm-resolved package if the local package could not be found'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(path.join(__dirname, <span class="hljs-string">'non-existent'</span>, <span class="hljs-string">'local'</span>, <span class="hljs-string">'directory'</span>));
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the version of the npm-resolved package if the local package could not be found'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">'non-existent'</span>, <span class="hljs-string">'local'</span>, <span class="hljs-string">'directory'</span>));
 
-        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tiny-types/package.json'</span>).version; <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tiny-types/package.json'</span>).<span class="hljs-property">version</span>; <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-        expect(loader.versionOf(<span class="hljs-string">'tiny-types'</span>)).to.equal(<span class="hljs-keyword">new</span> Version(expectedVersion));
+        <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'tiny-types'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(expectedVersion));
     });
 
-    it(<span class="hljs-string">'complains if neither a local version or the npm-resolved version could be found'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if neither a local version or the npm-resolved version could be found'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
 
-        expect(<span class="hljs-function">() =&gt;</span> loader.versionOf(<span class="hljs-string">'non-existent-module'</span>)).to.throw(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`Cannot find module 'non-existent-module/package.json'`</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'non-existent-module'</span>)).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`Cannot find module 'non-existent-module/package.json'`</span>);
     });
 
-    describe(<span class="hljs-string">'when checking if a given module is available to be required'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when checking if a given module is available to be required'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'returns true if the module is available'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns true if the module is available'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
 
-            expect(loader.hasAvailable(<span class="hljs-string">'tiny-types'</span>)).to.equal(<span class="hljs-literal">true</span>);
+            <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">hasAvailable</span>(<span class="hljs-string">'tiny-types'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
         });
 
-        it(<span class="hljs-string">'returns false if the module is not available'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> ModuleLoader(__dirname);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns false if the module is not available'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
 
-            expect(loader.hasAvailable(<span class="hljs-string">'non-existent-module'</span>)).to.equal(<span class="hljs-literal">false</span>);
+            <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">hasAvailable</span>(<span class="hljs-string">'non-existent-module'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
         });
     });
 });

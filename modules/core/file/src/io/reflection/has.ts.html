@@ -315,17 +315,17 @@
  *
  *  looksLikeADuck(daisy) // true
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{object}</span> <span class="hljs-variable">api</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">object</span>} <span class="hljs-variable">api</span>
  *  An object where the keys are names of member fields and methods expected on the `candidate`,
  *  and values are the names of their types, i.e. `function`, `object`, etc.
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{boolean}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">boolean</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">has</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">api: Record&lt;keyof T, <span class="hljs-built_in">string</span>&gt;</span>): (<span class="hljs-params">candidate: unknown</span>) =&gt; <span class="hljs-title">candidate</span> <span class="hljs-title">is</span> <span class="hljs-title">T</span> </span>{
-    <span class="hljs-keyword">return</span> (candidate: unknown): candidate is T =&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> has&lt;T&gt;(<span class="hljs-attr">api</span>: <span class="hljs-title class_">Record</span>&lt;keyof T, <span class="hljs-built_in">string</span>&gt;): <span class="hljs-function">(<span class="hljs-params">candidate: unknown</span>) =&gt;</span> candidate is T {
+    <span class="hljs-keyword">return</span> (<span class="hljs-attr">candidate</span>: unknown): candidate is T =&gt;
         candidate !== <span class="hljs-literal">null</span>
         &amp;&amp; candidate !== <span class="hljs-literal">undefined</span>
-        &amp;&amp; <span class="hljs-built_in">Object</span>.entries(api).reduce(
+        &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(api).<span class="hljs-title function_">reduce</span>(
             <span class="hljs-function">(<span class="hljs-params">result, [key, <span class="hljs-keyword">type</span>]</span>) =&gt;</span>
                 result &amp;&amp; (<span class="hljs-keyword">typeof</span> candidate[key]) === <span class="hljs-keyword">type</span>,
             <span class="hljs-literal">true</span>,

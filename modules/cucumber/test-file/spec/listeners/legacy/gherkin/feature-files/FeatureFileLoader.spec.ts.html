@@ -134,41 +134,41 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> Gherkin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>);
-<span class="hljs-keyword">import</span> { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/listeners/legacy/gherkin'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Gherkin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>);
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">FeatureFileLoader</span>, <span class="hljs-title class_">FeatureFileMap</span>, <span class="hljs-title class_">FeatureFileMapper</span>, <span class="hljs-title class_">FeatureFileParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/listeners/legacy/gherkin'</span>;
 
-describe(<span class="hljs-string">'FeatureFileLoader'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'FeatureFileLoader'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> sampleFeature = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'fixtures'</span>)).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'sample.feature'</span>));
+    <span class="hljs-keyword">const</span> sampleFeature = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(__dirname).<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'fixtures'</span>)).<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'sample.feature'</span>));
 
-    it(<span class="hljs-string">'caches the feature file map it has loaded'</span>, <span class="hljs-function">() =&gt;</span> {
-
-        <span class="hljs-keyword">const</span>
-            parser = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser()),
-            mapper = <span class="hljs-keyword">new</span> FeatureFileMapper(),
-            cache  = <span class="hljs-keyword">new</span> Cache&lt;Path, FeatureFileMap&gt;();
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'caches the feature file map it has loaded'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
-            parse = sinon.spy(parser, <span class="hljs-string">'parse'</span>),
-            map = sinon.spy(mapper, <span class="hljs-string">'map'</span>);
+            parser = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileParser</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Gherkin</span>.<span class="hljs-title class_">Parser</span>()),
+            mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>(),
+            cache  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cache</span>&lt;<span class="hljs-title class_">Path</span>, <span class="hljs-title class_">FeatureFileMap</span>&gt;();
 
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> FeatureFileLoader(
+        <span class="hljs-keyword">const</span>
+            parse = sinon.<span class="hljs-title function_">spy</span>(parser, <span class="hljs-string">'parse'</span>),
+            map = sinon.<span class="hljs-title function_">spy</span>(mapper, <span class="hljs-string">'map'</span>);
+
+        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileLoader</span>(
             parser,
             mapper,
             cache,
         );
 
-        <span class="hljs-keyword">return</span> loader.load(sampleFeature)
-            .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> loader.load(sampleFeature))
-            .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> loader.load(sampleFeature))
-            .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
-                expect(cache.has(sampleFeature)).to.equal(<span class="hljs-literal">true</span>);
+        <span class="hljs-keyword">return</span> loader.<span class="hljs-title function_">load</span>(sampleFeature)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> loader.<span class="hljs-title function_">load</span>(sampleFeature))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> loader.<span class="hljs-title function_">load</span>(sampleFeature))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(cache.<span class="hljs-title function_">has</span>(sampleFeature)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
 
-                expect(parse.callCount).to.equal(<span class="hljs-number">1</span>);
-                expect(map.callCount).to.equal(<span class="hljs-number">1</span>);
+                <span class="hljs-title function_">expect</span>(parse.<span class="hljs-property">callCount</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
+                <span class="hljs-title function_">expect</span>(map.<span class="hljs-property">callCount</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
             });
     });
 });

@@ -131,34 +131,34 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileLoader.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { Cache } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Cache'</span>;
-<span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMap'</span>;
-<span class="hljs-keyword">import</span> { FeatureFileMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMapper'</span>;
-<span class="hljs-keyword">import</span> { FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileParser'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Cache'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureFileMap</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMap'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureFileMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileMapper'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureFileParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./FeatureFileParser'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FeatureFileLoader</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureFileLoader</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> parser: FeatureFileParser,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> mapper: FeatureFileMapper,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> cache: Cache&lt;Path, FeatureFileMap&gt; = <span class="hljs-keyword">new</span> Cache(),
-    </span>)</span> {
+    </span>) {
     }
 
-    load(path: Path): <span class="hljs-built_in">Promise</span>&lt;FeatureFileMap&gt; {
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.cache.has(path)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">this</span>.cache.get(path));
+    <span class="hljs-title function_">load</span>(<span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">FeatureFileMap</span>&gt; {
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">has</span>(path)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">get</span>(path));
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.parser.parse(path)
-            .then(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> <span class="hljs-built_in">this</span>.mapper.map(<span class="hljs-built_in">document</span>, path))
-            .then(<span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-                <span class="hljs-built_in">this</span>.cache.set(path, map);
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.cache.get(path);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parse</span>(path)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">mapper</span>.<span class="hljs-title function_">map</span>(<span class="hljs-variable language_">document</span>, path))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">set</span>(path, map);
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">get</span>(path);
             });
     }
 }

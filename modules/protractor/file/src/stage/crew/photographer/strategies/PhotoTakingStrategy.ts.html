@@ -187,105 +187,106 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ActivityFinished,
-    ActivityRelatedArtifactGenerated,
-    ActivityStarts,
-    AsyncOperationAttempted,
-    AsyncOperationCompleted,
-    AsyncOperationFailed,
-    DomainEvent,
+    <span class="hljs-title class_">ActivityFinished</span>,
+    <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>,
+    <span class="hljs-title class_">ActivityStarts</span>,
+    <span class="hljs-title class_">AsyncOperationAttempted</span>,
+    <span class="hljs-title class_">AsyncOperationCompleted</span>,
+    <span class="hljs-title class_">AsyncOperationFailed</span>,
+    <span class="hljs-title class_">DomainEvent</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Description, Name, Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Photo</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { error <span class="hljs-keyword">as</span> webdriver } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../screenplay'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../screenplay'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots)
- *  of the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity} performed
- *  by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight
+ *  Configures the {<span class="hljs-doctag">@link</span> Photographer} to take photos (a.k.a. screenshots)
+ *  of the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity} performed
+ *  by the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight
  *  under specific conditions.
  *
  * <span class="hljs-doctag">@abstract</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PhotoTakingStrategy</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Takes a photo of the web browser held by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight.
+     *  Takes a photo of the web browser held by the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/events~ActivityStarts | @serenity-js/core/lib/events~ActivityFinished}</span> <span class="hljs-variable">event</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/stage~Stage}</span> <span class="hljs-variable">stage</span></span> - the Stage that holds reference to the Actor in the spotlight
-     * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/events~ActivityStarts | @serenity-js/core/lib/events~ActivityFinished</span>} <span class="hljs-variable">event</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/stage~Stage</span>} <span class="hljs-variable">stage</span> - the Stage that holds reference to the Actor in the spotlight
+     * <span class="hljs-doctag">@returns</span> <span class="hljs-variable">void</span>
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@serenity-js/core/lib/stage~Stage#theActorInTheSpotlight</span>}
      */</span>
-    considerTakingPhoto(event: ActivityStarts | ActivityFinished, <span class="hljs-attr">stage</span>: Stage): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.shouldTakeAPhotoOf(event)) {
-            <span class="hljs-keyword">let</span> browseTheWeb: BrowseTheWeb;
+    <span class="hljs-title function_">considerTakingPhoto</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">ActivityStarts</span> | <span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shouldTakeAPhotoOf</span>(event)) {
+            <span class="hljs-keyword">let</span> <span class="hljs-attr">browseTheWeb</span>: <span class="hljs-title class_">BrowseTheWeb</span>;
 
             <span class="hljs-keyword">try</span> {
-                browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+                browseTheWeb = <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(stage.<span class="hljs-title function_">theActorInTheSpotlight</span>());
             } <span class="hljs-keyword">catch</span> {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
             }
 
             <span class="hljs-keyword">const</span>
-                id              = CorrelationId.create(),
-                nameSuffix      = <span class="hljs-built_in">this</span>.photoNameFor(event);
+                id              = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>(),
+                nameSuffix      = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">photoNameFor</span>(event);
 
-            stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[Photographer:<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Taking screenshot of '<span class="hljs-subst">${ nameSuffix }</span>'...`</span>),
+            stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[Photographer:<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Taking screenshot of '<span class="hljs-subst">${ nameSuffix }</span>'...`</span>),
                 id,
             ));
 
-            <span class="hljs-built_in">Promise</span>.all([
-                browseTheWeb.takeScreenshot(),
-                browseTheWeb.getCapabilities(),
-            ]).then(<span class="hljs-function">(<span class="hljs-params">[ screenshot, capabilities ]</span>) =&gt;</span> {
+            <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+                browseTheWeb.<span class="hljs-title function_">takeScreenshot</span>(),
+                browseTheWeb.<span class="hljs-title function_">getCapabilities</span>(),
+            ]).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[ screenshot, capabilities ]</span>) =&gt;</span> {
 
                 <span class="hljs-keyword">const</span>
-                    context   = [ capabilities.get(<span class="hljs-string">'platform'</span>), capabilities.get(<span class="hljs-string">'browserName'</span>), capabilities.get(<span class="hljs-string">'version'</span>) ],
-                    photoName = <span class="hljs-built_in">this</span>.combinedNameFrom(...context, nameSuffix);
+                    context   = [ capabilities.<span class="hljs-title function_">get</span>(<span class="hljs-string">'platform'</span>), capabilities.<span class="hljs-title function_">get</span>(<span class="hljs-string">'browserName'</span>), capabilities.<span class="hljs-title function_">get</span>(<span class="hljs-string">'version'</span>) ],
+                    photoName = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">combinedNameFrom</span>(...context, nameSuffix);
 
-                stage.announce(<span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(
-                    event.sceneId,
-                    event.activityId,
+                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(
+                    event.<span class="hljs-property">sceneId</span>,
+                    event.<span class="hljs-property">activityId</span>,
                     photoName,
-                    Photo.fromBase64(screenshot),
+                    <span class="hljs-title class_">Photo</span>.<span class="hljs-title function_">fromBase64</span>(screenshot),
                 ));
 
-                stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Took screenshot of '<span class="hljs-subst">${ nameSuffix }</span>' on <span class="hljs-subst">${ context }</span>`</span>),
+                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationCompleted</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Took screenshot of '<span class="hljs-subst">${ nameSuffix }</span>' on <span class="hljs-subst">${ context }</span>`</span>),
                     id,
                 ));
-            }).catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.shouldIgnore(error)) {
-                    stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                        <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Aborted taking screenshot of '<span class="hljs-subst">${ nameSuffix }</span>' because of <span class="hljs-subst">${ error.constructor &amp;&amp; error.constructor.name }</span>`</span>),
+            }).<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shouldIgnore</span>(error)) {
+                    stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationCompleted</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Aborted taking screenshot of '<span class="hljs-subst">${ nameSuffix }</span>' because of <span class="hljs-subst">${ error.constructor &amp;&amp; error.constructor.name }</span>`</span>),
                         id,
                     ));
                 }
                 <span class="hljs-keyword">else</span> {
-                    stage.announce(<span class="hljs-keyword">new</span> AsyncOperationFailed(error, id));
+                    stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationFailed</span>(error, id));
                 }
             });
         }
     }
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span>;
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">shouldTakeAPhotoOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">boolean</span>;
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> photoNameFor(event: DomainEvent): <span class="hljs-built_in">string</span>;
+    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">photoNameFor</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">string</span>;
 
-    <span class="hljs-keyword">private</span> combinedNameFrom(...parts: <span class="hljs-built_in">string</span>[]): Name {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Name(parts.filter(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> !! v).join(<span class="hljs-string">'-'</span>));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">combinedNameFrom</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Name</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(parts.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> !! v).<span class="hljs-title function_">join</span>(<span class="hljs-string">'-'</span>));
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">shouldIgnore</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-keyword">return</span> error <span class="hljs-keyword">instanceof</span> webdriver.NoSuchSessionError
-            || error <span class="hljs-keyword">instanceof</span> webdriver.UnexpectedAlertOpenError
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">shouldIgnore</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-keyword">return</span> error <span class="hljs-keyword">instanceof</span> webdriver.<span class="hljs-property">NoSuchSessionError</span>
+            || error <span class="hljs-keyword">instanceof</span> webdriver.<span class="hljs-property">UnexpectedAlertOpenError</span>
     }
 }
 </code></pre>

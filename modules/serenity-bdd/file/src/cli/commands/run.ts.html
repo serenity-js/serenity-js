@@ -129,16 +129,16 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/run.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { actorCalled, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 
-<span class="hljs-keyword">import</span> { Argv } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Argv'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Argv</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Argv'</span>;
 <span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">'../defaults'</span>;
 <span class="hljs-keyword">import</span> { formatError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
-<span class="hljs-keyword">import</span> { GAV } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
-<span class="hljs-keyword">import</span> { InvokeSerenityBDD, SerenityBDDArguments, SystemProperties } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
-<span class="hljs-keyword">import</span> { NotificationReporter, ProgressReporter, RunCommandActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-variable constant_">GAV</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">InvokeSerenity</span>BDD, <span class="hljs-title class_">Serenity</span>BDDArguments, <span class="hljs-title class_">SystemProperties</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">NotificationReporter</span>, <span class="hljs-title class_">ProgressReporter</span>, <span class="hljs-title class_">RunCommandActors</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
 
 <span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
@@ -147,23 +147,23 @@
     <span class="hljs-attr">desc</span>: <span class="hljs-string">'Invokes the Serenity BDD CLI jar to produce a Serenity BDD HTML report from the Serenity/JS JSON reports'</span>,
     <span class="hljs-attr">builder</span>: {
         <span class="hljs-attr">cacheDir</span>: {
-            <span class="hljs-attr">default</span>:   defaults.cacheDir,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">cacheDir</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">'A relative path to where the Serenity BDD CLI jar file is stored'</span>,
         },
         <span class="hljs-attr">destination</span>: {
-            <span class="hljs-attr">default</span>:   defaults.reportDir,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">reportDir</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">'A relative path to the directory where the Serenity BDD report should be produced'</span>,
         },
         <span class="hljs-attr">features</span>: {
-            <span class="hljs-attr">default</span>:   defaults.featuresDir,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">featuresDir</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">'A relative path to the directory containing the Cucumber.js feature files'</span>,
         },
         <span class="hljs-attr">artifact</span>: {
-            <span class="hljs-attr">default</span>:   defaults.artifact,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">artifact</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.`</span>,
         },
         <span class="hljs-attr">source</span>: {
-            <span class="hljs-attr">default</span>:   defaults.sourceDir,
+            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">sourceDir</span>,
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`A relative path to the directory containing the Serenity/JS JSON reports`</span>,
         },
         <span class="hljs-attr">issueTrackerUrl</span>: {
@@ -176,7 +176,7 @@
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`Base URL of your JIRA server`</span>,
         },
         <span class="hljs-attr">project</span>: {
-            <span class="hljs-attr">default</span>: path.basename(process.cwd()),
+            <span class="hljs-attr">default</span>: path.<span class="hljs-title function_">basename</span>(process.<span class="hljs-title function_">cwd</span>()),
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`Project name to appear in the Serenity reports`</span>,
         },
         <span class="hljs-attr">shortFilenames</span>: {
@@ -185,42 +185,42 @@
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`Use unique hashes instead of human-readable names for the HTML files`</span>,
         },
         <span class="hljs-attr">log</span>: {
-            <span class="hljs-attr">default</span>: defaults.log,
+            <span class="hljs-attr">default</span>: defaults.<span class="hljs-property">log</span>,
             <span class="hljs-attr">choices</span>: [ <span class="hljs-string">'warn'</span>, <span class="hljs-string">'info'</span>, <span class="hljs-string">'debug'</span> ],
             <span class="hljs-attr">describe</span>: <span class="hljs-string">`A Logback log level to pass to the Serenity BDD CLI jar`</span>,
         },
     },
-    <span class="hljs-attr">handler</span>: (argv: Argv): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
+    <span class="hljs-attr">handler</span>: (<span class="hljs-attr">argv</span>: <span class="hljs-title class_">Argv</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
 
         <span class="hljs-keyword">const</span>
-            printer         = <span class="hljs-keyword">new</span> Printer(process.stdout, process.stderr),
-            artifactGAV     = GAV.fromString(argv.artifact),
-            pathToArtifact  = <span class="hljs-keyword">new</span> Path(argv.cacheDir).join(artifactGAV.toPath()),
-            moduleRoot      = path.resolve(__dirname, <span class="hljs-string">'../../../'</span>);
+            printer         = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Printer</span>(process.<span class="hljs-property">stdout</span>, process.<span class="hljs-property">stderr</span>),
+            artifactGAV     = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(argv.<span class="hljs-property">artifact</span>),
+            pathToArtifact  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(argv.<span class="hljs-property">cacheDir</span>).<span class="hljs-title function_">join</span>(artifactGAV.<span class="hljs-title function_">toPath</span>()),
+            moduleRoot      = path.<span class="hljs-title function_">resolve</span>(__dirname, <span class="hljs-string">'../../../'</span>);
 
-        configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> RunCommandActors(<span class="hljs-keyword">new</span> Path(process.cwd())),
+        <span class="hljs-title function_">configure</span>({
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">RunCommandActors</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(process.<span class="hljs-title function_">cwd</span>())),
             <span class="hljs-attr">crew</span>: [
-                <span class="hljs-keyword">new</span> NotificationReporter(printer),
-                <span class="hljs-keyword">new</span> ProgressReporter(printer),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">NotificationReporter</span>(printer),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressReporter</span>(printer),
             ],
         });
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function">() =&gt;</span>
-                actorCalled(<span class="hljs-string">'Serenity/JS Updater'</span>).attemptsTo(
-                    InvokeSerenityBDD.at(pathToArtifact)
-                        .withProperties(SystemProperties.of({
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Serenity/JS Updater'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                    <span class="hljs-title class_">InvokeSerenity</span>BDD.<span class="hljs-title function_">at</span>(pathToArtifact)
+                        .<span class="hljs-title function_">withProperties</span>(<span class="hljs-title class_">SystemProperties</span>.<span class="hljs-title function_">of</span>({
                             <span class="hljs-string">'serenity.compress.filenames'</span>: <span class="hljs-string">`<span class="hljs-subst">${ argv.shortFilenames }</span>`</span>,
-                            <span class="hljs-string">'LOG_LEVEL'</span>: argv.log,
-                            <span class="hljs-string">'logback.configurationFile'</span>: path.resolve(moduleRoot, <span class="hljs-string">'./resources/logback.config.xml'</span>),
+                            <span class="hljs-string">'LOG_LEVEL'</span>: argv.<span class="hljs-property">log</span>,
+                            <span class="hljs-string">'logback.configurationFile'</span>: path.<span class="hljs-title function_">resolve</span>(moduleRoot, <span class="hljs-string">'./resources/logback.config.xml'</span>),
                         }))
-                        .withArguments(SerenityBDDArguments.from(argv)),
+                        .<span class="hljs-title function_">withArguments</span>(<span class="hljs-title class_">Serenity</span>BDDArguments.<span class="hljs-title function_">from</span>(argv)),
                 )
             )
-            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                printer.error(formatError(error));
-                yargs.exit(<span class="hljs-number">1</span>, error.message);
+            .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                printer.<span class="hljs-title function_">error</span>(<span class="hljs-title function_">formatError</span>(error));
+                yargs.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>, error.<span class="hljs-property">message</span>);
             });
     },
 };

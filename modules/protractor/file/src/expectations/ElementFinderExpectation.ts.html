@@ -187,31 +187,32 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/ElementFinderExpectation.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-title class_">ExpectationOutcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../promiseOf'</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@access <span class="hljs-variable">private</span></span>
+ * <span class="hljs-doctag">@access</span> <span class="hljs-variable">private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ElementFinderExpectation</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">ElementFinder</span>&gt; </span>{
-    <span class="hljs-keyword">static</span> forElementTo(message: <span class="hljs-built_in">string</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span> PromiseLike&lt;<span class="hljs-built_in">boolean</span>&gt;): Expectation&lt;<span class="hljs-built_in">any</span>, ElementFinder&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ElementFinderExpectation(message, fn);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ElementFinderExpectation</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">ElementFinder</span>&gt; {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">forElementTo</span>(<span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span> <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">boolean</span>&gt;): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">ElementFinder</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ElementFinderExpectation</span>(message, fn);
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         subject: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fn: (actual: ElementFinder) =&gt; PromiseLike&lt;<span class="hljs-built_in">boolean</span>&gt;,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(subject);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(subject);
     }
 
-    answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;<span class="hljs-built_in">boolean</span>, ElementFinder&gt;&gt; {
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">boolean</span>, <span class="hljs-title class_">ElementFinder</span>&gt;&gt; {
 
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span>
-            promiseOf(<span class="hljs-built_in">this</span>.fn(actual)).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _
-                ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.toString(), <span class="hljs-literal">undefined</span>, actual)
-                : <span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-built_in">this</span>.toString(), <span class="hljs-literal">undefined</span>, actual),
+            <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fn</span>(actual)).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _
+                ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), <span class="hljs-literal">undefined</span>, actual)
+                : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), <span class="hljs-literal">undefined</span>, actual),
             );
     }
 }

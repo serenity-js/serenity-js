@@ -138,7 +138,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {OptionsRequest} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/model'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">OptionsRequest</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/model'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -179,16 +179,16 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">File download test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { CallAnApi, OptionsRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">OptionsRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>));
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://myapp.com/api'</span>));
 
- actor.attemptsTo(
-     Send.a(OptionsRequest.to(<span class="hljs-string">'/downloads/my-test-document.pdf'</span>)),
-     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-     Ensure.that(LastResponse.header(<span class="hljs-string">'Allow'</span>), equals(<span class="hljs-string">'OPTIONS, GET, HEAD'</span>)),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">OptionsRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/downloads/my-test-document.pdf'</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Allow'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'OPTIONS, GET, HEAD'</span>)),
  );</code></pre>
     </div>
 </div>

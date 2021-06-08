@@ -214,12 +214,12 @@ You can configure the location of your issue tracker using a command line parame
 <p>Since all the <a href="https://github.com/serenity-js">Serenity/JS template projects</a> have a <code>test:report</code> script invoking <code>serenity-bdd run</code> <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template/blob/518285a5578a9cb3600a44eb3d10f4413bde8428/package.json#L12">defined in their <code>package.json</code> file</a>, this is what you need to configure. </p>
 <h3 id="jira">Jira</h3>
 <p>If your Jira server can be accessed at <code>https://jira.my-company.com</code>, you can configure its location using the <code>--jiraUrl</code> parameter:</p>
-<pre><code class="lang-json hljs gherkin"><span class="hljs-string">"test:report"</span>: <span class="hljs-string">"serenity-bdd run --jiraUrl 'https://jira.my-company.com'"</span>,
+<pre><code class="lang-json hljs json"><span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run --jiraUrl 'https://jira.my-company.com'"</span><span class="hljs-punctuation">,</span>
 </code></pre>
 <h3 id="other-issue-trackers">Other issue trackers</h3>
 <p>If you're using a different issue tracker, you can configure its location using the <code>--issueTrackerUrl</code> parameter, where the <code>{0}</code> token
 will be replaced with the <code>issueId</code>:</p>
-<pre><code class="lang-json hljs gherkin"><span class="hljs-string">"test:report"</span>: <span class="hljs-string">"serenity-bdd run --issueTrackerUrl 'https://trello.com/c/MyBoardId/{0}'"</span>,
+<pre><code class="lang-json hljs json"><span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run --issueTrackerUrl 'https://trello.com/c/MyBoardId/{0}'"</span><span class="hljs-punctuation">,</span>
 </code></pre>
 <p>The above configuration will produce links such as <code>https://trello.com/c/MyBoardId/MSP-1</code></p>
 <h2 id="summary">Summary</h2>

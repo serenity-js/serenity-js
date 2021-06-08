@@ -128,28 +128,28 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/stage/UpdateCommandActors.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Actor, Cast, TakeNotes } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-<span class="hljs-keyword">import</span> { AxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AxiosInstance</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
-<span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UseFileSystem</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UpdateCommandActors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UpdateCommandActors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> cwd: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> createAxios: () =&gt; AxiosInstance,
-    </span>)</span>{
+    </span>){
     }
 
-    prepare(actor: Actor): Actor {
-        <span class="hljs-keyword">return</span> actor.whoCan(
-            CallAnApi.using(<span class="hljs-built_in">this</span>.createAxios()),
-            UseFileSystem.at(<span class="hljs-built_in">this</span>.cwd),
-            TakeNotes.usingAnEmptyNotepad(),
+    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
+            <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">createAxios</span>()),
+            <span class="hljs-title class_">UseFileSystem</span>.<span class="hljs-title function_">at</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">cwd</span>),
+            <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">usingAnEmptyNotepad</span>(),
         );
     }
 }

@@ -150,28 +150,28 @@ run the following command in your computer terminal:</p>
 <pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,rest,assertions}</span> axios
 </code></pre>
 <h3 id="example-test">Example test</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, DeleteRequest, GetRequest, LastResponse, PostRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
-<span class="hljs-keyword">import</span> { Ensure, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">DeleteRequest</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">PostRequest</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-<span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisit'</span>).whoCan(CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>));
+<span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://myapp.com/api'</span>));
 
-actor.attemptsTo(
+actor.<span class="hljs-title function_">attemptsTo</span>(
     <span class="hljs-comment">// no users present in the system</span>
-    Send.a(GetRequest.to(<span class="hljs-string">'/users'</span>)),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-    Ensure.that(LastResponse.body(), equals([])),
+    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/users'</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">body</span>(), <span class="hljs-title function_">equals</span>([])),
 
     <span class="hljs-comment">// create a new test user account</span>
-    Send.a(PostRequest.to(<span class="hljs-string">'/users'</span>).with({
+    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">PostRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/users'</span>).<span class="hljs-title function_">with</span>({
         <span class="hljs-attr">login</span>: <span class="hljs-string">'tester'</span>,
         <span class="hljs-attr">password</span>: <span class="hljs-string">'P@ssword1'</span>,
     }),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">201</span>)),
-    Ensure.that(LastResponse.header(<span class="hljs-string">'Location'</span>), startsWith(<span class="hljs-string">'/users'</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">201</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Location'</span>), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'/users'</span>)),
 
     <span class="hljs-comment">// delete the test user account</span>
-    Send.a(DeleteRequest.to(LastResponse.header(<span class="hljs-string">'Location'</span>))),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">DeleteRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Location'</span>))),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
 );
 </code></pre>
 </div>

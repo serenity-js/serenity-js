@@ -294,67 +294,67 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Duration.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Duration</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Duration</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
 
     <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerSecond = <span class="hljs-number">1000</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerMinute = Duration.msPerSecond * <span class="hljs-number">60</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerHour   = Duration.msPerMinute * <span class="hljs-number">60</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerDay    = Duration.msPerHour * <span class="hljs-number">24</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerYear   = Duration.msPerDay * <span class="hljs-number">365</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerMinute = <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerSecond</span> * <span class="hljs-number">60</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerHour   = <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerMinute</span> * <span class="hljs-number">60</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerDay    = <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerHour</span> * <span class="hljs-number">24</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> msPerYear   = <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span> * <span class="hljs-number">365</span>;
 
-    <span class="hljs-keyword">static</span> ofMilliseconds   = (milliseconds: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span> =&gt;</span> <span class="hljs-keyword">new</span> Duration(milliseconds);
-    <span class="hljs-keyword">static</span> ofSeconds        = (seconds: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>      =&gt;</span> Duration.ofMilliseconds(seconds  * Duration.msPerSecond);
-    <span class="hljs-keyword">static</span> ofMinutes        = (minutes: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>      =&gt;</span> Duration.ofMilliseconds(minutes  * Duration.msPerMinute);
-    <span class="hljs-keyword">static</span> ofHours          = (hours: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>        =&gt;</span> Duration.ofMilliseconds(hours    * Duration.msPerHour);
-    <span class="hljs-keyword">static</span> ofDays           = (days: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>         =&gt;</span> Duration.ofMilliseconds(days     * Duration.msPerDay);
-    <span class="hljs-keyword">static</span> ofYears          = (years: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>        =&gt;</span> Duration.ofMilliseconds(years    * Duration.msPerYear);
+    <span class="hljs-keyword">static</span> ofMilliseconds   = (<span class="hljs-attr">milliseconds</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Duration</span>(milliseconds);
+    <span class="hljs-keyword">static</span> ofSeconds        = (<span class="hljs-attr">seconds</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>      =&gt;</span> <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(seconds  * <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerSecond</span>);
+    <span class="hljs-keyword">static</span> ofMinutes        = (<span class="hljs-attr">minutes</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>      =&gt;</span> <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(minutes  * <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerMinute</span>);
+    <span class="hljs-keyword">static</span> ofHours          = (<span class="hljs-attr">hours</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>        =&gt;</span> <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(hours    * <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerHour</span>);
+    <span class="hljs-keyword">static</span> ofDays           = (<span class="hljs-attr">days</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>         =&gt;</span> <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(days     * <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span>);
+    <span class="hljs-keyword">static</span> ofYears          = (<span class="hljs-attr">years</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">Duration</span>        =&gt;</span> <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(years    * <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>);
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> milliseconds: <span class="hljs-built_in">number</span></span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> milliseconds: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    isLessThan(another: Duration): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds &lt; another.milliseconds;
+    <span class="hljs-title function_">isLessThan</span>(<span class="hljs-attr">another</span>: <span class="hljs-title class_">Duration</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span> &lt; another.<span class="hljs-property">milliseconds</span>;
     }
 
-    isLessThanOrEqualTo(another: Duration): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds &lt;= another.milliseconds;
+    <span class="hljs-title function_">isLessThanOrEqualTo</span>(<span class="hljs-attr">another</span>: <span class="hljs-title class_">Duration</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span> &lt;= another.<span class="hljs-property">milliseconds</span>;
     }
 
-    isGreaterThan(another: Duration): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds &gt; another.milliseconds;
+    <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-attr">another</span>: <span class="hljs-title class_">Duration</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span> &gt; another.<span class="hljs-property">milliseconds</span>;
     }
 
-    isGreaterThanOrEqualTo(another: Duration): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds &gt;= another.milliseconds;
+    <span class="hljs-title function_">isGreaterThanOrEqualTo</span>(<span class="hljs-attr">another</span>: <span class="hljs-title class_">Duration</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span> &gt;= another.<span class="hljs-property">milliseconds</span>;
     }
 
-    plus(another: Duration): Duration {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Duration(<span class="hljs-built_in">this</span>.milliseconds + another.milliseconds);
+    <span class="hljs-title function_">plus</span>(<span class="hljs-attr">another</span>: <span class="hljs-title class_">Duration</span>): <span class="hljs-title class_">Duration</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Duration</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span> + another.<span class="hljs-property">milliseconds</span>);
     }
 
-    inMilliseconds(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.milliseconds;
+    <span class="hljs-title function_">inMilliseconds</span>(): <span class="hljs-built_in">number</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span>;
     }
 
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> ms = <span class="hljs-built_in">this</span>.milliseconds;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> ms = <span class="hljs-variable language_">this</span>.<span class="hljs-property">milliseconds</span>;
 
         <span class="hljs-keyword">const</span> levels = [
-            [ <span class="hljs-built_in">Math</span>.floor(   ms / Duration.msPerYear), <span class="hljs-string">'y'</span>],
-            [ <span class="hljs-built_in">Math</span>.floor(  (ms % Duration.msPerYear) / Duration.msPerDay), <span class="hljs-string">'d'</span>],
-            [ <span class="hljs-built_in">Math</span>.floor( ((ms % Duration.msPerYear) % Duration.msPerDay) / Duration.msPerHour), <span class="hljs-string">'h'</span>],
-            [ <span class="hljs-built_in">Math</span>.floor((((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) / Duration.msPerMinute), <span class="hljs-string">'m'</span>],
-            [ <span class="hljs-built_in">Math</span>.floor((((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute / Duration.msPerSecond), <span class="hljs-string">'s'</span>],
-            [ (((ms % Duration.msPerYear) % Duration.msPerDay) % Duration.msPerHour) % Duration.msPerMinute % Duration.msPerSecond, <span class="hljs-string">'ms'</span>],
+            [ <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(   ms / <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>), <span class="hljs-string">'y'</span>],
+            [ <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(  (ms % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>) / <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span>), <span class="hljs-string">'d'</span>],
+            [ <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>( ((ms % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span>) / <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerHour</span>), <span class="hljs-string">'h'</span>],
+            [ <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>((((ms % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerHour</span>) / <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerMinute</span>), <span class="hljs-string">'m'</span>],
+            [ <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>((((ms % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerHour</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerMinute</span> / <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerSecond</span>), <span class="hljs-string">'s'</span>],
+            [ (((ms % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerYear</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerDay</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerHour</span>) % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerMinute</span> % <span class="hljs-title class_">Duration</span>.<span class="hljs-property">msPerSecond</span>, <span class="hljs-string">'ms'</span>],
         ];
 
-        <span class="hljs-keyword">return</span> levels.reduce(<span class="hljs-function">(<span class="hljs-params">acc, l, i</span>) =&gt;</span> l[<span class="hljs-number">0</span>] &gt; <span class="hljs-number">0</span> || i === levels.length
+        <span class="hljs-keyword">return</span> levels.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, l, i</span>) =&gt;</span> l[<span class="hljs-number">0</span>] &gt; <span class="hljs-number">0</span> || i === levels.<span class="hljs-property">length</span>
             ? <span class="hljs-string">`<span class="hljs-subst">${ acc }</span> <span class="hljs-subst">${ l[<span class="hljs-number">0</span>] }</span><span class="hljs-subst">${ l[<span class="hljs-number">1</span>] }</span>`</span>
             : acc,
-        <span class="hljs-string">''</span>).trim() || <span class="hljs-string">'0ms'</span>;
+        <span class="hljs-string">''</span>).<span class="hljs-title function_">trim</span>() || <span class="hljs-string">'0ms'</span>;
     }
 }
 </code></pre>

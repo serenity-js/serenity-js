@@ -138,7 +138,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {PostRequest} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/model'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">PostRequest</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/model'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -182,46 +182,46 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Add new resource to a collection</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { CallAnApi, LastResponse, PostRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">PostRequest</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(CallAnApi.at(<span class="hljs-string">'https://myapp.com/api'</span>));
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://myapp.com/api'</span>));
 
- actor.attemptsTo(
-     Send.a(PostRequest.to(<span class="hljs-string">'/books'</span>).with({
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">PostRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/books'</span>).<span class="hljs-title function_">with</span>({
          <span class="hljs-attr">isbn</span>: <span class="hljs-string">'0-688-00230-7'</span>,
          <span class="hljs-attr">title</span>: <span class="hljs-string">'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'</span>,
          <span class="hljs-attr">author</span>: <span class="hljs-string">'Robert M. Pirsig'</span>,
      })),
-     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">201</span>)),
-     Ensure.that(LastResponse.header(<span class="hljs-string">'Location'</span>), equals(<span class="hljs-string">'/books/0-688-00230-7'</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">201</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Location'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'/books/0-688-00230-7'</span>)),
  );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Submit a HTML form</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { CallAnApi, LastResponse, PostRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">PostRequest</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { stringify } <span class="hljs-keyword">from</span> <span class="hljs-string">'querystring'</span>;
 
  <span class="hljs-keyword">const</span>
-     actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(CallAnApi.at(<span class="hljs-string">'https://myapp.com'</span>)),
-     formData = stringify({
-         <span class="hljs-attr">name</span>: actor.name,
+     actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://myapp.com'</span>)),
+     formData = <span class="hljs-title function_">stringify</span>({
+         <span class="hljs-attr">name</span>: actor.<span class="hljs-property">name</span>,
          <span class="hljs-attr">email</span>: <span class="hljs-string">`<span class="hljs-subst">${ actor.name }</span>@example.com`</span>,
          <span class="hljs-attr">text</span>: <span class="hljs-string">'Your website is great! Learnt a lot :-)'</span>
      });
 
- actor.attemptsTo(
-     Send.a(PostRequest.to(<span class="hljs-string">'/feedback'</span>).with(postData).using({
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">PostRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/feedback'</span>).<span class="hljs-title function_">with</span>(postData).<span class="hljs-title function_">using</span>({
          <span class="hljs-attr">headers</span>: {
              <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/x-www-form-urlencoded'</span>,
-             <span class="hljs-string">'Content-Length'</span>: formData.length
+             <span class="hljs-string">'Content-Length'</span>: formData.<span class="hljs-property">length</span>
          }
      })),
-     Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-     Ensure.that(LastResponse.header(<span class="hljs-string">'Location'</span>), equals(<span class="hljs-string">'/feedback/thank-you.html'</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Location'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'/feedback/thank-you.html'</span>)),
  );</code></pre>
     </div>
 </div>

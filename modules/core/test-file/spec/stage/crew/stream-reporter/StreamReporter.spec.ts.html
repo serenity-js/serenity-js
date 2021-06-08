@@ -297,42 +297,42 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
-<span class="hljs-keyword">import</span> { Writable } <span class="hljs-keyword">from</span> <span class="hljs-string">'stream'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Writable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'stream'</span>;
 
-<span class="hljs-keyword">import</span> { Actor, Cast, Clock, Duration, Stage, StageManager, StreamReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
-<span class="hljs-keyword">import</span> { TestRunFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/events'</span>;
-<span class="hljs-keyword">import</span> { Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">Duration</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageManager</span>, <span class="hljs-title class_">StreamReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunFinished</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/model'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{StreamReporter}</span> </span>*/</span>
-describe(<span class="hljs-string">'StreamReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">StreamReporter</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'StreamReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> stage:          Stage,
-        <span class="hljs-attr">output</span>:         sinon.SinonStubbedInstance&lt;Writable&gt;;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">stage</span>:          <span class="hljs-title class_">Stage</span>,
+        <span class="hljs-attr">output</span>:         sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">Writable</span>&gt;;
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-        prepare(actor: Actor): Actor {
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+        <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
             <span class="hljs-keyword">return</span> actor;
         }
     }
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        stage = <span class="hljs-keyword">new</span> Stage(
-            <span class="hljs-keyword">new</span> Extras(),
-            <span class="hljs-keyword">new</span> StageManager(Duration.ofSeconds(<span class="hljs-number">2</span>), <span class="hljs-keyword">new</span> Clock()),
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">2</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>()),
         );
 
-        output = sinon.createStubInstance(Writable);
+        output = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Writable</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{StreamReporter}</span> </span>*/</span>
-    it(<span class="hljs-string">'prints the events it receives to output stream'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> StreamReporter(output <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Writable, stage);
-        stage.assign(reporter);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">StreamReporter</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'prints the events it receives to output stream'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StreamReporter</span>(output <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Writable</span>, stage);
+        stage.<span class="hljs-title function_">assign</span>(reporter);
 
-        stage.announce(<span class="hljs-keyword">new</span> TestRunFinished(Timestamp.fromJSON(<span class="hljs-string">'2021-01-13T18:00:00Z'</span>)));
+        stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>(<span class="hljs-title class_">Timestamp</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'2021-01-13T18:00:00Z'</span>)));
 
-        expect(output.write).to.have.been.calledWith(
+        <span class="hljs-title function_">expect</span>(output.<span class="hljs-property">write</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(
             <span class="hljs-string">`{"type":"TestRunFinished","event":"2021-01-13T18:00:00.000Z"}\n`</span>
         );
     });

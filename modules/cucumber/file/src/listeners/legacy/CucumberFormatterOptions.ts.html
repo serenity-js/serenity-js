@@ -131,20 +131,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/CucumberFormatterOptions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventEmitter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CucumberFormatterOptions {
     <span class="hljs-attr">colorFns</span>: <span class="hljs-built_in">any</span>;
-    cwd: <span class="hljs-built_in">any</span>;
-    eventDataCollector: <span class="hljs-built_in">any</span>;
-    eventBroadcaster: EventEmitter;
-    log: <span class="hljs-keyword">typeof</span> process.stdout.write;
-    snippetBuilder: <span class="hljs-built_in">any</span>;
-    stream: <span class="hljs-built_in">any</span>;
-    supportCodeLibrary: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">cwd</span>: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">eventDataCollector</span>: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">eventBroadcaster</span>: <span class="hljs-title class_">EventEmitter</span>;
+    <span class="hljs-attr">log</span>: <span class="hljs-keyword">typeof</span> process.<span class="hljs-property">stdout</span>.<span class="hljs-property">write</span>;
+    <span class="hljs-attr">snippetBuilder</span>: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">stream</span>: <span class="hljs-built_in">any</span>;
+    <span class="hljs-attr">supportCodeLibrary</span>: <span class="hljs-built_in">any</span>;
 }
 </code></pre>
 

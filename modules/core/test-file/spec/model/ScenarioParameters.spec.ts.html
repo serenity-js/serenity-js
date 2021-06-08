@@ -296,44 +296,44 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/ScenarioParameters.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { Description, Name, ScenarioParameters } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioParameters</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-describe(<span class="hljs-string">'ScenarioParameters'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ScenarioParameters'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        name = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'set of examples'</span>),
-        desciption = <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'description of the examples'</span>);
+        name = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'set of examples'</span>),
+        desciption = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'description of the examples'</span>);
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ScenarioParameters}</span> </span>*/</span>
-    it(<span class="hljs-string">'can be instantiated using a plain-old JavaScript object'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ScenarioParameters</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be instantiated using a plain-old JavaScript object'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-attr">Dev</span>: <span class="hljs-string">'jan-molak'</span> };
-        <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters);
+        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-title class_">Dev</span>: <span class="hljs-string">'jan-molak'</span> };
+        <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(name, desciption, parameters);
 
-        expect(scenarioParameters.values).to.deep.equal(parameters);
+        <span class="hljs-title function_">expect</span>(scenarioParameters.<span class="hljs-property">values</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(parameters);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ScenarioParameters}</span> </span>*/</span>
-    it(<span class="hljs-string">'can be serialised to JSON'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-attr">Dev</span>: <span class="hljs-string">'jan-molak'</span> };
-        <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ScenarioParameters</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised to JSON'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-title class_">Dev</span>: <span class="hljs-string">'jan-molak'</span> };
+        <span class="hljs-keyword">const</span> scenarioParameters = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(name, desciption, parameters);
 
-        expect(scenarioParameters.toJSON()).to.deep.equal({
-            <span class="hljs-attr">name</span>: name.toJSON(),
-            <span class="hljs-attr">description</span>: desciption.toJSON(),
+        <span class="hljs-title function_">expect</span>(scenarioParameters.<span class="hljs-title function_">toJSON</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
+            <span class="hljs-attr">name</span>: name.<span class="hljs-title function_">toJSON</span>(),
+            <span class="hljs-attr">description</span>: desciption.<span class="hljs-title function_">toJSON</span>(),
             <span class="hljs-attr">values</span>: parameters,
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ScenarioParameters}</span> </span>*/</span>
-    it(<span class="hljs-string">'can be deserialised from JSON'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-attr">Dev</span>: <span class="hljs-string">'jan-molak'</span> };
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ScenarioParameters</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be deserialised from JSON'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> parameters = { <span class="hljs-title class_">Dev</span>: <span class="hljs-string">'jan-molak'</span> };
 
-        expect(<span class="hljs-keyword">new</span> ScenarioParameters(name, desciption, parameters))
-            .to.equal(ScenarioParameters.fromJSON({
-                <span class="hljs-attr">name</span>: name.toJSON(),
-                <span class="hljs-attr">description</span>: desciption.toJSON(),
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(name, desciption, parameters))
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title class_">ScenarioParameters</span>.<span class="hljs-title function_">fromJSON</span>({
+                <span class="hljs-attr">name</span>: name.<span class="hljs-title function_">toJSON</span>(),
+                <span class="hljs-attr">description</span>: desciption.<span class="hljs-title function_">toJSON</span>(),
                 <span class="hljs-attr">values</span>: parameters,
             }));
     });

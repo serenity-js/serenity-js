@@ -296,27 +296,27 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/activities/OutcomeMatcher.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../errors'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ImplementationPending,
-    ProblemIndication,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">ProblemIndication</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OutcomeMatcher</span> </span>{
-    outcomeFor(error: <span class="hljs-built_in">Error</span> | <span class="hljs-built_in">any</span>): ProblemIndication {
-        <span class="hljs-keyword">return</span> match&lt;<span class="hljs-built_in">Error</span>, ProblemIndication&gt;(error)
-            .when(ImplementationPendingError, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> ImplementationPending(error))
-            .when(TestCompromisedError, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> ExecutionCompromised(error))
-            .when(AssertionError, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error))
-            .when(<span class="hljs-built_in">Error</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span>
-                <span class="hljs-regexp">/AssertionError/</span>.test(error.constructor.name) <span class="hljs-comment">// mocha</span>
-                    ? <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(error)
-                    : <span class="hljs-keyword">new</span> ExecutionFailedWithError(error))
-            .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(error));
+<span class="hljs-comment">/** <span class="hljs-doctag">@package</span> */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OutcomeMatcher</span> {
+    <span class="hljs-title function_">outcomeFor</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span> | <span class="hljs-built_in">any</span>): <span class="hljs-title class_">ProblemIndication</span> {
+        <span class="hljs-keyword">return</span> match&lt;<span class="hljs-title class_">Error</span>, <span class="hljs-title class_">ProblemIndication</span>&gt;(error)
+            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(error))
+            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">TestCompromisedError</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(error))
+            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">AssertionError</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(error))
+            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span>
+                <span class="hljs-regexp">/AssertionError/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>) <span class="hljs-comment">// mocha</span>
+                    ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(error)
+                    : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error))
+            .<span class="hljs-title function_">else</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error));
     }
 }
 </code></pre>

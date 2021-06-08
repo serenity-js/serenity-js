@@ -131,35 +131,35 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder, EventStreamEmitter, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Clock, Duration, Stage, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ArtifactGenerated } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage/Extras'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span>, <span class="hljs-title class_">EventStreamEmitter</span>, expect, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">Duration</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactGenerated</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Extras</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage/Extras'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span> </span>*/</span>
-describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> reporter: SerenityBDDReporter,
-        <span class="hljs-attr">stage</span>: Stage,
-        <span class="hljs-attr">emitter</span>: EventStreamEmitter,
-        <span class="hljs-attr">recorder</span>: EventRecorder;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">Serenity</span>BDDReporter,
+        <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>,
+        <span class="hljs-attr">emitter</span>: <span class="hljs-title class_">EventStreamEmitter</span>,
+        <span class="hljs-attr">recorder</span>: <span class="hljs-title class_">EventRecorder</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">0</span>))
-        stage = <span class="hljs-keyword">new</span> Stage(<span class="hljs-keyword">new</span> Extras(), <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), frozenClock));
-        emitter = <span class="hljs-keyword">new</span> EventStreamEmitter(stage);
-        recorder = <span class="hljs-keyword">new</span> EventRecorder([], stage);
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">0</span>))
+        stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">250</span>), frozenClock));
+        emitter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventStreamEmitter</span>(stage);
+        recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>([], stage);
 
-        reporter = <span class="hljs-keyword">new</span> SerenityBDDReporter(stage);
+        reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(stage);
 
-        stage.assign(reporter);
-        stage.assign(recorder);
+        stage.<span class="hljs-title function_">assign</span>(reporter);
+        stage.<span class="hljs-title function_">assign</span>(recorder);
     });
 
-    it(<span class="hljs-string">`works when events are in order`</span>, <span class="hljs-function">() =&gt;</span>
-        emitter.emit(<span class="hljs-string">`
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`works when events are in order`</span>, <span class="hljs-function">() =&gt;</span>
+        emitter.<span class="hljs-title function_">emit</span>(<span class="hljs-string">`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2020-10-08T16:14:59.637Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
                 {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10urdx00arcuun2wz2b721","timestamp":"2020-10-08T16:15:00.645Z","details":{"name":"When he enters search details"}}}
                     {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b3cuun69j179uv","timestamp":"2020-10-08T16:15:31.634Z","details":{"name":"Bob chooses first option"}}}
@@ -178,24 +178,24 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
             {"type":"SceneFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.701Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
             {"type":"TestRunFinishes","event":"2020-10-08T16:16:15.302Z"}
             {"type":"TestRunFinished","event":"2020-10-08T16:16:15.313Z"}
-        `</span>).then(<span class="hljs-function">() =&gt;</span> {
+        `</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(ArtifactGenerated, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
-                    <span class="hljs-keyword">const</span> report = artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> report = artifact.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                    expect(report).to.deep.equal(firstExpectedReport)
+                    <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(firstExpectedReport)
                 })
-                .next(ArtifactGenerated, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
-                    <span class="hljs-keyword">const</span> report = artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> report = artifact.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                    expect(report).to.deep.equal(secondExpectedReport)
+                    <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(secondExpectedReport)
                 });
 
         }));
 
-    it(<span class="hljs-string">`correctly reconciles out of order events`</span>, <span class="hljs-function">() =&gt;</span>
-        emitter.emit(<span class="hljs-string">`
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`correctly reconciles out of order events`</span>, <span class="hljs-function">() =&gt;</span>
+        emitter.<span class="hljs-title function_">emit</span>(<span class="hljs-string">`
             {"type":"SceneStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","timestamp":"2020-10-08T16:14:59.637Z","details":{"category":"Search","location":{"column":3,"line":15,"path":"features/search.feature"},"name":"Advanced search"}}}
                 {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10urdx00arcuun2wz2b721","timestamp":"2020-10-08T16:15:00.645Z","details":{"name":"When he enters search details"}}}
                     {"type":"TaskStarts","event":{"sceneId":"ckg2xi0mf0000xf5zb41kc67m","activityId":"ckg10vfaq00b3cuun69j179uv","timestamp":"2020-10-08T16:15:31.634Z","details":{"name":"Bob chooses first option"}}}
@@ -214,18 +214,18 @@ describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hl
             {"type":"SceneFinished","event":{"sceneId":"ckg9wf6xr000001qd8igkb90j","outcome":{"code":2,"error":"{\\"name\\":\\"Error\\",\\"stack\\":\\"Error: function timed out, ensure the promise resolves within 10000 milliseconds\\\\n\\",\\"message\\":\\"function timed out, ensure the promise resolves within 10000 milliseconds\\"}"},"timestamp":"2020-10-08T16:15:52.701Z","details":{"category":"Tag management","location":{"column":3,"line":5,"path":"features/tags.feature"},"name":"Create new tag"}}}
             {"type":"TestRunFinishes","event":"2020-10-08T16:16:15.302Z"}
             {"type":"TestRunFinished","event":"2020-10-08T16:16:15.313Z"}
-        `</span>).then(<span class="hljs-function">() =&gt;</span> {
+        `</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(ArtifactGenerated, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
-                    <span class="hljs-keyword">const</span> report = artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> report = artifact.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                    expect(report).to.deep.equal(firstExpectedReport)
+                    <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(firstExpectedReport)
                 })
-                .next(ArtifactGenerated, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
-                    <span class="hljs-keyword">const</span> report = artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function">(<span class="hljs-params">{ artifact }</span>) =&gt;</span> {
+                    <span class="hljs-keyword">const</span> report = artifact.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-                    expect(report).to.deep.equal(secondExpectedReport)
+                    <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(secondExpectedReport)
                 });
 
         }));

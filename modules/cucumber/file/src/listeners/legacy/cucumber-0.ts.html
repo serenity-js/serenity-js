@@ -131,160 +131,160 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/cucumber-0.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../errors'</span>;
-<span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
-<span class="hljs-keyword">import</span> { Feature, FeatureFileMap, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AmbiguousStepDefinitionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Dependencies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Feature</span>, <span class="hljs-title class_">FeatureFileMap</span>, <span class="hljs-title class_">Scenario</span>, <span class="hljs-title class_">ScenarioOutline</span>, <span class="hljs-title class_">Step</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
 
-<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cache }: Dependencies</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>): <span class="hljs-title">void</span> </span>{
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeFeatures'</span>, <span class="hljs-function">() =&gt;</span> {
-            notifier.testRunStarts();
+<span class="hljs-keyword">export</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cache }: Dependencies</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'BeforeFeatures'</span>, <span class="hljs-function">() =&gt;</span> {
+            notifier.<span class="hljs-title function_">testRunStarts</span>();
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeFeature'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">feature, callback</span>) </span>{
-            loader.load(get(feature, <span class="hljs-string">'uri'</span>).as(Path))
-                .then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> callback(), <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> callback(error));
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'BeforeFeature'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">feature, callback</span>) {
+            loader.<span class="hljs-title function_">load</span>(<span class="hljs-title function_">get</span>(feature, <span class="hljs-string">'uri'</span>).<span class="hljs-title function_">as</span>(<span class="hljs-title class_">Path</span>))
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title function_">callback</span>(), <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-title function_">callback</span>(error));
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeScenario'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">scenario</span>) </span>{
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'BeforeScenario'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">scenario</span>) {
             <span class="hljs-keyword">const</span>
-                path  = get(scenario, <span class="hljs-string">'uri'</span>).as(Path),
-                line  = get(scenario, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
-                lines = get(scenario, <span class="hljs-string">'lines'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>[],
-                isOutline = lines.length === <span class="hljs-number">2</span>;
+                path  = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'uri'</span>).<span class="hljs-title function_">as</span>(<span class="hljs-title class_">Path</span>),
+                line  = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'line'</span>).<span class="hljs-title function_">value</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
+                lines = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'lines'</span>).<span class="hljs-title function_">value</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>[],
+                isOutline = lines.<span class="hljs-property">length</span> === <span class="hljs-number">2</span>;
 
             <span class="hljs-keyword">const</span>
-                sceneId = serenity.assignNewSceneId(),
-                map = cache.get(path);
+                sceneId = serenity.<span class="hljs-title function_">assignNewSceneId</span>(),
+                map = cache.<span class="hljs-title function_">get</span>(path);
 
             <span class="hljs-keyword">if</span> (isOutline) {
-                notifier.outlineDetected(sceneId, map.get(Scenario).onLine(line), map.get(ScenarioOutline).onLine(lines[ <span class="hljs-number">1</span> ]), map.getFirst(Feature));
+                notifier.<span class="hljs-title function_">outlineDetected</span>(sceneId, map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(line), map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">ScenarioOutline</span>).<span class="hljs-title function_">onLine</span>(lines[ <span class="hljs-number">1</span> ]), map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Feature</span>));
             }
 
-            notifier.scenarioStarts(sceneId, map.get(Scenario).onLine(line), map.getFirst(Feature));
+            notifier.<span class="hljs-title function_">scenarioStarts</span>(sceneId, map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(line), map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Feature</span>));
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'BeforeStep'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">step</span>) </span>{
-            <span class="hljs-keyword">if</span> (shouldIgnore(step)) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'BeforeStep'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">step</span>) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-title function_">shouldIgnore</span>(step)) {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
             }
 
             <span class="hljs-keyword">const</span>
-                scenario = get(step, <span class="hljs-string">'scenario'</span>).value(),
-                path     = get(scenario, <span class="hljs-string">'uri'</span>).as(Path);
+                scenario = <span class="hljs-title function_">get</span>(step, <span class="hljs-string">'scenario'</span>).<span class="hljs-title function_">value</span>(),
+                path     = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'uri'</span>).<span class="hljs-title function_">as</span>(<span class="hljs-title class_">Path</span>);
 
-            notifier.stepStarts(findStepMatching(step, cache.get(path)));
+            notifier.<span class="hljs-title function_">stepStarts</span>(<span class="hljs-title function_">findStepMatching</span>(step, cache.<span class="hljs-title function_">get</span>(path)));
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'StepResult'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) </span>{
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'StepResult'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">result</span>) {
             <span class="hljs-keyword">const</span>
-                step     = get(result, <span class="hljs-string">'step'</span>).value(),
-                scenario = get(step, <span class="hljs-string">'scenario'</span>).value(),
-                path     = get(scenario, <span class="hljs-string">'uri'</span>).as(Path);
+                step     = <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'step'</span>).<span class="hljs-title function_">value</span>(),
+                scenario = <span class="hljs-title function_">get</span>(step, <span class="hljs-string">'scenario'</span>).<span class="hljs-title function_">value</span>(),
+                path     = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'uri'</span>).<span class="hljs-title function_">as</span>(<span class="hljs-title class_">Path</span>);
 
-            <span class="hljs-keyword">if</span> (shouldIgnore(step)) {
+            <span class="hljs-keyword">if</span> (<span class="hljs-title function_">shouldIgnore</span>(step)) {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
             }
 
-            notifier.stepFinished(findStepMatching(step, cache.get(path)), resultMapper.outcomeFor(
-                get(result, <span class="hljs-string">'status'</span>).value(),
-                get(result, <span class="hljs-string">'failureException'</span>).value() || ambiguousStepsDetectedIn(result),
+            notifier.<span class="hljs-title function_">stepFinished</span>(<span class="hljs-title function_">findStepMatching</span>(step, cache.<span class="hljs-title function_">get</span>(path)), resultMapper.<span class="hljs-title function_">outcomeFor</span>(
+                <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'status'</span>).<span class="hljs-title function_">value</span>(),
+                <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'failureException'</span>).<span class="hljs-title function_">value</span>() || <span class="hljs-title function_">ambiguousStepsDetectedIn</span>(result),
             ));
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'ScenarioResult'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">result, callback</span>) </span>{
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'ScenarioResult'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">result, callback</span>) {
 
             <span class="hljs-keyword">const</span>
-                scenario = get(result, <span class="hljs-string">'scenario'</span>).value(),
-                path     = get(scenario, <span class="hljs-string">'uri'</span>).as(Path),
-                line     = get(scenario, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
-                outcome  = resultMapper.outcomeFor(
-                    get(result, <span class="hljs-string">'status'</span>).value(),
-                    get(result, <span class="hljs-string">'failureException'</span>).value()
+                scenario = <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'scenario'</span>).<span class="hljs-title function_">value</span>(),
+                path     = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'uri'</span>).<span class="hljs-title function_">as</span>(<span class="hljs-title class_">Path</span>),
+                line     = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'line'</span>).<span class="hljs-title function_">value</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
+                outcome  = resultMapper.<span class="hljs-title function_">outcomeFor</span>(
+                    <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'status'</span>).<span class="hljs-title function_">value</span>(),
+                    <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'failureException'</span>).<span class="hljs-title function_">value</span>()
                 );
 
-            <span class="hljs-keyword">const</span> map = cache.get(path);
+            <span class="hljs-keyword">const</span> map = cache.<span class="hljs-title function_">get</span>(path);
 
-            notifier.scenarioFinishes(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
+            notifier.<span class="hljs-title function_">scenarioFinishes</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(line), map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Feature</span>), outcome);
 
-            serenity.waitForNextCue()
-                .then(
+            serenity.<span class="hljs-title function_">waitForNextCue</span>()
+                .<span class="hljs-title function_">then</span>(
                     <span class="hljs-function">() =&gt;</span> {
-                        notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
-                        callback();
+                        notifier.<span class="hljs-title function_">scenarioFinished</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(line), map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Feature</span>), outcome);
+                        <span class="hljs-title function_">callback</span>();
                     },
                     <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                        notifier.scenarioFinished(map.get(Scenario).onLine(line), map.getFirst(Feature), outcome);
-                        callback(error);
+                        notifier.<span class="hljs-title function_">scenarioFinished</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(line), map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Feature</span>), outcome);
+                        <span class="hljs-title function_">callback</span>(error);
                     });
         });
 
-        <span class="hljs-built_in">this</span>.registerHandler(<span class="hljs-string">'AfterFeatures'</span>, <span class="hljs-function">(<span class="hljs-params">features, callback</span>) =&gt;</span> {
-            notifier.testRunFinishes();
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">registerHandler</span>(<span class="hljs-string">'AfterFeatures'</span>, <span class="hljs-function">(<span class="hljs-params">features, callback</span>) =&gt;</span> {
+            notifier.<span class="hljs-title function_">testRunFinishes</span>();
 
-            serenity.waitForNextCue()
-                .then(<span class="hljs-function">() =&gt;</span> notifier.testRunFinished())
-                .then(<span class="hljs-function">() =&gt;</span> callback(), <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> callback(error));
+            serenity.<span class="hljs-title function_">waitForNextCue</span>()
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> notifier.<span class="hljs-title function_">testRunFinished</span>())
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">callback</span>(), <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-title function_">callback</span>(error));
         });
     };
 };
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">get</span>(<span class="hljs-params"><span class="hljs-built_in">object</span>, property</span>) </span>{
-    <span class="hljs-keyword">const</span> getter = <span class="hljs-string">'get'</span> + property.charAt(<span class="hljs-number">0</span>).toUpperCase() + property.slice(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">get</span>(<span class="hljs-params"><span class="hljs-built_in">object</span>, property</span>) {
+    <span class="hljs-keyword">const</span> getter = <span class="hljs-string">'get'</span> + property.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">toUpperCase</span>() + property.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>);
 
     <span class="hljs-keyword">const</span> value = <span class="hljs-built_in">object</span>[getter]
         ? <span class="hljs-built_in">object</span>[getter]()
         : <span class="hljs-built_in">object</span>[property];
 
     <span class="hljs-keyword">return</span> ({
-        <span class="hljs-attr">as</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (v: <span class="hljs-built_in">any</span>) =&gt; T</span>): <span class="hljs-title">T</span> </span>{  <span class="hljs-comment">// ESDoc doesn't understand generic anonymous functions</span>
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">type</span>(value);
+        <span class="hljs-attr">as</span>: <span class="hljs-keyword">function</span>&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-keyword">new</span> (<span class="hljs-attr">v</span>: <span class="hljs-built_in">any</span>) =&gt; T): T {  <span class="hljs-comment">// ESDoc doesn't understand generic anonymous functions</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">type</span>(value);
         },
         <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> value,
     });
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">is</span>(<span class="hljs-params"><span class="hljs-built_in">object</span>, property</span>): <span class="hljs-title">boolean</span> </span>{
-    <span class="hljs-keyword">const</span> getter = <span class="hljs-string">'is'</span> + property.charAt(<span class="hljs-number">0</span>).toUpperCase() + property.slice(<span class="hljs-number">1</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">is</span>(<span class="hljs-params"><span class="hljs-built_in">object</span>, property</span>): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-keyword">const</span> getter = <span class="hljs-string">'is'</span> + property.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">toUpperCase</span>() + property.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>);
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">object</span>[getter] ? <span class="hljs-built_in">object</span>[getter]() : <span class="hljs-built_in">object</span>[getter];
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">findStepMatching</span>(<span class="hljs-params">step, map: FeatureFileMap</span>): <span class="hljs-title">Step</span> </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">findStepMatching</span>(<span class="hljs-params">step, map: FeatureFileMap</span>): <span class="hljs-title class_">Step</span> {
     <span class="hljs-keyword">const</span>
-        stepLine     = get(step, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
-        scenario     = get(step, <span class="hljs-string">'scenario'</span>).value(),
-        path         = get(scenario, <span class="hljs-string">'uri'</span>).as(Path),
-        scenarioLine = get(scenario, <span class="hljs-string">'line'</span>).value() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>;
+        stepLine     = <span class="hljs-title function_">get</span>(step, <span class="hljs-string">'line'</span>).<span class="hljs-title function_">value</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
+        scenario     = <span class="hljs-title function_">get</span>(step, <span class="hljs-string">'scenario'</span>).<span class="hljs-title function_">value</span>(),
+        path         = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'uri'</span>).<span class="hljs-title function_">as</span>(<span class="hljs-title class_">Path</span>),
+        scenarioLine = <span class="hljs-title function_">get</span>(scenario, <span class="hljs-string">'line'</span>).<span class="hljs-title function_">value</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>;
 
-    <span class="hljs-keyword">const</span> matchedStep = map.get(Scenario).onLine(scenarioLine).steps.find(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> s.location.line === stepLine);
+    <span class="hljs-keyword">const</span> matchedStep = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(scenarioLine).<span class="hljs-property">steps</span>.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">s</span> =&gt;</span> s.<span class="hljs-property">location</span>.<span class="hljs-property">line</span> === stepLine);
 
     <span class="hljs-keyword">if</span> (! matchedStep) {
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`No step was found in <span class="hljs-subst">${ path }</span> on line <span class="hljs-subst">${ stepLine }</span>. This looks like a bug.`</span>);
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`No step was found in <span class="hljs-subst">${ path }</span> on line <span class="hljs-subst">${ stepLine }</span>. This looks like a bug.`</span>);
     }
 
     <span class="hljs-keyword">return</span> matchedStep;
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ambiguousStepsDetectedIn</span>(<span class="hljs-params">result</span>): <span class="hljs-title">Error</span> | <span class="hljs-title">undefined</span> </span>{
-    <span class="hljs-keyword">const</span> ambiguousStepDefinitions = get(result, <span class="hljs-string">'ambiguousStepDefinitions'</span>).value() || [];
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">ambiguousStepsDetectedIn</span>(<span class="hljs-params">result</span>): <span class="hljs-title class_">Error</span> | <span class="hljs-literal">undefined</span> {
+    <span class="hljs-keyword">const</span> ambiguousStepDefinitions = <span class="hljs-title function_">get</span>(result, <span class="hljs-string">'ambiguousStepDefinitions'</span>).<span class="hljs-title function_">value</span>() || [];
 
-    <span class="hljs-keyword">if</span> (ambiguousStepDefinitions.length === <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">if</span> (ambiguousStepDefinitions.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) {
         <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
     }
 
     <span class="hljs-keyword">return</span> ambiguousStepDefinitions
-        .map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ get(step, <span class="hljs-string">'pattern'</span>).value().toString() }</span> - <span class="hljs-subst">${ get(step, <span class="hljs-string">'uri'</span>).value() }</span>:<span class="hljs-subst">${ get(step, <span class="hljs-string">'line'</span>).value() }</span>`</span>)
-        .reduce(<span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span>, issue</span>) =&gt;</span> {
-            error.message += <span class="hljs-string">`\n<span class="hljs-subst">${issue}</span>`</span>;
+        .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> <span class="hljs-string">`<span class="hljs-subst">${ get(step, <span class="hljs-string">'pattern'</span>).value().toString() }</span> - <span class="hljs-subst">${ get(step, <span class="hljs-string">'uri'</span>).value() }</span>:<span class="hljs-subst">${ get(step, <span class="hljs-string">'line'</span>).value() }</span>`</span>)
+        .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span>, issue</span>) =&gt;</span> {
+            error.<span class="hljs-property">message</span> += <span class="hljs-string">`\n<span class="hljs-subst">${issue}</span>`</span>;
             <span class="hljs-keyword">return</span> error;
-        }, <span class="hljs-keyword">new</span> AmbiguousStepDefinitionError(<span class="hljs-string">'Multiple step definitions match:'</span>));
+        }, <span class="hljs-keyword">new</span> <span class="hljs-title class_">AmbiguousStepDefinitionError</span>(<span class="hljs-string">'Multiple step definitions match:'</span>));
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shouldIgnore</span>(<span class="hljs-params">step</span>): <span class="hljs-title">boolean</span> </span>{
-    <span class="hljs-keyword">return</span> is(step, <span class="hljs-string">'hidden'</span>)                                       <span class="hljs-comment">// cucumber 0-1</span>
-        || (step.constructor &amp;&amp; step.constructor.name === <span class="hljs-string">'Hook'</span>);  <span class="hljs-comment">// cucumber 2</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">shouldIgnore</span>(<span class="hljs-params">step</span>): <span class="hljs-built_in">boolean</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">is</span>(step, <span class="hljs-string">'hidden'</span>)                                       <span class="hljs-comment">// cucumber 0-1</span>
+        || (step.<span class="hljs-property">constructor</span> &amp;&amp; step.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span> === <span class="hljs-string">'Hook'</span>);  <span class="hljs-comment">// cucumber 2</span>
 }
 </code></pre>
 

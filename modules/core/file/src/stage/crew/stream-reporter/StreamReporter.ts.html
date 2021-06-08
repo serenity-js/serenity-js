@@ -294,18 +294,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/stream-reporter/StreamReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Writable } <span class="hljs-keyword">from</span> <span class="hljs-string">'stream'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Writable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'stream'</span>;
 
-<span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../events'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Stage'</span>;
-<span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../StageCrewMember'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../StageCrewMember'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Serialises all the {<span class="hljs-doctag">@link </span>DomainEvent} objects it receives and streams
+ *  Serialises all the {<span class="hljs-doctag">@link</span> DomainEvent} objects it receives and streams
  *  them as [ndjson](http://ndjson.org/) to the output stream.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Writing DomainEvents to standard output&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Writing DomainEvents to standard output&lt;/caption&gt;
  *  import { configure, StreamReporter } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *
  *  configure({
@@ -314,7 +314,7 @@
  *      ],
  *  });
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Writing DomainEvents to a file&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Writing DomainEvents to a file&lt;/caption&gt;
  *  import { configure, StreamReporter } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import fs = require('fs');
  *
@@ -324,7 +324,7 @@
  *      ],
  *  });
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Registering StreamReporter using Protractor configuration&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering StreamReporter using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
  *  const { StreamReporter } = require('<span class="hljs-doctag">@serenity</span>-js/core');
  *
@@ -342,50 +342,50 @@
  *    // other Protractor config
  *  };
  *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{StageCrewMember}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">StageCrewMember</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StreamReporter</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StreamReporter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{stream~Writable}</span> <span class="hljs-variable">output</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">stream~Writable</span>} <span class="hljs-variable">output</span>
      *  A Writable stream that should receive the output
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> </span>[stage]
-     *  The stage this {<span class="hljs-doctag">@link </span>StageCrewMember} should be assigned to
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Stage</span>} [stage]
+     *  The stage this {<span class="hljs-doctag">@link</span> StageCrewMember} should be assigned to
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> output: Writable = process.stdout,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
-    </span>)</span> {
+    </span>) {
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Creates a new instance of this {<span class="hljs-doctag">@link </span>StageCrewMember} and assigns it to a given {<span class="hljs-doctag">@link </span>Stage}.
+     *  Creates a new instance of this {<span class="hljs-doctag">@link</span> StageCrewMember} and assigns it to a given {<span class="hljs-doctag">@link</span> Stage}.
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMember}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMember</span>}
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Stage}</span> <span class="hljs-variable">stage</span></span> - An instance of a {<span class="hljs-doctag">@link </span>Stage} this {<span class="hljs-doctag">@link </span>StageCrewMember} will be assigned to
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{StageCrewMember}</span> </span>- A new instance of this {<span class="hljs-doctag">@link </span>StageCrewMember}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Stage</span>} <span class="hljs-variable">stage</span> - An instance of a {<span class="hljs-doctag">@link</span> Stage} this {<span class="hljs-doctag">@link</span> StageCrewMember} will be assigned to
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">StageCrewMember</span>} - A new instance of this {<span class="hljs-doctag">@link</span> StageCrewMember}
      */</span>
-    assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StreamReporter(<span class="hljs-built_in">this</span>.output, stage);
+    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StreamReporter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">output</span>, stage);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link </span>DomainEvent} objects emitted by the {<span class="hljs-doctag">@link </span>StageManager}.
+     *  Handles {<span class="hljs-doctag">@link</span> DomainEvent} objects emitted by the {<span class="hljs-doctag">@link</span> StageManager}.
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMember}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMember</span>}
      *
-     * <span class="hljs-doctag">@listens <span class="hljs-type">{DomainEvent}</span></span>
+     * <span class="hljs-doctag">@listens</span> {<span class="hljs-type">DomainEvent</span>}
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{DomainEvent}</span> <span class="hljs-variable">event</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">DomainEvent</span>} <span class="hljs-variable">event</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
      */</span>
-    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.output.write(
-            <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">type</span>: event.constructor.name, <span class="hljs-attr">event</span>: event.toJSON() }) + <span class="hljs-string">'\n'</span>,
+    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">output</span>.<span class="hljs-title function_">write</span>(
+            <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">type</span>: event.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>, <span class="hljs-attr">event</span>: event.<span class="hljs-title function_">toJSON</span>() }) + <span class="hljs-string">'\n'</span>,
         );
     }
 }

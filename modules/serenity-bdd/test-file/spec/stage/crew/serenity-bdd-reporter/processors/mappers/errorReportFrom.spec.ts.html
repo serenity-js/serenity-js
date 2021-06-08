@@ -131,113 +131,113 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
 
 <span class="hljs-keyword">import</span> { errorReportFrom } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers'</span>;
 
-describe(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'when representing Errors as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when representing Errors as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'supports native Error'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports native Error'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> report = errorReportFrom(thrown(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'boom'</span>))
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'boom'</span>))
 
-            expect(report.errorType).to.equal(<span class="hljs-string">'Error'</span>);
-            expect(report.message).to.equal(<span class="hljs-string">'boom'</span>);
-            expect(report.stackTrace.length).to.be.greaterThan(<span class="hljs-number">0</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Error'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'boom'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">stackTrace</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">greaterThan</span>(<span class="hljs-number">0</span>);
         });
 
-        it(<span class="hljs-string">'supports Serenity/JS Errors'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports Serenity/JS Errors'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> report = errorReportFrom(thrown(ConfigurationError, <span class="hljs-string">'wrong config'</span>))
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">'wrong config'</span>))
 
-            expect(report.errorType).to.equal(<span class="hljs-string">'ConfigurationError'</span>);
-            expect(report.message).to.equal(<span class="hljs-string">'wrong config'</span>);
-            expect(report.stackTrace.length).to.be.greaterThan(<span class="hljs-number">0</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'ConfigurationError'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'wrong config'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">stackTrace</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">greaterThan</span>(<span class="hljs-number">0</span>);
         });
 
-        it(<span class="hljs-string">'supports Serenity/JS Errors with root causes'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports Serenity/JS Errors with root causes'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> report = errorReportFrom(thrown(ConfigurationError, <span class="hljs-string">'wrong config'</span>, thrown(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'config file does not exist'</span>)))
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">'wrong config'</span>, <span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'config file does not exist'</span>)))
 
-            expect(report.errorType).to.equal(<span class="hljs-string">'ConfigurationError'</span>);
-            expect(report.message).to.equal(<span class="hljs-string">'wrong config'</span>);
-            expect(report.rootCause.errorType).to.equal(<span class="hljs-string">'Error'</span>);
-            expect(report.rootCause.message).to.equal(<span class="hljs-string">'config file does not exist'</span>);
-            expect(report.stackTrace.length).to.be.greaterThan(<span class="hljs-number">0</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'ConfigurationError'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'wrong config'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rootCause</span>.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Error'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rootCause</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'config file does not exist'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">stackTrace</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">greaterThan</span>(<span class="hljs-number">0</span>);
         });
     });
 
-    describe(<span class="hljs-string">'when representing non-Error "throwables" as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when representing non-Error "throwables" as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'supports null'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">null</span>);   <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports null'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-literal">null</span>);   <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'null'</span>,
                 <span class="hljs-string">'message'</span>: <span class="hljs-string">''</span>,
                 <span class="hljs-string">'stackTrace'</span>: [],
             });
         });
 
-        it(<span class="hljs-string">'supports undefined'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">undefined</span>);  <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports undefined'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-literal">undefined</span>);  <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'undefined'</span>,
                 <span class="hljs-string">'message'</span>: <span class="hljs-string">''</span>,
                 <span class="hljs-string">'stackTrace'</span>: [],
             });
         });
 
-        it(<span class="hljs-string">'supports objects'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports objects'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> maybeError = { <span class="hljs-attr">message</span>: <span class="hljs-string">`something's wrong`</span>, <span class="hljs-attr">code</span>: <span class="hljs-number">500</span> };
-            <span class="hljs-keyword">const</span> report = errorReportFrom(maybeError);
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(maybeError);
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Object'</span>,
-                <span class="hljs-string">'message'</span>: inspect(maybeError),
+                <span class="hljs-string">'message'</span>: <span class="hljs-title function_">inspect</span>(maybeError),
                 <span class="hljs-string">'stackTrace'</span>: [],
             });
         });
 
-        it(<span class="hljs-string">'supports arrays'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports arrays'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> maybeError = [ <span class="hljs-string">'you'</span>, <span class="hljs-string">'really'</span>, <span class="hljs-string">`shouldn't`</span>, <span class="hljs-string">'throw'</span>, <span class="hljs-string">'arrays'</span> ];
-            <span class="hljs-keyword">const</span> report = errorReportFrom(maybeError);
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(maybeError);
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Array'</span>,
-                <span class="hljs-string">'message'</span>: inspect(maybeError),
+                <span class="hljs-string">'message'</span>: <span class="hljs-title function_">inspect</span>(maybeError),
                 <span class="hljs-string">'stackTrace'</span>: [],
             });
         });
 
-        it(<span class="hljs-string">'supports numbers'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-number">404</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports numbers'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-number">404</span>);
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Number'</span>,
                 <span class="hljs-string">'message'</span>: <span class="hljs-string">'404'</span>,
                 <span class="hljs-string">'stackTrace'</span>: [],
             });
         });
 
-        it(<span class="hljs-string">'supports strings'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-string">'skipped step'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports strings'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-string">'skipped step'</span>);
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'String'</span>,
                 <span class="hljs-string">'message'</span>: <span class="hljs-string">'skipped step'</span>,
                 <span class="hljs-string">'stackTrace'</span>: [],
             });
         });
 
-        it(<span class="hljs-string">'supports booleans'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = errorReportFrom(<span class="hljs-literal">false</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports booleans'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-literal">false</span>);
 
-            expect(report).to.deep.equal({
+            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Boolean'</span>,
                 <span class="hljs-string">'message'</span>: <span class="hljs-string">'false'</span>,
                 <span class="hljs-string">'stackTrace'</span>: [],
@@ -246,9 +246,9 @@ describe(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-f
     });
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thrown</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; T, ...args: <span class="hljs-built_in">any</span>[]</span>): <span class="hljs-title">T</span> </span>{
+<span class="hljs-keyword">function</span> thrown&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]) =&gt; T, ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): T {
     <span class="hljs-keyword">try</span> {
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">type</span>(...args);
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">type</span>(...args);
     } <span class="hljs-keyword">catch</span> (error) {
         <span class="hljs-keyword">return</span> error;
     }

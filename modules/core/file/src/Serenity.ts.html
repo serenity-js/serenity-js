@@ -296,33 +296,33 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Serenity.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isInstanceOf, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
-<span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./events'</span>;
-<span class="hljs-keyword">import</span> { formatted, has, OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Duration, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'./model'</span>;
-<span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./screenplay/actor/Actor'</span>;
-<span class="hljs-keyword">import</span> { SerenityConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityConfig'</span>;
-<span class="hljs-keyword">import</span> { StageCrewMember, StageCrewMemberBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
-<span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Cast'</span>;
-<span class="hljs-keyword">import</span> { Clock } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Clock'</span>;
-<span class="hljs-keyword">import</span> { Extras } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Extras'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Stage'</span>;
-<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/StageManager'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./events'</span>;
+<span class="hljs-keyword">import</span> { formatted, has, <span class="hljs-title class_">OutputStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Duration</span>, <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./screenplay/actor/Actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityConfig'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMember</span>, <span class="hljs-title class_">StageCrewMemberBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Cast'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Clock</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Clock'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Extras</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Extras'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/Stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage/StageManager'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Serenity</span> </span>{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultCueTimeout    = Duration.ofSeconds(<span class="hljs-number">5</span>);
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultActors        = <span class="hljs-keyword">new</span> Extras();
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Serenity</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultCueTimeout    = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">5</span>);
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> defaultActors        = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>();
 
-    <span class="hljs-keyword">private</span> stage: Stage;
-    <span class="hljs-keyword">private</span> outputStream: OutputStream  = process.stdout;
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">outputStream</span>: <span class="hljs-title class_">OutputStream</span>  = process.<span class="hljs-property">stdout</span>;
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Clock}</span> <span class="hljs-variable">clock</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Clock</span>} <span class="hljs-variable">clock</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> clock: Clock = <span class="hljs-keyword">new</span> Clock()</span>)</span> {
-        <span class="hljs-built_in">this</span>.stage = <span class="hljs-keyword">new</span> Stage(
-            Serenity.defaultActors,
-            <span class="hljs-keyword">new</span> StageManager(Serenity.defaultCueTimeout, clock),
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> clock: Clock = <span class="hljs-keyword">new</span> Clock()</span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(
+            <span class="hljs-title class_">Serenity</span>.<span class="hljs-property">defaultActors</span>,
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Serenity</span>.<span class="hljs-property">defaultCueTimeout</span>, clock),
         );
     }
 
@@ -333,42 +333,42 @@
      *  so this function should called be exactly once
      *  in your test suite.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{SerenityConfig}</span> <span class="hljs-variable">config</span></span>
-     * <span class="hljs-doctag">@return <span class="hljs-type">{void}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">SerenityConfig</span>} <span class="hljs-variable">config</span>
+     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">void</span>}
      */</span>
-    configure(config: SerenityConfig): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> looksLikeBuilder          = has&lt;StageCrewMemberBuilder&gt;({ <span class="hljs-attr">build</span>: <span class="hljs-string">'function'</span> });
-        <span class="hljs-keyword">const</span> looksLikeStageCrewMember  = has&lt;StageCrewMember&gt;({ <span class="hljs-attr">assignedTo</span>: <span class="hljs-string">'function'</span>, <span class="hljs-attr">notifyOf</span>: <span class="hljs-string">'function'</span> });
+    <span class="hljs-title function_">configure</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">SerenityConfig</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> looksLikeBuilder          = has&lt;<span class="hljs-title class_">StageCrewMemberBuilder</span>&gt;({ <span class="hljs-attr">build</span>: <span class="hljs-string">'function'</span> });
+        <span class="hljs-keyword">const</span> looksLikeStageCrewMember  = has&lt;<span class="hljs-title class_">StageCrewMember</span>&gt;({ <span class="hljs-attr">assignedTo</span>: <span class="hljs-string">'function'</span>, <span class="hljs-attr">notifyOf</span>: <span class="hljs-string">'function'</span> });
 
-        <span class="hljs-keyword">const</span> cueTimeout = config.cueTimeout
-            ? ensure(<span class="hljs-string">'cueTimeout'</span>, config.cueTimeout, isInstanceOf(Duration))
-            : Serenity.defaultCueTimeout;
+        <span class="hljs-keyword">const</span> cueTimeout = config.<span class="hljs-property">cueTimeout</span>
+            ? <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'cueTimeout'</span>, config.<span class="hljs-property">cueTimeout</span>, <span class="hljs-title function_">isInstanceOf</span>(<span class="hljs-title class_">Duration</span>))
+            : <span class="hljs-title class_">Serenity</span>.<span class="hljs-property">defaultCueTimeout</span>;
 
-        <span class="hljs-keyword">if</span> (config.outputStream) {
-            <span class="hljs-built_in">this</span>.outputStream = config.outputStream;
+        <span class="hljs-keyword">if</span> (config.<span class="hljs-property">outputStream</span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">outputStream</span> = config.<span class="hljs-property">outputStream</span>;
         }
 
-        <span class="hljs-built_in">this</span>.stage = <span class="hljs-keyword">new</span> Stage(
-            Serenity.defaultActors,
-            <span class="hljs-keyword">new</span> StageManager(cueTimeout, <span class="hljs-built_in">this</span>.clock),
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(
+            <span class="hljs-title class_">Serenity</span>.<span class="hljs-property">defaultActors</span>,
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(cueTimeout, <span class="hljs-variable language_">this</span>.<span class="hljs-property">clock</span>),
         );
 
-        <span class="hljs-keyword">if</span> (config.actors) {
-            <span class="hljs-built_in">this</span>.engage(config.actors);
+        <span class="hljs-keyword">if</span> (config.<span class="hljs-property">actors</span>) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">engage</span>(config.<span class="hljs-property">actors</span>);
         }
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(config.crew)) {
-            <span class="hljs-built_in">this</span>.stage.assign(
-                ...config.crew.map(<span class="hljs-function">(<span class="hljs-params">stageCrewMember, i</span>) =&gt;</span> {
-                    <span class="hljs-keyword">if</span> (looksLikeBuilder(stageCrewMember)) {
-                        <span class="hljs-keyword">return</span> stageCrewMember.build({ <span class="hljs-attr">stage</span>: <span class="hljs-built_in">this</span>.stage, <span class="hljs-attr">outputStream</span>: <span class="hljs-built_in">this</span>.outputStream });
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(config.<span class="hljs-property">crew</span>)) {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">assign</span>(
+                ...config.<span class="hljs-property">crew</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">stageCrewMember, i</span>) =&gt;</span> {
+                    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">looksLikeBuilder</span>(stageCrewMember)) {
+                        <span class="hljs-keyword">return</span> stageCrewMember.<span class="hljs-title function_">build</span>({ <span class="hljs-attr">stage</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>, <span class="hljs-attr">outputStream</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">outputStream</span> });
                     }
 
-                    <span class="hljs-keyword">if</span> (looksLikeStageCrewMember(stageCrewMember)) {
-                        <span class="hljs-keyword">return</span> stageCrewMember.assignedTo(<span class="hljs-built_in">this</span>.stage);
+                    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">looksLikeStageCrewMember</span>(stageCrewMember)) {
+                        <span class="hljs-keyword">return</span> stageCrewMember.<span class="hljs-title function_">assignedTo</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>);
                     }
 
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(
                         formatted <span class="hljs-string">`Entries under \`crew\` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, \`<span class="hljs-subst">${ stageCrewMember }</span>\` found at index <span class="hljs-subst">${ i }</span>`</span>
                     );
                 }),
@@ -378,14 +378,14 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Re-configures Serenity/JS with a new {<span class="hljs-doctag">@link </span>Cast} of {<span class="hljs-doctag">@link </span>Actor}s
-     *  you'd like to use in any subsequent call to {<span class="hljs-doctag">@link </span>actorCalled}.
+     *  Re-configures Serenity/JS with a new {<span class="hljs-doctag">@link</span> Cast} of {<span class="hljs-doctag">@link</span> Actor}s
+     *  you'd like to use in any subsequent call to {<span class="hljs-doctag">@link</span> actorCalled}.
      *
-     *  This method provides an alternative to calling {<span class="hljs-doctag">@link </span>Actor#whoCan}
+     *  This method provides an alternative to calling {<span class="hljs-doctag">@link</span> Actor#whoCan}
      *  directly in your tests and you'd typically us it in a "before each"
      *  hook of your test runner of choice.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
      *  import { Actor, Cast } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *
      *  class Actors implements Cast {
@@ -398,34 +398,34 @@
      *
      * engage(new Actors();
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
      *  import 'jasmine';
      *
      *  beforeEach(() =&gt; engage(new Actors()));
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
      *  import { Before } from 'cucumber';
      *
      *  Before(() =&gt; engage(new Actors());
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Cast}</span> <span class="hljs-variable">actors</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Cast</span>} <span class="hljs-variable">actors</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
      */</span>
-    engage(actors: Cast): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.stage.engage(
-            ensure(<span class="hljs-string">'actors'</span>, actors, property(<span class="hljs-string">'prepare'</span>, isDefined())),
+    <span class="hljs-title function_">engage</span>(<span class="hljs-attr">actors</span>: <span class="hljs-title class_">Cast</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">engage</span>(
+            <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'actors'</span>, actors, <span class="hljs-title function_">property</span>(<span class="hljs-string">'prepare'</span>, <span class="hljs-title function_">isDefined</span>())),
         );
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates or retrieves an actor {<span class="hljs-doctag">@link </span>Actor}
+     *  Instantiates or retrieves an actor {<span class="hljs-doctag">@link</span> Actor}
      *  called `name` if one has already been instantiated.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
      *   import 'jasmine';
      *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *
@@ -437,7 +437,7 @@
      *          ));
      *   });
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
      *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *   import { Given } from 'cucumber';
      *
@@ -446,27 +446,27 @@
      *              // ... activities
      *          ));
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span>
      *  The name of the actor to instantiate or retrieve
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Actor</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link engage}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link engage</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
      */</span>
-    theActorCalled(name: <span class="hljs-built_in">string</span>): Actor {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorCalled(name);
+    <span class="hljs-title function_">theActorCalled</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Actor</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">theActorCalled</span>(name);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Retrieves an actor who was last instantiated or retrieved
-     *  using {<span class="hljs-doctag">@link </span>actorCalled}.
+     *  using {<span class="hljs-doctag">@link</span> actorCalled}.
      *
      *  This function is particularly useful when automating Cucumber scenarios.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
      *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *   import { Given, When } from 'cucumber';
      *
@@ -480,42 +480,42 @@
      *              // ... activities
      *          ));
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Actor}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Actor</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link engage}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link actorCalled}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Cast}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link engage</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link actorCalled</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
      */</span>
-    theActorInTheSpotlight(): Actor {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorInTheSpotlight();
+    <span class="hljs-title function_">theActorInTheSpotlight</span>(): <span class="hljs-title class_">Actor</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">theActorInTheSpotlight</span>();
     }
 
-    announce(event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.stage.announce(event);
+    <span class="hljs-title function_">announce</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(event);
     }
 
-    currentTime(): Timestamp {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.currentTime();
+    <span class="hljs-title function_">currentTime</span>(): <span class="hljs-title class_">Timestamp</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>();
     }
 
-    assignNewSceneId(): CorrelationId {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.assignNewSceneId();
+    <span class="hljs-title function_">assignNewSceneId</span>(): <span class="hljs-title class_">CorrelationId</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">assignNewSceneId</span>();
     }
 
-    currentSceneId(): CorrelationId {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.currentSceneId();
+    <span class="hljs-title function_">currentSceneId</span>(): <span class="hljs-title class_">CorrelationId</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentSceneId</span>();
     }
 
-    assignNewActivityId(): CorrelationId {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.assignNewActivityId();
+    <span class="hljs-title function_">assignNewActivityId</span>(): <span class="hljs-title class_">CorrelationId</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">assignNewActivityId</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@package</span>
      */</span>
-    waitForNextCue(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.waitForNextCue();
+    <span class="hljs-title function_">waitForNextCue</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">waitForNextCue</span>();
     }
 }
 </code></pre>

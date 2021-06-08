@@ -294,30 +294,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/ScenarioParameters.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { Description } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Description'</span>;
-<span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Name'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Description'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Name'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ScenarioParameters</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> fromJSON(o: JSONObject): ScenarioParameters {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioParameters(
-            Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            Description.fromJSON(o.description <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            (o <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).values,
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ScenarioParameters</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: JSONObject): <span class="hljs-title class_">ScenarioParameters</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+            <span class="hljs-title class_">Name</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">name</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            <span class="hljs-title class_">Description</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">description</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            (o <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">values</span>,
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> description: Description,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> values: { [ parameter: <span class="hljs-built_in">string</span> ]: <span class="hljs-built_in">string</span> },
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
 
-        ensure(<span class="hljs-string">'name'</span>, name, isDefined());
-        ensure(<span class="hljs-string">'description'</span>, description, isDefined());
-        ensure(<span class="hljs-string">'values'</span>, values, isDefined());
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'name'</span>, name, <span class="hljs-title function_">isDefined</span>());
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'description'</span>, description, <span class="hljs-title function_">isDefined</span>());
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'values'</span>, values, <span class="hljs-title function_">isDefined</span>());
     }
 }
 </code></pre>

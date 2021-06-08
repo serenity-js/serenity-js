@@ -187,25 +187,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Press.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, Key } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { AlertPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Key</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AlertPromise</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
-<span class="hljs-keyword">import</span> { PressBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PressBuilder'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PressBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PressBuilder'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+ *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
  *  send a key press or a sequence of keys to a Web element.
  *
  *  **Please note** that modifier keys, such as Command ⌘, [won't work on Mac](https://github.com/angular/protractor/issues/690)
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Example widget&lt;/caption&gt;
  *  &lt;form&gt;
  *    &lt;input type="text" name="example" id="example" /&gt;
  *  &lt;/form&gt;
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
  *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { by } from 'protractor';
  *
@@ -214,7 +215,7 @@
  *          .located(by.id('example'));
  *  }
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Pressing keys&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Pressing keys&lt;/caption&gt;
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Press, Value } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -227,92 +228,92 @@
  *          Ensure.that(Value.of(Form.exampleInput), equals('Hi!')),
  *      );
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link BrowseTheWeb}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Ensure}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions/lib/expectations~equals}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link selenium-webdriver~Key}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link BrowseTheWeb</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions~Ensure</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions/lib/expectations~equals</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link selenium-webdriver~Key</span>}
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Press</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Press</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Instantiates this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...keys: string[]}</span> <span class="hljs-variable">keys</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">...keys: string[]</span>} <span class="hljs-variable">keys</span>
      *  A sequence of one or more keys to press
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PressBuilder}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">PressBuilder</span>}
      */</span>
-    <span class="hljs-keyword">static</span> the(...keys: <span class="hljs-built_in">string</span>[]): PressBuilder {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">the</span>(...<span class="hljs-attr">keys</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">PressBuilder</span> {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">in</span>: <span class="hljs-function">(<span class="hljs-params">field: Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise</span>) =&gt;</span> <span class="hljs-keyword">new</span> Press(keys, field),
+            <span class="hljs-attr">in</span>: <span class="hljs-function">(<span class="hljs-params">field: Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Press</span>(keys, field),
         };
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">keys</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">keys</span>
      *  A sequence of one or more keys to press
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">field</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">field</span>
      *  Web element to send the keys to
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> keys: <span class="hljs-built_in">string</span>[],
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> field: Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PromiseLike&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">PromiseLike&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.field, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span> elf.sendKeys(...this.keys));
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">any</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">withAnswerOf</span>(actor, <span class="hljs-variable language_">this</span>.<span class="hljs-property">field</span>, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span> elf.<span class="hljs-title function_">sendKeys</span>(...<span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor presses <span class="hljs-subst">${ describeSequenceOf(<span class="hljs-built_in">this</span>.keys) }</span> in <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.field.toString() }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor presses <span class="hljs-subst">${ describeSequenceOf(<span class="hljs-variable language_">this</span>.keys) }</span> in <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.field.toString() }</span>`</span>;
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">describeSequenceOf</span>(<span class="hljs-params">keys: <span class="hljs-built_in">string</span>[]</span>) </span>{
-    <span class="hljs-keyword">return</span> keys.map(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> [
-        capitalised(nameOf(key)),
-        isModifier(key) ? <span class="hljs-string">'-'</span> : <span class="hljs-string">', '</span>,
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">describeSequenceOf</span>(<span class="hljs-params">keys: <span class="hljs-built_in">string</span>[]</span>) {
+    <span class="hljs-keyword">return</span> keys.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> [
+        <span class="hljs-title function_">capitalised</span>(<span class="hljs-title function_">nameOf</span>(key)),
+        <span class="hljs-title function_">isModifier</span>(key) ? <span class="hljs-string">'-'</span> : <span class="hljs-string">', '</span>,
     ]).
-    reduce(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> acc.concat(current), []).
-    slice(<span class="hljs-number">0</span>, keys.length * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>).
-    join(<span class="hljs-string">''</span>);
+    <span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> acc.<span class="hljs-title function_">concat</span>(current), []).
+    <span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, keys.<span class="hljs-property">length</span> * <span class="hljs-number">2</span> - <span class="hljs-number">1</span>).
+    <span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isModifier</span>(<span class="hljs-params">key: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">return</span> !! ~ [ Key.ALT, Key.COMMAND, Key.CONTROL, Key.SHIFT ].indexOf(key);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isModifier</span>(<span class="hljs-params">key: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> !! ~ [ <span class="hljs-title class_">Key</span>.<span class="hljs-property">ALT</span>, <span class="hljs-title class_">Key</span>.<span class="hljs-property">COMMAND</span>, <span class="hljs-title class_">Key</span>.<span class="hljs-property">CONTROL</span>, <span class="hljs-title class_">Key</span>.<span class="hljs-property">SHIFT</span> ].<span class="hljs-title function_">indexOf</span>(key);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">nameOf</span>(<span class="hljs-params">key: <span class="hljs-built_in">string</span></span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">nameOf</span>(<span class="hljs-params">key: <span class="hljs-built_in">string</span></span>) {
 
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> candidate <span class="hljs-keyword">in</span> Key) {
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(Key, candidate) &amp;&amp; Key[ candidate ] === key) {
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> candidate <span class="hljs-keyword">in</span> <span class="hljs-title class_">Key</span>) {
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(<span class="hljs-title class_">Key</span>, candidate) &amp;&amp; <span class="hljs-title class_">Key</span>[ candidate ] === key) {
             <span class="hljs-keyword">return</span> candidate;
         }
     }
@@ -320,8 +321,8 @@
     <span class="hljs-keyword">return</span> key;
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">capitalised</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">return</span> name.charAt(<span class="hljs-number">0</span>).toLocaleUpperCase() + name.slice(<span class="hljs-number">1</span>).toLocaleLowerCase();
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">capitalised</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> name.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">toLocaleUpperCase</span>() + name.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">toLocaleLowerCase</span>();
 }
 </code></pre>
 

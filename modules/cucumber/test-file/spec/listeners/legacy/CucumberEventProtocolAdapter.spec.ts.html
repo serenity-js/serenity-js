@@ -134,184 +134,184 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/no-var-requires */</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { ImplementationPendingError, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, ModuleLoader, Path, Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span>, expect, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">SceneTagged</span>, <span class="hljs-title class_">TaskFinished</span>, <span class="hljs-title class_">TaskStarts</span>, <span class="hljs-title class_">TestRunnerDetected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Path</span>, <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">ExecutionFailedWithError</span>, <span class="hljs-title class_">ExecutionSkipped</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">FeatureTag</span>, <span class="hljs-title class_">ImplementationPending</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioDetails</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventEmitter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'events'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 <span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { AmbiguousStepDefinitionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AmbiguousStepDefinitionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/errors'</span>;
 <span class="hljs-keyword">import</span> { createListener } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/listeners/legacy'</span>;
 
-describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">type</span> CucumberHook = <span class="hljs-function">(<span class="hljs-params">event?: <span class="hljs-built_in">object</span></span>) =&gt;</span>     <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-    <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+    <span class="hljs-keyword">type</span> <span class="hljs-title class_">CucumberHook</span> = <span class="hljs-function">(<span class="hljs-params">event?: <span class="hljs-built_in">object</span></span>) =&gt;</span>     <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+    <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
 
-    <span class="hljs-keyword">let</span> afterHook: CucumberHook;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">afterHook</span>: <span class="hljs-title class_">CucumberHook</span>;
 
     <span class="hljs-keyword">const</span> fakeCucumber = {
-        <span class="hljs-attr">BeforeAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
-        <span class="hljs-attr">Before</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
-        <span class="hljs-attr">After</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> { afterHook = hook; },
-        <span class="hljs-attr">AfterAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(hook()),
+        <span class="hljs-title class_">BeforeAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-title function_">hook</span>()),
+        <span class="hljs-title class_">Before</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-title function_">hook</span>()),
+        <span class="hljs-title class_">After</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> { afterHook = hook; },
+        <span class="hljs-title class_">AfterAll</span>: <span class="hljs-function">(<span class="hljs-params">hook: CucumberHook</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-title function_">hook</span>()),
     };
 
-    <span class="hljs-keyword">let</span> recorder: EventRecorder,
-        <span class="hljs-attr">serenity</span>: Serenity,
-        <span class="hljs-attr">log</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-built_in">console</span>.log,
-        <span class="hljs-attr">eventBroadcaster</span>: EventEmitter,
-        <span class="hljs-attr">moduleLoader</span>: sinon.SinonStubbedInstance&lt;ModuleLoader&gt;,
-        adapter: <span class="hljs-built_in">any</span>;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">recorder</span>: <span class="hljs-title class_">EventRecorder</span>,
+        <span class="hljs-attr">serenity</span>: <span class="hljs-title class_">Serenity</span>,
+        <span class="hljs-attr">log</span>: <span class="hljs-keyword">typeof</span> <span class="hljs-variable language_">console</span>.<span class="hljs-property">log</span>,
+        <span class="hljs-attr">eventBroadcaster</span>: <span class="hljs-title class_">EventEmitter</span>,
+        <span class="hljs-attr">moduleLoader</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">ModuleLoader</span>&gt;,
+        <span class="hljs-attr">adapter</span>: <span class="hljs-built_in">any</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
 
-        log      = sinon.spy();
-        moduleLoader = sinon.createStubInstance(ModuleLoader);
-        serenity = <span class="hljs-keyword">new</span> Serenity();
-        recorder = <span class="hljs-keyword">new</span> EventRecorder();
-        eventBroadcaster = <span class="hljs-keyword">new</span> EventEmitter();
+        log      = sinon.<span class="hljs-title function_">spy</span>();
+        moduleLoader = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">ModuleLoader</span>);
+        serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>();
+        recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>();
+        eventBroadcaster = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventEmitter</span>();
 
-        serenity.configure({
+        serenity.<span class="hljs-title function_">configure</span>({
             <span class="hljs-attr">crew</span>: [recorder],
         });
 
-        moduleLoader.hasAvailable.withArgs(<span class="hljs-string">'@cucumber/cucumber'</span>).returns(<span class="hljs-literal">false</span>);
+        moduleLoader.<span class="hljs-property">hasAvailable</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'@cucumber/cucumber'</span>).<span class="hljs-title function_">returns</span>(<span class="hljs-literal">false</span>);
 
-        moduleLoader.hasAvailable.withArgs(<span class="hljs-string">'cucumber'</span>).returns(<span class="hljs-literal">true</span>);
-        moduleLoader.versionOf.withArgs(<span class="hljs-string">'cucumber'</span>).returns(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'5.0.0'</span>));
-        moduleLoader.require.withArgs(<span class="hljs-string">'cucumber'</span>).returns(fakeCucumber);
+        moduleLoader.<span class="hljs-property">hasAvailable</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'cucumber'</span>).<span class="hljs-title function_">returns</span>(<span class="hljs-literal">true</span>);
+        moduleLoader.<span class="hljs-property">versionOf</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'cucumber'</span>).<span class="hljs-title function_">returns</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'5.0.0'</span>));
+        moduleLoader.<span class="hljs-property">require</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'cucumber'</span>).<span class="hljs-title function_">returns</span>(fakeCucumber);
 
-        <span class="hljs-keyword">const</span> listener = createListener(serenity, moduleLoader);
+        <span class="hljs-keyword">const</span> listener = <span class="hljs-title function_">createListener</span>(serenity, moduleLoader);
 
-        adapter = <span class="hljs-keyword">new</span> listener({ eventBroadcaster, log });  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
+        adapter = <span class="hljs-keyword">new</span> <span class="hljs-title function_">listener</span>({ eventBroadcaster, log });  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
     });
 
-    it(<span class="hljs-string">'correctly recognises Cucumber Event Protocol events'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly recognises Cucumber Event Protocol events'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span> } }));
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span> } }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-hooks.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-hooks.json'</span>));
 
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Hooks'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/tasty-cucumber.feature'</span>),
+        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Hooks'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/tasty-cucumber.feature'</span>),
                 <span class="hljs-number">3</span>,
                 <span class="hljs-number">3</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-            PickEvent.from(recorder.events)
-                .next(SceneStarts,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have a tasty cucumber in my belly'</span>)))
-                .next(TaskFinished,         <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have a tasty cucumber in my belly'</span>));
-                    expect(e.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>,   <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>,          <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have a tasty cucumber in my belly'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>,         <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have a tasty cucumber in my belly'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>());
                 })
-                .next(TaskStarts,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I'm very happy`</span>)))
-                .next(TaskFinished,         <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I'm very happy`</span>));
-                    expect(e.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>,           <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Then I'm very happy`</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>,         <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Then I'm very happy`</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>());
                 })
-                .next(SceneFinished,        <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details).to.equal(expectedScenarioDetails);
-                    expect(e.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,        <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails);
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>());
                 })
             ;
         });
     });
 
-    it(<span class="hljs-string">'correctly recognises undefined steps'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly recognises undefined steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'undefined'</span> } }));
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'undefined'</span> } }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-undefined-steps.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-undefined-steps.json'</span>));
 
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Undefined steps'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/undefined-steps.feature'</span>),
+        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Undefined steps'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/undefined-steps.feature'</span>),
                 <span class="hljs-number">3</span>,
                 <span class="hljs-number">3</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have an undefined step'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have an undefined step'</span>));
-                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have an undefined step'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have an undefined step'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
                 })
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should implement it`</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Then I should implement it'</span>));
-                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Then I should implement it`</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Then I should implement it'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
                 })
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details).to.equal(expectedScenarioDetails);
-                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails);
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
                 })
             ;
         });
     });
 
-    it(<span class="hljs-string">'correctly recognises pending steps'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly recognises pending steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span> } }));
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({ <span class="hljs-attr">result</span>: { <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span> } }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-pending-steps.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-pending-steps.json'</span>));
 
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pending steps'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/pending-steps.feature'</span>),
+        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pending steps'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/pending-steps.feature'</span>),
                 <span class="hljs-number">3</span>,
                 <span class="hljs-number">3</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have a pending step'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have a pending step'</span>));
-                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have a pending step'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have a pending step'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
                 })
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should implement it`</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Then I should implement it'</span>));
-                    expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Then I should implement it`</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Then I should implement it'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionSkipped</span>);
                 })
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details).to.equal(expectedScenarioDetails);
-                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails);
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
                 })
             ;
         });
     });
 
-    it(<span class="hljs-string">'correctly recognises ambiguous steps'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly recognises ambiguous steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({
             <span class="hljs-attr">result</span>: {
                 <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                 <span class="hljs-attr">status</span>: <span class="hljs-string">'ambiguous'</span>,
@@ -319,46 +319,46 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
             },
         }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-ambiguous-steps.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-ambiguous-steps.json'</span>));
 
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Ambiguous steps'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/ambiguous-steps.feature'</span>),
+        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Ambiguous steps'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/ambiguous-steps.feature'</span>),
                 <span class="hljs-number">3</span>,
                 <span class="hljs-number">3</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-            PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have an ambiguous step definition'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have an ambiguous step definition'</span>));
-                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have an ambiguous step definition'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have an ambiguous step definition'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AmbiguousStepDefinitionError</span>);
                 })
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">`Then I should correct it`</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Then I should correct it'</span>));
-                    expect(e.outcome).to.be.instanceOf(ExecutionSkipped);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Then I should correct it`</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Then I should correct it'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionSkipped</span>);
                 })
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details).to.equal(expectedScenarioDetails);
-                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails);
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AmbiguousStepDefinitionError</span>);
                 })
             ;
         });
     });
 
-    it(<span class="hljs-string">'correctly recognises errors thrown in steps'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly recognises errors thrown in steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({
             <span class="hljs-attr">result</span>: {
                 <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                 <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
@@ -366,133 +366,133 @@ describe(<span class="hljs-string">'CucumberEventProtocolAdapter'</span>, <span 
             },
         }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-errors.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-with-errors.json'</span>));
 
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Errors in steps'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/errors-in-steps.feature'</span>),
+        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Errors in steps'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/errors-in-steps.feature'</span>),
                 <span class="hljs-number">3</span>,
                 <span class="hljs-number">3</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have a step that throws an error'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I have a step that throws an error'</span>));
-                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error.message).to.equal(<span class="hljs-string">`We're sorry, something happened`</span>);
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have a step that throws an error'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I have a step that throws an error'</span>));
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
                 })
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details).to.equal(expectedScenarioDetails);
-                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError).error.message).to.equal(<span class="hljs-string">`We're sorry, something happened`</span>);
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails);
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
                 })
             ;
         });
     });
 
-    it(<span class="hljs-string">'correctly recognises scenario outlines'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly recognises scenario outlines'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({
             <span class="hljs-attr">result</span>: {
                 <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                 <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
             },
         }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-outline.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/scenario-outline.json'</span>));
 
         <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The things I like'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/outlines.feature'</span>),
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">expectedScenarioDetails</span> = (<span class="hljs-params">line: <span class="hljs-built_in">number</span></span>) =&gt; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The things I like'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/outlines.feature'</span>),
                 line,
                 <span class="hljs-number">7</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I like programming'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I like programming'</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">10</span>)))
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">expectedScenarioDetails</span>(<span class="hljs-number">10</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I like programming'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I like programming'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">expectedScenarioDetails</span>(<span class="hljs-number">10</span>)))
 
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">11</span>)))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I like to play guitar'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I like to play guitar'</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">11</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">expectedScenarioDetails</span>(<span class="hljs-number">11</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I like to play guitar'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I like to play guitar'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">expectedScenarioDetails</span>(<span class="hljs-number">11</span>)))
 
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">12</span>)))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(TaskStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I like martial arts'</span>)))
-                .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given I like martial arts'</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails(<span class="hljs-number">12</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">expectedScenarioDetails</span>(<span class="hljs-number">12</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I like martial arts'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given I like martial arts'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">expectedScenarioDetails</span>(<span class="hljs-number">12</span>)))
             ;
         });
     });
 
-    it(<span class="hljs-string">'considers a scenario with no steps and no hooks to be pending implementation'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'considers a scenario with no steps and no hooks to be pending implementation'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        eventBroadcaster.on(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> afterHook({
+        eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-finished'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">afterHook</span>({
             <span class="hljs-attr">result</span>: {
                 <span class="hljs-attr">duration</span>: <span class="hljs-number">0</span>,
                 <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
             },
         }));
 
-        emitAllFrom(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/pending-scenario.json'</span>));
+        <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-built_in">require</span>(<span class="hljs-string">'./samples/pending-scenario.json'</span>));
 
-        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Implement me'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Event Protocol'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'features/pending-scenario.feature'</span>),
+        <span class="hljs-keyword">const</span> expectedScenarioDetails = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Implement me'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Event Protocol'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'features/pending-scenario.feature'</span>),
                 <span class="hljs-number">3</span>,
                 <span class="hljs-number">3</span>,
             ),
         );
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(SceneStarts, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.details).to.equal(expectedScenarioDetails))
-                .next(TestRunnerDetected, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>)))
-                .next(SceneTagged, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> expect(e.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Event Protocol'</span>)))
-                .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
-                    expect(e.details).to.equal(expectedScenarioDetails);
-                    expect(e.outcome).to.be.instanceOf(ImplementationPending);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ImplementationPending).error).to.be.instanceOf(ImplementationPendingError);
-                    expect((e.outcome <span class="hljs-keyword">as</span> ImplementationPending).error.message).to.equal(<span class="hljs-string">`"Implement me" has no test steps`</span>);
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Event Protocol'</span>)))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expectedScenarioDetails);
+                    <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ImplementationPending</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPendingError</span>);
+                    <span class="hljs-title function_">expect</span>((e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ImplementationPending</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`"Implement me" has no test steps`</span>);
                 })
             ;
         });
     });
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">emitAllFrom</span>(<span class="hljs-params">events: JSONObject[]</span>): <span class="hljs-title">void</span> </span>{
-        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">emitAllFrom</span>(<span class="hljs-params">events: JSONObject[]</span>): <span class="hljs-built_in">void</span> {
+        events.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
             <span class="hljs-comment">// I can't use the convenient { type, ...body } construct because ESDoc/Babylon doesn't understand it; falling back to es5:</span>
-            <span class="hljs-keyword">const</span> emitted = <span class="hljs-built_in">Object</span>.assign({}, event);
-            <span class="hljs-keyword">delete</span> emitted.type;
-            eventBroadcaster.emit(event.type <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>, emitted);
+            <span class="hljs-keyword">const</span> emitted = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>({}, event);
+            <span class="hljs-keyword">delete</span> emitted.<span class="hljs-property">type</span>;
+            eventBroadcaster.<span class="hljs-title function_">emit</span>(event.<span class="hljs-property">type</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>, emitted);
         });
     }
 });

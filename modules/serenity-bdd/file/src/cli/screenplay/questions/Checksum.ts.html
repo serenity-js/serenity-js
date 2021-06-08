@@ -128,27 +128,27 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/Checksum.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> { createHash } <span class="hljs-keyword">from</span> <span class="hljs-string">'crypto'</span>;
 
-<span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UseFileSystem</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> Checksum = {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">Checksum</span> = {
     <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> ({   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-attr">calculatedUsing</span>: <span class="hljs-function">(<span class="hljs-params">hashingAlgorithm: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-            Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">`checksum of <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> hash = createHash(hashingAlgorithm);
+            <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">`checksum of <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> hash = <span class="hljs-title function_">createHash</span>(hashingAlgorithm);
 
-                <span class="hljs-keyword">const</span> input = UseFileSystem.as(actor).createReadStream(destination);
+                <span class="hljs-keyword">const</span> input = <span class="hljs-title class_">UseFileSystem</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">createReadStream</span>(destination);
 
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-                    input.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> hash.update(data));
-                    input.on(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> resolve(hash.digest(<span class="hljs-string">'hex'</span>)));
-                    input.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> reject(error));
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+                    input.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> hash.<span class="hljs-title function_">update</span>(data));
+                    input.<span class="hljs-title function_">on</span>(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(hash.<span class="hljs-title function_">digest</span>(<span class="hljs-string">'hex'</span>)));
+                    input.<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-title function_">reject</span>(error));
                 });
             }),
     }),

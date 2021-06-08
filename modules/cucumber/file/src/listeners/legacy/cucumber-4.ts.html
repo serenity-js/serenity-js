@@ -132,37 +132,37 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/cucumber-4.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { cucumberEventProtocolAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberEventProtocolAdapter'</span>;
-<span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Dependencies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
 
 <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types</span>
-<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">dependencies: Dependencies</span>) </span>{
-    <span class="hljs-keyword">const</span> { BeforeAll, After, AfterAll } = dependencies.cucumber;
+<span class="hljs-keyword">export</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">dependencies: Dependencies</span>) {
+    <span class="hljs-keyword">const</span> { <span class="hljs-title class_">BeforeAll</span>, <span class="hljs-title class_">After</span>, <span class="hljs-title class_">AfterAll</span> } = dependencies.<span class="hljs-property">cucumber</span>;
 
-    BeforeAll(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        dependencies.notifier.testRunStarts();
+    <span class="hljs-title class_">BeforeAll</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+        dependencies.<span class="hljs-property">notifier</span>.<span class="hljs-title function_">testRunStarts</span>();
     });
 
-    After(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) </span>{
-        dependencies.notifier.currentScenarioFinishes(
-            dependencies.resultMapper.outcomeFor(
-                event.result.status,
-                event.result.exception,
+    <span class="hljs-title class_">After</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) {
+        dependencies.<span class="hljs-property">notifier</span>.<span class="hljs-title function_">currentScenarioFinishes</span>(
+            dependencies.<span class="hljs-property">resultMapper</span>.<span class="hljs-title function_">outcomeFor</span>(
+                event.<span class="hljs-property">result</span>.<span class="hljs-property">status</span>,
+                event.<span class="hljs-property">result</span>.<span class="hljs-property">exception</span>,
             )
         );
 
-        <span class="hljs-keyword">return</span> dependencies.serenity.waitForNextCue();
+        <span class="hljs-keyword">return</span> dependencies.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">waitForNextCue</span>();
     });
 
-    AfterAll(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        dependencies.notifier.testRunFinishes();
+    <span class="hljs-title class_">AfterAll</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+        dependencies.<span class="hljs-property">notifier</span>.<span class="hljs-title function_">testRunFinishes</span>();
 
-        <span class="hljs-keyword">return</span> dependencies.serenity.waitForNextCue()
-            .then(<span class="hljs-function">() =&gt;</span> {
-                dependencies.notifier.testRunFinished();
+        <span class="hljs-keyword">return</span> dependencies.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">waitForNextCue</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                dependencies.<span class="hljs-property">notifier</span>.<span class="hljs-title function_">testRunFinished</span>();
             });
     });
 
-    <span class="hljs-keyword">return</span> cucumberEventProtocolAdapter(dependencies);
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">cucumberEventProtocolAdapter</span>(dependencies);
 };
 </code></pre>
 

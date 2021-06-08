@@ -187,15 +187,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/builders.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Locator</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TargetBuilder&lt;T&gt; {
-    located(byLocator: Locator): T;
+    <span class="hljs-title function_">located</span>(<span class="hljs-attr">byLocator</span>: <span class="hljs-title class_">Locator</span>): T;
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> NestedTargetBuilder&lt;T&gt; {
-    <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder): TargetBuilder&lt;T&gt;;
+    <span class="hljs-title function_">of</span>(<span class="hljs-attr">parent</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>): <span class="hljs-title class_">TargetBuilder</span>&lt;T&gt;;
 }
 </code></pre>
 

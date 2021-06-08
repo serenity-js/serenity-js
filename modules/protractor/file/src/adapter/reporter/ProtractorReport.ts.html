@@ -187,14 +187,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProtractorReport.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { SpecResult } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor/built/plugins'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">SpecResult</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor/built/plugins'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  A JSON object which needs to be returned to Protractor when {<span class="hljs-doctag">@link </span>ProtractorFrameworkAdapter}
+ *  A JSON object which needs to be returned to Protractor when {<span class="hljs-doctag">@link</span> ProtractorFrameworkAdapter}
  *  is done with executing the test scenarios.
  *
- * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
+ * <span class="hljs-doctag">@see</span> https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
  *
  * <span class="hljs-doctag">@private</span>
  */</span>
@@ -210,7 +210,7 @@
      * Note: duration is not part of the SpecResult, but is being used by the Jasmine reporter
      * https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L32
      */</span>
-    specResults: <span class="hljs-built_in">Array</span>&lt;SpecResult &amp; { <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span> }&gt;;
+    <span class="hljs-attr">specResults</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">SpecResult</span> &amp; { <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span> }&gt;;
 }
 </code></pre>
 

@@ -128,76 +128,76 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/MochaAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
-<span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ExecutionIgnored, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExecutionIgnored</span>, <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 
-<span class="hljs-keyword">import</span> { MochaConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MochaConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Allows for programmatic execution of Mocha test scenarios,
- *  using {<span class="hljs-doctag">@link </span>SerenityReporterForMocha} to report progress.
+ *  using {<span class="hljs-doctag">@link</span> SerenityReporterForMocha} to report progress.
  *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MochaAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MochaAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">TestRunnerAdapter</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  test
-     * <span class="hljs-doctag">@param <span class="hljs-type">{MochaConfig}</span> <span class="hljs-variable">config</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~ModuleLoader}</span> <span class="hljs-variable">loader</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">MochaConfig</span>} <span class="hljs-variable">config</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~ModuleLoader</span>} <span class="hljs-variable">loader</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: MochaConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
-    </span>)</span> {
+    </span>) {
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Scenario success threshold for this test runner.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Outcome | { Code: number </span>}}
      */</span>
-    successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
-        <span class="hljs-keyword">return</span> ExecutionIgnored;
+    <span class="hljs-title function_">successThreshold</span>(): <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> } {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">ExecutionIgnored</span>;
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">pathsToScenarios</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">pathsToScenarios</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-            <span class="hljs-built_in">this</span>.requireAny(<span class="hljs-built_in">this</span>.config.require);
+    <span class="hljs-title function_">run</span>(<span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+            <span class="hljs-variable language_">this</span>.requireAny(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>.<span class="hljs-property">require</span>);
 
             <span class="hljs-keyword">const</span>
-                Mocha   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'mocha'</span>),
-                mocha   = <span class="hljs-keyword">new</span> Mocha({
-                    ...this.config,
-                    <span class="hljs-attr">reporter</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'../index'</span>),
+                <span class="hljs-title class_">Mocha</span>   = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'mocha'</span>),
+                mocha   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Mocha</span>({
+                    ...<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>,
+                    <span class="hljs-attr">reporter</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'../index'</span>),
                 });
 
-            mocha.files = pathsToScenarios;
+            mocha.<span class="hljs-property">files</span> = pathsToScenarios;
 
-            mocha.loadFilesAsync()
-                .then(<span class="hljs-function">() =&gt;</span>
-                    mocha.run(<span class="hljs-function"><span class="hljs-params">numberOfFailures</span> =&gt;</span> resolve())
+            mocha.<span class="hljs-title function_">loadFilesAsync</span>()
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span>
+                    mocha.<span class="hljs-title function_">run</span>(<span class="hljs-function"><span class="hljs-params">numberOfFailures</span> =&gt;</span> <span class="hljs-title function_">resolve</span>())
                 );
         });
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">requireAny</span>(<span class="hljs-params">filesOrModules: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]</span>)</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">requireAny</span>(<span class="hljs-params">filesOrModules: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]</span>) {
         <span class="hljs-keyword">const</span> requires = filesOrModules
-            ? [].concat(filesOrModules).filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item)
+            ? [].<span class="hljs-title function_">concat</span>(filesOrModules).<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item)
             : [];
 
-        requires.forEach(<span class="hljs-function"><span class="hljs-params">fileOrModule</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> required = fs.existsSync(fileOrModule) || fs.existsSync(<span class="hljs-string">`<span class="hljs-subst">${ fileOrModule }</span>.js`</span>)
-                ? path.resolve(fileOrModule)    <span class="hljs-comment">// local file</span>
+        requires.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">fileOrModule</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> required = fs.<span class="hljs-title function_">existsSync</span>(fileOrModule) || fs.<span class="hljs-title function_">existsSync</span>(<span class="hljs-string">`<span class="hljs-subst">${ fileOrModule }</span>.js`</span>)
+                ? path.<span class="hljs-title function_">resolve</span>(fileOrModule)    <span class="hljs-comment">// local file</span>
                 : fileOrModule;                 <span class="hljs-comment">// module</span>
 
             <span class="hljs-built_in">require</span>(required);

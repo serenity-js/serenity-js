@@ -132,7 +132,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ConsoleReporter} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter/lib/stage/crew/console-reporter'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">ConsoleReporter</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter/lib/stage/crew/console-reporter'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -173,35 +173,35 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter programmatically</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
 
- configure({
-     <span class="hljs-attr">crew</span>: [ ConsoleReporter.withDefaultColourSupport() ],
+ <span class="hljs-title function_">configure</span>({
+     <span class="hljs-attr">crew</span>: [ <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">withDefaultColourSupport</span>() ],
  });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Redirecting output to a file</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
  <span class="hljs-keyword">import</span> { createWriteStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
 
- configure({
-     <span class="hljs-attr">outputStream</span>: createWriteStream(<span class="hljs-string">'./output.log'</span>),
-     <span class="hljs-attr">crew</span>: [ ConsoleReporter.withDefaultColourSupport() ],
+ <span class="hljs-title function_">configure</span>({
+     <span class="hljs-attr">outputStream</span>: <span class="hljs-title function_">createWriteStream</span>(<span class="hljs-string">'./output.log'</span>),
+     <span class="hljs-attr">crew</span>: [ <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">withDefaultColourSupport</span>() ],
  });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering the reporter using Protractor configuration</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-comment">// protractor.conf.js</span>
- <span class="hljs-keyword">const</span> { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>);
+ <span class="hljs-keyword">const</span> { <span class="hljs-title class_">ConsoleReporter</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>);
 
- <span class="hljs-built_in">exports</span>.config = {
+ <span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
    <span class="hljs-attr">framework</span>:     <span class="hljs-string">'custom'</span>,
-   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
    <span class="hljs-attr">serenity</span>: {
      <span class="hljs-attr">crew</span>: [
-       ConsoleReporter.withDefaultColourSupport(),
+       <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">withDefaultColourSupport</span>(),
      ],
      <span class="hljs-comment">// other Serenity/JS config</span>
    },

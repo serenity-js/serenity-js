@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {DressingRoom} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">DressingRoom</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">interface</span>
   
@@ -331,17 +331,17 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">A dressing room for actors interacting with a Web UI</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
- <span class="hljs-keyword">import</span> { serenity, Actor, DressingRoom } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
- <span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
+ <span class="hljs-keyword">import</span> { serenity, <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">DressingRoom</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UIActors</span> <span class="hljs-title">implements</span> <span class="hljs-title">DressingRoom</span> </span>{
-     <span class="hljs-function"><span class="hljs-title">prepare</span>(<span class="hljs-params">actor: Actor</span>)</span> {
-         <span class="hljs-keyword">return</span> actor.whoCan(BrowseTheWeb.using(protractor.browser));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">UIActors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">DressingRoom</span> {
+     <span class="hljs-title function_">prepare</span>(<span class="hljs-params">actor: Actor</span>) {
+         <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>));
      }
  }
 
- <span class="hljs-keyword">const</span> stage = serenity.callToStageFor(<span class="hljs-keyword">new</span> UIActors());</code></pre>
+ <span class="hljs-keyword">const</span> stage = serenity.<span class="hljs-title function_">callToStageFor</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>());</code></pre>
     </div>
 </div>
 

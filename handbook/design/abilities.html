@@ -161,50 +161,50 @@ An "ability" is a thin wrapper around a lower-level, interface-specific client s
 
 <h2 id="implementing-abilities">Implementing Abilities</h2>
 <p>Consider the <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> ability from the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrowseTheWeb</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrowseTheWeb</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
 
-    <span class="hljs-keyword">static</span> using(browser: ProtractorBrowser): BrowseTheWeb {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowseTheWeb(browser);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">using</span>(<span class="hljs-attr">browser</span>: <span class="hljs-title class_">ProtractorBrowser</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowseTheWeb</span>(browser);
     }
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities): BrowseTheWeb {
-        <span class="hljs-keyword">return</span> actor.abilityTo(BrowseTheWeb);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">BrowseTheWeb</span>);
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> browser: ProtractorBrowser</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> browser: ProtractorBrowser</span>) {
     }
 
-    locate(locator: Locator): ElementFinder {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.browser.element(locator);
+    <span class="hljs-title function_">locate</span>(<span class="hljs-attr">locator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-title class_">ElementFinder</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">element</span>(locator);
     }
 
     <span class="hljs-comment">// rest omitted for brevity</span>
 }
 </code></pre>
 <p>In order to enable the actor to <code>BrowseTheWeb</code>, we'd give it an instance of said ability, linked with the lower-level client - in this case <code>protractor.browser</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Abby'</span>).whoCan(BrowseTheWeb.using(protractor.browser));
+<span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Abby'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>));
 </code></pre>
 <p>So how would our actor make use of their newly acquired ability? That's what <a href="(/handbook/design/interactions.html">interactions</a> are for!</p>
 <p>Let's take the below, <em>much simplified</em>, version of the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> interaction, where <code>BrowseTheWeb</code> is used to locate the element of interest and perform the <code>.click()</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Locator</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">const</span> Click = {
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Click</span> = {
     <span class="hljs-attr">onElement</span>: <span class="hljs-function">(<span class="hljs-params">locator: Locator</span>) =&gt;</span>
-        Interaction.where(<span class="hljs-string">`#actor clicks on the <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> BrowseTheWeb.as(actor).locate(<span class="hljs-built_in">this</span>.locator).click();
+        <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor clicks on the <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">locate</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">locator</span>).<span class="hljs-title function_">click</span>();
         }),
 }
 </code></pre>
 <p>With the interaction in place, we can tell the actor to perform the click as part of their <a href="/handbook/design/actors.html">interaction flow</a>,
 and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
-<pre><code class="lang-typescript hljs typescript">actor.attemptsTo(
-    Click.onElement(by.css(<span class="hljs-string">'button'</span>)),
+<pre><code class="lang-typescript hljs typescript">actor.<span class="hljs-title function_">attemptsTo</span>(
+    <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">onElement</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'button'</span>)),
 )
 </code></pre>
 <p>If you're wondering why you'd want to create a wrapper around the lower-level client you could just call directly from an <a href="(/handbook/design/interactions.html">interaction</a>, think about all the opportunities having a dedicated ability class presents:</p>

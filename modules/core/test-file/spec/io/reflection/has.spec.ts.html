@@ -302,31 +302,31 @@
 <span class="hljs-keyword">import</span> { has } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{has}</span> </span>*/</span>
-describe(<span class="hljs-string">'has'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">has</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'has'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> looksLikeADuck = has({
+    <span class="hljs-keyword">const</span> looksLikeADuck = <span class="hljs-title function_">has</span>({
         <span class="hljs-attr">name</span>:   <span class="hljs-string">'string'</span>,
         <span class="hljs-attr">quack</span>:  <span class="hljs-string">'function'</span>,
     });
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Duck</span> </span>{
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name</span>)</span> {
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Duck</span> {
+        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name</span>) {
         }
-        <span class="hljs-function"><span class="hljs-title">quack</span>(<span class="hljs-params"></span>)</span> {
+        <span class="hljs-title function_">quack</span>(<span class="hljs-params"></span>) {
             <span class="hljs-keyword">return</span> <span class="hljs-string">'quack'</span>;
         }
     }
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'plain object'</span>,  <span class="hljs-attr">example</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Daisy'</span>, <span class="hljs-attr">quack</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'quack'</span> }    },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'instance'</span>,      <span class="hljs-attr">example</span>: <span class="hljs-keyword">new</span> Duck(<span class="hljs-string">'Daisy'</span>)                          },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'instance'</span>,      <span class="hljs-attr">example</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Duck</span>(<span class="hljs-string">'Daisy'</span>)                          },
     ]).
-    it(<span class="hljs-string">'returns true when the candidate has the expected fields and methods'</span>, <span class="hljs-function">(<span class="hljs-params">{ example }</span>) =&gt;</span> {
-        expect(looksLikeADuck(example)).to.equal(<span class="hljs-literal">true</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns true when the candidate has the expected fields and methods'</span>, <span class="hljs-function">(<span class="hljs-params">{ example }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">looksLikeADuck</span>(example)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,              <span class="hljs-attr">example</span>: <span class="hljs-literal">null</span>                                   },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'undefined'</span>,         <span class="hljs-attr">example</span>: <span class="hljs-literal">undefined</span>                              },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty object'</span>,      <span class="hljs-attr">example</span>: { }                                    },
@@ -334,8 +334,8 @@ describe(<span class="hljs-string">'has'</span>, <span class="hljs-function">() 
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'missing field'</span>,     <span class="hljs-attr">example</span>: { <span class="hljs-attr">quack</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'quack'</span> }               },
         { <span class="hljs-attr">description</span>: <span class="hljs-string">'wrong type'</span>,        <span class="hljs-attr">example</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Donald'</span>, <span class="hljs-attr">quack</span>: <span class="hljs-string">'quack'</span>   }   },
     ]).
-    it(<span class="hljs-string">'returns false when the candidate does not meet the expectations'</span>, <span class="hljs-function">(<span class="hljs-params">{ example }</span>) =&gt;</span> {
-        expect(looksLikeADuck(example)).to.equal(<span class="hljs-literal">false</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns false when the candidate does not meet the expectations'</span>, <span class="hljs-function">(<span class="hljs-params">{ example }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">looksLikeADuck</span>(example)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
     });
 });
 </code></pre>

@@ -1855,163 +1855,163 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber15",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber16",
     "Cookie",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber59",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber60",
     "Cookie over HTTP",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber162",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber163",
     "Cookie over HTTP when working with an expiry date",
     "test"
   ],
   [
     "cookie#expirydateof cookie#expirydateof,cookie#expirydateof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber185",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber186",
     "Cookie over HTTP when working with an expiry date allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber198",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber199",
     "Cookie over HTTP when working with an expiry date provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#expirydateof cookie#expirydateof,cookie#expirydateof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber192",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber193",
     "Cookie over HTTP when working with an expiry date returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber137",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber138",
     "Cookie over HTTP when working with http-only cookies",
     "test"
   ],
   [
     "cookie#ishttponly cookie#ishttponly,cookie#ishttponly",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber141",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber142",
     "Cookie over HTTP when working with http-only cookies allows the actor to confirm that a cookie is http-only",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber157",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber158",
     "Cookie over HTTP when working with http-only cookies provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#ishttponly cookie#ishttponly,cookie#ishttponly",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber151",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber152",
     "Cookie over HTTP when working with http-only cookies returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber115",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber116",
     "Cookie over HTTP when working with the domain",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber119",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber120",
     "Cookie over HTTP when working with the domain allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber132",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber133",
     "Cookie over HTTP when working with the domain provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#domainof cookie#domainof,cookie#domainof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber126",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber127",
     "Cookie over HTTP when working with the domain returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber93",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber94",
     "Cookie over HTTP when working with the path",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber97",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber98",
     "Cookie over HTTP when working with the path allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber110",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber111",
     "Cookie over HTTP when working with the path provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#pathof cookie#pathof,cookie#pathof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber104",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber105",
     "Cookie over HTTP when working with the path returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber72",
     "Cookie over HTTP when working with the value",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber75",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber76",
     "Cookie over HTTP when working with the value allows the actor to retrieve it",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber88",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber89",
     "Cookie over HTTP when working with the value provides a sensible description of the question being asked",
     "test"
   ],
   [
     "cookie#valueof cookie#valueof,cookie#valueof",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber82",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber83",
     "Cookie over HTTP when working with the value returns an undefined when it can't retrieve it",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber205",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber206",
     "Cookie when working with secure cookies",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber237",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber238",
     "Cookie when working with secure cookies ",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber223",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber224",
     "Cookie when working with secure cookies allows the actor to confirm that a cookie is not secure",
     "test"
   ],
   [
     "cookie#issecure cookie#issecure,cookie#issecure",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber230",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber231",
     "Cookie when working with secure cookies allows the actor to confirm that a cookie is secure",
     "test"
   ],
   [
     "cookie src/screenplay/questions/cookie.ts~cookie,cookie",
-    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber243",
+    "test-file/spec/screenplay/questions/Cookie.spec.ts.html#lineNumber244",
     "Cookie when working with secure cookies provides a sensible description of the question being asked",
     "test"
   ],
@@ -2233,49 +2233,49 @@ window.esdocSearchIndex = [
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber13",
     "LastScriptExecution",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber116",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber117",
     "LastScriptExecution complains if the script hasn't been executed yet",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber80",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber81",
     "LastScriptExecution when used with ExecuteScript.async",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber85",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber86",
     "LastScriptExecution when used with ExecuteScript.async allows the actor to retrieve the result of the script execution",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber102",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber103",
     "LastScriptExecution when used with ExecuteScript.async returns null if the script did not return any result",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber48",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber49",
     "LastScriptExecution when used with ExecuteScript.sync",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber53",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber54",
     "LastScriptExecution when used with ExecuteScript.sync allows the actor to retrieve the result of the script execution",
     "test"
   ],
   [
     "lastscriptexecution src/screenplay/questions/lastscriptexecution.ts~lastscriptexecution,lastscriptexecution",
-    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber69",
+    "test-file/spec/screenplay/questions/LastScriptExecution.spec.ts.html#lineNumber70",
     "LastScriptExecution when used with ExecuteScript.sync returns null if the script did not return any result",
     "test"
   ],
@@ -2293,109 +2293,109 @@ window.esdocSearchIndex = [
   ],
   [
     "modaldialog src/screenplay/questions/modaldialog.ts~modaldialog,modaldialog",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber15",
     "ModalDialog,",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber200",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber201",
     "ModalDialog, when interacting with the Photographer,",
     "test"
   ],
   [
     "photographer src/stage/crew/photographer/photographer.ts~photographer,photographer",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber217",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber218",
     "ModalDialog, when interacting with the Photographer, is does not negatively impact the screenshot capture process",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber172",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber173",
     "ModalDialog, when waiting",
     "test"
   ],
   [
     "wait.until src/screenplay/interactions/wait.ts~wait.until,wait.until",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber189",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber190",
     "ModalDialog, when waiting allows the actor to wait until a modal dialog is present",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber23",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber24",
     "ModalDialog, when working with alert(),",
     "test"
   ],
   [
     "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber41",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber42",
     "ModalDialog, when working with alert(), allows the actor to accept an alert",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber52",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber53",
     "ModalDialog, when working with alert(), allows the actor to dismiss an alert",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber63",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber64",
     "ModalDialog, when working with alert(), allows the actor to read the message on an alert",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber71",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber72",
     "ModalDialog, when working with confirm(),",
     "test"
   ],
   [
     "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber89",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber90",
     "ModalDialog, when working with confirm(), allows the actor to accept a confirmation dialog",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber100",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber101",
     "ModalDialog, when working with confirm(), allows the actor to dismiss a confirmation dialog",
     "test"
   ],
   [
     "modaldialog.message src/screenplay/questions/modaldialog.ts~modaldialog.message,modaldialog.message",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber110",
     "ModalDialog, when working with confirm(), allows the actor to read the message on a confirmation dialog",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber117",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber118",
     "ModalDialog, when working with prompt(),",
     "test"
   ],
   [
     "accept.the src/screenplay/interactions/accept.ts~accept.the,accept.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber133",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber134",
     "ModalDialog, when working with prompt(), allows the actor to accept a prompt",
     "test"
   ],
   [
     "dismiss.the src/screenplay/interactions/dismiss.ts~dismiss.the,dismiss.the",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber144",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber145",
     "ModalDialog, when working with prompt(), allows the actor to dismiss a prompt",
     "test"
   ],
   [
     "enter.thevalue src/screenplay/interactions/enter.ts~enter.thevalue,enter.thevalue",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber163",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber164",
     "ModalDialog, when working with prompt(), allows the actor to enter value into a prompt",
     "test"
   ],
   [
     "modaldialog.message src/screenplay/questions/modaldialog.ts~modaldialog.message,modaldialog.message",
-    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber153",
+    "test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber154",
     "ModalDialog, when working with prompt(), allows the actor to read the message on a prompt",
     "test"
   ],
@@ -2497,7 +2497,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber26",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber27",
     "Photographer",
     "test"
   ],
@@ -2521,13 +2521,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber46",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber47",
     "Photographer ",
     "test"
   ],
   [
     "",
-    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber40",
+    "test-file/spec/stage/crew/photographer/Photographer.spec.ts.html#lineNumber41",
     "Photographer complains when sent DomainEvents before getting assigned to a Stage",
     "test"
   ],
@@ -2653,277 +2653,277 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber14",
     "Pick",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber235",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber236",
     "Pick (when a filter is applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber239",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber240",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber242",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber243",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber249",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber250",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber256",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber257",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber263",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber264",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber270",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber271",
     "Pick (when a filter is applied) lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber277",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber278",
     "Pick (when a filter is applied) provides a sensible description when it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber285",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber286",
     "Pick (when a filter is applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber290",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber291",
     "Pick (when a filter is applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber295",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber296",
     "Pick (when a filter is applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber280",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber281",
     "Pick (when a filter is applied) provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber402",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber403",
     "Pick (when interacting with elements on screen)",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber425",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber426",
     "Pick (when interacting with elements on screen) makes it easy for an actor to pick all elements of interest",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber416",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber417",
     "Pick (when interacting with elements on screen) makes it easy for an actor to pick the element of interest",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber318",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber319",
     "Pick (when multiple filters are applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber322",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber323",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber325",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber326",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber332",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber333",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber339",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber340",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber346",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber347",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber353",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber354",
     "Pick (when multiple filters are applied) lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber360",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber361",
     "Pick (when multiple filters are applied) provides a sensible description when it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber368",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber369",
     "Pick (when multiple filters are applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber373",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber374",
     "Pick (when multiple filters are applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber378",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber379",
     "Pick (when multiple filters are applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber363",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber364",
     "Pick (when multiple filters are applied) provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber116",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber117",
     "Pick (when no filters are applied)",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber118",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber119",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber123",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber124",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber130",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber131",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber137",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber138",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber144",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber145",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber151",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber152",
     "Pick (when no filters are applied) lets the actor interact with the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber203",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber204",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber213",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber214",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber218",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber219",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber223",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber224",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber228",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber229",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it picks the nth item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber208",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber209",
     "Pick (when no filters are applied) provides a custom description when the name of its subject is overridden and it returns the number of items",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber159",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber160",
     "Pick (when no filters are applied) provides a sensible description when it",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber169",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber170",
     "Pick (when no filters are applied) provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber174",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber175",
     "Pick (when no filters are applied) provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber179",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber180",
     "Pick (when no filters are applied) provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "pick src/screenplay/questions/pick.ts~pick,pick",
-    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber164",
+    "test-file/spec/screenplay/questions/Pick.spec.ts.html#lineNumber165",
     "Pick (when no filters are applied) provides a sensible description when it returns the number of items",
     "test"
   ],
@@ -3133,61 +3133,61 @@ window.esdocSearchIndex = [
   ],
   [
     "resizebrowserwindow src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow,resizebrowserwindow",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber10",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber11",
     "ResizeBrowserWindow",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber14",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber15",
     "ResizeBrowserWindow ",
     "test"
   ],
   [
     "resizebrowserwindow.to src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.to,resizebrowserwindow.to",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber17",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber18",
     "ResizeBrowserWindow  allows the actor to change width and height of the browser window",
     "test"
   ],
   [
     "resizebrowserwindow#tostring resizebrowserwindow#tostring,resizebrowserwindow#tostring",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber27",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber28",
     "ResizeBrowserWindow  produces a sensible description of the interaction being performed",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber32",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber33",
     "ResizeBrowserWindow toMaximum()",
     "test"
   ],
   [
     "resizebrowserwindow.tomaximum src/screenplay/interactions/resizebrowserwindow.ts~resizebrowserwindow.tomaximum,resizebrowserwindow.tomaximum",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber35",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber36",
     "ResizeBrowserWindow toMaximum() allows the actor to resize browser window to maximum",
     "test"
   ],
   [
     "resizebrowserwindow#tostring resizebrowserwindow#tostring,resizebrowserwindow#tostring",
-    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber46",
+    "test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber47",
     "ResizeBrowserWindow toMaximum() produces a sensible description of the interaction being performed",
     "test"
   ],
   [
     "rightclick src/screenplay/interactions/rightclick.ts~rightclick,rightclick",
-    "test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber13",
     "RightClick",
     "test"
   ],
   [
     "rightclick.on src/screenplay/interactions/rightclick.ts~rightclick.on,rightclick.on",
-    "test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber22",
+    "test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber23",
     "RightClick allows the actor to click on an element",
     "test"
   ],
   [
     "rightclick#tostring src/screenplay/interactions/rightclick.ts~rightclick#tostring,rightclick#tostring",
-    "test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber45",
+    "test-file/spec/screenplay/interactions/RightClick.spec.ts.html#lineNumber46",
     "RightClick provides a sensible description of the interaction being performed",
     "test"
   ],
@@ -3211,19 +3211,19 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber31",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber32",
     "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber124",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber125",
     "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context with custom threshold",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber70",
+    "test-file/spec/adapter/reporter/ProtractorReporter.spec.ts.html#lineNumber71",
     "See the <span>ProtractorFrameworkAdapter</span> specs to see how the <span>ProtractorReporter</span> is used in the context with default threshold",
     "test"
   ],
@@ -3691,607 +3691,607 @@ window.esdocSearchIndex = [
   ],
   [
     "target src/screenplay/questions/targets/target.ts~target,target",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber13",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber14",
     "Target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber128",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber129",
     "Target allows the actor to locate",
     "test"
   ],
   [
     "target target.the targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber135",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber136",
     "Target allows the actor to locate a single web element matching the selector",
     "test"
   ],
   [
     "target target.all targetnestedelements targetnestedelements#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#of,targetnestedelements#of",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber173",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber174",
     "Target allows the actor to locate all elements relative to another target",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber147",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber148",
     "Target allows the actor to locate all web elements matching the selector",
     "test"
   ],
   [
     "target target.the targetnestedelement targetnestedelement#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement#of,targetnestedelement#of",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber160",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber161",
     "Target allows the actor to locate an element relative to another target",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber181",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber182",
     "Target provides a sensible description of",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber183",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber184",
     "Target provides a sensible description of an element that",
     "test"
   ],
   [
     "target target.the targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber200",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber201",
     "Target provides a sensible description of an element that has been located",
     "test"
   ],
   [
     "target target.the targetelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement,targetelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber190",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber191",
     "Target provides a sensible description of an element that is being targeted",
     "test"
   ],
   [
     "target target.the targetnestedelement targetnestedelement#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement#of,targetnestedelement#of",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber211",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber212",
     "Target provides a sensible description of an element that is nested",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber216",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber217",
     "Target provides a sensible description of elements that",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber223",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber224",
     "Target provides a sensible description of elements that are being targeted",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber243",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber244",
     "Target provides a sensible description of elements that are nested",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber233",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber234",
     "Target provides a sensible description of elements that have been located",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber483",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber484",
     "Target when filtering a list of targets",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber714",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber715",
     "Target when filtering a list of targets and a filter is applied",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber718",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber719",
     "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber725",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber726",
     "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber737",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber738",
     "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber749",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber750",
     "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber761",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber762",
     "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber773",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber774",
     "Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber781",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber782",
     "Target when filtering a list of targets and a filter is applied provides a sensible description when it",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber795",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber796",
     "Target when filtering a list of targets and a filter is applied provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber803",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber804",
     "Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber811",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber812",
     "Target when filtering a list of targets and a filter is applied provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber787",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber788",
     "Target when filtering a list of targets and a filter is applied provides a sensible description when it returns the number of items",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber948",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber949",
     "Target when filtering a list of targets and interacting with elements on screen",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber980",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber981",
     "Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick all elements of interest",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber967",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber968",
     "Target when filtering a list of targets and interacting with elements on screen makes it easy for an actor to pick the element of interest",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber833",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber834",
     "Target when filtering a list of targets and multiple filters are applied",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber837",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber838",
     "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber843",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber844",
     "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber854",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber855",
     "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber865",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber866",
     "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber876",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber877",
     "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber887",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber888",
     "Target when filtering a list of targets and multiple filters are applied lets the actor filter the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber895",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber896",
     "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber909",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber910",
     "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber917",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber918",
     "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber925",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber926",
     "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "target target.all src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber901",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber902",
     "Target when filtering a list of targets and multiple filters are applied provides a sensible description when it returns the number of answers",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber586",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber587",
     "Target when filtering a list of targets and no filters are applied",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber588",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber589",
     "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it",
     "test"
   ],
   [
     "target target.all targetelements#count src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#count,targetelements#count",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber595",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber596",
     "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items",
     "test"
   ],
   [
     "target target.all targetelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber607",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber608",
     "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items",
     "test"
   ],
   [
     "target target.all targetelements targetelements#first src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements src/screenplay/questions/targets/targetelements.ts~targetelements#first,targetelements#first",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber621",
     "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item",
     "test"
   ],
   [
     "target target.all targetelements targetelements#last src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements src/screenplay/questions/targets/targetelements.ts~targetelements#last,targetelements#last",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber633",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber634",
     "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item",
     "test"
   ],
   [
     "target target.all targetelements targetelements#get src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements,targetelements src/screenplay/questions/targets/targetelements.ts~targetelements#get,targetelements#get",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber646",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber647",
     "Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber654",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber655",
     "Target when filtering a list of targets and no filters are applied provides a sensible description when it",
     "test"
   ],
   [
     "target target.all targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all targetelements#tostring,targetelements#tostring",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber671",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber672",
     "Target when filtering a list of targets and no filters are applied provides a sensible description when it picks all the items",
     "test"
   ],
   [
     "target target.all targetelements#first targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#first,targetelements#first targetelements#tostring,targetelements#tostring",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber681",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber682",
     "Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item",
     "test"
   ],
   [
     "target target.all targetelements#last targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#last,targetelements#last targetelements#tostring,targetelements#tostring",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber691",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber692",
     "Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item",
     "test"
   ],
   [
     "target target.all targetelements#count targetelements#tostring src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#count,targetelements#count targetelements#tostring,targetelements#tostring",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber662",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber663",
     "Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber249",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber250",
     "Target when nesting targets",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements targetnestedelements#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements#of,targetnestedelements#of",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber385",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber386",
     "Target when nesting targets allows for Target<ElementArrayFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
     "target target.the targetelement#of targetnestedelement src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement#of,targetelement#of src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber356",
     "Target when nesting targets allows for Target<ElementFinder> to be nested within another Target<ElementFinder>",
     "test"
   ],
   [
     "target target.the targetelement#of targetnestedelement targetnestedelement#of src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.the,target.the src/screenplay/questions/targets/targetelement.ts~targetelement#of,targetelement#of src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement,targetnestedelement src/screenplay/questions/targets/targetnestedelement.ts~targetnestedelement#of,targetnestedelement#of",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber370",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber371",
     "Target when nesting targets allows for Target<ElementFinder> to form a chain with other Target<ElementFinder>s",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber393",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber394",
     "Target when nesting targets and filtering them",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber423",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber424",
     "Target when nesting targets and filtering them allows for nested Target<ElementArrayFinder> to be counted",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber403",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber404",
     "Target when nesting targets and filtering them allows for nested Target<ElementArrayFinder> to be filtered",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber439",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber440",
     "Target when nesting targets and filtering them allows for the first of nested Target<ElementArrayFinder> to be retrieved",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber455",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber456",
     "Target when nesting targets and filtering them allows for the last of nested Target<ElementArrayFinder> to be retrieved",
     "test"
   ],
   [
     "target target.all targetelements#of targetnestedelements src/screenplay/questions/targets/target.ts~target,target src/screenplay/questions/targets/target.ts~target.all,target.all src/screenplay/questions/targets/targetelements.ts~targetelements#of,targetelements#of src/screenplay/questions/targets/targetnestedelements.ts~targetnestedelements,targetnestedelements",
-    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber471",
+    "test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber472",
     "Target when nesting targets and filtering them allows for the nth of nested Target<ElementArrayFinder> to be retrieved",
     "test"
   ],
   [
     "testrunnerdetector src/adapter/runner/testrunnerdetector.ts~testrunnerdetector,testrunnerdetector",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber10",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber11",
     "TestRunnerDetector",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber20",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber21",
     "TestRunnerDetector when using TestRunnerAdapter for",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber22",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber23",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber28",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber29",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber ",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber76",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber77",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber133",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber134",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader make the formatter output files unique when the config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber135",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber136",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader make the formatter output files unique when the config specifies multiCapabilities",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber151",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber152",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader make the formatter output files unique when the config specifies shardTestFiles",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber106",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber107",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to redirect output to a temp file when the config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber108",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber109",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to redirect output to a temp file when the config does not specify serenity.crew and there are is no cucumberOpts.format specified either",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber118",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber119",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to redirect output to a temp file when the config does not specify serenity.crew, but there is a cucumberOpts.format specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber78",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber79",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to take over standard output when the config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber91",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber92",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to take over standard output when the config defines serenity.crew and there is a cucumberOpts.format specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber80",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber81",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber instructs TestRunnerLoader to take over standard output when the config defines serenity.crew and there is no cucumberOpts.format specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber59",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber60",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber merges cucumberOpts present in capabilities with root config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber51",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber52",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber uses Cucumber test runner when cucumberOpts are present in config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber38",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber39",
     "TestRunnerDetector when using TestRunnerAdapter for Cucumber uses the configured runner even when configuration for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber169",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber170",
     "TestRunnerDetector when using TestRunnerAdapter for Jasmine",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber177",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber178",
     "TestRunnerDetector when using TestRunnerAdapter for Jasmine ",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber208",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber209",
     "TestRunnerDetector when using TestRunnerAdapter for Jasmine merges jasmineNodeOpts present in capabilities with root config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber171",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber172",
     "TestRunnerDetector when using TestRunnerAdapter for Jasmine uses Jasmine TestRunnerAdapter when no other runners are specified",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber200",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber201",
     "TestRunnerDetector when using TestRunnerAdapter for Jasmine uses Jasmine test runner when jasmineNodeOpts are present in config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber187",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber188",
     "TestRunnerDetector when using TestRunnerAdapter for Jasmine uses the configured runner even when configuration for other runners is present as well",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber225",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber226",
     "TestRunnerDetector when using TestRunnerAdapter for Mocha",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber227",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber228",
     "TestRunnerDetector when using TestRunnerAdapter for Mocha ",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber258",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber259",
     "TestRunnerDetector when using TestRunnerAdapter for Mocha merges mochaOpts present in capabilities with root config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber250",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber251",
     "TestRunnerDetector when using TestRunnerAdapter for Mocha uses Mocha test runner when jasmineNodeOpts are present in config",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber237",
+    "test-file/spec/adapter/runner/TestRunnerDetector.spec.ts.html#lineNumber238",
     "TestRunnerDetector when using TestRunnerAdapter for Mocha uses the configured runner even when configuration for other runners is present as well",
     "test"
   ],
   [
     "testrunnerloader src/adapter/runner/testrunnerloader.ts~testrunnerloader,testrunnerloader",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber10",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber12",
     "TestRunnerLoader",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber20",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber22",
     "TestRunnerLoader when loading a TestRunnerAdapter for",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber68",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber70",
     "TestRunnerLoader when loading a TestRunnerAdapter for Cucumber",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber93",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber95",
     "TestRunnerLoader when loading a TestRunnerAdapter for Cucumber resolves glob patterns in `require` to absolute paths",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber22",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber24",
     "TestRunnerLoader when loading a TestRunnerAdapter for Jasmine",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber24",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber26",
     "TestRunnerLoader when loading a TestRunnerAdapter for Jasmine passes the configuration to the adapter",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber46",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber48",
     "TestRunnerLoader when loading a TestRunnerAdapter for Mocha",
     "test"
   ],
   [
     "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber48",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber50",
     "TestRunnerLoader when loading a TestRunnerAdapter for Mocha passes the configuration to the adapter",
     "test"
   ],

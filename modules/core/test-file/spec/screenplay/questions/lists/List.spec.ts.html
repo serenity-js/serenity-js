@@ -299,28 +299,28 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled, Answerable, AnswersQuestions, Expectation, List, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">List</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../expect'</span>;
 <span class="hljs-keyword">import</span> { isIdenticalTo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../isIdenticalTo'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{List}</span> </span>*/</span>
-describe(<span class="hljs-string">'List'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">List</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'List'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Lisa = actorCalled(<span class="hljs-string">'Lisa'</span>);
+    <span class="hljs-keyword">const</span> <span class="hljs-title class_">Lisa</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>);
 
     <span class="hljs-keyword">const</span> q = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        Question.about&lt;T&gt;(<span class="hljs-string">'some string collection'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
+        <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;T&gt;(<span class="hljs-string">'some string collection'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
 
     <span class="hljs-keyword">const</span> p = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        <span class="hljs-built_in">Promise</span>.resolve(value);
+        <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value);
 
-    <span class="hljs-keyword">const</span> isGreaterThan = <span class="hljs-function">(<span class="hljs-params">expected: <span class="hljs-built_in">number</span></span>) =&gt;</span>
-        Expectation.thatActualShould(<span class="hljs-string">'have value greater than'</span>, expected)
-            .soThat(<span class="hljs-function">(<span class="hljs-params">actualValue: <span class="hljs-built_in">number</span>, expectedValue: <span class="hljs-built_in">number</span></span>) =&gt;</span> actualValue &gt; expectedValue);
+    <span class="hljs-keyword">const</span> <span class="hljs-title function_">isGreaterThan</span> = (<span class="hljs-params">expected: <span class="hljs-built_in">number</span></span>) =&gt;
+        <span class="hljs-title class_">Expectation</span>.<span class="hljs-title function_">thatActualShould</span>(<span class="hljs-string">'have value greater than'</span>, expected)
+            .<span class="hljs-title function_">soThat</span>(<span class="hljs-function">(<span class="hljs-params">actualValue: <span class="hljs-built_in">number</span>, expectedValue: <span class="hljs-built_in">number</span></span>) =&gt;</span> actualValue &gt; expectedValue);
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{List#of}</span> </span>*/</span>
-    describe(<span class="hljs-string">'when wrapping an Array'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">List#of</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when wrapping an Array'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span> collection = [ <span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span>, <span class="hljs-string">'third'</span> ];
 
@@ -330,82 +330,82 @@ describe(<span class="hljs-string">'List'</span>, <span class="hljs-function">()
             <span class="hljs-attr">collectionDescription</span>:  <span class="hljs-string">`[ 'first', 'second', 'third' ]`</span>,
         }, {
             <span class="hljs-attr">description</span>:            <span class="hljs-string">'Question&lt;string[]&gt;'</span>,
-            <span class="hljs-attr">answerable</span>:             q(collection),
+            <span class="hljs-attr">answerable</span>:             <span class="hljs-title function_">q</span>(collection),
             <span class="hljs-attr">collectionDescription</span>:  <span class="hljs-string">`some string collection`</span>,
         }, {
             <span class="hljs-attr">description</span>:            <span class="hljs-string">'Promise&lt;string[]&gt;'</span>,
-            <span class="hljs-attr">answerable</span>:             p(collection),
+            <span class="hljs-attr">answerable</span>:             <span class="hljs-title function_">p</span>(collection),
             <span class="hljs-attr">collectionDescription</span>:  <span class="hljs-string">`a Promise`</span>,
         }, {
             <span class="hljs-attr">description</span>:            <span class="hljs-string">'Question&lt;Promise&lt;string[]&gt;&gt;'</span>,
-            <span class="hljs-attr">answerable</span>:             q(p(collection)),
+            <span class="hljs-attr">answerable</span>:             <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(collection)),
             <span class="hljs-attr">collectionDescription</span>:  <span class="hljs-string">`some string collection`</span>,
         }];
 
-        given(examples).
-        it(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
-            expect(List.of(answerable).count().answeredBy(Lisa))
-                .to.eventually.equal(<span class="hljs-number">3</span>)
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">count</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Lisa</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">3</span>)
         );
 
-        given(examples).
-        it(<span class="hljs-string">'returns the underlying collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
-            expect(List.of(answerable).answeredBy(Lisa))
-                .to.eventually.deep.equal(collection)
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the underlying collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Lisa</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(collection)
         );
 
-        given(examples).
-        it(<span class="hljs-string">'returns the first item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
-            expect(List.of(answerable).first().answeredBy(Lisa))
-                .to.eventually.deep.equal(collection[<span class="hljs-number">0</span>])
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the first item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">first</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Lisa</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(collection[<span class="hljs-number">0</span>])
         );
 
-        given(examples).
-        it(<span class="hljs-string">'returns the last item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
-            expect(List.of(answerable).last().answeredBy(Lisa))
-                .to.eventually.deep.equal(collection[collection.length - <span class="hljs-number">1</span>])
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the last item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">last</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Lisa</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(collection[collection.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>])
         );
 
-        given(examples).
-        it(<span class="hljs-string">'returns the nth item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
-            expect(List.of(answerable).get(<span class="hljs-number">1</span>).answeredBy(Lisa))
-                .to.eventually.deep.equal(collection[<span class="hljs-number">1</span>])
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the nth item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt; }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">get</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Lisa</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(collection[<span class="hljs-number">1</span>])
         );
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{List#toString}</span> </span>*/</span>
-        describe(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">List#toString</span>} */</span>
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a sensible description when it'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given(examples).
-            it(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                expect(List.of(answerable).count().toString())
-                    .to.equal(<span class="hljs-string">`the number of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of items'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">count</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the number of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
             );
 
-            given(examples).
-            it(<span class="hljs-string">'returns the underlying collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                expect(List.of(answerable).toString())
-                    .to.equal(collectionDescription)
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the underlying collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(collectionDescription)
             );
 
-            given(examples).
-            it(<span class="hljs-string">'returns the first item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                expect(List.of(answerable).first().toString())
-                    .to.equal(<span class="hljs-string">`the first of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the first item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">first</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the first of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
             );
 
-            given(examples).
-            it(<span class="hljs-string">'returns the last item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                expect(List.of(answerable).last().toString())
-                    .to.equal(<span class="hljs-string">`the last of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the last item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">last</span>().<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the last of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
             );
 
-            given(examples).
-            it(<span class="hljs-string">'returns the nth item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                expect(List.of(answerable).get(<span class="hljs-number">1</span>).toString())
-                    .to.equal(<span class="hljs-string">`the 2nd of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
+            <span class="hljs-title function_">given</span>(examples).
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the nth item from the collection'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable, collectionDescription }: { answerable: Answerable&lt;<span class="hljs-built_in">string</span>[]&gt;, collectionDescription: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">get</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the 2nd of <span class="hljs-subst">${ collectionDescription }</span>`</span>)
             );
 
-            given([
+            <span class="hljs-title function_">given</span>([
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1st'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">0</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'2nd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">1</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'3rd'</span>,    <span class="hljs-attr">index</span>: <span class="hljs-number">2</span> },
@@ -418,18 +418,18 @@ describe(<span class="hljs-string">'List'</span>, <span class="hljs-function">()
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'115th'</span>,  <span class="hljs-attr">index</span>: <span class="hljs-number">114</span> },
                 { <span class="hljs-attr">description</span>: <span class="hljs-string">'1522nd'</span>, <span class="hljs-attr">index</span>: <span class="hljs-number">1521</span> },
             ]).
-            it(<span class="hljs-string">'returns the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
-                expect(List.of(examples[<span class="hljs-number">1</span>].answerable).get(index).toString())
-                    .to.equal(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of some string collection`</span>);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the nth item'</span>, <span class="hljs-function">(<span class="hljs-params">{ description, index }</span>) =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(examples[<span class="hljs-number">1</span>].<span class="hljs-property">answerable</span>).<span class="hljs-title function_">get</span>(index).<span class="hljs-title function_">toString</span>())
+                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`the <span class="hljs-subst">${ description }</span> of some string collection`</span>);
             });
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{List#where}</span> </span>*/</span>
-        describe(<span class="hljs-string">'and using filters'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">List#where</span>} */</span>
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'and using filters'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">interface</span> Person {
                 <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-                age: <span class="hljs-built_in">number</span>;
-                pets: <span class="hljs-built_in">number</span>;
+                <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>;
+                <span class="hljs-attr">pets</span>: <span class="hljs-built_in">number</span>;
             }
 
             <span class="hljs-keyword">const</span>
@@ -439,22 +439,22 @@ describe(<span class="hljs-string">'List'</span>, <span class="hljs-function">()
 
             <span class="hljs-keyword">const</span> people = [ alice, bob, cindy ];
 
-            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Name</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">Promise</span>&lt;<span class="hljs-title">string</span>&gt;&gt; </span>{
-                <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(person: Answerable&lt;Person&gt;): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
-                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Name(person);
+            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Name</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+                <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-attr">person</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Person</span>&gt;): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; {
+                    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(person);
                 }
 
-                <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> person: Answerable&lt;Person&gt;</span>)</span> {
-                    <span class="hljs-built_in">super</span>(formatted <span class="hljs-string">`the name of <span class="hljs-subst">${ person }</span>`</span>);
+                <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> person: Answerable&lt;Person&gt;</span>) {
+                    <span class="hljs-variable language_">super</span>(formatted <span class="hljs-string">`the name of <span class="hljs-subst">${ person }</span>`</span>);
                 }
 
-                answeredBy(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
-                    <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.person)
-                        .then(<span class="hljs-function"><span class="hljs-params">person</span> =&gt;</span> person.name);
+                <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+                    <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">person</span>)
+                        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">person</span> =&gt;</span> person.<span class="hljs-property">name</span>);
                 }
             }
 
-            <span class="hljs-keyword">const</span> PropertyCalled = &lt;K extends keyof Person&gt;(name: K) =&gt; ({
+            <span class="hljs-keyword">const</span> <span class="hljs-title class_">PropertyCalled</span> = &lt;K extends keyof Person&gt;(name: K) =&gt; ({
                 of: (person: Answerable&lt;Person&gt;) =&gt;
                     Question.about(formatted `${ name } of ${ person }`, actor =&gt; {
                         return actor.answer(person).then(answer =&gt; answer[name]);

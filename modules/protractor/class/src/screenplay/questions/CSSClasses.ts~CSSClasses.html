@@ -193,7 +193,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber70">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber71">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -224,7 +224,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;ul id=<span class="hljs-string">"shopping-list"</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">"active favourite"</span>&gt;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;ul id=<span class="hljs-string">"shopping-list"</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">"active favourite"</span>&gt;
    &lt;li class="bought"&gt;Coffee&lt;li&gt;
    &lt;li class="buy"&gt;Honey&lt;li&gt;
    &lt;li class="buy"&gt;Chocolate&lt;li&gt;
@@ -233,42 +233,42 @@
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieve CSS classes of a given WebElement</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, CSSClasses, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, CSSClasses, <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> shoppingList = <span class="hljs-function">() =&gt;</span>
-     Target.the(<span class="hljs-string">'shopping list'</span>).located(by.id(<span class="hljs-string">'shopping-list'</span>))
+ <span class="hljs-keyword">const</span> <span class="hljs-title function_">shoppingList</span> = (<span class="hljs-params"></span>) =&gt;
+     <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'shopping list'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'shopping-list'</span>))
 
- actorCalled(<span class="hljs-string">'Lisa'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Ensure.that(CSSClasses.of(shoppingList()), equals([ <span class="hljs-string">'active'</span>, <span class="hljs-string">'favourite'</span> ])),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(CSSClasses.<span class="hljs-title function_">of</span>(<span class="hljs-title function_">shoppingList</span>()), <span class="hljs-title function_">equals</span>([ <span class="hljs-string">'active'</span>, <span class="hljs-string">'favourite'</span> ])),
      )</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Find WebElements with a given class</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, CSSClasses, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, CSSClasses, <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShoppingList</span> </span>{
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">ShoppingList</span> {
      <span class="hljs-keyword">static</span> items = <span class="hljs-function">() =&gt;</span>
-         Target.all(<span class="hljs-string">'items'</span>)
-             .located(by.css(<span class="hljs-string">'#shopping-list li'</span>))
+         <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'items'</span>)
+             .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'#shopping-list li'</span>))
 
      <span class="hljs-keyword">static</span> outstandingItems = <span class="hljs-function">() =&gt;</span>
-         ShoppingList.items
-             .where(CSSClasses, contain(<span class="hljs-string">'buy'</span>))
+         <span class="hljs-title class_">ShoppingList</span>.<span class="hljs-property">items</span>
+             .<span class="hljs-title function_">where</span>(CSSClasses, <span class="hljs-title function_">contain</span>(<span class="hljs-string">'buy'</span>))
  }
 
- actorCalled(<span class="hljs-string">'Lisa'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Ensure.that(
-             Text.ofAll(ShoppingList.outstandingItems()),
-             equals([ <span class="hljs-string">'Honey'</span>, <span class="hljs-string">'Chocolate'</span> ])
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+             <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">ofAll</span>(<span class="hljs-title class_">ShoppingList</span>.<span class="hljs-title function_">outstandingItems</span>()),
+             <span class="hljs-title function_">equals</span>([ <span class="hljs-string">'Honey'</span>, <span class="hljs-string">'Chocolate'</span> ])
          ),
      )</code></pre>
     </div>
@@ -438,7 +438,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber93">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber94">source</a></span></span>
     </span>
   </h3>
 
@@ -518,7 +518,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber100">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber101">source</a></span></span>
     </span>
   </h3>
 
@@ -581,7 +581,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber157">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber158">source</a></span></span>
     </span>
   </h3>
 
@@ -656,7 +656,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber128">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/CSSClasses.ts.html#lineNumber129">source</a></span></span>
     </span>
   </h3>
 

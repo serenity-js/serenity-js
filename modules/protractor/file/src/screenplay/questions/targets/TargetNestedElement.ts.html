@@ -187,73 +187,74 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/TargetNestedElement.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, MetaQuestion, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">MetaQuestion</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../withAnswerOf'</span>;
 <span class="hljs-keyword">import</span> { override } <span class="hljs-keyword">from</span> <span class="hljs-string">'./override'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Locates a single {<span class="hljs-doctag">@link </span>WebElement} located within another {<span class="hljs-doctag">@link </span>WebElement}.
+ *  Locates a single {<span class="hljs-doctag">@link</span> WebElement} located within another {<span class="hljs-doctag">@link</span> WebElement}.
  *
- *  Instead of using this class directly, please use {<span class="hljs-doctag">@link </span>Target.the} and {<span class="hljs-doctag">@link </span>TargetElement#of} instead.
+ *  Instead of using this class directly, please use {<span class="hljs-doctag">@link</span> Target.the} and {<span class="hljs-doctag">@link</span> TargetElement#of} instead.
  *
  * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question}</span></span>
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question</span>}
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~MetaQuestion</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TargetNestedElement</span>
-    <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt;
-    <span class="hljs-title">implements</span> <span class="hljs-title">MetaQuestion</span>&lt;<span class="hljs-title">Question</span>&lt;<span class="hljs-title">ElementFinder</span>&gt; | <span class="hljs-title">ElementFinder</span>, <span class="hljs-title">ElementFinder</span>&gt;
-</span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TargetNestedElement</span>
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;
+    <span class="hljs-keyword">implements</span> <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementFinder</span>&gt;
+{
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">child</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">parent</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">child</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> parent: Question&lt;ElementFinder&gt; | ElementFinder,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> child: Question&lt;ElementFinder&gt; | ElementFinder,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ child.toString() }</span> of <span class="hljs-subst">${ parent }</span>`</span>);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ child.toString() }</span> of <span class="hljs-subst">${ parent }</span>`</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Retrieves a {<span class="hljs-doctag">@link </span>WebElement} located by `locator`,
-     *  resolved in the context of a `parent` {<span class="hljs-doctag">@link </span>WebElement}.
+     *  Retrieves a {<span class="hljs-doctag">@link</span> WebElement} located by `locator`,
+     *  resolved in the context of a `parent` {<span class="hljs-doctag">@link</span> WebElement}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">parent</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetNestedElement}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">parent</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">TargetNestedElement</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
      */</span>
-    <span class="hljs-keyword">of</span>(parent: Question&lt;ElementFinder&gt; | ElementFinder): TargetNestedElement {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-built_in">this</span>);
+    <span class="hljs-title function_">of</span>(<span class="hljs-attr">parent</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>): <span class="hljs-title class_">TargetNestedElement</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetNestedElement</span>(parent, <span class="hljs-variable language_">this</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  answer this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
      */</span>
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): ElementFinder {
-        <span class="hljs-keyword">return</span> withAnswerOf&lt;ElementFinder, ElementFinder&gt;(actor, <span class="hljs-built_in">this</span>.parent, <span class="hljs-function"><span class="hljs-params">parent</span> =&gt;</span>
-            withAnswerOf&lt;ElementFinder, ElementFinder&gt;(actor, <span class="hljs-built_in">this</span>.child, <span class="hljs-function"><span class="hljs-params">child</span> =&gt;</span> override(
-                parent.element(child.locator()),
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementFinder</span> {
+        <span class="hljs-keyword">return</span> withAnswerOf&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementFinder</span>&gt;(actor, <span class="hljs-variable language_">this</span>.<span class="hljs-property">parent</span>, <span class="hljs-function"><span class="hljs-params">parent</span> =&gt;</span>
+            withAnswerOf&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementFinder</span>&gt;(actor, <span class="hljs-variable language_">this</span>.<span class="hljs-property">child</span>, <span class="hljs-function"><span class="hljs-params">child</span> =&gt;</span> <span class="hljs-title function_">override</span>(
+                parent.<span class="hljs-title function_">element</span>(child.<span class="hljs-title function_">locator</span>()),
                 <span class="hljs-string">'toString'</span>,
-                <span class="hljs-built_in">this</span>.toString.bind(<span class="hljs-built_in">this</span>),
+                <span class="hljs-title class_">TargetNestedElement</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">this</span>),
             )));
     }
 }

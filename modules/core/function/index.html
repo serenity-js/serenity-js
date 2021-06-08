@@ -798,14 +798,13 @@ it's better to invoke <code>engage</code> before each test using:</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span><span class="code" data-ice="signature">(value: <span>any</span>, replacer: <span><span>function</span><span>(this: <span>any</span>, key: <span>string</span>, value: <span>any</span>)</span>: <span>any</span></span>, space: <span>string </span> | <span> number</span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="function/index.html#static-function-stringify">stringify</a></span></span><span class="code" data-ice="signature">(value: <span>UNKNOWN</span>, replacer: <span>Function</span>, space: <span>undefined </span> | <span> undefined</span>): <span>string</span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p> Converts a JavaScript value to a JavaScript Object Notation (JSON) string.</p>
-</div>
+        
       </div>
     </td>
     <td>
@@ -1098,10 +1097,10 @@ it's better to invoke <code>engage</code> before each test using:</p>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">  <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
   <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-  describe(<span class="hljs-string">'Feature'</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Feature'</span>, <span class="hljs-function">() =&gt;</span> {
 
-     it(<span class="hljs-string">'should have some behaviour'</span>, <span class="hljs-function">() =&gt;</span>
-         actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
+     <span class="hljs-title function_">it</span>(<span class="hljs-string">'should have some behaviour'</span>, <span class="hljs-function">() =&gt;</span>
+         <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>).<span class="hljs-title function_">attemptsTo</span>(
              <span class="hljs-comment">// ... activities</span>
          ));
   });</code></pre>
@@ -1109,10 +1108,10 @@ it's better to invoke <code>engage</code> before each test using:</p>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-  <span class="hljs-keyword">import</span> { Given } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+  <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Given</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
 
-  Given(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-     actorCalled(name).attemptsTo(
+  <span class="hljs-title class_">Given</span>(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+     <span class="hljs-title function_">actorCalled</span>(name).<span class="hljs-title function_">attemptsTo</span>(
              <span class="hljs-comment">// ... activities</span>
          ));</code></pre>
     </div>
@@ -1184,15 +1183,15 @@ it's better to invoke <code>engage</code> before each test using:</p>
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript">  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-  <span class="hljs-keyword">import</span> { Given, When } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+  <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Given</span>, <span class="hljs-title class_">When</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
 
-  Given(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-     actorCalled(name).attemptsTo(
+  <span class="hljs-title class_">Given</span>(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
+     <span class="hljs-title function_">actorCalled</span>(name).<span class="hljs-title function_">attemptsTo</span>(
              <span class="hljs-comment">// ... activities</span>
          ));
 
-  When(<span class="hljs-regexp">/(?:he|she|they) browse their recent orders/</span>, <span class="hljs-function">() =&gt;</span>
-     actorInTheSpotlight().attemptsTo(
+  <span class="hljs-title class_">When</span>(<span class="hljs-regexp">/(?:he|she|they) browse their recent orders/</span>, <span class="hljs-function">() =&gt;</span>
+     <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
              <span class="hljs-comment">// ... activities</span>
          ));</code></pre>
     </div>
@@ -1538,29 +1537,29 @@ it's better to invoke <code>engage</code> before each test using:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Engaging a cast of actors</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { Actor, Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-     <span class="hljs-function"><span class="hljs-title">prepare</span>(<span class="hljs-params">actor: Actor</span>)</span> {
-         <span class="hljs-keyword">return</span> actor.whoCan(
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+     <span class="hljs-title function_">prepare</span>(<span class="hljs-params">actor: Actor</span>) {
+         <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
              <span class="hljs-comment">// ... abilities you'd like the Actor to have</span>
          );
      }
  }
 
-engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
+<span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>();</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Jasmine</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
- beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));</code></pre>
+ <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>()));</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { Before } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Before</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
 
- Before(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors());</code></pre>
+ <span class="hljs-title class_">Before</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>());</code></pre>
     </div>
 </div>
 
@@ -1734,7 +1733,7 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">const</span> looksLikeADuck = has({
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">const</span> looksLikeADuck = <span class="hljs-title function_">has</span>({
      <span class="hljs-attr">name</span>:   <span class="hljs-string">'string'</span>,
      <span class="hljs-attr">quack</span>:  <span class="hljs-string">'function'</span>,
  })
@@ -1744,7 +1743,7 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
      <span class="hljs-attr">quack</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'quack'</span>,
  }
 
- looksLikeADuck(daisy) <span class="hljs-comment">// true</span></code></pre>
+ <span class="hljs-title function_">looksLikeADuck</span>(daisy) <span class="hljs-comment">// true</span></code></pre>
     </div>
 </div>
 
@@ -1896,16 +1895,16 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">An Array</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { Mappable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Mappable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
- Mappable.isMappable([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]) === <span class="hljs-literal">true</span></code></pre>
+ <span class="hljs-title class_">Mappable</span>.<span class="hljs-title function_">isMappable</span>([ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span> ]) === <span class="hljs-literal">true</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Protractor's ElementArrayFinder</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { Mappable } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Mappable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
  <span class="hljs-keyword">import</span> { element } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- Mappable.isMappable(element.all(by.tagName(<span class="hljs-string">'li'</span>)) === <span class="hljs-literal">true</span></code></pre>
+ <span class="hljs-title class_">Mappable</span>.<span class="hljs-title function_">isMappable</span>(element.<span class="hljs-title function_">all</span>(by.<span class="hljs-title function_">tagName</span>(<span class="hljs-string">'li'</span>)) === <span class="hljs-literal">true</span></code></pre>
     </div>
 </div>
 
@@ -2005,7 +2004,7 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/json/cycle.ts.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/json/cycle.ts.html#lineNumber42">source</a></span></span>
     </span>
   </h3>
 
@@ -2153,10 +2152,10 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Interpolating `Questions`</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { q, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Send, DeleteRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Send</span>, <span class="hljs-title class_">DeleteRequest</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 
- actorCalled(<span class="hljs-string">'Alice'</span>).attemptsTo(
-     Send.a(DeleteRequest.to(
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">DeleteRequest</span>.<span class="hljs-title function_">to</span>(
          q <span class="hljs-string">`/articles/<span class="hljs-subst">${ Text.<span class="hljs-keyword">of</span>(Article.id()) }</span>`</span>
      ))
  )</code></pre>
@@ -2164,11 +2163,11 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using a custom description</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs typescript"> <span class="hljs-keyword">import</span> { q, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Send, DeleteRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Send</span>, <span class="hljs-title class_">DeleteRequest</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 
- actorCalled(<span class="hljs-string">'Alice'</span>).attemptsTo(
-     Send.a(DeleteRequest.to(
-         q <span class="hljs-string">`/articles/<span class="hljs-subst">${ Text.<span class="hljs-keyword">of</span>(Article.id()) }</span>`</span>.describedAs(<span class="hljs-string">'/articles/:id'</span>)
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">DeleteRequest</span>.<span class="hljs-title function_">to</span>(
+         q <span class="hljs-string">`/articles/<span class="hljs-subst">${ Text.<span class="hljs-keyword">of</span>(Article.id()) }</span>`</span>.<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'/articles/:id'</span>)
      ))
  )</code></pre>
     </div>
@@ -2452,20 +2451,18 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     
     
     
-    <span class="code" data-ice="name">stringify</span><span class="code" data-ice="signature">(value: <span>any</span>, replacer: <span><span>function</span><span>(this: <span>any</span>, key: <span>string</span>, value: <span>any</span>)</span>: <span>any</span></span>, space: <span>string </span> | <span> number</span>): <span>*</span></span>
+    <span class="code" data-ice="name">stringify</span><span class="code" data-ice="signature">(value: <span>UNKNOWN</span>, replacer: <span>Function</span>, space: <span>undefined </span> | <span> undefined</span>): <span>string</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/io/json/cycle.ts.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/io/json/cycle.ts.html#lineNumber3">source</a></span></span>
     </span>
   </h3>
 
   <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs typescript"><span class="hljs-keyword">import</span> {stringify} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io/json'</span></code></pre></div>
   
   
-  <div data-ice="description"><p> Converts a JavaScript value to a JavaScript Object Notation (JSON) string.
- Supports objects with cyclic references.</p>
-</div>
+  
 
   
 
@@ -2479,24 +2476,21 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span>any</span></td>
+      <td data-ice="type" class="code"><span>UNKNOWN</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>A JavaScript value, usually an object or array, to be converted.</p>
-</td>
+      <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">replacer</td>
-      <td data-ice="type" class="code"><span><span>function</span><span>(this: <span>any</span>, key: <span>string</span>, value: <span>any</span>)</span>: <span>any</span></span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>A function that transforms the results.</p>
-</td>
+      <td data-ice="type" class="code"><span>Function</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
     </tr>
 <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">space</td>
-      <td data-ice="type" class="code"><span>string </span> | <span> number</span></td>
-      <td data-ice="appendix"><ul><li>optional</li></ul></td>
-      <td data-ice="description"><p>Adds indentation, white space, and line break characters to the return-value JSON text to make it easier to read.</p>
-</td>
+      <td data-ice="type" class="code"><span>undefined </span> | <span> undefined</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"></td>
     </tr>
 </tbody>
   </table>
@@ -2508,7 +2502,7 @@ engage(<span class="hljs-keyword">new</span> Actors();</code></pre>
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
+          <td class="return-type code" data-ice="returnType"><span>string</span></td>
           
         </tr>
       </tbody>

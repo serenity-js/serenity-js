@@ -295,56 +295,56 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/outcomes.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/explicit-module-boundary-types,unicorn/prefer-math-trunc */</span>
-<span class="hljs-keyword">import</span> { JSONObject, match, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="hljs-keyword">import</span> { JSONObject, match, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { AssertionError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../errors'</span>;
-<span class="hljs-keyword">import</span> { ErrorSerialiser } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorSerialiser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerialisedOutcome <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">code</span>:    <span class="hljs-built_in">number</span>;
     error?:  <span class="hljs-built_in">string</span>;
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Outcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> match(o.code)
-        .when(ExecutionCompromised.Code,                <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionCompromised.fromJSON(o))
-        .when(ExecutionFailedWithError.Code,            <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionFailedWithError.fromJSON(o))
-        .when(ExecutionFailedWithAssertionError.Code,   <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionFailedWithAssertionError.fromJSON(o))
-        .when(ImplementationPending.Code,               <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ImplementationPending.fromJSON(o))
-        .when(ExecutionIgnored.Code,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionIgnored.fromJSON(o))
-        .when(ExecutionSkipped.Code,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionSkipped.fromJSON(o))
-        .when(ExecutionSuccessful.Code,                 <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> ExecutionSuccessful.fromJSON(o))
-        .else(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Outcome could not be deserialised: <span class="hljs-subst">${ <span class="hljs-built_in">JSON</span>.stringify(o) }</span>`</span>); }) <span class="hljs-keyword">as</span> Outcome
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Outcome</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-title function_">match</span>(o.<span class="hljs-property">code</span>)
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">Code</span>,                <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">Code</span>,            <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">Code</span>,   <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">Code</span>,               <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-property">Code</span>,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-property">Code</span>,                    <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-property">Code</span>,                 <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-title function_">fromJSON</span>(o))
+        .<span class="hljs-title function_">else</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Outcome could not be deserialised: <span class="hljs-subst">${ <span class="hljs-built_in">JSON</span>.stringify(o) }</span>`</span>); }) <span class="hljs-keyword">as</span> <span class="hljs-title class_">Outcome</span>
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> code: <span class="hljs-built_in">number</span></span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> code: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
-    isWorseThan(another: Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> }): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">const</span> code = (another <span class="hljs-keyword">instanceof</span> Outcome)
-            ? another.code
-            : another.Code;
+    <span class="hljs-title function_">isWorseThan</span>(<span class="hljs-attr">another</span>: <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> }): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">const</span> code = (another <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Outcome</span>)
+            ? another.<span class="hljs-property">code</span>
+            : another.<span class="hljs-property">Code</span>;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.code &lt; code;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">code</span> &lt; code;
     }
 
-    toJSON(): SerialisedOutcome {
+    <span class="hljs-title function_">toJSON</span>(): <span class="hljs-title class_">SerialisedOutcome</span> {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">code</span>: <span class="hljs-built_in">this</span>.code,
+            <span class="hljs-attr">code</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">code</span>,
         };
     }
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProblemIndication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Outcome</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProblemIndication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Outcome</span> {
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> error: <span class="hljs-built_in">Error</span>, code: <span class="hljs-built_in">number</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(code);
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> error: <span class="hljs-built_in">Error</span>, code: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-variable language_">super</span>(code);
     }
 
-    toJSON(): SerialisedOutcome {
+    <span class="hljs-title function_">toJSON</span>(): <span class="hljs-title class_">SerialisedOutcome</span> {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">code</span>: <span class="hljs-built_in">this</span>.code,
-            <span class="hljs-attr">error</span>: ErrorSerialiser.serialise(<span class="hljs-built_in">this</span>.error),
+            <span class="hljs-attr">code</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">code</span>,
+            <span class="hljs-attr">error</span>: <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">serialise</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span>),
         };
     }
 }
@@ -352,39 +352,39 @@
 <span class="hljs-comment">/**
  * Indicates a failure due to external events or systems that compromise the validity of the test.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionCompromised</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ProblemIndication</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">0</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionCompromised</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ProblemIndication</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">0</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionCompromised(ErrorSerialiser.deserialise(o.error));
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(<span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(o.<span class="hljs-property">error</span>));
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(error, ExecutionCompromised.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-variable language_">super</span>(error, <span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">Code</span>);
     }
 }
 
 <span class="hljs-comment">/**
  * Indicates a failure due to an error other than recognised external system and assertion failures
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionFailedWithError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ProblemIndication</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">1</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionFailedWithError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ProblemIndication</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">1</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionFailedWithError(ErrorSerialiser.deserialise(o.error));
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(<span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(o.<span class="hljs-property">error</span>));
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(error, ExecutionFailedWithError.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-variable language_">super</span>(error, <span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">Code</span>);
     }
 }
 
 <span class="hljs-comment">/**
  * Execution of an Activity or Scene has failed due to an assertion error;
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionFailedWithAssertionError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ProblemIndication</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">2</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ProblemIndication</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">2</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(ErrorSerialiser.deserialise(o.error));
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(<span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(o.<span class="hljs-property">error</span>));
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">error: AssertionError</span>)</span> {
-        <span class="hljs-built_in">super</span>(error, ExecutionFailedWithAssertionError.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">error: AssertionError</span>) {
+        <span class="hljs-variable language_">super</span>(error, <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">Code</span>);
     }
 }
 
@@ -392,26 +392,26 @@
  * A pending Activity is one that has been specified but not yet implemented.
  * A pending Scene is one that has at least one pending Activity.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ImplementationPending</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ProblemIndication</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">3</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ImplementationPending</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ProblemIndication</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">3</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ImplementationPending(ErrorSerialiser.deserialise(o.error));
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(o.<span class="hljs-property">error</span>));
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(error, ImplementationPending.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-variable language_">super</span>(error, <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">Code</span>);
     }
 }
 
 <span class="hljs-comment">/**
  * The result of the scenario should be ignored, most likely because it's going to be retried.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionIgnored</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ProblemIndication</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">4</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionIgnored</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ProblemIndication</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">4</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionIgnored(ErrorSerialiser.deserialise(o.error));
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(<span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(o.<span class="hljs-property">error</span>));
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(error, ExecutionIgnored.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-variable language_">super</span>(error, <span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-property">Code</span>);
     }
 }
 
@@ -419,26 +419,26 @@
  * The Activity was not executed because a previous one has failed.
  * A whole Scene can be marked as skipped to indicate that it is currently "work-in-progress"
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionSkipped</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Outcome</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">5</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionSkipped</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Outcome</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">5</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionSkipped();
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>();
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">super</span>(ExecutionSkipped.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-property">Code</span>);
     }
 }
 
 <span class="hljs-comment">/**
  * Scenario or activity ran as expected.
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExecutionSuccessful</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Outcome</span> </span>{
-    <span class="hljs-keyword">static</span> Code = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">6</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecutionSuccessful</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Outcome</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Code</span> = <span class="hljs-number">1</span> &lt;&lt; <span class="hljs-number">6</span>;
 
-    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> ExecutionSuccessful();
+    <span class="hljs-keyword">static</span> fromJSON = <span class="hljs-function">(<span class="hljs-params">o: SerialisedOutcome</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>();
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-        <span class="hljs-built_in">super</span>(ExecutionSuccessful.Code);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-property">Code</span>);
     }
 }
 </code></pre>

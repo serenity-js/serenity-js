@@ -297,56 +297,56 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
  * <span class="hljs-doctag">@experimental</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Config</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">object</span>&gt; </span>{ <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> transformations = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span>&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>&gt; { <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> transformations = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: T</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: T</span>) {
     }
 
-    where&lt;K <span class="hljs-keyword">extends</span> keyof T&gt;(fieldName: K, <span class="hljs-attr">transformation</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): <span class="hljs-built_in">this</span> {
-        <span class="hljs-built_in">this</span>.transformations.set(fieldName, transformation);
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+    where&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">fieldName</span>: K, <span class="hljs-attr">transformation</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): <span class="hljs-variable language_">this</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">set</span>(fieldName, transformation);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
     }
 
-    whereIf&lt;K <span class="hljs-keyword">extends</span> keyof T&gt;(condition: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">fieldName</span>: K, <span class="hljs-attr">transformation</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): <span class="hljs-built_in">this</span> {
+    whereIf&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">condition</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">fieldName</span>: K, <span class="hljs-attr">transformation</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): <span class="hljs-variable language_">this</span> {
         <span class="hljs-keyword">if</span> (condition === <span class="hljs-literal">true</span>) {
-            <span class="hljs-built_in">this</span>.transformations.set(fieldName, transformation);
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">set</span>(fieldName, transformation);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
     }
 
-    keys(): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.config);
+    <span class="hljs-title function_">keys</span>(): <span class="hljs-built_in">string</span>[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>);
     }
 
-    has&lt;K <span class="hljs-keyword">extends</span> keyof T&gt;(key: K): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(<span class="hljs-built_in">this</span>.config, key);
+    has&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">key</span>: K): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>, key);
     }
 
-    get&lt;K <span class="hljs-keyword">extends</span> keyof T&gt;(key: K): T[K] {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.transformations.has(key)
-            ? <span class="hljs-built_in">this</span>.transformations.get(key)(<span class="hljs-built_in">this</span>.config[key])
-            : <span class="hljs-built_in">this</span>.config[key];
+    get&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">key</span>: K): T[K] {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">has</span>(key)
+            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">get</span>(key)(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[key])
+            : <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[key];
     }
 
-    getAsList&lt;K <span class="hljs-keyword">extends</span> keyof T&gt;(key: K): <span class="hljs-built_in">Array</span>&lt;ItemOf&lt;T[K]&gt;&gt; {
-        <span class="hljs-keyword">const</span> value = <span class="hljs-built_in">this</span>.get(key);
+    getAsList&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">key</span>: K): <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">ItemOf</span>&lt;T[K]&gt;&gt; {
+        <span class="hljs-keyword">const</span> value = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">get</span>(key);
 
         <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">null</span> &amp;&amp; value !== <span class="hljs-literal">undefined</span>
-            ? [].concat(value)
+            ? [].<span class="hljs-title function_">concat</span>(value)
             : [];
     }
 
-    <span class="hljs-built_in">object</span>(): T {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.keys().reduce(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
-            acc[key] = <span class="hljs-built_in">this</span>.get(key <span class="hljs-keyword">as</span> keyof T);
+    <span class="hljs-title function_">object</span>(): T {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">keys</span>().<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
+            acc[key] = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">get</span>(key <span class="hljs-keyword">as</span> keyof T);
             <span class="hljs-keyword">return</span> acc;
         }, {}) <span class="hljs-keyword">as</span> T;
     }
 }
 
-<span class="hljs-keyword">type</span> ItemOf&lt;A&gt; = A <span class="hljs-keyword">extends</span> <span class="hljs-built_in">Array</span>&lt;infer E&gt; ? E : A;
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">ItemOf</span>&lt;A&gt; = A <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Array</span>&lt;infer E&gt; ? E : A;
 </code></pre>
 
 </article>

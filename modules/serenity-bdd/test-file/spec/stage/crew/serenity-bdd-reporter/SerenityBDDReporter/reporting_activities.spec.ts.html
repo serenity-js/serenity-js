@@ -132,256 +132,256 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ActivityRelatedArtifactArchived,
-    ActivityRelatedArtifactGenerated,
-    SceneFinished,
-    SceneStarts,
-    TaskFinished,
-    TaskStarts,
-    TestRunFinishes,
+    <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>,
+    <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>,
+    <span class="hljs-title class_">SceneFinished</span>,
+    <span class="hljs-title class_">SceneStarts</span>,
+    <span class="hljs-title class_">TaskFinished</span>,
+    <span class="hljs-title class_">TaskStarts</span>,
+    <span class="hljs-title class_">TestRunFinishes</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, CorrelationId, ExecutionSuccessful, JSONData, Name, Photo, TextData, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityDetails</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, JSONData, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Photo</span>, <span class="hljs-title class_">TextData</span>, <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage'</span>;
-<span class="hljs-keyword">import</span> { SerenityBDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../given'</span>;
 <span class="hljs-keyword">import</span> { defaultCardScenario, photo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../samples'</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'../create'</span>;
 
-describe(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> stageManager: sinon.SinonStubbedInstance&lt;StageManager&gt;,
-        reporter: SerenityBDDReporter;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">stageManager</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">StageManager</span>&gt;,
+        <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">Serenity</span>BDDReporter;
 
     <span class="hljs-keyword">const</span>
-        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'a-scene-id'</span>),
-        activityIds = [ <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'activity-0'</span>), <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'activity-1'</span>) ];
+        sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'a-scene-id'</span>),
+        activityIds = [ <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'activity-0'</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'activity-1'</span>) ];
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> env = create();
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> env = <span class="hljs-title function_">create</span>();
 
-        stageManager    = env.stageManager;
-        reporter        = env.reporter;
+        stageManager    = env.<span class="hljs-property">stageManager</span>;
+        reporter        = env.<span class="hljs-property">reporter</span>;
     });
 
-    describe(<span class="hljs-string">'when reporting activities that took place during scenario execution'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when reporting activities that took place during scenario execution'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
          */</span>
-        it(<span class="hljs-string">'reports the outcome of a single activity'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'reports the outcome of a single activity'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick the default credit card'</span>));
 
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
             );
 
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].description).to.equal(pickACard.name.value);
-            expect(report.testSteps[<span class="hljs-number">0</span>].result).to.equal(<span class="hljs-string">'SUCCESS'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(pickACard.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'SUCCESS'</span>);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
          */</span>
-        it(<span class="hljs-string">'reports the outcome of a sequence of several activities'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> pickACard   = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>));
-            <span class="hljs-keyword">const</span> makePayment = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Make the payment'</span>));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'reports the outcome of a sequence of several activities'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> pickACard   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick the default credit card'</span>));
+            <span class="hljs-keyword">const</span> makePayment = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Make the payment'</span>));
 
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
             );
 
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">2</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].description).to.equal(pickACard.name.value);
-            expect(report.testSteps[<span class="hljs-number">0</span>].result).to.equal(<span class="hljs-string">'SUCCESS'</span>);
-            expect(report.testSteps[<span class="hljs-number">1</span>].description).to.equal(makePayment.name.value);
-            expect(report.testSteps[<span class="hljs-number">1</span>].result).to.equal(<span class="hljs-string">'SUCCESS'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">2</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(pickACard.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'SUCCESS'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(makePayment.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'SUCCESS'</span>);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
          */</span>
-        it(<span class="hljs-string">'reports the outcome of nested activities'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>));
-            <span class="hljs-keyword">const</span> viewListOfCards = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'View the list of available cards'</span>));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'reports the outcome of nested activities'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick the default credit card'</span>));
+            <span class="hljs-keyword">const</span> viewListOfCards = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'View the list of available cards'</span>));
 
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
-                        <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], viewListOfCards),
-                        <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], viewListOfCards, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">1</span>], viewListOfCards),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">1</span>], viewListOfCards, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
             );
 
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].children).to.have.lengthOf(<span class="hljs-number">1</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].children[<span class="hljs-number">0</span>].description).to.equal(viewListOfCards.name.value);
-            expect(report.testSteps[<span class="hljs-number">0</span>].children[<span class="hljs-number">0</span>].result).to.equal(<span class="hljs-string">'SUCCESS'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">children</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">children</span>[<span class="hljs-number">0</span>].<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(viewListOfCards.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">children</span>[<span class="hljs-number">0</span>].<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'SUCCESS'</span>);
         });
     });
 
-    describe(<span class="hljs-string">'order of events'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'order of events'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
          */</span>
-        it(<span class="hljs-string">'records the events in a correct order'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'records the events in a correct order'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick the default credit card'</span>));
 
-            <span class="hljs-keyword">const</span> t1 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">0</span>));
-            <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">10</span>));
+            <span class="hljs-keyword">const</span> t1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">0</span>));
+            <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">10</span>));
 
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo1'</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo1'</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/photo1.png'</span>), t1),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo2'</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo2'</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/photo2.png'</span>), t2),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo1'</span>), photo),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo1'</span>), <span class="hljs-title class_">Photo</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity/photo1.png'</span>), t1),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo2'</span>), photo),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo2'</span>), <span class="hljs-title class_">Photo</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity/photo2.png'</span>), t2),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
             );
 
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].screenshots).to.deep.equal([
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo1.png'</span>, <span class="hljs-attr">timeStamp</span>: t1.toMillisecondTimestamp() },
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo2.png'</span>, <span class="hljs-attr">timeStamp</span>: t2.toMillisecondTimestamp() },
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">screenshots</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo1.png'</span>, <span class="hljs-attr">timeStamp</span>: t1.<span class="hljs-title function_">toMillisecondTimestamp</span>() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo2.png'</span>, <span class="hljs-attr">timeStamp</span>: t2.<span class="hljs-title function_">toMillisecondTimestamp</span>() },
             ]);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
          */</span>
-        it(<span class="hljs-string">'records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'records the order of test steps so that the Serenity BDD reporter can display the reportData in the correct context'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                pickACard   = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick a credit card'</span>)),
-                makePayment = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Make a payment'</span>));
+                pickACard   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick a credit card'</span>)),
+                makePayment = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Make a payment'</span>));
 
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'pick a card message'</span>), JSONData.fromJSON({ <span class="hljs-attr">card</span>: <span class="hljs-string">'default'</span> })),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'pick a card message'</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/pick-a-card-message-md5hash.json'</span>)),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'make a payment message'</span>), JSONData.fromJSON({ <span class="hljs-attr">amount</span>: <span class="hljs-string">'£42'</span> })),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'make a payment message'</span>), JSONData, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/make-a-payment-message-md5hash.json'</span>)),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'server log'</span>), TextData.fromJSON({ <span class="hljs-attr">contentType</span>: <span class="hljs-string">'text/plain'</span>, <span class="hljs-attr">data</span>: <span class="hljs-string">'received payment request'</span> })),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'pick a card message'</span>), JSONData.<span class="hljs-title function_">fromJSON</span>({ <span class="hljs-attr">card</span>: <span class="hljs-string">'default'</span> })),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'pick a card message'</span>), JSONData, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity/pick-a-card-message-md5hash.json'</span>)),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'make a payment message'</span>), JSONData.<span class="hljs-title function_">fromJSON</span>({ <span class="hljs-attr">amount</span>: <span class="hljs-string">'£42'</span> })),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'make a payment message'</span>), JSONData, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity/make-a-payment-message-md5hash.json'</span>)),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'server log'</span>), <span class="hljs-title class_">TextData</span>.<span class="hljs-title function_">fromJSON</span>({ <span class="hljs-attr">contentType</span>: <span class="hljs-string">'text/plain'</span>, <span class="hljs-attr">data</span>: <span class="hljs-string">'received payment request'</span> })),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">1</span>], makePayment, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
             );
 
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">2</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].number).to.equal(<span class="hljs-number">1</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].reportData[<span class="hljs-number">0</span>].title).to.equal(<span class="hljs-string">'pick a card message'</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].reportData[<span class="hljs-number">0</span>].contents).to.equal(<span class="hljs-string">'{\n    "card": "default"\n}'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">2</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">number</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">reportData</span>[<span class="hljs-number">0</span>].<span class="hljs-property">title</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'pick a card message'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">reportData</span>[<span class="hljs-number">0</span>].<span class="hljs-property">contents</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{\n    "card": "default"\n}'</span>);
 
-            expect(report.testSteps[<span class="hljs-number">1</span>].number).to.equal(<span class="hljs-number">2</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">number</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">2</span>);
 
-            expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">0</span>].title).to.equal(<span class="hljs-string">'make a payment message'</span>);
-            expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">0</span>].contents).to.deep.equal(<span class="hljs-string">'{\n    "amount": "£42"\n}'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">reportData</span>[<span class="hljs-number">0</span>].<span class="hljs-property">title</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'make a payment message'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">reportData</span>[<span class="hljs-number">0</span>].<span class="hljs-property">contents</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{\n    "amount": "£42"\n}'</span>);
 
-            expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">1</span>].title).to.equal(<span class="hljs-string">'server log'</span>);
-            expect(report.testSteps[<span class="hljs-number">1</span>].reportData[<span class="hljs-number">1</span>].contents).to.deep.equal(<span class="hljs-string">'received payment request'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">reportData</span>[<span class="hljs-number">1</span>].<span class="hljs-property">title</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'server log'</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">1</span>].<span class="hljs-property">reportData</span>[<span class="hljs-number">1</span>].<span class="hljs-property">contents</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'received payment request'</span>);
         });
     });
 
-    describe(<span class="hljs-string">'artifacts'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'artifacts'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityBDDReporter}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskStarts}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ArtifactGenerated}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TaskFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{SceneFinished}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{TestRunFinishes}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskStarts</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArtifactGenerated</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TaskFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
          */</span>
-        it(<span class="hljs-string">'records the arbitrary JSON data emitted during the interaction'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'records the arbitrary JSON data emitted during the interaction'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> pickACard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick the default credit card'</span>));
 
-            <span class="hljs-keyword">const</span> t1 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">0</span>));
-            <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">10</span>));
+            <span class="hljs-keyword">const</span> t1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">0</span>));
+            <span class="hljs-keyword">const</span> t2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-number">10</span>));
 
-            given(reporter).isNotifiedOfFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo1'</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo1'</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/photo1.png'</span>), t1),
-                    <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactGenerated(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo2'</span>), photo),
-                        <span class="hljs-keyword">new</span> ActivityRelatedArtifactArchived(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'photo2'</span>), Photo, <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'target/site/serenity/photo2.png'</span>), t2),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> ExecutionSuccessful()),
-                <span class="hljs-keyword">new</span> TestRunFinishes(),
+            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo1'</span>), photo),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo1'</span>), <span class="hljs-title class_">Photo</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity/photo1.png'</span>), t1),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityIds[<span class="hljs-number">0</span>], pickACard, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo2'</span>), photo),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(sceneId, activityIds[<span class="hljs-number">0</span>], <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'photo2'</span>), <span class="hljs-title class_">Photo</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'target/site/serenity/photo2.png'</span>), t2),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
             );
 
-            <span class="hljs-keyword">const</span> report: SerenityBDDReport = stageManager.notifyOf.firstCall.lastArg.artifact.map(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
 
-            expect(report.testSteps).to.have.lengthOf(<span class="hljs-number">1</span>);
-            expect(report.testSteps[<span class="hljs-number">0</span>].screenshots).to.deep.equal([
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo1.png'</span>, <span class="hljs-attr">timeStamp</span>: t1.toMillisecondTimestamp() },
-                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo2.png'</span>, <span class="hljs-attr">timeStamp</span>: t2.toMillisecondTimestamp() },
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSteps</span>[<span class="hljs-number">0</span>].<span class="hljs-property">screenshots</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo1.png'</span>, <span class="hljs-attr">timeStamp</span>: t1.<span class="hljs-title function_">toMillisecondTimestamp</span>() },
+                { <span class="hljs-attr">screenshot</span>: <span class="hljs-string">'photo2.png'</span>, <span class="hljs-attr">timeStamp</span>: t2.<span class="hljs-title function_">toMillisecondTimestamp</span>() },
             ]);
         });
     });

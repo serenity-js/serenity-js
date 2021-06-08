@@ -295,15 +295,15 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/proxies.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Dictionary {
-    [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;
+    [<span class="hljs-attr">key</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">any</span>;
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">caseInsensitive</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">Dictionary</span>&gt;(<span class="hljs-params">dictionary: T</span>): <span class="hljs-title">T</span> &amp; <span class="hljs-title">Dictionary</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(dictionary, {
-        <span class="hljs-attr">get</span>: <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">K</span> <span class="hljs-attr">extends</span> <span class="hljs-attr">keyof</span> <span class="hljs-attr">T</span> &amp; <span class="hljs-attr">string</span>&gt;</span>(obj: T &amp; Dictionary, key: K) =&gt; {     // eslint-disable-line unicorn/prevent-abbreviations
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> caseInsensitive&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Dictionary</span>&gt;(<span class="hljs-attr">dictionary</span>: T): T &amp; <span class="hljs-title class_">Dictionary</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Proxy</span>(dictionary, {
+        <span class="hljs-attr">get</span>: <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">K</span> <span class="hljs-attr">extends</span> <span class="hljs-attr">keyof</span> <span class="hljs-attr">T</span> &amp; <span class="hljs-attr">string</span>&gt;</span>(obj: T &amp; Dictionary, key: K) =&gt; {     // eslint-disable-line unicorn/prevent-abbreviations
             const found = Object.keys(obj)
                 .find(k =&gt; k.toLocaleLowerCase() === key.toLocaleLowerCase());
 

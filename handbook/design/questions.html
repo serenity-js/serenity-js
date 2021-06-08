@@ -163,10 +163,10 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 <p>The <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#static-method-about"><code>Question.about</code></a> <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">factory method</a> is the easiest way to define a custom question.</p>
 <p>Let's say that we wanted to define a question called <code>NameOfTheActor()</code> that returned the name of the <a href="/handbook/design/actors.html">actor</a> who answers it. </p>
 <p>Here's how we could go about it:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Actor, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">const</span> NameOfTheActor = <span class="hljs-function">() =&gt;</span> 
-    Question.about(<span class="hljs-string">'the name of the actor'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.name);
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">NameOfTheActor</span> = (<span class="hljs-params"></span>) =&gt; 
+    <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'the name of the actor'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
 </code></pre>
 <p>As you can see above, there are only three things you need to define a custom question:</p>
 <ul>
@@ -176,12 +176,12 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 </ul>
 <p>While in the above example we return the answer to the question directly, a much more common and idiomatic approach is to use the actor's <a href="/handbook/design/abilities.html">abilities</a> to produce it.</p>
 <p>For example, a question to retrieve the title of the current page could be designed to use the ability to <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-<span class="hljs-keyword">const</span> WebsiteTitle = <span class="hljs-function">() =&gt;</span>
-    Question.about(<span class="hljs-string">'the title of the website'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> 
-        BrowseTheWeb.as(actor).getTitle() <span class="hljs-comment">// returns Promise&lt;string&gt;</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">WebsiteTitle</span> = (<span class="hljs-params"></span>) =&gt;
+    <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'the title of the website'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> 
+        <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getTitle</span>() <span class="hljs-comment">// returns Promise&lt;string&gt;</span>
     );
 </code></pre>
 <p>In the above example we retrieve actor's ability to <code>BrowseTheWeb</code> and then use that to perform the lower-level call.</p>
@@ -214,26 +214,26 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
     <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
 </code></pre>
 <p>To interact with the component, we define a <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Object</a> called <code>NewComment</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NewComment</span> </span>{
-    <span class="hljs-keyword">static</span> Form =
-        Target.the(<span class="hljs-string">'"new comment" form'</span>)
-            .located(by.id(<span class="hljs-string">'new-comment'</span>));
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">NewComment</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Form</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'"new comment" form'</span>)
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'new-comment'</span>));
 
-    <span class="hljs-keyword">static</span> NameField =
-        Target.the(<span class="hljs-string">'name field'</span>)
-            .located(by.id(<span class="hljs-string">'name'</span>));
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">NameField</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'name field'</span>)
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'name'</span>));
 
-    <span class="hljs-keyword">static</span> CommentField =
-        Target.the(<span class="hljs-string">'comment field'</span>)
-            .located(by.id(<span class="hljs-string">'comment'</span>));
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">CommentField</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'comment field'</span>)
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'comment'</span>));
 
-    <span class="hljs-keyword">static</span> SubmitButton =
-        Target.the(<span class="hljs-string">'submit button'</span>)
-            .of(NewComment.Form)            <span class="hljs-comment">// &lt;- a nested Target</span>
-            .located(by.css(<span class="hljs-string">'input[type="submit"]'</span>));
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">SubmitButton</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'submit button'</span>)
+            .<span class="hljs-title function_">of</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">Form</span>)            <span class="hljs-comment">// &lt;- a nested Target</span>
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'input[type="submit"]'</span>));
 }
 </code></pre>
 <div class="pro-tip">
@@ -252,19 +252,19 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 
 <p>Now, to fill out the form, we define a sequence of parameterised interactions and give them to an actor to perform:  </p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Enter, Click } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Enter</span>, <span class="hljs-title class_">Click</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-actorCalled(<span class="hljs-string">'Alice'</span>)
-    .whoCan(BrowseTheWeb.using(protractor.browser))
-    .attemptsTo(
-        Enter.theValue(<span class="hljs-string">'Nice website!'</span>)     <span class="hljs-comment">// &lt;- a static value</span>
-            .into(NewComment.CommentField), <span class="hljs-comment">// &lt;- a Target passed to an interaction to Enter</span>
+<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>)
+    .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+    .<span class="hljs-title function_">attemptsTo</span>(
+        <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'Nice website!'</span>)     <span class="hljs-comment">// &lt;- a static value</span>
+            .<span class="hljs-title function_">into</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">CommentField</span>), <span class="hljs-comment">// &lt;- a Target passed to an interaction to Enter</span>
 
-        Enter.theValue(NameOfTheActor())    <span class="hljs-comment">// &lt;- our custom question</span>
-            .into(NewComment.NameField),    <span class="hljs-comment">//    returning a static value</span>
+        <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-title class_">NameOfTheActor</span>())    <span class="hljs-comment">// &lt;- our custom question</span>
+            .<span class="hljs-title function_">into</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">NameField</span>),    <span class="hljs-comment">//    returning a static value</span>
 
-        Click.on(NewComment.SubmitButton),  <span class="hljs-comment">// &lt;- a Target passed to an interaction to Click</span>
+        <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">SubmitButton</span>),  <span class="hljs-comment">// &lt;- a Target passed to an interaction to Click</span>
     );
 </code></pre>
 <p>There are several interesting things about the code samples above:</p>
@@ -282,43 +282,43 @@ actorCalled(<span class="hljs-string">'Alice'</span>)
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 </code></pre>
 <p>We can, of course, get its text using the <a href="/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of"><code>Text.of</code></a> question and then pass it to an interaction like <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a> (responsible for performing <a href="/handbook/design/assertions.html">assertions</a>):</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSummary</span> </span>{
-    <span class="hljs-keyword">static</span> DiscountWidget =
-        Target.the(<span class="hljs-string">'discount widget'</span>)
-           .located(by.css(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountWidget</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'discount widget'</span>)
+           .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
 }
 
-actorCalled(<span class="hljs-string">'Alice'</span>).attemptsTo(
-    Ensure.that(Text.of(OrderSummary.DiscountWidget), equals(<span class="hljs-string">'7.5%'</span>)),
+<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>).<span class="hljs-title function_">attemptsTo</span>(
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'7.5%'</span>)),
 );
 </code></pre>
 <p>In many cases, asserting on a text value of an element is perfectly fine, but what if our test needed to check if the discount applied is <strong>less than 10%</strong>?</p>
 <p>We'd have to first convert the text value to a number, wouldn't we?</p>
 <p>That's where <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-map"><code>Question#map</code></a> comes into play!</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, isLessThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, isLessThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { actorCalled, trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSummary</span> </span>{
-    <span class="hljs-keyword">static</span> DiscountWidget =
-        Target.the(<span class="hljs-string">'discount widget'</span>)
-            .located(by.css(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountWidget</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'discount widget'</span>)
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
 
-    <span class="hljs-keyword">static</span> DiscountPercentage =
-        Text.of(OrderSummary.DiscountWidget)
-            .map(trim())                        <span class="hljs-comment">// &lt;- remove leading and trailing whitespace</span>
-            .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))              <span class="hljs-comment">// &lt;- remove the '%' character</span>
-            .map(toNumber())                    <span class="hljs-comment">// &lt;- map what's left to a `number`</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountPercentage</span> =
+        <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>)
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())                        <span class="hljs-comment">// &lt;- remove leading and trailing whitespace</span>
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))              <span class="hljs-comment">// &lt;- remove the '%' character</span>
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())                    <span class="hljs-comment">// &lt;- map what's left to a `number`</span>
 }
 
-actorCalled(<span class="hljs-string">'Alice'</span>).attemptsTo(
-    Ensure.that(OrderSummary.DiscountPercentage, isLessThan(<span class="hljs-number">10</span>)), <span class="hljs-comment">// compare as number rather than string</span>
+<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>).<span class="hljs-title function_">attemptsTo</span>(
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountPercentage</span>, <span class="hljs-title function_">isLessThan</span>(<span class="hljs-number">10</span>)), <span class="hljs-comment">// compare as number rather than string</span>
 );
 </code></pre>
 <p>There are several interesting things demonstrated in the code sample above:</p>
@@ -356,37 +356,37 @@ actorCalled(<span class="hljs-string">'Alice'</span>).attemptsTo(
 <p>However, this also means that in more complex cases this description can become quite a mouthful.</p>
 <p>Consider the below example that uses <a href="/modules/protractor/test-file/spec/screenplay/questions/Target.spec.ts.html">nested targets</a>:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSummary</span> </span>{
-    <span class="hljs-keyword">static</span> Widget =
-        Target.the(<span class="hljs-string">'order summary'</span>)
-            .located(by.id(<span class="hljs-string">'order-summary'</span>));
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Widget</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'order summary'</span>)
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'order-summary'</span>));
 
-    <span class="hljs-keyword">static</span> DiscountWidget =
-        Target.the(<span class="hljs-string">'discount widget'</span>)
-            .of(OrderSummary.Widget)            <span class="hljs-comment">// &lt;- nested Target</span>
-            .located(by.css(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountWidget</span> =
+        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'discount widget'</span>)
+            .<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">Widget</span>)            <span class="hljs-comment">// &lt;- nested Target</span>
+            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
 
-    <span class="hljs-keyword">static</span> DiscountPercentage =
-        Text.of(OrderSummary.DiscountWidget)
-            .map(trim())                        <span class="hljs-comment">// &lt;- mappings</span>
-            .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-            .map(toNumber())
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountPercentage</span> =
+        <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>)
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())                        <span class="hljs-comment">// &lt;- mappings</span>
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
 }
 </code></pre>
 <p>In this case, <code>OrderSummary.DiscountPercentage</code> would get reported as <code>"text of the discount widget of the order summary"</code>. </p>
 <p>To override this automatically-generated description of the question's subject with a custom one, use <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-describedAs"><code>Question#describedAs()</code></a>: </p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">OrderSummary</span> </span>{
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
     <span class="hljs-comment">// other fields omitted for brevity</span>
 
-    <span class="hljs-keyword">static</span> DiscountPercentage =
-        Text.of(OrderSummary.DiscountWidget)
-            .map(trim())                        
-            .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-            .map(toNumber())
-            .describedAs(<span class="hljs-string">'discount percentage'</span>) <span class="hljs-comment">// &lt;- subject name override</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountPercentage</span> =
+        <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>)
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())                        
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
+            .<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'discount percentage'</span>) <span class="hljs-comment">// &lt;- subject name override</span>
 }
 </code></pre>
 </body></html>

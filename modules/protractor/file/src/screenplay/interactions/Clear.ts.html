@@ -187,23 +187,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Clear.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Interaction, LogicError, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span>, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Value</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
 <span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../withAnswerOf'</span>;
-<span class="hljs-keyword">import</span> { Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Instructs the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+ *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
  *  clear the `value` of a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input).
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example widget&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Example widget&lt;/caption&gt;
  *  &lt;form&gt;
  *    &lt;input type="text" name="example" id="example" /&gt;
  *  &lt;/form&gt;
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
  *  import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { by } from 'protractor';
  *
@@ -212,7 +213,7 @@
  *          .located(by.id('example'));
  *  }
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Clearing the value of an input field&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Clearing the value of an input field&lt;/caption&gt;
  *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { BrowseTheWeb, Clear, Enter, Value } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -228,62 +229,62 @@
  *          Ensure.that(Value.of(Form.exampleInput), equals('')),
  *      );
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link BrowseTheWeb}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Enter}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Value}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Ensure}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions/lib/expectations~equals}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link BrowseTheWeb</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Enter</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Value</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions~Ensure</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions/lib/expectations~equals</span>}
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Clear</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Clear</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Instantiates this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">field</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">field</span>
      *  The field to be cleared
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      */</span>
-    <span class="hljs-keyword">static</span> theValueOf(field: Question&lt;ElementFinder&gt; | ElementFinder): Interaction {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Clear(field);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">theValueOf</span>(<span class="hljs-attr">field</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>): <span class="hljs-title class_">Interaction</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clear</span>(field);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">field</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">field</span>
      *  The field to be cleared
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> field: Question&lt;ElementFinder&gt; | ElementFinder</span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> field: Question&lt;ElementFinder&gt; | ElementFinder</span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{PromiseLike&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">PromiseLike&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
      */</span>
-    performAs(actor: UsesAbilities &amp; AnswersQuestions): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Value(<span class="hljs-built_in">this</span>.field).answeredBy(actor).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Value</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">field</span>).<span class="hljs-title function_">answeredBy</span>(actor).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
             <span class="hljs-keyword">if</span> (value === <span class="hljs-literal">null</span>) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(
-                    <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.capitaliseFirstLetter(<span class="hljs-built_in">this</span>.field.toString()) }</span> doesn't seem to have a 'value' attribute that could be cleared.`</span>,
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(
+                    <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.capitaliseFirstLetter(<span class="hljs-variable language_">this</span>.field.toString()) }</span> doesn't seem to have a 'value' attribute that could be cleared.`</span>,
                 );
             }
 
             <span class="hljs-keyword">if</span> (value !== <span class="hljs-literal">undefined</span>) {
-                <span class="hljs-keyword">return</span> withAnswerOf(actor, <span class="hljs-built_in">this</span>.field, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span> {
-                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.removeCharactersFrom(elf, value.length);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">withAnswerOf</span>(actor, <span class="hljs-variable language_">this</span>.<span class="hljs-property">field</span>, <span class="hljs-function">(<span class="hljs-params">elf: ElementFinder</span>) =&gt;</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">removeCharactersFrom</span>(elf, value.<span class="hljs-property">length</span>);
                 });
             }
         });
@@ -291,29 +292,29 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor clears the value of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.field }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor clears the value of <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.field }</span>`</span>;
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">capitaliseFirstLetter</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-keyword">return</span> text.charAt(<span class="hljs-number">0</span>).toUpperCase() + text.slice(<span class="hljs-number">1</span>);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">capitaliseFirstLetter</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-keyword">return</span> text.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">toUpperCase</span>() + text.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>);
     }
 
-    <span class="hljs-keyword">private</span> removeCharactersFrom(elf: ElementFinder, <span class="hljs-attr">numberOfCharacters</span>: <span class="hljs-built_in">number</span>): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">removeCharactersFrom</span>(<span class="hljs-attr">elf</span>: <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-attr">numberOfCharacters</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> numberOfCharacters === <span class="hljs-number">0</span>
-            ? <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
-            : elf.sendKeys(
-                protractor.Key.END,
-                ...this.times(numberOfCharacters, protractor.Key.BACK_SPACE),
+            ? <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
+            : elf.<span class="hljs-title function_">sendKeys</span>(
+                protractor.<span class="hljs-property">Key</span>.<span class="hljs-property">END</span>,
+                ...<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">times</span>(numberOfCharacters, protractor.<span class="hljs-property">Key</span>.<span class="hljs-property">BACK_SPACE</span>),
             );
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">times</span>(<span class="hljs-params">length: <span class="hljs-built_in">number</span>, key: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Array</span>.from({ length }).map(<span class="hljs-function">() =&gt;</span> key);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">times</span>(<span class="hljs-params">length: <span class="hljs-built_in">number</span>, key: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>({ length }).<span class="hljs-title function_">map</span>(<span class="hljs-function">() =&gt;</span> key);
     }
 }
 </code></pre>

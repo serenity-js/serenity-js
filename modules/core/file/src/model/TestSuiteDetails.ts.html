@@ -294,27 +294,27 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/TestSuiteDetails.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CorrelationId'</span>;
-<span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Name'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CorrelationId'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Name'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestSuiteDetails</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject): TestSuiteDetails {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TestSuiteDetails(
-            Name.fromJSON(o.name <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            FileSystemLocation.fromJSON(o.location <span class="hljs-keyword">as</span> JSONObject),
-            CorrelationId.fromJSON(o.correlationId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestSuiteDetails</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: JSONObject): <span class="hljs-title class_">TestSuiteDetails</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestSuiteDetails</span>(
+            <span class="hljs-title class_">Name</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">name</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            <span class="hljs-title class_">FileSystemLocation</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">location</span> <span class="hljs-keyword">as</span> JSONObject),
+            <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">correlationId</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: Name,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> location: FileSystemLocation,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> correlationId: CorrelationId = CorrelationId.create(),
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 }
 </code></pre>

@@ -132,9 +132,9 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/output/TempFileOutputDescriptor.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations */</span>
-<span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> { OutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputDescriptor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -146,19 +146,19 @@
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TempFileOutputDescriptor</span> <span class="hljs-title">implements</span> <span class="hljs-title">OutputDescriptor</span> </span>{  <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> path: Path;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TempFileOutputDescriptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">OutputDescriptor</span> {  <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>;
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem</span>)</span> {
-        <span class="hljs-built_in">this</span>.path = <span class="hljs-built_in">this</span>.fileSystem.tempFilePath(<span class="hljs-string">'serenity-'</span>);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem</span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">path</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">tempFilePath</span>(<span class="hljs-string">'serenity-'</span>);
     }
 
-    value(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.path.value;
+    <span class="hljs-title function_">value</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">path</span>.<span class="hljs-property">value</span>;
     }
 
-    cleanUp(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.remove(<span class="hljs-built_in">this</span>.path);
+    <span class="hljs-title function_">cleanUp</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">remove</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">path</span>);
     }
 }
 </code></pre>

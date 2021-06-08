@@ -295,22 +295,22 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/FileFinder.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> fg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fast-glob'</span>);
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileFinder</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> cwd: Path</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileFinder</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> cwd: Path</span>) {
     }
 
-    filesMatching(globPatterns: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): Path[] {
+    <span class="hljs-title function_">filesMatching</span>(<span class="hljs-attr">globPatterns</span>: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-title class_">Path</span>[] {
         <span class="hljs-keyword">if</span> (! globPatterns) {
             <span class="hljs-keyword">return</span> [];
         }
 
-        <span class="hljs-keyword">return</span> fg.sync(globPatterns, {
-            <span class="hljs-attr">cwd</span>: <span class="hljs-built_in">this</span>.cwd.value,
+        <span class="hljs-keyword">return</span> fg.<span class="hljs-title function_">sync</span>(globPatterns, {
+            <span class="hljs-attr">cwd</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">cwd</span>.<span class="hljs-property">value</span>,
             <span class="hljs-attr">absolute</span>: <span class="hljs-literal">true</span>,
             <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
-        }).map(<span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> Path(value));
+        }).<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(value));
     }
 }
 </code></pre>

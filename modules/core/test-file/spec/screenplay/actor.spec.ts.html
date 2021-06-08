@@ -298,215 +298,215 @@
 
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { ConfigurationError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
-<span class="hljs-keyword">import</span> { InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/events'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, ExecutionSuccessful, Name, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
-<span class="hljs-keyword">import</span> { Ability, Actor, Initialisable, See } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">InteractionFinished</span>, <span class="hljs-title class_">InteractionStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Initialisable</span>, <span class="hljs-title class_">See</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
-<span class="hljs-keyword">import</span> { AcousticGuitar, Chords, Guitar, MusicSheets, NumberOfGuitarStringsLeft, PlayAChord, PlayAGuitar, PlayASong } <span class="hljs-keyword">from</span> <span class="hljs-string">'./example-implementation'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AcousticGuitar</span>, <span class="hljs-title class_">Chords</span>, <span class="hljs-title class_">Guitar</span>, <span class="hljs-title class_">MusicSheets</span>, <span class="hljs-title class_">NumberOfGuitarStringsLeft</span>, <span class="hljs-title class_">Play</span>AChord, <span class="hljs-title class_">Play</span>AGuitar, <span class="hljs-title class_">Play</span>ASong } <span class="hljs-keyword">from</span> <span class="hljs-string">'./example-implementation'</span>;
 
-<span class="hljs-keyword">const</span> equals = <span class="hljs-function">(<span class="hljs-params">expected: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-function">(<span class="hljs-params">actual: PromiseLike&lt;<span class="hljs-built_in">number</span>&gt;</span>) =&gt;</span> expect(actual).to.equal(expected);
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">equals</span> = (<span class="hljs-params">expected: <span class="hljs-built_in">number</span></span>) =&gt; <span class="hljs-function">(<span class="hljs-params">actual: PromiseLike&lt;<span class="hljs-built_in">number</span>&gt;</span>) =&gt;</span> <span class="hljs-title function_">expect</span>(actual).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
 
-describe(<span class="hljs-string">'Actor'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Actor'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'some-scene-id'</span>),
-        activityId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'some-activity-id'</span>);
+        sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'some-scene-id'</span>),
+        activityId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'some-activity-id'</span>);
 
     <span class="hljs-keyword">let</span>
-        <span class="hljs-attr">guitar</span>: sinon.SinonStubbedInstance&lt;Guitar&gt;,
-        stage: sinon.SinonStubbedInstance&lt;Stage&gt;;
+        <span class="hljs-attr">guitar</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">Guitar</span>&gt;,
+        <span class="hljs-attr">stage</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">Stage</span>&gt;;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        guitar = sinon.createStubInstance(AcousticGuitar);
-        stage = sinon.createStubInstance(Stage);
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        guitar = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">AcousticGuitar</span>);
+        stage = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Stage</span>);
 
-        stage.assignNewActivityId.returns(activityId);
-        stage.currentSceneId.returns(sceneId);
-        stage.currentActivityId.returns(activityId);
+        stage.<span class="hljs-property">assignNewActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
+        stage.<span class="hljs-property">currentSceneId</span>.<span class="hljs-title function_">returns</span>(sceneId);
+        stage.<span class="hljs-property">currentActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
     });
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">actor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Actor(name, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">actor</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(name, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
     }
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">'can be identified by their name'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be identified by their name'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        expect(actor(<span class="hljs-string">'Chris'</span>).name).to.equal(<span class="hljs-string">'Chris'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Chris'</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">'provides a developer-friendly toString'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DoCoolThings</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a developer-friendly toString'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">class</span> <span class="hljs-title class_">DoCoolThings</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
         }
 
-        expect(actor(<span class="hljs-string">'Chris'</span>).toString()).to.equal(<span class="hljs-string">'Actor(name=Chris, abilities=[])'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Actor(name=Chris, abilities=[])'</span>);
 
-        expect(actor(<span class="hljs-string">'Chris'</span>).whoCan(<span class="hljs-keyword">new</span> DoCoolThings()).toString()).to.equal(<span class="hljs-string">'Actor(name=Chris, abilities=[DoCoolThings])'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">DoCoolThings</span>()).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Actor(name=Chris, abilities=[DoCoolThings])'</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">'has Abilities allowing them to perform Activities and interact with a given interface of the system under test'</span>, <span class="hljs-function">() =&gt;</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'has Abilities allowing them to perform Activities and interact with a given interface of the system under test'</span>, <span class="hljs-function">() =&gt;</span>
 
-        actor(<span class="hljs-string">'Chris'</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
-            PlayAChord.of(Chords.AMajor),
+        <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar)).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Play</span>AChord.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">AMajor</span>),
         ).
-        then(<span class="hljs-function">() =&gt;</span> {
-            expect(guitar.play).to.have.been.calledWith(Chords.AMajor);
+        <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(guitar.<span class="hljs-property">play</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">AMajor</span>);
         }));
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-    it(<span class="hljs-string">'performs composite Tasks recursively to accomplish their Business Goals'</span>, <span class="hljs-function">() =&gt;</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'performs composite Tasks recursively to accomplish their Business Goals'</span>, <span class="hljs-function">() =&gt;</span>
 
-        actor(<span class="hljs-string">'Chris'</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
-            PlayASong.from(MusicSheets.Wild_Thing),
+        <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar)).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Play</span>ASong.<span class="hljs-title function_">from</span>(<span class="hljs-title class_">MusicSheets</span>.<span class="hljs-property">Wild_Thing</span>),
         ).
-        then(<span class="hljs-function">() =&gt;</span> {
-            expect(guitar.play.getCall(<span class="hljs-number">0</span>)).to.have.been.calledWith(Chords.AMajor);
-            expect(guitar.play.getCall(<span class="hljs-number">1</span>)).to.have.been.calledWith(Chords.DMajor);
-            expect(guitar.play.getCall(<span class="hljs-number">2</span>)).to.have.been.calledWith(Chords.EMajor);
+        <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(guitar.<span class="hljs-property">play</span>.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">0</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">AMajor</span>);
+            <span class="hljs-title function_">expect</span>(guitar.<span class="hljs-property">play</span>.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">1</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">DMajor</span>);
+            <span class="hljs-title function_">expect</span>(guitar.<span class="hljs-property">play</span>.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">2</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">EMajor</span>);
         }));
 
-    describe(<span class="hljs-string">'asks Questions about the state of the system'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-        it(<span class="hljs-string">'fulfills the promise should the question be answered as expected'</span>, <span class="hljs-function">() =&gt;</span> {
-            guitar.availableStrings.returns(<span class="hljs-built_in">Promise</span>.resolve([<span class="hljs-string">'E2'</span>, <span class="hljs-string">'A2'</span>, <span class="hljs-string">'D3'</span>, <span class="hljs-string">'G3'</span>, <span class="hljs-string">'B3'</span>, <span class="hljs-string">'E4'</span> ]));
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'asks Questions about the state of the system'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'fulfills the promise should the question be answered as expected'</span>, <span class="hljs-function">() =&gt;</span> {
+            guitar.<span class="hljs-property">availableStrings</span>.<span class="hljs-title function_">returns</span>(<span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>([<span class="hljs-string">'E2'</span>, <span class="hljs-string">'A2'</span>, <span class="hljs-string">'D3'</span>, <span class="hljs-string">'G3'</span>, <span class="hljs-string">'B3'</span>, <span class="hljs-string">'E4'</span> ]));
 
-            <span class="hljs-keyword">return</span> expect(actor(<span class="hljs-string">'Chris'</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
-                PlayASong.from(MusicSheets.Wild_Thing),
-                See.if(NumberOfGuitarStringsLeft(), equals(<span class="hljs-number">6</span>)),
-            )).to.be.fulfilled;
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar)).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Play</span>ASong.<span class="hljs-title function_">from</span>(<span class="hljs-title class_">MusicSheets</span>.<span class="hljs-property">Wild_Thing</span>),
+                <span class="hljs-title class_">See</span>.<span class="hljs-title function_">if</span>(<span class="hljs-title class_">NumberOfGuitarStringsLeft</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">6</span>)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-        it(<span class="hljs-string">'rejects the promise should the answer differ from what was expected'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'rejects the promise should the answer differ from what was expected'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> oneStringMissing = [<span class="hljs-string">'E2'</span>, <span class="hljs-string">'A2'</span>, <span class="hljs-string">'D3'</span>, <span class="hljs-string">'G3'</span>, <span class="hljs-string">'B3'</span> ];
-            guitar.availableStrings.returns(<span class="hljs-built_in">Promise</span>.resolve(oneStringMissing));
+            guitar.<span class="hljs-property">availableStrings</span>.<span class="hljs-title function_">returns</span>(<span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(oneStringMissing));
 
-            <span class="hljs-keyword">return</span> expect(actor(<span class="hljs-string">'Chris'</span>).whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
-                PlayASong.from(MusicSheets.Wild_Thing),
-                See.if(NumberOfGuitarStringsLeft(), equals(<span class="hljs-number">6</span>)),
-            )).to.be.rejectedWith(<span class="hljs-string">'expected 5 to equal 6'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Chris'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar)).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Play</span>ASong.<span class="hljs-title function_">from</span>(<span class="hljs-title class_">MusicSheets</span>.<span class="hljs-property">Wild_Thing</span>),
+                <span class="hljs-title class_">See</span>.<span class="hljs-title function_">if</span>(<span class="hljs-title class_">NumberOfGuitarStringsLeft</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">6</span>)),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-string">'expected 5 to equal 6'</span>);
         });
     });
 
-    describe(<span class="hljs-string">'when using abilities'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when using abilities'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-        it(<span class="hljs-string">'admits if it does not have the Ability necessary to accomplish a given Interaction'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'admits if it does not have the Ability necessary to accomplish a given Interaction'</span>, <span class="hljs-function">() =&gt;</span>
 
-            expect(actor(<span class="hljs-string">'Ben'</span>).attemptsTo(
-                PlayAChord.of(Chords.AMajor),
-            )).to.be.eventually.rejectedWith(ConfigurationError, <span class="hljs-string">`Ben can't PlayAGuitar yet. Did you give them the ability to do so?`</span>));
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Ben'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Play</span>AChord.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">AMajor</span>),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`Ben can't PlayAGuitar yet. Did you give them the ability to do so?`</span>));
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-        it(<span class="hljs-string">'complains if given the same ability twice'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if given the same ability twice'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(<span class="hljs-function">() =&gt;</span>
-                actor(<span class="hljs-string">'Ben'</span>).whoCan(PlayAGuitar.suchAs(guitar), PlayAGuitar.suchAs(guitar))
-            ).to.throw(ConfigurationError, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`</span>);
+            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Ben'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar), <span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar))
+            ).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`Ben already has an ability to PlayAGuitar, so you don't need to give it to them again.`</span>);
         });
 
-        describe(<span class="hljs-string">'that have to be initialised'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'that have to be initialised'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseDatabase</span> <span class="hljs-title">implements</span> <span class="hljs-title">Initialisable</span>, <span class="hljs-title">Ability</span> </span>{
+            <span class="hljs-keyword">class</span> <span class="hljs-title class_">UseDatabase</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Initialisable</span>, <span class="hljs-title class_">Ability</span> {
                 <span class="hljs-keyword">public</span> callsToInitialise = <span class="hljs-number">0</span>;
                 <span class="hljs-keyword">private</span> connection;
 
-                initialise(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
-                    <span class="hljs-built_in">this</span>.connection = <span class="hljs-string">'some connection'</span>;
+                <span class="hljs-title function_">initialise</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">connection</span> = <span class="hljs-string">'some connection'</span>;
 
-                    <span class="hljs-built_in">this</span>.callsToInitialise++;
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">callsToInitialise</span>++;
                 }
 
-                isInitialised(): <span class="hljs-built_in">boolean</span> {
-                    <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.connection;
+                <span class="hljs-title function_">isInitialised</span>(): <span class="hljs-built_in">boolean</span> {
+                    <span class="hljs-keyword">return</span> !! <span class="hljs-variable language_">this</span>.<span class="hljs-property">connection</span>;
                 }
             }
 
-            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseBrokenDatabase</span> <span class="hljs-title">implements</span> <span class="hljs-title">Initialisable</span>, <span class="hljs-title">Ability</span> </span>{
-                initialise(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'DB server is down, please cheer it up'</span>);
+            <span class="hljs-keyword">class</span> <span class="hljs-title class_">UseBrokenDatabase</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Initialisable</span>, <span class="hljs-title class_">Ability</span> {
+                <span class="hljs-title function_">initialise</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'DB server is down, please cheer it up'</span>);
                 }
 
-                isInitialised(): <span class="hljs-built_in">boolean</span> {
+                <span class="hljs-title function_">isInitialised</span>(): <span class="hljs-built_in">boolean</span> {
                     <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
                 }
             }
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-            it(<span class="hljs-string">'initialises them upon the first call to attemptsTo'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'initialises them upon the first call to attemptsTo'</span>, <span class="hljs-keyword">async</span> () =&gt; {
 
-                <span class="hljs-keyword">const</span> useDatabase = <span class="hljs-keyword">new</span> UseDatabase();
+                <span class="hljs-keyword">const</span> useDatabase = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UseDatabase</span>();
 
-                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">'Dibillo'</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
+                <span class="hljs-keyword">await</span> <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Dibillo'</span>).<span class="hljs-title function_">whoCan</span>(useDatabase).<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-comment">/* */</span>);
 
-                expect(useDatabase.isInitialised()).to.equal(<span class="hljs-literal">true</span>);
+                <span class="hljs-title function_">expect</span>(useDatabase.<span class="hljs-title function_">isInitialised</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
             });
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-            it(<span class="hljs-string">`initialises them only if they haven't been initialised before`</span>, <span class="hljs-keyword">async</span> () =&gt; {
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`initialises them only if they haven't been initialised before`</span>, <span class="hljs-keyword">async</span> () =&gt; {
 
-                <span class="hljs-keyword">const</span> useDatabase = <span class="hljs-keyword">new</span> UseDatabase();
+                <span class="hljs-keyword">const</span> useDatabase = <span class="hljs-keyword">new</span> <span class="hljs-title class_">UseDatabase</span>();
 
-                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">'Dibillo'</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
-                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">'Dibillo'</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
-                <span class="hljs-keyword">await</span> actor(<span class="hljs-string">'Dibillo'</span>).whoCan(useDatabase).attemptsTo(<span class="hljs-comment">/* */</span>);
+                <span class="hljs-keyword">await</span> <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Dibillo'</span>).<span class="hljs-title function_">whoCan</span>(useDatabase).<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-comment">/* */</span>);
+                <span class="hljs-keyword">await</span> <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Dibillo'</span>).<span class="hljs-title function_">whoCan</span>(useDatabase).<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-comment">/* */</span>);
+                <span class="hljs-keyword">await</span> <span class="hljs-title function_">actor</span>(<span class="hljs-string">'Dibillo'</span>).<span class="hljs-title function_">whoCan</span>(useDatabase).<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-comment">/* */</span>);
 
-                expect(useDatabase.callsToInitialise).to.equal(<span class="hljs-number">1</span>);
+                <span class="hljs-title function_">expect</span>(useDatabase.<span class="hljs-property">callsToInitialise</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
             });
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-            it(<span class="hljs-string">`complains if the ability could not be initialised`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`complains if the ability could not be initialised`</span>, <span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">return</span> expect(actor(<span class="hljs-string">'Dibillo'</span>).whoCan(<span class="hljs-keyword">new</span> UseBrokenDatabase()).attemptsTo(<span class="hljs-comment">/* */</span>))
-                    .to.be.rejectedWith(TestCompromisedError, <span class="hljs-string">`Dibillo couldn't initialise the ability to UseBrokenDatabase`</span>)
-                    .then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                        expect(error.cause.message).to.equal(<span class="hljs-string">'DB server is down, please cheer it up'</span>)
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Dibillo'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">UseBrokenDatabase</span>()).<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-comment">/* */</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">TestCompromisedError</span>, <span class="hljs-string">`Dibillo couldn't initialise the ability to UseBrokenDatabase`</span>)
+                    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">cause</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'DB server is down, please cheer it up'</span>)
                     });
             });
         });
     });
 
-    describe(<span class="hljs-string">'DomainEvent handling'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'DomainEvent handling'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">let</span> Bob: Actor;
-        <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> Timestamp(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'2018-06-10T22:57:07.112Z'</span>));
-        <span class="hljs-keyword">const</span> activityName = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Bob plays the chord of A'</span>);
+        <span class="hljs-keyword">let</span> <span class="hljs-title class_">Bob</span>: <span class="hljs-title class_">Actor</span>;
+        <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'2018-06-10T22:57:07.112Z'</span>));
+        <span class="hljs-keyword">const</span> activityName = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Bob plays the chord of A'</span>);
 
-        beforeEach(<span class="hljs-function">() =&gt;</span> {
-            stage = sinon.createStubInstance(Stage);
-            stage.currentTime.returns(now);
+        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+            stage = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Stage</span>);
+            stage.<span class="hljs-property">currentTime</span>.<span class="hljs-title function_">returns</span>(now);
 
-            stage.currentSceneId.returns(sceneId);
-            stage.assignNewActivityId.returns(activityId);
-            stage.currentActivityId.returns(activityId);
+            stage.<span class="hljs-property">currentSceneId</span>.<span class="hljs-title function_">returns</span>(sceneId);
+            stage.<span class="hljs-property">assignNewActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
+            stage.<span class="hljs-property">currentActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
 
-            Bob = <span class="hljs-keyword">new</span> Actor(<span class="hljs-string">'Bob'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> Stage);
+            <span class="hljs-title class_">Bob</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(<span class="hljs-string">'Bob'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
         });
 
-        describe(<span class="hljs-string">'announces the events that activities it performs'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'announces the events that activities it performs'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Actor}</span> </span>*/</span>
-            it(<span class="hljs-string">'notifies when an activity begins and ends'</span>, <span class="hljs-function">() =&gt;</span> Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
-                PlayAChord.of(Chords.AMajor),
-            ).then(<span class="hljs-function">() =&gt;</span> {
-                expect(stage.announce).to.have.callCount(<span class="hljs-number">2</span>);
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Actor</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'notifies when an activity begins and ends'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Bob</span>.<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">Play</span>AGuitar.<span class="hljs-title function_">suchAs</span>(guitar)).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Play</span>AChord.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Chords</span>.<span class="hljs-property">AMajor</span>),
+            ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(stage.<span class="hljs-property">announce</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">callCount</span>(<span class="hljs-number">2</span>);
 
                 <span class="hljs-keyword">const</span>
-                    firstEvent = stage.announce.getCall(<span class="hljs-number">0</span>).args[<span class="hljs-number">0</span>],
-                    secondEvent = stage.announce.getCall(<span class="hljs-number">1</span>).args[<span class="hljs-number">0</span>];
+                    firstEvent = stage.<span class="hljs-property">announce</span>.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">0</span>).<span class="hljs-property">args</span>[<span class="hljs-number">0</span>],
+                    secondEvent = stage.<span class="hljs-property">announce</span>.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">1</span>).<span class="hljs-property">args</span>[<span class="hljs-number">0</span>];
 
-                expect(firstEvent).to.be.instanceOf(InteractionStarts);
-                expect(firstEvent).to.have.property(<span class="hljs-string">'details'</span>).property(<span class="hljs-string">'name'</span>).equal(activityName);
-                expect(firstEvent).to.have.property(<span class="hljs-string">'timestamp'</span>).equal(now);
+                <span class="hljs-title function_">expect</span>(firstEvent).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">InteractionStarts</span>);
+                <span class="hljs-title function_">expect</span>(firstEvent).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">property</span>(<span class="hljs-string">'details'</span>).<span class="hljs-title function_">property</span>(<span class="hljs-string">'name'</span>).<span class="hljs-title function_">equal</span>(activityName);
+                <span class="hljs-title function_">expect</span>(firstEvent).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">property</span>(<span class="hljs-string">'timestamp'</span>).<span class="hljs-title function_">equal</span>(now);
 
-                expect(secondEvent).to.be.instanceOf(InteractionFinished);
-                expect(secondEvent).to.have.property(<span class="hljs-string">'details'</span>).property(<span class="hljs-string">'name'</span>).equal(activityName);
-                expect(secondEvent).to.have.property(<span class="hljs-string">'outcome'</span>).equal(<span class="hljs-keyword">new</span> ExecutionSuccessful());
-                expect(secondEvent).to.have.property(<span class="hljs-string">'timestamp'</span>).equal(now);
+                <span class="hljs-title function_">expect</span>(secondEvent).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">InteractionFinished</span>);
+                <span class="hljs-title function_">expect</span>(secondEvent).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">property</span>(<span class="hljs-string">'details'</span>).<span class="hljs-title function_">property</span>(<span class="hljs-string">'name'</span>).<span class="hljs-title function_">equal</span>(activityName);
+                <span class="hljs-title function_">expect</span>(secondEvent).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">property</span>(<span class="hljs-string">'outcome'</span>).<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>());
+                <span class="hljs-title function_">expect</span>(secondEvent).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">property</span>(<span class="hljs-string">'timestamp'</span>).<span class="hljs-title function_">equal</span>(now);
             }));
         });
     });

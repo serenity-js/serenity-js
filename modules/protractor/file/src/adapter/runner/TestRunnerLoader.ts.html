@@ -188,98 +188,99 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/runner/TestRunnerLoader.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */</span>
-<span class="hljs-keyword">import</span> { Config, FileFinder, FileSystem, ModuleLoader, Path, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { CucumberConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
-<span class="hljs-keyword">import</span> { CucumberAdapterConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberAdapterConfig'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span>, <span class="hljs-title class_">FileFinder</span>, <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Path</span>, <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberAdapterConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberAdapterConfig'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Loads a {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/io~TestRunnerAdapter}, needed to invoke
+ *  Loads a {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/io~TestRunnerAdapter}, needed to invoke
  *  the chosen test runner programmatically.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestRunnerLoader</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestRunnerLoader</span> {
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> moduleLoader: ModuleLoader;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> finder: FileFinder;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">moduleLoader</span>: <span class="hljs-title class_">ModuleLoader</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">fileSystem</span>: <span class="hljs-title class_">FileSystem</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">finder</span>: <span class="hljs-title class_">FileFinder</span>;
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~Path}</span> <span class="hljs-variable">cwd</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~Path</span>} <span class="hljs-variable">cwd</span>
      *  Current working directory; used to resolve glob paths to files for Cucumber.js to `require`,
      *  and instructing Serenity/JS where to look for this module's optional
      *  dependencies, like [`<span class="hljs-doctag">@serenity</span>-js/cucumber`](/modules/cucumber),
      *  [`<span class="hljs-doctag">@serenity</span>-js/mocha`](/modules/mocha),
      *  [`<span class="hljs-doctag">@serenity</span>-js/jasmine`](/modules/jasmine), etc.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number | string}</span> <span class="hljs-variable">runnerId</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number | string</span>} <span class="hljs-variable">runnerId</span>
      *  Unique identifier used to differentiate output files produced by native Cucumber.js formatters.
      *  For example, `process.pid`
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">cwd: Path, <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> runnerId: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">this</span>.moduleLoader   = <span class="hljs-keyword">new</span> ModuleLoader(cwd.value);
-        <span class="hljs-built_in">this</span>.fileSystem     = <span class="hljs-keyword">new</span> FileSystem(cwd);
-        <span class="hljs-built_in">this</span>.finder         = <span class="hljs-keyword">new</span> FileFinder(cwd);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">cwd: Path, <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> runnerId: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(cwd.<span class="hljs-property">value</span>);
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(cwd);
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">finder</span>         = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileFinder</span>(cwd);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/jasmine/lib/adapter~JasmineConfig}</span> <span class="hljs-variable">jasmineNodeOpts</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/jasmine/lib/adapter~JasmineConfig</span>} <span class="hljs-variable">jasmineNodeOpts</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
      */</span>
-    forJasmine(jasmineNodeOpts: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* JasmineConfig */</span>): TestRunnerAdapter {
-        <span class="hljs-keyword">const</span> { JasmineAdapter } = <span class="hljs-built_in">this</span>.moduleLoader.require(<span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>)
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> JasmineAdapter(jasmineNodeOpts, <span class="hljs-built_in">this</span>.moduleLoader);
+    <span class="hljs-title function_">forJasmine</span>(<span class="hljs-attr">jasmineNodeOpts</span>: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* JasmineConfig */</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+        <span class="hljs-keyword">const</span> { <span class="hljs-title class_">JasmineAdapter</span> } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JasmineAdapter</span>(jasmineNodeOpts, <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/mocha/lib/adapter~MochaConfig}</span> <span class="hljs-variable">mochaOpts</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/mocha/lib/adapter~MochaConfig</span>} <span class="hljs-variable">mochaOpts</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
      */</span>
-    forMocha(mochaOpts: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* MochaConfig */</span>): TestRunnerAdapter {
-        <span class="hljs-keyword">const</span> { MochaAdapter } = <span class="hljs-built_in">this</span>.moduleLoader.require(<span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span>)
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> MochaAdapter(mochaOpts, <span class="hljs-built_in">this</span>.moduleLoader);
+    <span class="hljs-title function_">forMocha</span>(<span class="hljs-attr">mochaOpts</span>: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* MochaConfig */</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+        <span class="hljs-keyword">const</span> { <span class="hljs-title class_">MochaAdapter</span> } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MochaAdapter</span>(mochaOpts, <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>);
     }
 
     <span class="hljs-comment">/**
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/cucumber/lib/cli~CucumberConfig}</span> <span class="hljs-variable">cucumberOpts</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{CucumberAdapterConfig}</span> <span class="hljs-variable">adapterConfig</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/cucumber/lib/cli~CucumberConfig</span>} <span class="hljs-variable">cucumberOpts</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">CucumberAdapterConfig</span>} <span class="hljs-variable">adapterConfig</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
      */</span>
-    forCucumber(cucumberOpts: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* CucumberConfig */</span>, <span class="hljs-attr">adapterConfig</span>: CucumberAdapterConfig): TestRunnerAdapter {
-        <span class="hljs-keyword">const</span> { CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput } = <span class="hljs-built_in">this</span>.moduleLoader.require(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>);
+    <span class="hljs-title function_">forCucumber</span>(<span class="hljs-attr">cucumberOpts</span>: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* CucumberConfig */</span>, <span class="hljs-attr">adapterConfig</span>: <span class="hljs-title class_">CucumberAdapterConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+        <span class="hljs-keyword">const</span> { <span class="hljs-title class_">Cucumber</span>CLIAdapter, <span class="hljs-title class_">CucumberFormat</span>, <span class="hljs-title class_">StandardOutput</span>, <span class="hljs-title class_">TempFileOutput</span> } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>);
 
-        <span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> Config&lt;CucumberConfig&gt;(cucumberOpts)
-            .where(<span class="hljs-string">'require'</span>, <span class="hljs-function"><span class="hljs-params">requires</span> =&gt;</span>
-                <span class="hljs-built_in">this</span>.finder.filesMatching(requires).map(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.value)
+        <span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Config</span>&lt;<span class="hljs-title class_">CucumberConfig</span>&gt;(cucumberOpts)
+            .<span class="hljs-title function_">where</span>(<span class="hljs-string">'require'</span>, <span class="hljs-function"><span class="hljs-params">requires</span> =&gt;</span>
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">finder</span>.<span class="hljs-title function_">filesMatching</span>(requires).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.<span class="hljs-property">value</span>)
             )
-            .whereIf(adapterConfig.uniqueFormatterOutputs, <span class="hljs-string">'format'</span>, <span class="hljs-function"><span class="hljs-params">values</span> =&gt;</span>
-                [].concat(values).map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
-                    <span class="hljs-keyword">const</span> format = <span class="hljs-keyword">new</span> CucumberFormat(value);
+            .<span class="hljs-title function_">whereIf</span>(adapterConfig.<span class="hljs-property">uniqueFormatterOutputs</span>, <span class="hljs-string">'format'</span>, <span class="hljs-function"><span class="hljs-params">values</span> =&gt;</span>
+                [].<span class="hljs-title function_">concat</span>(values).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
+                    <span class="hljs-keyword">const</span> format = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberFormat</span>(value);
 
-                    <span class="hljs-keyword">if</span> (format.output === <span class="hljs-string">''</span>) {
-                        <span class="hljs-keyword">return</span> format.value;
+                    <span class="hljs-keyword">if</span> (format.<span class="hljs-property">output</span> === <span class="hljs-string">''</span>) {
+                        <span class="hljs-keyword">return</span> format.<span class="hljs-property">value</span>;
                     }
 
-                    <span class="hljs-keyword">const</span> basename = Path.from(format.output).basename();
-                    <span class="hljs-keyword">const</span> filenameParts = basename.split(<span class="hljs-string">'.'</span>);
+                    <span class="hljs-keyword">const</span> basename = <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(format.<span class="hljs-property">output</span>).<span class="hljs-title function_">basename</span>();
+                    <span class="hljs-keyword">const</span> filenameParts = basename.<span class="hljs-title function_">split</span>(<span class="hljs-string">'.'</span>);
 
                     <span class="hljs-keyword">if</span> (filenameParts[<span class="hljs-number">0</span>] === basename) {
-                        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ format.formatter }</span>:<span class="hljs-subst">${ format.output }</span>.<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.runnerId }</span>`</span>;
+                        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ format.formatter }</span>:<span class="hljs-subst">${ format.output }</span>.<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.runnerId }</span>`</span>;
                     }
 
-                    filenameParts.splice(-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.runnerId }</span>`</span>);
+                    filenameParts.<span class="hljs-title function_">splice</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.runnerId }</span>`</span>);
 
                     <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ format.formatter }</span>:<span class="hljs-subst">${ format.output.replace(basename, filenameParts.join(<span class="hljs-string">'.'</span>)) }</span>`</span>;
                 })
             );
 
-        <span class="hljs-keyword">const</span> output = adapterConfig.useStandardOutput
-            ? <span class="hljs-keyword">new</span> StandardOutput()
-            : <span class="hljs-keyword">new</span> TempFileOutput(<span class="hljs-built_in">this</span>.fileSystem);
+        <span class="hljs-keyword">const</span> output = adapterConfig.<span class="hljs-property">useStandardOutput</span>
+            ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardOutput</span>()
+            : <span class="hljs-keyword">new</span> <span class="hljs-title class_">TempFileOutput</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>);
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CucumberCLIAdapter(config.object(), <span class="hljs-built_in">this</span>.moduleLoader, output);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cucumber</span>CLIAdapter(config.<span class="hljs-title function_">object</span>(), <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>, output);
     }
 }
 </code></pre>

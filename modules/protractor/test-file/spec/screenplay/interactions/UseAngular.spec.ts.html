@@ -190,57 +190,57 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, engage, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, engage, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { UseAngular } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UseAngular</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/promiseOf'</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular}</span> </span>*/</span>
-describe(<span class="hljs-string">'UseAngular'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">UseAngular</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'UseAngular'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>()));
 
-    describe(<span class="hljs-string">'synchronisation'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'synchronisation'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        afterEach(<span class="hljs-function">() =&gt;</span> protractor.browser.waitForAngularEnabled(<span class="hljs-literal">false</span>));    <span class="hljs-comment">// same as protractor.conf.js</span>
+        <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">waitForAngularEnabled</span>(<span class="hljs-literal">false</span>));    <span class="hljs-comment">// same as protractor.conf.js</span>
 
         <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-        <span class="hljs-keyword">const</span> IsSynchronisationEnabled = <span class="hljs-function">() =&gt;</span>
-            Question.about(<span class="hljs-string">'angular synchronisation'</span>,
-                <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> promiseOf(protractor.browser.waitForAngularEnabled()),
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">IsSynchronisationEnabled</span> = (<span class="hljs-params"></span>) =&gt;
+            <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'angular synchronisation'</span>,
+                <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-title function_">promiseOf</span>(protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">waitForAngularEnabled</span>()),
             );
 
-        describe(<span class="hljs-string">'when enabled'</span>, <span class="hljs-function">() =&gt;</span> {
-            beforeEach(<span class="hljs-function">() =&gt;</span> promiseOf(protractor.browser.waitForAngularEnabled(<span class="hljs-literal">true</span>)));
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when enabled'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">promiseOf</span>(protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">waitForAngularEnabled</span>(<span class="hljs-literal">true</span>)));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.disableSynchronisation}</span> </span>*/</span>
-            it(<span class="hljs-string">'can be disabled'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-                UseAngular.disableSynchronisation(),
-                Ensure.that(IsSynchronisationEnabled(), equals(<span class="hljs-literal">false</span>)),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">UseAngular.disableSynchronisation</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be disabled'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">disableSynchronisation</span>(),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">IsSynchronisationEnabled</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-literal">false</span>)),
             ));
         });
 
-        describe(<span class="hljs-string">'when disabled'</span>, <span class="hljs-function">() =&gt;</span> {
-            beforeEach(<span class="hljs-function">() =&gt;</span> promiseOf(protractor.browser.waitForAngularEnabled(<span class="hljs-literal">false</span>)));
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when disabled'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">promiseOf</span>(protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">waitForAngularEnabled</span>(<span class="hljs-literal">false</span>)));
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.enableSynchronisation}</span> </span>*/</span>
-            it(<span class="hljs-string">'can be enabled'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-                UseAngular.enableSynchronisation(),
-                Ensure.that(IsSynchronisationEnabled(), isTrue()),
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">UseAngular.enableSynchronisation</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be enabled'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">enableSynchronisation</span>(),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">IsSynchronisationEnabled</span>(), <span class="hljs-title function_">isTrue</span>()),
             ));
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.enableSynchronisation}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{UseAngular.disableSynchronisation}</span> </span>*/</span>
-        it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(UseAngular.enableSynchronisation().toString())
-                .to.equal(<span class="hljs-string">`#actor enables synchronisation with Angular`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">UseAngular.enableSynchronisation</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">UseAngular.disableSynchronisation</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">enableSynchronisation</span>().<span class="hljs-title function_">toString</span>())
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor enables synchronisation with Angular`</span>);
 
-            expect(UseAngular.disableSynchronisation().toString())
-                .to.equal(<span class="hljs-string">`#actor disables synchronisation with Angular`</span>);
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">disableSynchronisation</span>().<span class="hljs-title function_">toString</span>())
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor disables synchronisation with Angular`</span>);
         });
     });
 });

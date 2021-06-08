@@ -294,17 +294,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/lists/ListAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actor'</span>;
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Expectation'</span>;
-<span class="hljs-keyword">import</span> { MetaQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'../MetaQuestion'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Expectation'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MetaQuestion</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../MetaQuestion'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Adapts various types of collections so that they can be used with {<span class="hljs-doctag">@link </span>List}.
+ *  Adapts various types of collections so that they can be used with {<span class="hljs-doctag">@link</span> List}.
  *
  *  You probably won't need to implement this interface, unless you're extending Serenity/JS.
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link List}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ListAdapter&lt;
     Item_Type,
@@ -312,20 +312,20 @@
     Item_Return_Type = Item_Type,
     Collection_Return_Type = Collection_Type
 &gt; {
-    count(actor: AnswersQuestions &amp; UsesAbilities): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;;
+    <span class="hljs-title function_">count</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;;
 
-    first(actor: AnswersQuestions &amp; UsesAbilities): Item_Return_Type;
-    last(actor: AnswersQuestions &amp; UsesAbilities): Item_Return_Type;
-    get(actor: AnswersQuestions &amp; UsesAbilities, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): Item_Return_Type;
+    <span class="hljs-title function_">first</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Item</span>_Return_Type;
+    <span class="hljs-title function_">last</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Item</span>_Return_Type;
+    <span class="hljs-title function_">get</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Item</span>_Return_Type;
 
-    items(actor: AnswersQuestions &amp; UsesAbilities): Collection_Return_Type;
+    <span class="hljs-title function_">items</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Collection</span>_Return_Type;
 
-    withFilter&lt;Answer_Type&gt;(
-        question: MetaQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Answer_Type&gt; | Answer_Type&gt;,
-        expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Answer_Type&gt;,
-    ): ListAdapter&lt;Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type&gt;;
+    withFilter&lt;<span class="hljs-title class_">Answer</span>_Type&gt;(
+        <span class="hljs-attr">question</span>: <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt; | <span class="hljs-title class_">Answer</span>_Type&gt;,
+        <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Answer</span>_Type&gt;,
+    ): <span class="hljs-title class_">ListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type, <span class="hljs-title class_">Item</span>_Return_Type, <span class="hljs-title class_">Collection</span>_Return_Type&gt;;
 
-    toString(): <span class="hljs-built_in">string</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span>;
 }
 </code></pre>
 

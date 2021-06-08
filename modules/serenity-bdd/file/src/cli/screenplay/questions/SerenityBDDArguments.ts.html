@@ -128,46 +128,46 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/SerenityBDDArguments.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">/* eslint-disable unicorn/filename-case */
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-import { Argv } from '../../Argv';
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Argv</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Argv'</span>;
 
-/**
- * @package
- */
-export class SerenityBDDArguments extends Question&lt;string[]&gt; {
-    private static Allowed =  [
-        'destination',
-        'features',
-        'issueTrackerUrl',
-        'jiraProject',
-        'jiraUrl',
-        'project',
-        'source',
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SerenityBDDArguments</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-title class_">Allowed</span> =  [
+        <span class="hljs-string">'destination'</span>,
+        <span class="hljs-string">'features'</span>,
+        <span class="hljs-string">'issueTrackerUrl'</span>,
+        <span class="hljs-string">'jiraProject'</span>,
+        <span class="hljs-string">'jiraUrl'</span>,
+        <span class="hljs-string">'project'</span>,
+        <span class="hljs-string">'source'</span>,
     ];
 
-    static from(argv: Argv): SerenityBDDArguments {
-        return new SerenityBDDArguments(argv);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">from</span>(<span class="hljs-attr">argv</span>: <span class="hljs-title class_">Argv</span>): <span class="hljs-title class_">Serenity</span>BDDArguments {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDArguments(argv);
     }
 
-    constructor(private readonly argv: Argv) {
-        super('Serenity BDD arguments');
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> argv: Argv</span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">'Serenity BDD arguments'</span>);
     }
 
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): string[] {
-        return flatten(Object.keys(this.argv)
-            .filter(key =&gt; !! ~ SerenityBDDArguments.Allowed.indexOf(key) &amp;&amp; !! this.argv[key])
-            .map(arg =&gt; [`--${ arg }`, this.argv[arg]]));
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-built_in">string</span>[] {
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">flatten</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">argv</span>)
+            .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> !! ~ <span class="hljs-title class_">Serenity</span>BDDArguments.<span class="hljs-property">Allowed</span>.<span class="hljs-title function_">indexOf</span>(key) &amp;&amp; !! <span class="hljs-variable language_">this</span>.<span class="hljs-property">argv</span>[key])
+            .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> [<span class="hljs-string">`--<span class="hljs-subst">${ arg }</span>`</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">argv</span>[arg]]));
     }
 }
 
-function flatten(list: any[]) {
-    return list.reduce((acc, current) =&gt; {
-        Array.isArray(current)
-            ? acc.push(...flatten(current))
-            : acc.push(current);
-        return acc;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">flatten</span>(<span class="hljs-params">list: <span class="hljs-built_in">any</span>[]</span>) {
+    <span class="hljs-keyword">return</span> list.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> {
+        <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(current)
+            ? acc.<span class="hljs-title function_">push</span>(...<span class="hljs-title function_">flatten</span>(current))
+            : acc.<span class="hljs-title function_">push</span>(current);
+        <span class="hljs-keyword">return</span> acc;
     }, []);
 }
 </code></pre>

@@ -128,23 +128,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/tasks/VerifyChecksum.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 
-<span class="hljs-keyword">import</span> { Checksum } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Checksum</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../questions'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> VerifyChecksum = {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">VerifyChecksum</span> = {
     <span class="hljs-attr">at</span>: <span class="hljs-function">(<span class="hljs-params">checksumUrl: <span class="hljs-built_in">string</span></span>) =&gt;</span> ({             <span class="hljs-comment">// eslint-disable-line  @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-attr">against</span>: <span class="hljs-function">(<span class="hljs-params">downloadedFile: Path</span>) =&gt;</span> ({
             <span class="hljs-attr">calculatedUsing</span>: <span class="hljs-function">(<span class="hljs-params">hashingAlgorithm: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-                Task.where(<span class="hljs-string">`#actor verifies checksum at <span class="hljs-subst">${ checksumUrl }</span> against <span class="hljs-subst">${ downloadedFile.value }</span>`</span>,
-                    Send.a(GetRequest.to(checksumUrl)),
-                    Ensure.that(Checksum.of(downloadedFile).calculatedUsing(hashingAlgorithm), equals(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;().describedAs(<span class="hljs-string">'expected checksum'</span>))),
+                <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor verifies checksum at <span class="hljs-subst">${ checksumUrl }</span> against <span class="hljs-subst">${ downloadedFile.value }</span>`</span>,
+                    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(checksumUrl)),
+                    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Checksum</span>.<span class="hljs-title function_">of</span>(downloadedFile).<span class="hljs-title function_">calculatedUsing</span>(hashingAlgorithm), <span class="hljs-title function_">equals</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-built_in">string</span>&gt;().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'expected checksum'</span>))),
                 ),
         }),
     }),

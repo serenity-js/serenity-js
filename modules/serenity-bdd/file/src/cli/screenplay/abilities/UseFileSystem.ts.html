@@ -128,47 +128,47 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/abilities/UseFileSystem.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ReadStream, Stats, WriteStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ReadStream</span>, <span class="hljs-title class_">Stats</span>, <span class="hljs-title class_">WriteStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UseFileSystem</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
-    <span class="hljs-keyword">static</span> at(root: Path): UseFileSystem {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UseFileSystem(<span class="hljs-keyword">new</span> FileSystem(root));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UseFileSystem</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">at</span>(<span class="hljs-attr">root</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">UseFileSystem</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UseFileSystem</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(root));
     }
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities): UseFileSystem {
-        <span class="hljs-keyword">return</span> actor.abilityTo(UseFileSystem);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">UseFileSystem</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">UseFileSystem</span>);
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem</span>) {
     }
 
-    createReadStream(relativePathToFile: Path): ReadStream {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.createReadStream(relativePathToFile);
+    <span class="hljs-title function_">createReadStream</span>(<span class="hljs-attr">relativePathToFile</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">ReadStream</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">createReadStream</span>(relativePathToFile);
     }
 
-    createWriteStreamTo(relativePathToFile: Path): WriteStream {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.createWriteStreamTo(relativePathToFile);
+    <span class="hljs-title function_">createWriteStreamTo</span>(<span class="hljs-attr">relativePathToFile</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">WriteStream</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">createWriteStreamTo</span>(relativePathToFile);
     }
 
-    createDirectory(relativePathToDirectory: Path): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.ensureDirectoryExistsAt(relativePathToDirectory);
+    <span class="hljs-title function_">createDirectory</span>(<span class="hljs-attr">relativePathToDirectory</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Path</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">ensureDirectoryExistsAt</span>(relativePathToDirectory);
     }
 
-    remove(relativePathToFileOrDirectory: Path): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.remove(relativePathToFileOrDirectory);
+    <span class="hljs-title function_">remove</span>(<span class="hljs-attr">relativePathToFileOrDirectory</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">remove</span>(relativePathToFileOrDirectory);
     }
 
-    rename(source: Path, <span class="hljs-attr">destination</span>: Path): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.rename(source, destination);
+    <span class="hljs-title function_">rename</span>(<span class="hljs-attr">source</span>: <span class="hljs-title class_">Path</span>, <span class="hljs-attr">destination</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">rename</span>(source, destination);
     }
 
-    attributesOf(relativePathToFileOrDirectory: Path): <span class="hljs-built_in">Promise</span>&lt;Stats&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fileSystem.stat(relativePathToFileOrDirectory);
+    <span class="hljs-title function_">attributesOf</span>(<span class="hljs-attr">relativePathToFileOrDirectory</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Stats</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">stat</span>(relativePathToFileOrDirectory);
     }
 }
 </code></pre>

@@ -138,7 +138,7 @@ and <a href="https://serenity-js.org/modules/">API docs</a>, and follow <a href=
 <pre><code class="lang-console hljs gherkin">npm install --save-dev mocha<span class="hljs-meta">@8.x</span>
 </code></pre>
 <p>Install the <code>@serenity-js/mocha</code> adapter, as well as <code>@serenity-js/core</code> and any <a href="https://serenity-js.org/modules/console-reporter/">Serenity/JS reporting modules</a> you'd like to use, for example <a href="https://serenity-js.org/modules/console-reporter/"><code>@serenity-js/console-reporter</code></a>:</p>
-<pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-built_in">console</span>-reporter,mocha}
+<pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-variable language_">console</span>-reporter,mocha}
 </code></pre>
 <p>Learn more about <a href="https://serenity-js.org/handbook/integration/serenityjs-and-mocha.html">integrating Serenity/JS with Mocha</a></p>
 <h3 id="usage-with-standalone-mocha">Usage with standalone Mocha</h3><p>To use Serenity/JS with standalone Mocha, for example to run tests of <a href="https://serenity-js/modules/rest">REST APIs</a>,
@@ -147,47 +147,47 @@ you'll need a setup file that configures Serenity/JS reporting services.</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// spec/support/setup.js</span>
 
 <span class="hljs-keyword">const</span> 
-    { ConsoleReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>),
+    { <span class="hljs-title class_">ConsoleReporter</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>),
     { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
-        ConsoleReporter.forDarkTerminals(),
+        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">forDarkTerminals</span>(),
     ],
 });
 </code></pre>
 <p>Next, run Mocha as follows:</p>
 <pre><code class="lang-console hljs typescript">mocha --reporter=<span class="hljs-meta">@serenity</span>-js/mocha \
-      --<span class="hljs-built_in">require</span>=spec/support/setup.js \
+      --<span class="hljs-built_in">require</span>=spec/support/setup.<span class="hljs-property">js</span> \
       <span class="hljs-string">'spec/**/*.spec.js'</span>
 </code></pre>
 <h4 id="typescript">TypeScript</h4><p>If you're writing your tests in TypeScript, you might want to run them via <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a>, which transpiles TypeScript in memory without you having to do it before every test run.</p>
 <pre><code class="hljs plaintext">npm install --save-dev typescript ts-node
 </code></pre><p>If you haven't done so already, configure your TypeScript transpiler via <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html"><code>tsconfig.json</code></a>:</p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"compilerOptions"</span>: {
-    <span class="hljs-attr">"target"</span>: <span class="hljs-string">"es2018"</span>,
-    <span class="hljs-attr">"lib"</span>: [<span class="hljs-string">"es2018"</span>],
-    <span class="hljs-attr">"module"</span>: <span class="hljs-string">"commonjs"</span>
-  }
-}
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"compilerOptions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"target"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"es2018"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"lib"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"es2018"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"module"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"commonjs"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <p>Create a <code>setup.ts</code> file (for example under <code>spec/support/setup.ts</code>, but you can use any location you like):</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/support/setup.ts</span>
 
-<span class="hljs-keyword">import</span> { ConsoleReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
 <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
-        ConsoleReporter.forDarkTerminals(),
+        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">forDarkTerminals</span>(),
     ],
 });
 </code></pre>
 <p>Next, run Mocha as follows: </p>
 <pre><code class="hljs typescript">mocha --reporter=<span class="hljs-meta">@serenity</span>-js/mocha \
       --<span class="hljs-built_in">require</span>=ts-node/register \
-      --<span class="hljs-built_in">require</span>=spec/support/setup.ts \
+      --<span class="hljs-built_in">require</span>=spec/support/setup.<span class="hljs-property">ts</span> \
       <span class="hljs-string">'spec/**/*.spec.ts'</span>
 </code></pre><h4 id="using-mocha-configuration-file">Using Mocha configuration file</h4><p>Please note that you can use <a href="https://mochajs.org/#configuring-mocha-nodejs">Mocha configuration file</a>
 to simplify your command line execution.</p>
@@ -206,10 +206,10 @@ v8-stack-trace-limit: 100
 <p>Next, instruct Serenity/JS to run your tests using Mocha. You can also use your <code>protractor.conf.js</code> file to <a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">configure Mocha</a> if needed:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
 
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
     <span class="hljs-comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
     <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">serenity</span>: {
         <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,        <span class="hljs-comment">// Use Mocha</span>

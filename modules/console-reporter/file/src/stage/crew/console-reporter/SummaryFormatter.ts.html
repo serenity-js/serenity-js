@@ -133,76 +133,76 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/SummaryFormatter.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { AggregatedCategories, AggregatedCategory } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
-<span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">'./themes'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AggregatedCategories</span>, <span class="hljs-title class_">AggregatedCategory</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TerminalTheme</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./themes'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SummaryFormatter</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SummaryFormatter</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme</span>) {
     }
 
-    format(aggregatedCategories: AggregatedCategories): <span class="hljs-built_in">string</span> {
+    <span class="hljs-title function_">format</span>(<span class="hljs-attr">aggregatedCategories</span>: <span class="hljs-title class_">AggregatedCategories</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span>
-            categoryNames                   = <span class="hljs-built_in">this</span>.sorted(<span class="hljs-built_in">Object</span>.keys(aggregatedCategories.categories)),
-            maxCategoryNameLength           = <span class="hljs-built_in">Math</span>.max(...(categoryNames.map(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> categoryName.length))),
-            maxCategoryNameLengthAllowed    = <span class="hljs-built_in">Math</span>.min(<span class="hljs-built_in">Math</span>.max(maxCategoryNameLength, <span class="hljs-number">10</span>), <span class="hljs-number">30</span>);
+            categoryNames                   = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">sorted</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(aggregatedCategories.<span class="hljs-property">categories</span>)),
+            maxCategoryNameLength           = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(...(categoryNames.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> categoryName.<span class="hljs-property">length</span>))),
+            maxCategoryNameLengthAllowed    = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">min</span>(<span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(maxCategoryNameLength, <span class="hljs-number">10</span>), <span class="hljs-number">30</span>);
 
         <span class="hljs-keyword">return</span> [
-            <span class="hljs-built_in">this</span>.theme.heading(<span class="hljs-string">'Execution Summary'</span>),
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">heading</span>(<span class="hljs-string">'Execution Summary'</span>),
             <span class="hljs-string">''</span>,
-            ...categoryNames.map(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> displayName = (categoryName.length &gt; maxCategoryNameLengthAllowed
-                    ? categoryName.slice(<span class="hljs-number">0</span>, maxCategoryNameLengthAllowed - <span class="hljs-number">4</span>) + <span class="hljs-string">`...:`</span>
-                    : <span class="hljs-string">`<span class="hljs-subst">${ categoryName }</span>:`</span>).padEnd(maxCategoryNameLengthAllowed + <span class="hljs-number">1</span>);
+            ...categoryNames.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">categoryName</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> displayName = (categoryName.<span class="hljs-property">length</span> &gt; maxCategoryNameLengthAllowed
+                    ? categoryName.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, maxCategoryNameLengthAllowed - <span class="hljs-number">4</span>) + <span class="hljs-string">`...:`</span>
+                    : <span class="hljs-string">`<span class="hljs-subst">${ categoryName }</span>:`</span>).<span class="hljs-title function_">padEnd</span>(maxCategoryNameLengthAllowed + <span class="hljs-number">1</span>);
 
-                <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(displayName) }</span> <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.formatTotalsFor(aggregatedCategories.categories[categoryName]) }</span>`</span>;
+                <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.theme.heading(displayName) }</span> <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.formatTotalsFor(aggregatedCategories.categories[categoryName]) }</span>`</span>;
             }),
             <span class="hljs-string">``</span>,
-            <span class="hljs-string">`Total time: <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(aggregatedCategories.totalTime) }</span>`</span>,
-            <span class="hljs-string">`Scenarios:  <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.theme.heading(aggregatedCategories.numberOfScenarios) }</span>`</span>,
+            <span class="hljs-string">`Total time: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.theme.heading(aggregatedCategories.totalTime) }</span>`</span>,
+            <span class="hljs-string">`Scenarios:  <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.theme.heading(aggregatedCategories.numberOfScenarios) }</span>`</span>,
             <span class="hljs-string">''</span>,
-        ].join(<span class="hljs-string">'\n'</span>);
+        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">sorted</span>(<span class="hljs-params">strings: <span class="hljs-built_in">string</span>[]</span>)</span> {
-        <span class="hljs-keyword">return</span> strings.sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.localeCompare(b, <span class="hljs-literal">undefined</span>, { <span class="hljs-attr">sensitivity</span>: <span class="hljs-string">'base'</span> }));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">sorted</span>(<span class="hljs-params">strings: <span class="hljs-built_in">string</span>[]</span>) {
+        <span class="hljs-keyword">return</span> strings.<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.<span class="hljs-title function_">localeCompare</span>(b, <span class="hljs-literal">undefined</span>, { <span class="hljs-attr">sensitivity</span>: <span class="hljs-string">'base'</span> }));
     }
 
-    <span class="hljs-keyword">private</span> formatTotalsFor(category: AggregatedCategory): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> outcomes = <span class="hljs-built_in">Object</span>.keys(category.outcomes)
-            .filter(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.outcomes[outcomeName].count &gt; <span class="hljs-number">0</span>)
-            .sort(<span class="hljs-function">(<span class="hljs-params">left, right</span>) =&gt;</span> category.outcomes[left].code &gt; category.outcomes[right].code ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>)
-            .reduce(<span class="hljs-function">(<span class="hljs-params">acc, outcomeName</span>) =&gt;</span> {
-                acc.push(<span class="hljs-built_in">this</span>.theme.outcome(outcomeName, <span class="hljs-string">`<span class="hljs-subst">${category.outcomes[outcomeName].count}</span> <span class="hljs-subst">${<span class="hljs-built_in">this</span>.nameOf(outcomeName)}</span>`</span>));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">formatTotalsFor</span>(<span class="hljs-attr">category</span>: <span class="hljs-title class_">AggregatedCategory</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> outcomes = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(category.<span class="hljs-property">outcomes</span>)
+            .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.<span class="hljs-property">outcomes</span>[outcomeName].<span class="hljs-property">count</span> &gt; <span class="hljs-number">0</span>)
+            .<span class="hljs-title function_">sort</span>(<span class="hljs-function">(<span class="hljs-params">left, right</span>) =&gt;</span> category.<span class="hljs-property">outcomes</span>[left].<span class="hljs-property">code</span> &gt; category.<span class="hljs-property">outcomes</span>[right].<span class="hljs-property">code</span> ? <span class="hljs-number">1</span> : -<span class="hljs-number">1</span>)
+            .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, outcomeName</span>) =&gt;</span> {
+                acc.<span class="hljs-title function_">push</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">outcome</span>(outcomeName, <span class="hljs-string">`<span class="hljs-subst">${category.outcomes[outcomeName].count}</span> <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.nameOf(outcomeName)}</span>`</span>));
                 <span class="hljs-keyword">return</span> acc;
             } , [])
-            .join(<span class="hljs-string">', '</span>);
+            .<span class="hljs-title function_">join</span>(<span class="hljs-string">', '</span>);
 
-        <span class="hljs-keyword">const</span> total = <span class="hljs-built_in">Object</span>.keys(category.outcomes).map(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.outcomes[outcomeName].count).reduce(<span class="hljs-function">(<span class="hljs-params">acc, count</span>) =&gt;</span> acc + count, <span class="hljs-number">0</span>);
+        <span class="hljs-keyword">const</span> total = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(category.<span class="hljs-property">outcomes</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">outcomeName</span> =&gt;</span> category.<span class="hljs-property">outcomes</span>[outcomeName].<span class="hljs-property">count</span>).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, count</span>) =&gt;</span> acc + count, <span class="hljs-number">0</span>);
 
         <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ outcomes }</span>, <span class="hljs-subst">${ total }</span> total (<span class="hljs-subst">${ category.totalTime }</span>)`</span>;
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">nameOf</span>(<span class="hljs-params">outcomeName: <span class="hljs-built_in">string</span></span>)</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">nameOf</span>(<span class="hljs-params">outcomeName: <span class="hljs-built_in">string</span></span>) {
         <span class="hljs-keyword">switch</span> (outcomeName) {
-            <span class="hljs-keyword">case</span> ExecutionCompromised.name:                 <span class="hljs-keyword">return</span> <span class="hljs-string">'compromised'</span>;
-            <span class="hljs-keyword">case</span> ExecutionFailedWithError.name:             <span class="hljs-keyword">return</span> <span class="hljs-string">'broken'</span>;
-            <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError.name:    <span class="hljs-keyword">return</span> <span class="hljs-string">'failed'</span>;
-            <span class="hljs-keyword">case</span> ImplementationPending.name:                <span class="hljs-keyword">return</span> <span class="hljs-string">'pending'</span>;
-            <span class="hljs-keyword">case</span> ExecutionSkipped.name:                     <span class="hljs-keyword">return</span> <span class="hljs-string">'skipped'</span>;
-            <span class="hljs-keyword">case</span> ExecutionIgnored.name:                     <span class="hljs-keyword">return</span> <span class="hljs-string">'ignored'</span>;
-            <span class="hljs-keyword">case</span> ExecutionSuccessful.name:                  <span class="hljs-keyword">return</span> <span class="hljs-string">'successful'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">name</span>:                 <span class="hljs-keyword">return</span> <span class="hljs-string">'compromised'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">name</span>:             <span class="hljs-keyword">return</span> <span class="hljs-string">'broken'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">name</span>:    <span class="hljs-keyword">return</span> <span class="hljs-string">'failed'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">name</span>:                <span class="hljs-keyword">return</span> <span class="hljs-string">'pending'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-property">name</span>:                     <span class="hljs-keyword">return</span> <span class="hljs-string">'skipped'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-property">name</span>:                     <span class="hljs-keyword">return</span> <span class="hljs-string">'ignored'</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-property">name</span>:                  <span class="hljs-keyword">return</span> <span class="hljs-string">'successful'</span>;
         }
     }
 }

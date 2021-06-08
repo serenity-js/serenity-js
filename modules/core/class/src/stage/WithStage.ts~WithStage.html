@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {WithStage} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">WithStage</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">interface</span>
   
@@ -334,18 +334,18 @@ When using Jasmine, the <span><a href="class/src/stage/Stage.ts~Stage.html">Stag
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber.js</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// features/support/configure_serenity.ts</span>
-<span class="hljs-keyword">import</span> { WithStage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WithStage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { setWorldConstructor } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
 
-setWorldConstructor(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">this</span>: WithStage, { parameters }</span>) </span>{
-  <span class="hljs-built_in">this</span>.stage = serenity.callToStageFor(<span class="hljs-keyword">new</span> SomeImplementationOfTheCastInterface());
+<span class="hljs-title function_">setWorldConstructor</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">this</span>: WithStage, { parameters }</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span> = serenity.<span class="hljs-title function_">callToStageFor</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SomeImplementationOfTheCastInterface</span>());
 });
 
 <span class="hljs-comment">// features/step_definitions/some.steps.ts</span>
-<span class="hljs-keyword">import</span> { WithStage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WithStage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber'</span>;
 
-Given(<span class="hljs-regexp">/(.*?) is a registered customer/</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">this</span>: WithStage, actorName: <span class="hljs-built_in">string</span></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.actor(actorName).attemptsTo(
+<span class="hljs-title class_">Given</span>(<span class="hljs-regexp">/(.*?) is a registered customer/</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">this</span>: WithStage, actorName: <span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">actor</span>(actorName).<span class="hljs-title function_">attemptsTo</span>(
 
   );
 });</code></pre>
@@ -353,15 +353,15 @@ Given(<span class="hljs-regexp">/(.*?) is a registered customer/</span>, <span c
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Jasmine</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-comment">// spec/some.spec.ts</span>
-<span class="hljs-keyword">import</span> { serenity, WithStage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { serenity, <span class="hljs-title class_">WithStage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-describe(<span class="hljs-string">'Using the Stage'</span>, <span class="hljs-function">() =&gt;</span> {
-  beforeEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-built_in">this</span>: WithStage</span>) </span>{
-    <span class="hljs-built_in">this</span>.stage = serenity.callToStageFor(<span class="hljs-keyword">new</span> SomeImplementationOfTheCastInterface());
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Using the Stage'</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">this</span>: WithStage</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span> = serenity.<span class="hljs-title function_">callToStageFor</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SomeImplementationOfTheCastInterface</span>());
   });
 
-  it(<span class="hljs-string">'makes it easy to access the Actors'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">this</span>: WithStage</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.stage.theActorCalled(<span class="hljs-string">'Barry'</span>).attemptsTo(
+  <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes it easy to access the Actors'</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-variable language_">this</span>: WithStage</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Barry'</span>).<span class="hljs-title function_">attemptsTo</span>(
       <span class="hljs-comment">// tasks</span>
     );
   })

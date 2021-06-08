@@ -144,29 +144,29 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/containAtLeastOneItemThat.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-title class_">ExpectationOutcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-export function containAtLeastOneItemThat&lt;Actual&gt;(expectation: Expectation&lt;any, Actual&gt;): Expectation&lt;any, Actual[]&gt; {
-    return new ContainAtLeastOneItemThatMeetsExpectation(expectation);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> containAtLeastOneItemThat&lt;<span class="hljs-title class_">Actual</span>&gt;(<span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>[]&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ContainAtLeastOneItemThatMeetsExpectation</span>(expectation);
 }
 
-/**
- * @package
- */
-class ContainAtLeastOneItemThatMeetsExpectation&lt;Expected, Actual&gt; extends Expectation&lt;Expected, Actual[]&gt; {
-    constructor(private readonly expectation: Expectation&lt;Expected, Actual&gt;) {
-        super(formatted `contain at least one item that does ${ expectation }`);
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ContainAtLeastOneItemThatMeetsExpectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Expectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>[]&gt; {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Expected, Actual&gt;</span>) {
+        <span class="hljs-variable language_">super</span>(formatted <span class="hljs-string">`contain at least one item that does <span class="hljs-subst">${ expectation }</span>`</span>);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Actual[]) =&gt; Promise&lt;ExpectationOutcome&lt;Expected, Actual[]&gt;&gt; {
-        return (actual: Actual[]) =&gt;
-            actual.length === 0
-                ? Promise.resolve(new ExpectationNotMet(this.toString(), undefined, actual))
-                : Promise.all(actual.map(item =&gt; this.expectation.answeredBy(actor)(item)))
-                    .then(results =&gt; results.some(result =&gt; result instanceof ExpectationMet)
-                        ? new ExpectationMet(this.toString(), results[0].expected, actual)
-                        : new ExpectationNotMet(this.toString(), results[0].expected, actual),
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual[]</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>[]&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual[]</span>) =&gt;</span>
+            actual.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>
+                ? <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), <span class="hljs-literal">undefined</span>, actual))
+                : <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(actual.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>.<span class="hljs-title function_">answeredBy</span>(actor)(item)))
+                    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span> results.<span class="hljs-title function_">some</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>)
+                        ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), results[<span class="hljs-number">0</span>].<span class="hljs-property">expected</span>, actual)
+                        : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), results[<span class="hljs-number">0</span>].<span class="hljs-property">expected</span>, actual),
                     );
     }
 }

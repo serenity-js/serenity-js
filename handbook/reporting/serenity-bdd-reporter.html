@@ -164,11 +164,11 @@
 <pre><code class="lang-console hljs plaintext">npx serenity-bdd update
 </code></pre>
 <p>The best way to ensure you always have the latest version of the CLI available is to run <code>serenity-bdd update</code> whenever you run <code>npm install</code>. To automate this process, add the below entry to your <code>package.json</code>: </p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"postinstall"</span>: <span class="hljs-string">"serenity-bdd update"</span>
-  }
-}
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"postinstall"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update"</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <p><strong>Please note</strong>: Serenity BDD Reporting CLI is a Java library, so make sure you have installed the <a href="/handbook/integration/runtime-dependencies.html#java-runtime-environment">Java Runtime Environment</a>.</p>
 <h2 id="integration">Integration</h2>
@@ -232,13 +232,13 @@ graph TB
 
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"><code>SerenityBDDReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>, together with the <a href="/handbook/reporting/artifact-archiver.html"><code>ArtifactArchiver</code></a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, ArtifactArchiver } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, <span class="hljs-title class_">ArtifactArchiver</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
-        <span class="hljs-keyword">new</span> SerenityBDDReporter(),
-        ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(),
+        <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
     ],
 });
 </code></pre>
@@ -249,15 +249,15 @@ configure({
 <pre><code class="lang-console hljs plaintext">npm install --save-dev rimraf npm-failsafe
 </code></pre>
 <p>Next, add the below scripts to your <code>package.json</code>:</p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"postinstall"</span>: <span class="hljs-string">"serenity-bdd update"</span>,
-    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"failsafe test:clean test:run test:report"</span>,
-    <span class="hljs-attr">"test:clean"</span>: <span class="hljs-string">"rimraf target/site/serenity"</span>,
-    <span class="hljs-attr">"test:run"</span>: <span class="hljs-string">"/* invoke your test runner of choice, i.e. cucumber-js */"</span>,
-    <span class="hljs-attr">"test:report"</span>: <span class="hljs-string">"serenity-bdd run"</span>    
-  }
-}
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"postinstall"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"failsafe test:clean test:run test:report"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test:clean"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"rimraf target/site/serenity"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test:run"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/* invoke your test runner of choice, i.e. cucumber-js */"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run"</span>    
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <p>Now to run your test suite, execute:</p>
 <pre><code class="lang-console hljs bash">npm <span class="hljs-built_in">test</span>

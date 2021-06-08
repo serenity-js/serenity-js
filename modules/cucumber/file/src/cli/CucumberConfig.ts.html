@@ -146,17 +146,17 @@
      *  Enable/disable colors in output. Cucumber 1.x only!
      *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`
      *
-     *  **Please note** For Cucumber 2.x and above use the {<span class="hljs-doctag">@link </span>CucumberConfig#formatOptions} instead.
+     *  **Please note** For Cucumber 2.x and above use the {<span class="hljs-doctag">@link</span> CucumberConfig#formatOptions} instead.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Disable colors in output in Cucumber 1.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Disable colors in output in Cucumber 1.x&lt;/caption&gt;
      *  colors: false
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Disable colors in output in Cucumber 2.x and above&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Disable colors in output in Cucumber 2.x and above&lt;/caption&gt;
      *  formatOptions: { colorsEnabled: false }
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38
-     * <span class="hljs-doctag">@version </span>1.x
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38
+     * <span class="hljs-doctag">@version</span> 1.x
      */</span>
     colors?: <span class="hljs-built_in">boolean</span>
 
@@ -165,14 +165,14 @@
      *  Step definitions and support files can be written in languages that transpile to JavaScript.
      *  To do set the `compiler` option to &lt;file_extension&gt;:&lt;module_name&gt;
      *
-     *  **Please note** For Cucumber 4.x and above use the {<span class="hljs-doctag">@link </span>CucumberConfig#require} option instead.
+     *  **Please note** For Cucumber 4.x and above use the {<span class="hljs-doctag">@link</span> CucumberConfig#require} option instead.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Enable TypeScript support in Cucumber 1.x - 3.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Enable TypeScript support in Cucumber 1.x - 3.x&lt;/caption&gt;
      *  compiler: 'ts:ts-node/register'
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers
-     * <span class="hljs-doctag">@version </span>1.x - 3.x
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers
+     * <span class="hljs-doctag">@version</span> 1.x - 3.x
      */</span>
     compiler?: <span class="hljs-built_in">string</span>;
 
@@ -180,8 +180,8 @@
      * <span class="hljs-doctag">@desc</span>
      *  Specify additional output formats, optionally supply PATH to redirect formatter output
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string[] | string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats
      */</span>
     format?: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span>;
 
@@ -189,11 +189,11 @@
      * <span class="hljs-doctag">@desc</span>
      *  Provide options for formatters
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
      *  formatOptions: JSON.stringify({ option: 'value' })
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{object|string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">object|string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options
      */</span>
     formatOptions?: <span class="hljs-built_in">object</span> | <span class="hljs-built_in">string</span>;    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
 
@@ -201,8 +201,8 @@
      * <span class="hljs-doctag">@desc</span>
      *  Only execute the scenarios with name matching the expression.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features
      */</span>
     name?: <span class="hljs-built_in">string</span>[];
 
@@ -220,8 +220,8 @@
      *  If no profile is specified and a profile named default exists,
      *  it will be applied.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles
      */</span>
     profile?: <span class="hljs-built_in">string</span>[];
 
@@ -229,13 +229,13 @@
      * <span class="hljs-doctag">@desc</span>
      *  The number of times to retry a failing scenario before marking it as failed.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 7.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Cucumber 7.x&lt;/caption&gt;
      *  retry: 3
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{number}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">number</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests
      *
-     * <span class="hljs-doctag">@version </span>7.x
+     * <span class="hljs-doctag">@version</span> 7.x
      */</span>
     retry?: <span class="hljs-built_in">number</span>;
 
@@ -244,10 +244,10 @@
      *  Relative path to an output file produced by Cucumber.js [`rerun` formatter](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature).
      *  Please note that the name of the output file *must* start with an `@` symbol.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Saving details of failed scenarios to <span class="hljs-doctag">@rerun</span>-output.txt&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Saving details of failed scenarios to <span class="hljs-doctag">@rerun</span>-output.txt&lt;/caption&gt;
      *  format: [ 'rerun:<span class="hljs-doctag">@rerun</span>-output.txt' ]
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Re-running scenarios saved to <span class="hljs-doctag">@rerun</span>-output.txt&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Re-running scenarios saved to <span class="hljs-doctag">@rerun</span>-output.txt&lt;/caption&gt;
      *  rerun: '<span class="hljs-doctag">@rerun</span>-output.txt'
      */</span>
     rerun?: <span class="hljs-built_in">string</span>;
@@ -256,14 +256,14 @@
      * <span class="hljs-doctag">@desc</span>
      *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 7.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Cucumber 7.x&lt;/caption&gt;
      *  retry: 3,
      *  retryTagFilter: '<span class="hljs-doctag">@flaky</span>',
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
-     * <span class="hljs-doctag">@see  </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string</span>}
+     * <span class="hljs-doctag">@see</span>  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests
      *
-     * <span class="hljs-doctag">@version </span>7.x
+     * <span class="hljs-doctag">@version</span> 7.x
      */</span>
     retryTagFilter?: <span class="hljs-built_in">string</span>
 
@@ -271,11 +271,11 @@
      * <span class="hljs-doctag">@desc</span>
      *  Require files or node modules before executing features
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Enable TypeScript support in Cucumber 4.x and above&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Enable TypeScript support in Cucumber 4.x and above&lt;/caption&gt;
      *  require: 'ts:ts-node/register'
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files
      */</span>
     <span class="hljs-built_in">require</span>?: <span class="hljs-built_in">string</span>[];
 
@@ -286,18 +286,18 @@
      *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,
      *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Cucumber 1.x&lt;/caption&gt;
      * // Run all scenarios tagged with `<span class="hljs-doctag">@smoketest</span>`, but not with `<span class="hljs-doctag">@wip</span>`:
      * tag: [ '<span class="hljs-doctag">@smoketest</span>', '~<span class="hljs-doctag">@wip</span>' ]
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Cucumber &gt;= 2.x&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Cucumber &gt;= 2.x&lt;/caption&gt;
      * // Run all scenarios tagged with `<span class="hljs-doctag">@smoketest</span>`, but not with `<span class="hljs-doctag">@wip</span>`:
-     * tag: '<span class="hljs-doctag">@smoketest </span>and not <span class="hljs-doctag">@wip</span>'
+     * tag: '<span class="hljs-doctag">@smoketest</span> and not <span class="hljs-doctag">@wip</span>'
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string[]|string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber/tree/master/tag-expressions
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string[]|string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber/tree/master/tag-expressions
      */</span>
     tags?: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span>;
 
@@ -305,8 +305,8 @@
      * <span class="hljs-doctag">@desc</span>
      *  Fail if there are any undefined or pending steps
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">boolean</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber
      */</span>
     strict?: <span class="hljs-built_in">boolean</span>;
 
@@ -314,14 +314,14 @@
      * <span class="hljs-doctag">@desc</span>
      *  Provide parameters that will be passed to the world constructor
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;worldParameters as string&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;worldParameters as string&lt;/caption&gt;
      *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;worldParameters as object&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;worldParameters as object&lt;/caption&gt;
      *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{object | string}</span></span>
-     * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">object | string</span>}
+     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters
      */</span>
     worldParameters?: <span class="hljs-built_in">object</span> | <span class="hljs-built_in">string</span>;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
 }

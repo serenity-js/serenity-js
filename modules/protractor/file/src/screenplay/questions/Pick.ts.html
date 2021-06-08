@@ -187,338 +187,338 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Pick.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, Expectation, ExpectationMet, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">MetaQuestion</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-export interface Collection&lt;T&gt; {
-    filter(fn: (item: T, index?: number) =&gt; boolean | Promise&lt;boolean&gt;): Collection&lt;T&gt;;
-    map&lt;O&gt;(fn: (item: T, index?: number) =&gt; O): PromiseLike&lt;O[]&gt;;
-    first(): T;
-    last(): T;
-    get(index: number): T;
-    count(): PromiseLike&lt;number&gt; | number;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Collection&lt;T&gt; {
+    <span class="hljs-title function_">filter</span>(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">item: T, index?: <span class="hljs-built_in">number</span></span>) =&gt;</span> <span class="hljs-built_in">boolean</span> | <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;): <span class="hljs-title class_">Collection</span>&lt;T&gt;;
+    map&lt;O&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">item: T, index?: <span class="hljs-built_in">number</span></span>) =&gt;</span> O): <span class="hljs-title class_">PromiseLike</span>&lt;O[]&gt;;
+    <span class="hljs-title function_">first</span>(): T;
+    <span class="hljs-title function_">last</span>(): T;
+    <span class="hljs-title function_">get</span>(<span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): T;
+    <span class="hljs-title function_">count</span>(): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">number</span>&gt; | <span class="hljs-built_in">number</span>;
 }
 
-/**
- * @deprecated
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@deprecated</span>
  *  Please use [Target.all](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html) instead.
  *
- * @experimental
+ * <span class="hljs-doctag">@experimental</span>
  *
- * @see {@link @serenity-js/core/lib/screenplay/questions~List}
- */
-export class Pick&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt; = Collection&lt;Item_Type&gt;&gt; {
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/questions~List</span>}
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; = <span class="hljs-title class_">Collection</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;&gt; {
 
-    static from&lt;IT, CT extends Collection&lt;IT&gt; = Collection&lt;IT&gt;&gt;(collection: Question&lt;CT&gt; | CT): Pick&lt;IT, CT&gt; {
-        return new Pick&lt;IT, CT&gt;(collection);
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">from</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt; = <span class="hljs-title class_">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;&gt;(<span class="hljs-attr">collection</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-variable constant_">CT</span>&gt; | <span class="hljs-variable constant_">CT</span>): <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>&gt;(collection);
     }
 
-    constructor(
-        private readonly collection: Question&lt;Collection_Type&gt; | Collection_Type,
-        private readonly filters: Filters&lt;Item_Type, Collection_Type&gt; = new Filters&lt;Item_Type, Collection_Type&gt;(),
-    ) {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;Collection_Type&gt; | Collection_Type,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: Filters&lt;Item_Type, Collection_Type&gt; = <span class="hljs-keyword">new</span> Filters&lt;Item_Type, Collection_Type&gt;(),
+    </span>) {
     }
 
-    count(): Question&lt;Promise&lt;number&gt;&gt; {
-        return new NumberOfMatchingItems(this.collection, this.filters);
+    <span class="hljs-title function_">count</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NumberOfMatchingItems</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>);
     }
 
-    all(): Question&lt;Collection_Type&gt; {
-        return new AllMatchingItems(this.collection, this.filters);
+    <span class="hljs-title function_">all</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Collection</span>_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AllMatchingItems</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>);
     }
 
-    first(): Question&lt;Item_Type&gt; {
-        return new FirstMatchingItem(this.collection, this.filters);
+    <span class="hljs-title function_">first</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FirstMatchingItem</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>);
     }
 
-    last(): Question&lt;Item_Type&gt; {
-        return new LastMatchingItem(this.collection, this.filters);
+    <span class="hljs-title function_">last</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LastMatchingItem</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>);
     }
 
-    get(index: number): Question&lt;Item_Type&gt; {
-        return new NthMatchingItem(this.collection, this.filters, index);
+    <span class="hljs-title function_">get</span>(<span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NthMatchingItem</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>, index);
     }
 
-    where&lt;Property_Type&gt;(
-        question: MetaQuestion&lt;Item_Type, Promise&lt;Property_Type&gt; | Property_Type&gt;,
-        expectation: Expectation&lt;any, Promise&lt;Property_Type&gt; | Property_Type&gt;,
-    ): Pick&lt;Item_Type, Collection_Type&gt; {
-        return new Pick&lt;Item_Type, Collection_Type&gt;(
-            this.collection,
-            this.filters.append(new Filter&lt;Item_Type, Collection_Type, any&gt;(question, expectation)),
+    where&lt;<span class="hljs-title class_">Property</span>_Type&gt;(
+        <span class="hljs-attr">question</span>: <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Property</span>_Type&gt; | <span class="hljs-title class_">Property</span>_Type&gt;,
+        <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Property</span>_Type&gt; | <span class="hljs-title class_">Property</span>_Type&gt;,
+    ): <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pick</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type&gt;(
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>,
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>.<span class="hljs-title function_">append</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Filter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type, <span class="hljs-built_in">any</span>&gt;(question, expectation)),
         );
     }
 }
 
-/**
- * @package
- */
-class Filters&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt;&gt;
-    extends Question&lt;(ct: Collection_Type) =&gt; Collection_Type&gt;
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Filters</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> <span class="hljs-title class_">Collection</span>_Type&gt;
 {
-    constructor(private readonly filters: Array&lt;Filter&lt;Item_Type, Collection_Type, any&gt;&gt; = []) {
-        super('');
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: <span class="hljs-built_in">Array</span>&lt;Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;&gt; = []</span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">''</span>);
 
-        const fullDescription = this.filters
-            .reduce((description, filter) =&gt; description.concat(filter.toString()), [ ])
-            .join(' and ');
+        <span class="hljs-keyword">const</span> fullDescription = <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>
+            .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">description, filter</span>) =&gt;</span> description.<span class="hljs-title function_">concat</span>(filter.<span class="hljs-title function_">toString</span>()), [ ])
+            .<span class="hljs-title function_">join</span>(<span class="hljs-string">' and '</span>);
 
-        this.subject = fullDescription.length &gt; 0
-            ? `where ${ fullDescription }`
-            : '';
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span> = fullDescription.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>
+            ? <span class="hljs-string">`where <span class="hljs-subst">${ fullDescription }</span>`</span>
+            : <span class="hljs-string">''</span>;
     }
 
-    append(filter: Filter&lt;Item_Type, Collection_Type, any&gt;) {
-        return new Filters(this.filters.concat(filter));
+    <span class="hljs-title function_">append</span>(<span class="hljs-params">filter: Filter&lt;Item_Type, Collection_Type, <span class="hljs-built_in">any</span>&gt;</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Filters</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>.<span class="hljs-title function_">concat</span>(filter));
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): (ct: Collection_Type) =&gt; Collection_Type {
-        return (collection: Collection_Type) =&gt;
-            this.filters.reduce(
-                (filteredCollection, filter) =&gt;
-                    filter.answeredBy(actor)(filteredCollection),
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> <span class="hljs-title class_">Collection</span>_Type {
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">collection: Collection_Type</span>) =&gt;</span>
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>.<span class="hljs-title function_">reduce</span>(
+                <span class="hljs-function">(<span class="hljs-params">filteredCollection, filter</span>) =&gt;</span>
+                    filter.<span class="hljs-title function_">answeredBy</span>(actor)(filteredCollection),
                 collection,
             );
     }
 }
 
-/**
- * @package
- */
-class Filter&lt;Item_Type, Collection_Type extends Collection&lt;Item_Type&gt;, Property_Type&gt;
-    extends Question&lt;(ct: Collection_Type) =&gt; Collection_Type&gt;
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Filter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Property</span>_Type&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> <span class="hljs-title class_">Collection</span>_Type&gt;
 {
-    constructor(
-        private readonly question: MetaQuestion&lt;Item_Type, Promise&lt;Property_Type&gt; | Property_Type&gt;,
-        private readonly expectation: Expectation&lt;any, Promise&lt;Property_Type&gt; | Property_Type&gt;,
-    ) {
-        super(formatted `${ question } does ${ expectation }`);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: MetaQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">Promise</span>&lt;Property_Type&gt; | Property_Type&gt;,
+    </span>) {
+        <span class="hljs-variable language_">super</span>(formatted <span class="hljs-string">`<span class="hljs-subst">${ question }</span> does <span class="hljs-subst">${ expectation }</span>`</span>);
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): (ct: Collection_Type) =&gt; Collection_Type {
-        return (collection: Collection_Type) =&gt;
-            collection.filter((item: Item_Type) =&gt; {
-                const expectation = this.expectation.answeredBy(actor);
-                return Promise.resolve(this.question.of(item).answeredBy(actor))
-                    .then(answer =&gt; expectation(answer))
-                    .then(outcome =&gt; outcome instanceof ExpectationMet);
-            }) as Collection_Type;
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-function">(<span class="hljs-params">ct: Collection_Type</span>) =&gt;</span> <span class="hljs-title class_">Collection</span>_Type {
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">collection: Collection_Type</span>) =&gt;</span>
+            collection.<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">item: Item_Type</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> expectation = <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>.<span class="hljs-title function_">answeredBy</span>(actor);
+                <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">question</span>.<span class="hljs-title function_">of</span>(item).<span class="hljs-title function_">answeredBy</span>(actor))
+                    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> <span class="hljs-title function_">expectation</span>(answer))
+                    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> outcome <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>);
+            }) <span class="hljs-keyword">as</span> <span class="hljs-title class_">Collection</span>_Type;
     }
 }
 
-/**
- * @package
- */
-abstract class QuestionAboutCollectionItems&lt;IT, CT extends Collection&lt;IT&gt;, Answer_Type&gt;
-    extends Question&lt;Answer_Type&gt;
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">QuestionAboutCollectionItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;, <span class="hljs-title class_">Answer</span>_Type&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt;
 {
-    constructor(
-        protected readonly collection: Question&lt;CT&gt; | CT,
-        private readonly filters: Filters&lt;IT, CT&gt;,
-        private readonly description: string,
-    ) {
-        super(`${ description } ${ formatted `${ collection }`} ${ filters.toString() }`.trim())
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
+        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;CT&gt; | CT,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> filters: Filters&lt;IT, CT&gt;,
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
+    </span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ collection }</span>`</span>}</span> <span class="hljs-subst">${ filters.toString() }</span>`</span>.<span class="hljs-title function_">trim</span>())
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    abstract answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Answer_Type;
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Answer</span>_Type;
 
-    protected collectionFilteredBy(actor: AnswersQuestions &amp; UsesAbilities): CT {
-        const collection = this.isAQuestion(this.collection)
-            ? this.collection.answeredBy(actor)
-            : this.collection;
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">collectionFilteredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-variable constant_">CT</span> {
+        <span class="hljs-keyword">const</span> collection = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isAQuestion</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>)
+            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">answeredBy</span>(actor)
+            : <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>;
 
-        return this.filters.answeredBy(actor)(collection);
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">filters</span>.<span class="hljs-title function_">answeredBy</span>(actor)(collection);
     }
 
-    private isAQuestion&lt;T&gt;(h: any): h is Question&lt;T&gt; {
-        return !! (h as any).answeredBy;
+    <span class="hljs-keyword">private</span> isAQuestion&lt;T&gt;(<span class="hljs-attr">h</span>: <span class="hljs-built_in">any</span>): h is <span class="hljs-title class_">Question</span>&lt;T&gt; {
+        <span class="hljs-keyword">return</span> !! (h <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">answeredBy</span>;
     }
 }
 
-/**
- * @package
- */
-class NumberOfMatchingItems&lt;IT, CT extends Collection&lt;IT&gt;&gt;
-    extends QuestionAboutCollectionItems&lt;IT, CT, Promise&lt;number&gt;&gt;
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">NumberOfMatchingItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">QuestionAboutCollectionItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt;
 {
-    constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, 'the number of');
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
+        <span class="hljs-variable language_">super</span>(collection, filters, <span class="hljs-string">'the number of'</span>);
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;number&gt; {
-        return Promise.resolve(this.collectionFilteredBy(actor).count());
-    }
-}
-
-/**
- * @package
- */
-class AllMatchingItems&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, CT&gt; {
-
-    constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, '');
-    }
-
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
-     *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): CT {
-        return this.collectionFilteredBy(actor);
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">collectionFilteredBy</span>(actor).<span class="hljs-title function_">count</span>());
     }
 }
 
-/**
- * @package
- */
-class FirstMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">AllMatchingItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">QuestionAboutCollectionItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>, <span class="hljs-variable constant_">CT</span>&gt; {
 
-    constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, 'the first of');
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
+        <span class="hljs-variable language_">super</span>(collection, filters, <span class="hljs-string">''</span>);
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): IT {
-        return this.collectionFilteredBy(actor).first();
-    }
-}
-
-/**
- * @package
- */
-class LastMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
-
-    constructor(collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;) {
-        super(collection, filters, 'the last of');
-    }
-
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
-     *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): IT {
-        return this.collectionFilteredBy(actor).last();
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-variable constant_">CT</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">collectionFilteredBy</span>(actor);
     }
 }
 
-/**
- * @package
- */
-class NthMatchingItem&lt;IT, CT extends Collection&lt;IT&gt;&gt; extends QuestionAboutCollectionItems&lt;IT, CT, IT&gt; {
-    private static ordinalSuffixOf(index: number) {
-        const
-            lastDigit = index % 10,
-            lastTwoDigits = index % 100;
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">FirstMatchingItem</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">QuestionAboutCollectionItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>, <span class="hljs-variable constant_">IT</span>&gt; {
 
-        switch (true) {
-            case (lastDigit === 1 &amp;&amp; lastTwoDigits !== 11):
-                return index + 'st';
-            case (lastDigit === 2 &amp;&amp; lastTwoDigits !== 12):
-                return index + 'nd';
-            case (lastDigit === 3 &amp;&amp; lastTwoDigits !== 13):
-                return index + 'rd';
-            default:
-                return index + 'th';
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
+        <span class="hljs-variable language_">super</span>(collection, filters, <span class="hljs-string">'the first of'</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+     *
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     *
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-variable constant_">IT</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">collectionFilteredBy</span>(actor).<span class="hljs-title function_">first</span>();
+    }
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">LastMatchingItem</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">QuestionAboutCollectionItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>, <span class="hljs-variable constant_">IT</span>&gt; {
+
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">collection: Question&lt;CT&gt; | CT, filters: Filters&lt;IT, CT&gt;</span>) {
+        <span class="hljs-variable language_">super</span>(collection, filters, <span class="hljs-string">'the last of'</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+     *
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     *
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-variable constant_">IT</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">collectionFilteredBy</span>(actor).<span class="hljs-title function_">last</span>();
+    }
+}
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">NthMatchingItem</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Collection</span>&lt;<span class="hljs-variable constant_">IT</span>&gt;&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">QuestionAboutCollectionItems</span>&lt;<span class="hljs-variable constant_">IT</span>, <span class="hljs-variable constant_">CT</span>, <span class="hljs-variable constant_">IT</span>&gt; {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">ordinalSuffixOf</span>(<span class="hljs-params">index: <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-keyword">const</span>
+            lastDigit = index % <span class="hljs-number">10</span>,
+            lastTwoDigits = index % <span class="hljs-number">100</span>;
+
+        <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
+            <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">1</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">11</span>):
+                <span class="hljs-keyword">return</span> index + <span class="hljs-string">'st'</span>;
+            <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">2</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">12</span>):
+                <span class="hljs-keyword">return</span> index + <span class="hljs-string">'nd'</span>;
+            <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">3</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">13</span>):
+                <span class="hljs-keyword">return</span> index + <span class="hljs-string">'rd'</span>;
+            <span class="hljs-attr">default</span>:
+                <span class="hljs-keyword">return</span> index + <span class="hljs-string">'th'</span>;
         }
     }
 
-    constructor(
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         collection: Question&lt;CT&gt; | CT,
         filters: Filters&lt;IT, CT&gt;,
-        private readonly index: number,
-    ) {
-        super(collection, filters, `the ${ NthMatchingItem.ordinalSuffixOf(index + 1) } of`);
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> index: <span class="hljs-built_in">number</span>,
+    </span>) {
+        <span class="hljs-variable language_">super</span>(collection, filters, <span class="hljs-string">`the <span class="hljs-subst">${ NthMatchingItem.ordinalSuffixOf(index + <span class="hljs-number">1</span>) }</span> of`</span>);
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): IT {
-        return this.collectionFilteredBy(actor).get(this.index);
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-variable constant_">IT</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">collectionFilteredBy</span>(actor).<span class="hljs-title function_">get</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">index</span>);
     }
 }
 </code></pre>

@@ -294,20 +294,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/WithStage.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc </span>Makes the {<span class="hljs-doctag">@link </span>Stage} object setup in your test runner configuration visible
+ * <span class="hljs-doctag">@desc</span> Makes the {<span class="hljs-doctag">@link</span> Stage} object setup in your test runner configuration visible
  * to test steps or test scenarios.
  *
- * When using Cucumber, the {<span class="hljs-doctag">@link </span>Stage} is typically set up using the Cucumber World Constructor.
- * When using Jasmine, the {<span class="hljs-doctag">@link </span>Stage} is typically set up in the `beforeEach` step.
+ * When using Cucumber, the {<span class="hljs-doctag">@link</span> Stage} is typically set up using the Cucumber World Constructor.
+ * When using Jasmine, the {<span class="hljs-doctag">@link</span> Stage} is typically set up in the `beforeEach` step.
  *
- * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/api_reference.md
- * <span class="hljs-doctag">@see </span>https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/step_definitions.md
- * <span class="hljs-doctag">@see </span>https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
+ * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/api_reference.md
+ * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/step_definitions.md
+ * <span class="hljs-doctag">@see</span> https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Cucumber.js&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber.js&lt;/caption&gt;
  * // features/support/configure_serenity.ts
  * import { WithStage } from '<span class="hljs-doctag">@serenity</span>-js/core';
  * import { setWorldConstructor } from 'cucumber';
@@ -325,7 +325,7 @@
  *   );
  * });
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
  * // spec/some.spec.ts
  * import { serenity, WithStage } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *
@@ -341,10 +341,10 @@
  *   })
  * });
  *
- * <span class="hljs-doctag">@deprecated </span>Please use serenity.actor() and serenity.actorInTheSpotlight() instead
+ * <span class="hljs-doctag">@deprecated</span> Please use serenity.actor() and serenity.actorInTheSpotlight() instead
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WithStage {
-    <span class="hljs-attr">stage</span>: Stage;
+    <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>;
 }
 </code></pre>
 

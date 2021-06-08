@@ -134,42 +134,42 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/ThemeForColourTerminals.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
 
-<span class="hljs-keyword">import</span> { AssertionReportDiffer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionReportDiffer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Outcome</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Chalk } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Chalk</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
 
-<span class="hljs-keyword">import</span> { TerminalTheme } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TerminalTheme'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TerminalTheme</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TerminalTheme'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Base class for {<span class="hljs-doctag">@link </span>TerminalTheme} implementations intended
+ *  Base class for {<span class="hljs-doctag">@link</span> TerminalTheme} implementations intended
  *  to print to terminals that support colour output.
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{TerminalTheme}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">TerminalTheme</span>}
  *
  * <span class="hljs-doctag">@public</span>
  * <span class="hljs-doctag">@abstract</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThemeForColourTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TerminalTheme</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThemeForColourTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TerminalTheme</span> {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{chalk~Chalk}</span> <span class="hljs-variable">chalk</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">chalk~Chalk</span>} <span class="hljs-variable">chalk</span>
      *
-     * <span class="hljs-doctag">@see </span>https://www.npmjs.com/package/chalk
+     * <span class="hljs-doctag">@see</span> https://www.npmjs.com/package/chalk
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> chalk: Chalk</span>)</span> {
-        <span class="hljs-built_in">super</span>(<span class="hljs-keyword">new</span> AssertionReportDiffer({
-            <span class="hljs-attr">expected</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-built_in">this</span>.chalk.green(<span class="hljs-string">`+ <span class="hljs-subst">${ line }</span>`</span>),
-            <span class="hljs-attr">actual</span>:   <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-built_in">this</span>.chalk.red(<span class="hljs-string">`- <span class="hljs-subst">${ line }</span>`</span>),
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> chalk: Chalk</span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionReportDiffer</span>({
+            <span class="hljs-attr">expected</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">green</span>(<span class="hljs-string">`+ <span class="hljs-subst">${ line }</span>`</span>),
+            <span class="hljs-attr">actual</span>:   <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">red</span>(<span class="hljs-string">`- <span class="hljs-subst">${ line }</span>`</span>),
             <span class="hljs-attr">matching</span>: <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-string">`  <span class="hljs-subst">${ line }</span>`</span>,
         }));
     }
@@ -177,35 +177,35 @@
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Joins the `parts` into a single string and decorates it
-     *  using a colour appropriate for a given {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}.
+     *  using a colour appropriate for a given {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/model~Outcome | string}</span> <span class="hljs-variable">outcome</span></span>
-     *  an instance of an {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/model~Outcome | string</span>} <span class="hljs-variable">outcome</span>
+     *  an instance of an {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/model~Outcome}
      *  or a string class name of one of its implementations.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...any[]}</span> <span class="hljs-variable">parts</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">...any[]</span>} <span class="hljs-variable">parts</span>
      *  the parts of the message to be decorated
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    outcome(outcome: Outcome | <span class="hljs-built_in">string</span>, ...parts: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> outcomeName = (outcome <span class="hljs-keyword">instanceof</span> Outcome)
-            ? outcome.constructor.name
+    <span class="hljs-title function_">outcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span> | <span class="hljs-built_in">string</span>, ...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> outcomeName = (outcome <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Outcome</span>)
+            ? outcome.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>
             : outcome;
 
         <span class="hljs-keyword">switch</span> (outcomeName) {
-            <span class="hljs-keyword">case</span> ExecutionCompromised.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.magenta(<span class="hljs-built_in">this</span>.joined(parts));
-            <span class="hljs-keyword">case</span> ExecutionFailedWithError.name:
-            <span class="hljs-keyword">case</span> ExecutionFailedWithAssertionError.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.red(<span class="hljs-built_in">this</span>.joined(parts));
-            <span class="hljs-keyword">case</span> ImplementationPending.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.blue(<span class="hljs-built_in">this</span>.joined(parts));
-            <span class="hljs-keyword">case</span> ExecutionSkipped.name:
-            <span class="hljs-keyword">case</span> ExecutionIgnored.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.blackBright(<span class="hljs-built_in">this</span>.joined(parts));
-            <span class="hljs-keyword">case</span> ExecutionSuccessful.name:
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.chalk.green(<span class="hljs-built_in">this</span>.joined(parts));
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">name</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">magenta</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">name</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">name</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">red</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">name</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">blue</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-property">name</span>:
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-property">name</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">blackBright</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
+            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-property">name</span>:
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">green</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
         }
     }
 
@@ -215,13 +215,13 @@
      *  a visual diff, so that it's easier for the developer to spot
      *  the difference between the two values.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">expectedValue</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">actualValue</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">expectedValue</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">actualValue</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    diff(expectedValue: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actualValue</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.differ.diff(expectedValue, actualValue);
+    <span class="hljs-title function_">diff</span>(<span class="hljs-attr">expectedValue</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actualValue</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">differ</span>.<span class="hljs-title function_">diff</span>(expectedValue, actualValue);
     }
 }
 </code></pre>

@@ -294,15 +294,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Question.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { isMappable, Mappable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io/collections'</span>;
-<span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actor'</span>;
-<span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">'./questions/mappings'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { isMappable, <span class="hljs-title class_">Mappable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io/collections'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswerMappingFunction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./questions/mappings'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link </span>Actor} to query the system under test.
+ *  Enables the {<span class="hljs-doctag">@link</span> Actor} to query the system under test.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;A basic Question&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;A basic Question&lt;/caption&gt;
  *  import { Actor, AnswersQuestions, UsesAbilities, Question } from '<span class="hljs-doctag">@serenity</span>-js/core'
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions'
  *
@@ -315,7 +315,7 @@
  *      Ensure.that(LastItemFrom([1,2,3]), equals(3)),
  *  );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;A question using the Actor's Ability to do something&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;A question using the Actor's Ability to do something&lt;/caption&gt;
  *  import { AnswersQuestions, UsesAbilities, Question } from '<span class="hljs-doctag">@serenity</span>-js/core'
  *  import { CallAnApi } from '<span class="hljs-doctag">@serenity</span>-js/rest'
  *
@@ -324,7 +324,7 @@
  *          return CallAnApi.as(actor).mapLastResponse(response =&gt; response.statusText);
  *      });
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Mapping answers to other questions&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Mapping answers to other questions&lt;/caption&gt;
  *  import { Actor, AnswersQuestions, UsesAbilities, Question } from '<span class="hljs-doctag">@serenity</span>-js/core'
  *  import { CallAnApi, LastResponse } from '<span class="hljs-doctag">@serenity</span>-js/rest'
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -341,21 +341,21 @@
  *      Ensure.that(RequestWasSuccessful(), isTrue()),
  *  );
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Interaction}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Ability}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Interaction</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Ability</span>}
  *
  * <span class="hljs-doctag">@abstract</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Question</span>&lt;T&gt; {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">subject</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">subject</span>
      *  The subject of this question
      *
      * <span class="hljs-doctag">@protected</span>
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> subject: <span class="hljs-built_in">string</span></span>)</span> {
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> subject: <span class="hljs-built_in">string</span></span>) {
     }
 
     <span class="hljs-comment">/**
@@ -368,59 +368,59 @@
      *
      * <span class="hljs-doctag">@static</span>
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">description</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{function(actor: AnswersQuestions &amp; UsesAbilities): R}</span> <span class="hljs-variable">body</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">description</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function(actor: AnswersQuestions &amp; UsesAbilities): R</span>} <span class="hljs-variable">body</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;R&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;R&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> about&lt;R&gt;(description: <span class="hljs-built_in">string</span>, <span class="hljs-attr">body</span>: <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt;</span> R): Question&lt;R&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AnonymousQuestion&lt;R&gt;(description, body);
+    <span class="hljs-keyword">static</span> about&lt;R&gt;(<span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">body</span>: <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) =&gt;</span> R): <span class="hljs-title class_">Question</span>&lt;R&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AnonymousQuestion</span>&lt;R&gt;(description, body);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Checks if the value is a {<span class="hljs-doctag">@link </span>Question}.
+     *  Checks if the value is a {<span class="hljs-doctag">@link</span> Question}.
      *
      * <span class="hljs-doctag">@static</span>
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{any}</span> <span class="hljs-variable">maybeQuestion</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any</span>} <span class="hljs-variable">maybeQuestion</span>
      *  The value to check
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{boolean}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">boolean</span>}
      */</span>
-    <span class="hljs-keyword">static</span> isAQuestion&lt;T&gt;(maybeQuestion: unknown): maybeQuestion is Question&lt;T&gt; {
-        <span class="hljs-keyword">return</span> !! maybeQuestion &amp;&amp; !! (maybeQuestion <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).answeredBy;
+    <span class="hljs-keyword">static</span> isAQuestion&lt;T&gt;(<span class="hljs-attr">maybeQuestion</span>: unknown): maybeQuestion is <span class="hljs-title class_">Question</span>&lt;T&gt; {
+        <span class="hljs-keyword">return</span> !! maybeQuestion &amp;&amp; !! (maybeQuestion <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">answeredBy</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Describes the subject of this {<span class="hljs-doctag">@link </span>Question}.
+     *  Describes the subject of this {<span class="hljs-doctag">@link</span> Question}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.subject;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Changes the description of this question's subject.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">subject</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;T&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">subject</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;T&gt;</span>}
      */</span>
-    describedAs(subject: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">this</span> {
-        <span class="hljs-built_in">this</span>.subject = subject;
+    <span class="hljs-title function_">describedAs</span>(<span class="hljs-attr">subject</span>: <span class="hljs-built_in">string</span>): <span class="hljs-variable language_">this</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span> = subject;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Creates a new {<span class="hljs-doctag">@link </span>Question}, which value is a result of applying the `mapping`
-     *  function to the value of this {<span class="hljs-doctag">@link </span>Question}.
+     *  Creates a new {<span class="hljs-doctag">@link</span> Question}, which value is a result of applying the `mapping`
+     *  function to the value of this {<span class="hljs-doctag">@link</span> Question}.
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Mapping a Question&lt;Promise&lt;string&gt;&gt; to Question&lt;Promise&lt;number&gt;&gt;&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Mapping a Question&lt;Promise&lt;string&gt;&gt; to Question&lt;Promise&lt;number&gt;&gt;&lt;/caption&gt;
      *  import { Question, replace, toNumber } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *
      *  Question.about('the price of some item', actor =&gt; '$3.99')
@@ -430,7 +430,7 @@
      *  // =&gt; Question&lt;Promise&lt;number&gt;&gt;
      *  //      3.99
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Mapping all items of Question&lt;string[]&gt; to Question&lt;Promise&lt;number&gt;&gt;&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Mapping all items of Question&lt;string[]&gt; to Question&lt;Promise&lt;number&gt;&gt;&lt;/caption&gt;
      *  import { Question, trim } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *
      *  Question.about('things to do', actor =&gt; [ ' walk the dog  ', '  read a book  ' ])
@@ -439,7 +439,7 @@
      *  // =&gt; Question&lt;Promise&lt;string[]&gt;&gt;
      *  //      [ 'walk the dog', 'read a book' ]
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a custom mapping function&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using a custom mapping function&lt;/caption&gt;
      *  import { Question } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *
      *  Question.about('normalised percentages', actor =&gt; [ 0.1, 0.3, 0.6 ])
@@ -448,7 +448,7 @@
      *  // =&gt; Question&lt;Promise&lt;number[]&gt;&gt;
      *  //      [ 10, 30, 60 ]
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Extracting values from LastResponse.body()&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Extracting values from LastResponse.body()&lt;/caption&gt;
      *  import { Question } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { LastResponse } from '<span class="hljs-doctag">@serenity</span>-js/rest';
      *
@@ -461,84 +461,84 @@
      *
      *  // =&gt; Question&lt;number&gt;
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{function(value: A, index?: number): Promise&lt;O&gt; | O}</span> <span class="hljs-variable">mapping</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function(value: A, index?: number): Promise&lt;O&gt; | O</span>} <span class="hljs-variable">mapping</span>
      *  A mapping function that receives a value of type `&lt;A&gt;`, which is either:
      *  - an answer to the original question, if the question is defined as `Question&lt;Promise&lt;A&gt;&gt;` or `Question&lt;A&gt;`
-     *  - or, if the question is defined as `Question&lt;Promise&lt;Mappable&lt;A&gt;&gt;`, `Question&lt;Mappable&lt;A&gt;&gt;` - each item of the {<span class="hljs-doctag">@link </span>Mappable} collection,
+     *  - or, if the question is defined as `Question&lt;Promise&lt;Mappable&lt;A&gt;&gt;`, `Question&lt;Mappable&lt;A&gt;&gt;` - each item of the {<span class="hljs-doctag">@link</span> Mappable} collection,
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;Mapped&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;Mapped&gt;&gt;</span>}
      *  A new Question which value is a result of applying the `mapping` function
      *  to the value of the current question, so that:
      *  - if the answer to the current question is a `Mappable&lt;A&gt;`, the result becomes `Question&lt;Promise&lt;O[]&gt;&gt;`
      *  - if the answer is a value `&lt;A&gt;` or `Promise&lt;A&gt;`, the result becomes `Question&lt;Promise&lt;O&gt;&gt;`
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswerMappingFunction}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Mappable}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AnswerMappingFunction</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Mappable</span>}
      */</span>
-    map&lt;O&gt;(mapping: AnswerMappingFunction&lt;AnswerOrItemOfMappableCollection&lt;T&gt;, O&gt;): Question&lt;<span class="hljs-built_in">Promise</span>&lt;Mapped&lt;T, O&gt;&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-built_in">this</span>.subject, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            actor.answer(<span class="hljs-built_in">this</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span>
-                (isMappable(value)
-                    ? <span class="hljs-built_in">Promise</span>.all(((value).map(mapping(actor)) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Array</span>&lt;PromiseLike&lt;O&gt; | O&gt;))
-                    : mapping(actor)(value <span class="hljs-keyword">as</span> AnswerOrItemOfMappableCollection&lt;T&gt;)
-                ) <span class="hljs-keyword">as</span> <span class="hljs-built_in">Promise</span>&lt;Mapped&lt;T, O&gt;&gt;
+    map&lt;O&gt;(<span class="hljs-attr">mapping</span>: <span class="hljs-title class_">AnswerMappingFunction</span>&lt;<span class="hljs-title class_">AnswerOrItemOfMappableCollection</span>&lt;T&gt;, O&gt;): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Mapped</span>&lt;T, O&gt;&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span>
+                (<span class="hljs-title function_">isMappable</span>(value)
+                    ? <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(((value).<span class="hljs-title function_">map</span>(<span class="hljs-title function_">mapping</span>(actor)) <span class="hljs-keyword">as</span> <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">PromiseLike</span>&lt;O&gt; | O&gt;))
+                    : <span class="hljs-title function_">mapping</span>(actor)(value <span class="hljs-keyword">as</span> <span class="hljs-title class_">AnswerOrItemOfMappableCollection</span>&lt;T&gt;)
+                ) <span class="hljs-keyword">as</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Mapped</span>&lt;T, O&gt;&gt;
             )
-        ) <span class="hljs-keyword">as</span> Question&lt;<span class="hljs-built_in">Promise</span>&lt;Mapped&lt;T, O&gt;&gt;&gt;;
+        ) <span class="hljs-keyword">as</span> <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Mapped</span>&lt;T, O&gt;&gt;&gt;;
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@abstract</span>
      */</span>
-    <span class="hljs-keyword">abstract</span> answeredBy(actor: AnswersQuestions &amp; UsesAbilities): T;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): T;
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">type</span> AnswerOrItemOfMappableCollection&lt;V&gt; =
-    V <span class="hljs-keyword">extends</span> PromiseLike&lt;infer PromisedValue&gt;
-        ? PromisedValue <span class="hljs-keyword">extends</span> Mappable&lt;infer Item&gt;
-            ? Item
-            : PromisedValue
-        : V <span class="hljs-keyword">extends</span> Mappable&lt;infer Item&gt;
-            ? Item
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">AnswerOrItemOfMappableCollection</span>&lt;V&gt; =
+    V <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">PromiseLike</span>&lt;infer <span class="hljs-title class_">PromisedValue</span>&gt;
+        ? <span class="hljs-title class_">PromisedValue</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Mappable</span>&lt;infer <span class="hljs-title class_">Item</span>&gt;
+            ? <span class="hljs-title class_">Item</span>
+            : <span class="hljs-title class_">PromisedValue</span>
+        : V <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Mappable</span>&lt;infer <span class="hljs-title class_">Item</span>&gt;
+            ? <span class="hljs-title class_">Item</span>
             : V;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">type</span> Mapped&lt;T, O&gt; =
-    T <span class="hljs-keyword">extends</span> PromiseLike&lt;infer PromisedValue&gt;
-        ? PromisedValue <span class="hljs-keyword">extends</span> Mappable&lt;infer Item&gt;        <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Mapped</span>&lt;T, O&gt; =
+    T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">PromiseLike</span>&lt;infer <span class="hljs-title class_">PromisedValue</span>&gt;
+        ? <span class="hljs-title class_">PromisedValue</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Mappable</span>&lt;infer <span class="hljs-title class_">Item</span>&gt;        <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
             ? O[]
             : O
-        : T <span class="hljs-keyword">extends</span> Mappable&lt;infer Item&gt;                    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
+        : T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Mappable</span>&lt;infer <span class="hljs-title class_">Item</span>&gt;                    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-unused-vars</span>
             ? O[]
             : O
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AnonymousQuestion</span>&lt;<span class="hljs-title">T</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Question</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> body: (actor: AnswersQuestions &amp; UsesAbilities) =&gt; T</span>)</span> {
-        <span class="hljs-built_in">super</span>(description);
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">AnonymousQuestion</span>&lt;T&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;T&gt; {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> description: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">private</span> body: (actor: AnswersQuestions &amp; UsesAbilities) =&gt; T</span>) {
+        <span class="hljs-variable language_">super</span>(description);
     }
 
-    <span class="hljs-function"><span class="hljs-title">answeredBy</span>(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>)</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.body(actor);
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-params">actor: AnswersQuestions &amp; UsesAbilities</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">body</span>(actor);
     }
 
     <span class="hljs-comment">/**
      * Changes the description of this question's subject
      * and produces a new instance without mutating the original one.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">subject</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;T&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">subject</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;T&gt;</span>}
      */</span>
-    describedAs(subject: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">this</span> {
-        <span class="hljs-built_in">this</span>.subject = subject;
+    <span class="hljs-title function_">describedAs</span>(<span class="hljs-attr">subject</span>: <span class="hljs-built_in">string</span>): <span class="hljs-variable language_">this</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span> = subject;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
     }
 }
 </code></pre>

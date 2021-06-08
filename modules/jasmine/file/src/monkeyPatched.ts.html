@@ -130,9 +130,9 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/monkeyPatched.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ErrorStackParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorStackParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> ErrorStackParser();
+<span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ErrorStackParser</span>();
 
 <span class="hljs-comment">/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */</span>
 
@@ -143,28 +143,28 @@
  *
  *  This helps to make reporting more accurate.
  *
- * <span class="hljs-doctag">@param <span class="hljs-variable">jasmineConstructor</span></span> - A Jasmine constructor function to be patched
- * <span class="hljs-doctag">@param <span class="hljs-type">{object}</span> <span class="hljs-variable">wrappers</span></span> - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">jasmineConstructor</span> - A Jasmine constructor function to be patched
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">object</span>} <span class="hljs-variable">wrappers</span> - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">monkeyPatched</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">monkeyPatched</span>(<span class="hljs-params">
     jasmineConstructor: <span class="hljs-built_in">any</span>,
     wrappers: {[key: <span class="hljs-built_in">string</span>]: (original: (attrs: <span class="hljs-built_in">object</span>) =&gt; <span class="hljs-built_in">any</span>) =&gt; (attrs: <span class="hljs-built_in">object</span>) =&gt; <span class="hljs-built_in">any</span>} = {},
-</span>) </span>{
-    <span class="hljs-keyword">const</span> result = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MonkeyPatched</span>(<span class="hljs-params">attrs: <span class="hljs-built_in">object</span></span>) </span>{
+</span>) {
+    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">function</span> <span class="hljs-title function_">MonkeyPatched</span>(<span class="hljs-params">attrs: <span class="hljs-built_in">object</span></span>) {
 
-        <span class="hljs-built_in">Object</span>.keys(wrappers).forEach(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {
+        <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(wrappers).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {
             attrs[key] = wrappers[key](attrs[key]);
         });
 
-        <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> jasmineConstructor(attrs);
-        instance.result.location = callerLocation();
+        <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> <span class="hljs-title function_">jasmineConstructor</span>(attrs);
+        instance.<span class="hljs-property">result</span>.<span class="hljs-property">location</span> = <span class="hljs-title function_">callerLocation</span>();
 
         <span class="hljs-keyword">return</span> instance;
     };
 
-    <span class="hljs-built_in">Object</span>.getOwnPropertyNames(jasmineConstructor)
-        .filter(isAStaticProperty)
-        .forEach(<span class="hljs-function"><span class="hljs-params">property</span> =&gt;</span> {
+    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(jasmineConstructor)
+        .<span class="hljs-title function_">filter</span>(isAStaticProperty)
+        .<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">property</span> =&gt;</span> {
             result[property] = jasmineConstructor[property];
         });
 
@@ -179,17 +179,17 @@
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">callerLocation</span>(<span class="hljs-params"></span>) </span>{
-    <span class="hljs-keyword">const</span> found = parser.parse(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'fake error'</span>))
-        .filter(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ! <span class="hljs-regexp">/(node_modules)/</span>.test(frame.fileName))
-        .find(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> <span class="hljs-regexp">/^(Suite|Object)/</span>.test(frame.functionName));
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">callerLocation</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">const</span> found = parser.<span class="hljs-title function_">parse</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'fake error'</span>))
+        .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ! <span class="hljs-regexp">/(node_modules)/</span>.<span class="hljs-title function_">test</span>(frame.<span class="hljs-property">fileName</span>))
+        .<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> <span class="hljs-regexp">/^(Suite|Object)/</span>.<span class="hljs-title function_">test</span>(frame.<span class="hljs-property">functionName</span>));
 
     <span class="hljs-keyword">const</span> caller = found || { <span class="hljs-attr">fileName</span>: <span class="hljs-string">'unknown'</span>, <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">columnNumber</span>: <span class="hljs-number">0</span> };
 
     <span class="hljs-keyword">return</span> {
-        <span class="hljs-attr">path</span>: caller.fileName,
-        <span class="hljs-attr">line</span>: caller.lineNumber,
-        <span class="hljs-attr">column</span>: caller.columnNumber,
+        <span class="hljs-attr">path</span>: caller.<span class="hljs-property">fileName</span>,
+        <span class="hljs-attr">line</span>: caller.<span class="hljs-property">lineNumber</span>,
+        <span class="hljs-attr">column</span>: caller.<span class="hljs-property">columnNumber</span>,
     };
 }
 
@@ -197,12 +197,12 @@
  * <span class="hljs-doctag">@desc</span>
  *  Checks if a given property is likely to be a static method or a static field on the constructor function.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">property</span></span> - name of the property to be checked
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">property</span> - name of the property to be checked
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAStaticProperty</span>(<span class="hljs-params">property: <span class="hljs-built_in">string</span></span>) </span>{
-    <span class="hljs-keyword">return</span> ! ~[<span class="hljs-string">'length'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'arguments'</span>, <span class="hljs-string">'caller'</span>, <span class="hljs-string">'prototype'</span>].indexOf(property);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isAStaticProperty</span>(<span class="hljs-params">property: <span class="hljs-built_in">string</span></span>) {
+    <span class="hljs-keyword">return</span> ! ~[<span class="hljs-string">'length'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'arguments'</span>, <span class="hljs-string">'caller'</span>, <span class="hljs-string">'prototype'</span>].<span class="hljs-title function_">indexOf</span>(property);
 }
 </code></pre>
 

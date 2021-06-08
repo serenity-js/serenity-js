@@ -187,22 +187,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/targets/Target.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, Locator } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { NestedTargetBuilder, TargetBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'./builders'</span>;
-<span class="hljs-keyword">import</span> { TargetElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetElement'</span>;
-<span class="hljs-keyword">import</span> { TargetElements } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetElements'</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetNestedElement'</span>;
-<span class="hljs-keyword">import</span> { TargetNestedElements } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetNestedElements'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Locator</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">NestedTargetBuilder</span>, <span class="hljs-title class_">TargetBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./builders'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TargetElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetElement'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TargetElements</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetElements'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TargetNestedElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetNestedElement'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TargetNestedElements</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TargetNestedElements'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Provides a convenient way to retrieve a single web element or multiple web elements,
- *  so that they can be used with Serenity/JS {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}s.
+ *  so that they can be used with Serenity/JS {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}s.
  *
  *  Check out the examples below, as well as the unit tests demonstrating the usage.
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Imaginary website under test&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Imaginary website under test&lt;/caption&gt;
  *   &lt;body&gt;
  *       &lt;ul id="basket"&gt;
  *           &lt;li&gt;&lt;a href="#"&gt;Apple&lt;/a&gt;&lt;/li&gt;
@@ -214,21 +215,21 @@
  *       &lt;button type="submit"&gt;Proceed to Checkout&lt;/button&gt;
  *   &lt;/body&gt;
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Locating a single element&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Locating a single element&lt;/caption&gt;
  *   import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { by } from 'protractor';
  *
  *   const proceedToCheckoutButton =
  *       Target.the('Proceed to Checkout button').located(by.css(`button[type='submit']`));
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Locating multiple elements&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Locating multiple elements&lt;/caption&gt;
  *   import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { by } from 'protractor';
  *
  *   const basketItems =
  *       Target.all('items in the basket').located(by.css('ul#basket li'));
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Locating element relative to another element&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Locating element relative to another element&lt;/caption&gt;
  *   import { Target } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { by } from 'protractor';
  *
@@ -238,7 +239,7 @@
  *   const outOfStockItem =
  *       Target.the('out of stock item').of(summary).located(by.css('.out-of-stock'))
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Filtering elements matched by a locator&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Filtering elements matched by a locator&lt;/caption&gt;
  *   import { Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { by } from 'protractor';
@@ -247,7 +248,7 @@
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .where(Text, endsWith('e'));    // Apple, Date
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Counting items matched by a locator&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Counting items matched by a locator&lt;/caption&gt;
  *   import { Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { Question } from '<span class="hljs-doctag">@serenity</span>-js/core';
@@ -257,7 +258,7 @@
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .count()    // 4
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Getting first item matched by a locator&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Getting first item matched by a locator&lt;/caption&gt;
  *   import { Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { by, ElementFinder } from 'protractor';
@@ -266,7 +267,7 @@
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .first()
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Getting last item matched by a locator&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Getting last item matched by a locator&lt;/caption&gt;
  *   import { Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { by, ElementFinder } from 'protractor';
@@ -275,7 +276,7 @@
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .last()
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Getting nth item matched by a locator&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Getting nth item matched by a locator&lt;/caption&gt;
  *   import { Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { by, ElementFinder } from 'protractor';
@@ -284,7 +285,7 @@
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .get(1)
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Using multiple filters and nested targets&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Using multiple filters and nested targets&lt;/caption&gt;
  *   import { Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { contain, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { by, ElementFinder } from 'protractor';
@@ -304,7 +305,7 @@
  *          .where(CSSClasses.of(Basket.link), contain('has-discount'))
  *          .first()
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Clicking on an element&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Clicking on an element&lt;/caption&gt;
  *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *   import { BrowseTheWeb, Click } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { protractor } from 'protractor';
@@ -315,7 +316,7 @@
  *           Click.on(proceedToCheckoutButton),
  *       );
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving text of multiple elements and performing an assertion&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving text of multiple elements and performing an assertion&lt;/caption&gt;
  *   import { Ensure, contain } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *   import { BrowseTheWeb, Click, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
@@ -329,7 +330,7 @@
  *           Ensure.that(basketItemNames, contain('Apple'))
  *       );
  *
- *  <span class="hljs-doctag">@example </span>&lt;caption&gt;Waiting on an element&lt;/caption&gt;
+ *  <span class="hljs-doctag">@example</span> &lt;caption&gt;Waiting on an element&lt;/caption&gt;
  *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *   import { BrowseTheWeb, Click, Text, Wait, isClickable } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
  *   import { protractor } from 'protractor';
@@ -340,24 +341,24 @@
  *           Wait.until(proceedToCheckoutButton, isClickable()),
  *       );
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Target</span>  </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Target</span>  {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Locates a single web element
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span> - A human-readable name of the element to be used in the report
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetBuilder&lt;TargetElement&gt; &amp; NestedTargetBuilder&lt;TargetNestedElement&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span> - A human-readable name of the element to be used in the report
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">TargetBuilder&lt;TargetElement&gt; &amp; NestedTargetBuilder&lt;TargetNestedElement&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> the(name: <span class="hljs-built_in">string</span>): TargetBuilder&lt;TargetElement&gt; &amp; NestedTargetBuilder&lt;TargetNestedElement&gt; {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">the</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">TargetBuilder</span>&lt;<span class="hljs-title class_">TargetElement</span>&gt; &amp; <span class="hljs-title class_">NestedTargetBuilder</span>&lt;<span class="hljs-title class_">TargetNestedElement</span>&gt; {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElement</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElement(name, byLocator),
+            <span class="hljs-attr">located</span>: (<span class="hljs-attr">byLocator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-function"><span class="hljs-params">TargetElement</span> =&gt;</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetElement</span>(name, byLocator),
 
             <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> {
-                    <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElement</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElement(parent, <span class="hljs-keyword">new</span> TargetElement(name, byLocator)),
+                    <span class="hljs-attr">located</span>: (<span class="hljs-attr">byLocator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-function"><span class="hljs-params">TargetNestedElement</span> =&gt;</span>
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetNestedElement</span>(parent, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetElement</span>(name, byLocator)),
                 };
             },
         };
@@ -367,18 +368,18 @@
      * <span class="hljs-doctag">@desc</span>
      *  Locates a group of web elements
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">name</span></span> - A human-readable name of the elements to be used in the report
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{TargetBuilder&lt;TargetElements&gt; &amp; NestedTargetBuilder&lt;TargetNestedElements&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span> - A human-readable name of the elements to be used in the report
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">TargetBuilder&lt;TargetElements&gt; &amp; NestedTargetBuilder&lt;TargetNestedElements&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> all(name: <span class="hljs-built_in">string</span>): TargetBuilder&lt;TargetElements&gt; &amp; NestedTargetBuilder&lt;TargetNestedElements&gt; {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">all</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">TargetBuilder</span>&lt;<span class="hljs-title class_">TargetElements</span>&gt; &amp; <span class="hljs-title class_">NestedTargetBuilder</span>&lt;<span class="hljs-title class_">TargetNestedElements</span>&gt; {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetElements</span> =&gt;</span>
-                <span class="hljs-keyword">new</span> TargetElements(name, byLocator),
+            <span class="hljs-attr">located</span>: (<span class="hljs-attr">byLocator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-function"><span class="hljs-params">TargetElements</span> =&gt;</span>
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetElements</span>(name, byLocator),
 
             <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">parent: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> {
                 <span class="hljs-keyword">return</span> {
-                    <span class="hljs-attr">located</span>: (byLocator: Locator): <span class="hljs-function"><span class="hljs-params">TargetNestedElements</span> =&gt;</span>
-                        <span class="hljs-keyword">new</span> TargetNestedElements(parent, <span class="hljs-keyword">new</span> TargetElements(name, byLocator)),
+                    <span class="hljs-attr">located</span>: (<span class="hljs-attr">byLocator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-function"><span class="hljs-params">TargetNestedElements</span> =&gt;</span>
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetNestedElements</span>(parent, <span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetElements</span>(name, byLocator)),
                 };
             },
         };

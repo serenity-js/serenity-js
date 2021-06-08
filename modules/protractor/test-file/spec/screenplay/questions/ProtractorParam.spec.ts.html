@@ -189,64 +189,64 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/ProtractorParam.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations */</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">ConfigurationError</span>, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, ConfigurationError, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-
-<span class="hljs-keyword">import</span> { ProtractorParam } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtractorParam</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
-describe(<span class="hljs-string">'ProtractorParam'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ProtractorParam'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>()));
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam.called</span>}
      */</span>
-    it(<span class="hljs-string">'lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'env'</span>), equals(<span class="hljs-string">'test'</span>)),
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'lets the actor read the value of a primitive Protractor parameter specified in protractor.conf.js'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ProtractorParam</span>.<span class="hljs-property">called</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'env'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'test'</span>)),
         ));
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam.called</span>}
      */</span>
-    it(<span class="hljs-string">'lets the actor read the value of an object Protractor parameter specified in protractor.conf.js'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Ensure.that(
-                ProtractorParam.called&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">'user'</span>),
-                equals({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Jan'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Molak'</span> })
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'lets the actor read the value of an object Protractor parameter specified in protractor.conf.js'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+                <span class="hljs-title class_">ProtractorParam</span>.<span class="hljs-property">called</span>&lt;{ <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">firstName</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-built_in">string</span> }&gt;(<span class="hljs-string">'user'</span>),
+                <span class="hljs-title function_">equals</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">firstName</span>: <span class="hljs-string">'Jan'</span>, <span class="hljs-attr">lastName</span>: <span class="hljs-string">'Molak'</span> })
             ),
         ));
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam.called</span>}
      */</span>
-    it(<span class="hljs-string">'lets the actor read the value of a Protractor parameter specified by path'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'user.firstName'</span>), equals(<span class="hljs-string">'Jan'</span>)),
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'lets the actor read the value of a Protractor parameter specified by path'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ProtractorParam</span>.<span class="hljs-property">called</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'user.firstName'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Jan'</span>)),
         ));
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam.called</span>}
      */</span>
-    it(<span class="hljs-string">'complains if the parameter is undefined'</span>, <span class="hljs-function">() =&gt;</span>
-        expect(actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-            Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'user.address'</span>), equals(<span class="hljs-string">'London, UK'</span>)),
-        )).to.be.rejectedWith(ConfigurationError, <span class="hljs-string">`Protractor param 'user.address' is undefined`</span>));
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the parameter is undefined'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ProtractorParam</span>.<span class="hljs-property">called</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'user.address'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'London, UK'</span>)),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`Protractor param 'user.address' is undefined`</span>));
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorParam.called}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorParam.called</span>}
      */</span>
-    it(<span class="hljs-string">'contributes to a human-readable description of an activity'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(Ensure.that(ProtractorParam.called&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'user.firstName'</span>), equals(<span class="hljs-string">'Jan'</span>)).toString())
-            .to.equal(<span class="hljs-string">`#actor ensures that the 'user.firstName' param specified in Protractor config does equal 'Jan'`</span>)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'contributes to a human-readable description of an activity'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">ProtractorParam</span>.<span class="hljs-property">called</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'user.firstName'</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Jan'</span>)).<span class="hljs-title function_">toString</span>())
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor ensures that the 'user.firstName' param specified in Protractor config does equal 'Jan'`</span>)
     });
 });
 </code></pre>

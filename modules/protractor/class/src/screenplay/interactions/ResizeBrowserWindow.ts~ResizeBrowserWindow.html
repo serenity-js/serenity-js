@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ResizeBrowserWindow} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">ResizeBrowserWindow</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ResizeBrowserWindow.ts.html#lineNumber21">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/ResizeBrowserWindow.ts.html#lineNumber22">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -227,7 +227,7 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber10">ResizeBrowserWindow</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber11">ResizeBrowserWindow</a></span></li>
 </ul>
   </div>
 
@@ -325,7 +325,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ResizeBrowserWindow.ts.html#lineNumber111">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ResizeBrowserWindow.ts.html#lineNumber112">source</a></span></span>
     </span>
   </h3>
 
@@ -393,14 +393,14 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Setting specific window size</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, ResizeBrowserWindow } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">ResizeBrowserWindow</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Ventana'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/app'</span>),
-         ResizeBrowserWindow.to(<span class="hljs-number">828</span>, <span class="hljs-number">1792</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Ventana'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/app'</span>),
+         <span class="hljs-title class_">ResizeBrowserWindow</span>.<span class="hljs-title function_">to</span>(<span class="hljs-number">828</span>, <span class="hljs-number">1792</span>),
      );</code></pre>
     </div>
 </div>
@@ -409,7 +409,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber17">ResizeBrowserWindow  allows the actor to change width and height of the browser window</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber18">ResizeBrowserWindow  allows the actor to change width and height of the browser window</a></span></li>
 </ul>
   </div>
 
@@ -428,7 +428,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ResizeBrowserWindow.ts.html#lineNumber63">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/ResizeBrowserWindow.ts.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -472,16 +472,16 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Maximising browser window</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, ResizeBrowserWindow, Window } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">ResizeBrowserWindow</span>, <span class="hljs-title class_">Window</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Ventana'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/app'</span>),
-         ResizeBrowserWindow.toMaximum(),
-         Ensure.that(Window.size(), property(<span class="hljs-string">'width'</span>, isGreaterThan(<span class="hljs-number">1024</span>))),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Ventana'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/app'</span>),
+         <span class="hljs-title class_">ResizeBrowserWindow</span>.<span class="hljs-title function_">toMaximum</span>(),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Window</span>.<span class="hljs-title function_">size</span>(), <span class="hljs-title function_">property</span>(<span class="hljs-string">'width'</span>, <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">1024</span>))),
      );</code></pre>
     </div>
 </div>
@@ -490,7 +490,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber35">ResizeBrowserWindow toMaximum() allows the actor to resize browser window to maximum</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/ResizeBrowserWindow.spec.ts.html#lineNumber36">ResizeBrowserWindow toMaximum() allows the actor to resize browser window to maximum</a></span></li>
 </ul>
   </div>
 

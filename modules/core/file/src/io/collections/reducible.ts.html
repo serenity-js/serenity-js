@@ -301,12 +301,12 @@
  *
  * <span class="hljs-doctag">@interface</span>
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link ElementArrayFinder}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Loop}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link ElementArrayFinder</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Loop</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Reducible {
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@type <span class="hljs-type">{function&lt;T,A&gt;(callback: (accumulator: A, currentValue: T, index: number) =&gt; A, initialValue: A): PromiseLike&lt;A&gt; | A}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">function&lt;T,A&gt;(callback: (accumulator: A, currentValue: T, index: number) =&gt; A, initialValue: A): PromiseLike&lt;A&gt; | A</span>}
      */</span>
     <span class="hljs-attr">reduce</span>: &lt;T, A&gt;(fn: (accumulator: A, currentValue: T, index: number) =&gt; A, initialValue: A) =&gt; PromiseLike&lt;A&gt; | A;
 }

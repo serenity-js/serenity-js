@@ -301,33 +301,33 @@
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  The value of the {<span class="hljs-doctag">@link </span>HTTPRequestResponse} {<span class="hljs-doctag">@link </span>Artifact} describing a HTTP request/response pair.
+ *  The value of the {<span class="hljs-doctag">@link</span> HTTPRequestResponse} {<span class="hljs-doctag">@link</span> Artifact} describing a HTTP request/response pair.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> RequestAndResponse <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">request</span>: {
         <span class="hljs-attr">url</span>: <span class="hljs-built_in">string</span>;
-        method: <span class="hljs-built_in">string</span>;
-        headers: { [header: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> };
+        <span class="hljs-attr">method</span>: <span class="hljs-built_in">string</span>;
+        <span class="hljs-attr">headers</span>: { [<span class="hljs-attr">header</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> };
         data?: <span class="hljs-built_in">any</span>;
     };
-    response: {
+    <span class="hljs-attr">response</span>: {
         <span class="hljs-attr">status</span>: <span class="hljs-built_in">number</span>;
         data?: <span class="hljs-built_in">any</span>;
-        headers?: { [header: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> };
+        headers?: { [<span class="hljs-attr">header</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> };
     };
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  An {<span class="hljs-doctag">@link </span>Artifact} describing a HTTP request/response pair.
+ *  An {<span class="hljs-doctag">@link</span> Artifact} describing a HTTP request/response pair.
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HTTPRequestResponse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">JSONData</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(value: RequestAndResponse): HTTPRequestResponse {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> HTTPRequestResponse(Buffer.from(<span class="hljs-built_in">JSON</span>.stringify(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>), <span class="hljs-string">'utf8'</span>).toString(<span class="hljs-string">'base64'</span>));
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HTTPRequestResponse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">JSONData</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">value</span>: <span class="hljs-title class_">RequestAndResponse</span>): HTTPRequestResponse {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">HTTPRequestResponse</span>(<span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">0</span>), <span class="hljs-string">'utf8'</span>).<span class="hljs-title function_">toString</span>(<span class="hljs-string">'base64'</span>));
     }
 }
 </code></pre>

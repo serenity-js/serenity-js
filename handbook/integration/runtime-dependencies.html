@@ -155,7 +155,7 @@
 installers for all the major operating systems, or using the <a href="http://nvm.sh">Node Version Manager (nvm)</a>.
 The second option is more appropriate if you need to work with several versions of the Node.js platform simultaneously.</p>
 <p>To check if you machine is set up correctly, execute the following command in your terminal:</p>
-<pre><code class="lang-console hljs console"><span class="hljs-meta">$</span><span class="bash"> node --version</span>
+<pre><code class="lang-console hljs console"><span class="hljs-meta">$ </span><span class="language-bash">node --version</span>
 v16.3.0
 </code></pre>
 <h2 id="a-node-js-project">A Node.js project</h2>
@@ -167,23 +167,23 @@ so that it doesn't get accidentally bundled together with your production depend
 create <code>package.json</code> - a Node.js project descriptor file, which would already be part of your project.</p>
 <p>To create a Node.js project from scratch, create a new directory, such as <code>example</code>,
 and initialise a new project accepting the default configuration suggested by the npm with these terminal commands:</p>
-<pre><code class="lang-console hljs console"><span class="hljs-meta">$</span><span class="bash"> mkdir example</span>
-<span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> example</span>
-<span class="hljs-meta">$</span><span class="bash"> npm init</span>
+<pre><code class="lang-console hljs console"><span class="hljs-meta">$ </span><span class="language-bash">mkdir example</span>
+<span class="hljs-meta">$ </span><span class="language-bash"><span class="hljs-built_in">cd</span> example</span>
+<span class="hljs-meta">$ </span><span class="language-bash">npm init</span>
 </code></pre>
 <p>Your actions should result in a basic <a href="https://docs.npmjs.com/files/package.json"><code>package.json</code> file</a>
 appearing under <code>example</code>, with contents similar to the following:</p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"example"</span>,
-  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
-  <span class="hljs-attr">"description"</span>: <span class="hljs-string">""</span>,
-  <span class="hljs-attr">"main"</span>: <span class="hljs-string">"index.js"</span>,
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span>
-  },
-  <span class="hljs-attr">"author"</span>: <span class="hljs-string">""</span>,
-  <span class="hljs-attr">"license"</span>: <span class="hljs-string">"ISC"</span>
-}
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"name"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"example"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"version"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"1.0.0"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"main"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"index.js"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"test"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span>
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"author"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">""</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"license"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ISC"</span>
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <h2 id="java-runtime-environment">Java Runtime Environment</h2>
 <p>Serenity/JS delegates the work of generating the illustrated HTML reports to <a href="http://serenity-bdd.info/">Serenity BDD</a>,
@@ -201,7 +201,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.181-b13, mixed mode)
 your <code>JAVA_HOME</code> environment variable
 to the correct version.</p>
 <p>On MacOS this could be:</p>
-<pre><code class="lang-console hljs console"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">echo</span> <span class="hljs-variable">$JAVA_HOME</span></span>
+<pre><code class="lang-console hljs console"><span class="hljs-meta">$ </span><span class="language-bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$JAVA_HOME</span></span>
 /Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
 </code></pre>
 <p>Please consult the <a href="https://docs.oracle.com/cd/E21454_01/html/821-2532/inst_cli_jdk_javahome_t.html">Oracle documentation</a>

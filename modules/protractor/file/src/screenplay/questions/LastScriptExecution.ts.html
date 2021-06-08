@@ -187,24 +187,25 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/LastScriptExecution.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Returns the result of last script executed via {<span class="hljs-doctag">@link </span>ExecuteScript}
+ *  Returns the result of last script executed via {<span class="hljs-doctag">@link</span> ExecuteScript}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LastScriptExecution</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LastScriptExecution</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Enables asserting on the result of a function executed via {<span class="hljs-doctag">@link </span>ExecuteScript}.
+     *  Enables asserting on the result of a function executed via {<span class="hljs-doctag">@link</span> ExecuteScript}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;R&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;R&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> result&lt;R&gt;(): Question&lt;R&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`last script execution result`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            BrowseTheWeb.as(actor).getLastScriptExecutionResult());
+    <span class="hljs-keyword">static</span> result&lt;R&gt;(): <span class="hljs-title class_">Question</span>&lt;R&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`last script execution result`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getLastScriptExecutionResult</span>());
     }
 }
 </code></pre>

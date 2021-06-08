@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Property} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Property</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -332,14 +332,14 @@
       <div class="example-caption" data-ice="exampleCaption">Example API response</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">interface</span> EnvironmentDetails {
      <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-     url:  <span class="hljs-built_in">string</span>;
+     <span class="hljs-attr">url</span>:  <span class="hljs-built_in">string</span>;
  }
 
  <span class="hljs-keyword">interface</span> EnvironmentsResponse {
-     <span class="hljs-attr">environments</span>: EnvironmentDetails[];
+     <span class="hljs-attr">environments</span>: <span class="hljs-title class_">EnvironmentDetails</span>[];
  }
 
- <span class="hljs-keyword">const</span> response: EnvironmentsResponse = {
+ <span class="hljs-keyword">const</span> <span class="hljs-attr">response</span>: <span class="hljs-title class_">EnvironmentsResponse</span> = {
     <span class="hljs-string">"environments"</span>: [
         {
             <span class="hljs-string">"name"</span>: <span class="hljs-string">"dev"</span>,
@@ -354,17 +354,17 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Combining Property.of and Property.at</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, List, Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">List</span>, <span class="hljs-title class_">Property</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         Property.of(
-             List.of(response.environments)
-                 .where(Property.at&lt;EnvironmentDetails&gt;().name, equals(<span class="hljs-string">'dev'</span>))
-                 .first(),
-         ).url,
-         equals(<span class="hljs-string">'https://dev.example.com'</span>)
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(
+             <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(response.<span class="hljs-property">environments</span>)
+                 .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">EnvironmentDetails</span>&gt;().<span class="hljs-property">name</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'dev'</span>))
+                 .<span class="hljs-title function_">first</span>(),
+         ).<span class="hljs-property">url</span>,
+         <span class="hljs-title function_">equals</span>(<span class="hljs-string">'https://dev.example.com'</span>)
      )
  )</code></pre>
     </div>
@@ -519,15 +519,15 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Reading a property</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Property</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         List.of(response.environments)
-             .where(Property.at&lt;EnvironmentDetails&gt;().name, equals(<span class="hljs-string">'dev'</span>))
-             .first(),
-         equals(response.environments[<span class="hljs-number">0</span>])
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(response.<span class="hljs-property">environments</span>)
+             .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">EnvironmentDetails</span>&gt;().<span class="hljs-property">name</span>, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'dev'</span>))
+             .<span class="hljs-title function_">first</span>(),
+         <span class="hljs-title function_">equals</span>(response.<span class="hljs-property">environments</span>[<span class="hljs-number">0</span>])
      )
  )</code></pre>
     </div>
@@ -616,13 +616,13 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Reading a property</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Property } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Property</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- actorCalled(<span class="hljs-string">'Lisa'</span>).attemptsTo(
-     Ensure.that(
-         Property.of(response).environments[<span class="hljs-number">0</span>].name,
-         equals(<span class="hljs-string">'dev'</span>)
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Lisa'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+         <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(response).<span class="hljs-property">environments</span>[<span class="hljs-number">0</span>].<span class="hljs-property">name</span>,
+         <span class="hljs-title function_">equals</span>(<span class="hljs-string">'dev'</span>)
      )
  )</code></pre>
     </div>

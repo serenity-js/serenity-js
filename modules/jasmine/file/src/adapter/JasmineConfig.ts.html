@@ -134,7 +134,7 @@
  * <span class="hljs-doctag">@desc</span>
  *  Configuration object that will be passed to the JasmineRunner.
  *
- * <span class="hljs-doctag">@see </span>https://jasmine.github.io/setup/nodejs.html
+ * <span class="hljs-doctag">@see</span> https://jasmine.github.io/setup/nodejs.html
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> JasmineConfig {
 
@@ -143,17 +143,17 @@
      *  A list of paths to helper files that should be loaded and executed before the `requires` and the `specs`.
      *  Accepts relative and absolute paths as well as glob expressions.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | undefined}</span></span>
-     * <span class="hljs-doctag">@see </span>https://jasmine.github.io/tutorials/react_with_npm
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string[] | undefined</span>}
+     * <span class="hljs-doctag">@see</span> https://jasmine.github.io/tutorials/react_with_npm
      */</span>
     helpers?: <span class="hljs-built_in">string</span>[];
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  A list of paths to files that should be required after the `helpers`, but before the `specs`.
-     *  The path need to be compatible with Node {<span class="hljs-doctag">@link </span>require}.
+     *  The path need to be compatible with Node {<span class="hljs-doctag">@link</span> require}.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string[] | undefined}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string[] | undefined</span>}
      */</span>
     requires?: <span class="hljs-built_in">string</span>[];
 
@@ -161,7 +161,7 @@
      * <span class="hljs-doctag">@desc</span>
      *  Whether or not the tests should be executed in a pseudo-random order.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{boolean | undefined}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">boolean | undefined</span>}
      */</span>
     random?: <span class="hljs-built_in">boolean</span>;
 
@@ -169,17 +169,17 @@
      * <span class="hljs-doctag">@desc</span>
      *  Used to exclude any test scenarios which name doesn't match the pattern from the run.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string | RegExp | undefined}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string | RegExp | undefined</span>}
      */</span>
-    grep?: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">RegExp</span>;
+    grep?: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">RegExp</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  The randomisation seed that will be used to determine the pseudo-random order of execution,
      *  if `random` is set to `true`
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{string | undefined}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link JasmineConfig#random}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string | undefined</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link JasmineConfig#random</span>}
      */</span>
     seed?: <span class="hljs-built_in">string</span>;
 
@@ -188,8 +188,8 @@
      *  Sets the global `jasmine.DEFAULT_TIMEOUT_INTERVAL`,
      *  which defines the default number of milliseconds Jasmine will wait for an asynchronous spec to complete.
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{number | undefined}</span></span>
-     * <span class="hljs-doctag">@see </span>https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">number | undefined</span>}
+     * <span class="hljs-doctag">@see</span> https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL
      */</span>
     defaultTimeoutInterval?: <span class="hljs-built_in">number</span>;
 }

@@ -128,12 +128,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/stage/ProgressReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ArtifactGenerated, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> ProgressBar <span class="hljs-keyword">from</span> <span class="hljs-string">'progress'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProgressBar</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'progress'</span>;
 
-<span class="hljs-keyword">import</span> { DownloadProgressReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { Printer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DownloadProgressReport</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -141,33 +141,33 @@
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProgressReporter</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProgressReporter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
         <span class="hljs-keyword">private</span> progressBar?: ProgressBar,
-    </span>)</span> {
+    </span>) {
     }
 
-    assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ProgressReporter(<span class="hljs-built_in">this</span>.printer, stage, <span class="hljs-built_in">this</span>.progressBar);
+    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressReporter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>, stage, <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span>);
     }
 
-    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> ArtifactGenerated &amp;&amp; event.artifact <span class="hljs-keyword">instanceof</span> DownloadProgressReport) {
-            <span class="hljs-keyword">const</span> { downloadedBytes, totalBytes } = event.artifact.map(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> report) <span class="hljs-keyword">as</span> { <span class="hljs-attr">downloadedBytes</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">totalDownloadedBytes</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">totalBytes</span>: <span class="hljs-built_in">number</span> };
+    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArtifactGenerated</span> &amp;&amp; event.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">DownloadProgressReport</span>) {
+            <span class="hljs-keyword">const</span> { downloadedBytes, totalBytes } = event.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> report) <span class="hljs-keyword">as</span> { <span class="hljs-attr">downloadedBytes</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">totalDownloadedBytes</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">totalBytes</span>: <span class="hljs-built_in">number</span> };
 
-            <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.progressBar) {
-                <span class="hljs-built_in">this</span>.progressBar = <span class="hljs-keyword">new</span> ProgressBar(<span class="hljs-string">`[:bar] Downloaded :percent at :ratebps. We should be done in about :etas`</span>, {
+            <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span>) {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressBar</span>(<span class="hljs-string">`[:bar] Downloaded :percent at :ratebps. We should be done in about :etas`</span>, {
                     <span class="hljs-attr">complete</span>: <span class="hljs-string">'='</span>,
                     <span class="hljs-attr">incomplete</span>: <span class="hljs-string">'-'</span>,
                     <span class="hljs-attr">width</span>: <span class="hljs-number">20</span>,
                     <span class="hljs-attr">total</span>: totalBytes,
-                    <span class="hljs-attr">stream</span>: <span class="hljs-built_in">this</span>.printer.out,
+                    <span class="hljs-attr">stream</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-property">out</span>,
                 });
             }
 
-            <span class="hljs-built_in">this</span>.progressBar.tick(downloadedBytes);
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span>.<span class="hljs-title function_">tick</span>(downloadedBytes);
         }
     }
 }

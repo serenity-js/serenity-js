@@ -132,179 +132,179 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/notifier/Notifier.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
-    DomainEvent,
-    FeatureNarrativeDetected,
-    SceneDescriptionDetected,
-    SceneFinished,
-    SceneFinishes,
-    SceneParametersDetected,
-    SceneSequenceDetected,
-    SceneStarts,
-    SceneTagged,
-    SceneTemplateDetected,
-    TaskFinished,
-    TaskStarts,
-    TestRunFinished,
-    TestRunFinishes,
-    TestRunnerDetected, TestRunStarts,
+    <span class="hljs-title class_">DomainEvent</span>,
+    <span class="hljs-title class_">FeatureNarrativeDetected</span>,
+    <span class="hljs-title class_">SceneDescriptionDetected</span>,
+    <span class="hljs-title class_">SceneFinished</span>,
+    <span class="hljs-title class_">SceneFinishes</span>,
+    <span class="hljs-title class_">SceneParametersDetected</span>,
+    <span class="hljs-title class_">SceneSequenceDetected</span>,
+    <span class="hljs-title class_">SceneStarts</span>,
+    <span class="hljs-title class_">SceneTagged</span>,
+    <span class="hljs-title class_">SceneTemplateDetected</span>,
+    <span class="hljs-title class_">TaskFinished</span>,
+    <span class="hljs-title class_">TaskStarts</span>,
+    <span class="hljs-title class_">TestRunFinished</span>,
+    <span class="hljs-title class_">TestRunFinishes</span>,
+    <span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-title class_">TestRunStarts</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { ActivityDetails, CapabilityTag, Category, CorrelationId, Description, FeatureTag, Name, Outcome, ScenarioDetails, Tag, ThemeTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/Serenity'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityDetails</span>, <span class="hljs-title class_">CapabilityTag</span>, <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">FeatureTag</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Outcome</span>, <span class="hljs-title class_">ScenarioDetails</span>, <span class="hljs-title class_">Tag</span>, <span class="hljs-title class_">ThemeTag</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/Serenity'</span>;
 
-<span class="hljs-keyword">import</span> { Feature, FeatureFileNode, Scenario, ScenarioOutline, Step } <span class="hljs-keyword">from</span> <span class="hljs-string">'../gherkin'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Feature</span>, <span class="hljs-title class_">FeatureFileNode</span>, <span class="hljs-title class_">Scenario</span>, <span class="hljs-title class_">ScenarioOutline</span>, <span class="hljs-title class_">Step</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../gherkin'</span>;
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">notEmpty</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">list: T[]</span>) </span>{
-    <span class="hljs-keyword">return</span> list.filter(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item);
+<span class="hljs-keyword">function</span> notEmpty&lt;T&gt;(<span class="hljs-attr">list</span>: T[]) {
+    <span class="hljs-keyword">return</span> list.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item);
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Notifier</span> </span>{
-    <span class="hljs-keyword">private</span> currentSceneId: CorrelationId;
-    <span class="hljs-keyword">private</span> currentScenario: ScenarioDetails;
-    <span class="hljs-keyword">private</span> currentStepActivityId: CorrelationId;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Notifier</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">currentSceneId</span>: <span class="hljs-title class_">CorrelationId</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">currentScenario</span>: <span class="hljs-title class_">ScenarioDetails</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">currentStepActivityId</span>: <span class="hljs-title class_">CorrelationId</span>;
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenity: Serenity</span>) {
     }
 
-    testRunStarts(): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> TestRunStarts(<span class="hljs-built_in">this</span>.serenity.currentTime()),
+    <span class="hljs-title function_">testRunStarts</span>(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunStarts</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
         );
     }
 
-    outlineDetected(sceneId: CorrelationId, <span class="hljs-attr">scenario</span>: Scenario, <span class="hljs-attr">outline</span>: ScenarioOutline, <span class="hljs-attr">feature</span>: Feature): <span class="hljs-built_in">void</span> {
+    <span class="hljs-title function_">outlineDetected</span>(<span class="hljs-attr">sceneId</span>: <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-attr">scenario</span>: <span class="hljs-title class_">Scenario</span>, <span class="hljs-attr">outline</span>: <span class="hljs-title class_">ScenarioOutline</span>, <span class="hljs-attr">feature</span>: <span class="hljs-title class_">Feature</span>): <span class="hljs-built_in">void</span> {
         <span class="hljs-keyword">const</span>
-            outlineDetails  = <span class="hljs-built_in">this</span>.detailsOf(outline, feature),
-            scenarioDetails = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature),
-            template        = outline.steps.map(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.name.value).join(<span class="hljs-string">'\n'</span>);
+            outlineDetails  = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">detailsOf</span>(outline, feature),
+            scenarioDetails = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">detailsOf</span>(scenario, feature),
+            template        = outline.<span class="hljs-property">steps</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> step.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
 
-        <span class="hljs-built_in">this</span>.emit(...notEmpty([
-            <span class="hljs-keyword">new</span> SceneSequenceDetected(sceneId, outlineDetails, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> SceneTemplateDetected(sceneId, <span class="hljs-keyword">new</span> Description(template), <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> SceneParametersDetected(
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(...<span class="hljs-title function_">notEmpty</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneSequenceDetected</span>(sceneId, outlineDetails, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTemplateDetected</span>(sceneId, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(template), <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneParametersDetected</span>(
                 sceneId,
                 scenarioDetails,
-                outline.parameters[ scenario.location.line ],
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                outline.<span class="hljs-property">parameters</span>[ scenario.<span class="hljs-property">location</span>.<span class="hljs-property">line</span> ],
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>(),
             ),
         ]));
     }
 
-    scenarioStarts(sceneId: CorrelationId, <span class="hljs-attr">scenario</span>: Scenario, <span class="hljs-attr">feature</span>: Feature): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.currentSceneId = sceneId;
+    <span class="hljs-title function_">scenarioStarts</span>(<span class="hljs-attr">sceneId</span>: <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-attr">scenario</span>: <span class="hljs-title class_">Scenario</span>, <span class="hljs-attr">feature</span>: <span class="hljs-title class_">Feature</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span> = sceneId;
 
-        <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature);
+        <span class="hljs-keyword">const</span> details = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">detailsOf</span>(scenario, feature);
 
-        <span class="hljs-built_in">this</span>.currentScenario = details;
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentScenario</span> = details;
 
         <span class="hljs-comment">// todo: emit SceneBackgroundDetected?</span>
 
-        <span class="hljs-built_in">this</span>.emit(...notEmpty([
-            <span class="hljs-keyword">new</span> SceneStarts(<span class="hljs-built_in">this</span>.currentSceneId, details, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            feature.description &amp;&amp; <span class="hljs-keyword">new</span> FeatureNarrativeDetected(<span class="hljs-built_in">this</span>.currentSceneId, feature.description, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            <span class="hljs-keyword">new</span> TestRunnerDetected(<span class="hljs-built_in">this</span>.currentSceneId, <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Cucumber'</span>), <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            ...this.scenarioHierarchyTagsFor(feature).map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
-            !! scenario.description &amp;&amp; <span class="hljs-keyword">new</span> SceneDescriptionDetected(<span class="hljs-built_in">this</span>.currentSceneId, scenario.description, <span class="hljs-built_in">this</span>.serenity.currentTime()),
-            ...scenario.tags.map(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> SceneTagged(<span class="hljs-built_in">this</span>.currentSceneId, tag, <span class="hljs-built_in">this</span>.serenity.currentTime())),
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(...<span class="hljs-title function_">notEmpty</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>, details, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
+            feature.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureNarrativeDetected</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>, feature.<span class="hljs-property">description</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunnerDetected</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>), <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
+            ...<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">scenarioHierarchyTagsFor</span>(feature).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTagged</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>, tag, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>())),
+            !! scenario.<span class="hljs-property">description</span> &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneDescriptionDetected</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>, scenario.<span class="hljs-property">description</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
+            ...scenario.<span class="hljs-property">tags</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">tag</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTagged</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>, tag, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>())),
         ]));
     }
 
-    stepStarts(step: Step): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.currentStepActivityId = <span class="hljs-built_in">this</span>.serenity.assignNewActivityId();
+    <span class="hljs-title function_">stepStarts</span>(<span class="hljs-attr">step</span>: <span class="hljs-title class_">Step</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentStepActivityId</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">assignNewActivityId</span>();
 
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> TaskStarts(
-                <span class="hljs-built_in">this</span>.currentSceneId,
-                <span class="hljs-built_in">this</span>.currentStepActivityId,
-                <span class="hljs-keyword">new</span> ActivityDetails(step.name),
-                <span class="hljs-built_in">this</span>.serenity.currentTime()
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>,
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentStepActivityId</span>,
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(step.<span class="hljs-property">name</span>),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()
             ),
         );
     }
 
-    stepFinished(step: Step, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> TaskFinished(
-                <span class="hljs-built_in">this</span>.currentSceneId,
-                <span class="hljs-built_in">this</span>.currentStepActivityId,
-                <span class="hljs-keyword">new</span> ActivityDetails(step.name),
+    <span class="hljs-title function_">stepFinished</span>(<span class="hljs-attr">step</span>: <span class="hljs-title class_">Step</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>,
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentStepActivityId</span>,
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(step.<span class="hljs-property">name</span>),
                 outcome,
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>(),
             ),
         );
     }
 
-    scenarioFinishes(scenario: Scenario, <span class="hljs-attr">feature</span>: Feature, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.detailsOf(scenario, feature), outcome);
+    <span class="hljs-title function_">scenarioFinishes</span>(<span class="hljs-attr">scenario</span>: <span class="hljs-title class_">Scenario</span>, <span class="hljs-attr">feature</span>: <span class="hljs-title class_">Feature</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emitSceneFinishes</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">detailsOf</span>(scenario, feature), outcome);
     }
 
-    currentScenarioFinishes(outcome: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emitSceneFinishes(<span class="hljs-built_in">this</span>.currentScenario, outcome);
+    <span class="hljs-title function_">currentScenarioFinishes</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emitSceneFinishes</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">currentScenario</span>, outcome);
     }
 
-    scenarioFinished(scenario: Scenario, <span class="hljs-attr">feature</span>: Feature, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> details = <span class="hljs-built_in">this</span>.detailsOf(scenario, feature);
+    <span class="hljs-title function_">scenarioFinished</span>(<span class="hljs-attr">scenario</span>: <span class="hljs-title class_">Scenario</span>, <span class="hljs-attr">feature</span>: <span class="hljs-title class_">Feature</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">const</span> details = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">detailsOf</span>(scenario, feature);
 
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> SceneFinished(
-                <span class="hljs-built_in">this</span>.currentSceneId,
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>,
                 details,
                 outcome,
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>(),
             ),
         );
     }
 
-    testRunFinishes(): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> TestRunFinishes(<span class="hljs-built_in">this</span>.serenity.currentTime()),
+    <span class="hljs-title function_">testRunFinishes</span>(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
         );
     }
 
-    testRunFinished(): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> TestRunFinished(<span class="hljs-built_in">this</span>.serenity.currentTime()),
+    <span class="hljs-title function_">testRunFinished</span>(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>()),
         );
     }
 
-    <span class="hljs-keyword">private</span> emitSceneFinishes(details: ScenarioDetails, <span class="hljs-attr">outcome</span>: Outcome): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.emit(
-            <span class="hljs-keyword">new</span> SceneFinishes(
-                <span class="hljs-built_in">this</span>.currentSceneId,
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">emitSceneFinishes</span>(<span class="hljs-attr">details</span>: <span class="hljs-title class_">ScenarioDetails</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentSceneId</span>,
                 details,
                 outcome,
-                <span class="hljs-built_in">this</span>.serenity.currentTime(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentTime</span>(),
             ),
         );
     }
 
-    <span class="hljs-keyword">private</span> detailsOf(scenario: FeatureFileNode, <span class="hljs-attr">feature</span>: Feature): ScenarioDetails {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ScenarioDetails(
-            scenario.name,
-            <span class="hljs-keyword">new</span> Category(feature.name.value),
-            scenario.location,
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">detailsOf</span>(<span class="hljs-attr">scenario</span>: <span class="hljs-title class_">FeatureFileNode</span>, <span class="hljs-attr">feature</span>: <span class="hljs-title class_">Feature</span>): <span class="hljs-title class_">ScenarioDetails</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            scenario.<span class="hljs-property">name</span>,
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(feature.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>),
+            scenario.<span class="hljs-property">location</span>,
         );
     }
 
-    <span class="hljs-keyword">private</span> scenarioHierarchyTagsFor(feature: Feature): Tag[] {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">scenarioHierarchyTagsFor</span>(<span class="hljs-attr">feature</span>: <span class="hljs-title class_">Feature</span>): <span class="hljs-title class_">Tag</span>[] {
         <span class="hljs-keyword">const</span>
-            directories     = notEmpty(feature.location.path.directory().split()),
-            featuresIndex   = directories.indexOf(<span class="hljs-string">'features'</span>),
-            hierarchy       = [ ...directories.slice(featuresIndex + <span class="hljs-number">1</span>), feature.name.value ] <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>[];
+            directories     = <span class="hljs-title function_">notEmpty</span>(feature.<span class="hljs-property">location</span>.<span class="hljs-property">path</span>.<span class="hljs-title function_">directory</span>().<span class="hljs-title function_">split</span>()),
+            featuresIndex   = directories.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">'features'</span>),
+            hierarchy       = [ ...directories.<span class="hljs-title function_">slice</span>(featuresIndex + <span class="hljs-number">1</span>), feature.<span class="hljs-property">name</span>.<span class="hljs-property">value</span> ] <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>[];
 
-        <span class="hljs-keyword">const</span> [ featureName, capabilityName, themeName ]: <span class="hljs-built_in">string</span>[] = hierarchy.reverse();
+        <span class="hljs-keyword">const</span> [ featureName, capabilityName, themeName ]: <span class="hljs-built_in">string</span>[] = hierarchy.<span class="hljs-title function_">reverse</span>();
 
-        <span class="hljs-keyword">return</span> notEmpty([
-            themeName       &amp;&amp; <span class="hljs-keyword">new</span> ThemeTag(themeName),
-            capabilityName  &amp;&amp; <span class="hljs-keyword">new</span> CapabilityTag(capabilityName),
-            feature         &amp;&amp; <span class="hljs-keyword">new</span> FeatureTag(featureName),
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">notEmpty</span>([
+            themeName       &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">ThemeTag</span>(themeName),
+            capabilityName  &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">CapabilityTag</span>(capabilityName),
+            feature         &amp;&amp; <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(featureName),
         ]);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">emit</span>(<span class="hljs-params">...events: DomainEvent[]</span>)</span> {
-        events.forEach(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-built_in">this</span>.serenity.announce(event));
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">emit</span>(<span class="hljs-params">...events: DomainEvent[]</span>) {
+        events.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">announce</span>(event));
     }
 }
 </code></pre>

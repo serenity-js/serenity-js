@@ -187,29 +187,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { DomainEvent, InteractionFinished, InteractionStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { PhotoTakingStrategy } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PhotoTakingStrategy'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">InteractionFinished</span>, <span class="hljs-title class_">InteractionStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">PhotoTakingStrategy</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./PhotoTakingStrategy'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Configures the {<span class="hljs-doctag">@link </span>Photographer} to take photos (a.k.a. screenshots) both before and after
- *  every single {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
- *  by the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight.
+ *  Configures the {<span class="hljs-doctag">@link</span> Photographer} to take photos (a.k.a. screenshots) both before and after
+ *  every single {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} performed
+ *  by the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} in the spotlight.
  *
  *  *Please note* that this strategy will result in _a lot_ of screenshots being taken,
  *  which will seriously affect the performance of your tests.
  *  For this reason, it's best to use it only for debugging purposes.
  *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{PhotoTakingStrategy}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">PhotoTakingStrategy</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TakePhotosBeforeAndAfterInteractions</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PhotoTakingStrategy</span> </span>{
-    <span class="hljs-keyword">protected</span> shouldTakeAPhotoOf(event: DomainEvent): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionStarts
-            || event <span class="hljs-keyword">instanceof</span> InteractionFinished;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TakePhotosBeforeAndAfterInteractions</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">PhotoTakingStrategy</span> {
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">shouldTakeAPhotoOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">InteractionStarts</span>
+            || event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">InteractionFinished</span>;
     }
 
-    <span class="hljs-keyword">protected</span> photoNameFor(event: InteractionStarts | InteractionFinished): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> InteractionStarts
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">photoNameFor</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">InteractionStarts</span> | <span class="hljs-title class_">InteractionFinished</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">InteractionStarts</span>
             ? <span class="hljs-string">`Before <span class="hljs-subst">${ event.details.name.value }</span>`</span>
             : <span class="hljs-string">`After <span class="hljs-subst">${ event.details.name.value }</span>`</span>;
     }

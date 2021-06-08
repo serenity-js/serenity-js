@@ -132,46 +132,46 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/LocalServer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { LogicError, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { AddressInfo } <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AddressInfo</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
 <span class="hljs-keyword">import</span> { parse } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
 
-<span class="hljs-keyword">import</span> { ManageALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Manage</span>ALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LocalServer</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LocalServer</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Retrieves the URL of the local server started
-     *  using the {<span class="hljs-doctag">@link </span>StartLocalServer} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  using the {<span class="hljs-doctag">@link</span> StartLocalServer} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span> </span>Url of the locally running Node.js server
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;string&gt;</span>} Url of the locally running Node.js server
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StartLocalServer}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StartLocalServer</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl</span>}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;string&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> url(): Question&lt;<span class="hljs-built_in">string</span>&gt; {
-        <span class="hljs-keyword">return</span> Question.about&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'the URL of the local server'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> ManageALocalServer.as(actor).mapInstance(<span class="hljs-function">(<span class="hljs-params">server, protocol</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> info = server.address();
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">url</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-built_in">string</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">string</span>&gt;(<span class="hljs-string">'the URL of the local server'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">mapInstance</span>(<span class="hljs-function">(<span class="hljs-params">server, protocol</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> info = server.<span class="hljs-title function_">address</span>();
 
                 <span class="hljs-keyword">if</span> (! info) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`The server has not been started yet`</span>);
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`The server has not been started yet`</span>);
                 }
 
-                <span class="hljs-keyword">if</span> (! isAddressInfo(info)) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`A pipe or UNIX domain socket server does not have a URL`</span>);
+                <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">isAddressInfo</span>(info)) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`A pipe or UNIX domain socket server does not have a URL`</span>);
                 }
 
                 <span class="hljs-keyword">return</span> [
                     protocol,
                     <span class="hljs-string">'://'</span>,
-                    <span class="hljs-string">`<span class="hljs-subst">${ info.family }</span>`</span>.toLowerCase() === <span class="hljs-string">'ipv6'</span> ? <span class="hljs-string">`[<span class="hljs-subst">${ info.address }</span>]`</span> : info.address,
+                    <span class="hljs-string">`<span class="hljs-subst">${ info.family }</span>`</span>.<span class="hljs-title function_">toLowerCase</span>() === <span class="hljs-string">'ipv6'</span> ? <span class="hljs-string">`[<span class="hljs-subst">${ info.address }</span>]`</span> : info.<span class="hljs-property">address</span>,
                     <span class="hljs-string">':'</span>,
-                    info.port,
-                ].join(<span class="hljs-string">''</span>);
+                    info.<span class="hljs-property">port</span>,
+                ].<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);
             });
         });
     }
@@ -179,33 +179,33 @@
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Retrieves the port number of the local server started
-     *  using the {<span class="hljs-doctag">@link </span>StartLocalServer} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  using the {<span class="hljs-doctag">@link</span> StartLocalServer} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;string&gt;}</span> </span>port number of the locally running Node.js server
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;string&gt;</span>} port number of the locally running Node.js server
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link StartLocalServer}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StartLocalServer</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/rest/lib/screenplay/interactions~ChangeApiUrl</span>}
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question&lt;number&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;number&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> port(): Question&lt;<span class="hljs-built_in">number</span>&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`local server port number`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> url = LocalServer.url().answeredBy(actor);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">port</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-built_in">number</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`local server port number`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> url = <span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>().<span class="hljs-title function_">answeredBy</span>(actor);
 
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Number</span>.parseInt(parse(url).port, <span class="hljs-number">10</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Number</span>.<span class="hljs-built_in">parseInt</span>(<span class="hljs-title function_">parse</span>(url).<span class="hljs-property">port</span>, <span class="hljs-number">10</span>);
         });
     }
 }
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@param <span class="hljs-variable">maybeAddressInfo</span></span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">maybeAddressInfo</span>
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isAddressInfo</span>(<span class="hljs-params">maybeAddressInfo: AddressInfo | <span class="hljs-built_in">string</span></span>): <span class="hljs-title">maybeAddressInfo</span> <span class="hljs-title">is</span> <span class="hljs-title">AddressInfo</span> </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">isAddressInfo</span>(<span class="hljs-params">maybeAddressInfo: AddressInfo | <span class="hljs-built_in">string</span></span>): maybeAddressInfo is <span class="hljs-title class_">AddressInfo</span> {
     <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> maybeAddressInfo !== <span class="hljs-string">'string'</span>
-        &amp;&amp; !! maybeAddressInfo.address
-        &amp;&amp; !! maybeAddressInfo.family
-        &amp;&amp; !! maybeAddressInfo.port;
+        &amp;&amp; !! maybeAddressInfo.<span class="hljs-property">address</span>
+        &amp;&amp; !! maybeAddressInfo.<span class="hljs-property">family</span>
+        &amp;&amp; !! maybeAddressInfo.<span class="hljs-property">port</span>;
 }
 </code></pre>
 

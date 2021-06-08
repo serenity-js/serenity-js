@@ -187,58 +187,59 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/text/Text.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { MetaQuestion, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementArrayFinder, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { TextOfMultipleElements } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TextOfMultipleElements'</span>;
-<span class="hljs-keyword">import</span> { TextOfSingleElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TextOfSingleElement'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">MetaQuestion</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementArrayFinder</span>, <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TextOfMultipleElements</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TextOfMultipleElements'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TextOfSingleElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TextOfSingleElement'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:
- *  - a given {<span class="hljs-doctag">@link </span>WebElement}, represented by {<span class="hljs-doctag">@link </span>ElementFinder} or `Question&lt;ElementFinder&gt;`,
- *  - a group of {<span class="hljs-doctag">@link </span>WebElement}s, represented by {<span class="hljs-doctag">@link </span>ElementArrayFinder} or `Question&lt;ElementArrayFinder&gt;`.
+ *  - a given {<span class="hljs-doctag">@link</span> WebElement}, represented by {<span class="hljs-doctag">@link</span> ElementFinder} or `Question&lt;ElementFinder&gt;`,
+ *  - a group of {<span class="hljs-doctag">@link</span> WebElement}s, represented by {<span class="hljs-doctag">@link</span> ElementArrayFinder} or `Question&lt;ElementArrayFinder&gt;`.
  *
  *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
  * <span class="hljs-doctag">@public</span>
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Question}</span></span>
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question</span>}
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~MetaQuestion</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Text</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Text</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Retrieves text of a single {<span class="hljs-doctag">@link </span>WebElement},
-     *  represented by {<span class="hljs-doctag">@link </span>ElementFinder}
+     *  Retrieves text of a single {<span class="hljs-doctag">@link</span> WebElement},
+     *  represented by {<span class="hljs-doctag">@link</span> ElementFinder}
      *  or `Question&lt;ElementFinder&gt;`.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">target</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;string&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">target</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;string&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string&gt;&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/questions~MetaQuestion</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(target: Question&lt;ElementFinder&gt; | ElementFinder):
-        Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/indent</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-attr">target</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>):
+        <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/indent</span>
     {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TextOfSingleElement(target);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextOfSingleElement</span>(target);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Retrieves text of a group of {<span class="hljs-doctag">@link </span>WebElement}s,
-     *  represented by {<span class="hljs-doctag">@link </span>ElementArrayFinder}
+     *  Retrieves text of a group of {<span class="hljs-doctag">@link</span> WebElement}s,
+     *  represented by {<span class="hljs-doctag">@link</span> ElementArrayFinder}
      *  or `Question&lt;ElementArrayFinder&gt;`
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementArrayFinder&gt; | ElementArrayFinder}</span> <span class="hljs-variable">target</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;string[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string[]&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementArrayFinder&gt; | ElementArrayFinder</span>} <span class="hljs-variable">target</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;string[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string[]&gt;&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/questions~MetaQuestion</span>}
      */</span>
-    <span class="hljs-keyword">static</span> ofAll(target: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder):
-        Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; &amp; MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/indent</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">ofAll</span>(<span class="hljs-attr">target</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementArrayFinder</span>&gt; | <span class="hljs-title class_">ElementArrayFinder</span>):
+        <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/indent</span>
     {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TextOfMultipleElements(target);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextOfMultipleElements</span>(target);
     }
 }
 </code></pre>

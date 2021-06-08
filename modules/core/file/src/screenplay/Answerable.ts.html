@@ -294,18 +294,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Answerable.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Question'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Question'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  A union type that provides a convenient way to represent any value
- *  that can be resolved by {<span class="hljs-doctag">@link </span>Actor#answer}.
+ *  that can be resolved by {<span class="hljs-doctag">@link</span> Actor#answer}.
  *
  * <span class="hljs-doctag">@public</span>
  *
- * <span class="hljs-doctag">@typedef <span class="hljs-type">{Question&lt;Promise&lt;T&gt;&gt; | Question&lt;T&gt; | Promise&lt;T&gt; | T}</span> </span>Answerable&lt;T&gt;
+ * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">Question&lt;Promise&lt;T&gt;&gt; | Question&lt;T&gt; | Promise&lt;T&gt; | T</span>} Answerable&lt;T&gt;
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Answerable&lt;T&gt; = Question&lt;<span class="hljs-built_in">Promise</span>&lt;T&gt;&gt; | Question&lt;T&gt; | <span class="hljs-built_in">Promise</span>&lt;T&gt; | T;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Answerable</span>&lt;T&gt; = <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;T&gt;&gt; | <span class="hljs-title class_">Question</span>&lt;T&gt; | <span class="hljs-title class_">Promise</span>&lt;T&gt; | T;
 </code></pre>
 
 </article>

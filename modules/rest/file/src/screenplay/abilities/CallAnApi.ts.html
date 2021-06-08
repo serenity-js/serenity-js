@@ -138,17 +138,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/CallAnApi.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Ability, ConfigurationError, LogicError, TestCompromisedError, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> axios, { AxiosError, AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">TestCompromisedError</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> axios, { <span class="hljs-title class_">AxiosError</span>, <span class="hljs-title class_">AxiosInstance</span>, <span class="hljs-title class_">AxiosPromise</span>, <span class="hljs-title class_">AxiosRequestConfig</span>, <span class="hljs-title class_">AxiosResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 <span class="hljs-keyword">const</span> mergeConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/lib/core/mergeConfig'</span>);      <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 <span class="hljs-keyword">const</span> buildFullPath = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/lib/core/buildFullPath'</span>);  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  An {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link </span>Actor} to call a HTTP API.
+ *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link</span> Actor} to call a HTTP API.
  *  If you need to connect via a proxy, check out [this article](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using a default Axios HTTP client&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using a default Axios HTTP client&lt;/caption&gt;
  *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -162,7 +162,7 @@
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using Axios client with custom configuration&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using Axios client with custom configuration&lt;/caption&gt;
  *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
  *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
@@ -185,16 +185,16 @@
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * <span class="hljs-doctag">@see </span>https://github.com/axios/axios
- * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+ * <span class="hljs-doctag">@see</span> https://github.com/axios/axios
+ * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
  *
  * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@link @serenity-js/core/lib/screenplay~Ability}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay~Ability</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CallAnApi</span> <span class="hljs-title">implements</span> <span class="hljs-title">Ability</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CallAnApi</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@private </span>*/</span>
-    <span class="hljs-keyword">private</span> lastResponse: AxiosResponse;
+    <span class="hljs-comment">/** <span class="hljs-doctag">@private</span> */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-attr">lastResponse</span>: <span class="hljs-title class_">AxiosResponse</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
@@ -205,14 +205,14 @@
      *  Default request headers:
      *  - Accept: application/json,application/xml
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">baseURL</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">baseURL</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">CallAnApi</span>}
      */</span>
-    <span class="hljs-keyword">static</span> at(baseURL: <span class="hljs-built_in">string</span>): CallAnApi {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CallAnApi(axios.create({
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">at</span>(<span class="hljs-attr">baseURL</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">CallAnApi</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CallAnApi</span>(axios.<span class="hljs-title function_">create</span>({
             baseURL,
             <span class="hljs-attr">timeout</span>: <span class="hljs-number">2000</span>,
-            <span class="hljs-attr">headers</span>: { <span class="hljs-attr">Accept</span>: <span class="hljs-string">'application/json,application/xml'</span> },
+            <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Accept</span>: <span class="hljs-string">'application/json,application/xml'</span> },
         }));
     }
 
@@ -224,128 +224,128 @@
      *  [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),
      *  for example.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AxiosInstance}</span> <span class="hljs-variable">axiosInstance</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosInstance</span>} <span class="hljs-variable">axiosInstance</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">CallAnApi</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosInstance}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosInstance</span>}
      */</span>
-    <span class="hljs-keyword">static</span> using(axiosInstance: AxiosInstance): CallAnApi {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> CallAnApi(axiosInstance);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">using</span>(<span class="hljs-attr">axiosInstance</span>: <span class="hljs-title class_">AxiosInstance</span>): <span class="hljs-title class_">CallAnApi</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CallAnApi</span>(axiosInstance);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Used to access the Actor's ability to {<span class="hljs-doctag">@link </span>CallAnApi}
-     *  from within the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} classes,
-     *  such as {<span class="hljs-doctag">@link </span>Send}.
+     *  Used to access the Actor's ability to {<span class="hljs-doctag">@link</span> CallAnApi}
+     *  from within the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} classes,
+     *  such as {<span class="hljs-doctag">@link</span> Send}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@return <span class="hljs-type">{CallAnApi}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">CallAnApi</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">as</span>(actor: UsesAbilities): CallAnApi {
-        <span class="hljs-keyword">return</span> actor.abilityTo(CallAnApi);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">CallAnApi</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">CallAnApi</span>);
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AxiosInstance}</span> <span class="hljs-variable">axiosInstance</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosInstance</span>} <span class="hljs-variable">axiosInstance</span>
      *  A pre-configured instance of the Axios HTTP client
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosInstance}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosInstance</span>}
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> axiosInstance: AxiosInstance</span>)</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> axiosInstance: AxiosInstance</span>) {
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Allows for the original Axios config to be changed after
-     *  the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}
-     *  has been instantiated and given to the {<span class="hljs-doctag">@link </span>Actor}.
+     *  the {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}
+     *  has been instantiated and given to the {<span class="hljs-doctag">@link</span> Actor}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{function (original: AxiosRequestConfig): any}</span> <span class="hljs-variable">fn</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{void}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function (original: AxiosRequestConfig): any</span>} <span class="hljs-variable">fn</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosRequestConfig}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
      */</span>
-    modifyConfig(fn: <span class="hljs-function">(<span class="hljs-params">original: AxiosRequestConfig</span>) =&gt;</span> <span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span> {
-        fn(<span class="hljs-built_in">this</span>.axiosInstance.defaults);
+    <span class="hljs-title function_">modifyConfig</span>(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">original: AxiosRequestConfig</span>) =&gt;</span> <span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">axiosInstance</span>.<span class="hljs-property">defaults</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Sends a HTTP request to a specified url.
-     *  Response will be cached and available via {<span class="hljs-doctag">@link </span>CallAnApi#mapLastResponse}
+     *  Response will be cached and available via {<span class="hljs-doctag">@link</span> CallAnApi#mapLastResponse}
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AxiosRequestConfig}</span> <span class="hljs-variable">config</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosRequestConfig</span>} <span class="hljs-variable">config</span>
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {<span class="hljs-doctag">@link </span>CallAnApi} {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} is instantiated
+     *  provided when the {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} is instantiated
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;AxiosResponse&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;AxiosResponse&gt;</span>}
      *  A promise of an AxiosResponse
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosRequestConfig}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosResponse}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosResponse</span>}
      */</span>
-    request(config: AxiosRequestConfig): <span class="hljs-built_in">Promise</span>&lt;AxiosResponse&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.captureResponseOf(<span class="hljs-built_in">this</span>.axiosInstance.request(config));
+    <span class="hljs-title function_">request</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">AxiosRequestConfig</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">AxiosResponse</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">captureResponseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">axiosInstance</span>.<span class="hljs-title function_">request</span>(config));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Resolves the final URL, based on the {<span class="hljs-doctag">@link </span>AxiosRequestConfig} provided
-     *  any any defaults {<span class="hljs-doctag">@link </span>AxiosInstance} has been configured with.
+     *  Resolves the final URL, based on the {<span class="hljs-doctag">@link</span> AxiosRequestConfig} provided
+     *  any any defaults {<span class="hljs-doctag">@link</span> AxiosInstance} has been configured with.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AxiosRequestConfig}</span> <span class="hljs-variable">config</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosRequestConfig</span>} <span class="hljs-variable">config</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosRequestConfig}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosInstance}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosInstance</span>}
      */</span>
-    resolveUrl(config: AxiosRequestConfig): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> merged = mergeConfig(<span class="hljs-built_in">this</span>.axiosInstance.defaults, config);
+    <span class="hljs-title function_">resolveUrl</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">AxiosRequestConfig</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">const</span> merged = <span class="hljs-title function_">mergeConfig</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">axiosInstance</span>.<span class="hljs-property">defaults</span>, config);
 
-        <span class="hljs-keyword">return</span> buildFullPath(merged.baseURL, merged.url);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">buildFullPath</span>(merged.<span class="hljs-property">baseURL</span>, merged.<span class="hljs-property">url</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Maps the last cached response to another type.
-     *  Useful when you need to extract a portion of the {<span class="hljs-doctag">@link </span>AxiosResponse} object.
+     *  Useful when you need to extract a portion of the {<span class="hljs-doctag">@link</span> AxiosResponse} object.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{function&lt;T&gt;(AxiosResponse): T}</span> <span class="hljs-variable">fn</span></span> - mapper function
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{T}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function&lt;T&gt;(AxiosResponse): T</span>} <span class="hljs-variable">fn</span> - mapper function
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">T</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AxiosResponse}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosResponse</span>}
      */</span>
-    mapLastResponse&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> T): T {
-        <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.lastResponse) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`Make sure to perform a HTTP API call before checking on the response`</span>);
+    mapLastResponse&lt;T&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> T): T {
+        <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span>) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`Make sure to perform a HTTP API call before checking on the response`</span>);
         }
 
-        <span class="hljs-keyword">return</span> fn(<span class="hljs-built_in">this</span>.lastResponse);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span>);
     }
 
-    <span class="hljs-keyword">private</span> captureResponseOf(promisedResponse: AxiosPromise): AxiosPromise {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">captureResponseOf</span>(<span class="hljs-attr">promisedResponse</span>: <span class="hljs-title class_">AxiosPromise</span>): <span class="hljs-title class_">AxiosPromise</span> {
         <span class="hljs-keyword">return</span> promisedResponse
-            .then(
+            .<span class="hljs-title function_">then</span>(
                 <span class="hljs-function"><span class="hljs-params">lastResponse</span> =&gt;</span> {
-                    <span class="hljs-built_in">this</span>.lastResponse = lastResponse;
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span> = lastResponse;
 
                     <span class="hljs-keyword">return</span> lastResponse;
                 },
                 <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
                     <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-                        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/timeout.*exceeded/</span>.test(error.message):
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`The request has timed out`</span>, error);
-                        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/Network Error/</span>.test(error.message):
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`A network error has occurred`</span>, error);
-                        <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">TypeError</span>:
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Looks like there was an issue with Axios configuration`</span>, error);
-                        <span class="hljs-keyword">case</span> ! (error <span class="hljs-keyword">as</span> AxiosError).response:
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">`The API call has failed`</span>, error);
-                        <span class="hljs-keyword">default</span>:
-                            <span class="hljs-built_in">this</span>.lastResponse = error.response;
+                        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/timeout.*exceeded/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
+                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`The request has timed out`</span>, error);
+                        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/Network Error/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
+                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`A network error has occurred`</span>, error);
+                        <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TypeError</span>:
+                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Looks like there was an issue with Axios configuration`</span>, error);
+                        <span class="hljs-keyword">case</span> ! (error <span class="hljs-keyword">as</span> <span class="hljs-title class_">AxiosError</span>).<span class="hljs-property">response</span>:
+                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`The API call has failed`</span>, error);
+                        <span class="hljs-attr">default</span>:
+                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span> = error.<span class="hljs-property">response</span>;
 
-                            <span class="hljs-keyword">return</span> error.response;
+                            <span class="hljs-keyword">return</span> error.<span class="hljs-property">response</span>;
                     }
                 },
             );

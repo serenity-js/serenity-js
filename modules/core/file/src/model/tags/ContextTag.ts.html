@@ -294,10 +294,10 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/tags/ContextTag.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Tag } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Tag'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Tag</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Tag'</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc </span>There are a couple of common use-cases for contexts: running the same test in different browsers,
+ * <span class="hljs-doctag">@desc</span> There are a couple of common use-cases for contexts: running the same test in different browsers,
  * and running the same test on different operating systems.
  * If you use the name of a browser (e.g. “chrome”, “firefox”, “safari”, “ie”),
  * the context will be represented in the reports as the icon of the respective browsers.
@@ -305,14 +305,14 @@
  * a similar icon will be used. If you use any other term for your context,
  * it will appear in text form in the test results lists, so it is better to keep context names relatively short.
  *
- * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
+ * <span class="hljs-doctag">@access</span> <span class="hljs-variable">public</span>
  * <span class="hljs-doctag">@deprecated</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ContextTag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Tag</span> </span>{
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> Type = <span class="hljs-string">'context'</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ContextTag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Tag</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> <span class="hljs-title class_">Type</span> = <span class="hljs-string">'context'</span>;
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">context: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(context, ContextTag.Type);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">context: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">super</span>(context, <span class="hljs-title class_">ContextTag</span>.<span class="hljs-property">Type</span>);
     }
 }
 </code></pre>

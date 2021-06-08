@@ -134,48 +134,48 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Description, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { FeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/listeners/legacy/gherkin'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureFileMap</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/listeners/legacy/gherkin'</span>;
 
-describe(<span class="hljs-string">'FeatureFileMap'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'FeatureFileMap'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        featureName = <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'some feature'</span>);
+        featureName = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'some feature'</span>);
 
-    it(<span class="hljs-string">'allows for values to be stored and retrieved'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
-            .set(featureName).onLine(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for values to be stored and retrieved'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMap</span>()
+            .<span class="hljs-title function_">set</span>(featureName).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>);
 
-        expect(map.get(Description).onLine(<span class="hljs-number">1</span>)).to.equal(featureName);
+        <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Description</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(featureName);
     });
 
-    it(<span class="hljs-string">'allows for values to be retrieved based on their type when their location is not known'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
-            .set(featureName).onLine(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for values to be retrieved based on their type when their location is not known'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMap</span>()
+            .<span class="hljs-title function_">set</span>(featureName).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>);
 
-        expect(map.getFirst(Description)).to.equal(featureName);
+        <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Description</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(featureName);
     });
 
-    it(<span class="hljs-string">'allows for values to be retrieved based on the line alone'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
-            .set(featureName).onLine(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for values to be retrieved based on the line alone'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMap</span>()
+            .<span class="hljs-title function_">set</span>(featureName).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>);
 
-        expect(map.get(Description).onLine(<span class="hljs-number">1</span>)).to.equal(featureName);
+        <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Description</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(featureName);
     });
 
-    it(<span class="hljs-string">'complains if the value stored is not of the same type as value that needs to be retrieved'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap()
-            .set(featureName).onLine(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the value stored is not of the same type as value that needs to be retrieved'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMap</span>()
+            .<span class="hljs-title function_">set</span>(featureName).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>);
 
-        expect(<span class="hljs-function">() =&gt;</span> map.get(Name).onLine(<span class="hljs-number">1</span>)).to.throw(<span class="hljs-string">'Item on line 1 is a Description, not a Name'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Name</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>)).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-string">'Item on line 1 is a Description, not a Name'</span>);
     });
 
-    it(<span class="hljs-string">'complains if the requested value is not present'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> FeatureFileMap();
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the requested value is not present'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMap</span>();
 
-        expect(<span class="hljs-function">() =&gt;</span> map.get(Name).onLine(<span class="hljs-number">1</span>)).to.throw(<span class="hljs-string">'Nothing was found on line 1'</span>);
-        expect(<span class="hljs-function">() =&gt;</span> map.getFirst(Name)).to.throw(<span class="hljs-string">`Didn't find any Name amongst no items`</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Name</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>)).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-string">'Nothing was found on line 1'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> map.<span class="hljs-title function_">getFirst</span>(<span class="hljs-title class_">Name</span>)).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-string">`Didn't find any Name amongst no items`</span>);
     });
 });
 </code></pre>

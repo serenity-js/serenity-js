@@ -299,70 +299,70 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { ImplementationPendingError, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-    ProblemIndication,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Outcome</span>,
+    <span class="hljs-title class_">ProblemIndication</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Outcome}</span> </span>*/</span>
-describe(<span class="hljs-string">'Outcome'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Outcome</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Outcome'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSkipped}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionIgnored}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ImplementationPending}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionSuccessful}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSkipped</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionIgnored</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ImplementationPending</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
      */</span>
-    describe(<span class="hljs-string">'non-error outcome'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'non-error outcome'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given([
-            <span class="hljs-keyword">new</span> ExecutionSkipped(),
-            <span class="hljs-keyword">new</span> ExecutionSuccessful(),
+        <span class="hljs-title function_">given</span>([
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>(),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(),
         ]).
-        it(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> deserialised: <span class="hljs-built_in">any</span> = Outcome.fromJSON(outcome.toJSON());
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">deserialised</span>: <span class="hljs-built_in">any</span> = <span class="hljs-title class_">Outcome</span>.<span class="hljs-title function_">fromJSON</span>(outcome.<span class="hljs-title function_">toJSON</span>());
 
-            expect(deserialised).to.be.instanceOf(outcome.constructor);
+            <span class="hljs-title function_">expect</span>(deserialised).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(outcome.<span class="hljs-property">constructor</span>);
         });
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionCompromised}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionFailedWithError}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{ExecutionFailedWithAssertionError}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionCompromised</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionFailedWithError</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionFailedWithAssertionError</span>}
      */</span>
-    describe(<span class="hljs-string">'outcome indicating an error'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'outcome indicating an error'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given([
-            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionCompromised(<span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'Database is down'</span>)), <span class="hljs-attr">description</span>: ExecutionCompromised.name },
-            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Something's wrong`</span>)), <span class="hljs-attr">description</span>: ExecutionFailedWithError.name },
-            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(assertionError()), <span class="hljs-attr">description</span>: ExecutionFailedWithAssertionError.name },
-            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'method missing'</span>)), <span class="hljs-attr">description</span>: ImplementationPending.name },
-            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Test failed but will be retried'</span>)), <span class="hljs-attr">description</span>: ImplementationPending.name },
+        <span class="hljs-title function_">given</span>([
+            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'Database is down'</span>)), <span class="hljs-attr">description</span>: <span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">name</span> },
+            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Something's wrong`</span>)), <span class="hljs-attr">description</span>: <span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">name</span> },
+            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(<span class="hljs-title function_">assertionError</span>()), <span class="hljs-attr">description</span>: <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">name</span> },
+            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">'method missing'</span>)), <span class="hljs-attr">description</span>: <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">name</span> },
+            { <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Test failed but will be retried'</span>)), <span class="hljs-attr">description</span>: <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">name</span> },
         ]).
-        it(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }: { outcome: ProblemIndication }</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> deserialised: <span class="hljs-built_in">any</span> = Outcome.fromJSON(outcome.toJSON());
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }: { outcome: ProblemIndication }</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">deserialised</span>: <span class="hljs-built_in">any</span> = <span class="hljs-title class_">Outcome</span>.<span class="hljs-title function_">fromJSON</span>(outcome.<span class="hljs-title function_">toJSON</span>());
 
-            expect(deserialised).to.be.instanceOf(outcome.constructor);
+            <span class="hljs-title function_">expect</span>(deserialised).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(outcome.<span class="hljs-property">constructor</span>);
 
-            expect(deserialised.error.name).to.equal(outcome.error.constructor.name);
-            expect(deserialised.error.message).to.equal(outcome.error.message);
-            expect(deserialised.error.stack).to.equal(outcome.error.stack);
+            <span class="hljs-title function_">expect</span>(deserialised.<span class="hljs-property">error</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>);
+            <span class="hljs-title function_">expect</span>(deserialised.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>);
+            <span class="hljs-title function_">expect</span>(deserialised.<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>);
         });
     });
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">assertionError</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">assertionError</span>(<span class="hljs-params"></span>) {
         <span class="hljs-keyword">try</span> {
-            expect(<span class="hljs-literal">true</span>).to.equal(<span class="hljs-literal">false</span>);
+            <span class="hljs-title function_">expect</span>(<span class="hljs-literal">true</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
         } <span class="hljs-keyword">catch</span> (error) {
             <span class="hljs-keyword">return</span> error;
         }

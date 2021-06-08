@@ -31,9 +31,9 @@
     "interpreter": null,
     "body": [
       {
-        "type": "ExportNamedDeclaration",
+        "type": "ExportAllDeclaration",
         "start": 0,
-        "end": 55,
+        "end": 25,
         "loc": {
           "start": {
             "line": 1,
@@ -41,154 +41,35 @@
           },
           "end": {
             "line": 1,
-            "column": 55
+            "column": 25
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " re-exported to avoid breaking backwards compatibility with tests using 2.24.1",
-            "start": 56,
-            "end": 136,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 56
-              },
-              "end": {
-                "line": 1,
-                "column": 136
-              }
-            }
-          }
-        ],
         "exportKind": "value",
-        "specifiers": [
-          {
-            "type": "ExportSpecifier",
-            "start": 9,
-            "end": 14,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 9
-              },
-              "end": {
-                "line": 1,
-                "column": 14
-              }
-            },
-            "local": {
-              "type": "Identifier",
-              "start": 9,
-              "end": 14,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 14
-                },
-                "identifierName": "Check"
-              },
-              "name": "Check"
-            },
-            "exported": {
-              "type": "Identifier",
-              "start": 9,
-              "end": 14,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 9
-                },
-                "end": {
-                  "line": 1,
-                  "column": 14
-                },
-                "identifierName": "Check"
-              },
-              "name": "Check"
-            }
-          },
-          {
-            "type": "ExportSpecifier",
-            "start": 16,
-            "end": 27,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 16
-              },
-              "end": {
-                "line": 1,
-                "column": 27
-              }
-            },
-            "local": {
-              "type": "Identifier",
-              "start": 16,
-              "end": 27,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 16
-                },
-                "end": {
-                  "line": 1,
-                  "column": 27
-                },
-                "identifierName": "Expectation"
-              },
-              "name": "Expectation"
-            },
-            "exported": {
-              "type": "Identifier",
-              "start": 16,
-              "end": 27,
-              "loc": {
-                "start": {
-                  "line": 1,
-                  "column": 16
-                },
-                "end": {
-                  "line": 1,
-                  "column": 27
-                },
-                "identifierName": "Expectation"
-              },
-              "name": "Expectation"
-            }
-          }
-        ],
         "source": {
           "type": "StringLiteral",
-          "start": 35,
-          "end": 54,
+          "start": 14,
+          "end": 24,
           "loc": {
             "start": {
               "line": 1,
-              "column": 35
+              "column": 14
             },
             "end": {
               "line": 1,
-              "column": 54
+              "column": 24
             }
           },
           "extra": {
-            "rawValue": "@serenity-js/core",
-            "raw": "'@serenity-js/core'"
+            "rawValue": "./Ensure",
+            "raw": "'./Ensure'"
           },
-          "value": "@serenity-js/core"
-        },
-        "declaration": null
+          "value": "./Ensure"
+        }
       },
       {
         "type": "ExportAllDeclaration",
-        "start": 137,
-        "end": 168,
+        "start": 26,
+        "end": 57,
         "loc": {
           "start": {
             "line": 2,
@@ -199,29 +80,11 @@
             "column": 31
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentLine",
-            "value": " re-exported to avoid breaking backwards compatibility with tests using 2.24.1",
-            "start": 56,
-            "end": 136,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 56
-              },
-              "end": {
-                "line": 1,
-                "column": 136
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "source": {
           "type": "StringLiteral",
-          "start": 151,
-          "end": 167,
+          "start": 40,
+          "end": 56,
           "loc": {
             "start": {
               "line": 2,
@@ -240,9 +103,9 @@
         }
       },
       {
-        "type": "ExportAllDeclaration",
-        "start": 169,
-        "end": 194,
+        "type": "ExportNamedDeclaration",
+        "start": 58,
+        "end": 113,
         "loc": {
           "start": {
             "line": 3,
@@ -250,30 +113,149 @@
           },
           "end": {
             "line": 3,
-            "column": 25
+            "column": 55
           }
         },
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " re-exported to avoid breaking backwards compatibility with tests using 2.24.1",
+            "start": 114,
+            "end": 194,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 56
+              },
+              "end": {
+                "line": 3,
+                "column": 136
+              }
+            }
+          }
+        ],
         "exportKind": "value",
+        "specifiers": [
+          {
+            "type": "ExportSpecifier",
+            "start": 67,
+            "end": 72,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 14
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 67,
+              "end": 72,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 14
+                },
+                "identifierName": "Check"
+              },
+              "name": "Check"
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 67,
+              "end": 72,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
+                  "column": 14
+                },
+                "identifierName": "Check"
+              },
+              "name": "Check"
+            }
+          },
+          {
+            "type": "ExportSpecifier",
+            "start": 74,
+            "end": 85,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 16
+              },
+              "end": {
+                "line": 3,
+                "column": 27
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 74,
+              "end": 85,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 16
+                },
+                "end": {
+                  "line": 3,
+                  "column": 27
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 74,
+              "end": 85,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 16
+                },
+                "end": {
+                  "line": 3,
+                  "column": 27
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            }
+          }
+        ],
         "source": {
           "type": "StringLiteral",
-          "start": 183,
-          "end": 193,
+          "start": 93,
+          "end": 112,
           "loc": {
             "start": {
               "line": 3,
-              "column": 14
+              "column": 35
             },
             "end": {
               "line": 3,
-              "column": 24
+              "column": 54
             }
           },
           "extra": {
-            "rawValue": "./Ensure",
-            "raw": "'./Ensure'"
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
           },
-          "value": "./Ensure"
-        }
+          "value": "@serenity-js/core"
+        },
+        "declaration": null
       }
     ],
     "directives": []
@@ -282,15 +264,15 @@
     {
       "type": "CommentLine",
       "value": " re-exported to avoid breaking backwards compatibility with tests using 2.24.1",
-      "start": 56,
-      "end": 136,
+      "start": 114,
+      "end": 194,
       "loc": {
         "start": {
-          "line": 1,
+          "line": 3,
           "column": 56
         },
         "end": {
-          "line": 1,
+          "line": 3,
           "column": 136
         }
       }

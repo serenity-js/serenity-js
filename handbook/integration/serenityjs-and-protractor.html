@@ -276,10 +276,10 @@ graph TB
 <p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
 and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Protractor-speak) and <code>require</code> your Cucumber step definitions:</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
 
     <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">serenity</span>: {
         <span class="hljs-attr">runner</span>: <span class="hljs-string">'cucumber'</span>,
@@ -310,10 +310,10 @@ and configure it to execute your Cucumber scenarios ("<code>specs</code>" in Pro
 <p>You can use <a href="https://github.com/cucumber/cucumber-js/tree/master/src/formatter">native Cucumber reporters</a> together with, or instead of those provided by Serenity/JS.</p>
 <p>To do that, specify them using a <code>&lt;formatterName:outputFileName&gt;</code> format to save their output to a file, or simply <code>&lt;formatterName&gt;</code> to print their output to terminal. For example:</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
 
     <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">specs</span>: [ <span class="hljs-string">'features/*.feature'</span>, ],
     <span class="hljs-attr">cucumberOpts</span>: {
@@ -412,10 +412,10 @@ graph TB
 <p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
 and configure it to execute your Jasmine "<code>specs</code>":</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
 
     <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">serenity</span>: {
         <span class="hljs-attr">runner</span>: <span class="hljs-string">'jasmine'</span>,
@@ -499,10 +499,10 @@ graph TB
 <p>Modify your <code>protractor.conf.js</code> file to register the <a href="/modules/protractor"><code>@serenity-js/protractor/adapter</code></a>
 and configure it to execute your Mocha "<code>specs</code>":</p>
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
 
     <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">serenity</span>: {
         <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,

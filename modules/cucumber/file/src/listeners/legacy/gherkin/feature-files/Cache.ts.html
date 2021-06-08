@@ -131,45 +131,45 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/Cache.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { UnableToRetrieveFeatureFileMap } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UnableToRetrieveFeatureFileMap</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cache</span>&lt;<span class="hljs-title">Key</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span>, <span class="hljs-title">Value</span>&gt; </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> store: { [id: <span class="hljs-built_in">string</span>]: Value } = {}</span>)</span> {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cache</span>&lt;<span class="hljs-title class_">Key</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span>, <span class="hljs-title class_">Value</span>&gt; {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> store: { [id: <span class="hljs-built_in">string</span>]: Value } = {}</span>) {
     }
 
-    set(key: Key, <span class="hljs-attr">value</span>: Value): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)] = value;
+    <span class="hljs-title function_">set</span>(<span class="hljs-attr">key</span>: <span class="hljs-title class_">Key</span>, <span class="hljs-attr">value</span>: <span class="hljs-title class_">Value</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">store</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">idOf</span>(key)] = value;
     }
 
-    get(key: Key): Value {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)]) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UnableToRetrieveFeatureFileMap(
+    <span class="hljs-title function_">get</span>(<span class="hljs-attr">key</span>: <span class="hljs-title class_">Key</span>): <span class="hljs-title class_">Value</span> {
+        <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">store</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">idOf</span>(key)]) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UnableToRetrieveFeatureFileMap</span>(
                 <span class="hljs-string">`Make sure you cache a value under <span class="hljs-subst">${ key.toString() }</span> before trying to retrieve it`</span>,
             );
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)];
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">store</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">idOf</span>(key)];
     }
 
-    has(key: Key): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> !! <span class="hljs-built_in">this</span>.store[<span class="hljs-built_in">this</span>.idOf(key)];
+    <span class="hljs-title function_">has</span>(<span class="hljs-attr">key</span>: <span class="hljs-title class_">Key</span>): <span class="hljs-built_in">boolean</span> {
+        <span class="hljs-keyword">return</span> !! <span class="hljs-variable language_">this</span>.<span class="hljs-property">store</span>[<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">idOf</span>(key)];
     }
 
-    size(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Object</span>.keys(<span class="hljs-built_in">this</span>.store).length;
+    <span class="hljs-title function_">size</span>(): <span class="hljs-built_in">number</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">store</span>).<span class="hljs-property">length</span>;
     }
 
-    clear(): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.store = {};
+    <span class="hljs-title function_">clear</span>(): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">store</span> = {};
     }
 
-    <span class="hljs-keyword">private</span> idOf(key: Key): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> key.toString();
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">idOf</span>(<span class="hljs-attr">key</span>: <span class="hljs-title class_">Key</span>): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> key.<span class="hljs-title function_">toString</span>();
     }
 }
 </code></pre>

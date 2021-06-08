@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Scroll} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Scroll</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber55">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber56">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -228,30 +228,30 @@
      an element somewhere at the bottom <span class="hljs-keyword">of</span> the page,
      outside <span class="hljs-keyword">of</span> the visible area
  --&gt;
- <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"submit"</span> /&gt;</span></span></code></pre>
+ <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"submit"</span> /&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Form</span> </span>{
-     <span class="hljs-keyword">static</span> submitButton = Target.the(<span class="hljs-string">'submit button'</span>)
-         .located(by.id(<span class="hljs-string">'submit'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Form</span> {
+     <span class="hljs-keyword">static</span> submitButton = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'submit button'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'submit'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Scrolling to element</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Scroll, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Scroll</span>, isVisible } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Sara'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Scroll.to(Form.submitButton),
-         Ensure.that(Form.submitButton, isVisible()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Sara'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Scroll</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">submitButton</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">submitButton</span>, <span class="hljs-title function_">isVisible</span>()),
      );</code></pre>
     </div>
 </div>
@@ -429,7 +429,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber81">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber82">source</a></span></span>
     </span>
   </h3>
 
@@ -511,7 +511,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber89">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber90">source</a></span></span>
     </span>
   </h3>
 
@@ -575,7 +575,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber120">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber121">source</a></span></span>
     </span>
   </h3>
 
@@ -651,7 +651,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber141">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber142">source</a></span></span>
     </span>
   </h3>
 

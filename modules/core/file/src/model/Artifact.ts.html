@@ -294,65 +294,65 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/Artifact.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isString, JSONObject, Predicate, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isString, JSONObject, <span class="hljs-title class_">Predicate</span>, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../errors'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LogicError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../errors'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> artifacts <span class="hljs-keyword">from</span> <span class="hljs-string">'./artifacts'</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerialisedArtifact <span class="hljs-keyword">extends</span> JSONObject {
     <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
-    base64EncodedValue: <span class="hljs-built_in">string</span>;
+    <span class="hljs-attr">base64EncodedValue</span>: <span class="hljs-built_in">string</span>;
 }
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> ArtifactType = <span class="hljs-keyword">new</span> (base64EncodedValue: <span class="hljs-built_in">string</span>) =&gt; Artifact;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">ArtifactType</span> = <span class="hljs-keyword">new</span> (<span class="hljs-attr">base64EncodedValue</span>: <span class="hljs-built_in">string</span>) =&gt; <span class="hljs-title class_">Artifact</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@extends <span class="hljs-type">{tiny-types~TinyType}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">tiny-types~TinyType</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artifact</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(o: SerialisedArtifact): Artifact {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Artifact</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: <span class="hljs-title class_">SerialisedArtifact</span>): <span class="hljs-title class_">Artifact</span> {
         <span class="hljs-keyword">const</span>
-            recognisedTypes = <span class="hljs-built_in">Object</span>.keys(artifacts),
-            <span class="hljs-keyword">type</span>            = Artifact.ofType(o.type);
+            recognisedTypes = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(artifacts),
+            <span class="hljs-keyword">type</span>            = <span class="hljs-title class_">Artifact</span>.<span class="hljs-title function_">ofType</span>(o.<span class="hljs-property">type</span>);
 
         <span class="hljs-keyword">if</span> (! <span class="hljs-keyword">type</span>) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LogicError(<span class="hljs-string">`
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`
                 Couldn't de-serialise artifact of an unknown type.
                 <span class="hljs-subst">${o.<span class="hljs-keyword">type</span>}</span> is not one of the recognised types: <span class="hljs-subst">${recognisedTypes.join(<span class="hljs-string">', '</span>)}</span>
            `</span>);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">type</span>(o.base64EncodedValue);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">type</span>(o.<span class="hljs-property">base64EncodedValue</span>);
     }
 
-    <span class="hljs-keyword">static</span> ofType(name: <span class="hljs-built_in">string</span>): ArtifactType | <span class="hljs-literal">undefined</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">ofType</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">ArtifactType</span> | <span class="hljs-literal">undefined</span> {
         <span class="hljs-keyword">const</span>
-            types = <span class="hljs-built_in">Object</span>.keys(artifacts),
-            <span class="hljs-keyword">type</span> = types.find(<span class="hljs-function"><span class="hljs-params">constructorName</span> =&gt;</span> <span class="hljs-title">constructorName</span> === <span class="hljs-title">name</span>);
+            types = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(artifacts),
+            <span class="hljs-keyword">type</span> = types.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">constructorName</span> =&gt;</span> constructorName === name);
 
         <span class="hljs-keyword">return</span> artifacts[<span class="hljs-keyword">type</span>];
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> base64EncodedValue: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">super</span>();
-        ensure(<span class="hljs-built_in">this</span>.constructor.name, base64EncodedValue, isDefined(), isString(), looksLikeBase64Encoded());
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> base64EncodedValue: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">super</span>();
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>, base64EncodedValue, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isString</span>(), <span class="hljs-title function_">looksLikeBase64Encoded</span>());
     }
 
-    <span class="hljs-keyword">abstract</span> map&lt;T&gt;(fn: <span class="hljs-function">(<span class="hljs-params">decodedValue: <span class="hljs-built_in">any</span></span>) =&gt;</span> T): T;
+    <span class="hljs-keyword">abstract</span> map&lt;T&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">decodedValue: <span class="hljs-built_in">any</span></span>) =&gt;</span> T): T;
 
     <span class="hljs-comment">// todo: serialise on call</span>
-    toJSON(): SerialisedArtifact {
+    <span class="hljs-title function_">toJSON</span>(): <span class="hljs-title class_">SerialisedArtifact</span> {
         <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">type</span>: <span class="hljs-built_in">this</span>.constructor.name,
-            <span class="hljs-attr">base64EncodedValue</span>: <span class="hljs-built_in">this</span>.base64EncodedValue,
+            <span class="hljs-attr">type</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>,
+            <span class="hljs-attr">base64EncodedValue</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">base64EncodedValue</span>,
         });
     }
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">looksLikeBase64Encoded</span>(<span class="hljs-params"></span>): <span class="hljs-title">Predicate</span>&lt;<span class="hljs-title">string</span>&gt; </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">looksLikeBase64Encoded</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Predicate</span>&lt;<span class="hljs-built_in">string</span>&gt; {
     <span class="hljs-keyword">const</span> regex = <span class="hljs-regexp">/^[\d+/=A-Za-z]+$/</span>;
 
-    <span class="hljs-keyword">return</span> Predicate.to(<span class="hljs-string">`be base64-encoded`</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> regex.test(value));
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Predicate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">`be base64-encoded`</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> regex.<span class="hljs-title function_">test</span>(value));
 }
 </code></pre>
 

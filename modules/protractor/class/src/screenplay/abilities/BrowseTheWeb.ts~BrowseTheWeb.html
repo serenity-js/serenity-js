@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {BrowseTheWeb} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/abilities'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">BrowseTheWeb</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/abilities'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber42">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber43">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -223,22 +223,22 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Using the protractor.browser</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate, Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Wendy'</span>).whoCan(
-     BrowseTheWeb.using(protractor.browser),
+ <span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Wendy'</span>).<span class="hljs-title function_">whoCan</span>(
+     <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
  );
 
- <span class="hljs-keyword">const</span> HomePage = {
-     <span class="hljs-attr">Title</span>: Target.the(<span class="hljs-string">'title'</span>).located(by.css(<span class="hljs-string">'h1'</span>)),
+ <span class="hljs-keyword">const</span> <span class="hljs-title class_">HomePage</span> = {
+     <span class="hljs-title class_">Title</span>: <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'title'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'h1'</span>)),
  };
 
- actor.attemptsTo(
-     Navigate.to(<span class="hljs-string">`https://serenity-js.org`</span>),
-     Ensure.that(Text.of(HomePage.Title), equals(<span class="hljs-string">'Serenity/JS'</span>)),
+ actor.<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">`https://serenity-js.org`</span>),
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">HomePage</span>.<span class="hljs-property">Title</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Serenity/JS'</span>)),
  );</code></pre>
     </div>
 </div>
@@ -1203,7 +1203,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber125">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber126">source</a></span></span>
     </span>
   </h3>
 
@@ -1276,7 +1276,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber98">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber99">source</a></span></span>
     </span>
   </h3>
 
@@ -1351,7 +1351,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber133">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber134">source</a></span></span>
     </span>
   </h3>
 
@@ -1415,7 +1415,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber211">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber212">source</a></span></span>
     </span>
   </h3>
 
@@ -1472,7 +1472,7 @@ tasks to complete before interacting with the browser.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber270">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber271">source</a></span></span>
     </span>
   </h3>
 
@@ -1534,7 +1534,7 @@ if there are no open alerts.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber540">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber541">source</a></span></span>
     </span>
   </h3>
 
@@ -1590,7 +1590,7 @@ if there are no open alerts.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber630">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber631">source</a></span></span>
     </span>
   </h3>
 
@@ -1656,9 +1656,9 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-built_in">exports</span>.config = {
-    <span class="hljs-attr">onPrepare</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-        <span class="hljs-keyword">return</span> browser.waitForAngularEnabled(<span class="hljs-literal">false</span>);
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
+    <span class="hljs-attr">onPrepare</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+        <span class="hljs-keyword">return</span> browser.<span class="hljs-title function_">waitForAngularEnabled</span>(<span class="hljs-literal">false</span>);
     },
 
     <span class="hljs-comment">// ... other config</span>
@@ -1683,7 +1683,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber798">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber799">source</a></span></span>
     </span>
   </h3>
 
@@ -1767,7 +1767,7 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">executeAsyncScript</span>(<span class="hljs-string">`
   var delay    = arguments[0];
   var callback = arguments[arguments.length - 1];
 
@@ -1776,11 +1776,11 @@ in protractor configuration:</p>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Return a value asynchronously</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">executeAsyncScript</span>(<span class="hljs-string">`
   var callback = arguments[arguments.length - 1];
 
   callback('some return value')
-`</span>).then(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> doSomethingWithThe(value))</code></pre>
+`</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-title function_">doSomethingWithThe</span>(value))</code></pre>
     </div>
 </div>
 
@@ -1803,7 +1803,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber727">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber728">source</a></span></span>
     </span>
   </h3>
 
@@ -1881,7 +1881,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber693">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber694">source</a></span></span>
     </span>
   </h3>
 
@@ -1972,9 +1972,9 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform a sleep in the browser under test</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">BrowseTheWeb.as(actor).executeAsyncScript(<span class="hljs-string">`
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">executeAsyncScript</span>(<span class="hljs-string">`
   return arguments[0].tagName;
-`</span>, Target.the(<span class="hljs-string">'header'</span>).located(by.css(h1))</code></pre>
+`</span>, <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'header'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(h1))</code></pre>
     </div>
 </div>
 
@@ -1997,7 +1997,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber161">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber162">source</a></span></span>
     </span>
   </h3>
 
@@ -2076,7 +2076,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber519">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber520">source</a></span></span>
     </span>
   </h3>
 
@@ -2136,7 +2136,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber901">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber902">source</a></span></span>
     </span>
   </h3>
 
@@ -2196,7 +2196,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber876">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber877">source</a></span></span>
     </span>
   </h3>
 
@@ -2252,7 +2252,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber493">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber494">source</a></span></span>
     </span>
   </h3>
 
@@ -2310,7 +2310,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber974">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber975">source</a></span></span>
     </span>
   </h3>
 
@@ -2367,7 +2367,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber468">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber469">source</a></span></span>
     </span>
   </h3>
 
@@ -2424,7 +2424,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber855">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber856">source</a></span></span>
     </span>
   </h3>
 
@@ -2480,7 +2480,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber564">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber565">source</a></span></span>
     </span>
   </h3>
 
@@ -2552,7 +2552,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber588">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber589">source</a></span></span>
     </span>
   </h3>
 
@@ -2624,7 +2624,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber234">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber235">source</a></span></span>
     </span>
   </h3>
 
@@ -2680,7 +2680,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber187">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber188">source</a></span></span>
     </span>
   </h3>
 
@@ -2736,7 +2736,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1024">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber1025">source</a></span></span>
     </span>
   </h3>
 
@@ -2807,11 +2807,11 @@ in protractor configuration:</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.config = {
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
    <span class="hljs-attr">params</span>: {
        <span class="hljs-attr">login</span>: {
            <span class="hljs-attr">username</span>: <span class="hljs-string">'jane@example.org'</span>
-           <span class="hljs-attr">password</span>: process.env.PASSWORD
+           <span class="hljs-attr">password</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">PASSWORD</span>
        }
    }
    <span class="hljs-comment">// ...</span>
@@ -2819,11 +2819,11 @@ in protractor configuration:</p>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving config param by name</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> BrowseTheWeb.as(actor).param(<span class="hljs-string">'login'</span>) <span class="hljs-comment">// returns object with username and password</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">param</span>(<span class="hljs-string">'login'</span>) <span class="hljs-comment">// returns object with username and password</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving config param by path</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> BrowseTheWeb.as(actor).param(<span class="hljs-string">'login.username'</span>) <span class="hljs-comment">// returns string 'jane@example.org'</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">param</span>(<span class="hljs-string">'login.username'</span>) <span class="hljs-comment">// returns string 'jane@example.org'</span></code></pre>
     </div>
 </div>
 
@@ -2844,7 +2844,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber925">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber926">source</a></span></span>
     </span>
   </h3>
 
@@ -2916,7 +2916,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber343">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber344">source</a></span></span>
     </span>
   </h3>
 
@@ -2974,7 +2974,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber297">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber298">source</a></span></span>
     </span>
   </h3>
 
@@ -3048,7 +3048,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber442">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber443">source</a></span></span>
     </span>
   </h3>
 
@@ -3104,7 +3104,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber320">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber321">source</a></span></span>
     </span>
   </h3>
 
@@ -3161,7 +3161,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber369">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber370">source</a></span></span>
     </span>
   </h3>
 
@@ -3234,7 +3234,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber832">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber833">source</a></span></span>
     </span>
   </h3>
 
@@ -3298,7 +3298,7 @@ in protractor configuration:</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber952">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/abilities/BrowseTheWeb.ts.html#lineNumber953">source</a></span></span>
     </span>
   </h3>
 

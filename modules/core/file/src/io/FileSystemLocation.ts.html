@@ -294,25 +294,25 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/FileSystemLocation.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileSystemLocation</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject): FileSystemLocation {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> FileSystemLocation(
-            Path.fromJSON(o.path <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            o.line <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
-            o.column <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileSystemLocation</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: JSONObject): <span class="hljs-title class_">FileSystemLocation</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+            <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">path</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            o.<span class="hljs-property">line</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
+            o.<span class="hljs-property">column</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">number</span>,
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> path: Path,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> line?: <span class="hljs-built_in">number</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> column?: <span class="hljs-built_in">number</span>,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 }
 </code></pre>

@@ -188,29 +188,31 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/adapter/runner/TestRunnerLoader.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { CucumberFormat, StandardOutput, TempFileOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberFormat</span>, <span class="hljs-title class_">StandardOutput</span>, <span class="hljs-title class_">TempFileOutput</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
-<span class="hljs-keyword">import</span> { TestRunnerLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{TestRunnerLoader}</span> </span>*/</span>
-describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunnerLoader</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/adapter'</span>;
+
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunnerLoader</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span> exampleRunnerId = <span class="hljs-number">123</span>;
 
-    <span class="hljs-keyword">let</span> moduleLoader: sinon.SinonStubbedInstance&lt;ModuleLoader&gt;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">moduleLoader</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">ModuleLoader</span>&gt;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        moduleLoader = sinon.createStubInstance(ModuleLoader);
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        moduleLoader = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">ModuleLoader</span>);
     });
 
-    describe(<span class="hljs-string">'when loading a TestRunnerAdapter for'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when loading a TestRunnerAdapter for'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'Jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> jasmineNodeOpts = {   <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
                     <span class="hljs-attr">requires</span>: [
@@ -221,20 +223,20 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                     ]
                 };
 
-                <span class="hljs-keyword">const</span> testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
+                <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-title function_">createTestRunnerLoader</span>(exampleRunnerId);
 
-                <span class="hljs-keyword">const</span> JasmineAdapter = sinon.spy();
-                moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>).returns({ JasmineAdapter })
+                <span class="hljs-keyword">const</span> <span class="hljs-title class_">JasmineAdapter</span> = sinon.<span class="hljs-title function_">spy</span>();
+                moduleLoader.<span class="hljs-property">require</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>).<span class="hljs-title function_">returns</span>({ <span class="hljs-title class_">JasmineAdapter</span> })
 
-                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forJasmine(jasmineNodeOpts);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.<span class="hljs-title function_">forJasmine</span>(jasmineNodeOpts);
 
-                expect(JasmineAdapter).to.have.been.calledWith(jasmineNodeOpts);
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">JasmineAdapter</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(jasmineNodeOpts);
             });
         });
 
-        describe(<span class="hljs-string">'Mocha'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Mocha'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> mochaOpts = {   <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
                     <span class="hljs-attr">require</span>: [
@@ -243,53 +245,53 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                     <span class="hljs-attr">retries</span>: <span class="hljs-number">2</span>
                 };
 
-                <span class="hljs-keyword">const</span> testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
+                <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-title function_">createTestRunnerLoader</span>(exampleRunnerId);
 
-                <span class="hljs-keyword">const</span> MochaAdapter = sinon.spy();
-                moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span>).returns({ MochaAdapter })
+                <span class="hljs-keyword">const</span> <span class="hljs-title class_">MochaAdapter</span> = sinon.<span class="hljs-title function_">spy</span>();
+                moduleLoader.<span class="hljs-property">require</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span>).<span class="hljs-title function_">returns</span>({ <span class="hljs-title class_">MochaAdapter</span> })
 
-                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forMocha(mochaOpts);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.<span class="hljs-title function_">forMocha</span>(mochaOpts);
 
-                expect(MochaAdapter).to.have.been.calledWith(mochaOpts);
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">MochaAdapter</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(mochaOpts);
             });
         });
 
-        describe(<span class="hljs-string">'Cucumber'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Cucumber'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            given([{
+            <span class="hljs-title function_">given</span>([{
                 <span class="hljs-attr">description</span>: <span class="hljs-string">'uses standard output when instructed to do so'</span>,
                 <span class="hljs-attr">cucumberOpts</span>: { <span class="hljs-string">'require-module'</span>: [<span class="hljs-string">'ts-node/register'</span>] },
                 <span class="hljs-attr">adapterConfig</span>: { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> },
-                <span class="hljs-attr">expectedOutput</span>: StandardOutput
+                <span class="hljs-attr">expectedOutput</span>: <span class="hljs-title class_">StandardOutput</span>
             }, {
                 <span class="hljs-attr">description</span>: <span class="hljs-string">'uses temp file output when instructed not to use standard output'</span>,
                 <span class="hljs-attr">cucumberOpts</span>: { <span class="hljs-string">'require-module'</span>: [<span class="hljs-string">'ts-node/register'</span>] },
                 <span class="hljs-attr">adapterConfig</span>: { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> },
-                <span class="hljs-attr">expectedOutput</span>: TempFileOutput
+                <span class="hljs-attr">expectedOutput</span>: <span class="hljs-title class_">TempFileOutput</span>
             } ]).
-            it(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">(<span class="hljs-params">{ cucumberOpts, adapterConfig, expectedOutput }</span>) =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'passes the configuration to the adapter'</span>, <span class="hljs-function">(<span class="hljs-params">{ cucumberOpts, adapterConfig, expectedOutput }</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
+                <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-title function_">createTestRunnerLoader</span>(exampleRunnerId);
 
-                <span class="hljs-keyword">const</span> CucumberCLIAdapter = sinon.spy();
-                moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
+                <span class="hljs-keyword">const</span> <span class="hljs-title class_">Cucumber</span>CLIAdapter = sinon.<span class="hljs-title function_">spy</span>();
+                moduleLoader.<span class="hljs-property">require</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).<span class="hljs-title function_">returns</span>({ <span class="hljs-title class_">Cucumber</span>CLIAdapter, <span class="hljs-title class_">CucumberFormat</span>, <span class="hljs-title class_">StandardOutput</span>, <span class="hljs-title class_">TempFileOutput</span>  })
 
-                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.<span class="hljs-title function_">forCucumber</span>(cucumberOpts, adapterConfig);
 
-                expect(CucumberCLIAdapter).to.have.been.calledWith(cucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Cucumber</span>CLIAdapter).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(cucumberOpts, moduleLoader, sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">instanceOf</span>(expectedOutput));
             });
 
-            it(<span class="hljs-string">'resolves glob patterns in `require` to absolute paths'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'resolves glob patterns in `require` to absolute paths'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-                <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">absolutePathTo</span>(<span class="hljs-params">relativePath: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">string</span> </span>{
-                    <span class="hljs-keyword">return</span> Path.from(__dirname, relativePath).value;
+                <span class="hljs-keyword">function</span> <span class="hljs-title function_">absolutePathTo</span>(<span class="hljs-params">relativePath: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span> {
+                    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(__dirname, relativePath).<span class="hljs-property">value</span>;
                 }
 
-                <span class="hljs-keyword">const</span> testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
+                <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-title function_">createTestRunnerLoader</span>(exampleRunnerId);
 
-                <span class="hljs-keyword">const</span> CucumberCLIAdapter = sinon.spy();
-                moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
+                <span class="hljs-keyword">const</span> <span class="hljs-title class_">Cucumber</span>CLIAdapter = sinon.<span class="hljs-title function_">spy</span>();
+                moduleLoader.<span class="hljs-property">require</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).<span class="hljs-title function_">returns</span>({ <span class="hljs-title class_">Cucumber</span>CLIAdapter, <span class="hljs-title class_">CucumberFormat</span>, <span class="hljs-title class_">StandardOutput</span>, <span class="hljs-title class_">TempFileOutput</span>  })
 
                 <span class="hljs-keyword">const</span> cucumberOpts = {    <span class="hljs-comment">// eslint-disable-line unicorn/prevent-abbreviations</span>
                     <span class="hljs-attr">require</span>: [
@@ -297,89 +299,89 @@ describe(<span class="hljs-string">'TestRunnerLoader'</span>, <span class="hljs-
                     ]
                 };
 
-                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forCucumber(cucumberOpts, { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> });
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.<span class="hljs-title function_">forCucumber</span>(cucumberOpts, { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> });
 
-                expect(CucumberCLIAdapter).to.have.been.calledWith({
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Cucumber</span>CLIAdapter).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>({
                     <span class="hljs-attr">require</span>: [
-                        absolutePathTo(<span class="hljs-string">'features/example.steps.ts'</span>),
+                        <span class="hljs-title function_">absolutePathTo</span>(<span class="hljs-string">'features/example.steps.ts'</span>),
                     ]
-                }, moduleLoader, sinon.match.instanceOf(TempFileOutput));
+                }, moduleLoader, sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">TempFileOutput</span>));
             });
 
-            given([{
+            <span class="hljs-title function_">given</span>([{
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`doesn't change the output file name when uniqueFormatterOutputs are disabled`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">false</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'pretty'</span>, <span class="hljs-string">'json:out.json'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'pretty'</span>, <span class="hljs-string">'json:out.json'</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`adds the runner ID to native formatter output file name when uniqueFormatterOutputs are enabled`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'pretty'</span>, <span class="hljs-string">'json:out.json'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'pretty'</span>, <span class="hljs-string">`json:out.<span class="hljs-subst">${ exampleRunnerId }</span>.json`</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`doesn't add the runner ID to formatters printing to standard output (Unix)`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'../custom/formatter'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'../custom/formatter'</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`doesn't add the runner ID to formatters printing to standard output (Windows)`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'C:\\custom\\formatter'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'C:\\custom\\formatter'</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`adds the runner ID to formatter printing to a relative Unix path`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'../custom/formatter:../formatter/output.txt'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">`../custom/formatter:../formatter/output.<span class="hljs-subst">${ exampleRunnerId }</span>.txt`</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`adds the runner ID to formatter printing to an absolute Unix path`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'/custom/formatter:/formatter/output.txt'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">`/custom/formatter:/formatter/output.<span class="hljs-subst">${ exampleRunnerId }</span>.txt`</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`adds the runner ID to formatter printing to an absolute Windows path`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'C:\\custom\\formatter:C:\\formatter\\output.txt'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">`C:\\custom\\formatter:C:\\formatter\\output.<span class="hljs-subst">${ exampleRunnerId }</span>.txt`</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`adds the runner ID to a file without an extension (Unix)`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'custom/formatter:out'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">`custom/formatter:out.<span class="hljs-subst">${ exampleRunnerId }</span>`</span> ] }
             }, {
                 <span class="hljs-attr">description</span>:            <span class="hljs-string">`adds the runner ID to a file without an extension (Windows)`</span>,
                 <span class="hljs-attr">adapterConfig</span>:          { <span class="hljs-attr">useStandardOutput</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-literal">true</span> },
-                <span class="hljs-attr">expectedOutput</span>:         TempFileOutput,
+                <span class="hljs-attr">expectedOutput</span>:         <span class="hljs-title class_">TempFileOutput</span>,
                 <span class="hljs-attr">cucumberOpts</span>:           { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">'C:\\custom\\formatter:out'</span> ] },
                 <span class="hljs-attr">expectedCucumberOpts</span>:   { <span class="hljs-string">'format'</span>: [ <span class="hljs-string">`C:\\custom\\formatter:out.<span class="hljs-subst">${ exampleRunnerId }</span>`</span> ] }
             } ]).
-            it(<span class="hljs-string">`passes information about native Cucumber formatters to the adapter`</span>, <span class="hljs-function">(<span class="hljs-params">{ adapterConfig, expectedOutput, cucumberOpts, expectedCucumberOpts }</span>) =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`passes information about native Cucumber formatters to the adapter`</span>, <span class="hljs-function">(<span class="hljs-params">{ adapterConfig, expectedOutput, cucumberOpts, expectedCucumberOpts }</span>) =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> testRunnerLoader = createTestRunnerLoader(exampleRunnerId);
+                <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-title function_">createTestRunnerLoader</span>(exampleRunnerId);
 
-                <span class="hljs-keyword">const</span> CucumberCLIAdapter = sinon.spy();
-                moduleLoader.require.withArgs(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).returns({ CucumberCLIAdapter, CucumberFormat, StandardOutput, TempFileOutput  })
+                <span class="hljs-keyword">const</span> <span class="hljs-title class_">Cucumber</span>CLIAdapter = sinon.<span class="hljs-title function_">spy</span>();
+                moduleLoader.<span class="hljs-property">require</span>.<span class="hljs-title function_">withArgs</span>(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>).<span class="hljs-title function_">returns</span>({ <span class="hljs-title class_">Cucumber</span>CLIAdapter, <span class="hljs-title class_">CucumberFormat</span>, <span class="hljs-title class_">StandardOutput</span>, <span class="hljs-title class_">TempFileOutput</span>  })
 
-                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
+                <span class="hljs-keyword">const</span> runner_ = testRunnerLoader.<span class="hljs-title function_">forCucumber</span>(cucumberOpts, adapterConfig);
 
-                expect(CucumberCLIAdapter).to.have.been.calledWith(expectedCucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Cucumber</span>CLIAdapter).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(expectedCucumberOpts, moduleLoader, sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">instanceOf</span>(expectedOutput));
             });
         });
     });
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createTestRunnerLoader</span>(<span class="hljs-params">runnerId: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>) </span>{
-        <span class="hljs-keyword">const</span> cwd = Path.from(__dirname);
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">createTestRunnerLoader</span>(<span class="hljs-params">runnerId: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>) {
+        <span class="hljs-keyword">const</span> cwd = <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(__dirname);
 
-        <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-keyword">new</span> TestRunnerLoader(cwd, runnerId);
-        (testRunnerLoader <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).moduleLoader = moduleLoader;
+        <span class="hljs-keyword">const</span> testRunnerLoader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunnerLoader</span>(cwd, runnerId);
+        (testRunnerLoader <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">moduleLoader</span> = moduleLoader;
 
         <span class="hljs-keyword">return</span> testRunnerLoader;
     }

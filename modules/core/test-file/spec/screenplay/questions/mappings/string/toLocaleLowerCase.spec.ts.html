@@ -300,22 +300,22 @@
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
-<span class="hljs-keyword">import</span> { Question,toLocaleLowerCase } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span>,toLocaleLowerCase } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/screenplay'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{toLocaleLowerCase}</span> </span>*/</span>
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
-describe(<span class="hljs-string">'toLocaleLowerCase'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">toLocaleLowerCase</span>} */</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'toLocaleLowerCase'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> quentin = actorCalled(<span class="hljs-string">'Quentin'</span>);
+    <span class="hljs-keyword">const</span> quentin = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Quentin'</span>);
 
     <span class="hljs-keyword">const</span> q = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        Question.about&lt;T&gt;(<span class="hljs-string">'some value'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
+        <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;T&gt;(<span class="hljs-string">'some value'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
 
     <span class="hljs-keyword">const</span> p = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        <span class="hljs-built_in">Promise</span>.resolve(value);
+        <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value);
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>,              <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
         { <span class="hljs-attr">value</span>: <span class="hljs-literal">undefined</span>,         <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
         { <span class="hljs-attr">value</span>: <span class="hljs-number">1</span>,                 <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
@@ -324,49 +324,49 @@ describe(<span class="hljs-string">'toLocaleLowerCase'</span>, <span class="hljs
         { <span class="hljs-attr">value</span>: [<span class="hljs-literal">undefined</span>],       <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
         { <span class="hljs-attr">value</span>: [<span class="hljs-number">1</span>],               <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
         { <span class="hljs-attr">value</span>: [{ }],             <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
-        { <span class="hljs-attr">value</span>: p(<span class="hljs-literal">null</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
-        { <span class="hljs-attr">value</span>: p(<span class="hljs-literal">undefined</span>),      <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
-        { <span class="hljs-attr">value</span>: p(<span class="hljs-number">1</span>),              <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
-        { <span class="hljs-attr">value</span>: p({ }),            <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
-        { <span class="hljs-attr">value</span>: p([ <span class="hljs-literal">null</span> ]),       <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
-        { <span class="hljs-attr">value</span>: p([ <span class="hljs-literal">undefined</span> ]),  <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
-        { <span class="hljs-attr">value</span>: p([ <span class="hljs-number">1</span> ]),          <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
-        { <span class="hljs-attr">value</span>: p([ { } ]),        <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>(<span class="hljs-literal">null</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>(<span class="hljs-literal">undefined</span>),      <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>(<span class="hljs-number">1</span>),              <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>({ }),            <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>([ <span class="hljs-literal">null</span> ]),       <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>([ <span class="hljs-literal">undefined</span> ]),  <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be defined'</span>    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>([ <span class="hljs-number">1</span> ]),          <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>([ { } ]),        <span class="hljs-attr">expected</span>: <span class="hljs-string">'The value to be mapped should be a string'</span>   },
     ]).
-    it(<span class="hljs-string">'complains if the original answer is of a wrong type at runtime'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the original answer is of a wrong type at runtime'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q&lt;<span class="hljs-built_in">any</span>&gt;(value)
-            .map(toLocaleLowerCase())
-            .answeredBy(quentin);
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toLocaleLowerCase</span>())
+            .<span class="hljs-title function_">answeredBy</span>(quentin);
 
-        <span class="hljs-keyword">return</span> expect(result).to.be.rejectedWith(expected);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(result).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(expected);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">value</span>: <span class="hljs-string">'I'</span>,          <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
-        { <span class="hljs-attr">value</span>: p(<span class="hljs-string">'I'</span>),       <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
-        { <span class="hljs-attr">value</span>: q(<span class="hljs-string">'I'</span>),       <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
-        { <span class="hljs-attr">value</span>: q(p(<span class="hljs-string">'I'</span>)),    <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>(<span class="hljs-string">'I'</span>),       <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">q</span>(<span class="hljs-string">'I'</span>),       <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(<span class="hljs-string">'I'</span>)),    <span class="hljs-attr">expected</span>: <span class="hljs-string">'ı'</span> },
     ]).
-    it(<span class="hljs-string">'converts the string to lower case, according to any locale-specific case mappings'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'converts the string to lower case, according to any locale-specific case mappings'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, expected }</span>) =&gt;</span> {
         <span class="hljs-keyword">const</span> result = q&lt;<span class="hljs-built_in">any</span>&gt;(value)
-            .map(toLocaleLowerCase(<span class="hljs-string">'tr'</span>))
-            .answeredBy(quentin);
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toLocaleLowerCase</span>(<span class="hljs-string">'tr'</span>))
+            .<span class="hljs-title function_">answeredBy</span>(quentin);
 
-        <span class="hljs-keyword">return</span> expect(result).to.be.eventually.equal(expected);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(result).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">value</span>: <span class="hljs-string">'tr'</span>       },
-        { <span class="hljs-attr">value</span>: p(<span class="hljs-string">'tr'</span>)    },
-        { <span class="hljs-attr">value</span>: q(<span class="hljs-string">'tr'</span>)    },
-        { <span class="hljs-attr">value</span>: q(p(<span class="hljs-string">'tr'</span>)) },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">p</span>(<span class="hljs-string">'tr'</span>)    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">q</span>(<span class="hljs-string">'tr'</span>)    },
+        { <span class="hljs-attr">value</span>: <span class="hljs-title function_">q</span>(<span class="hljs-title function_">p</span>(<span class="hljs-string">'tr'</span>)) },
     ]).
-    it(<span class="hljs-string">'allows for a list of locales to be provided'</span>, <span class="hljs-function">(<span class="hljs-params">{ value }</span>) =&gt;</span> {
-        <span class="hljs-keyword">const</span> result = q(<span class="hljs-string">'I'</span>)
-            .map(toLocaleLowerCase(value))
-            .answeredBy(quentin);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for a list of locales to be provided'</span>, <span class="hljs-function">(<span class="hljs-params">{ value }</span>) =&gt;</span> {
+        <span class="hljs-keyword">const</span> result = <span class="hljs-title function_">q</span>(<span class="hljs-string">'I'</span>)
+            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toLocaleLowerCase</span>(value))
+            .<span class="hljs-title function_">answeredBy</span>(quentin);
 
-        <span class="hljs-keyword">return</span> expect(result).to.be.eventually.equal(<span class="hljs-string">'ı'</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(result).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'ı'</span>);
     });
 });
 </code></pre>

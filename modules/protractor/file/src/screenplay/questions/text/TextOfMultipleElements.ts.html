@@ -187,44 +187,44 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/text/TextOfMultipleElements.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs plaintext" data-ice="content">import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import { ElementArrayFinder, ElementFinder } from 'protractor';
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">MetaQuestion</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementArrayFinder</span>, <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-import { withAnswerOf } from '../../withAnswerOf';
-import { TargetNestedElements } from '../targets';
+<span class="hljs-keyword">import</span> { withAnswerOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../withAnswerOf'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TargetNestedElements</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../targets'</span>;
 
-/**
- * @package
- */
-export class TextOfMultipleElements
-    extends Question&lt;Promise&lt;string[]&gt;&gt;
-    implements MetaQuestion&lt;Question&lt;ElementFinder&gt; | ElementFinder, Promise&lt;string[]&gt;&gt;
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@package</span>
+ */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TextOfMultipleElements</span>
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;
+    <span class="hljs-keyword">implements</span> <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;
 {
-    constructor(protected readonly target: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder) {
-        super(`the text of ${ target }`);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> target: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder</span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`the text of <span class="hljs-subst">${ target }</span>`</span>);
     }
 
-    of(parent: Question&lt;ElementFinder&gt; | ElementFinder): Question&lt;Promise&lt;string[]&gt;&gt; {
-        return new TextOfMultipleElements(new TargetNestedElements(parent, this.target));
+    <span class="hljs-title function_">of</span>(<span class="hljs-attr">parent</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; | <span class="hljs-title class_">ElementFinder</span>): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TextOfMultipleElements</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TargetNestedElements</span>(parent, <span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>));
     }
 
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@desc</span>
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
      *
-     * @param {AnswersQuestions &amp; UsesAbilities} actor
-     * @returns {Promise&lt;void&gt;}
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Promise&lt;string[]&gt; {
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     */</span>
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
 
-        // protractor ignores type definitions for the ElementArrayFinder, hence the `any`
-        // https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92
-        return withAnswerOf(actor, this.target, eaf =&gt; Promise.resolve(eaf.getText() as any) as Promise&lt;string[]&gt;);
+        <span class="hljs-comment">// protractor ignores type definitions for the ElementArrayFinder, hence the `any`</span>
+        <span class="hljs-comment">// https://github.com/angular/protractor/blob/c3978ec166760ac07db01e700c4aaaa19d9b5c38/lib/element.ts#L92</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">withAnswerOf</span>(actor, <span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>, <span class="hljs-function"><span class="hljs-params">eaf</span> =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(eaf.<span class="hljs-title function_">getText</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>) <span class="hljs-keyword">as</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;);
     }
 }
 </code></pre>

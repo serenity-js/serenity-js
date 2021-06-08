@@ -181,11 +181,11 @@ graph TB
 
 <h2 id="usage">Usage</h2>
 <p>To use <a href="/modules/core/class/src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.html"><code>ArtifactArchiver</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a> and provide a location on the file system where you'd like it to store the artifacts it receives.</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, ArtifactArchiver } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, <span class="hljs-title class_">ArtifactArchiver</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
-        ArtifactArchiver.storingArtifactsAt(__dirname, <span class="hljs-string">'target/site/serenity'</span>),
+        <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(__dirname, <span class="hljs-string">'target/site/serenity'</span>),
     ],
 });
 </code></pre>

@@ -190,94 +190,95 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect, givenFollowingEvents } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { AssertionError, ImplementationPendingError, LogicError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { SceneFinished, SceneStarts, TaskFinished, TaskStarts, TestRunFinished } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">LogicError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">TaskFinished</span>, <span class="hljs-title class_">TaskStarts</span>, <span class="hljs-title class_">TestRunFinished</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
-    ActivityDetails,
-    Category,
-    CorrelationId,
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionIgnored,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    ImplementationPending,
-    Name,
-    Outcome,
-    ScenarioDetails,
+    <span class="hljs-title class_">ActivityDetails</span>,
+    <span class="hljs-title class_">Category</span>,
+    <span class="hljs-title class_">CorrelationId</span>,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Name</span>,
+    <span class="hljs-title class_">Outcome</span>,
+    <span class="hljs-title class_">ScenarioDetails</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { Photographer, TakePhotosOfFailures } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Photographer</span>, <span class="hljs-title class_">TakePhotosOfFailures</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'./create'</span>;
 
-describe(<span class="hljs-string">'Photographer'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Photographer'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
-        defaultCardScenario = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Paying with a default card'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Online Checkout'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(
-                <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`payments/checkout.feature`</span>),
+        defaultCardScenario = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Paying with a default card'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Online Checkout'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`payments/checkout.feature`</span>),
             ),
         ),
-        pickACard = <span class="hljs-keyword">new</span> ActivityDetails(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Pick the default credit card'</span>)),
-        sceneId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'a-scene-id'</span>),
-        activityId = <span class="hljs-keyword">new</span> CorrelationId(<span class="hljs-string">'activity-id'</span>);
+        pickACard = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Pick the default credit card'</span>)),
+        sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'a-scene-id'</span>),
+        activityId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'activity-id'</span>);
 
-    it(<span class="hljs-string">'complains when sent DomainEvents before getting assigned to a Stage'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures());
-        expect(<span class="hljs-function">() =&gt;</span> photographer.notifyOf(<span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario)))
-            .to.throw(LogicError, <span class="hljs-string">`Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when sent DomainEvents before getting assigned to a Stage'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Photographer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TakePhotosOfFailures</span>());
+        <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> photographer.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario)))
+            .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">`Photographer needs to be assigned to the Stage before it can be notified of any DomainEvents`</span>);
     });
 
-    describe(<span class="hljs-string">`when there's no actor in the spotlight`</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">`when there's no actor in the spotlight`</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(
-            <span class="hljs-keyword">new</span> ExecutionSkipped(),
-            <span class="hljs-keyword">new</span> ExecutionSuccessful(),
+        <span class="hljs-title function_">given</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>(),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(),
         ).
-        it(<span class="hljs-string">'doesn\'t take a picture if everything goes well'</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> { stage, recorder } = create();
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'doesn\'t take a picture if everything goes well'</span>, <span class="hljs-function">(<span class="hljs-params">outcome: Outcome</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> { stage, recorder } = <span class="hljs-title function_">create</span>();
 
-            <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures(), stage);
-            stage.assign(photographer);
+            <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Photographer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TakePhotosOfFailures</span>(), stage);
+            stage.<span class="hljs-title function_">assign</span>(photographer);
 
-            givenFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                <span class="hljs-keyword">new</span> TaskStarts(sceneId, activityId, pickACard),
-                <span class="hljs-keyword">new</span> TaskFinished(sceneId, activityId, pickACard, outcome),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, outcome),
-                <span class="hljs-keyword">new</span> TestRunFinished(),
-            ).areSentTo(photographer);
+            <span class="hljs-title function_">givenFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskStarts</span>(sceneId, activityId, pickACard),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(sceneId, activityId, pickACard, outcome),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, outcome),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>(),
+            ).<span class="hljs-title function_">areSentTo</span>(photographer);
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-                expect(recorder.events).to.have.lengthOf(<span class="hljs-number">0</span>);
+            <span class="hljs-keyword">return</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(recorder.<span class="hljs-property">events</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">0</span>);
             });
         });
 
-        given(
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'compromised'</span>,               <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionCompromised(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Database is down'</span>))                                                },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'error'</span>,                     <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'Wrong type'</span>))                                                          },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'assertion error'</span>,           <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithAssertionError(<span class="hljs-keyword">new</span> AssertionError(<span class="hljs-string">`expected false to equal true`</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)) },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'implementation pending'</span>,    <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ImplementationPending(<span class="hljs-keyword">new</span> ImplementationPendingError(<span class="hljs-string">'method missing'</span>))                            },
-            { <span class="hljs-attr">description</span>: <span class="hljs-string">'ignored'</span>,                   <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionIgnored(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Failed, retrying'</span>))                                                    },
+        <span class="hljs-title function_">given</span>(
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'compromised'</span>,               <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Database is down'</span>))                                                },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'error'</span>,                     <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TypeError</span>(<span class="hljs-string">'Wrong type'</span>))                                                          },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'assertion error'</span>,           <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(<span class="hljs-string">`expected false to equal true`</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>)) },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'implementation pending'</span>,    <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">'method missing'</span>))                            },
+            { <span class="hljs-attr">description</span>: <span class="hljs-string">'ignored'</span>,                   <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Failed, retrying'</span>))                                                    },
         ).
-        it(<span class="hljs-string">'does nothing, even when a problem occurs'</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }</span>) =&gt;</span> {
-            <span class="hljs-keyword">const</span> { stage, recorder } = create();
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'does nothing, even when a problem occurs'</span>, <span class="hljs-function">(<span class="hljs-params">{ outcome }</span>) =&gt;</span> {
+            <span class="hljs-keyword">const</span> { stage, recorder } = <span class="hljs-title function_">create</span>();
 
-            <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosOfFailures(), stage);
-            stage.assign(photographer);
+            <span class="hljs-keyword">const</span> photographer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Photographer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TakePhotosOfFailures</span>(), stage);
+            stage.<span class="hljs-title function_">assign</span>(photographer);
 
-            givenFollowingEvents(
-                <span class="hljs-keyword">new</span> SceneStarts(sceneId, defaultCardScenario),
-                <span class="hljs-keyword">new</span> SceneFinished(sceneId, defaultCardScenario, outcome),
-                <span class="hljs-keyword">new</span> TestRunFinished(),
-            ).areSentTo(photographer);
+            <span class="hljs-title function_">givenFollowingEvents</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, outcome),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>(),
+            ).<span class="hljs-title function_">areSentTo</span>(photographer);
 
-            <span class="hljs-keyword">return</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
-                expect(recorder.events).to.have.lengthOf(<span class="hljs-number">0</span>);
+            <span class="hljs-keyword">return</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(recorder.<span class="hljs-property">events</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">0</span>);
             });
         });
     });

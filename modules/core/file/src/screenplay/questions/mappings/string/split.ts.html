@@ -297,38 +297,38 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
 <span class="hljs-keyword">import</span> { ensure, isDefined, isNotBlank, isString } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { AnswersQuestions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../actor'</span>;
-<span class="hljs-keyword">import</span> { AnswerMappingFunction } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AnswerMappingFunction'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswerMappingFunction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AnswerMappingFunction'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Divides a string into an ordered list of substrings, puts these substrings into an array, and returns the array.
  *  The division is done by searching for a pattern; where the pattern is provided as the first parameter in the method's call.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;string | RegExp&gt;}</span> <span class="hljs-variable">separator</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;string | RegExp&gt;</span>} <span class="hljs-variable">separator</span>
  *  The pattern describing where each split should occur.  The separator can be a simple string or it can be a regular expression.
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;number&gt;}</span> </span>[limit]
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;number&gt;</span>} [limit]
  *  A non-negative integer specifying a limit on the number of substrings to be included in the array.
  *  If provided, splits the string at each occurrence of the specified separator, but stops when limit entries have been placed in the array.
  *  Any leftover text is not included in the array at all.
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{AnswerMappingFunction&lt;string, string&gt;}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">AnswerMappingFunction&lt;string, string&gt;</span>}
  *
- * <span class="hljs-doctag">@see </span>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+ * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">split</span>(<span class="hljs-params">separator: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">RegExp</span>, limit?: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">AnswerMappingFunction</span>&lt;<span class="hljs-title">string</span>, <span class="hljs-title">string</span>[]&gt; </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">split</span>(<span class="hljs-params">separator: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">RegExp</span>, limit?: <span class="hljs-built_in">number</span></span>): <span class="hljs-title class_">AnswerMappingFunction</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>[]&gt; {
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actor: AnswersQuestions</span>) =&gt;</span>
         <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> {
-            ensure(<span class="hljs-string">'The value to be mapped'</span>, value, isDefined(), isString())
+            <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'The value to be mapped'</span>, value, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isString</span>())
 
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-                actor.answer(separator),
-                actor.answer(limit),
-            ]).then(<span class="hljs-function">(<span class="hljs-params">[ s, l ]</span>) =&gt;</span> {
-                ensure(<span class="hljs-string">'The separator'</span>, value, isDefined(), isString(), isNotBlank());
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+                actor.<span class="hljs-title function_">answer</span>(separator),
+                actor.<span class="hljs-title function_">answer</span>(limit),
+            ]).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[ s, l ]</span>) =&gt;</span> {
+                <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'The separator'</span>, value, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isString</span>(), <span class="hljs-title function_">isNotBlank</span>());
 
-                <span class="hljs-keyword">return</span> value.split(s, l);
+                <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">split</span>(s, l);
             });
         };
 }

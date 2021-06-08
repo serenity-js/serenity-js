@@ -300,145 +300,145 @@
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
-<span class="hljs-keyword">import</span> { Mappable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
-<span class="hljs-keyword">import</span> { Actor, Question, replace, toNumber, trim } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Mappable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Question</span>, replace, toNumber, trim } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question}</span> </span>*/</span>
-describe(<span class="hljs-string">'Question'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Question'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'provides a convenient way to define a custom question that'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a convenient way to define a custom question that'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        it(<span class="hljs-string">'returns a static value'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> Name = <span class="hljs-function">() =&gt;</span>
-                Question.about(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.name);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a static value'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
 
-            <span class="hljs-keyword">const</span> answer = Name().answeredBy(actorCalled(<span class="hljs-string">'Jacques'</span>));
+            <span class="hljs-keyword">const</span> answer = <span class="hljs-title class_">Name</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>));
 
-            expect(answer).to.equal(<span class="hljs-string">'Jacques'</span>);
+            <span class="hljs-title function_">expect</span>(answer).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Jacques'</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        it(<span class="hljs-string">'returns a Promise of a value'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> Name = <span class="hljs-function">() =&gt;</span>
-                Question.about(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(actor.name));
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a Promise of a value'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(actor.<span class="hljs-property">name</span>));
 
-            <span class="hljs-keyword">const</span> answer = Name().answeredBy(actorCalled(<span class="hljs-string">'Jill'</span>));
+            <span class="hljs-keyword">const</span> answer = <span class="hljs-title class_">Name</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jill'</span>));
 
-            <span class="hljs-keyword">return</span> expect(answer).to.eventually.equal(<span class="hljs-string">'Jill'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(answer).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Jill'</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#toString}</span> </span>*/</span>
-        it(<span class="hljs-string">'has a description'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> Name = <span class="hljs-function">() =&gt;</span>
-                Question.about(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.name);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#toString</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'has a description'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
 
-            expect(Name().toString()).to.equal(<span class="hljs-string">'a name'</span>);
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Name</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'a name'</span>);
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#describedAs}</span> </span>*/</span>
-    it(<span class="hljs-string">'allows for a custom description to override the default one'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> Name = <span class="hljs-function">() =&gt;</span>
-            Question.about(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.name);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#describedAs</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for a custom description to override the default one'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
+            <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
 
-        expect(Name().describedAs(<span class="hljs-string">'first name'</span>).toString())
-            .to.equal(<span class="hljs-string">'first name'</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Name</span>().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'first name'</span>).<span class="hljs-title function_">toString</span>())
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'first name'</span>);
     });
 
-    describe(<span class="hljs-string">'when mapping the answer'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping the answer'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
-        it(<span class="hljs-string">'works with a static value'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a static value'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> SomeResult = <span class="hljs-function">() =&gt;</span>
-                Question.about(<span class="hljs-string">'result of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-string">' 6.67%\n'</span>);
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResult</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'result of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-string">' 6.67%\n'</span>);
 
-            <span class="hljs-keyword">const</span> endResult = SomeResult()
-                .map(trim())
-                .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .map(toNumber())
-                .answeredBy(actorCalled(<span class="hljs-string">'Jacques'</span>))
+            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResult</span>()
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
+                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
 
-            <span class="hljs-keyword">return</span> expect(endResult).to.eventually.equal(<span class="hljs-number">6.67</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">6.67</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
-        it(<span class="hljs-string">'works with a promise'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a promise'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> SomeResult = <span class="hljs-function">() =&gt;</span>
-                Question.about(<span class="hljs-string">'result of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">' 6.67%\n'</span>));
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResult</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'result of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">' 6.67%\n'</span>));
 
-            <span class="hljs-keyword">const</span> endResult = SomeResult()
-                .map(trim())
-                .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .map(toNumber())
-                .answeredBy(actorCalled(<span class="hljs-string">'Jacques'</span>))
+            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResult</span>()
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
+                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
 
-            <span class="hljs-keyword">return</span> expect(endResult).to.eventually.equal(<span class="hljs-number">6.67</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">6.67</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
-        it(<span class="hljs-string">'works with a static list of values'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> SomeResults = <span class="hljs-function">() =&gt;</span>
-                Question.about&lt;<span class="hljs-built_in">string</span>[]&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> [
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a static list of values'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResults</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">string</span>[]&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> [
                     <span class="hljs-string">' 6.67%\n'</span>,
                     <span class="hljs-string">' 3.34%\n'</span>,
                 ]);
 
-            <span class="hljs-keyword">const</span> endResult = SomeResults()
-                .map(trim())
-                .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .map(toNumber())
-                .answeredBy(actorCalled(<span class="hljs-string">'Jacques'</span>))
+            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResults</span>()
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
+                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
 
-            <span class="hljs-keyword">return</span> expect(endResult).to.eventually.deep.equal([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
-        it(<span class="hljs-string">'works with a promised list'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> SomeResults = <span class="hljs-function">() =&gt;</span>
-                Question.about&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve([
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a promised list'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResults</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>([
                     <span class="hljs-string">' 6.67%\n'</span>,
                     <span class="hljs-string">' 3.34%\n'</span>,
                 ]));
 
-            <span class="hljs-keyword">const</span> endResult = SomeResults()
-                .map(trim())
-                .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .map(toNumber())
-                .answeredBy(actorCalled(<span class="hljs-string">'Jacques'</span>))
+            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResults</span>()
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
+                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
 
-            <span class="hljs-keyword">return</span> expect(endResult).to.eventually.deep.equal([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question.about}</span> </span>*/</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Question#map}</span> </span>*/</span>
-        it(<span class="hljs-string">'works with a mappable collection (Array, ElementArrayFinder, etc.)'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> SomeResults = <span class="hljs-function">() =&gt;</span>
-                Question.about&lt;Mappable&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> [
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a mappable collection (Array, ElementArrayFinder, etc.)'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResults</span> = (<span class="hljs-params"></span>) =&gt;
+                <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Mappable</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> [
                     <span class="hljs-string">' 6.67%\n'</span>,
                     <span class="hljs-string">' 3.34%\n'</span>,
                 ]);
 
-            <span class="hljs-keyword">const</span> endResult = SomeResults()
-                .map(trim())
-                .map(replace(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .map(toNumber())
-                .answeredBy(actorCalled(<span class="hljs-string">'Jacques'</span>))
+            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResults</span>()
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
+                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
+                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
 
-            <span class="hljs-keyword">return</span> expect(endResult).to.eventually.deep.equal([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
         });
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>                                           },
         { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">false</span>                                          },
         { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>                                         },
@@ -446,10 +446,10 @@ describe(<span class="hljs-string">'Question'</span>, <span class="hljs-function
         { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: {}                                             },
         { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>                                             },
         { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>                                   },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">value</span>: Question.about(<span class="hljs-string">'something'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)   },
+        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">value</span>: <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'something'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)   },
     ]).
-    it(<span class="hljs-string">'recognises if something is a question'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, isAQuestion }</span>) =&gt;</span> {
-        expect(Question.isAQuestion(value)).to.equal(isAQuestion);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises if something is a question'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, isAQuestion }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(isAQuestion);
     });
 });
 </code></pre>

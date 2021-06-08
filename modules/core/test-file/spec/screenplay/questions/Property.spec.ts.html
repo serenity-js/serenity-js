@@ -299,33 +299,33 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled, Answerable, List, MetaQuestion, Property, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">List</span>, <span class="hljs-title class_">MetaQuestion</span>, <span class="hljs-title class_">Property</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
 <span class="hljs-keyword">import</span> { isIdenticalTo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../isIdenticalTo'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Property}</span> </span>*/</span>
-describe(<span class="hljs-string">'Property'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Property</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Property'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Peter = actorCalled(<span class="hljs-string">'Peter'</span>);
+    <span class="hljs-keyword">const</span> <span class="hljs-title class_">Peter</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Peter'</span>);
 
     <span class="hljs-keyword">const</span> p = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        <span class="hljs-built_in">Promise</span>.resolve(value);
+        <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value);
 
     <span class="hljs-keyword">const</span> q = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">description: <span class="hljs-built_in">string</span>, value: T</span>) =&gt;</span>
-        Question.about(description, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
+        <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(description, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
 
     <span class="hljs-keyword">interface</span> Credentials {
         <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>;
-        token: <span class="hljs-built_in">string</span>;
+        <span class="hljs-attr">token</span>: <span class="hljs-built_in">string</span>;
     }
 
     <span class="hljs-keyword">interface</span> TestAccount {
         <span class="hljs-attr">role</span>: <span class="hljs-built_in">string</span>;
-        environments: <span class="hljs-built_in">string</span>[];
-        credentials: Credentials;
+        <span class="hljs-attr">environments</span>: <span class="hljs-built_in">string</span>[];
+        <span class="hljs-attr">credentials</span>: <span class="hljs-title class_">Credentials</span>;
     }
 
-    <span class="hljs-keyword">const</span> adminAccount: TestAccount = {
+    <span class="hljs-keyword">const</span> <span class="hljs-attr">adminAccount</span>: <span class="hljs-title class_">TestAccount</span> = {
         <span class="hljs-attr">role</span>: <span class="hljs-string">'admin'</span>,
         <span class="hljs-attr">environments</span>: [ <span class="hljs-string">'dev'</span>, <span class="hljs-string">'sit'</span>, <span class="hljs-string">'prod'</span> ],
         <span class="hljs-attr">credentials</span>: {
@@ -334,7 +334,7 @@ describe(<span class="hljs-string">'Property'</span>, <span class="hljs-function
         }
     };
 
-    <span class="hljs-keyword">const</span> userAccount: TestAccount = {
+    <span class="hljs-keyword">const</span> <span class="hljs-attr">userAccount</span>: <span class="hljs-title class_">TestAccount</span> = {
         <span class="hljs-attr">role</span>: <span class="hljs-string">'user'</span>,
         <span class="hljs-attr">environments</span>: [ <span class="hljs-string">'dev'</span>, <span class="hljs-string">'sit'</span>, <span class="hljs-string">'prod'</span> ],
         <span class="hljs-attr">credentials</span>: {
@@ -348,189 +348,189 @@ describe(<span class="hljs-string">'Property'</span>, <span class="hljs-function
         <span class="hljs-attr">answerable</span>:     adminAccount,
     }, {
         <span class="hljs-attr">description</span>:    <span class="hljs-string">'Question&lt;TestAccount&gt;'</span>,
-        <span class="hljs-attr">answerable</span>:     q(<span class="hljs-string">'test account'</span>, adminAccount),
+        <span class="hljs-attr">answerable</span>:     <span class="hljs-title function_">q</span>(<span class="hljs-string">'test account'</span>, adminAccount),
     }, {
         <span class="hljs-attr">description</span>:    <span class="hljs-string">'Promise&lt;TestAccount&gt;'</span>,
-        <span class="hljs-attr">answerable</span>:     p(adminAccount),
+        <span class="hljs-attr">answerable</span>:     <span class="hljs-title function_">p</span>(adminAccount),
     }, {
         <span class="hljs-attr">description</span>:    <span class="hljs-string">'Question&lt;Promise&lt;TestAccount&gt;&gt;'</span>,
-        <span class="hljs-attr">answerable</span>:     q(<span class="hljs-string">'test account'</span>, p(adminAccount)),
+        <span class="hljs-attr">answerable</span>:     <span class="hljs-title function_">q</span>(<span class="hljs-string">'test account'</span>, <span class="hljs-title function_">p</span>(adminAccount)),
     }];
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Property.of}</span> </span>*/</span>
-    describe(<span class="hljs-string">'when wrapping an Answerable&lt;object&gt;'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Property.of</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when wrapping an Answerable&lt;object&gt;'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves a first-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves a first-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.of(answerable).role;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-property">role</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.eventually.equal(adminAccount.role);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(adminAccount.<span class="hljs-property">role</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves an object'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves an object'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Credentials&gt;&gt; = Property.of(answerable).credentials;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Credentials</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-property">credentials</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.eventually.deep.equal(adminAccount.credentials);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(adminAccount.<span class="hljs-property">credentials</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves a second-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves a second-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.of(answerable).credentials.username;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.eventually.equal(adminAccount.credentials.username);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(adminAccount.<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves an item from an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves an item from an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.of(answerable).environments[<span class="hljs-number">1</span>];
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-property">environments</span>[<span class="hljs-number">1</span>];
 
-            <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.eventually.equal(<span class="hljs-string">'sit'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'sit'</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; = Property.of(answerable).environments;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-property">environments</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.eventually.deep.equal([ <span class="hljs-string">'dev'</span>, <span class="hljs-string">'sit'</span>, <span class="hljs-string">'prod'</span> ]);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([ <span class="hljs-string">'dev'</span>, <span class="hljs-string">'sit'</span>, <span class="hljs-string">'prod'</span> ]);
         });
 
-        it(<span class="hljs-string">`provides a human-friendly description of the property it's wrapping`</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> question = q(<span class="hljs-string">'test accounts'</span>, [ adminAccount, userAccount ]);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`provides a human-friendly description of the property it's wrapping`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> question = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test accounts'</span>, [ adminAccount, userAccount ]);
 
-            <span class="hljs-keyword">const</span> description = Property.of(question)[<span class="hljs-number">0</span>].credentials.username.toString();
+            <span class="hljs-keyword">const</span> description = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(question)[<span class="hljs-number">0</span>].<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>.<span class="hljs-title function_">toString</span>();
 
-            expect(description).to.equal(<span class="hljs-string">`property '[0].credentials.username' of test accounts`</span>);
+            <span class="hljs-title function_">expect</span>(description).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`property '[0].credentials.username' of test accounts`</span>);
         });
 
-        describe(<span class="hljs-string">'complains when the property'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'complains when the property'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">`doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> testAccountsWithMissingData: Question&lt;TestAccount[]&gt; = q(<span class="hljs-string">'test accounts'</span>, [
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">testAccountsWithMissingData</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt; = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test accounts'</span>, [
                     {
                         <span class="hljs-attr">role</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">credentials</span>: { },   <span class="hljs-comment">// username and token missing</span>
                         <span class="hljs-attr">environments</span>: []
-                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestAccount
+                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestAccount</span>
                 ]);
 
-                <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.of(testAccountsWithMissingData)[<span class="hljs-number">0</span>].credentials.username;
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(testAccountsWithMissingData)[<span class="hljs-number">0</span>].<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-                <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`property '[0].credentials.username' of test accounts doesn't exist`</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`property '[0].credentials.username' of test accounts doesn't exist`</span>);
             });
 
-            it(<span class="hljs-string">`path segment doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> testAccountsWithMissingData: Question&lt;TestAccount[]&gt; = q(<span class="hljs-string">'test accounts'</span>, [
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`path segment doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">testAccountsWithMissingData</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt; = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test accounts'</span>, [
                     {
                         <span class="hljs-attr">role</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-comment">// missing credentials</span>
                         <span class="hljs-attr">environments</span>: []
-                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestAccount
+                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestAccount</span>
                 ]);
 
-                <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.of(testAccountsWithMissingData)[<span class="hljs-number">0</span>].credentials.username;
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(testAccountsWithMissingData)[<span class="hljs-number">0</span>].<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-                <span class="hljs-keyword">return</span> expect(question.answeredBy(Peter)).to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`property '[0].credentials' of test accounts doesn't exist`</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`property '[0].credentials' of test accounts doesn't exist`</span>);
             });
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Property.at}</span> </span>*/</span>
-    describe(<span class="hljs-string">'when generating MetaQuestions'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Property.at</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when generating MetaQuestions'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves a first-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves a first-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;TestAccount&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.at&lt;TestAccount&gt;().role;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">role</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.of(answerable).answeredBy(Peter)).to.eventually.equal(<span class="hljs-string">'admin'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'admin'</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves a second-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves a second-level property'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;TestAccount&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.at&lt;TestAccount&gt;().credentials.username;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.of(answerable).answeredBy(Peter)).to.eventually.equal(<span class="hljs-string">'admin@example.com'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'admin@example.com'</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves an item from an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves an item from an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;TestAccount&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.at&lt;TestAccount&gt;().environments[<span class="hljs-number">1</span>];
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">environments</span>[<span class="hljs-number">1</span>];
 
-            <span class="hljs-keyword">return</span> expect(question.of(answerable).answeredBy(Peter)).to.eventually.equal(<span class="hljs-string">'sit'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'sit'</span>);
         });
 
-        given(examples).
-        it(<span class="hljs-string">'retrieves an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
+        <span class="hljs-title function_">given</span>(examples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves an array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }: { answerable: Answerable&lt;TestAccount&gt; }</span>) =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;TestAccount&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; = Property.at&lt;TestAccount&gt;().environments;
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">environments</span>;
 
-            <span class="hljs-keyword">return</span> expect(question.of(answerable).answeredBy(Peter)).to.eventually.deep.equal([ <span class="hljs-string">'dev'</span>, <span class="hljs-string">'sit'</span>, <span class="hljs-string">'prod'</span> ]);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">of</span>(answerable).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([ <span class="hljs-string">'dev'</span>, <span class="hljs-string">'sit'</span>, <span class="hljs-string">'prod'</span> ]);
         });
 
-        it(<span class="hljs-string">`provides a human-friendly description of the property it's wrapping`</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> question = q(<span class="hljs-string">'test accounts'</span>, [ adminAccount, userAccount ]);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`provides a human-friendly description of the property it's wrapping`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> question = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test accounts'</span>, [ adminAccount, userAccount ]);
 
-            <span class="hljs-keyword">const</span> description = Property.at&lt;TestAccount[]&gt;()[<span class="hljs-number">0</span>].credentials.username.of(question).toString();
+            <span class="hljs-keyword">const</span> description = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt;()[<span class="hljs-number">0</span>].<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>.<span class="hljs-title function_">of</span>(question).<span class="hljs-title function_">toString</span>();
 
-            expect(description).to.equal(<span class="hljs-string">`property '[0].credentials.username' of test accounts`</span>);
+            <span class="hljs-title function_">expect</span>(description).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`property '[0].credentials.username' of test accounts`</span>);
         });
 
-        describe(<span class="hljs-string">'complains when the property'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'complains when the property'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">`doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> testAccountsWithMissingData: Question&lt;TestAccount[]&gt; = q(<span class="hljs-string">'test accounts'</span>, [
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">testAccountsWithMissingData</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt; = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test accounts'</span>, [
                     {
                         <span class="hljs-attr">role</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-attr">credentials</span>: { },   <span class="hljs-comment">// username and token missing</span>
                         <span class="hljs-attr">environments</span>: []
-                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestAccount
+                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestAccount</span>
                 ]);
 
-                <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;TestAccount[]&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.at&lt;TestAccount[]&gt;()[<span class="hljs-number">0</span>].credentials.username;
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt;()[<span class="hljs-number">0</span>].<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-                <span class="hljs-keyword">return</span> expect(question.of(testAccountsWithMissingData).answeredBy(Peter)).to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`property '[0].credentials.username' of test accounts doesn't exist`</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">of</span>(testAccountsWithMissingData).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`property '[0].credentials.username' of test accounts doesn't exist`</span>);
             });
 
-            it(<span class="hljs-string">`path segment doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> testAccountsWithMissingData: Question&lt;TestAccount[]&gt; = q(<span class="hljs-string">'test accounts'</span>, [
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`path segment doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">testAccountsWithMissingData</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt; = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test accounts'</span>, [
                     {
                         <span class="hljs-attr">role</span>: <span class="hljs-string">''</span>,
                         <span class="hljs-comment">// missing credentials</span>
                         <span class="hljs-attr">environments</span>: []
-                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestAccount
+                    } <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestAccount</span>
                 ]);
 
-                <span class="hljs-keyword">const</span> question: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; MetaQuestion&lt;Answerable&lt;TestAccount[]&gt;, <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Property.at&lt;TestAccount[]&gt;()[<span class="hljs-number">0</span>].credentials.username;
+                <span class="hljs-keyword">const</span> <span class="hljs-attr">question</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; &amp; <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>[]&gt;()[<span class="hljs-number">0</span>].<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-                <span class="hljs-keyword">return</span> expect(question.of(testAccountsWithMissingData).answeredBy(Peter)).to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`property '[0].credentials' of test accounts doesn't exist`</span>);
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(question.<span class="hljs-title function_">of</span>(testAccountsWithMissingData).<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`property '[0].credentials' of test accounts doesn't exist`</span>);
             });
         });
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{Property.of}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{Property.at}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{Property}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{List}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Property.of</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Property.at</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Property</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">List</span>}
      */</span>
-    it(<span class="hljs-string">'helps to filter lists of objects'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> accounts = q(<span class="hljs-string">'test account'</span>, [ adminAccount, userAccount ]);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'helps to filter lists of objects'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> accounts = <span class="hljs-title function_">q</span>(<span class="hljs-string">'test account'</span>, [ adminAccount, userAccount ]);
 
-        <span class="hljs-keyword">const</span> found = List.of(accounts)
-            .where(Property.at&lt;TestAccount&gt;().role, isIdenticalTo(<span class="hljs-string">'user'</span>))
-            .first()
+        <span class="hljs-keyword">const</span> found = <span class="hljs-title class_">List</span>.<span class="hljs-title function_">of</span>(accounts)
+            .<span class="hljs-title function_">where</span>(<span class="hljs-title class_">Property</span>.<span class="hljs-property">at</span>&lt;<span class="hljs-title class_">TestAccount</span>&gt;().<span class="hljs-property">role</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'user'</span>))
+            .<span class="hljs-title function_">first</span>()
 
-        <span class="hljs-keyword">const</span> username = Property.of(found).credentials.username;
+        <span class="hljs-keyword">const</span> username = <span class="hljs-title class_">Property</span>.<span class="hljs-title function_">of</span>(found).<span class="hljs-property">credentials</span>.<span class="hljs-property">username</span>;
 
-        <span class="hljs-keyword">return</span> expect(username.answeredBy(Peter)).to.eventually.equal(<span class="hljs-string">'user@example.com'</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(username.<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title class_">Peter</span>)).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'user@example.com'</span>);
     });
 });
 </code></pre>

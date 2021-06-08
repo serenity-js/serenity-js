@@ -296,17 +296,17 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/Discardable.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  An interface to be implemented by any {<span class="hljs-doctag">@link </span>Ability} that needs to free up
+ *  An interface to be implemented by any {<span class="hljs-doctag">@link</span> Ability} that needs to free up
  *  the resources it uses.
  *
- *  This {<span class="hljs-doctag">@link </span>discard} method is invoked directly by the {<span class="hljs-doctag">@link </span>Actor}, and indirectly by {<span class="hljs-doctag">@link </span>Stage}:
- *  - when {<span class="hljs-doctag">@link </span>SceneFinishes}, for actors instantiated after {<span class="hljs-doctag">@link </span>SceneStarts} - i.e. within a test scenario or in a "before each" hook
- *  - when {<span class="hljs-doctag">@link </span>TestRunFinishes}, for actors instantiated before {<span class="hljs-doctag">@link </span>SceneStarts} - i.e. in a "before all" hook
+ *  This {<span class="hljs-doctag">@link</span> discard} method is invoked directly by the {<span class="hljs-doctag">@link</span> Actor}, and indirectly by {<span class="hljs-doctag">@link</span> Stage}:
+ *  - when {<span class="hljs-doctag">@link</span> SceneFinishes}, for actors instantiated after {<span class="hljs-doctag">@link</span> SceneStarts} - i.e. within a test scenario or in a "before each" hook
+ *  - when {<span class="hljs-doctag">@link</span> TestRunFinishes}, for actors instantiated before {<span class="hljs-doctag">@link</span> SceneStarts} - i.e. in a "before all" hook
  *
  * <span class="hljs-doctag">@public</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Discardable {
-    discard(): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+    <span class="hljs-title function_">discard</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
 }
 </code></pre>
 

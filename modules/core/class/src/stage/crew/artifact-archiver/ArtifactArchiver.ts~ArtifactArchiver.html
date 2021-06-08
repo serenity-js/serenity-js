@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ArtifactArchiver} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage/crew/artifact-archiver'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">ArtifactArchiver</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage/crew/artifact-archiver'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -330,26 +330,26 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering ArtifactArchiver programmatically</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure, StreamReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { configure, <span class="hljs-title class_">StreamReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- configure({
+ <span class="hljs-title function_">configure</span>({
      <span class="hljs-attr">crew</span>: [
-         ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
+         <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
      ],
  });</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Registering ArtifactArchiver using Protractor configuration</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-comment">// protractor.conf.js</span>
- <span class="hljs-keyword">const</span> { ArtifactArchiver } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
+ <span class="hljs-keyword">const</span> { <span class="hljs-title class_">ArtifactArchiver</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
 
- <span class="hljs-built_in">exports</span>.config = {
+ <span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
    <span class="hljs-attr">framework</span>:     <span class="hljs-string">'custom'</span>,
-   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+   <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
    <span class="hljs-attr">serenity</span>: {
      <span class="hljs-attr">crew</span>: [
-       ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
+       <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
      ],
      <span class="hljs-comment">// other Serenity/JS config</span>
    },

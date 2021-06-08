@@ -371,9 +371,9 @@
         }
       },
       {
-        "type": "ExportNamedDeclaration",
+        "type": "ExportAllDeclaration",
         "start": 248,
-        "end": 283,
+        "end": 275,
         "loc": {
           "start": {
             "line": 9,
@@ -381,6 +381,42 @@
           },
           "end": {
             "line": 9,
+            "column": 27
+          }
+        },
+        "exportKind": "value",
+        "source": {
+          "type": "StringLiteral",
+          "start": 262,
+          "end": 274,
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 14
+            },
+            "end": {
+              "line": 9,
+              "column": 26
+            }
+          },
+          "extra": {
+            "rawValue": "./Selected",
+            "raw": "'./Selected'"
+          },
+          "value": "./Selected"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 276,
+        "end": 311,
+        "loc": {
+          "start": {
+            "line": 10,
+            "column": 0
+          },
+          "end": {
+            "line": 10,
             "column": 35
           }
         },
@@ -388,29 +424,29 @@
         "specifiers": [
           {
             "type": "ExportSpecifier",
-            "start": 257,
-            "end": 263,
+            "start": 285,
+            "end": 291,
             "loc": {
               "start": {
-                "line": 9,
+                "line": 10,
                 "column": 9
               },
               "end": {
-                "line": 9,
+                "line": 10,
                 "column": 15
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 257,
-              "end": 263,
+              "start": 285,
+              "end": 291,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 10,
                   "column": 9
                 },
                 "end": {
-                  "line": 9,
+                  "line": 10,
                   "column": 15
                 },
                 "identifierName": "Target"
@@ -419,15 +455,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 257,
-              "end": 263,
+              "start": 285,
+              "end": 291,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 10,
                   "column": 9
                 },
                 "end": {
-                  "line": 9,
+                  "line": 10,
                   "column": 15
                 },
                 "identifierName": "Target"
@@ -438,15 +474,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 271,
-          "end": 282,
+          "start": 299,
+          "end": 310,
           "loc": {
             "start": {
-              "line": 9,
+              "line": 10,
               "column": 23
             },
             "end": {
-              "line": 9,
+              "line": 10,
               "column": 34
             }
           },
@@ -457,42 +493,6 @@
           "value": "./targets"
         },
         "declaration": null
-      },
-      {
-        "type": "ExportAllDeclaration",
-        "start": 284,
-        "end": 311,
-        "loc": {
-          "start": {
-            "line": 10,
-            "column": 0
-          },
-          "end": {
-            "line": 10,
-            "column": 27
-          }
-        },
-        "exportKind": "value",
-        "source": {
-          "type": "StringLiteral",
-          "start": 298,
-          "end": 310,
-          "loc": {
-            "start": {
-              "line": 10,
-              "column": 14
-            },
-            "end": {
-              "line": 10,
-              "column": 26
-            }
-          },
-          "extra": {
-            "rawValue": "./Selected",
-            "raw": "'./Selected'"
-          },
-          "value": "./Selected"
-        }
       },
       {
         "type": "ExportAllDeclaration",

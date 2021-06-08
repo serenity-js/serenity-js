@@ -301,21 +301,21 @@
 
 describe (<span class="hljs-string">'`trimmed` tag function'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{trimmed}</span> </span>*/</span>
-    it(<span class="hljs-string">'trims the leading and trailing whitespace'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(trimmed <span class="hljs-string">`  Hello world!  `</span>).to.equal(<span class="hljs-string">'Hello world!'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">trimmed</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'trims the leading and trailing whitespace'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(trimmed <span class="hljs-string">`  Hello world!  `</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Hello world!'</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{trimmed}</span> </span>*/</span>
-    it(<span class="hljs-string">'leaves the space between the lines if required'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(trimmed <span class="hljs-string">`
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">trimmed</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'leaves the space between the lines if required'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(trimmed <span class="hljs-string">`
             | --------------------------------------------------------------------------------
             | features/payments/checkout.feature
             |
             | Online Checkout: Paying with a default card
             |
             | ✓ Execution successful (10ms)
-        `</span>).to.equal([
+        `</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>([
             <span class="hljs-string">'--------------------------------------------------------------------------------'</span>,
             <span class="hljs-string">'features/payments/checkout.feature'</span>,
             <span class="hljs-string">''</span>,
@@ -323,23 +323,23 @@ describe (<span class="hljs-string">'`trimmed` tag function'</span>, <span class
             <span class="hljs-string">''</span>,
             <span class="hljs-string">'✓ Execution successful (10ms)'</span>,
             <span class="hljs-string">''</span>,
-        ].join(<span class="hljs-string">'\n'</span>));
+        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>));
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{trimmed}</span> </span>*/</span>
-    it(<span class="hljs-string">'trims padded multi-line string'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(trimmed <span class="hljs-string">`
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">trimmed</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'trims padded multi-line string'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(trimmed <span class="hljs-string">`
             | const SomeInteraction = () =&gt;
             |     Interaction.where(\`<span class="hljs-subst">${ <span class="hljs-string">'#actor interacts with the system'</span> }</span>\`, (actor: Actor) =&gt; {
             |         // use actor's abilities to interact with the system under test
             |     });
-        `</span>).to.equal([
+        `</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>([
             <span class="hljs-string">`const SomeInteraction = () =&gt;`</span>,
             <span class="hljs-string">`    Interaction.where(\`#actor interacts with the system\`, (actor: Actor) =&gt; {`</span>,
             <span class="hljs-string">`        // use actor's abilities to interact with the system under test`</span>,
             <span class="hljs-string">`    });`</span>,
             <span class="hljs-string">``</span>,
-        ].join(<span class="hljs-string">'\n'</span>));
+        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>));
     });
 });
 </code></pre>

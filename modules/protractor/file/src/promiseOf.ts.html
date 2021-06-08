@@ -193,12 +193,12 @@
  *
  * <span class="hljs-doctag">@private</span>
  *
- * <span class="hljs-doctag">@param <span class="hljs-variable">promiseLike</span></span>
- * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;T&gt;}</span></span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">promiseLike</span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;T&gt;</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">promiseOf</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">promiseLike: PromiseLike&lt;T&gt;</span>): <span class="hljs-title">Promise</span>&lt;<span class="hljs-title">T</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-        promiseLike.then(resolve, reject);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> promiseOf&lt;T&gt;(<span class="hljs-attr">promiseLike</span>: <span class="hljs-title class_">PromiseLike</span>&lt;T&gt;): <span class="hljs-title class_">Promise</span>&lt;T&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+        promiseLike.<span class="hljs-title function_">then</span>(resolve, reject);
     });
 }
 </code></pre>

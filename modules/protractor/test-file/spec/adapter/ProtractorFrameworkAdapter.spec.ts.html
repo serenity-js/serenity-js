@@ -190,18 +190,18 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { SceneFinished, SceneFinishes, SceneStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Category, CorrelationId, ExecutionFailedWithError, ExecutionIgnored, ExecutionSuccessful, Name, Outcome, ProblemIndication, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { ArtifactArchiver, Clock, StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
-<span class="hljs-keyword">import</span> { Config, Runner } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneFinishes</span>, <span class="hljs-title class_">SceneStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span>, <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">ExecutionFailedWithError</span>, <span class="hljs-title class_">ExecutionIgnored</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Outcome</span>, <span class="hljs-title class_">ProblemIndication</span>, <span class="hljs-title class_">ScenarioDetails</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactArchiver</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span>, <span class="hljs-title class_">Runner</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 
-<span class="hljs-keyword">import</span> { ProtractorFrameworkAdapter, TestRunnerDetector } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ProtractorFrameworkAdapter</span>, <span class="hljs-title class_">TestRunnerDetector</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/adapter'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ProtractorFrameworkAdapter}</span> </span>*/</span>
-describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ProtractorFrameworkAdapter</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-comment">/*
      * Protractor spec:
@@ -211,62 +211,62 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
      *  https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L17-L49
      */</span>
 
-    <span class="hljs-keyword">let</span> protractorRunner:   sinon.SinonStubbedInstance&lt;Runner&gt;,
-        testRunnerDetector: sinon.SinonStubbedInstance&lt;TestRunnerDetector&gt;,
-        testRunnerAdapter:  TestRunnerAdapter,
-        <span class="hljs-attr">serenity</span>:           Serenity,
-        <span class="hljs-attr">adapter</span>:            ProtractorFrameworkAdapter;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">protractorRunner</span>:   sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">Runner</span>&gt;,
+        <span class="hljs-attr">testRunnerDetector</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">TestRunnerDetector</span>&gt;,
+        <span class="hljs-attr">testRunnerAdapter</span>:  <span class="hljs-title class_">TestRunnerAdapter</span>,
+        <span class="hljs-attr">serenity</span>:           <span class="hljs-title class_">Serenity</span>,
+        <span class="hljs-attr">adapter</span>:            <span class="hljs-title class_">ProtractorFrameworkAdapter</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> discreteClock: Clock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">discreteClock</span>: <span class="hljs-title class_">Clock</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
             <span class="hljs-keyword">let</span> currentTime = <span class="hljs-number">0</span>;
             <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(currentTime);
+                <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(currentTime);
                 currentTime += <span class="hljs-number">250</span>;
                 <span class="hljs-keyword">return</span> now;
             };
         }());
 
-        protractorRunner    = sinon.createStubInstance(Runner);
-        testRunnerDetector  = sinon.createStubInstance(TestRunnerDetector);
-        serenity            = <span class="hljs-keyword">new</span> Serenity(discreteClock);
-        testRunnerAdapter   = <span class="hljs-keyword">new</span> SimpleTestRunnerAdapter(serenity);
+        protractorRunner    = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Runner</span>);
+        testRunnerDetector  = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">TestRunnerDetector</span>);
+        serenity            = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(discreteClock);
+        testRunnerAdapter   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SimpleTestRunnerAdapter</span>(serenity);
 
-        testRunnerDetector.runnerFor.returns(testRunnerAdapter);
+        testRunnerDetector.<span class="hljs-property">runnerFor</span>.<span class="hljs-title function_">returns</span>(testRunnerAdapter);
 
-        adapter = <span class="hljs-keyword">new</span> ProtractorFrameworkAdapter(serenity, protractorRunner, testRunnerDetector <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> TestRunnerDetector);
+        adapter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorFrameworkAdapter</span>(serenity, protractorRunner, testRunnerDetector <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestRunnerDetector</span>);
     });
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        protractorRunner.getConfig.returns({ });
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        protractorRunner.<span class="hljs-property">getConfig</span>.<span class="hljs-title function_">returns</span>({ });
     });
 
-    <span class="hljs-keyword">const</span> expectedError = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
-    expectedError.stack = <span class="hljs-string">`Error: We're sorry, something happened`</span>;
+    <span class="hljs-keyword">const</span> expectedError = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
+    expectedError.<span class="hljs-property">stack</span> = <span class="hljs-string">`Error: We're sorry, something happened`</span>;
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sample</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-string">'passing.spec.ts'</span> | <span class="hljs-string">'failing.spec.ts'</span> | <span class="hljs-built_in">string</span></span>) </span>{
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">sample</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-string">'passing.spec.ts'</span> | <span class="hljs-string">'failing.spec.ts'</span> | <span class="hljs-built_in">string</span></span>) {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">type</span> === <span class="hljs-string">'passing.spec.ts'</span>
-            ? { <span class="hljs-attr">path</span>: <span class="hljs-string">'passing.spec.ts'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'passing test'</span>, <span class="hljs-attr">category</span>: <span class="hljs-string">'samples'</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">'samples passing test'</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionSuccessful() }
-            : { <span class="hljs-attr">path</span>: <span class="hljs-string">'failing.spec.ts'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'failing test'</span>, <span class="hljs-attr">category</span>: <span class="hljs-string">'samples'</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">'samples failing test'</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> ExecutionFailedWithError(expectedError) };
+            ? { <span class="hljs-attr">path</span>: <span class="hljs-string">'passing.spec.ts'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'passing test'</span>, <span class="hljs-attr">category</span>: <span class="hljs-string">'samples'</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">'samples passing test'</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>() }
+            : { <span class="hljs-attr">path</span>: <span class="hljs-string">'failing.spec.ts'</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'failing test'</span>, <span class="hljs-attr">category</span>: <span class="hljs-string">'samples'</span>, <span class="hljs-attr">description</span>: <span class="hljs-string">'samples failing test'</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(expectedError) };
     }
 
-    describe(<span class="hljs-string">'to meet the requirements described in "Framework Adapters for Protractor"'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'to meet the requirements described in "Framework Adapters for Protractor"'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'produces a Protractor report that'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'produces a Protractor report that'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'describes no test results if no tests were executed'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([]))
-                    .to.eventually.deep.equal({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'describes no test results if no tests were executed'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([]))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                         <span class="hljs-attr">failedCount</span>: <span class="hljs-number">0</span>,
                         <span class="hljs-attr">specResults</span>: [],
                     }));
 
-            it(<span class="hljs-string">'describes successful tests'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([ sample(<span class="hljs-string">'passing.spec.ts'</span>).path ]))
-                    .to.eventually.deep.equal({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'describes successful tests'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([ <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span> ]))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                         <span class="hljs-attr">failedCount</span>: <span class="hljs-number">0</span>,
                         <span class="hljs-attr">specResults</span>: [{
-                            <span class="hljs-attr">description</span>: sample(<span class="hljs-string">'passing.spec.ts'</span>).description,
+                            <span class="hljs-attr">description</span>: <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">description</span>,
                             <span class="hljs-attr">duration</span>: <span class="hljs-number">2000</span>,
                             <span class="hljs-attr">assertions</span>: [{
                                 <span class="hljs-attr">passed</span>:     <span class="hljs-literal">true</span>,
@@ -274,41 +274,41 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
                         }],
                     }));
 
-            it(<span class="hljs-string">'describes failing tests'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([ sample(<span class="hljs-string">'failing.spec.ts'</span>).path ]))
-                    .to.eventually.deep.equal({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'describes failing tests'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([ <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">path</span> ]))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                         <span class="hljs-attr">failedCount</span>: <span class="hljs-number">1</span>,
                         <span class="hljs-attr">specResults</span>: [{
-                            <span class="hljs-attr">description</span>: sample(<span class="hljs-string">'failing.spec.ts'</span>).description,
+                            <span class="hljs-attr">description</span>: <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">description</span>,
                             <span class="hljs-attr">duration</span>:    <span class="hljs-number">2000</span>,
                             <span class="hljs-attr">assertions</span>: [{
                                 <span class="hljs-attr">passed</span>:     <span class="hljs-literal">false</span>,
-                                <span class="hljs-attr">errorMsg</span>:   (sample(<span class="hljs-string">'failing.spec.ts'</span>).outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message,
-                                <span class="hljs-attr">stackTrace</span>: (sample(<span class="hljs-string">'failing.spec.ts'</span>).outcome <span class="hljs-keyword">as</span> ProblemIndication).error.stack,
+                                <span class="hljs-attr">errorMsg</span>:   (<span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>,
+                                <span class="hljs-attr">stackTrace</span>: (<span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>,
                             }],
                         }],
                     }));
 
-            it(<span class="hljs-string">'describes both successful and failing tests'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([ sample(<span class="hljs-string">'passing.spec.ts'</span>).path, sample(<span class="hljs-string">'failing.spec.ts'</span>).path, sample(<span class="hljs-string">'passing.spec.ts'</span>).path ]))
-                    .to.eventually.deep.equal({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'describes both successful and failing tests'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([ <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span>, <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">path</span>, <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span> ]))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                         <span class="hljs-attr">failedCount</span>: <span class="hljs-number">1</span>,
                         <span class="hljs-attr">specResults</span>: [{
-                            <span class="hljs-attr">description</span>: sample(<span class="hljs-string">'passing.spec.ts'</span>).description,
+                            <span class="hljs-attr">description</span>: <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">description</span>,
                             <span class="hljs-attr">duration</span>: <span class="hljs-number">2000</span>,
                             <span class="hljs-attr">assertions</span>: [{
                                 <span class="hljs-attr">passed</span>:     <span class="hljs-literal">true</span>,
                             }],
                         }, {
-                            <span class="hljs-attr">description</span>: sample(<span class="hljs-string">'failing.spec.ts'</span>).description,
+                            <span class="hljs-attr">description</span>: <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">description</span>,
                             <span class="hljs-attr">duration</span>: <span class="hljs-number">2000</span>,
                             <span class="hljs-attr">assertions</span>: [{
                                 <span class="hljs-attr">passed</span>:     <span class="hljs-literal">false</span>,
-                                <span class="hljs-attr">errorMsg</span>:   (sample(<span class="hljs-string">'failing.spec.ts'</span>).outcome <span class="hljs-keyword">as</span> ProblemIndication).error.message,
-                                <span class="hljs-attr">stackTrace</span>: (sample(<span class="hljs-string">'failing.spec.ts'</span>).outcome <span class="hljs-keyword">as</span> ProblemIndication).error.stack,
+                                <span class="hljs-attr">errorMsg</span>:   (<span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>,
+                                <span class="hljs-attr">stackTrace</span>: (<span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>,
                             }],
                         }, {
-                            <span class="hljs-attr">description</span>: sample(<span class="hljs-string">'passing.spec.ts'</span>).description,
+                            <span class="hljs-attr">description</span>: <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">description</span>,
                             <span class="hljs-attr">duration</span>: <span class="hljs-number">2000</span>,
                             <span class="hljs-attr">assertions</span>: [{
                                 <span class="hljs-attr">passed</span>:     <span class="hljs-literal">true</span>,
@@ -317,208 +317,208 @@ describe(<span class="hljs-string">'ProtractorFrameworkAdapter'</span>, <span cl
                     }));
         });
 
-        it(<span class="hljs-string">'invokes runner.runTestPreparer before executing the tests'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.spy(testRunnerAdapter, <span class="hljs-string">'run'</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'invokes runner.runTestPreparer before executing the tests'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.<span class="hljs-title function_">spy</span>(testRunnerAdapter, <span class="hljs-string">'run'</span>);
 
-            <span class="hljs-keyword">return</span> expect(adapter.run([])).to.be.fulfilled
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    sinon.assert.callOrder(
-                        protractorRunner.runTestPreparer,
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([])).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    sinon.<span class="hljs-property">assert</span>.<span class="hljs-title function_">callOrder</span>(
+                        protractorRunner.<span class="hljs-property">runTestPreparer</span>,
                         testRunnerRunMethod,
                     );
                 });
         });
 
-        it(<span class="hljs-string">'invokes runner.getConfig().onComplete() after executing the tests'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'invokes runner.getConfig().onComplete() after executing the tests'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> protractorConfig: Partial&lt;Config&gt; = {
-                <span class="hljs-attr">onComplete</span>: sinon.stub().returns(<span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)),
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">protractorConfig</span>: <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">Config</span>&gt; = {
+                <span class="hljs-attr">onComplete</span>: sinon.<span class="hljs-title function_">stub</span>().<span class="hljs-title function_">returns</span>(<span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)),
             };
 
-            protractorRunner.getConfig.returns(protractorConfig);
+            protractorRunner.<span class="hljs-property">getConfig</span>.<span class="hljs-title function_">returns</span>(protractorConfig);
 
-            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.spy(testRunnerAdapter, <span class="hljs-string">'run'</span>);
+            <span class="hljs-keyword">const</span> testRunnerRunMethod = sinon.<span class="hljs-title function_">spy</span>(testRunnerAdapter, <span class="hljs-string">'run'</span>);
 
-            <span class="hljs-keyword">return</span> expect(adapter.run([])).to.be.fulfilled
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    sinon.assert.callOrder(
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([])).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    sinon.<span class="hljs-property">assert</span>.<span class="hljs-title function_">callOrder</span>(
                         testRunnerRunMethod,
-                        protractorConfig.onComplete <span class="hljs-keyword">as</span> sinon.SinonStub,
+                        protractorConfig.<span class="hljs-property">onComplete</span> <span class="hljs-keyword">as</span> sinon.<span class="hljs-property">SinonStub</span>,
                     );
                 });
         });
 
-        describe(<span class="hljs-string">'when a test succeeds'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when a test succeeds'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'invokes runner.emit with a "testPass" message'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([
-                    sample(<span class="hljs-string">'passing.spec.ts'</span>).path,
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'invokes runner.emit with a "testPass" message'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span>,
                 ]))
-                .to.be.fulfilled
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    expect(protractorRunner.emit).to.have.been.calledWith(<span class="hljs-string">'testPass'</span>, {
-                        <span class="hljs-attr">name</span>:       sample(<span class="hljs-string">'passing.spec.ts'</span>).name,
-                        <span class="hljs-attr">category</span>:   sample(<span class="hljs-string">'passing.spec.ts'</span>).category,
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(protractorRunner.<span class="hljs-property">emit</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-string">'testPass'</span>, {
+                        <span class="hljs-attr">name</span>:       <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">name</span>,
+                        <span class="hljs-attr">category</span>:   <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">category</span>,
                     });
                 }));
 
-            it(<span class="hljs-string">'invokes runner.afterEach after each test'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([
-                    sample(<span class="hljs-string">'passing.spec.ts'</span>).path,
-                    sample(<span class="hljs-string">'passing.spec.ts'</span>).path,
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'invokes runner.afterEach after each test'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span>,
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span>,
                 ]))
-                .to.be.fulfilled
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    expect(protractorRunner.afterEach).to.have.been.calledTwice;
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(protractorRunner.<span class="hljs-property">afterEach</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledTwice</span>;
                 }));
         });
 
-        describe(<span class="hljs-string">'when a test fails'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when a test fails'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'invokes runner.emit with a "testFail" message'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([
-                    sample(<span class="hljs-string">'failing.spec.ts'</span>).path,
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'invokes runner.emit with a "testFail" message'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">path</span>,
                 ]))
-                .to.be.fulfilled
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    expect(protractorRunner.emit).to.have.been.calledWith(<span class="hljs-string">'testFail'</span>, {
-                        <span class="hljs-attr">name</span>:       sample(<span class="hljs-string">'failing.spec.ts'</span>).name,
-                        <span class="hljs-attr">category</span>:   sample(<span class="hljs-string">'failing.spec.ts'</span>).category,
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(protractorRunner.<span class="hljs-property">emit</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-string">'testFail'</span>, {
+                        <span class="hljs-attr">name</span>:       <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">name</span>,
+                        <span class="hljs-attr">category</span>:   <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">category</span>,
                     });
                 }));
 
-            it(<span class="hljs-string">'invokes runner.afterEach after each test'</span>, <span class="hljs-function">() =&gt;</span>
-                expect(adapter.run([
-                    sample(<span class="hljs-string">'failing.spec.ts'</span>).path,
-                    sample(<span class="hljs-string">'failing.spec.ts'</span>).path,
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'invokes runner.afterEach after each test'</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">path</span>,
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'failing.spec.ts'</span>).<span class="hljs-property">path</span>,
                 ]))
-                .to.be.fulfilled            <span class="hljs-comment">// promise resolved even upon test failure; test suite failure is determined based on the ProtractorReport</span>
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    expect(protractorRunner.afterEach).to.have.been.calledTwice;
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>            <span class="hljs-comment">// promise resolved even upon test failure; test suite failure is determined based on the ProtractorReport</span>
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title function_">expect</span>(protractorRunner.<span class="hljs-property">afterEach</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledTwice</span>;
                 }));
         });
 
-        describe(<span class="hljs-string">'error handling'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'error handling'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
 
-            <span class="hljs-built_in">this</span>.timeout(<span class="hljs-number">7000</span>);
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">timeout</span>(<span class="hljs-number">7000</span>);
 
-            it(<span class="hljs-string">'fails the test run when runner.afterEach errors out'</span>, <span class="hljs-function">() =&gt;</span> {
-                protractorRunner.afterEach.throws(expectedError);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'fails the test run when runner.afterEach errors out'</span>, <span class="hljs-function">() =&gt;</span> {
+                protractorRunner.<span class="hljs-property">afterEach</span>.<span class="hljs-title function_">throws</span>(expectedError);
 
-                <span class="hljs-keyword">return</span> expect(adapter.run([
-                    sample(<span class="hljs-string">'passing.spec.ts'</span>).path,
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span>,
                 ]))
-                .to.be.rejectedWith(expectedError);
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(expectedError);
             });
 
-            it(<span class="hljs-string">'fails the test run when runner.afterEach rejects the promise'</span>, <span class="hljs-function">() =&gt;</span> {
-                protractorRunner.afterEach.rejects(expectedError);
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'fails the test run when runner.afterEach rejects the promise'</span>, <span class="hljs-function">() =&gt;</span> {
+                protractorRunner.<span class="hljs-property">afterEach</span>.<span class="hljs-title function_">rejects</span>(expectedError);
 
-                <span class="hljs-keyword">return</span> expect(adapter.run([
-                    sample(<span class="hljs-string">'passing.spec.ts'</span>).path,
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(adapter.<span class="hljs-title function_">run</span>([
+                    <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span>,
                 ]))
-                .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, [
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, [
                     <span class="hljs-string">`1 async operation has failed to complete:`</span>,
                     <span class="hljs-string">`[ProtractorReporter] Invoking ProtractorRunner.afterEach... - <span class="hljs-subst">${ expectedError.stack }</span>`</span>,
                     <span class="hljs-string">`---`</span>,
                     <span class="hljs-string">''</span>,
-                ].join(<span class="hljs-string">'\n'</span>));
+                ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>));
             });
         });
     });
 
-    describe(<span class="hljs-string">'configuration'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'configuration'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pickOne</span>&lt;<span class="hljs-title">T</span> <span class="hljs-title">extends</span> <span class="hljs-title">StageCrewMember</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; T, crew: StageCrewMember[]</span>): <span class="hljs-title">T</span> </span>{
-            <span class="hljs-keyword">const</span> found = crew.filter(<span class="hljs-function"><span class="hljs-params">member</span> =&gt;</span> member <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>);
+        <span class="hljs-keyword">function</span> pickOne&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">StageCrewMember</span>&gt;(<span class="hljs-attr">type</span>: <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]) =&gt; T, <span class="hljs-attr">crew</span>: <span class="hljs-title class_">StageCrewMember</span>[]): T {
+            <span class="hljs-keyword">const</span> found = crew.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">member</span> =&gt;</span> member <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>);
 
-            <span class="hljs-keyword">if</span> (found.length !== <span class="hljs-number">1</span>) {
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`Found <span class="hljs-subst">${ found.length }</span> <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span>s`</span>);
+            <span class="hljs-keyword">if</span> (found.<span class="hljs-property">length</span> !== <span class="hljs-number">1</span>) {
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Found <span class="hljs-subst">${ found.length }</span> <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span>s`</span>);
             }
 
             <span class="hljs-keyword">return</span> found[<span class="hljs-number">0</span>] <span class="hljs-keyword">as</span> T;
         }
 
-        it(<span class="hljs-string">'provides sensible defaults when no explicit configuration is provided'</span>, <span class="hljs-function">() =&gt;</span> {
-            protractorRunner.getConfig.returns({});
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides sensible defaults when no explicit configuration is provided'</span>, <span class="hljs-function">() =&gt;</span> {
+            protractorRunner.<span class="hljs-property">getConfig</span>.<span class="hljs-title function_">returns</span>({});
 
-            <span class="hljs-keyword">return</span> adapter.run([ sample(<span class="hljs-string">'passing.spec.ts'</span>).path ])
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    <span class="hljs-keyword">const</span> crew = (serenity <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).stage.manager.subscribers;
+            <span class="hljs-keyword">return</span> adapter.<span class="hljs-title function_">run</span>([ <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span> ])
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-keyword">const</span> crew = (serenity <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">stage</span>.<span class="hljs-property">manager</span>.<span class="hljs-property">subscribers</span>;
 
-                    <span class="hljs-keyword">const</span> archiver = pickOne(ArtifactArchiver, crew);
+                    <span class="hljs-keyword">const</span> archiver = <span class="hljs-title function_">pickOne</span>(<span class="hljs-title class_">ArtifactArchiver</span>, crew);
 
-                    expect((archiver <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).fileSystem.root)
-                        .to.equal(<span class="hljs-keyword">new</span> Path(process.cwd() + <span class="hljs-string">'/target/site/serenity'</span>));
+                    <span class="hljs-title function_">expect</span>((archiver <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">fileSystem</span>.<span class="hljs-property">root</span>)
+                        .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(process.<span class="hljs-title function_">cwd</span>() + <span class="hljs-string">'/target/site/serenity'</span>));
                 });
         });
 
-        it(<span class="hljs-string">'allows for the defaults to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
-            protractorRunner.getConfig.returns({
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for the defaults to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
+            protractorRunner.<span class="hljs-property">getConfig</span>.<span class="hljs-title function_">returns</span>({
                 <span class="hljs-attr">serenity</span>: {
                     <span class="hljs-attr">crew</span>: [
-                        ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./custom/output/path'</span>),
+                        <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./custom/output/path'</span>),
                     ],
                 },
             });
 
-            <span class="hljs-keyword">return</span> adapter.run([ sample(<span class="hljs-string">'passing.spec.ts'</span>).path ])
-                .then(<span class="hljs-function">() =&gt;</span> {
-                    <span class="hljs-keyword">const</span> crew = (serenity <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).stage.manager.subscribers;
+            <span class="hljs-keyword">return</span> adapter.<span class="hljs-title function_">run</span>([ <span class="hljs-title function_">sample</span>(<span class="hljs-string">'passing.spec.ts'</span>).<span class="hljs-property">path</span> ])
+                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-keyword">const</span> crew = (serenity <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">stage</span>.<span class="hljs-property">manager</span>.<span class="hljs-property">subscribers</span>;
 
-                    <span class="hljs-keyword">const</span> archiver = pickOne(ArtifactArchiver, crew);
+                    <span class="hljs-keyword">const</span> archiver = <span class="hljs-title function_">pickOne</span>(<span class="hljs-title class_">ArtifactArchiver</span>, crew);
 
-                    expect((archiver <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).fileSystem.root)
-                        .to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">`./custom/output/path`</span>));
+                    <span class="hljs-title function_">expect</span>((archiver <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">fileSystem</span>.<span class="hljs-property">root</span>)
+                        .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`./custom/output/path`</span>));
                 });
         });
     });
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleTestRunnerAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">SimpleTestRunnerAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">TestRunnerAdapter</span> {
 
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenityInstance: Serenity</span>)</span> {
+        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> serenityInstance: Serenity</span>) {
         }
 
-        successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
-            <span class="hljs-keyword">return</span> ExecutionIgnored;
+        <span class="hljs-title function_">successThreshold</span>(): <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> } {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">ExecutionIgnored</span>;
         }
 
-        run(scenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-title function_">run</span>(<span class="hljs-attr">scenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
 
             <span class="hljs-keyword">return</span> scenarios
-                .reduce(<span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span> previous.then(<span class="hljs-function">() =&gt;</span> {
+                .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">previous, current</span>) =&gt;</span> previous.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                    <span class="hljs-keyword">const</span> scenario = sample(current);
+                    <span class="hljs-keyword">const</span> scenario = <span class="hljs-title function_">sample</span>(current);
 
-                    <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> ScenarioDetails(
-                        <span class="hljs-keyword">new</span> Name(scenario.name),
-                        <span class="hljs-keyword">new</span> Category(scenario.category),
-                        <span class="hljs-keyword">new</span> FileSystemLocation(<span class="hljs-keyword">new</span> Path(scenario.path)),
+                    <span class="hljs-keyword">const</span> details = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(scenario.<span class="hljs-property">name</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(scenario.<span class="hljs-property">category</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(scenario.<span class="hljs-property">path</span>)),
                     );
 
-                    <span class="hljs-keyword">const</span> sceneId = CorrelationId.create();
+                    <span class="hljs-keyword">const</span> sceneId = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>();
 
-                    <span class="hljs-built_in">this</span>.serenityInstance.announce(<span class="hljs-keyword">new</span> SceneStarts(
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(
                         sceneId,
                         details,
-                        <span class="hljs-built_in">this</span>.serenityInstance.currentTime(),
+                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">currentTime</span>(),
                     ));
 
                     <span class="hljs-comment">// ... an actual test runner would now execute the test and then announce the outcome</span>
 
-                    <span class="hljs-built_in">this</span>.serenityInstance.announce(
-                        <span class="hljs-keyword">new</span> SceneFinishes(sceneId, details, scenario.outcome, <span class="hljs-built_in">this</span>.serenityInstance.currentTime()),
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">announce</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(sceneId, details, scenario.<span class="hljs-property">outcome</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">currentTime</span>()),
                     );
 
-                    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.serenityInstance.waitForNextCue()
-                        .then(<span class="hljs-function">() =&gt;</span> {
-                            <span class="hljs-built_in">this</span>.serenityInstance.announce(
-                                <span class="hljs-keyword">new</span> SceneFinished(sceneId, details, scenario.outcome, <span class="hljs-built_in">this</span>.serenityInstance.currentTime()),
+                    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">waitForNextCue</span>()
+                        .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">announce</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, details, scenario.<span class="hljs-property">outcome</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenityInstance</span>.<span class="hljs-title function_">currentTime</span>()),
                             );
                         });
 
-                }), <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
+                }), <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-built_in">void</span> <span class="hljs-number">0</span>));
         }
     }
 });

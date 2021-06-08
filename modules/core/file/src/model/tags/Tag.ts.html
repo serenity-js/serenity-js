@@ -294,35 +294,35 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/tags/Tag.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isGreaterThan, isString, JSONObject, property, TinyType } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, isGreaterThan, isString, JSONObject, property, <span class="hljs-title class_">TinyType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> TagTypes <span class="hljs-keyword">from</span> <span class="hljs-string">'./index'</span>;
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">TagTypes</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'./index'</span>;
 
 <span class="hljs-comment">/**
- * <span class="hljs-doctag">@access <span class="hljs-variable">public</span></span>
+ * <span class="hljs-doctag">@access</span> <span class="hljs-variable">public</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Tag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TinyType</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject): Tag {
-        <span class="hljs-keyword">const</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span> = ensure(<span class="hljs-string">'serialised tag type'</span>, o.type, isDefined(), isString()) <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Tag</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">TinyType</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: JSONObject): <span class="hljs-title class_">Tag</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> = <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'serialised tag type'</span>, o.<span class="hljs-property">type</span>, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">isString</span>()) <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>;
 
-        <span class="hljs-keyword">const</span> found = <span class="hljs-built_in">Object</span>.keys(TagTypes).find(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> TagTypes[t].Type === <span class="hljs-keyword">type</span>) || TagTypes.ArbitraryTag.name;
+        <span class="hljs-keyword">const</span> found = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-title class_">TagTypes</span>).<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">t</span> =&gt;</span> <span class="hljs-title class_">TagTypes</span>[t].<span class="hljs-property">Type</span> === <span class="hljs-keyword">type</span>) || <span class="hljs-title class_">TagTypes</span>.<span class="hljs-property">ArbitraryTag</span>.<span class="hljs-property">name</span>;
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Object</span>.prototype.hasOwnProperty.call(TagTypes[found], <span class="hljs-string">'fromJSON'</span>)) {
-            <span class="hljs-keyword">return</span> TagTypes[found].fromJSON(o);
+        <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(<span class="hljs-title class_">TagTypes</span>[found], <span class="hljs-string">'fromJSON'</span>)) {
+            <span class="hljs-keyword">return</span> <span class="hljs-title class_">TagTypes</span>[found].<span class="hljs-title function_">fromJSON</span>(o);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> TagTypes[found](o.name);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TagTypes</span>[found](o.<span class="hljs-property">name</span>);
     }
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> name: <span class="hljs-built_in">string</span>, <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-variable language_">super</span>();
 
-        ensure(<span class="hljs-string">'Tag name'</span>, name, isDefined(), property(<span class="hljs-string">'length'</span>, isGreaterThan(<span class="hljs-number">0</span>)));
-        ensure(<span class="hljs-string">'Tag type'</span>, <span class="hljs-keyword">type</span>, isDefined(), property(<span class="hljs-string">'length'</span>, isGreaterThan(<span class="hljs-number">0</span>)));
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'Tag name'</span>, name, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">property</span>(<span class="hljs-string">'length'</span>, <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">0</span>)));
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'Tag type'</span>, <span class="hljs-keyword">type</span>, <span class="hljs-title function_">isDefined</span>(), <span class="hljs-title function_">property</span>(<span class="hljs-string">'length'</span>, <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">0</span>)));
     }
 
-    toJSON(): { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> } {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">super</span>.toJSON() <span class="hljs-keyword">as</span> { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> };
+    <span class="hljs-title function_">toJSON</span>(): { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> } {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">toJSON</span>() <span class="hljs-keyword">as</span> { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span> };
     }
 }
 </code></pre>

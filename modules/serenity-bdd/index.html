@@ -143,31 +143,31 @@ can then turn into world-class, illustrated test reports and living documentatio
 <h3 id="serenitybddreporter">SerenityBDDReporter</h3><p>To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the <code>SerenityBDDReporter</code> to the <code>Stage</code>
 and configure the <code>ArtifactArchiver</code> to store the reports at the location where Serenity BDD expects to find them.</p>
 <p>This can be done in your <code>protractor.conf.js</code> file if you're using Protractor, or programmatically.</p>
-<h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { ArtifactArchiver, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { SerenityBDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
+<h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactArchiver</span>, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
 
-serenity.configure({
+serenity.<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
-        ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
-        <span class="hljs-keyword">new</span> SerenityBDDReporter()
+        <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
+        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter()
     ],
 });
 </code></pre>
 <h4 id="protractor">Protractor</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
 
 <span class="hljs-keyword">const</span>
-    { ArtifactArchiver }    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>),
-    { SerenityBDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/serenity-bdd'</span>),
+    { <span class="hljs-title class_">ArtifactArchiver</span> }    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>),
+    { <span class="hljs-title class_">Serenity</span>BDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/serenity-bdd'</span>),
 
-<span class="hljs-built_in">exports</span>.config = {
+<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
 
     <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.resolve(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
 
     <span class="hljs-attr">serenity</span>: {
         <span class="hljs-attr">crew</span>: [
-            ArtifactArchiver.storingArtifactsAt(<span class="hljs-string">'./target/site/serenity'</span>),
-            <span class="hljs-keyword">new</span> SerenityBDDReporter(),
+            <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(),
         ]
     },
 
@@ -192,7 +192,7 @@ Learn more about configuring <a href="https://serenity-bdd.github.io/theserenity
 <pre><code class="lang-console hljs plaintext">npx serenity-bdd update
 </code></pre>
 <p>You can also tell it to download the Serenity BDD reporting CLI jar from your company's artifact repository if you can't use the official Bintray one:</p>
-<pre><code class="hljs typescript">npx serenity-bdd update --repository https:<span class="hljs-comment">//artifactory.example.org/</span>
+<pre><code class="hljs typescript">npx serenity-bdd update --repository <span class="hljs-attr">https</span>:<span class="hljs-comment">//artifactory.example.org/</span>
 </code></pre><p>To learn more about the <code>update</code> command, run:</p>
 <pre><code class="hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span> update
 </code></pre><p>Please note that the <code>update</code> command will try to download the <code>.jar</code> only if you don't have it cached already, or when the one you have is not up to date. Otherwise, no outbound network calls are made.</p>
@@ -214,11 +214,11 @@ cafile = /path/to/root-ca.pem          <span class="hljs-comment"># optional</sp
 noproxy = localhost,mycompany.com      <span class="hljs-comment"># optional</span>
 </code></pre>
 <h6 id="environment-variables-on-linux-or-macos">Environment variables on Linux or macOS</h6><p>To set your proxy on Linux or macOS, run the following commands in your terminal:</p>
-<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> HTTP_PROXY=http:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
-<span class="hljs-keyword">export</span> HTTPS_PROXY=http:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
+<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">HTTP_PROXY</span>=<span class="hljs-attr">http</span>:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
+<span class="hljs-keyword">export</span> <span class="hljs-variable constant_">HTTPS_PROXY</span>=<span class="hljs-attr">http</span>:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
 </code></pre>
 <p>If needed, you can also set a <code>NO_PROXY</code> variable to a comma-separated list of domains that don't require a proxy, for example:</p>
-<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> NO_PROXY=localhost,mycompany.com
+<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">NO_PROXY</span>=localhost,mycompany.<span class="hljs-property">com</span>
 </code></pre>
 <p>Please note that you can add the above commands to your shell's <code>~/.profile</code>, so that they're executed whenever you open a new terminal.</p>
 <h6 id="environment-variables-on-windows">Environment variables on Windows</h6><p>To configure a proxy on Windows, run the following commands in Command Prompt:</p>
@@ -249,16 +249,16 @@ npm_config_strict-ssl = <span class="hljs-literal">false</span>
 </code></pre><h3 id="using-npm-scripts">Using NPM scripts</h3><p>The easiest way to ensure that the Serenity BDD reporting CLI is up to date
 and that the Serenity BDD test report is produced after each test run is to
 add the following entries to the scripts section of the <code>package.json</code> file:</p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"scripts"</span>: {
-    <span class="hljs-attr">"test:update-serenity"</span>: <span class="hljs-string">"serenity-bdd update"</span>,
-    <span class="hljs-attr">"test:acceptance"</span>: <span class="hljs-string">"/* invoke the test runner */"</span>,
-    <span class="hljs-attr">"test:report"</span>: <span class="hljs-string">"serenity-bdd run"</span>,
-    <span class="hljs-attr">"test"</span>: <span class="hljs-string">"failsafe test:acceptance test:update-serenity test:report"</span>,
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"test:update-serenity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test:acceptance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/* invoke the test runner */"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run"</span><span class="hljs-punctuation">,</span>
+    <span class="hljs-attr">"test"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"failsafe test:acceptance test:update-serenity test:report"</span><span class="hljs-punctuation">,</span>
     <span class="hljs-comment">// ... other scripts</span>
-  },
+  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
   <span class="hljs-comment">// ... other config</span>
-}
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <p>In the above example, the <a href="https://www.npmjs.com/package/npm-failsafe"><code>npm-failsafe</code></a> module is used to invoke
 each of the <code>test:update-serenity</code>, <code>test:acceptance</code> and <code>test:report</code> scripts when <code>npm test</code> is executed.

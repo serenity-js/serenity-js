@@ -134,99 +134,99 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/reporting.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { endsWith, Ensure, equals, not, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span>, expect, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { endsWith, <span class="hljs-title class_">Ensure</span>, equals, not, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled, <span class="hljs-title class_">Cast</span>, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title class_">ActivityStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
-<span class="hljs-keyword">import</span> { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LocalServer</span>, <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">StartLocalServer</span>, <span class="hljs-title class_">StopLocalServer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
 
-describe(<span class="hljs-string">'@serenity-js/local-server'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'@serenity-js/local-server'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-        prepare(actor: Actor): Actor {
-            <span class="hljs-keyword">return</span> actor.whoCan(
-                ManageALocalServer.runningAHttpListener(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) </span>{
-                    response.setHeader(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
-                    response.end(<span class="hljs-string">'Hello World!'</span>);
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+        <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+            <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
+                <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">runningAHttpListener</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">request, response</span>) {
+                    response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
+                    response.<span class="hljs-title function_">end</span>(<span class="hljs-string">'Hello World!'</span>);
                 }),
-                CallAnApi.using(axios.create()),
+                <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(axios.<span class="hljs-title function_">create</span>()),
             );
         }
     }
 
-    <span class="hljs-keyword">let</span> recorder: EventRecorder;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">recorder</span>: <span class="hljs-title class_">EventRecorder</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
 
-        recorder = <span class="hljs-keyword">new</span> EventRecorder();
+        recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>();
 
-        configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Actors(),
+        <span class="hljs-title function_">configure</span>({
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>(),
             <span class="hljs-attr">crew</span>: [ recorder ],
         });
     });
 
-    describe(<span class="hljs-string">'when managing a local server'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when managing a local server'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{ManageALocalServer}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{StartLocalServer}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{StopLocalServer}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ManageALocalServer</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">StartLocalServer</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">StopLocalServer</span>}
          */</span>
-        it(<span class="hljs-string">`correctly reports actor's activities`</span>, <span class="hljs-function">() =&gt;</span> expect(actorCalled(<span class="hljs-string">'Nadia'</span>).attemptsTo(
-            StartLocalServer.onRandomPort(),
-            Ensure.that(LocalServer.url(), startsWith(<span class="hljs-string">'http://127.0.0.1'</span>)),
-            Send.a(GetRequest.to(LocalServer.url())),
-            Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-            Ensure.that(LastResponse.body&lt;<span class="hljs-built_in">string</span>&gt;(), equals(<span class="hljs-string">'Hello World!'</span>)),
-            StopLocalServer.ifRunning(),
-        )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`correctly reports actor's activities`</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nadia'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onRandomPort</span>(),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'http://127.0.0.1'</span>)),
+            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>())),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-built_in">string</span>&gt;(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Hello World!'</span>)),
+            <span class="hljs-title class_">StopLocalServer</span>.<span class="hljs-title function_">ifRunning</span>(),
+        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-            PickEvent.from(recorder.events)
-                .next(ActivityStarts,   hasName(<span class="hljs-string">`Nadia starts local server on a random port`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia starts local server on a random port`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia ensures that the URL of the local server does start with 'http://127.0.0.1'`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia sends a GET request to the URL of the local server`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia ensures that the status of the last response does equal 200`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia ensures that the body of the last response does equal 'Hello World!'`</span>))
-                .next(ActivityStarts,   hasName(<span class="hljs-string">`Nadia stops the local server`</span>))
-                .next(ActivityFinished, hasName(<span class="hljs-string">`Nadia stops the local server`</span>))
+            <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityStarts</span>,   <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia starts local server on a random port`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia starts local server on a random port`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia ensures that the URL of the local server does start with 'http://127.0.0.1'`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia sends a GET request to the URL of the local server`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia ensures that the status of the last response does equal 200`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia ensures that the body of the last response does equal 'Hello World!'`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityStarts</span>,   <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia stops the local server`</span>))
+                .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title function_">hasName</span>(<span class="hljs-string">`Nadia stops the local server`</span>))
             ;
         }));
     });
 
-    describe(<span class="hljs-string">'when managing a local server'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when managing a local server'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">let</span> Nadia: Actor, <span class="hljs-attr">Phillip</span>: Actor;
+        <span class="hljs-keyword">let</span> <span class="hljs-title class_">Nadia</span>: <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Phillip</span>: <span class="hljs-title class_">Actor</span>;
 
         <span class="hljs-keyword">const</span> port = <span class="hljs-number">5000</span>;
 
-        beforeEach(<span class="hljs-function">() =&gt;</span>  {
-            Nadia = actorCalled(<span class="hljs-string">'Nadia'</span>);
-            Phillip = actorCalled(<span class="hljs-string">'Phillip'</span>);
+        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span>  {
+            <span class="hljs-title class_">Nadia</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nadia'</span>);
+            <span class="hljs-title class_">Phillip</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Phillip'</span>);
         });
 
-        it(<span class="hljs-string">`it falls back to a random port if the preferred one is taken`</span>, <span class="hljs-function">() =&gt;</span>
-            expect(Nadia.attemptsTo(
-                StartLocalServer.onOneOfThePreferredPorts([port]),
-                Ensure.that(LocalServer.url(), endsWith(<span class="hljs-string">`<span class="hljs-subst">${ port }</span>`</span>)),
-            ).then(<span class="hljs-function">() =&gt;</span> Phillip.attemptsTo(
-                StartLocalServer.onOneOfThePreferredPorts([port]),
-                Ensure.that(LocalServer.url(), not(endsWith(<span class="hljs-string">`<span class="hljs-subst">${ port }</span>`</span>))),
-            ))).to.be.fulfilled);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`it falls back to a random port if the preferred one is taken`</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Nadia</span>.<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onOneOfThePreferredPorts</span>([port]),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">endsWith</span>(<span class="hljs-string">`<span class="hljs-subst">${ port }</span>`</span>)),
+            ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Phillip</span>.<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onOneOfThePreferredPorts</span>([port]),
+                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">not</span>(<span class="hljs-title function_">endsWith</span>(<span class="hljs-string">`<span class="hljs-subst">${ port }</span>`</span>))),
+            ))).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>);
 
-        afterEach(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">Promise</span>.all([
-            Nadia.attemptsTo(StopLocalServer.ifRunning()),
-            Phillip.attemptsTo(StopLocalServer.ifRunning()),
+        <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+            <span class="hljs-title class_">Nadia</span>.<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-title class_">StopLocalServer</span>.<span class="hljs-title function_">ifRunning</span>()),
+            <span class="hljs-title class_">Phillip</span>.<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-title class_">StopLocalServer</span>.<span class="hljs-title function_">ifRunning</span>()),
         ]));
     });
 
     <span class="hljs-comment">// eslint-disable-next-line unicorn/consistent-function-scoping</span>
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hasName</span>(<span class="hljs-params">expectedName: <span class="hljs-built_in">string</span></span>) </span>{
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts | ActivityFinished</span>) =&gt;</span> expect(e.details.name.value).equals(expectedName);
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">hasName</span>(<span class="hljs-params">expectedName: <span class="hljs-built_in">string</span></span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">e: ActivityStarts | ActivityFinished</span>) =&gt;</span> <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-title function_">equals</span>(expectedName);
     }
 });
 </code></pre>

@@ -296,117 +296,117 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/StageManager.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/events'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Description, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
-<span class="hljs-keyword">import</span> { Clock, StageManager } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-title class_">AsyncOperationCompleted</span>, <span class="hljs-title class_">AsyncOperationFailed</span>, <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
-<span class="hljs-keyword">import</span> { Recorder } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Recorder'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Recorder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Recorder'</span>;
 
-describe(<span class="hljs-string">'StageManager'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'StageManager'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
-            <span class="hljs-built_in">super</span>();
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestEvent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">DomainEvent</span> {
+        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+            <span class="hljs-variable language_">super</span>();
         }
     }
 
-    <span class="hljs-keyword">const</span> testEvent = <span class="hljs-keyword">new</span> TestEvent();
+    <span class="hljs-keyword">const</span> testEvent = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestEvent</span>();
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span> </span>*/</span>
-    it(<span class="hljs-string">'broadcasts the domain event it receives to all the registered subscribers'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">StageManager</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'broadcasts the domain event it receives to all the registered subscribers'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock());
-        <span class="hljs-keyword">const</span> crewMember1 = <span class="hljs-keyword">new</span> Recorder();
-        <span class="hljs-keyword">const</span> crewMember2 = <span class="hljs-keyword">new</span> Recorder();
+        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
+        <span class="hljs-keyword">const</span> crewMember1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Recorder</span>();
+        <span class="hljs-keyword">const</span> crewMember2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Recorder</span>();
 
-        stageManager.register(crewMember1, crewMember2);
+        stageManager.<span class="hljs-title function_">register</span>(crewMember1, crewMember2);
 
-        stageManager.notifyOf(testEvent);
+        stageManager.<span class="hljs-title function_">notifyOf</span>(testEvent);
 
-        expect(crewMember1.events).to.have.lengthOf(<span class="hljs-number">1</span>);
-        expect(crewMember1.events[<span class="hljs-number">0</span>]).to.be.instanceOf(TestEvent);
-        expect(crewMember2.events).to.have.lengthOf(<span class="hljs-number">1</span>);
-        expect(crewMember2.events[<span class="hljs-number">0</span>]).to.be.instanceOf(TestEvent);
+        <span class="hljs-title function_">expect</span>(crewMember1.<span class="hljs-property">events</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+        <span class="hljs-title function_">expect</span>(crewMember1.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">TestEvent</span>);
+        <span class="hljs-title function_">expect</span>(crewMember2.<span class="hljs-property">events</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
+        <span class="hljs-title function_">expect</span>(crewMember2.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">TestEvent</span>);
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationAttempted}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationCompleted}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">StageManager</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">AsyncOperationAttempted</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">AsyncOperationCompleted</span>}
      */</span>
-    it(<span class="hljs-string">'keeps track of the work in progress'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'keeps track of the work in progress'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> StageManager(Duration.ofMilliseconds(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> Clock());
+        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">250</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-        <span class="hljs-keyword">const</span> id = CorrelationId.create();
+        <span class="hljs-keyword">const</span> id = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>();
 
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Saving a file...'</span>),
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Saving a file...'</span>),
             id,
         ));
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'File saved'</span>),
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationCompleted</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'File saved'</span>),
             id,
         ));
 
-        <span class="hljs-keyword">return</span> expect(stageManager.waitForNextCue()).to.be.fulfilled;
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-title function_">waitForNextCue</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationAttempted}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">StageManager</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">AsyncOperationAttempted</span>}
      */</span>
-    it(<span class="hljs-string">'provides details should the work in progress fail to complete'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides details should the work in progress fail to complete'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> timeout       = Duration.ofMilliseconds(<span class="hljs-number">50</span>);
-        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> StageManager(timeout, <span class="hljs-keyword">new</span> Clock());
+        <span class="hljs-keyword">const</span> timeout       = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">50</span>);
+        <span class="hljs-keyword">const</span> stageManager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(timeout, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'[Service 1] Starting...'</span>),
-            CorrelationId.create(),
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'[Service 1] Starting...'</span>),
+            <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>(),
         ));
 
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'[Service 2] Starting...'</span>),
-            CorrelationId.create(),
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'[Service 2] Starting...'</span>),
+            <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>(),
         ));
 
-        <span class="hljs-keyword">return</span> expect(stageManager.waitForNextCue()).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> lines = error.message.split(<span class="hljs-string">'\n'</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-title function_">waitForNextCue</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">rejected</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> lines = error.<span class="hljs-property">message</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>);
 
-            expect(lines, <span class="hljs-string">`message: \n<span class="hljs-subst">${ error.message }</span>`</span>).to.have.lengthOf(<span class="hljs-number">3</span>);
-            expect(lines[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'2 async operations have failed to complete within a 50ms cue timeout:'</span>);
-            expect(lines[<span class="hljs-number">1</span>], error.message).to.match(<span class="hljs-regexp">/^\d+ms.*?- \[Service 1] Starting...$/</span>);
-            expect(lines[<span class="hljs-number">2</span>], error.message).to.match(<span class="hljs-regexp">/^\d+ms.*?- \[Service 2] Starting...$/</span>);
+            <span class="hljs-title function_">expect</span>(lines, <span class="hljs-string">`message: \n<span class="hljs-subst">${ error.message }</span>`</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">3</span>);
+            <span class="hljs-title function_">expect</span>(lines[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'2 async operations have failed to complete within a 50ms cue timeout:'</span>);
+            <span class="hljs-title function_">expect</span>(lines[<span class="hljs-number">1</span>], error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^\d+ms.*?- \[Service 1] Starting...$/</span>);
+            <span class="hljs-title function_">expect</span>(lines[<span class="hljs-number">2</span>], error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/^\d+ms.*?- \[Service 2] Starting...$/</span>);
         });
     });
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test <span class="hljs-type">{StageManager}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationAttempted}</span></span>
-     * <span class="hljs-doctag">@test <span class="hljs-type">{AsyncOperationFailed}</span></span>
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">StageManager</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">AsyncOperationAttempted</span>}
+     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">AsyncOperationFailed</span>}
      */</span>
-    it(<span class="hljs-string">'provides details should the work in progress fail with an error'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides details should the work in progress fail with an error'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> timeout       = Duration.ofMilliseconds(<span class="hljs-number">100</span>);
-        <span class="hljs-keyword">const</span> stageManager  = <span class="hljs-keyword">new</span> StageManager(timeout, <span class="hljs-keyword">new</span> Clock());
-        <span class="hljs-keyword">const</span> correlationId = CorrelationId.create();
+        <span class="hljs-keyword">const</span> timeout       = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">100</span>);
+        <span class="hljs-keyword">const</span> stageManager  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(timeout, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
+        <span class="hljs-keyword">const</span> correlationId = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>();
 
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-            <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'[Service 1] Starting...'</span>),
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'[Service 1] Starting...'</span>),
             correlationId,
         ));
 
-        stageManager.notifyOf(<span class="hljs-keyword">new</span> AsyncOperationFailed(
-            <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Something happened'</span>),
+        stageManager.<span class="hljs-title function_">notifyOf</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationFailed</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Something happened'</span>),
             correlationId,
         ));
 
-        <span class="hljs-keyword">return</span> expect(stageManager.waitForNextCue()).to.be.rejected.then(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> lines = error.message.split(<span class="hljs-string">'\n'</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-title function_">waitForNextCue</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">rejected</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> lines = error.<span class="hljs-property">message</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>);
 
-            expect(lines[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'1 async operation has failed to complete:'</span>);
-            expect(lines[<span class="hljs-number">1</span>]).to.equal(<span class="hljs-string">'[Service 1] Starting... - Error: Something happened'</span>);
+            <span class="hljs-title function_">expect</span>(lines[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'1 async operation has failed to complete:'</span>);
+            <span class="hljs-title function_">expect</span>(lines[<span class="hljs-number">1</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'[Service 1] Starting... - Error: Something happened'</span>);
         });
     });
 });

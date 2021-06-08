@@ -296,57 +296,57 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/FileSystem.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { FileSystem, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
-<span class="hljs-keyword">import</span> { FakeFS } <span class="hljs-keyword">from</span> <span class="hljs-string">'../FakeFS'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Fake</span>FS } <span class="hljs-keyword">from</span> <span class="hljs-string">'../FakeFS'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{FileSystem}</span> </span>*/</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">FileSystem</span>} */</span>
 describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-function">() =&gt;</span> {
 
     <span class="hljs-keyword">const</span>
         image        = <span class="hljs-string">'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII='</span>,
-        imageBuffer  = Buffer.from(image, <span class="hljs-string">'base64'</span>),
+        imageBuffer  = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(image, <span class="hljs-string">'base64'</span>),
         originalJSON = { <span class="hljs-attr">name</span>: <span class="hljs-string">'jan'</span> },
-        processCWD   = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/Users/jan/projects/serenityjs'</span>);
+        processCWD   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/Users/jan/projects/serenityjs'</span>);
 
     describe (<span class="hljs-string">'when storing JSON files'</span>, <span class="hljs-function">() =&gt;</span> {
 
         it (<span class="hljs-string">'stores a JSON file in a desired location'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                    [ processCWD.<span class="hljs-property">value</span> ]: <span class="hljs-title class_">Fake</span>FS.<span class="hljs-property">Empty_Directory</span>,
                 }),
-                out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
+                out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs);
 
-            <span class="hljs-keyword">return</span> expect(out.store(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.json'</span>), <span class="hljs-built_in">JSON</span>.stringify(originalJSON))).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
-                expect(fs.existsSync(absolutePath.value)).to.equal(<span class="hljs-literal">true</span>);
-                expect(jsonFrom(fs.readFileSync(absolutePath.value))).to.eql(originalJSON);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">store</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/some.json'</span>), <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(originalJSON))).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(absolutePath.<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">jsonFrom</span>(fs.<span class="hljs-title function_">readFileSync</span>(absolutePath.<span class="hljs-property">value</span>))).<span class="hljs-property">to</span>.<span class="hljs-title function_">eql</span>(originalJSON);
             });
         });
 
         it (<span class="hljs-string">'tells the absolute path to a JSON file once it is saved'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                    [ processCWD.<span class="hljs-property">value</span> ]: <span class="hljs-title class_">Fake</span>FS.<span class="hljs-property">Empty_Directory</span>,
                 }),
-                out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs),
-                destination = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.json'</span>);
+                out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs),
+                destination = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/some.json'</span>);
 
-            <span class="hljs-keyword">return</span> expect(out.store(destination, <span class="hljs-built_in">JSON</span>.stringify(originalJSON))).to.be.fulfilled.
-                then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> expect(result.equals(processCWD.resolve(destination))));
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">store</span>(destination, <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(originalJSON))).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
+                <span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> <span class="hljs-title function_">expect</span>(result.<span class="hljs-title function_">equals</span>(processCWD.<span class="hljs-title function_">resolve</span>(destination))));
         });
 
         it (<span class="hljs-string">`complains when the file can't be written`</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> fs = FakeFS.with(FakeFS.Empty_Directory);
+            <span class="hljs-keyword">const</span> fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>(<span class="hljs-title class_">Fake</span>FS.<span class="hljs-property">Empty_Directory</span>);
 
-            (fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).writeFile = <span class="hljs-function">() =&gt;</span> { <span class="hljs-comment">// memfs doesn't support mocking error conditions or permissions</span>
-                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'EACCES, permission denied'</span>);
+            (fs <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">writeFile</span> = <span class="hljs-function">() =&gt;</span> { <span class="hljs-comment">// memfs doesn't support mocking error conditions or permissions</span>
+                <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'EACCES, permission denied'</span>);
             };
 
-            <span class="hljs-keyword">const</span> out = <span class="hljs-keyword">new</span> FileSystem(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/'</span>), fs);
+            <span class="hljs-keyword">const</span> out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/'</span>), fs);
 
-            <span class="hljs-keyword">return</span> expect(out.store(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'dir/file.json'</span>), <span class="hljs-built_in">JSON</span>.stringify(originalJSON)))
-                .to.be.eventually.rejectedWith(<span class="hljs-string">'EACCES, permission denied'</span>);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">store</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'dir/file.json'</span>), <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(originalJSON)))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-string">'EACCES, permission denied'</span>);
         });
     });
 
@@ -354,40 +354,40 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
 
         it (<span class="hljs-string">'stores a base64-encoded picture at a desired location'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                    [ processCWD.<span class="hljs-property">value</span> ]: <span class="hljs-title class_">Fake</span>FS.<span class="hljs-property">Empty_Directory</span>,
                 }),
-                out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
+                out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs);
 
-            <span class="hljs-keyword">return</span> expect(out.store(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.png'</span>), imageBuffer)).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
-                expect(fs.existsSync(absolutePath.value)).to.equal(<span class="hljs-literal">true</span>);
-                expect(pictureAt(fs.readFileSync(absolutePath.value))).to.eql(image);
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">store</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/some.png'</span>), imageBuffer)).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(absolutePath.<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
+                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">pictureAt</span>(fs.<span class="hljs-title function_">readFileSync</span>(absolutePath.<span class="hljs-property">value</span>))).<span class="hljs-property">to</span>.<span class="hljs-title function_">eql</span>(image);
             });
         });
 
         it (<span class="hljs-string">'tells the absolute path to a JSON file once it is saved'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                fs = FakeFS.with({
-                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                    [ processCWD.<span class="hljs-property">value</span> ]: <span class="hljs-title class_">Fake</span>FS.<span class="hljs-property">Empty_Directory</span>,
                 }),
-                out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs),
-                destination = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/some.png'</span>);
+                out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs),
+                destination = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/some.png'</span>);
 
-            <span class="hljs-keyword">return</span> expect(out.store(destination, imageBuffer)).to.be.fulfilled.then(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> expected = processCWD.join(destination).value;
-                expect(absolutePath.value).to.match(<span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'([A-Z]:)?'</span> + expected + <span class="hljs-string">'$'</span>));
+            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">store</span>(destination, imageBuffer)).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
+                <span class="hljs-keyword">const</span> expected = processCWD.<span class="hljs-title function_">join</span>(destination).<span class="hljs-property">value</span>;
+                <span class="hljs-title function_">expect</span>(absolutePath.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-string">'([A-Z]:)?'</span> + expected + <span class="hljs-string">'$'</span>));
             });
         });
     });
 
     describe (<span class="hljs-string">'when removing'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'individual files'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'individual files'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'removes the file'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'removes the file'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span>
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
+                    fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                        [processCWD.<span class="hljs-property">value</span>]: {
                             <span class="hljs-attr">outlet</span>: {
                                 <span class="hljs-attr">subdir</span>: {
                                     <span class="hljs-string">'file-to-be-deleted.json'</span>: <span class="hljs-string">'{}'</span>,
@@ -396,33 +396,33 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
                             },
                         },
                     }),
-                    out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
+                    out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs);
 
-                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/subdir/file-to-be-deleted.json'</span>))).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">remove</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/subdir/file-to-be-deleted.json'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                    expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/subdir/file-to-be-deleted.json'</span>)).value)).to.equal(<span class="hljs-literal">false</span>);
-                    expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/subdir/file-not-to-be-deleted.json'</span>)).value)).to.equal(<span class="hljs-literal">true</span>);
+                    <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(processCWD.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/subdir/file-to-be-deleted.json'</span>)).<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
+                    <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(processCWD.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/subdir/file-not-to-be-deleted.json'</span>)).<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
                 });
             });
 
-            it(<span class="hljs-string">`doesn't complain if the file doesn't exist anymore`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`doesn't complain if the file doesn't exist anymore`</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span>
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
+                    fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                        [processCWD.<span class="hljs-property">value</span>]: {
                         },
                     }),
-                    out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
+                    out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs);
 
-                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'non-existent.tmp'</span>))).to.be.fulfilled;
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">remove</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'non-existent.tmp'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
             });
         });
 
-        describe(<span class="hljs-string">'directories'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'directories'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            it(<span class="hljs-string">'removes the directory recursively'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'removes the directory recursively'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-keyword">const</span>
-                    fs = FakeFS.with({
-                        [processCWD.value]: {
+                    fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
+                        [processCWD.<span class="hljs-property">value</span>]: {
                             <span class="hljs-attr">outlet</span>: {
                                 <span class="hljs-attr">subdir</span>: {
                                     <span class="hljs-string">'file-to-be-deleted.json'</span>: <span class="hljs-string">'{}'</span>,
@@ -433,50 +433,50 @@ describe (<span class="hljs-string">'FileSystem'</span>, <span class="hljs-funct
                             },
                         },
                     }),
-                    out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs);
+                    out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs);
 
-                <span class="hljs-keyword">return</span> expect(out.remove(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/subdir'</span>))).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">remove</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/subdir'</span>))).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                    expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/subdir/file-to-be-deleted.json'</span>)).value)).to.equal(<span class="hljs-literal">false</span>);
-                    expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/subdir'</span>)).value)).to.equal(<span class="hljs-literal">false</span>);
-                    expect(fs.existsSync(processCWD.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'outlet/another/file-not-to-be-deleted.json'</span>)).value)).to.equal(<span class="hljs-literal">true</span>);
+                    <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(processCWD.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/subdir/file-to-be-deleted.json'</span>)).<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
+                    <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(processCWD.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/subdir'</span>)).<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
+                    <span class="hljs-title function_">expect</span>(fs.<span class="hljs-title function_">existsSync</span>(processCWD.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'outlet/another/file-not-to-be-deleted.json'</span>)).<span class="hljs-property">value</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
                 });
             });
         });
     });
 
-    describe(<span class="hljs-string">'when generating temp file paths'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when generating temp file paths'</span>, <span class="hljs-function">() =&gt;</span> {
 
         <span class="hljs-keyword">const</span>
-            fs = FakeFS.with({
+            fs = <span class="hljs-title class_">Fake</span>FS.<span class="hljs-title function_">with</span>({
                 <span class="hljs-string">'/var/tmp'</span>: { },
             }),
             os = { <span class="hljs-attr">tmpdir</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-string">'/var/tmp'</span> },
-            out = <span class="hljs-keyword">new</span> FileSystem(processCWD, fs, os <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
+            out = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(processCWD, fs, os <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>);
 
-        it(<span class="hljs-string">'uses a randomly generated file name and .tmp suffix'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'uses a randomly generated file name and .tmp suffix'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(out.tempFilePath().value).to.match(<span class="hljs-regexp">/\/var\/tmp\/[\da-z]+\.tmp/</span>);
+            <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">tempFilePath</span>().<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/\/var\/tmp\/[\da-z]+\.tmp/</span>);
         });
 
-        it(<span class="hljs-string">'allows for the prefix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for the prefix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[\da-z]+\.tmp/</span>);
+            <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">tempFilePath</span>(<span class="hljs-string">'serenity-'</span>).<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/\/var\/tmp\/serenity-[\da-z]+\.tmp/</span>);
         });
 
-        it(<span class="hljs-string">'allows for the suffix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for the suffix to be overridden'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            expect(out.tempFilePath(<span class="hljs-string">'serenity-'</span>, <span class="hljs-string">'.out'</span>).value).to.match(<span class="hljs-regexp">/\/var\/tmp\/serenity-[\da-z]+\.out/</span>);
+            <span class="hljs-title function_">expect</span>(out.<span class="hljs-title function_">tempFilePath</span>(<span class="hljs-string">'serenity-'</span>, <span class="hljs-string">'.out'</span>).<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/\/var\/tmp\/serenity-[\da-z]+\.out/</span>);
         });
     });
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">jsonFrom</span>(<span class="hljs-params">file: Buffer</span>) </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.parse(file.toString(<span class="hljs-string">'ascii'</span>));
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">jsonFrom</span>(<span class="hljs-params">file: Buffer</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(file.<span class="hljs-title function_">toString</span>(<span class="hljs-string">'ascii'</span>));
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pictureAt</span>(<span class="hljs-params">file: Buffer</span>) </span>{
-    <span class="hljs-keyword">return</span> Buffer.from(file).toString(<span class="hljs-string">'base64'</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">pictureAt</span>(<span class="hljs-params">file: Buffer</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(file).<span class="hljs-title function_">toString</span>(<span class="hljs-string">'base64'</span>);
 }
 </code></pre>
 

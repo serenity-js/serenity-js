@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Switch} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Switch</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber105">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber106">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -227,49 +227,49 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing a login form, embedded in an iframe</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
- <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginForm</span> </span>{
-     <span class="hljs-keyword">static</span> iframe           = Target.the(<span class="hljs-string">'login form'</span>).located(by.tagName(<span class="hljs-string">'iframe'</span>));
-     <span class="hljs-keyword">static</span> usernameField    = Target.the(<span class="hljs-string">'username field'</span>).located(by.css(<span class="hljs-string">'[data-test="username"]'</span>));
-     <span class="hljs-keyword">static</span> passwordField    = Target.the(<span class="hljs-string">'password field'</span>).located(by.css(<span class="hljs-string">'[data-test="password"]'</span>));
-     <span class="hljs-keyword">static</span> submitButton     = Target.the(<span class="hljs-string">'submit button'</span>).located(by.css(<span class="hljs-string">`button[type='submit']`</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">LoginForm</span> {
+     <span class="hljs-keyword">static</span> iframe           = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'login form'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">tagName</span>(<span class="hljs-string">'iframe'</span>));
+     <span class="hljs-keyword">static</span> usernameField    = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'username field'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="username"]'</span>));
+     <span class="hljs-keyword">static</span> passwordField    = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'password field'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="password"]'</span>));
+     <span class="hljs-keyword">static</span> submitButton     = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'submit button'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">`button[type='submit']`</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Switch to an iframe and back</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Switch, Enter, Click } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Switch</span>, <span class="hljs-title class_">Enter</span>, <span class="hljs-title class_">Click</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Francesca'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Switch.toFrame(LoginForm.iframe),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Francesca'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toFrame</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">iframe</span>),
 
-         Enter.theValue(<span class="hljs-string">'francesca@example.org'</span>).into(LoginForm.usernameField),
-         Enter.theValue(<span class="hljs-string">'correct-horse-battery-staple'</span>).into(LoginForm.passwordField),
-         Click.on(LoginForm.submitButton),
+         <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'francesca@example.org'</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">usernameField</span>),
+         <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'correct-horse-battery-staple'</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">passwordField</span>),
+         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">submitButton</span>),
 
-         Switch.toParentFrame(),
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toParentFrame</span>(),
      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform activities in the context of an iframe</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Switch, Enter, Click } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Switch</span>, <span class="hljs-title class_">Enter</span>, <span class="hljs-title class_">Click</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Francesca'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Switch.toFrame(LoginForm.iframe).and(
-             Enter.theValue(<span class="hljs-string">'francesca@example.org'</span>).into(LoginForm.usernameField),
-             Enter.theValue(<span class="hljs-string">'correct-horse-battery-staple'</span>).into(LoginForm.passwordField),
-             Click.on(LoginForm.submitButton),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Francesca'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toFrame</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">iframe</span>).<span class="hljs-title function_">and</span>(
+             <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'francesca@example.org'</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">usernameField</span>),
+             <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'correct-horse-battery-staple'</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">passwordField</span>),
+             <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">LoginForm</span>.<span class="hljs-property">submitButton</span>),
          ),
          <span class="hljs-comment">// Note that Switch.toParentFrame() is invoked automatically</span>
      );</code></pre>
@@ -278,35 +278,35 @@
       <div class="example-caption" data-ice="exampleCaption">Switch to a new window/tab and back</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Switch, Close } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Switch</span>, <span class="hljs-title class_">Close</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Francesca'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Switch.toNewWindow(), <span class="hljs-comment">// or: Switch.toWindow(...)</span>
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Francesca'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toNewWindow</span>(), <span class="hljs-comment">// or: Switch.toWindow(...)</span>
 
          <span class="hljs-comment">// perform some activities in the context of the new window</span>
 
-         Close.currentWindow(),
+         <span class="hljs-title class_">Close</span>.<span class="hljs-title function_">currentWindow</span>(),
 
-         Switch.toOriginalWindow(),
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toOriginalWindow</span>(),
      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Perform activities in the context of a different window/tab</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Switch, Close } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Switch</span>, <span class="hljs-title class_">Close</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Francesca'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Switch.toNewWindow().and(
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Francesca'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toNewWindow</span>().<span class="hljs-title function_">and</span>(
              <span class="hljs-comment">// perform some activities in the context of the new window</span>
 
-             Close.currentWindow()
+             <span class="hljs-title class_">Close</span>.<span class="hljs-title function_">currentWindow</span>()
          ),
 
          <span class="hljs-comment">// Note that Switch.toOriginalWindow() is invoked automatically</span>
@@ -543,7 +543,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber195">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber196">source</a></span></span>
     </span>
   </h3>
 
@@ -608,7 +608,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber137">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber138">source</a></span></span>
     </span>
   </h3>
 
@@ -695,7 +695,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber250">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber251">source</a></span></span>
     </span>
   </h3>
 
@@ -762,7 +762,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber278">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber279">source</a></span></span>
     </span>
   </h3>
 
@@ -829,7 +829,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber168">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber169">source</a></span></span>
     </span>
   </h3>
 
@@ -898,7 +898,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber223">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Switch.ts.html#lineNumber224">source</a></span></span>
     </span>
   </h3>
 

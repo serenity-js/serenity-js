@@ -133,127 +133,127 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
 <span class="hljs-keyword">import</span> serenityReporterForJasmine = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../src'</span>);
 
-describe(<span class="hljs-string">'@serenity-js/jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'@serenity-js/jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> jasmine: <span class="hljs-built_in">any</span>;
-    <span class="hljs-keyword">let</span> attrs: <span class="hljs-built_in">any</span>;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">jasmine</span>: <span class="hljs-built_in">any</span>;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">attrs</span>: <span class="hljs-built_in">any</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span> env = {
-            <span class="hljs-attr">beforeEach</span>: sinon.spy(),
-            <span class="hljs-attr">afterAll</span>: sinon.spy(),
+            <span class="hljs-attr">beforeEach</span>: sinon.<span class="hljs-title function_">spy</span>(),
+            <span class="hljs-attr">afterAll</span>: sinon.<span class="hljs-title function_">spy</span>(),
         };
 
         attrs = {
-            <span class="hljs-function"><span class="hljs-title">expectationResultFactory</span>(<span class="hljs-params">fnAttrs</span>)</span> {
+            <span class="hljs-title function_">expectationResultFactory</span>(<span class="hljs-params">fnAttrs</span>) {
                 <span class="hljs-keyword">return</span> {};
             },
         };
 
         jasmine = {
-            <span class="hljs-attr">Spec</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Spec</span>(<span class="hljs-params"></span>) </span>{
-                <span class="hljs-built_in">this</span>.result = {};
+            <span class="hljs-title class_">Spec</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">Spec</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">result</span> = {};
             },
-            <span class="hljs-attr">Suite</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Suite</span>(<span class="hljs-params"></span>) </span>{
-                <span class="hljs-built_in">this</span>.result = {};
+            <span class="hljs-title class_">Suite</span>: <span class="hljs-keyword">function</span> <span class="hljs-title function_">Suite</span>(<span class="hljs-params"></span>) {
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">result</span> = {};
             },
             <span class="hljs-attr">getEnv</span>: <span class="hljs-function">() =&gt;</span> env,
         };
     });
 
-    describe(<span class="hljs-string">'monkey-patches Jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'monkey-patches Jasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'so that the Spec'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'so that the Spec'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">bootstrap</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">monkeyPatched</span>}
              */</span>
-            it(<span class="hljs-string">'defaults to an unknown location if the real one could not be determined'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'defaults to an unknown location if the real one could not be determined'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">// detecting the real location is done in Jasmine integration tests</span>
-                serenityReporterForJasmine(jasmine);
+                <span class="hljs-title function_">serenityReporterForJasmine</span>(jasmine);
 
-                <span class="hljs-keyword">const</span> spec = <span class="hljs-keyword">new</span> jasmine.Spec(attrs);
+                <span class="hljs-keyword">const</span> spec = <span class="hljs-keyword">new</span> jasmine.<span class="hljs-title class_">Spec</span>(attrs);
 
-                expect(spec.result.location.path).to.equal(<span class="hljs-string">'unknown'</span>);
-                expect(spec.result.location.line).to.equal(<span class="hljs-number">0</span>);
-                expect(spec.result.location.column).to.equal(<span class="hljs-number">0</span>);
+                <span class="hljs-title function_">expect</span>(spec.<span class="hljs-property">result</span>.<span class="hljs-property">location</span>.<span class="hljs-property">path</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'unknown'</span>);
+                <span class="hljs-title function_">expect</span>(spec.<span class="hljs-property">result</span>.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
+                <span class="hljs-title function_">expect</span>(spec.<span class="hljs-property">result</span>.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">bootstrap</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">monkeyPatched</span>}
              */</span>
-            it(<span class="hljs-string">'has all the static members of the original constructor function'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has all the static members of the original constructor function'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">'=&gt; marked Pending'</span>;
+                jasmine.<span class="hljs-property">Spec</span>.<span class="hljs-property">pendingSpecExceptionMessage</span> = <span class="hljs-string">'=&gt; marked Pending'</span>;
 
-                serenityReporterForJasmine(jasmine);
+                <span class="hljs-title function_">serenityReporterForJasmine</span>(jasmine);
 
-                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">'=&gt; marked Pending'</span>);
+                <span class="hljs-title function_">expect</span>(jasmine.<span class="hljs-property">Spec</span>.<span class="hljs-property">pendingSpecExceptionMessage</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'=&gt; marked Pending'</span>);
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">bootstrap</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">monkeyPatched</span>}
              */</span>
-            it(<span class="hljs-string">'has all the static members of the original constructor function'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has all the static members of the original constructor function'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                jasmine.Spec.pendingSpecExceptionMessage = <span class="hljs-string">'=&gt; marked Pending'</span>;
+                jasmine.<span class="hljs-property">Spec</span>.<span class="hljs-property">pendingSpecExceptionMessage</span> = <span class="hljs-string">'=&gt; marked Pending'</span>;
 
-                serenityReporterForJasmine(jasmine);
+                <span class="hljs-title function_">serenityReporterForJasmine</span>(jasmine);
 
-                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal(<span class="hljs-string">'=&gt; marked Pending'</span>);
+                <span class="hljs-title function_">expect</span>(jasmine.<span class="hljs-property">Spec</span>.<span class="hljs-property">pendingSpecExceptionMessage</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'=&gt; marked Pending'</span>);
             });
 
-            it(<span class="hljs-string">'correctly reports the stacktrace of an error'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Connection error'</span>));
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly reports the stacktrace of an error'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'DB is down'</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Connection error'</span>));
 
-                serenityReporterForJasmine(jasmine);
+                <span class="hljs-title function_">serenityReporterForJasmine</span>(jasmine);
 
-                <span class="hljs-keyword">const</span> spec_ = <span class="hljs-keyword">new</span> jasmine.Spec(attrs);
+                <span class="hljs-keyword">const</span> spec_ = <span class="hljs-keyword">new</span> jasmine.<span class="hljs-title class_">Spec</span>(attrs);
 
-                <span class="hljs-keyword">const</span> result = attrs.expectationResultFactory({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
+                <span class="hljs-keyword">const</span> result = attrs.<span class="hljs-title function_">expectationResultFactory</span>({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
 
-                <span class="hljs-keyword">const</span> frames = result.stack.split(<span class="hljs-string">'\n'</span>);
-                expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'TestCompromisedError: DB is down'</span>);
-                expect(frames).to.include(<span class="hljs-string">'Caused by: Error: Connection error'</span>);
+                <span class="hljs-keyword">const</span> frames = result.<span class="hljs-property">stack</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>);
+                <span class="hljs-title function_">expect</span>(frames[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'TestCompromisedError: DB is down'</span>);
+                <span class="hljs-title function_">expect</span>(frames).<span class="hljs-property">to</span>.<span class="hljs-title function_">include</span>(<span class="hljs-string">'Caused by: Error: Connection error'</span>);
             });
         });
 
-        describe(<span class="hljs-string">'so that the Suite'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'so that the Suite'</span>, <span class="hljs-function">() =&gt;</span> {
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{bootstrap}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{monkeyPatched}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">bootstrap</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">monkeyPatched</span>}
              */</span>
-            it(<span class="hljs-string">'defaults to an unknown location if the real one could not be determined'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'defaults to an unknown location if the real one could not be determined'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">// detecting the real location is done in Jasmine integration tests</span>
-                serenityReporterForJasmine(jasmine);
+                <span class="hljs-title function_">serenityReporterForJasmine</span>(jasmine);
 
-                <span class="hljs-keyword">const</span> suite = <span class="hljs-keyword">new</span> jasmine.Suite(attrs);
+                <span class="hljs-keyword">const</span> suite = <span class="hljs-keyword">new</span> jasmine.<span class="hljs-title class_">Suite</span>(attrs);
 
-                expect(suite.result.location.path).to.equal(<span class="hljs-string">'unknown'</span>);
-                expect(suite.result.location.line).to.equal(<span class="hljs-number">0</span>);
-                expect(suite.result.location.column).to.equal(<span class="hljs-number">0</span>);
+                <span class="hljs-title function_">expect</span>(suite.<span class="hljs-property">result</span>.<span class="hljs-property">location</span>.<span class="hljs-property">path</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'unknown'</span>);
+                <span class="hljs-title function_">expect</span>(suite.<span class="hljs-property">result</span>.<span class="hljs-property">location</span>.<span class="hljs-property">line</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
+                <span class="hljs-title function_">expect</span>(suite.<span class="hljs-property">result</span>.<span class="hljs-property">location</span>.<span class="hljs-property">column</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
             });
 
-            it(<span class="hljs-string">'correctly reports the stacktrace of an error'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'DB is down'</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Connection error'</span>));
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly reports the stacktrace of an error'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'DB is down'</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Connection error'</span>));
 
-                serenityReporterForJasmine(jasmine);
+                <span class="hljs-title function_">serenityReporterForJasmine</span>(jasmine);
 
-                <span class="hljs-keyword">const</span> suite_ = <span class="hljs-keyword">new</span> jasmine.Suite(attrs);
+                <span class="hljs-keyword">const</span> suite_ = <span class="hljs-keyword">new</span> jasmine.<span class="hljs-title class_">Suite</span>(attrs);
 
-                <span class="hljs-keyword">const</span> result = attrs.expectationResultFactory({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
+                <span class="hljs-keyword">const</span> result = attrs.<span class="hljs-title function_">expectationResultFactory</span>({ <span class="hljs-attr">passing</span>: <span class="hljs-literal">false</span>, error });
 
-                <span class="hljs-keyword">const</span> frames = result.stack.split(<span class="hljs-string">'\n'</span>);
-                expect(frames[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-string">'TestCompromisedError: DB is down'</span>);
-                expect(frames).to.include(<span class="hljs-string">'Caused by: Error: Connection error'</span>);
+                <span class="hljs-keyword">const</span> frames = result.<span class="hljs-property">stack</span>.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>);
+                <span class="hljs-title function_">expect</span>(frames[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'TestCompromisedError: DB is down'</span>);
+                <span class="hljs-title function_">expect</span>(frames).<span class="hljs-property">to</span>.<span class="hljs-title function_">include</span>(<span class="hljs-string">'Caused by: Error: Connection error'</span>);
             });
         });
     });

@@ -298,119 +298,119 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
 describe (<span class="hljs-string">'Path'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'when used across different operating systems'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> linuxPath = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`features/search/full-text.feature`</span>),
-            windowsPath = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">`features\\search\\full-text.feature`</span>);
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used across different operating systems'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> linuxPath = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`features/search/full-text.feature`</span>),
+            windowsPath = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`features\\search\\full-text.feature`</span>);
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-        it(<span class="hljs-string">'produces the same result no matter what path it\'s instantiated with'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(linuxPath).to.equal(windowsPath);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'produces the same result no matter what path it\'s instantiated with'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(linuxPath).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(windowsPath);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-        it(<span class="hljs-string">'exposes the normalised path string'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(linuxPath.value).to.equal(windowsPath.value);
-            expect(linuxPath.value).to.equal(<span class="hljs-string">`features/search/full-text.feature`</span>);
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'exposes the normalised path string'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(linuxPath.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(windowsPath.<span class="hljs-property">value</span>);
+            <span class="hljs-title function_">expect</span>(linuxPath.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`features/search/full-text.feature`</span>);
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-        it(<span class="hljs-string">'splits the same'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(linuxPath.split()).to.deep.equal([
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'splits the same'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(linuxPath.<span class="hljs-title function_">split</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
                 <span class="hljs-string">'features'</span>,
                 <span class="hljs-string">'search'</span>,
                 <span class="hljs-string">'full-text.feature'</span>,
             ]);
-            expect(linuxPath.split()).to.deep.equal(windowsPath.split());
+            <span class="hljs-title function_">expect</span>(linuxPath.<span class="hljs-title function_">split</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(windowsPath.<span class="hljs-title function_">split</span>());
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> path = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/file.json'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised and deserialised'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> path = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/file.json'</span>);
 
-        expect(Path.fromJSON(path.toJSON() <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>)).to.equal(path);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromJSON</span>(path.<span class="hljs-title function_">toJSON</span>() <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(path);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'can join path components into a single path'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can join path components into a single path'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
-            p1 = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan'</span>),
-            p2 = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'file.json'</span>);
+            p1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan'</span>),
+            p2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'file.json'</span>);
 
-        expect(p1.join(p2)).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/file.json'</span>));
+        <span class="hljs-title function_">expect</span>(p1.<span class="hljs-title function_">join</span>(p2)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/file.json'</span>));
     });
 
-    given([
-        { <span class="hljs-attr">path</span>: Path.from(<span class="hljs-string">'../home'</span>),   <span class="hljs-attr">expected</span>: <span class="hljs-string">'../home'</span> },
-        { <span class="hljs-attr">path</span>: Path.from(<span class="hljs-string">'./home'</span>),    <span class="hljs-attr">expected</span>: <span class="hljs-string">'home'</span>    },
-        { <span class="hljs-attr">path</span>: Path.from(<span class="hljs-string">'home'</span>),      <span class="hljs-attr">expected</span>: <span class="hljs-string">'home'</span>    },
+    <span class="hljs-title function_">given</span>([
+        { <span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'../home'</span>),   <span class="hljs-attr">expected</span>: <span class="hljs-string">'../home'</span> },
+        { <span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'./home'</span>),    <span class="hljs-attr">expected</span>: <span class="hljs-string">'home'</span>    },
+        { <span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'home'</span>),      <span class="hljs-attr">expected</span>: <span class="hljs-string">'home'</span>    },
     ]).
-    it(<span class="hljs-string">'can be instantiated from a path segment'</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
-        expect(path.value).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be instantiated from a path segment'</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(path.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'can be instantiated from path segments'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> path = Path.from(<span class="hljs-string">'/home'</span>, <span class="hljs-string">'..'</span>, <span class="hljs-string">'users'</span>, <span class="hljs-string">'jan'</span>, <span class="hljs-string">'file.json'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be instantiated from path segments'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> path = <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'/home'</span>, <span class="hljs-string">'..'</span>, <span class="hljs-string">'users'</span>, <span class="hljs-string">'jan'</span>, <span class="hljs-string">'file.json'</span>);
 
-        expect(path.value).to.equal(<span class="hljs-string">'/users/jan/file.json'</span>);
+        <span class="hljs-title function_">expect</span>(path.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'/users/jan/file.json'</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'can split an absolute path'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/directory/file.json'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can split an absolute path'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/directory/file.json'</span>);
 
-        expect(p.split()).to.deep.equal([ <span class="hljs-string">'home'</span>, <span class="hljs-string">'jan'</span>, <span class="hljs-string">'directory'</span>, <span class="hljs-string">'file.json'</span> ]);
+        <span class="hljs-title function_">expect</span>(p.<span class="hljs-title function_">split</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([ <span class="hljs-string">'home'</span>, <span class="hljs-string">'jan'</span>, <span class="hljs-string">'directory'</span>, <span class="hljs-string">'file.json'</span> ]);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'can split a relative path'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'directory/file.json'</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can split a relative path'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'directory/file.json'</span>);
 
-        expect(p.split()).to.deep.equal([ <span class="hljs-string">'directory'</span>, <span class="hljs-string">'file.json'</span> ]);
+        <span class="hljs-title function_">expect</span>(p.<span class="hljs-title function_">split</span>()).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([ <span class="hljs-string">'directory'</span>, <span class="hljs-string">'file.json'</span> ]);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'can resolve two paths'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can resolve two paths'</span>, <span class="hljs-function">() =&gt;</span> {
         <span class="hljs-keyword">const</span>
-            p1 = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/documents'</span>),
-            p2 = <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'../projects'</span>);
+            p1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/documents'</span>),
+            p2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'../projects'</span>);
 
-        expect(p1.resolve(p2).value).to.match(<span class="hljs-regexp">/([A-Z]:)?\/home\/jan\/projects$/</span>);
+        <span class="hljs-title function_">expect</span>(p1.<span class="hljs-title function_">resolve</span>(p2).<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/([A-Z]:)?\/home\/jan\/projects$/</span>);
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">'knows the root directory'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/documents'</span>).root()).to.equal(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/'</span>));
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'knows the root directory'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/documents'</span>).<span class="hljs-title function_">root</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/'</span>));
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Path}</span> </span>*/</span>
-    it(<span class="hljs-string">`knows if it's absolute or relative`</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/documents'</span>).isAbsolute()).to.equal(<span class="hljs-literal">true</span>);
-        expect(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'documents'</span>).isAbsolute()).to.equal(<span class="hljs-literal">false</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Path</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`knows if it's absolute or relative`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/documents'</span>).<span class="hljs-title function_">isAbsolute</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'documents'</span>).<span class="hljs-title function_">isAbsolute</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
     });
 
-    given(
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'file in a sub-directory'</span>, <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/file.json'</span>), <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan'</span>) },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'sub-directory'</span>,           <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan'</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home'</span>) },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'root'</span>,                    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/'</span>),                   <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/'</span>) },
+    <span class="hljs-title function_">given</span>(
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'file in a sub-directory'</span>, <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/file.json'</span>), <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan'</span>) },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'sub-directory'</span>,           <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan'</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home'</span>) },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'root'</span>,                    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/'</span>),                   <span class="hljs-attr">expected</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/'</span>) },
     ).
-    it(<span class="hljs-string">'can tell the parent directory'</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
-        expect(path.directory()).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can tell the parent directory'</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(path.<span class="hljs-title function_">directory</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 
-    given(
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'file in a sub-directory'</span>, <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan/file.json'</span>), <span class="hljs-attr">expected</span>: <span class="hljs-string">'file.json'</span> },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'sub-directory'</span>,           <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/home/jan'</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">'jan'</span> },
-        { <span class="hljs-attr">description</span>: <span class="hljs-string">'root'</span>,                    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> Path(<span class="hljs-string">'/'</span>),                   <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span> },
+    <span class="hljs-title function_">given</span>(
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'file in a sub-directory'</span>, <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan/file.json'</span>), <span class="hljs-attr">expected</span>: <span class="hljs-string">'file.json'</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'sub-directory'</span>,           <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/home/jan'</span>),           <span class="hljs-attr">expected</span>: <span class="hljs-string">'jan'</span> },
+        { <span class="hljs-attr">description</span>: <span class="hljs-string">'root'</span>,                    <span class="hljs-attr">path</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'/'</span>),                   <span class="hljs-attr">expected</span>: <span class="hljs-string">''</span> },
     ).
-    it(<span class="hljs-string">'can tell the name of the directory in which the file lives'</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
-        expect(path.basename()).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can tell the name of the directory in which the file lives'</span>, <span class="hljs-function">(<span class="hljs-params">{ path, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(path.<span class="hljs-title function_">basename</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 });
 </code></pre>

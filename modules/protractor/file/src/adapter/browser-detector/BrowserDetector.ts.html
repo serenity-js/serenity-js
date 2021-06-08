@@ -187,69 +187,70 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/browser-detector/BrowserDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneStarts, SceneTagged } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { BrowserTag, CorrelationId, Description, PlatformTag } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { StageCrewMember } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
-<span class="hljs-keyword">import</span> { StandardisedCapabilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StandardisedCapabilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-title class_">AsyncOperationCompleted</span>, <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">SceneTagged</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowserTag</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">PlatformTag</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StandardisedCapabilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StandardisedCapabilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  *
- * <span class="hljs-doctag">@see </span>https://github.com/serenity-js/serenity-js/issues/455
- * <span class="hljs-doctag">@see </span>https://github.com/serenity-bdd/serenity-core/pull/1860/files
- * <span class="hljs-doctag">@see </span>https://github.com/serenity-js/serenity-js/issues/132
+ * <span class="hljs-doctag">@see</span> https://github.com/serenity-js/serenity-js/issues/455
+ * <span class="hljs-doctag">@see</span> https://github.com/serenity-bdd/serenity-core/pull/1860/files
+ * <span class="hljs-doctag">@see</span> https://github.com/serenity-js/serenity-js/issues/132
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BrowserDetector</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrowserDetector</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
 
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">with</span>(capabilities: StandardisedCapabilities): BrowserDetector {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserDetector(capabilities);
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">with</span>(<span class="hljs-attr">capabilities</span>: <span class="hljs-title class_">StandardisedCapabilities</span>): <span class="hljs-title class_">BrowserDetector</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserDetector</span>(capabilities);
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> capabilities: StandardisedCapabilities,
         <span class="hljs-keyword">private</span> stage?: Stage,
-    </span>)</span> {
+    </span>) {
     }
 
-    assignedTo(stage: Stage): StageCrewMember {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BrowserDetector(<span class="hljs-built_in">this</span>.capabilities, stage);
+    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserDetector</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>, stage);
     }
 
-    notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> SceneStarts) {
-            <span class="hljs-keyword">const</span> id = CorrelationId.create();
+    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">SceneStarts</span>) {
+            <span class="hljs-keyword">const</span> id = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>();
 
-            <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationAttempted(
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Detecting web browser details...`</span>),
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Detecting web browser details...`</span>),
                 id,
-                <span class="hljs-built_in">this</span>.stage.currentTime(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
             ));
 
-            <span class="hljs-built_in">Promise</span>.all([
-                <span class="hljs-built_in">this</span>.capabilities.browserName(),
-                <span class="hljs-built_in">this</span>.capabilities.browserVersion(),
-                <span class="hljs-built_in">this</span>.capabilities.platformName(),
-                <span class="hljs-built_in">this</span>.capabilities.platformVersion(),
+            <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">browserName</span>(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">browserVersion</span>(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">platformName</span>(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">platformVersion</span>(),
             ]).
-            then(<span class="hljs-function">(<span class="hljs-params">[browserName, browserVersion, platformName, platformVersion]</span>) =&gt;</span> {
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[browserName, browserVersion, platformName, platformVersion]</span>) =&gt;</span> {
 
-                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneTagged(
-                    event.sceneId,
-                    <span class="hljs-keyword">new</span> BrowserTag(browserName, browserVersion),
-                    <span class="hljs-built_in">this</span>.stage.currentTime(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTagged</span>(
+                    event.<span class="hljs-property">sceneId</span>,
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserTag</span>(browserName, browserVersion),
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
                 ));
 
-                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> SceneTagged(
-                    event.sceneId,
-                    <span class="hljs-keyword">new</span> PlatformTag(platformName, platformVersion),
-                    <span class="hljs-built_in">this</span>.stage.currentTime(),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTagged</span>(
+                    event.<span class="hljs-property">sceneId</span>,
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">PlatformTag</span>(platformName, platformVersion),
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
                 ));
 
-                <span class="hljs-built_in">this</span>.stage.announce(<span class="hljs-keyword">new</span> AsyncOperationCompleted(
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-built_in">this</span>.constructor.name }</span>] Detected web browser details`</span>),
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationCompleted</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Detected web browser details`</span>),
                     id,
-                    <span class="hljs-built_in">this</span>.stage.currentTime(),
+                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
                 ));
             });
         }

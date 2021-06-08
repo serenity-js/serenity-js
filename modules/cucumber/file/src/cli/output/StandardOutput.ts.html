@@ -131,16 +131,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/output/StandardOutput.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { OutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
-<span class="hljs-keyword">import</span> { SerenityFormatterOutput } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityFormatterOutput'</span>;
-<span class="hljs-keyword">import</span> { StandardOutputDescriptor } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StandardOutputDescriptor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputDescriptor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./OutputDescriptor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityFormatterOutput</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityFormatterOutput'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StandardOutputDescriptor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StandardOutputDescriptor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StandardOutput</span> <span class="hljs-title">implements</span> <span class="hljs-title">SerenityFormatterOutput</span> </span>{
-    get(): OutputDescriptor {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> StandardOutputDescriptor();
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StandardOutput</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">SerenityFormatterOutput</span> {
+    <span class="hljs-title function_">get</span>(): <span class="hljs-title class_">OutputDescriptor</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardOutputDescriptor</span>();
     }
 }
 </code></pre>

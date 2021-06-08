@@ -138,7 +138,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {ChangeApiUrl} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">ChangeApiUrl</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -176,36 +176,36 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Changing the API URL</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Navigate, Target, Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, LastResponse, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>
 <span class="hljs-keyword">import</span> { protractor, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-keyword">import</span> axios  <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
-<span class="hljs-keyword">const</span> actor = Actor.named(<span class="hljs-string">'Apisit'</span>).whoCan(
-    BrowseTheWeb.using(protractor.browser),
+<span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(
+    <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
 
     <span class="hljs-comment">// Note: no default base URL is given when the axios instance is created</span>
-    CallAnApi.using(axios.create()),
+    <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(axios.<span class="hljs-title function_">create</span>()),
 );
 
 <span class="hljs-comment">// Let's imagine that the website under test displays</span>
 <span class="hljs-comment">// a dynamically generated API URL we'd like to use</span>
-<span class="hljs-keyword">const</span> ApiDetailsWidget = {
-    <span class="hljs-attr">Url</span>: Target.the(<span class="hljs-string">'API URL'</span>).located(by.id(<span class="hljs-string">'api-url'</span>)),
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">ApiDetailsWidget</span> = {
+    <span class="hljs-title class_">Url</span>: <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'API URL'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'api-url'</span>)),
 }
 
-actor.attemptsTo(
-    Navigate.to(<span class="hljs-string">'/profile'</span>),
+actor.<span class="hljs-title function_">attemptsTo</span>(
+    <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/profile'</span>),
 
     <span class="hljs-comment">// We change the API URL based on the text displayed in the widget</span>
     <span class="hljs-comment">// (although we could change it to some arbitrary string too).</span>
-    ChangeApiUrl.to(Text.of(ApiDetailsWidget.Url)),
+    <span class="hljs-title class_">ChangeApiUrl</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">ApiDetailsWidget</span>.<span class="hljs-property">Url</span>)),
 
     <span class="hljs-comment">// Any subsequent request will be sent to the newly set URL</span>
-    Send.a(GetRequest.to(<span class="hljs-string">'/projects'</span>)),
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
+    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/projects'</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
 );</code></pre>
     </div>
 </div>

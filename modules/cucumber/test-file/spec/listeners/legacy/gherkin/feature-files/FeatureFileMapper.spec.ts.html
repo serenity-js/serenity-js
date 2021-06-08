@@ -134,255 +134,255 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> Gherkin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>); <span class="hljs-comment">// ts-node:disable-line:no-var-requires     No type definitions available</span>
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArbitraryTag</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">IssueTag</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioParameters</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Gherkin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>); <span class="hljs-comment">// ts-node:disable-line:no-var-requires     No type definitions available</span>
 
 <span class="hljs-keyword">import</span> {
-    Background,
-    Feature,
-    FeatureFileMap,
-    FeatureFileMapper,
-    FeatureFileParser,
-    Scenario,
-    ScenarioOutline,
-    Step,
+    <span class="hljs-title class_">Background</span>,
+    <span class="hljs-title class_">Feature</span>,
+    <span class="hljs-title class_">FeatureFileMap</span>,
+    <span class="hljs-title class_">FeatureFileMapper</span>,
+    <span class="hljs-title class_">FeatureFileParser</span>,
+    <span class="hljs-title class_">Scenario</span>,
+    <span class="hljs-title class_">ScenarioOutline</span>,
+    <span class="hljs-title class_">Step</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/listeners/legacy/gherkin'</span>;
 
-describe(<span class="hljs-string">'FeatureFileMapper'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'FeatureFileMapper'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> fixtures = <span class="hljs-keyword">new</span> Path(__dirname).join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'fixtures'</span>));
+    <span class="hljs-keyword">const</span> fixtures = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(__dirname).<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'fixtures'</span>));
 
-    describe(<span class="hljs-string">'when mapping names and descriptions'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping names and descriptions'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'maps a feature'</span>, parse(<span class="hljs-string">'names_and_descriptions.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            expect(map.get(Feature).onLine(<span class="hljs-number">1</span>)).to.equal(<span class="hljs-keyword">new</span> Feature(
-                <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'names_and_descriptions.feature'</span>)),
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps a feature'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'names_and_descriptions.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Feature</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Feature</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'names_and_descriptions.feature'</span>)),
                     <span class="hljs-number">1</span>,
                     <span class="hljs-number">1</span>,
                 ),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Names and descriptions'</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'A multi-line\n\ndescription\nof a feature'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Names and descriptions'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'A multi-line\n\ndescription\nof a feature'</span>),
             ));
         }));
 
-        it(<span class="hljs-string">'maps a scenario with a single-line description'</span>, parse(<span class="hljs-string">'names_and_descriptions.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">8</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps a scenario with a single-line description'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'names_and_descriptions.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">8</span>);
 
-            expect(scenario.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with a description'</span>));
-            expect(scenario.description).to.equal(<span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of a scenario'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with a description'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of a scenario'</span>));
         }));
 
-        it(<span class="hljs-string">'maps a scenario with a multi-line description'</span>, parse(<span class="hljs-string">'names_and_descriptions.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">14</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps a scenario with a multi-line description'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'names_and_descriptions.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">14</span>);
 
-            expect(scenario.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with a multi-line description'</span>));
-            expect(scenario.description).to.equal(<span class="hljs-keyword">new</span> Description(<span class="hljs-string">'A multi-line\n\ndescription\nof a scenario'</span>));
-        }));
-    });
-
-    describe(<span class="hljs-string">'when mapping scenarios with no steps'</span>, <span class="hljs-function">() =&gt;</span> {
-
-        it(<span class="hljs-string">'maps a scenario even though it has no steps defined'</span>, parse(<span class="hljs-string">'no_steps.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">3</span>);
-
-            expect(scenario.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with no steps'</span>));
-            expect(scenario.steps).have.lengthOf(<span class="hljs-number">0</span>);
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with a multi-line description'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'A multi-line\n\ndescription\nof a scenario'</span>));
         }));
     });
 
-    describe(<span class="hljs-string">'when mapping scenarios with backgrounds'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping scenarios with no steps'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'maps the background with no name or description'</span>, parse(<span class="hljs-string">'background_with_no_name_or_description.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> firstBackground = map.get(Background).onLine(<span class="hljs-number">3</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps a scenario even though it has no steps defined'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'no_steps.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">3</span>);
 
-            expect(firstBackground.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">''</span>));
-            expect(firstBackground.description).to.equal(<span class="hljs-literal">undefined</span>);
-            expect(firstBackground.steps).to.deep.equal([
-                <span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'background_with_no_name_or_description.feature'</span>)),
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with no steps'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">steps</span>).<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">0</span>);
+        }));
+    });
+
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping scenarios with backgrounds'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps the background with no name or description'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'background_with_no_name_or_description.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> firstBackground = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Background</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">3</span>);
+
+            <span class="hljs-title function_">expect</span>(firstBackground.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">''</span>));
+            <span class="hljs-title function_">expect</span>(firstBackground.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">undefined</span>);
+            <span class="hljs-title function_">expect</span>(firstBackground.<span class="hljs-property">steps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'background_with_no_name_or_description.feature'</span>)),
                         <span class="hljs-number">5</span>,
                         <span class="hljs-number">5</span>,
                     ),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a prerequisite'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given a prerequisite'</span>),
                 ),
             ]);
         }));
 
-        it(<span class="hljs-string">'maps the background with name and description'</span>, parse(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> firstBackground = map.get(Background).onLine(<span class="hljs-number">3</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps the background with name and description'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> firstBackground = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Background</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">3</span>);
 
-            expect(firstBackground.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one that provides some context'</span>));
-            expect(firstBackground.description).to.equal(<span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Once upon a time, there was a test suite.'</span>));
-            expect(firstBackground.steps).to.deep.equal([
-                <span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'backgrounds.feature'</span>)),
+            <span class="hljs-title function_">expect</span>(firstBackground.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one that provides some context'</span>));
+            <span class="hljs-title function_">expect</span>(firstBackground.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Once upon a time, there was a test suite.'</span>));
+            <span class="hljs-title function_">expect</span>(firstBackground.<span class="hljs-property">steps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'backgrounds.feature'</span>)),
                         <span class="hljs-number">7</span>,
                         <span class="hljs-number">5</span>,
                     ),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a prerequisite'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given a prerequisite'</span>),
                 ),
             ]);
         }));
 
-        it(<span class="hljs-string">'associates the background with the feature'</span>, parse(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> feature = map.get(Feature).onLine(<span class="hljs-number">1</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'associates the background with the feature'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> feature = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Feature</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">1</span>);
 
-            expect(feature.background).to.equal(
-                <span class="hljs-keyword">new</span> Background(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one that provides some context'</span>),
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Once upon a time, there was a test suite.'</span>),
+            <span class="hljs-title function_">expect</span>(feature.<span class="hljs-property">background</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Background</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one that provides some context'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Once upon a time, there was a test suite.'</span>),
                     [
-                        <span class="hljs-keyword">new</span> Step(
-                            <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a prerequisite'</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given a prerequisite'</span>),
                         ),
                     ],
                 )
             );
         }));
 
-        it(<span class="hljs-string">'associates the background steps with the scenarios'</span>, parse(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">9</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'associates the background steps with the scenarios'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'backgrounds.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">9</span>);
 
-            expect(scenario.steps).to.deep.equal([
-                <span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a prerequisite'</span>),
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">steps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given a prerequisite'</span>),
                 ),
-                <span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">11</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given some scenario step'</span>),
-                ),
-            ]);
-        }));
-    });
-
-    describe(<span class="hljs-string">'when mapping scenario with special step arguments'</span>, <span class="hljs-function">() =&gt;</span> {
-
-        it(<span class="hljs-string">'recognises DocString argument'</span>, parse(<span class="hljs-string">'step_arguments.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">3</span>);
-
-            expect(scenario.steps).to.deep.equal([
-                <span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'step_arguments.feature'</span>)), <span class="hljs-number">5</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step with DocString argument:\nA couple of\nlines of\ntext'</span>),
-                ),
-            ]);
-        }));
-
-        it(<span class="hljs-string">'recognises DataTable argument'</span>, parse(<span class="hljs-string">'step_arguments.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">12</span>);
-
-            expect(scenario.steps).to.deep.equal([
-                <span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'step_arguments.feature'</span>)), <span class="hljs-number">14</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given a step with a DataTable argument:\n| first name | last name |\n| Jan | Molak |'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'backgrounds.feature'</span>)), <span class="hljs-number">11</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given some scenario step'</span>),
                 ),
             ]);
         }));
     });
 
-    describe(<span class="hljs-string">'when mapping scenario outlines with one set of examples'</span>, <span class="hljs-function">() =&gt;</span> {
-        it(<span class="hljs-string">'maps the scenario template'</span>, parse(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping scenario with special step arguments'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises DocString argument'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'step_arguments.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">3</span>);
+
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">steps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'step_arguments.feature'</span>)), <span class="hljs-number">5</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given a step with DocString argument:\nA couple of\nlines of\ntext'</span>),
+                ),
+            ]);
+        }));
+
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises DataTable argument'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'step_arguments.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">12</span>);
+
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">steps</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'step_arguments.feature'</span>)), <span class="hljs-number">14</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given a step with a DataTable argument:\n| first name | last name |\n| Jan | Molak |'</span>),
+                ),
+            ]);
+        }));
+    });
+
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping scenario outlines with one set of examples'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps the scenario template'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                scenario = map.get(ScenarioOutline).onLine(<span class="hljs-number">3</span>),
-                path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'scenario_outlines.feature'</span>));
+                scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">ScenarioOutline</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">3</span>),
+                path = fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'scenario_outlines.feature'</span>));
 
-            expect(scenario).to.equal(<span class="hljs-keyword">new</span> ScenarioOutline(
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with examples'</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the scenario with examples'</span>),
+            <span class="hljs-title function_">expect</span>(scenario).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioOutline</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with examples'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the scenario with examples'</span>),
                 [
-                    <span class="hljs-keyword">new</span> Step(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
-                        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a &lt;parameter&gt;'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given step with a &lt;parameter&gt;'</span>),
                     ),
                 ],
                 {
-                    <span class="hljs-number">14</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the example set'</span>),
-                        <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the example set'</span>),
+                    <span class="hljs-number">14</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Name of the example set'</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the example set'</span>),
                         { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value one'</span> },
                     ),
-                    <span class="hljs-number">15</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the example set'</span>),
-                        <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the example set'</span>),
+                    <span class="hljs-number">15</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Name of the example set'</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the example set'</span>),
                         { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value two'</span> },
                     ),
                 },
             ));
         }));
 
-        it(<span class="hljs-string">'maps the interpolated scenario'</span>, parse(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'scenario_outlines.feature'</span>));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'maps the interpolated scenario'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> path = fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'scenario_outlines.feature'</span>));
 
-            expect(map.get(Scenario).onLine(<span class="hljs-number">14</span>)).to.equal(<span class="hljs-keyword">new</span> Scenario(
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">14</span>, <span class="hljs-number">7</span>),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with examples'</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the scenario with examples'</span>),
+            <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">14</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Scenario</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">14</span>, <span class="hljs-number">7</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with examples'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the scenario with examples'</span>),
                 [
-                    <span class="hljs-keyword">new</span> Step(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
-                        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a value one'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given step with a value one'</span>),
                     ),
                 ],
                 [],
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
             ));
 
-            expect(map.get(Scenario).onLine(<span class="hljs-number">15</span>)).to.equal(<span class="hljs-keyword">new</span> Scenario(
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">15</span>, <span class="hljs-number">7</span>),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with examples'</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the scenario with examples'</span>),
+            <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">15</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Scenario</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">15</span>, <span class="hljs-number">7</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with examples'</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the scenario with examples'</span>),
                 [
-                    <span class="hljs-keyword">new</span> Step(
-                        <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
-                        <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a value two'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">7</span>, <span class="hljs-number">5</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given step with a value two'</span>),
                     ),
                 ],
                 [],
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>),
             ));
         }));
     });
 
-    describe(<span class="hljs-string">'when mapping scenario outlines with multiple sets of examples'</span>, <span class="hljs-function">() =&gt;</span> {
-        it(<span class="hljs-string">'recognises the different names and descriptions of example sets'</span>, parse(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'scenario_outlines.feature'</span>));
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping scenario outlines with multiple sets of examples'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises the different names and descriptions of example sets'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> path = fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'scenario_outlines.feature'</span>));
 
             <span class="hljs-comment">/* eslint-disable @typescript-eslint/indent */</span>
-            expect(map.get(ScenarioOutline).onLine(<span class="hljs-number">17</span>)).to.equal(
-                <span class="hljs-keyword">new</span> ScenarioOutline(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">17</span>, <span class="hljs-number">3</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with more examples'</span>),
-                    <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the scenario with more examples'</span>),
+            <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">ScenarioOutline</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">17</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioOutline</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">17</span>, <span class="hljs-number">3</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with more examples'</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the scenario with more examples'</span>),
                     [
-                        <span class="hljs-keyword">new</span> Step(
-                            <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">21</span>, <span class="hljs-number">5</span>),
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a &lt;parameter&gt;'</span>),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">21</span>, <span class="hljs-number">5</span>),
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given step with a &lt;parameter&gt;'</span>),
                         ),
                     ],
                     {
-                        <span class="hljs-number">28</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the first set of examples'</span>),
-                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the first set of examples'</span>),
+                        <span class="hljs-number">28</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Name of the first set of examples'</span>),
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the first set of examples'</span>),
                                 { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value one'</span> },
                             ),
-                        <span class="hljs-number">29</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the first set of examples'</span>),
-                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the first set of examples'</span>),
+                        <span class="hljs-number">29</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Name of the first set of examples'</span>),
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the first set of examples'</span>),
                                 { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value two'</span> },
                             ),
-                        <span class="hljs-number">36</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the second set of examples'</span>),
-                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the second set of examples'</span>),
+                        <span class="hljs-number">36</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Name of the second set of examples'</span>),
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the second set of examples'</span>),
                                 { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value three'</span> },
                             ),
-                        <span class="hljs-number">37</span>: <span class="hljs-keyword">new</span> ScenarioParameters(
-                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Name of the second set of examples'</span>),
-                                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">'Description of the second set of examples'</span>),
+                        <span class="hljs-number">37</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Name of the second set of examples'</span>),
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Description of the second set of examples'</span>),
                                 { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value four'</span> },
                             ),
                     },
@@ -392,97 +392,97 @@ describe(<span class="hljs-string">'FeatureFileMapper'</span>, <span class="hljs
         }));
     });
 
-    describe(<span class="hljs-string">'when mapping scenario outlines with special step arguments'</span>, <span class="hljs-function">() =&gt;</span> {
-        it(<span class="hljs-string">'recognises and interpolates DocString arguments'</span>, parse(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping scenario outlines with special step arguments'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises and interpolates DocString arguments'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'scenario_outlines.feature'</span>)),
-                outline = map.get(ScenarioOutline).onLine(<span class="hljs-number">39</span>);
+                path = fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'scenario_outlines.feature'</span>)),
+                outline = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">ScenarioOutline</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">39</span>);
 
-            expect(outline.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with parametrised step argument (DocString)'</span>));
-            expect(outline.steps[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-keyword">new</span> Step(
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">41</span>, <span class="hljs-number">5</span>),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a:\nParameter of &lt;parameter&gt;'</span>),
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with parametrised step argument (DocString)'</span>));
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">steps</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">41</span>, <span class="hljs-number">5</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given step with a:\nParameter of &lt;parameter&gt;'</span>),
             ));
-            expect(outline.parameters[<span class="hljs-number">49</span>]).to.equal(<span class="hljs-keyword">new</span> ScenarioParameters(
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">''</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">''</span>),
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">parameters</span>[<span class="hljs-number">49</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">''</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">''</span>),
                 { <span class="hljs-attr">parameter</span>: <span class="hljs-string">'value one'</span> },
             ));
 
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">49</span>);
-            expect(scenario.steps[ <span class="hljs-number">0</span> ]).to.equal(<span class="hljs-keyword">new</span> Step(
-                <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">41</span>, <span class="hljs-number">5</span>),
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given step with a:\nParameter of value one'</span>),
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">49</span>);
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">steps</span>[ <span class="hljs-number">0</span> ]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">41</span>, <span class="hljs-number">5</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given step with a:\nParameter of value one'</span>),
             ));
         }));
 
-        it(<span class="hljs-string">'recognises and interpolates DataTable arguments'</span>, parse(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises and interpolates DataTable arguments'</span>, <span class="hljs-title function_">parse</span>(<span class="hljs-string">'scenario_outlines.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                outline = map.get(ScenarioOutline).onLine(<span class="hljs-number">51</span>),
-                path = fixtures.join(<span class="hljs-keyword">new</span> Path(<span class="hljs-string">'scenario_outlines.feature'</span>));
+                outline = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">ScenarioOutline</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">51</span>),
+                path = fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'scenario_outlines.feature'</span>));
 
-            expect(outline.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'The one with parametrised step argument (DataTable)'</span>));
-            expect(outline.steps[<span class="hljs-number">0</span>])
-                .to.equal(<span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">53</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given the user logs in as &lt;username&gt; with the following credentials:\n| username | &lt;username&gt; |\n| password | &lt;password&gt; |'</span>),
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'The one with parametrised step argument (DataTable)'</span>));
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">steps</span>[<span class="hljs-number">0</span>])
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">53</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given the user logs in as &lt;username&gt; with the following credentials:\n| username | &lt;username&gt; |\n| password | &lt;password&gt; |'</span>),
                 ));
-            expect(outline.parameters[<span class="hljs-number">60</span>]).to.equal(<span class="hljs-keyword">new</span> ScenarioParameters(
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">''</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">''</span>),
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">parameters</span>[<span class="hljs-number">60</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">''</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">''</span>),
                 { <span class="hljs-attr">username</span>: <span class="hljs-string">'admin'</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">'P@ssw0rd1'</span> },
             ));
-            expect(outline.parameters[<span class="hljs-number">61</span>]).to.equal(<span class="hljs-keyword">new</span> ScenarioParameters(
-                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">''</span>),
-                <span class="hljs-keyword">new</span> Description(<span class="hljs-string">''</span>),
+            <span class="hljs-title function_">expect</span>(outline.<span class="hljs-property">parameters</span>[<span class="hljs-number">61</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioParameters</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">''</span>),
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">''</span>),
                 { <span class="hljs-attr">username</span>: <span class="hljs-string">'editor'</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">'P@ssw0rd2'</span> },
             ));
 
-            expect(map.get(Scenario).onLine(<span class="hljs-number">60</span>).steps[<span class="hljs-number">0</span>])
-                .to.equal(<span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">53</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given the user logs in as admin with the following credentials:\n| username | admin |\n| password | P@ssw0rd1 |'</span>),
+            <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">60</span>).<span class="hljs-property">steps</span>[<span class="hljs-number">0</span>])
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">53</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given the user logs in as admin with the following credentials:\n| username | admin |\n| password | P@ssw0rd1 |'</span>),
                 ));
 
-            expect(map.get(Scenario).onLine(<span class="hljs-number">61</span>).steps[<span class="hljs-number">0</span>])
-                .to.equal(<span class="hljs-keyword">new</span> Step(
-                    <span class="hljs-keyword">new</span> FileSystemLocation(path, <span class="hljs-number">53</span>, <span class="hljs-number">5</span>),
-                    <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Given the user logs in as editor with the following credentials:\n| username | editor |\n| password | P@ssw0rd2 |'</span>),
+            <span class="hljs-title function_">expect</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">61</span>).<span class="hljs-property">steps</span>[<span class="hljs-number">0</span>])
+                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Step</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(path, <span class="hljs-number">53</span>, <span class="hljs-number">5</span>),
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Given the user logs in as editor with the following credentials:\n| username | editor |\n| password | P@ssw0rd2 |'</span>),
                 ));
         }));
     });
 
-    describe(<span class="hljs-string">'when mapping an empty feature file'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping an empty feature file'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'returns an empty map'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns an empty map'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> empty = { <span class="hljs-attr">type</span>: <span class="hljs-string">'GherkinDocument'</span>, <span class="hljs-attr">comments</span>: [] };
 
-            <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> FeatureFileMapper();
+            <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>();
 
-            expect(mapper.map(empty, fixtures).size()).to.equal(<span class="hljs-number">0</span>);
+            <span class="hljs-title function_">expect</span>(mapper.<span class="hljs-title function_">map</span>(empty, fixtures).<span class="hljs-title function_">size</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
         });
     });
 
-    describe(<span class="hljs-string">'when mapping a tagged scenario'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping a tagged scenario'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        it(<span class="hljs-string">'detects all the applicable tags'</span>,  parse(<span class="hljs-string">'tags.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> scenario = map.get(Scenario).onLine(<span class="hljs-number">7</span>);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'detects all the applicable tags'</span>,  <span class="hljs-title function_">parse</span>(<span class="hljs-string">'tags.feature'</span>, <span class="hljs-function"><span class="hljs-params">map</span> =&gt;</span> {
+            <span class="hljs-keyword">const</span> scenario = map.<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Scenario</span>).<span class="hljs-title function_">onLine</span>(<span class="hljs-number">7</span>);
 
-            expect(scenario.tags[<span class="hljs-number">0</span>]).to.equal(<span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'ABC-123'</span>));
-            expect(scenario.tags[<span class="hljs-number">1</span>]).to.equal(<span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'DEF-456'</span>));
-            expect(scenario.tags[<span class="hljs-number">2</span>]).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'saves-data'</span>));
-            expect(scenario.tags[<span class="hljs-number">3</span>]).to.equal(<span class="hljs-keyword">new</span> IssueTag(<span class="hljs-string">'GHI-789'</span>));
-            expect(scenario.tags[<span class="hljs-number">4</span>]).to.equal(<span class="hljs-keyword">new</span> ArbitraryTag(<span class="hljs-string">'regression'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">tags</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">IssueTag</span>(<span class="hljs-string">'ABC-123'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">tags</span>[<span class="hljs-number">1</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">IssueTag</span>(<span class="hljs-string">'DEF-456'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">tags</span>[<span class="hljs-number">2</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArbitraryTag</span>(<span class="hljs-string">'saves-data'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">tags</span>[<span class="hljs-number">3</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">IssueTag</span>(<span class="hljs-string">'GHI-789'</span>));
+            <span class="hljs-title function_">expect</span>(scenario.<span class="hljs-property">tags</span>[<span class="hljs-number">4</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArbitraryTag</span>(<span class="hljs-string">'regression'</span>));
         }));
     });
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parse</span>(<span class="hljs-params">featureFileName: <span class="hljs-built_in">string</span>, spec: (map: FeatureFileMap) =&gt; <span class="hljs-built_in">void</span></span>) </span>{
+    <span class="hljs-keyword">function</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">featureFileName: <span class="hljs-built_in">string</span>, spec: (map: FeatureFileMap) =&gt; <span class="hljs-built_in">void</span></span>) {
         <span class="hljs-keyword">const</span>
-            path = fixtures.join(<span class="hljs-keyword">new</span> Path(featureFileName)),
-            mapper = <span class="hljs-keyword">new</span> FeatureFileMapper(),
-            loader = <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser());
+            path = fixtures.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(featureFileName)),
+            mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>(),
+            loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileParser</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Gherkin</span>.<span class="hljs-title class_">Parser</span>());
 
-        <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> loader.parse(path).then(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> mapper.map(<span class="hljs-built_in">document</span>, path)).then(spec);
+        <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> loader.<span class="hljs-title function_">parse</span>(path).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> mapper.<span class="hljs-title function_">map</span>(<span class="hljs-variable language_">document</span>, path)).<span class="hljs-title function_">then</span>(spec);
     }
 });
 </code></pre>

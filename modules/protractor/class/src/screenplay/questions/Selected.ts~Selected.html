@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Selected} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Selected</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber22">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber23">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -377,7 +377,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber203">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber204">source</a></span></span>
     </span>
   </h3>
 
@@ -438,35 +438,35 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select data-test=<span class="hljs-string">'countries'</span>&gt;
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
-     <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">'countries dropdown'</span>)
-         .located(by.css(<span class="hljs-string">'[data-test="countries"]'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Countries</span> {
+     <span class="hljs-keyword">static</span> dropdown = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'countries dropdown'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="countries"]'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the selected value</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Accept, BrowseTheWeb, Select, Selected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Accept</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Select</span>, <span class="hljs-title class_">Selected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Select.option(<span class="hljs-string">'Poland'</span>).from(Countries.dropdown),
-         Ensure.that(
-             Selected.optionIn(Countries.dropdown),
-             equals(<span class="hljs-string">'Poland'</span>)
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Select</span>.<span class="hljs-title function_">option</span>(<span class="hljs-string">'Poland'</span>).<span class="hljs-title function_">from</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+             <span class="hljs-title class_">Selected</span>.<span class="hljs-title function_">optionIn</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>),
+             <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Poland'</span>)
          ),
      );</code></pre>
     </div>
@@ -496,7 +496,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber266">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber267">source</a></span></span>
     </span>
   </h3>
 
@@ -557,35 +557,35 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select multiple data-test=<span class="hljs-string">'countries'</span>&gt;
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
-     <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">'countries dropdown'</span>)
-         .located(by.css(<span class="hljs-string">'[data-test="countries"]'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Countries</span> {
+     <span class="hljs-keyword">static</span> dropdown = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'countries dropdown'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="countries"]'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the selected value</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Accept, BrowseTheWeb, Select, Selected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Accept</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Select</span>, <span class="hljs-title class_">Selected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Select.options(<span class="hljs-string">'Poland'</span>, <span class="hljs-string">'United States'</span>).from(Countries.dropdown),
-         Ensure.that(
-             Selected.optionsIn(Countries.dropdown),
-             equals([ <span class="hljs-string">'Poland'</span>, <span class="hljs-string">'United States'</span> ])
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Select</span>.<span class="hljs-title function_">options</span>(<span class="hljs-string">'Poland'</span>, <span class="hljs-string">'United States'</span>).<span class="hljs-title function_">from</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
+             <span class="hljs-title class_">Selected</span>.<span class="hljs-title function_">optionsIn</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>),
+             <span class="hljs-title function_">equals</span>([ <span class="hljs-string">'Poland'</span>, <span class="hljs-string">'United States'</span> ])
          ),
      );</code></pre>
     </div>
@@ -617,7 +617,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber81">source</a></span></span>
     </span>
   </h3>
 
@@ -678,33 +678,33 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select data-test=<span class="hljs-string">'countries'</span>&gt;
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
-     <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">'countries dropdown'</span>)
-         .located(by.css(<span class="hljs-string">'[data-test="countries"]'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Countries</span> {
+     <span class="hljs-keyword">static</span> dropdown = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'countries dropdown'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="countries"]'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the selected value</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Accept, BrowseTheWeb, Select, Selected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Accept</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Select</span>, <span class="hljs-title class_">Selected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Select.value(<span class="hljs-string">'UK'</span>).from(Countries.dropdown),
-         Ensure.that(Selected.valueOf(Countries.dropdown), equals(<span class="hljs-string">'UK'</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Select</span>.<span class="hljs-title function_">value</span>(<span class="hljs-string">'UK'</span>).<span class="hljs-title function_">from</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Selected</span>.<span class="hljs-title function_">valueOf</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'UK'</span>)),
      );</code></pre>
     </div>
 </div>
@@ -733,7 +733,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber140">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/questions/Selected.ts.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 
@@ -794,33 +794,33 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;select multiple data-test=<span class="hljs-string">'countries'</span>&gt;
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
-     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'UK'</span>&gt;</span>United Kingdom<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'PL'</span>&gt;</span>Poland<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
+     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">option</span> <span class="hljs-attr">value</span>=<span class="hljs-string">'US'</span>&gt;</span>United States<span class="hljs-tag">&lt;/<span class="hljs-name">option</span>&gt;</span></span>
  &lt;/select&gt;</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Countries</span> </span>{
-     <span class="hljs-keyword">static</span> dropdown = Target.the(<span class="hljs-string">'countries dropdown'</span>)
-         .located(by.css(<span class="hljs-string">'[data-test="countries"]'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">Countries</span> {
+     <span class="hljs-keyword">static</span> dropdown = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'countries dropdown'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="countries"]'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Retrieving the selected value</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Accept, BrowseTheWeb, Select, Selected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Accept</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Select</span>, <span class="hljs-title class_">Selected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Nick'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Select.values(<span class="hljs-string">'UK'</span>).from(Countries.dropdown),
-         Ensure.that(Selected.valuesOf(Countries.dropdown), equals([ <span class="hljs-string">'UK'</span> ])),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Select</span>.<span class="hljs-title function_">values</span>(<span class="hljs-string">'UK'</span>).<span class="hljs-title function_">from</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Selected</span>.<span class="hljs-title function_">valuesOf</span>(<span class="hljs-title class_">Countries</span>.<span class="hljs-property">dropdown</span>), <span class="hljs-title function_">equals</span>([ <span class="hljs-string">'UK'</span> ])),
      );</code></pre>
     </div>
 </div>

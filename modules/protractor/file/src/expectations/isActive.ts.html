@@ -187,25 +187,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/isActive.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder, WebElement } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { ElementFinderExpectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ElementFinderExpectation'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">WebElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinderExpectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ElementFinderExpectation'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Expectation that the element is active.
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~Expectation&lt;boolean, ElementFinder&gt;}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;boolean, ElementFinder&gt;</span>}
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Ensure}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Check}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Wait}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions~Ensure</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions~Check</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Wait</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isActive</span>(<span class="hljs-params"></span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">boolean</span>, <span class="hljs-title">ElementFinder</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> ElementFinderExpectation.forElementTo(<span class="hljs-string">'become active'</span>, <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span>
-        actual.getWebElement().then(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span>
-            element.getDriver().switchTo().activeElement().then(<span class="hljs-function">(<span class="hljs-params">active: WebElement</span>) =&gt;</span>
-                actual.equals(active),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isActive</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">boolean</span>, <span class="hljs-title class_">ElementFinder</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">ElementFinderExpectation</span>.<span class="hljs-title function_">forElementTo</span>(<span class="hljs-string">'become active'</span>, <span class="hljs-function">(<span class="hljs-params">actual: ElementFinder</span>) =&gt;</span>
+        actual.<span class="hljs-title function_">getWebElement</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">element</span> =&gt;</span>
+            element.<span class="hljs-title function_">getDriver</span>().<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">activeElement</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">active: WebElement</span>) =&gt;</span>
+                actual.<span class="hljs-title function_">equals</span>(active),
             ),
         ),
     );

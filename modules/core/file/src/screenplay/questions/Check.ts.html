@@ -295,20 +295,20 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Check.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../io'</span>;
-<span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
-<span class="hljs-keyword">import</span> { AnswersQuestions, PerformsActivities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
-<span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
-<span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Task'</span>;
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
-<span class="hljs-keyword">import</span> { ExpectationMet } <span class="hljs-keyword">from</span> <span class="hljs-string">'./expectations'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Activity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">PerformsActivities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Task'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpectationMet</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./expectations'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  A control flow statement that enables the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+ *  A control flow statement that enables the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
  *  either to choose whether or not to perform a series of activities,
  *  or to choose which of the two provided series of activities to perform.
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Choose from two alternatives&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Choose from two alternatives&lt;/caption&gt;
  *  import { equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *  import { Check } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *
@@ -322,7 +322,7 @@
  *          )
  *  );
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Choose whether or not to perform an activity&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Choose whether or not to perform an activity&lt;/caption&gt;
  *  import { equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *  import { Check } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { isDisplayed } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
@@ -334,75 +334,75 @@
  *          )
  *  );
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{@serenity-js/core/lib/screenplay~Task}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Task</span>}
  *
- * <span class="hljs-doctag">@see </span>https://en.wikipedia.org/wiki/Control_flow
+ * <span class="hljs-doctag">@see</span> https://en.wikipedia.org/wiki/Control_flow
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Check</span>&lt;<span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Task</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Check</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Task</span> {
     <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types</span>
-    <span class="hljs-keyword">static</span> whether&lt;A&gt;(actual: Answerable&lt;A&gt;, expectation: Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;) {
+    <span class="hljs-keyword">static</span> whether&lt;A&gt;(<span class="hljs-attr">actual</span>: <span class="hljs-title class_">Answerable</span>&lt;A&gt;, <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;) {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">andIfSo</span>: <span class="hljs-function">(<span class="hljs-params">...activities: Activity[]</span>) =&gt;</span> <span class="hljs-keyword">new</span> Check(actual, expectation, activities),
+            <span class="hljs-attr">andIfSo</span>: <span class="hljs-function">(<span class="hljs-params">...activities: Activity[]</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Check</span>(actual, expectation, activities),
         };
     }
 
     <span class="hljs-comment">/**
      *
-     * <span class="hljs-doctag">@param <span class="hljs-variable">actual</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-variable">expectation</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-variable">activities</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-variable">alternativeActivities</span></span>
+     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">actual</span>
+     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">expectation</span>
+     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">activities</span>
+     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">alternativeActivities</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> actual: Answerable&lt;Actual&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> activities: Activity[],
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> alternativeActivities: Activity[] = [],
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{...@serenity-js/core/lib/screenplay~Activity[]}</span> <span class="hljs-variable">alternativeActivities</span></span>
-     * <span class="hljs-doctag">@return <span class="hljs-type">{@serenity-js/core/lib/screenplay~Task}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">...@serenity-js/core/lib/screenplay~Activity[]</span>} <span class="hljs-variable">alternativeActivities</span>
+     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Task</span>}
      */</span>
-    otherwise(...alternativeActivities: Activity[]): Task {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Check&lt;Actual&gt;(<span class="hljs-built_in">this</span>.actual, <span class="hljs-built_in">this</span>.expectation, <span class="hljs-built_in">this</span>.activities, alternativeActivities);
+    <span class="hljs-title function_">otherwise</span>(...<span class="hljs-attr">alternativeActivities</span>: <span class="hljs-title class_">Activity</span>[]): <span class="hljs-title class_">Task</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Check</span>&lt;<span class="hljs-title class_">Actual</span>&gt;(<span class="hljs-variable language_">this</span>.<span class="hljs-property">actual</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">activities</span>, alternativeActivities);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Task}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Task}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; PerformsActivities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; PerformsActivities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~PerformsActivities</span>}
      */</span>
-    performAs(actor: AnswersQuestions &amp; PerformsActivities): PromiseLike&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.all([
-            actor.answer(<span class="hljs-built_in">this</span>.actual),
-            actor.answer(<span class="hljs-built_in">this</span>.expectation),
-        ]).then(<span class="hljs-function">(<span class="hljs-params">[actual, expectation]</span>) =&gt;</span>
-            expectation(actual).then(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span>
-                outcome <span class="hljs-keyword">instanceof</span> ExpectationMet
-                    ? actor.attemptsTo(...this.activities)
-                    : actor.attemptsTo(...this.alternativeActivities),
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">PerformsActivities</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
+            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">actual</span>),
+            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>),
+        ]).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[actual, expectation]</span>) =&gt;</span>
+            <span class="hljs-title function_">expectation</span>(actual).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span>
+                outcome <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>
+                    ? actor.<span class="hljs-title function_">attemptsTo</span>(...<span class="hljs-variable language_">this</span>.<span class="hljs-property">activities</span>)
+                    : actor.<span class="hljs-title function_">attemptsTo</span>(...<span class="hljs-variable language_">this</span>.<span class="hljs-property">alternativeActivities</span>),
             ),
         );
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor checks whether <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.actual }</span> does <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.expectation }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor checks whether <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.actual }</span> does <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.expectation }</span>`</span>;
     }
 }
 </code></pre>

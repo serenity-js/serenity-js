@@ -188,25 +188,26 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/expectations/isSelected.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { and } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { ElementFinderExpectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ElementFinderExpectation'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinderExpectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ElementFinderExpectation'</span>;
 <span class="hljs-keyword">import</span> { isPresent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./isPresent'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Expectation that the element is present and selected
  *
- * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay/questions~Expectation&lt;boolean, ElementFinder&gt;}</span></span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;boolean, ElementFinder&gt;</span>}
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Ensure}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/assertions~Check}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Wait}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions~Ensure</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/assertions~Check</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Wait</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isSelected</span>(<span class="hljs-params"></span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">ElementFinder</span>&gt; </span>{
-    <span class="hljs-keyword">return</span> Expectation.to&lt;ElementFinder&gt;(<span class="hljs-string">'become selected'</span>).soThatActual(and(
-        isPresent(),
-        ElementFinderExpectation.forElementTo(<span class="hljs-string">'become selected'</span>, <span class="hljs-function"><span class="hljs-params">actual</span> =&gt;</span> actual.isSelected()),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">isSelected</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">ElementFinder</span>&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>.<span class="hljs-property">to</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;(<span class="hljs-string">'become selected'</span>).<span class="hljs-title function_">soThatActual</span>(<span class="hljs-title function_">and</span>(
+        <span class="hljs-title function_">isPresent</span>(),
+        <span class="hljs-title class_">ElementFinderExpectation</span>.<span class="hljs-title function_">forElementTo</span>(<span class="hljs-string">'become selected'</span>, <span class="hljs-function"><span class="hljs-params">actual</span> =&gt;</span> actual.<span class="hljs-title function_">isSelected</span>()),
     ));
 }
 </code></pre>

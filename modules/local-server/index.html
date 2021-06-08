@@ -148,25 +148,25 @@ or raw <a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction
 </code></pre>
 <h3 id="example-test">Example test</h3><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ManageALocalServer, StartLocalTestServer, StopLocalTestServer
+    <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">StartLocalTestServer</span>, <span class="hljs-title class_">StopLocalTestServer</span>
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>
-<span class="hljs-keyword">import</span> { CallAnApi, GetRequest, Send } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
 <span class="hljs-keyword">import</span> { requestListener } <span class="hljs-keyword">from</span> <span class="hljs-string">'./listener'</span>;                           (<span class="hljs-number">1</span>)
 
-<span class="hljs-keyword">const</span> actor = actorCalled(<span class="hljs-string">'Apisit'</span>).whoCan(
-    ManageALocalServer.using(requestListener),                          (<span class="hljs-number">2</span>)
-    CallAnApi.using(axios.create()),
+<span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(
+    <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">using</span>(requestListener),                          (<span class="hljs-number">2</span>)
+    <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(axios.<span class="hljs-title function_">create</span>()),
 );
 
-actor.attemptsTo(
-    StartLocalTestServer.onRandomPort(),                                (<span class="hljs-number">3</span>)
-    Send.a(GetRequest.to(LocalServer.url())),                           (<span class="hljs-number">4</span>)
-    Ensure.that(LastResponse.status(), equals(<span class="hljs-number">200</span>)),
-    Ensure.that(LastResponse.body(), equals(<span class="hljs-string">'Hello!'</span>)),
-    StopLocalTestServer.ifRunning(),                                    (<span class="hljs-number">5</span>)
+actor.<span class="hljs-title function_">attemptsTo</span>(
+    <span class="hljs-title class_">StartLocalTestServer</span>.<span class="hljs-title function_">onRandomPort</span>(),                                (<span class="hljs-number">3</span>)
+    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>())),                           (<span class="hljs-number">4</span>)
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
+    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">body</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Hello!'</span>)),
+    <span class="hljs-title class_">StopLocalTestServer</span>.<span class="hljs-title function_">ifRunning</span>(),                                    (<span class="hljs-number">5</span>)
 );
 </code></pre><p>In the above example:</p>
 <ol>
@@ -183,48 +183,48 @@ would accept can be used with <code>ManageALocalServer</code>.</p>
 <p>Below are example implementations of a simple HTTP server that would
 satisfy the above test.</p>
 <h4 id="raw-node-js">Raw Node.js</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-built_in">module</span>.exports.requestListener = <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {
-  response.setHeader(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
-  response.end(<span class="hljs-string">'Hello World!'</span>);
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {
+  response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
+  response.<span class="hljs-title function_">end</span>(<span class="hljs-string">'Hello World!'</span>);
 }
 </code></pre>
 <p><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Learn more about Node.js</a>.</p>
 <h4 id="express">Express</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
 <span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
 
-<span class="hljs-built_in">module</span>.exports.requestListener = express().
-    get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request, res: express.Response</span>) =&gt;</span> {
-        res.status(<span class="hljs-number">200</span>).send(<span class="hljs-string">'Hello World!'</span>);
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = <span class="hljs-title function_">express</span>().
+    <span class="hljs-title function_">get</span>(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request, res: express.Response</span>) =&gt;</span> {
+        res.<span class="hljs-title function_">status</span>(<span class="hljs-number">200</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">'Hello World!'</span>);
     });
 </code></pre>
 <p><a href="https://expressjs.com/">Learn more about Express</a>.</p>
 <h4 id="hapi">HAPI</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
 <span class="hljs-keyword">const</span> hapi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/hapi'</span>);
 
-<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> hapi.Server();
-server.route({ <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>, <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">req, h</span>) =&gt;</span> <span class="hljs-string">'Hello World!'</span> })
+<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> hapi.<span class="hljs-title class_">Server</span>();
+server.<span class="hljs-title function_">route</span>({ <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>, <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">req, h</span>) =&gt;</span> <span class="hljs-string">'Hello World!'</span> })
 
-<span class="hljs-built_in">module</span>.exports.requestListener = server.listener;
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = server.<span class="hljs-property">listener</span>;
 </code></pre>
 <p><a href="https://hapijs.com/">Learn more about HAPI</a>.</p>
 <h4 id="koa">Koa</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">'koa'</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Koa</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'koa'</span>);
 
-<span class="hljs-built_in">module</span>.exports.requestListener = <span class="hljs-keyword">new</span> Koa()
-    .use(<span class="hljs-function"><span class="hljs-params">ctx</span> =&gt;</span> <span class="hljs-built_in">Promise</span>.resolve(ctx.body = <span class="hljs-string">'Hello World!'</span>))
-    .callback();
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Koa</span>()
+    .<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">ctx</span> =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(ctx.<span class="hljs-property">body</span> = <span class="hljs-string">'Hello World!'</span>))
+    .<span class="hljs-title function_">callback</span>();
 </code></pre>
 <p><a href="https://koajs.com/">Learn more about Koa</a>.</p>
 <h4 id="restify">Restify</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
 <span class="hljs-keyword">const</span> restify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'restify'</span>);
 
-<span class="hljs-keyword">const</span> server = restify.createServer(options);
+<span class="hljs-keyword">const</span> server = restify.<span class="hljs-title function_">createServer</span>(options);
 
-server.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
-    res.send(<span class="hljs-string">'Hello World!'</span>);
+server.<span class="hljs-title function_">get</span>(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
+    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">'Hello World!'</span>);
 });
 
-<span class="hljs-built_in">module</span>.exports.requestListener = server;
+<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = server;
 </code></pre>
 <p><a href="http://restify.com/">Learn more about Restify</a>.</p>
 </div>

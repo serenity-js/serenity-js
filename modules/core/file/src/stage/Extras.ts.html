@@ -294,17 +294,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/Extras.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Actor } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
-<span class="hljs-keyword">import</span> { Cast } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Cast'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Cast'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Produces no-op actors with no special {<span class="hljs-doctag">@link </span>Ability}
+ *  Produces no-op actors with no special {<span class="hljs-doctag">@link</span> Ability}
  *
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-    prepare(actor: Actor): Actor {
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
         <span class="hljs-keyword">return</span> actor;
     }
 }

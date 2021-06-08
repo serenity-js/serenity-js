@@ -135,48 +135,48 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation, Path, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { Category, ExecutionFailedWithError, ExecutionSuccessful, Name, ScenarioDetails } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span>, trimmed } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">ExecutionFailedWithError</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioDetails</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { Summary } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/Summary'</span>;
-<span class="hljs-keyword">import</span> { SummaryFormatter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/SummaryFormatter'</span>;
-<span class="hljs-keyword">import</span> { ThemeForMonochromaticTerminals } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/themes'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Summary</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/Summary'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SummaryFormatter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/SummaryFormatter'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ThemeForMonochromaticTerminals</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/console-reporter/themes'</span>;
 
-describe(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-function">() =&gt;</span> {
     <span class="hljs-keyword">const</span>
-        defaultCardPayment = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Default card payment'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Checkout'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/checkout.feature'</span>)),
+        defaultCardPayment = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Default card payment'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Checkout'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'features/checkout.feature'</span>)),
         ),
-        addingProductToBasket = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Adding product to a basket'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Basket'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/basket.feature'</span>)),
+        addingProductToBasket = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Adding product to a basket'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Basket'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'features/basket.feature'</span>)),
         ),
-        removingProductToBasket = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Removing product from a basket'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Basket'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/basket.feature'</span>)),
+        removingProductToBasket = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Removing product from a basket'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Basket'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'features/basket.feature'</span>)),
         ),
-        longCategoryName = <span class="hljs-keyword">new</span> ScenarioDetails(
-            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Recording customer details'</span>),
-            <span class="hljs-keyword">new</span> Category(<span class="hljs-string">'Know-Your-Customer and Anti Money Laundering requirements'</span>),
-            <span class="hljs-keyword">new</span> FileSystemLocation(Path.fromJSON(<span class="hljs-string">'features/registration.feature'</span>)),
+        longCategoryName = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Recording customer details'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Know-Your-Customer and Anti Money Laundering requirements'</span>),
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(<span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'features/registration.feature'</span>)),
         );
 
-    <span class="hljs-keyword">let</span> summary: Summary,
-        <span class="hljs-attr">formatter</span>: SummaryFormatter;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">summary</span>: <span class="hljs-title class_">Summary</span>,
+        <span class="hljs-attr">formatter</span>: <span class="hljs-title class_">SummaryFormatter</span>;
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        summary = <span class="hljs-keyword">new</span> Summary();
-        formatter = <span class="hljs-keyword">new</span> SummaryFormatter(<span class="hljs-keyword">new</span> ThemeForMonochromaticTerminals());
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        summary = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Summary</span>();
+        formatter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SummaryFormatter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ThemeForMonochromaticTerminals</span>());
     });
 
-    it(<span class="hljs-string">'provides an empty description if no tests are recorded'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides an empty description if no tests are recorded'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
+        <span class="hljs-title function_">expect</span>(formatter.<span class="hljs-title function_">format</span>(summary.<span class="hljs-title function_">aggregated</span>())).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(trimmed <span class="hljs-string">`
             | Execution Summary
             |
             |
@@ -185,11 +185,11 @@ describe(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-
         `</span>);
     });
 
-    it(<span class="hljs-string">'provides summary of a single successful category'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides summary of a single successful category'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        summary.record(defaultCardPayment, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
+        summary.<span class="hljs-title function_">record</span>(defaultCardPayment, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">5</span>));
 
-        expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
+        <span class="hljs-title function_">expect</span>(formatter.<span class="hljs-title function_">format</span>(summary.<span class="hljs-title function_">aggregated</span>())).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(trimmed <span class="hljs-string">`
             | Execution Summary
             |
             | Checkout:   1 successful, 1 total (5ms)
@@ -199,12 +199,12 @@ describe(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-
         `</span>);
     });
 
-    it(<span class="hljs-string">'aggregates results per category'</span>, <span class="hljs-function">() =&gt;</span> {
-        summary.record(defaultCardPayment, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
-        summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
-        summary.record(removingProductToBasket, <span class="hljs-keyword">new</span> ExecutionFailedWithError(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'boom'</span>)), Duration.ofMilliseconds(<span class="hljs-number">100</span>));
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'aggregates results per category'</span>, <span class="hljs-function">() =&gt;</span> {
+        summary.<span class="hljs-title function_">record</span>(defaultCardPayment, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">5</span>));
+        summary.<span class="hljs-title function_">record</span>(addingProductToBasket, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">10</span>));
+        summary.<span class="hljs-title function_">record</span>(removingProductToBasket, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'boom'</span>)), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">100</span>));
 
-        expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
+        <span class="hljs-title function_">expect</span>(formatter.<span class="hljs-title function_">format</span>(summary.<span class="hljs-title function_">aggregated</span>())).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(trimmed <span class="hljs-string">`
             | Execution Summary
             |
             | Basket:     1 broken, 1 successful, 2 total (110ms)
@@ -215,10 +215,10 @@ describe(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-
         `</span>);
     });
 
-    it(<span class="hljs-string">'caps the category name at 30 characters'</span>, <span class="hljs-function">() =&gt;</span> {
-        summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'caps the category name at 30 characters'</span>, <span class="hljs-function">() =&gt;</span> {
+        summary.<span class="hljs-title function_">record</span>(longCategoryName, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">5</span>));
 
-        expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
+        <span class="hljs-title function_">expect</span>(formatter.<span class="hljs-title function_">format</span>(summary.<span class="hljs-title function_">aggregated</span>())).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(trimmed <span class="hljs-string">`
             | Execution Summary
             |
             | Know-Your-Customer and Ant...:  1 successful, 1 total (5ms)
@@ -228,11 +228,11 @@ describe(<span class="hljs-string">'SummaryFormatter'</span>, <span class="hljs-
         `</span>);
     });
 
-    it(<span class="hljs-string">'keeps the padding consistent between longer and shorter category names'</span>, <span class="hljs-function">() =&gt;</span> {
-        summary.record(addingProductToBasket, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">10</span>));
-        summary.record(longCategoryName, <span class="hljs-keyword">new</span> ExecutionSuccessful(), Duration.ofMilliseconds(<span class="hljs-number">5</span>));
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'keeps the padding consistent between longer and shorter category names'</span>, <span class="hljs-function">() =&gt;</span> {
+        summary.<span class="hljs-title function_">record</span>(addingProductToBasket, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">10</span>));
+        summary.<span class="hljs-title function_">record</span>(longCategoryName, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">5</span>));
 
-        expect(formatter.format(summary.aggregated())).to.equal(trimmed <span class="hljs-string">`
+        <span class="hljs-title function_">expect</span>(formatter.<span class="hljs-title function_">format</span>(summary.<span class="hljs-title function_">aggregated</span>())).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(trimmed <span class="hljs-string">`
             | Execution Summary
             |
             | Basket:                         1 successful, 1 total (10ms)

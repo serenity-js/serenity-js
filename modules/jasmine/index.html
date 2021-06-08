@@ -146,7 +146,7 @@ to enable integration between Jasmine and Serenity/JS.</p>
 <h3 id="command-line-usage">Command line usage</h3><pre><code class="hljs gherkin">jasmine --reporter=<span class="hljs-meta">@serenity-js/jasmine</span>
 </code></pre><h3 id="programmatic-usage">Programmatic usage</h3><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> serenityReporterForJasmine = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/jasmine'</span>);
 
-jasmine.getEnv().addReporter(serenityReporterForJasmine);
+jasmine.<span class="hljs-title function_">getEnv</span>().<span class="hljs-title function_">addReporter</span>(serenityReporterForJasmine);
 </code></pre>
 </div>
 </article>

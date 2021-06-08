@@ -187,9 +187,9 @@ Actors are a key element of the pattern as they are the ones performing the test
 <p>In Serenity/JS, an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>Actor</code></a> is defined using an <a href="/modules/core/function/index.html#static-function-actorCalled"><code>actorCalled</code></a> convenience method:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
-<span class="hljs-keyword">import</span> { Actor, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">const</span> James: Actor = actorCalled(<span class="hljs-string">'James'</span>);
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">James</span>: <span class="hljs-title class_">Actor</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>);
 </code></pre>
 <p>You'll notice that in the code sample above I called the actor <code>James</code>. While you can give your actors whatever names you like,
 a good pattern to follow is to give them names indicating the <a href="https://articles.uie.com/goodwin_interview/">personae</a> they represent or the role they play in the system. This way you can help people working on the tests quickly recall the context, constraints and affordances of a given actor by associating the name of the actor with a persona they're already familiar with. </p>
@@ -217,13 +217,13 @@ a good pattern to follow is to give them names indicating the <a href="https://a
 <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
-            Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
         ));
 });
 </code></pre>
@@ -248,11 +248,11 @@ Well, it doesn't unless you tell it, and that's where <em>abilities</em> come in
 <p>You can think of an <a href="/modules/core/class/src/screenplay/Ability.ts~Ability.html"><code>Ability</code></a> as a thin wrapper around a client of a specific interface you'd like the actor to use.
 Those abilities is what the interactions use under the hood and what enables the actor to perform interactions with the system under test.</p>
 <p>For example, here's an ability that enables the actor to browse the Web using <code>protractor.browser</code> and enables Web-specific interactions such as <code>Navigate</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ability } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">const</span> browseTheWeb: Ability = BrowseTheWeb.using(protractor.browser);
+<span class="hljs-keyword">const</span> <span class="hljs-attr">browseTheWeb</span>: <span class="hljs-title class_">Ability</span> = <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>);
 </code></pre>
 <p>Now, you <em>could</em> give an actor this ability directly, using the <a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html#instance-method-whoCan"><code>actor.whoCan(..)</code></a> API:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
@@ -260,16 +260,16 @@ Those abilities is what the interactions use under the hood and what enables the
 <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
 <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'James'</span>)
-            .whoCan(BrowseTheWeb.using(protractor.browser))
-            .attemptsTo(
-                Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>)
+            .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+            .<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
             ));
 });
 </code></pre>
@@ -277,25 +277,25 @@ describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-fun
 <p>The alternative is to <a href="/modules/core/function/index.html#static-function-engage"><code>engage(..)</code></a> a <a href="/modules/core/class/src/stage/Cast.ts~Cast.html"><code>Cast</code></a> of actors, who gain their abilities when they prepare for the performance before the scenario starts:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled, <span class="hljs-title class_">Cast</span>, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-    prepare(actor: Actor): Actor {
-        <span class="hljs-keyword">return</span> actor.whoCan(
-            BrowseTheWeb.using(protractor.browser),
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
         );
     }
 }
 
-describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>()));
 
-    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
-            Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>)
         ));
 });
 </code></pre>
@@ -311,74 +311,74 @@ describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-fun
 <p>The fourth building block of the Screenplay Pattern is <em>questions</em>, and just like with interactions, questions are interface-specific and enabled by abilities.
 Answering a <a href="/modules/core/class/src/screenplay/Question.ts~Question.html"><code>Question</code></a> provides actor with information about the state of the system under test.</p>
 <p>For example, you have a question that retrieves the <a href="/modules/protractor/class/src/screenplay/questions/Website.ts~Website.html#static-method-title">title of the website</a>: </p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Website } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Website</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-<span class="hljs-keyword">const</span> title: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Website.title()
+<span class="hljs-keyword">const</span> <span class="hljs-attr">title</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Website</span>.<span class="hljs-title function_">title</span>()
 </code></pre>
 <p>Or the one that <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html">retrieves a web element</a> for the actor's interactions to target:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { by, ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { by, <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">const</span> header: Question&lt;ElementFinder&gt; = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
+<span class="hljs-keyword">const</span> <span class="hljs-attr">header</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt; = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'header'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'h1'</span>));
 </code></pre>
 <p>You also have higher-order questions that can be passed other questions as arguments.</p>
 <p>For example, this is how you retrieve the text of the header web element from the sample above:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Text } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-<span class="hljs-keyword">const</span> headerText: Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = Text.of(header);
+<span class="hljs-keyword">const</span> <span class="hljs-attr">headerText</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt; = <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(header);
 </code></pre>
 <p>So what can you do with those questions? A great many things!</p>
 <p>You can use them with most Serenity/JS interactions, such as the one that <a href="/modules/core/class/src/screenplay/interactions/Log.ts~Log.html">logs the answer</a> to the question so that it can be <a href="/modules/console-reporter/">printed to the terminal</a> (useful when debugging your test scenarios):</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Log } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-Log.the(headerText)
+<span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(headerText)
 </code></pre>
 <p>More importantly, you can also use them with <a href="/modules/assertions/">assertions</a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-Ensure.that(headerText, equals(<span class="hljs-string">'todos'</span>))
+<span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(headerText, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'todos'</span>))
 </code></pre>
 <p>As well as for <a href="/modules/protractor/class/src/screenplay/interactions/Wait.ts~Wait.html">synchronising your tests with the UI</a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { Wait, isPresent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Wait</span>, isPresent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
-Wait.until(header, isPresent())
-Wait.until(headerText, equals(<span class="hljs-string">'todos'</span>))
+<span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(header, <span class="hljs-title function_">isPresent</span>())
+<span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(headerText, <span class="hljs-title function_">equals</span>(<span class="hljs-string">'todos'</span>))
 </code></pre>
 <p>If you wanted to experiment with some of the above questions, you could expand the original test scenario as follows:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled, <span class="hljs-title class_">Cast</span>, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, isVisible, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span>, <span class="hljs-title class_">Wait</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-    prepare(actor: Actor): Actor {
-        <span class="hljs-keyword">return</span> actor.whoCan(
-            BrowseTheWeb.using(protractor.browser),
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
         );
     }
 }
 
 <span class="hljs-comment">// this is what I call a Lean Page Object, more on those later on in the book</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListApp</span> </span>{
-    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TodoListApp</span> {
+    <span class="hljs-keyword">static</span> header = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'header'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'h1'</span>));
 }
 
-describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>()));
 
-    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
-            Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
-            Wait.until(TodoListApp.header, isVisible()),
-            Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">'todos'</span>)),
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
+            <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(<span class="hljs-title class_">TodoListApp</span>.<span class="hljs-property">header</span>, <span class="hljs-title function_">isVisible</span>()),
+            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">TodoListApp</span>.<span class="hljs-property">header</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'todos'</span>)),
         ));
 });
 </code></pre>
@@ -397,69 +397,69 @@ describe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-fun
 <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { isVisible, Navigate, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { isVisible, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Text</span>, <span class="hljs-title class_">Wait</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
-<span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function">() =&gt;</span>
-    Task.where(<span class="hljs-string">`#actor launches the app`</span>, 
-        Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
-        Wait.until(TodoListApp.header, isVisible()),
-        Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">'todos'</span>)),
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">LaunchTheApp</span> = (<span class="hljs-params"></span>) =&gt;
+    <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor launches the app`</span>, 
+        <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
+        <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(<span class="hljs-title class_">TodoListApp</span>.<span class="hljs-property">header</span>, <span class="hljs-title function_">isVisible</span>()),
+        <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">TodoListApp</span>.<span class="hljs-property">header</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'todos'</span>)),
     )
 </code></pre>
 <p>To make an actor perform a task, you pass it to the <code>attemptsTo(..)</code> method, just like we did with the interactions.</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/todo.spec.ts</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { Actor, actorCalled, Cast, engage, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb, isVisible, Navigate, Target, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled, <span class="hljs-title class_">Cast</span>, engage, <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, isVisible, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span>, <span class="hljs-title class_">Wait</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 <span class="hljs-keyword">import</span> { by, protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Actors</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-    prepare(actor: Actor): Actor {
-        <span class="hljs-keyword">return</span> actor.whoCan(
-            BrowseTheWeb.using(protractor.browser),
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
+            <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
         );
     }
 }
 
 <span class="hljs-comment">// this is what I call a Lean Page Object, more on those later on in the book</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListApp</span> </span>{
-    <span class="hljs-keyword">static</span> header = Target.the(<span class="hljs-string">'header'</span>).located(by.css(<span class="hljs-string">'h1'</span>));
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">TodoListApp</span> {
+    <span class="hljs-keyword">static</span> header = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'header'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'h1'</span>));
 }
 
-<span class="hljs-keyword">const</span> LaunchTheApp = <span class="hljs-function">() =&gt;</span>
-    Task.where(<span class="hljs-string">`#actor launches the app`</span>,
-        Navigate.to(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
-        Wait.until(TodoListApp.header, isVisible()),
-        Ensure.that(Text.of(TodoListApp.header), equals(<span class="hljs-string">'todos'</span>)),
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">LaunchTheApp</span> = (<span class="hljs-params"></span>) =&gt;
+    <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor launches the app`</span>,
+        <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span>),
+        <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(<span class="hljs-title class_">TodoListApp</span>.<span class="hljs-property">header</span>, <span class="hljs-title function_">isVisible</span>()),
+        <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">TodoListApp</span>.<span class="hljs-property">header</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'todos'</span>)),
     )
 
-fdescribe(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">fdescribe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> Actors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>()));
 
-    it(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
-        actorCalled(<span class="hljs-string">'James'</span>).attemptsTo(
-            LaunchTheApp(),
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'helps engineers learn Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span>
+        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">LaunchTheApp</span>(),
             <span class="hljs-comment">// perform other tasks, like adding items to the list</span>
         ));
 });
 </code></pre>
 <p>The great thing about Serenity/JS tasks is that you can use them to compose not just the interactions, but other tasks too! I'll show you how to do it later on in the book.</p>
 <p>For now, you can paste the code above in <code>spec/todo.spec.ts</code> and run <code>npm test</code> in your terminal to see output similar to the below:</p>
-<pre><code class="hljs typescript">/Users/jan/serenity-js-experiments/spec/todo.spec.ts:<span class="hljs-number">32</span>
+<pre><code class="hljs typescript">/<span class="hljs-title class_">Users</span>/jan/serenity-js-experiments/spec/todo.<span class="hljs-property">spec</span>.<span class="hljs-property">ts</span>:<span class="hljs-number">32</span>
 
-Todo List App: helps engineers learn Serenity/JS
+<span class="hljs-title class_">Todo</span> <span class="hljs-title class_">List</span> <span class="hljs-title class_">App</span>: helps engineers learn <span class="hljs-title class_">Serenity</span>/<span class="hljs-variable constant_">JS</span>
 
-  James launches the app
-    ✓ James navigates to <span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span> (840ms)
-    ✓ James waits up to 5s until the header does become visible (155ms)
-    ✓ James ensures that the text <span class="hljs-keyword">of</span> the header does equal <span class="hljs-string">'todos'</span> (18ms)
+  <span class="hljs-title class_">James</span> launches the app
+    ✓ <span class="hljs-title class_">James</span> navigates to <span class="hljs-string">'http://todomvc.com/examples/angularjs/'</span> (840ms)
+    ✓ <span class="hljs-title class_">James</span> waits up to 5s until the header does become visible (155ms)
+    ✓ <span class="hljs-title class_">James</span> ensures that the text <span class="hljs-keyword">of</span> the header does equal <span class="hljs-string">'todos'</span> (18ms)
 
-✓ Execution successful (1s 39ms)
+✓ <span class="hljs-title class_">Execution</span> successful (1s 39ms)
 </code></pre><p>Check out the <a href="/handbook/design">Design Guide</a> to <a href="/handbook/design/tasks.html">learn more about tasks</a>.</p>
 <hr>
 <p>Now that you understand one of the core patterns behind Serenity/JS it's time to move on to the next one, the <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a>.</p>

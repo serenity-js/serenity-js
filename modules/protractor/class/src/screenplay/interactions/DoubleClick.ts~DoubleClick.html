@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {DoubleClick} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">DoubleClick</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber71">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber72">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -241,36 +241,36 @@
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Target } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserProfile</span> </span>{
-     <span class="hljs-keyword">static</span> displayName = Target.the(<span class="hljs-string">'display name'</span>)
-         .located(by.id(<span class="hljs-string">'display-name'</span>));
-     <span class="hljs-keyword">static</span> emailAddress = Target.the(<span class="hljs-string">'email address'</span>)
-         .located(by.id(<span class="hljs-string">'email-address'</span>));
-     <span class="hljs-keyword">static</span> editor = Target.the(<span class="hljs-string">'editor'</span>)
-         .located(by.id(<span class="hljs-string">'editor'</span>));
+ <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserProfile</span> {
+     <span class="hljs-keyword">static</span> displayName = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'display name'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'display-name'</span>));
+     <span class="hljs-keyword">static</span> emailAddress = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'email address'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'email-address'</span>));
+     <span class="hljs-keyword">static</span> editor = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'editor'</span>)
+         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'editor'</span>));
  }</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Double-clicking on an element</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, DoubleClick, isVisible, Enter, Text, Wait } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { Ensure, equals, not } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { protractor, Key } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">DoubleClick</span>, isVisible, <span class="hljs-title class_">Enter</span>, <span class="hljs-title class_">Text</span>, <span class="hljs-title class_">Wait</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals, not } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { protractor, <span class="hljs-title class_">Key</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Dorothy'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         DoubleClick.on(UserProfile.displayName),
-         Wait.until(UserProfile.editor, isVisible()),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Dorothy'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">DoubleClick</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">UserProfile</span>.<span class="hljs-property">displayName</span>),
+         <span class="hljs-title class_">Wait</span>.<span class="hljs-title function_">until</span>(<span class="hljs-title class_">UserProfile</span>.<span class="hljs-property">editor</span>, <span class="hljs-title function_">isVisible</span>()),
 
-         Enter.theValue(<span class="hljs-string">'New username'</span>).into(UserProfile.editor),
-         Press.the(Key.ENTER).in(UserProfile.editor),
+         <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'New username'</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">UserProfile</span>.<span class="hljs-property">editor</span>),
+         <span class="hljs-title class_">Press</span>.<span class="hljs-title function_">the</span>(<span class="hljs-title class_">Key</span>.<span class="hljs-property">ENTER</span>).<span class="hljs-title function_">in</span>(<span class="hljs-title class_">UserProfile</span>.<span class="hljs-property">editor</span>),
 
-         Ensure.that(Text.of(UserProfile.displayName), equals(<span class="hljs-string">'New username'</span>)),
-         Ensure.that(UserProfile.editor, not(isVisible()))
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">UserProfile</span>.<span class="hljs-property">displayName</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'New username'</span>)),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">UserProfile</span>.<span class="hljs-property">editor</span>, <span class="hljs-title function_">not</span>(<span class="hljs-title function_">isVisible</span>()))
      );</code></pre>
     </div>
 </div>
@@ -439,7 +439,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber97">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber98">source</a></span></span>
     </span>
   </h3>
 
@@ -521,7 +521,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber105">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber106">source</a></span></span>
     </span>
   </h3>
 
@@ -585,7 +585,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber136">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber137">source</a></span></span>
     </span>
   </h3>
 
@@ -661,7 +661,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber166">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/DoubleClick.ts.html#lineNumber167">source</a></span></span>
     </span>
   </h3>
 

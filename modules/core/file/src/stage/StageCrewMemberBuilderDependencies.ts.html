@@ -294,30 +294,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/StageCrewMemberBuilderDependencies.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Dependencies injected by {<span class="hljs-doctag">@link </span>Serenity} into {<span class="hljs-doctag">@link </span>StageCrewMemberBuilder#build}
+ *  Dependencies injected by {<span class="hljs-doctag">@link</span> Serenity} into {<span class="hljs-doctag">@link</span> StageCrewMemberBuilder#build}
  *
  * <span class="hljs-doctag">@interface</span>
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link StageCrewMemberBuilder}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMemberBuilder</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> StageCrewMemberBuilderDependencies {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@type <span class="hljs-type">{Stage}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">Stage</span>}
      */</span>
-    <span class="hljs-attr">stage</span>: Stage;
+    <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>;
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *
-     * <span class="hljs-doctag">@type <span class="hljs-type">{OutputStream}</span></span>
+     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">OutputStream</span>}
      */</span>
-    outputStream: OutputStream;
+    <span class="hljs-attr">outputStream</span>: <span class="hljs-title class_">OutputStream</span>;
 }
 </code></pre>
 

@@ -190,23 +190,23 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Ensure, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 <span class="hljs-keyword">import</span> { actorCalled, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { Enter, Navigate, Target, Value } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Enter</span>, <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Value</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
 <span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
 <span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
-describe(<span class="hljs-string">'Enter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Enter</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Enter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Form = {
-        <span class="hljs-attr">Field</span>: Target.the(<span class="hljs-string">'name field'</span>).located(by.id(<span class="hljs-string">'field'</span>)),
-        <span class="hljs-attr">Result</span>: Target.the(<span class="hljs-string">'result'</span>).located(by.id(<span class="hljs-string">'result'</span>)),
+    <span class="hljs-keyword">const</span> <span class="hljs-title class_">Form</span> = {
+        <span class="hljs-title class_">Field</span>: <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'name field'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'field'</span>)),
+        <span class="hljs-title class_">Result</span>: <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'result'</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'result'</span>)),
     };
 
-    <span class="hljs-keyword">const</span> page = pageFromTemplate(<span class="hljs-string">`
+    <span class="hljs-keyword">const</span> page = <span class="hljs-title function_">pageFromTemplate</span>(<span class="hljs-string">`
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
@@ -222,32 +222,32 @@ describe(<span class="hljs-string">'Enter'</span>, <span class="hljs-function">(
             &lt;/html&gt;
         `</span>)
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> engage(<span class="hljs-keyword">new</span> UIActors()));
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>()));
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
-    it(<span class="hljs-string">'allows the actor to enter the value into an input field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-        Navigate.to(page),
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Enter</span>} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Enter.theValue</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the actor to enter the value into an input field'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+        <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(page),
 
-        Enter.theValue(actorCalled(<span class="hljs-string">'Bernie'</span>).name).into(Form.Field),
+        <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-property">name</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">Field</span>),
 
-        Ensure.that(Value.of(Form.Field), equals(actorCalled(<span class="hljs-string">'Bernie'</span>).name)),
+        <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Value</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">Field</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-property">name</span>)),
     ));
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter}</span> </span>*/</span>
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter.theValue}</span> </span>*/</span>
-    it(<span class="hljs-string">'allows the actor to enter the value into a number field'</span>, <span class="hljs-function">() =&gt;</span> actorCalled(<span class="hljs-string">'Bernie'</span>).attemptsTo(
-        Navigate.to(page),
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Enter</span>} */</span>
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Enter.theValue</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the actor to enter the value into a number field'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
+        <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(page),
 
-        Enter.theValue(<span class="hljs-number">123</span>).into(Form.Field),
+        <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-number">123</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">Field</span>),
 
-        Ensure.that(Value.of(Form.Field), equals(<span class="hljs-string">'123'</span>)),
+        <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Value</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">Field</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'123'</span>)),
     ));
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Enter#toString}</span> </span>*/</span>
-    it(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(Enter.theValue(actorCalled(<span class="hljs-string">'Bernie'</span>).name).into(Form.Field).toString())
-            .to.equal(<span class="hljs-string">`#actor enters 'Bernie' into the name field`</span>);
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Enter#toString</span>} */</span>
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-property">name</span>).<span class="hljs-title function_">into</span>(<span class="hljs-title class_">Form</span>.<span class="hljs-property">Field</span>).<span class="hljs-title function_">toString</span>())
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor enters 'Bernie' into the name field`</span>);
     });
 });
 </code></pre>

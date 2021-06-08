@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Task} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Task</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -472,19 +472,19 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Modelling a task</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Log, Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Log</span>, <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">const</span> Debug = <span class="hljs-function">(<span class="hljs-params">something: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>) =&gt;</span>
-    Task.where(<span class="hljs-string">`#actor prints the answer to a question`</span>,
-         Log.the(something),
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">Debug</span> = (<span class="hljs-params">something: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>) =&gt;
+    <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor prints the answer to a question`</span>,
+         <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(something),
     );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Modelling a not implemented task</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { Task } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">const</span> SignUp = <span class="hljs-function">() =&gt;</span>
-    Task.where(<span class="hljs-string">`#actor signs up for a newsletter`</span>); <span class="hljs-comment">// no activities given</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">SignUp</span> = (<span class="hljs-params"></span>) =&gt;
+    <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor signs up for a newsletter`</span>); <span class="hljs-comment">// no activities given</span>
                                                     <span class="hljs-comment">// =&gt; task marked as pending</span></code></pre>
     </div>
 </div>

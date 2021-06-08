@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Close} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Close</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Close.ts.html#lineNumber66">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Close.ts.html#lineNumber67">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -225,17 +225,17 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Closing a browser tab or window</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Click, Close, Switch } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">Close</span>, <span class="hljs-title class_">Switch</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
  <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Caleb'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Click.on(someLinkThatOpensANewWindow),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Caleb'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(someLinkThatOpensANewWindow),
 
-         Switch.toNewWindow().and(
+         <span class="hljs-title class_">Switch</span>.<span class="hljs-title function_">toNewWindow</span>().<span class="hljs-title function_">and</span>(
              <span class="hljs-comment">// perform activities in the context of the new window</span>
-             Close.currentWindow(),
+             <span class="hljs-title class_">Close</span>.<span class="hljs-title function_">currentWindow</span>(),
          ),
      );</code></pre>
     </div>
@@ -244,11 +244,11 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
 
  <span class="hljs-keyword">import</span> { actorInTheSpotlight } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Close } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Close</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- after(<span class="hljs-function">() =&gt;</span>
-     actorInTheSpotlight().attemptsTo(
-         Close.anyNewWindows(),
+ <span class="hljs-title function_">after</span>(<span class="hljs-function">() =&gt;</span>
+     <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Close</span>.<span class="hljs-title function_">anyNewWindows</span>(),
      ));</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
@@ -256,22 +256,22 @@
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
  <span class="hljs-keyword">import</span> { actorInTheSpotlight } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Close } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Close</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- after(<span class="hljs-function">() =&gt;</span>
-     actorInTheSpotlight().attemptsTo(
-         Close.anyNewWindows(),
+ <span class="hljs-title function_">after</span>(<span class="hljs-function">() =&gt;</span>
+     <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Close</span>.<span class="hljs-title function_">anyNewWindows</span>(),
      ));</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Closing any new windows after a    Cucumber scenario</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorInTheSpotlight } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Close } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { After } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Close</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">After</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
 
- After(<span class="hljs-function">() =&gt;</span>
-     actorInTheSpotlight().attemptsTo(
-         Close.anyNewWindows(),
+ <span class="hljs-title class_">After</span>(<span class="hljs-function">() =&gt;</span>
+     <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Close</span>.<span class="hljs-title function_">anyNewWindows</span>(),
      ));</code></pre>
     </div>
 </div>
@@ -378,7 +378,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Close.ts.html#lineNumber95">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Close.ts.html#lineNumber96">source</a></span></span>
     </span>
   </h3>
 
@@ -445,7 +445,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Close.ts.html#lineNumber127">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Close.ts.html#lineNumber128">source</a></span></span>
     </span>
   </h3>
 

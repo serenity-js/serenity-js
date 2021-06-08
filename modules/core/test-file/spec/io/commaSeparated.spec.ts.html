@@ -301,31 +301,31 @@
 <span class="hljs-keyword">import</span> { commaSeparated } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-describe(<span class="hljs-string">'commaSeparated'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'commaSeparated'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">'returns an empty string for an empty list'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(commaSeparated([])).to.equal(<span class="hljs-string">''</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns an empty string for an empty list'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">commaSeparated</span>([])).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">''</span>);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">list</span>: [ <span class="hljs-string">'value'</span> ], <span class="hljs-attr">expected</span>: <span class="hljs-string">'value'</span> }
     ]).
-    it(<span class="hljs-string">'returns a string representation of a singleton list'</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
-        expect(commaSeparated(list)).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a string representation of a singleton list'</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">commaSeparated</span>(list)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">list</span>: [ <span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span> ], <span class="hljs-attr">expected</span>: <span class="hljs-string">'first and second'</span> }
     ]).
-    it(<span class="hljs-string">'joins the last two elements with an "and"'</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
-        expect(commaSeparated(list)).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'joins the last two elements with an "and"'</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">commaSeparated</span>(list)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 
-    given([
+    <span class="hljs-title function_">given</span>([
         { <span class="hljs-attr">list</span>: [ <span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span>, <span class="hljs-string">'third'</span>, <span class="hljs-string">'fourth'</span> ], <span class="hljs-attr">expected</span>: <span class="hljs-string">'first, second, third and fourth'</span> }
     ]).
-    it(<span class="hljs-string">'joins other elements with a comma'</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
-        expect(commaSeparated(list)).to.equal(expected);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'joins other elements with a comma'</span>, <span class="hljs-function">(<span class="hljs-params">{ list, expected }</span>) =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">commaSeparated</span>(list)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
     });
 });
 </code></pre>

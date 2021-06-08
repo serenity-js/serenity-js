@@ -133,57 +133,57 @@
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/no-null */</span>
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { expect, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">Serenity</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageCrewMember</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    DomainEvent,
-    SceneFinished,
-    SceneStarts,
-    SceneTagged, TaskFinished,
-    TaskStarts,
-    TestRunFinished,
-    TestRunnerDetected, TestRunStarts,
-    TestSuiteFinished,
-    TestSuiteStarts,
+    <span class="hljs-title class_">DomainEvent</span>,
+    <span class="hljs-title class_">SceneFinished</span>,
+    <span class="hljs-title class_">SceneStarts</span>,
+    <span class="hljs-title class_">SceneTagged</span>, <span class="hljs-title class_">TaskFinished</span>,
+    <span class="hljs-title class_">TaskStarts</span>,
+    <span class="hljs-title class_">TestRunFinished</span>,
+    <span class="hljs-title class_">TestRunnerDetected</span>, <span class="hljs-title class_">TestRunStarts</span>,
+    <span class="hljs-title class_">TestSuiteFinished</span>,
+    <span class="hljs-title class_">TestSuiteStarts</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { FileSystemLocation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> {
-    CorrelationId, ExecutionCompromised, ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError,
-    ExecutionSkipped,
-    ExecutionSuccessful,
-    FeatureTag,
-    ImplementationPending,
-    Name,
-    TestSuiteDetails,
-    Timestamp,
+    <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">ExecutionCompromised</span>, <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>,
+    <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">FeatureTag</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Name</span>,
+    <span class="hljs-title class_">TestSuiteDetails</span>,
+    <span class="hljs-title class_">Timestamp</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { SerenityReporterForJasmine } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/SerenityReporterForJasmine'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityReporterForJasmine</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/SerenityReporterForJasmine'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine}</span> </span>*/</span>
-describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">let</span> serenity: Serenity,
-        <span class="hljs-attr">reporter</span>: SerenityReporterForJasmine,
-        <span class="hljs-attr">listener</span>: Listener;
+    <span class="hljs-keyword">let</span> <span class="hljs-attr">serenity</span>: <span class="hljs-title class_">Serenity</span>,
+        <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">SerenityReporterForJasmine</span>,
+        <span class="hljs-attr">listener</span>: <span class="hljs-title class_">Listener</span>;
 
-    <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1970-01-01T00:00:00Z'</span>);
+    <span class="hljs-keyword">const</span> now = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'1970-01-01T00:00:00Z'</span>);
 
-    beforeEach(<span class="hljs-function">() =&gt;</span> {
-        serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> now));
-        reporter = <span class="hljs-keyword">new</span> SerenityReporterForJasmine(serenity);
-        listener = <span class="hljs-keyword">new</span> Listener();
+    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+        serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-function">() =&gt;</span> now));
+        reporter = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SerenityReporterForJasmine</span>(serenity);
+        listener = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Listener</span>();
 
-        serenity.configure({ <span class="hljs-attr">crew</span>: [ listener ] });
+        serenity.<span class="hljs-title function_">configure</span>({ <span class="hljs-attr">crew</span>: [ listener ] });
     });
 
-    describe(<span class="hljs-string">'notifies Serenity when'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'notifies Serenity when'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        describe(<span class="hljs-string">'the test run'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#jasmineStarted}</span> </span>*/</span>
-            it(<span class="hljs-string">'starts'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                <span class="hljs-keyword">await</span> reporter.jasmineStarted({
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'the test run'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#jasmineStarted</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'starts'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">jasmineStarted</span>({
                     <span class="hljs-attr">totalSpecsDefined</span>: <span class="hljs-number">5</span>,
                     <span class="hljs-attr">order</span>: {
                         <span class="hljs-attr">random</span>: <span class="hljs-literal">true</span>,
@@ -192,13 +192,13 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     },
                 });
 
-                PickEvent.from(listener.events)
-                    .next(TestRunStarts,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.equal(<span class="hljs-keyword">new</span> Timestamp(now)));
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunStarts</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">timestamp</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(now)));
             });
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#jasmineDone}</span> </span>*/</span>
-            it(<span class="hljs-string">'ends'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                <span class="hljs-keyword">await</span> reporter.jasmineDone({
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#jasmineDone</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'ends'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">jasmineDone</span>({
                     <span class="hljs-attr">overallStatus</span>: <span class="hljs-string">'passed'</span>,
                     <span class="hljs-attr">incompleteReason</span>: <span class="hljs-literal">undefined</span>,
                     <span class="hljs-attr">order</span>: {
@@ -210,15 +210,15 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     <span class="hljs-attr">deprecationWarnings</span>: [],
                 });
 
-                PickEvent.from(listener.events)
-                    .next(TestRunFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.timestamp).to.equal(<span class="hljs-keyword">new</span> Timestamp(now)));
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">timestamp</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(now)));
             });
         });
 
-        describe(<span class="hljs-string">'the test suite'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'the test suite'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span> </span>*/</span>
-            it(<span class="hljs-string">'starts'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>} */</span>
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'starts'</span>, <span class="hljs-function">() =&gt;</span> {
 
                 <span class="hljs-keyword">const</span> jasmineEvent = {
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
@@ -234,28 +234,28 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     },
                 };
 
-                reporter.suiteStarted(jasmineEvent);
+                reporter.<span class="hljs-title function_">suiteStarted</span>(jasmineEvent);
 
-                expect(listener.events.length).to.equal(<span class="hljs-number">1</span>);
-                expect(listener.events[<span class="hljs-number">0</span>]).to.equal(
-                    <span class="hljs-keyword">new</span> TestSuiteStarts(
-                        <span class="hljs-keyword">new</span> TestSuiteDetails(
-                            <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>),
-                            FileSystemLocation.fromJSON(jasmineEvent.location),
-                            CorrelationId.fromJSON(jasmineEvent.id),
+                <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
+                <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(
+                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestSuiteStarts</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestSuiteDetails</span>(
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Jasmine'</span>),
+                            <span class="hljs-title class_">FileSystemLocation</span>.<span class="hljs-title function_">fromJSON</span>(jasmineEvent.<span class="hljs-property">location</span>),
+                            <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">fromJSON</span>(jasmineEvent.<span class="hljs-property">id</span>),
                         ),
-                        <span class="hljs-keyword">new</span> Timestamp(now),
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(now),
                     ),
                 );
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteDone</span>}
              */</span>
-            it(<span class="hljs-string">'ends'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'ends'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                reporter.suiteStarted({
+                reporter.<span class="hljs-title function_">suiteStarted</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
@@ -269,7 +269,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     },
                 });
 
-                reporter.suiteDone({
+                reporter.<span class="hljs-title function_">suiteDone</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
@@ -284,33 +284,33 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                 });
 
-                PickEvent.from(listener.events)
-                    .next(TestSuiteFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event).to.equal(
-                        <span class="hljs-keyword">new</span> TestSuiteFinished(
-                            <span class="hljs-keyword">new</span> TestSuiteDetails(
-                                <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>),
-                                FileSystemLocation.fromJSON({
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestSuiteFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(
+                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestSuiteFinished</span>(
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestSuiteDetails</span>(
+                                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Jasmine'</span>),
+                                <span class="hljs-title class_">FileSystemLocation</span>.<span class="hljs-title function_">fromJSON</span>({
                                     <span class="hljs-attr">path</span>: <span class="hljs-string">'/path/to/spec.js'</span>,
                                     <span class="hljs-attr">line</span>: <span class="hljs-number">1</span>,
                                     <span class="hljs-attr">column</span>: <span class="hljs-number">1</span>,
                                 }),
-                                CorrelationId.fromJSON(<span class="hljs-string">'suite1'</span>),
+                                <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'suite1'</span>),
                             ),
-                            <span class="hljs-keyword">new</span> ExecutionSuccessful(),
-                            <span class="hljs-keyword">new</span> Timestamp(now),
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(),
+                            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Timestamp</span>(now),
                         ),
                     ));
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteDone</span>}
              */</span>
-            it(<span class="hljs-string">'ends with an error, reporting the first error that has occurred'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'ends with an error, reporting the first error that has occurred'</span>, <span class="hljs-function">() =&gt;</span> {
                 <span class="hljs-comment">/*
                  * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.
                  */</span>
-                reporter.suiteStarted({
+                reporter.<span class="hljs-title function_">suiteStarted</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'a suite'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'a suite'</span>,
@@ -324,7 +324,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     },
                 });
 
-                reporter.suiteDone({
+                reporter.<span class="hljs-title function_">suiteDone</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'a suite'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'a suite'</span>,
@@ -358,21 +358,21 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                 });
 
-                PickEvent.from(listener.events)
-                    .next(TestSuiteFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestSuiteFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>;
 
-                        expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                        expect(outcome.error.message).to.equal(<span class="hljs-string">'Failed: suite beforeAll'</span>);
+                        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                        <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Failed: suite beforeAll'</span>);
                     });
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteDone</span>}
              */</span>
-            it(<span class="hljs-string">'is pending'</span>, <span class="hljs-function">() =&gt;</span> {
-                reporter.suiteStarted({
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'is pending'</span>, <span class="hljs-function">() =&gt;</span> {
+                reporter.<span class="hljs-title function_">suiteStarted</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite3'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'pending suite'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'pending suite'</span>,
@@ -386,7 +386,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     },
                 });
 
-                reporter.suiteDone({
+                reporter.<span class="hljs-title function_">suiteDone</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'suite3'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'pending suite'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'pending suite'</span>,
@@ -401,23 +401,23 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span>,
                 });
 
-                PickEvent.from(listener.events)
-                    .next(TestSuiteFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ImplementationPending;
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestSuiteFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ImplementationPending</span>;
 
-                        expect(outcome).to.be.instanceOf(ImplementationPending);
-                        expect(outcome.error).to.be.instanceOf(ImplementationPendingError);
-                        expect(outcome.error.message).to.equal(<span class="hljs-string">''</span>);
+                        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
+                        <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPendingError</span>);
+                        <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">''</span>);
                     });
             });
         });
 
-        describe(<span class="hljs-string">'the test spec'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'the test spec'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            describe(<span class="hljs-string">'starts and'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">describe</span>(<span class="hljs-string">'starts and'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
-                    reporter.suiteStarted({
+                <span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">async</span> () =&gt; {
+                    reporter.<span class="hljs-title function_">suiteStarted</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
@@ -431,7 +431,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         },
                     });
 
-                    reporter.suiteStarted({
+                    reporter.<span class="hljs-title function_">suiteStarted</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'suite2'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario'</span>,
@@ -445,7 +445,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         },
                     });
 
-                    reporter.specStarted({
+                    reporter.<span class="hljs-title function_">specStarted</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'passes'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario passes'</span>,
@@ -461,7 +461,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         },
                     });
 
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'passes'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario passes'</span>,
@@ -484,7 +484,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                     });
 
-                    reporter.suiteDone({
+                    reporter.<span class="hljs-title function_">suiteDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'suite2'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine A scenario'</span>,
@@ -499,7 +499,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'passed'</span>,
                     });
 
-                    reporter.suiteDone({
+                    reporter.<span class="hljs-title function_">suiteDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'suite1'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'Jasmine'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'Jasmine'</span>,
@@ -516,44 +516,44 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteDone</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specStarted</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'derives the name of the scenario from the nested `describe` blocks'</span>, <span class="hljs-function">() =&gt;</span> {
-                    PickEvent.from(listener.events)
-                        .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>))
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>));
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'derives the name of the scenario from the nested `describe` blocks'</span>, <span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'A scenario passes'</span>))
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'A scenario passes'</span>));
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteDone</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specStarted</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'derives the name of the feature from the outer-most `describe` block'</span>, <span class="hljs-function">() =&gt;</span> {
-                    PickEvent.from(listener.events)
-                        .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Jasmine'</span>)));
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'derives the name of the feature from the outer-most `describe` block'</span>, <span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Jasmine'</span>)));
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteStarted}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#suiteDone}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteStarted</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#suiteDone</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specStarted</span>}
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'detects the test runner'</span>, <span class="hljs-function">() =&gt;</span> {
-                    PickEvent.from(listener.events)
-                        .next(TestRunnerDetected,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Jasmine'</span>)));
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'detects the test runner'</span>, <span class="hljs-function">() =&gt;</span> {
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TestRunnerDetected</span>,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Jasmine'</span>)));
                 });
             });
 
-            describe(<span class="hljs-string">'ends and'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">describe</span>(<span class="hljs-string">'ends and'</span>, <span class="hljs-function">() =&gt;</span> {
 
-                beforeEach(<span class="hljs-function">() =&gt;</span> {
-                    reporter.specStarted({
+                <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+                    reporter.<span class="hljs-title function_">specStarted</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -567,10 +567,10 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'has been excluded'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'has been excluded'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -583,15 +583,15 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'excluded'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.outcome).to.equal(<span class="hljs-keyword">new</span> ExecutionSkipped()));
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">outcome</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>()));
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'is marked as pending'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'is marked as pending'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -604,19 +604,19 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'pending'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ImplementationPending;
-                            expect(outcome).to.be.instanceOf(ImplementationPending);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">'Temporarily disabled with xit'</span>);
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ImplementationPending</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ImplementationPending</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Temporarily disabled with xit'</span>);
                         });
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'has failed with an error'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'has failed with an error'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -635,17 +635,17 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                            expect(outcome.error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">'Something happened'</span>);
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Something happened'</span>);
                         });
                 });
 
-                it(<span class="hljs-string">'as compromised'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'as compromised'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -664,20 +664,20 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionCompromised;
-                            expect(outcome).to.be.instanceOf(ExecutionCompromised);
-                            expect(outcome.error).to.be.instanceOf(TestCompromisedError);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">'The API call has failed'</span>);
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionCompromised</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionCompromised</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">TestCompromisedError</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'The API call has failed'</span>);
                         });
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'has failed with no stack trace'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'has failed with no stack trace'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -696,20 +696,20 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithError;
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);
-                            expect(outcome.error).to.be.instanceOf(<span class="hljs-built_in">Error</span>);
-                            expect(outcome.error.message).to.equal(<span class="hljs-string">'Someone throws a string just because they can...'</span>);
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithError</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Error</span>);
+                            <span class="hljs-title function_">expect</span>(outcome.<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Someone throws a string just because they can...'</span>);
                         });
                 });
 
                 <span class="hljs-comment">/**
-                 * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+                 * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
                  */</span>
-                it(<span class="hljs-string">'has failed with an assertion error'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'has failed with an assertion error'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -728,24 +728,24 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
 
-                            <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
-                            expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">'Expected false to equal true.'</span>);
-                            expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
-                            expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
+                            <span class="hljs-keyword">const</span> error = outcome.<span class="hljs-property">error</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AssertionError</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Expected false to equal true.'</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
                         });
                 });
 
-                <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span> </span>*/</span>
-                it(<span class="hljs-string">'has failed with multiple errors'</span>, <span class="hljs-keyword">async</span> () =&gt; {
+                <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>} */</span>
+                <span class="hljs-title function_">it</span>(<span class="hljs-string">'has failed with multiple errors'</span>, <span class="hljs-keyword">async</span> () =&gt; {
                     <span class="hljs-comment">// The failure with multiple errors could only happen when someone has</span>
                     <span class="hljs-comment">// a bare-bones protractor/jasmine setup and uses Serenity/JS just for the reporting</span>
-                    <span class="hljs-keyword">await</span> reporter.specDone({
+                    <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                         <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                         <span class="hljs-attr">description</span>: <span class="hljs-string">'scenario'</span>,
                         <span class="hljs-attr">fullName</span>: <span class="hljs-string">'scenario'</span>,
@@ -772,47 +772,47 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                         <span class="hljs-attr">status</span>: <span class="hljs-string">'failed'</span>,
                     });
 
-                    PickEvent.from(listener.events)
-                        .next(TaskStarts,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Expectation'</span>)))
-                        .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                    <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Expectation'</span>)))
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
 
-                            <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
-                            expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">'Expected false to equal true.'</span>);
-                            expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
-                            expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
+                            <span class="hljs-keyword">const</span> error = outcome.<span class="hljs-property">error</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AssertionError</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Expected false to equal true.'</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
                         })
-                        .next(TaskStarts,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name).to.equal(<span class="hljs-keyword">new</span> Name(<span class="hljs-string">'Expectation'</span>)))
-                        .next(TaskFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskStarts</span>,   <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Expectation'</span>)))
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
 
-                            <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
-                            expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">'Expected "hello" to equal "hey".'</span>);
-                            expect(error.actual).to.equal(<span class="hljs-string">'hello'</span>);
-                            expect(error.expected).to.equal(<span class="hljs-string">'hey'</span>);
+                            <span class="hljs-keyword">const</span> error = outcome.<span class="hljs-property">error</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AssertionError</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Expected "hello" to equal "hey".'</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'hello'</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'hey'</span>);
                         })
-                        .next(SceneFinished, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                            <span class="hljs-keyword">const</span> outcome = event.outcome <span class="hljs-keyword">as</span> ExecutionFailedWithAssertionError;
-                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);
+                        .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                            <span class="hljs-keyword">const</span> outcome = event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
 
-                            <span class="hljs-keyword">const</span> error = outcome.error <span class="hljs-keyword">as</span> AssertionError;
-                            expect(error).to.be.instanceOf(AssertionError);
-                            expect(error.message).to.equal(<span class="hljs-string">'Expected false to equal true.'</span>);
-                            expect(error.actual).to.equal(<span class="hljs-literal">false</span>);
-                            expect(error.expected).to.equal(<span class="hljs-literal">true</span>);
+                            <span class="hljs-keyword">const</span> error = outcome.<span class="hljs-property">error</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>;
+                            <span class="hljs-title function_">expect</span>(error).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">AssertionError</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Expected false to equal true.'</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">actual</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
+                            <span class="hljs-title function_">expect</span>(error.<span class="hljs-property">expected</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
                         });
                 });
             });
         });
 
-        describe(<span class="hljs-string">'the `it` block is not nested within a `describe` block and'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'the `it` block is not nested within a `describe` block and'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            beforeEach(<span class="hljs-keyword">async</span> () =&gt; {
-                reporter.specStarted({
+            <span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">async</span> () =&gt; {
+                reporter.<span class="hljs-title function_">specStarted</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario passes'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'A scenario passes'</span>,
@@ -828,7 +828,7 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
                     },
                 });
 
-                <span class="hljs-keyword">await</span> reporter.specDone({
+                <span class="hljs-keyword">await</span> reporter.<span class="hljs-title function_">specDone</span>({
                     <span class="hljs-attr">id</span>: <span class="hljs-string">'spec0'</span>,
                     <span class="hljs-attr">description</span>: <span class="hljs-string">'A scenario passes'</span>,
                     <span class="hljs-attr">fullName</span>: <span class="hljs-string">'A scenario passes'</span>,
@@ -853,39 +853,39 @@ describe(<span class="hljs-string">'SerenityReporterForJasmine'</span>, <span cl
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specStarted</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
              */</span>
-            it(<span class="hljs-string">'tags the feature as "unknown"'</span>, <span class="hljs-function">() =&gt;</span> {
-                PickEvent.from(listener.events)
-                    .next(SceneTagged,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.tag).to.equal(<span class="hljs-keyword">new</span> FeatureTag(<span class="hljs-string">'Unknown feature'</span>)));
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'tags the feature as "unknown"'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneTagged</span>,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">tag</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureTag</span>(<span class="hljs-string">'Unknown feature'</span>)));
             });
 
             <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specStarted}</span></span>
-             * <span class="hljs-doctag">@test <span class="hljs-type">{SerenityReporterForJasmine#specDone}</span></span>
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specStarted</span>}
+             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityReporterForJasmine#specDone</span>}
              */</span>
-            it(<span class="hljs-string">'correctly derives the name of the spec'</span>, <span class="hljs-function">() =&gt;</span> {
-                PickEvent.from(listener.events)
-                    .next(SceneStarts,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>))
-                    .next(SceneFinished,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> expect(event.details.name.value).to.equal(<span class="hljs-string">'A scenario passes'</span>));
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">'correctly derives the name of the spec'</span>, <span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(listener.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneStarts</span>,      <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'A scenario passes'</span>))
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">SceneFinished</span>,    <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'A scenario passes'</span>));
             });
         });
     });
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Listener</span> <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> events: DomainEvent[] = [];
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Listener</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">events</span>: <span class="hljs-title class_">DomainEvent</span>[] = [];
 
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> stage: Stage = <span class="hljs-literal">null</span></span>)</span> {
+        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> stage: Stage = <span class="hljs-literal">null</span></span>) {
         }
 
-        assignedTo(stage: Stage): StageCrewMember {
-            <span class="hljs-built_in">this</span>.stage = stage;
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+        <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span> = stage;
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
         }
 
-        notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
-            <span class="hljs-built_in">this</span>.events.push(event);
+        <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">events</span>.<span class="hljs-title function_">push</span>(event);
         }
     }
 });

@@ -299,202 +299,202 @@
 
 <span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
 
-<span class="hljs-keyword">import</span> { actorCalled, Answerable, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
+<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src'</span>;
 <span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/io'</span>;
-<span class="hljs-keyword">import</span> { ArrayListAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/screenplay/questions/lists'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArrayListAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/screenplay/questions/lists'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArrayListAdapter}</span> </span>*/</span>
-describe(<span class="hljs-string">'ArrayListAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArrayListAdapter</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ArrayListAdapter'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    <span class="hljs-keyword">const</span> Ariana = actorCalled(<span class="hljs-string">'Ariana'</span>);
+    <span class="hljs-keyword">const</span> <span class="hljs-title class_">Ariana</span> = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Ariana'</span>);
 
     <span class="hljs-keyword">const</span> q = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">description: <span class="hljs-built_in">string</span>, value: T</span>) =&gt;</span>
-        Question.about&lt;T&gt;(description, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
+        <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;T&gt;(description, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> value);
 
     <span class="hljs-keyword">const</span> p = &lt;T&gt;<span class="hljs-function">(<span class="hljs-params">value: T</span>) =&gt;</span>
-        <span class="hljs-built_in">Promise</span>.resolve(value);
+        <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(value);
 
     <span class="hljs-keyword">const</span> array = [ <span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span>, <span class="hljs-string">'third'</span> ];
 
     <span class="hljs-keyword">const</span> invalidExamples = [
-        ...answerables(<span class="hljs-string">'null'</span>, <span class="hljs-literal">null</span>),
-        ...answerables(<span class="hljs-string">'undefined'</span>, <span class="hljs-literal">undefined</span>),
-        ...answerables(<span class="hljs-string">'number'</span>, <span class="hljs-number">0</span>),
-        ...answerables(<span class="hljs-string">'string'</span>, <span class="hljs-string">'string'</span>),
-        ...answerables(<span class="hljs-string">'boolean'</span>, <span class="hljs-literal">true</span>),
-        ...answerables(<span class="hljs-string">'object'</span>, { }),
+        ...<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'null'</span>, <span class="hljs-literal">null</span>),
+        ...<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'undefined'</span>, <span class="hljs-literal">undefined</span>),
+        ...<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'number'</span>, <span class="hljs-number">0</span>),
+        ...<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'string'</span>, <span class="hljs-string">'string'</span>),
+        ...<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'boolean'</span>, <span class="hljs-literal">true</span>),
+        ...<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'object'</span>, { }),
     ];
 
-    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">answerables</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, value: T</span>): <span class="hljs-title">Array</span>&lt;</span>{ description: <span class="hljs-built_in">string</span>, <span class="hljs-attr">collectionDescription</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">answerable</span>: Answerable&lt;T&gt; }&gt; {
+    <span class="hljs-keyword">function</span> answerables&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">value</span>: T): <span class="hljs-title class_">Array</span>&lt;{ <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">collectionDescription</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">answerable</span>: <span class="hljs-title class_">Answerable</span>&lt;T&gt; }&gt; {
         <span class="hljs-keyword">return</span> [{
             <span class="hljs-attr">description</span>:            <span class="hljs-keyword">type</span>,
             <span class="hljs-attr">answerable</span>:             value,
         }, {
             <span class="hljs-attr">description</span>:            <span class="hljs-string">`Question&lt;<span class="hljs-subst">${ <span class="hljs-keyword">type</span> }</span>&gt;`</span>,
-            <span class="hljs-attr">answerable</span>:             q(<span class="hljs-keyword">type</span>, value),
+            <span class="hljs-attr">answerable</span>:             <span class="hljs-title function_">q</span>(<span class="hljs-keyword">type</span>, value),
         }, {
             <span class="hljs-attr">description</span>:            <span class="hljs-string">`Promise&lt;<span class="hljs-subst">${ <span class="hljs-keyword">type</span> }</span>&gt;`</span>,
-            <span class="hljs-attr">answerable</span>:             p(value),
+            <span class="hljs-attr">answerable</span>:             <span class="hljs-title function_">p</span>(value),
         }, {
             <span class="hljs-attr">description</span>:            <span class="hljs-string">`Question&lt;Promise&lt;<span class="hljs-subst">${ <span class="hljs-keyword">type</span> }</span>&gt;&gt;`</span>,
-            <span class="hljs-attr">answerable</span>:             q(<span class="hljs-keyword">type</span>, p(value)),
-        } ].map(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> ({
+            <span class="hljs-attr">answerable</span>:             <span class="hljs-title function_">q</span>(<span class="hljs-keyword">type</span>, <span class="hljs-title function_">p</span>(value)),
+        } ].<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span> ({
             ...entry,
             <span class="hljs-attr">collectionDescription</span>:  formatted<span class="hljs-string">`<span class="hljs-subst">${ entry.answerable }</span>`</span>,
         }))
     }
 
-    given(answerables(<span class="hljs-string">'array'</span>, array)).
-    it(<span class="hljs-string">'provides a sensible description'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-        expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).toString())
-            .to.equal(formatted<span class="hljs-string">`<span class="hljs-subst">${ answerable }</span>`</span>)
+    <span class="hljs-title function_">given</span>(<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'array'</span>, array)).
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible description'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">toString</span>())
+            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(formatted<span class="hljs-string">`<span class="hljs-subst">${ answerable }</span>`</span>)
     );
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArrayListAdapter#count}</span> </span>*/</span>
-    describe(<span class="hljs-string">'count()'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArrayListAdapter#count</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'count()'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(invalidExamples).
-        it(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).count(Ariana))
-                .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
+        <span class="hljs-title function_">given</span>(invalidExamples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">count</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
         );
 
-        given(answerables(<span class="hljs-string">'array'</span>, array)).
-        it(<span class="hljs-string">'returns the number of items in the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).count(Ariana))
-                .to.eventually.equal(array.length)
-        );
-    });
-
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArrayListAdapter#items}</span> </span>*/</span>
-    describe(<span class="hljs-string">'items()'</span>, <span class="hljs-function">() =&gt;</span> {
-
-        given(invalidExamples).
-        it(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).items(Ariana))
-                .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
-        );
-
-        given(answerables(<span class="hljs-string">'array'</span>, array)).
-        it(<span class="hljs-string">'returns the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).items(Ariana))
-                .to.eventually.deep.equal(array)
+        <span class="hljs-title function_">given</span>(<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'array'</span>, array)).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the number of items in the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">count</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(array.<span class="hljs-property">length</span>)
         );
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArrayListAdapter#first}</span> </span>*/</span>
-    describe(<span class="hljs-string">'first()'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArrayListAdapter#items</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'items()'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(invalidExamples).
-        it(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).first(Ariana))
-                .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
+        <span class="hljs-title function_">given</span>(invalidExamples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">items</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
         );
 
-        given(answerables(<span class="hljs-string">'array'</span>, array)).
-        it(<span class="hljs-string">'returns the first item from the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).first(Ariana))
-                .to.eventually.deep.equal(array[<span class="hljs-number">0</span>])
+        <span class="hljs-title function_">given</span>(<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'array'</span>, array)).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">items</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(array)
+        );
+    });
+
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArrayListAdapter#first</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'first()'</span>, <span class="hljs-function">() =&gt;</span> {
+
+        <span class="hljs-title function_">given</span>(invalidExamples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">first</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
         );
 
-        describe(<span class="hljs-string">`complains if the item doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
-            it(<span class="hljs-string">`(array)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter([]).first(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`[ ] is empty`</span>)
+        <span class="hljs-title function_">given</span>(<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'array'</span>, array)).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the first item from the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">first</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(array[<span class="hljs-number">0</span>])
+        );
+
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">`complains if the item doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(array)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>([]).<span class="hljs-title function_">first</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`[ ] is empty`</span>)
             );
 
-            it(<span class="hljs-string">`(Question&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(q(<span class="hljs-string">'some collection'</span>, [])).first(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Question&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">q</span>(<span class="hljs-string">'some collection'</span>, [])).<span class="hljs-title function_">first</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
             );
 
-            it(<span class="hljs-string">`(Promise&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(p([])).first(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`a Promise [ ] is empty`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Promise&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">p</span>([])).<span class="hljs-title function_">first</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`a Promise [ ] is empty`</span>)
             );
 
-            it(<span class="hljs-string">`(Question&lt;Promise&lt;array&gt;&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(q(<span class="hljs-string">'some collection'</span>, p([]))).first(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Question&lt;Promise&lt;array&gt;&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">q</span>(<span class="hljs-string">'some collection'</span>, <span class="hljs-title function_">p</span>([]))).<span class="hljs-title function_">first</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
             );
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArrayListAdapter#last}</span> </span>*/</span>
-    describe(<span class="hljs-string">'last()'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArrayListAdapter#last</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'last()'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(invalidExamples).
-        it(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).last(Ariana))
-                .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
+        <span class="hljs-title function_">given</span>(invalidExamples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">last</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
         );
 
-        given(answerables(<span class="hljs-string">'array'</span>, array)).
-        it(<span class="hljs-string">'returns the first item from the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).last(Ariana))
-                .to.eventually.deep.equal(array[array.length - <span class="hljs-number">1</span>])
+        <span class="hljs-title function_">given</span>(<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'array'</span>, array)).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the first item from the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">last</span>(<span class="hljs-title class_">Ariana</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(array[array.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>])
         );
 
-        describe(<span class="hljs-string">`complains if the item doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
-            it(<span class="hljs-string">`(array)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter([]).last(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`[ ] is empty`</span>)
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">`complains if the item doesn't exist`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(array)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>([]).<span class="hljs-title function_">last</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`[ ] is empty`</span>)
             );
 
-            it(<span class="hljs-string">`(Question&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(q(<span class="hljs-string">'some collection'</span>, [])).last(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Question&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">q</span>(<span class="hljs-string">'some collection'</span>, [])).<span class="hljs-title function_">last</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
             );
 
-            it(<span class="hljs-string">`(Promise&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(p([])).last(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`a Promise [ ] is empty`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Promise&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">p</span>([])).<span class="hljs-title function_">last</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`a Promise [ ] is empty`</span>)
             );
 
-            it(<span class="hljs-string">`(Question&lt;Promise&lt;array&gt;&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(q(<span class="hljs-string">'some collection'</span>, p([]))).last(Ariana))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Question&lt;Promise&lt;array&gt;&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">q</span>(<span class="hljs-string">'some collection'</span>, <span class="hljs-title function_">p</span>([]))).<span class="hljs-title function_">last</span>(<span class="hljs-title class_">Ariana</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`some collection [ ] is empty`</span>)
             );
         });
     });
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{ArrayListAdapter#get}</span> </span>*/</span>
-    describe(<span class="hljs-string">'get(index)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ArrayListAdapter#get</span>} */</span>
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'get(index)'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        given(invalidExamples).
-        it(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).get(Ariana, <span class="hljs-number">1</span>))
-                .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
+        <span class="hljs-title function_">given</span>(invalidExamples).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with a non-array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Ariana</span>, <span class="hljs-number">1</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'ArrayListAdapter constructor parameter should be an array'</span>)
         );
 
-        given(answerables(<span class="hljs-string">'array'</span>, array)).
-        it(<span class="hljs-string">'returns the required item from the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
-            expect(<span class="hljs-keyword">new</span> ArrayListAdapter(answerable).get(Ariana, <span class="hljs-number">1</span>))
-                .to.eventually.deep.equal(array[<span class="hljs-number">1</span>])
+        <span class="hljs-title function_">given</span>(<span class="hljs-title function_">answerables</span>(<span class="hljs-string">'array'</span>, array)).
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the required item from the underlying array'</span>, <span class="hljs-function">(<span class="hljs-params">{ answerable }</span>) =&gt;</span>
+            <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(answerable).<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Ariana</span>, <span class="hljs-number">1</span>))
+                .<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(array[<span class="hljs-number">1</span>])
         );
 
-        describe(<span class="hljs-string">`complains if the item doesn't exist at a given index`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">describe</span>(<span class="hljs-string">`complains if the item doesn't exist at a given index`</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span> example = [<span class="hljs-string">'first'</span>, <span class="hljs-string">'second'</span>];
 
-            it(<span class="hljs-string">`(array)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(example).get(Ariana, <span class="hljs-number">42</span>))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`[ 'first', 'second' ] has no item at index 42`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(array)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(example).<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Ariana</span>, <span class="hljs-number">42</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`[ 'first', 'second' ] has no item at index 42`</span>)
             );
 
-            it(<span class="hljs-string">`(Question&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(q(<span class="hljs-string">'some collection'</span>, example)).get(Ariana, <span class="hljs-number">42</span>))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`some collection [ 'first', 'second' ] has no item at index 42`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Question&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">q</span>(<span class="hljs-string">'some collection'</span>, example)).<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Ariana</span>, <span class="hljs-number">42</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`some collection [ 'first', 'second' ] has no item at index 42`</span>)
             );
 
-            it(<span class="hljs-string">`(Promise&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(p(example)).get(Ariana, <span class="hljs-number">42</span>))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`a Promise [ 'first', 'second' ] has no item at index 42`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Promise&lt;array&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">p</span>(example)).<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Ariana</span>, <span class="hljs-number">42</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`a Promise [ 'first', 'second' ] has no item at index 42`</span>)
             );
 
-            it(<span class="hljs-string">`(Question&lt;Promise&lt;array&gt;&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
-                expect(<span class="hljs-keyword">new</span> ArrayListAdapter(q(<span class="hljs-string">'some collection'</span>, p(example))).get(Ariana, <span class="hljs-number">42</span>))
-                    .to.be.rejectedWith(<span class="hljs-built_in">Error</span>, <span class="hljs-string">`some collection [ 'first', 'second' ] has no item at index 42`</span>)
+            <span class="hljs-title function_">it</span>(<span class="hljs-string">`(Question&lt;Promise&lt;array&gt;&gt;)`</span>, <span class="hljs-function">() =&gt;</span>
+                <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(<span class="hljs-title function_">q</span>(<span class="hljs-string">'some collection'</span>, <span class="hljs-title function_">p</span>(example))).<span class="hljs-title function_">get</span>(<span class="hljs-title class_">Ariana</span>, <span class="hljs-number">42</span>))
+                    .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`some collection [ 'first', 'second' ] has no item at index 42`</span>)
             );
         });
     });

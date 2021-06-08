@@ -131,7 +131,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {CucumberConfig} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">CucumberConfig</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">interface</span>
   
@@ -614,11 +614,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Disable colors in output in Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> colors: <span class="hljs-literal">false</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">colors</span>: <span class="hljs-literal">false</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Disable colors in output in Cucumber 2.x and above</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> formatOptions: { <span class="hljs-attr">colorsEnabled</span>: <span class="hljs-literal">false</span> }</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">formatOptions</span>: { <span class="hljs-attr">colorsEnabled</span>: <span class="hljs-literal">false</span> }</code></pre>
     </div>
 </div>
 
@@ -671,7 +671,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Enable TypeScript support in Cucumber 1.x - 3.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> compiler: <span class="hljs-string">'ts:ts-node/register'</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">compiler</span>: <span class="hljs-string">'ts:ts-node/register'</span></code></pre>
     </div>
 </div>
 
@@ -766,7 +766,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber 1.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> formatOptions: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">option</span>: <span class="hljs-string">'value'</span> })</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">formatOptions</span>: <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">option</span>: <span class="hljs-string">'value'</span> })</code></pre>
     </div>
 </div>
 
@@ -913,7 +913,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Enable TypeScript support in Cucumber 4.x and above</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">require</span>: <span class="hljs-string">'ts:ts-node/register'</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">require</span>: <span class="hljs-string">'ts:ts-node/register'</span></code></pre>
     </div>
 </div>
 
@@ -965,11 +965,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Saving details of failed scenarios to @rerun-output.txt</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> format: [ <span class="hljs-string">'rerun:@rerun-output.txt'</span> ]</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">format</span>: [ <span class="hljs-string">'rerun:@rerun-output.txt'</span> ]</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Re-running scenarios saved to @rerun-output.txt</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> rerun: <span class="hljs-string">'@rerun-output.txt'</span></code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">rerun</span>: <span class="hljs-string">'@rerun-output.txt'</span></code></pre>
     </div>
 </div>
 
@@ -1071,7 +1071,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Cucumber 7.x</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> retry: <span class="hljs-number">3</span>,
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">retry</span>: <span class="hljs-number">3</span>,
  <span class="hljs-attr">retryTagFilter</span>: <span class="hljs-string">'@flaky'</span>,</code></pre>
     </div>
 </div>
@@ -1228,11 +1228,11 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">worldParameters as string</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> worldParameters: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">isDev</span>: process.env.NODE_ENV !== <span class="hljs-string">'production'</span> })</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">worldParameters</span>: <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>({ <span class="hljs-attr">isDev</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">'production'</span> })</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">worldParameters as object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> worldParameters: { <span class="hljs-attr">isDev</span>: process.env.NODE_ENV !== <span class="hljs-string">'production'</span> }</code></pre>
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-attr">worldParameters</span>: { <span class="hljs-attr">isDev</span>: process.<span class="hljs-property">env</span>.<span class="hljs-property">NODE_ENV</span> !== <span class="hljs-string">'production'</span> }</code></pre>
     </div>
 </div>
 

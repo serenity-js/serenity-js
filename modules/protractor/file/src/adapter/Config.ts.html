@@ -187,8 +187,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/Config.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { SerenityConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Config <span class="hljs-keyword">as</span> ProtractorConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProtractorConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
@@ -198,13 +198,13 @@
  * <span class="hljs-doctag">@public</span>
  * <span class="hljs-doctag">@interface</span>
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core~SerenityConfig}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core~SerenityConfig</span>}
  *
- * <span class="hljs-doctag">@see </span>https://github.com/angular/protractor/blob/master/lib/config.ts
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core~configure}</span></span>
+ * <span class="hljs-doctag">@see</span> https://github.com/angular/protractor/blob/master/lib/config.ts
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core~configure</span>}
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Config <span class="hljs-keyword">extends</span> ProtractorConfig {
-    <span class="hljs-attr">serenity</span>: SerenityConfig &amp; { runner?: <span class="hljs-built_in">string</span> };
+    <span class="hljs-attr">serenity</span>: <span class="hljs-title class_">SerenityConfig</span> &amp; { runner?: <span class="hljs-built_in">string</span> };
 }
 </code></pre>
 

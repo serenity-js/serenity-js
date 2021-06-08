@@ -187,18 +187,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/PressBuilder.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { AlertPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AlertPromise</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Fluent interface to make the instantiation of
- *  the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
- *  to {<span class="hljs-doctag">@link </span>Press} more readable.
+ *  the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+ *  to {<span class="hljs-doctag">@link</span> Press} more readable.
  *
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link Press}</span></span>
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Press</span>}
  *
  * <span class="hljs-doctag">@interface</span>
  */</span>
@@ -206,15 +206,15 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates an {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
-     *  to {<span class="hljs-doctag">@link </span>Press}.
+     *  Instantiates an {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     *  to {<span class="hljs-doctag">@link</span> Press}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise}</span> <span class="hljs-variable">field</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise</span>} <span class="hljs-variable">field</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
      */</span>
-    <span class="hljs-attr">in</span>: <span class="hljs-function">(<span class="hljs-params">field: Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise</span>) =&gt;</span> Interaction;
+    <span class="hljs-attr">in</span>: <span class="hljs-function">(<span class="hljs-params">field: Question&lt;ElementFinder&gt; | ElementFinder | Question&lt;AlertPromise&gt; | AlertPromise</span>) =&gt;</span> <span class="hljs-title class_">Interaction</span>;
 }
 </code></pre>
 

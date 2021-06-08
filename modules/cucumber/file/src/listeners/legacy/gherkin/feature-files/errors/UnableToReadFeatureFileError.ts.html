@@ -131,14 +131,14 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/errors/UnableToReadFeatureFileError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { RuntimeError } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">RuntimeError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UnableToReadFeatureFileError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">RuntimeError</span> </span>{
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>)</span> {
-        <span class="hljs-built_in">super</span>(UnableToReadFeatureFileError, message, cause);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UnableToReadFeatureFileError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">RuntimeError</span> {
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span></span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-title class_">UnableToReadFeatureFileError</span>, message, cause);
     }
 }
 </code></pre>

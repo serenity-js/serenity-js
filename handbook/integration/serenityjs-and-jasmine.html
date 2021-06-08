@@ -203,17 +203,17 @@ graph TB
 <pre><code class="lang-console hljs plaintext">npx jasmine init
 </code></pre>
 <p>The configuration file should look as follows:</p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"spec_dir"</span>: <span class="hljs-string">"spec"</span>,
-  <span class="hljs-attr">"spec_files"</span>: [
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"spec_dir"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"spec"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"spec_files"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">"**/*[sS]pec.js"</span>
-  ],
-  <span class="hljs-attr">"helpers"</span>: [
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"helpers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">"helpers/**/*.js"</span>
-  ],
-  <span class="hljs-attr">"stopSpecOnExpectationFailure"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"random"</span>: <span class="hljs-literal">true</span>
-}
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"stopSpecOnExpectationFailure"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"random"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span>
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <h3 id="configuration">Configuration</h3>
 <h4 id="using-javascript">Using JavaScript</h4>
@@ -221,7 +221,7 @@ graph TB
 <pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// spec/helpers/config.js</span>
 <span class="hljs-keyword">const</span> { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
         <span class="hljs-comment">// ... reporting services</span>
     ],
@@ -229,27 +229,27 @@ configure({
 </code></pre>
 <h4 id="using-typescript">Using TypeScript</h4>
 <p>To make Jasmine understand test scenarios and configuration written in TypeScript, modify the <code>spec/support/jasmine.json</code> file as follows:</p>
-<pre><code class="lang-json hljs json">{
-  <span class="hljs-attr">"spec_dir"</span>: <span class="hljs-string">"spec"</span>,
-  <span class="hljs-attr">"spec_files"</span>: [
+<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"spec_dir"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"spec"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"spec_files"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">"**/*[sS]pec.ts"</span>
-  ],
-  <span class="hljs-attr">"helpers"</span>: [
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"helpers"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">"helpers/**/*.ts"</span>
-  ],
-  <span class="hljs-attr">"requires"</span>: [
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"requires"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">"ts-node/register"</span>
-  ],
-  <span class="hljs-attr">"stopSpecOnExpectationFailure"</span>: <span class="hljs-literal">false</span>,
-  <span class="hljs-attr">"random"</span>: <span class="hljs-literal">true</span>
-}
+  <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"stopSpecOnExpectationFailure"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">false</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"random"</span><span class="hljs-punctuation">:</span> <span class="hljs-keyword">true</span>
+<span class="hljs-punctuation">}</span>
 </code></pre>
 <p>Next, create a configuration file at <code>spec/helpers/config.ts</code>. </p>
 <p>This file will inform Serenity/JS what <a href="/handbook/reporting/">reporting services</a> you wish to use:</p>
 <pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/helpers/config.ts</span>
 <span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-configure({
+<span class="hljs-title function_">configure</span>({
     <span class="hljs-attr">crew</span>: [
         <span class="hljs-comment">// ... reporting services</span>
     ],

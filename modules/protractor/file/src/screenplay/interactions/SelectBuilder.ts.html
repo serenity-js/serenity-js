@@ -187,15 +187,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/SelectBuilder.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span>;
-<span class="hljs-keyword">import</span> { ElementFinder } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Configures the {<span class="hljs-doctag">@link </span>Target} representing
+ *  Configures the {<span class="hljs-doctag">@link</span> Target} representing
  *  a [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
- *  for the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+ *  for the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
  *  to interact with.
  *
  * <span class="hljs-doctag">@interface</span>
@@ -204,23 +204,23 @@
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Configures the {<span class="hljs-doctag">@link </span>Target} representing
+     *  Configures the {<span class="hljs-doctag">@link</span> Target} representing
      *  a [HTML `&lt;select&gt;` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select)
-     *  for the {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  for the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
      *  to interact with
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Question&lt;ElementFinder&gt; | ElementFinder}</span> <span class="hljs-variable">target</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementFinder&gt; | ElementFinder</span>} <span class="hljs-variable">target</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{@serenity-js/core/lib/screenplay~Interaction}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Select}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Select.option}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Select.options}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Select.value}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Select.values}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Target}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Select</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Select.option</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Select.options</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Select.value</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Select.values</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
      */</span>
-    <span class="hljs-attr">from</span>: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> Interaction;
+    <span class="hljs-attr">from</span>: <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> <span class="hljs-title class_">Interaction</span>;
 }
 </code></pre>
 

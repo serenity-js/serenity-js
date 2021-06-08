@@ -295,30 +295,30 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Expectation.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../io'</span>;
-<span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../'</span>;
-<span class="hljs-keyword">import</span> { ExpectationMet, ExpectationNotMet, ExpectationOutcome  } <span class="hljs-keyword">from</span> <span class="hljs-string">'./expectations'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-title class_">ExpectationOutcome</span>  } <span class="hljs-keyword">from</span> <span class="hljs-string">'./expectations'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@public</span>
  *
- * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(actual: A, expected: E) =&gt; boolean}</span> </span>Predicate&lt;A,E&gt;
+ * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">function(actual: A, expected: E) =&gt; boolean</span>} Predicate&lt;A,E&gt;
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Predicate&lt;A, E&gt; = <span class="hljs-function">(<span class="hljs-params">actual: A, expected: E</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Predicate</span>&lt;A, E&gt; = <span class="hljs-function">(<span class="hljs-params">actual: A, expected: E</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Defines an expectation to be used with [assertions](/modules/assertions)
- *  and {<span class="hljs-doctag">@link </span>Question}s like {<span class="hljs-doctag">@link </span>List}.
+ *  and {<span class="hljs-doctag">@link</span> Question}s like {<span class="hljs-doctag">@link</span> List}.
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Question}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Question</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span> </span>= Expected&gt;
-    <span class="hljs-keyword">extends</span> Question&lt;<span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;Expected, Actual&gt;&gt;&gt;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span> = <span class="hljs-title class_">Expected</span>&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt;&gt;&gt;
 {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Used to define a simple {<span class="hljs-doctag">@link </span>Expectation}
+     *  Used to define a simple {<span class="hljs-doctag">@link</span> Expectation}
      *
      * <span class="hljs-doctag">@example</span>
      *  import { actorCalled, Expectation } from '<span class="hljs-doctag">@serenity</span>-js/core';
@@ -333,24 +333,24 @@
      *      Ensure.that(4, isDivisibleBy(2)),
      *  );
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">relationshipName</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/screenplay~Answerable&lt;E&gt;}</span> <span class="hljs-variable">expectedValue</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">relationshipName</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;E&gt;</span>} <span class="hljs-variable">expectedValue</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{"soThat": function(predicate: Predicate&lt;A,E&gt;): Expectation&lt;E, A&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">"soThat": function(predicate: Predicate&lt;A,E&gt;): Expectation&lt;E, A&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> thatActualShould&lt;E, A&gt;(relationshipName: <span class="hljs-built_in">string</span>, <span class="hljs-attr">expectedValue</span>: Answerable&lt;E&gt;): {
-        <span class="hljs-attr">soThat</span>: <span class="hljs-function">(<span class="hljs-params">predicate: Predicate&lt;A, E&gt;</span>) =&gt;</span> Expectation&lt;E, A&gt;,
+    <span class="hljs-keyword">static</span> thatActualShould&lt;E, A&gt;(<span class="hljs-attr">relationshipName</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">expectedValue</span>: <span class="hljs-title class_">Answerable</span>&lt;E&gt;): {
+        <span class="hljs-attr">soThat</span>: <span class="hljs-function">(<span class="hljs-params">predicate: Predicate&lt;A, E&gt;</span>) =&gt;</span> <span class="hljs-title class_">Expectation</span>&lt;E, A&gt;,
     } {
         <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">soThat</span>: (predicate: Predicate&lt;A, E&gt;): Expectation&lt;E, A&gt; =&gt; {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DynamicallyGeneratedExpectation&lt;E, A&gt;(relationshipName, predicate, expectedValue);
+            <span class="hljs-attr">soThat</span>: (<span class="hljs-attr">predicate</span>: <span class="hljs-title class_">Predicate</span>&lt;A, E&gt;): <span class="hljs-title class_">Expectation</span>&lt;E, A&gt; =&gt; {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DynamicallyGeneratedExpectation</span>&lt;E, A&gt;(relationshipName, predicate, expectedValue);
             },
         });
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Used to compose {<span class="hljs-doctag">@link </span>Expectation}s.
+     *  Used to compose {<span class="hljs-doctag">@link</span> Expectation}s.
      *
      * <span class="hljs-doctag">@example</span>
      *  import { actorCalled, Expectation } from '<span class="hljs-doctag">@serenity</span>-js/core';
@@ -369,43 +369,43 @@
      *      Ensure.that(5, isWithin(3, 6)),
      *  );
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string}</span> <span class="hljs-variable">relationshipName</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">relationshipName</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{"soThat": function(...expectations: Array&lt;Expectation&lt;any, A&gt;&gt;): Expectation&lt;any, A&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">"soThat": function(...expectations: Array&lt;Expectation&lt;any, A&gt;&gt;): Expectation&lt;any, A&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> to&lt;A&gt;(relationshipName: <span class="hljs-built_in">string</span>): {
-        <span class="hljs-attr">soThatActual</span>: <span class="hljs-function">(<span class="hljs-params">...expectations: <span class="hljs-built_in">Array</span>&lt;Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;&gt;</span>) =&gt;</span> Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;,
+    <span class="hljs-keyword">static</span> to&lt;A&gt;(<span class="hljs-attr">relationshipName</span>: <span class="hljs-built_in">string</span>): {
+        <span class="hljs-attr">soThatActual</span>: <span class="hljs-function">(<span class="hljs-params">...expectations: <span class="hljs-built_in">Array</span>&lt;Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;&gt;</span>) =&gt;</span> <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;,
     } {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">soThatActual</span>: (expectation: Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;): Expectation&lt;<span class="hljs-built_in">any</span>, A&gt; =&gt; {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ExpectationAlias&lt;A&gt;(relationshipName, expectation);
+            <span class="hljs-attr">soThatActual</span>: (<span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt; =&gt; {
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationAlias</span>&lt;A&gt;(relationshipName, expectation);
             },
         };
     }
 
-    <span class="hljs-keyword">abstract</span> answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;Expected, Actual&gt;&gt;;
+    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt;&gt;;
 }
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DynamicallyGeneratedExpectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">Expected</span>, <span class="hljs-title">Actual</span>&gt; </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicallyGeneratedExpectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Expectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt; {
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> predicate: Predicate&lt;Actual, Expected&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectedValue: Answerable&lt;Expected&gt;,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ expectedValue }</span>`</span> }</span>`</span>);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ expectedValue }</span>`</span> }</span>`</span>);
     }
 
-    answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;Expected, Actual&gt;&gt; {
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt;&gt; {
 
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> actor.answer(<span class="hljs-built_in">this</span>.expectedValue)
-            .then(<span class="hljs-function"><span class="hljs-params">expected</span> =&gt;</span> {
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.predicate(actual, expected)
-                    ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.toString(), expected, actual)
-                    : <span class="hljs-keyword">new</span> ExpectationNotMet(<span class="hljs-built_in">this</span>.toString(), expected, actual);
+        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">expectedValue</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">expected</span> =&gt;</span> {
+                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">predicate</span>(actual, expected)
+                    ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), expected, actual)
+                    : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), expected, actual);
             });
     }
 }
@@ -413,21 +413,21 @@
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ExpectationAlias</span>&lt;<span class="hljs-title">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">any</span>, <span class="hljs-title">Actual</span>&gt; </span>{
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">ExpectationAlias</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt; {
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         subject: <span class="hljs-built_in">string</span>,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(subject);
+    </span>) {
+        <span class="hljs-variable language_">super</span>(subject);
     }
 
-    answeredBy(actor: AnswersQuestions): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-built_in">Promise</span>&lt;ExpectationOutcome&lt;<span class="hljs-built_in">any</span>, Actual&gt;&gt; {
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;&gt; {
 
         <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span>
-            <span class="hljs-built_in">this</span>.expectation.answeredBy(actor)(actual).then(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _ <span class="hljs-keyword">instanceof</span> ExpectationMet
-                ? <span class="hljs-keyword">new</span> ExpectationMet(<span class="hljs-built_in">this</span>.subject, _.expected, _.actual)
-                : <span class="hljs-keyword">new</span> ExpectationNotMet(_.message, _.expected, _.actual));
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>.<span class="hljs-title function_">answeredBy</span>(actor)(actual).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _ <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>
+                ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span>, _.<span class="hljs-property">expected</span>, _.<span class="hljs-property">actual</span>)
+                : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(_.<span class="hljs-property">message</span>, _.<span class="hljs-property">expected</span>, _.<span class="hljs-property">actual</span>));
     }
 }
 </code></pre>

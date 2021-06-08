@@ -131,35 +131,35 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/index.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ConfigurationError, Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ModuleLoader, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 
-<span class="hljs-keyword">import</span> Gherkin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>);
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">Gherkin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>);
 
-<span class="hljs-keyword">import</span> { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
-<span class="hljs-keyword">import</span> { Notifier, ResultMapper } <span class="hljs-keyword">from</span> <span class="hljs-string">'./notifier'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">FeatureFileLoader</span>, <span class="hljs-title class_">FeatureFileMap</span>, <span class="hljs-title class_">FeatureFileMapper</span>, <span class="hljs-title class_">FeatureFileParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Notifier</span>, <span class="hljs-title class_">ResultMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./notifier'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Creates a listener for Cucumber.js 0.x-6.x
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib~Serenity}</span> <span class="hljs-variable">serenity</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~ModuleLoader}</span> <span class="hljs-variable">moduleLoader</span></span>
- * <span class="hljs-doctag">@returns <span class="hljs-type">{cucumber~Formatter}</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib~Serenity</span>} <span class="hljs-variable">serenity</span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~ModuleLoader</span>} <span class="hljs-variable">moduleLoader</span>
+ * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">cucumber~Formatter</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createListener</span>(<span class="hljs-params">serenity: Serenity, moduleLoader: ModuleLoader</span>): <span class="hljs-title">any</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">createListener</span>(<span class="hljs-params">serenity: Serenity, moduleLoader: ModuleLoader</span>): <span class="hljs-built_in">any</span> {
 
-    <span class="hljs-keyword">const</span> version  = moduleLoader.versionOf(<span class="hljs-string">'cucumber'</span>);
+    <span class="hljs-keyword">const</span> version  = moduleLoader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'cucumber'</span>);
 
     <span class="hljs-keyword">try</span> {
         <span class="hljs-keyword">const</span>
-            cucumber        = moduleLoader.require(<span class="hljs-string">'cucumber'</span>),
-            notifier        = <span class="hljs-keyword">new</span> Notifier(serenity),
-            mapper          = <span class="hljs-keyword">new</span> FeatureFileMapper(),
-            resultMapper    = <span class="hljs-keyword">new</span> ResultMapper(),
-            cache           = <span class="hljs-keyword">new</span> Cache&lt;Path, FeatureFileMap&gt;(),
-            loader          = <span class="hljs-keyword">new</span> FeatureFileLoader(
-                <span class="hljs-keyword">new</span> FeatureFileParser(<span class="hljs-keyword">new</span> Gherkin.Parser()),
+            cucumber        = moduleLoader.<span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>),
+            notifier        = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Notifier</span>(serenity),
+            mapper          = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>(),
+            resultMapper    = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ResultMapper</span>(),
+            cache           = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cache</span>&lt;<span class="hljs-title class_">Path</span>, <span class="hljs-title class_">FeatureFileMap</span>&gt;(),
+            loader          = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileLoader</span>(
+                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileParser</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Gherkin</span>.<span class="hljs-title class_">Parser</span>()),
                 mapper,
                 cache,
             );
@@ -176,7 +176,7 @@
         });
     }
     <span class="hljs-keyword">catch</span> (error) {
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Cucumber version <span class="hljs-subst">${ version.toString() }</span> is not supported yet.`</span>, error);
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Cucumber version <span class="hljs-subst">${ version.toString() }</span> is not supported yet.`</span>, error);
     }
 }
 </code></pre>

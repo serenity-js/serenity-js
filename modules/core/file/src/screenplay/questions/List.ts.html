@@ -295,19 +295,19 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/List.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../io'</span>;
-<span class="hljs-keyword">import</span> { AnswersQuestions, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
-<span class="hljs-keyword">import</span> { Answerable } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
-<span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
-<span class="hljs-keyword">import</span> { Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
-<span class="hljs-keyword">import</span> { ArrayListAdapter, ListAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lists'</span>;
-<span class="hljs-keyword">import</span> { MetaQuestion } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MetaQuestion'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Answerable'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Expectation'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArrayListAdapter</span>, <span class="hljs-title class_">ListAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./lists'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MetaQuestion</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MetaQuestion'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
- *  Filters an {<span class="hljs-doctag">@link </span>Answerable} list of items based on the criteria provided.
- *  Instantiate via {<span class="hljs-doctag">@link </span>List.of}
+ *  Filters an {<span class="hljs-doctag">@link</span> Answerable} list of items based on the criteria provided.
+ *  Instantiate via {<span class="hljs-doctag">@link</span> List.of}
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Example data structure&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Example data structure&lt;/caption&gt;
  *  interface TestAccount {
  *      username: string;
  *      role: string;
@@ -332,7 +332,7 @@
  *      }
  *  ]
  *
- * <span class="hljs-doctag">@example </span>&lt;caption&gt;Using with Property&lt;/caption&gt;
+ * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using with Property&lt;/caption&gt;
  *  import { actorCalled, List, Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
  *  import { contain, Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
  *
@@ -348,50 +348,50 @@
  *      )
  *  )
  *
- * <span class="hljs-doctag">@extends <span class="hljs-type">{Question}</span></span>
- * <span class="hljs-doctag">@see <span class="hljs-type">{@link MetaQuestion}</span></span>
+ * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Question</span>}
+ * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link MetaQuestion</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">List</span>&lt;
-    <span class="hljs-title">List_Adapter_Type</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ListAdapter</span>&lt;<span class="hljs-title">Item_Type</span>, <span class="hljs-title">Collection_Type</span>, <span class="hljs-title">Item_Return_Type</span>, <span class="hljs-title">Collection_Return_Type</span>&gt;,
-    <span class="hljs-title">Item_Type</span>,
-    <span class="hljs-title">Collection_Type</span>,
-    <span class="hljs-title">Item_Return_Type</span> </span>= Item_Type,
-    Collection_Return_Type = Collection_Type,
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">List</span>&lt;
+    <span class="hljs-title class_">List</span>_Adapter_Type <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type, <span class="hljs-title class_">Item</span>_Return_Type, <span class="hljs-title class_">Collection</span>_Return_Type&gt;,
+    <span class="hljs-title class_">Item</span>_Type,
+    <span class="hljs-title class_">Collection</span>_Type,
+    <span class="hljs-title class_">Item</span>_Return_Type = <span class="hljs-title class_">Item</span>_Type,
+    <span class="hljs-title class_">Collection</span>_Return_Type = <span class="hljs-title class_">Collection</span>_Type,
 &gt;
-    <span class="hljs-keyword">extends</span> Question&lt;Collection_Return_Type&gt;
+    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Collection</span>_Return_Type&gt;
 {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Instantiates a new {<span class="hljs-doctag">@link </span>List} configured to support standard {<span class="hljs-doctag">@link </span>Array}.
+     *  Instantiates a new {<span class="hljs-doctag">@link</span> List} configured to support standard {<span class="hljs-doctag">@link</span> Array}.
      *
      *  **Please note:** Don't use `List.of` to wrap `Question&lt;ElementArrayFinder&gt;` returned by
      *  [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all).
      *  Instead, use [`Target.all(...).located(...).where(...)`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),
-     *  which uses a Protractor-specific {<span class="hljs-doctag">@link </span>ListAdapter}.
+     *  which uses a Protractor-specific {<span class="hljs-doctag">@link</span> ListAdapter}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Answerable&lt;Item_Type[]&gt;}</span> <span class="hljs-variable">items</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;Item_Type[]&gt;</span>} <span class="hljs-variable">items</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], Promise&lt;Item_Type&gt;, Promise&lt;Item_Type[]&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], Promise&lt;Item_Type&gt;, Promise&lt;Item_Type[]&gt;&gt;</span>}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;Item_Type&gt;(items: Answerable&lt;Item_Type[]&gt;): List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], <span class="hljs-built_in">Promise</span>&lt;Item_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;Item_Type[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> List&lt;ArrayListAdapter&lt;Item_Type&gt;, Item_Type, Item_Type[], <span class="hljs-built_in">Promise</span>&lt;Item_Type&gt;, <span class="hljs-built_in">Promise</span>&lt;Item_Type[]&gt;&gt;(
-            <span class="hljs-keyword">new</span> ArrayListAdapter(items)
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;(<span class="hljs-attr">items</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt;): <span class="hljs-title class_">List</span>&lt;<span class="hljs-title class_">ArrayListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Item</span>_Type[], <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">List</span>&lt;<span class="hljs-title class_">ArrayListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Item</span>_Type[], <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt;&gt;(
+            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(items)
         );
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{List_Adapter_Type}</span> <span class="hljs-variable">collection</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">List_Adapter_Type</span>} <span class="hljs-variable">collection</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: List_Adapter_Type</span>)</span> {
-        <span class="hljs-built_in">super</span>(formatted<span class="hljs-string">`<span class="hljs-subst">${ collection }</span>`</span>);
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: List_Adapter_Type</span>) {
+        <span class="hljs-variable language_">super</span>(formatted<span class="hljs-string">`<span class="hljs-subst">${ collection }</span>`</span>);
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the number of items left after applying any filters,
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Counting items&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Counting items&lt;/caption&gt;
      *  import { actorCalled, List } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { Ensure, equals, property } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -402,13 +402,13 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;number&gt;&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;number&gt;&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link List#where}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List#where</span>}
      */</span>
-    count(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the number of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.collection.toString() }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            <span class="hljs-built_in">this</span>.collection.count(actor)
+    <span class="hljs-title function_">count</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the number of <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.collection.toString() }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">count</span>(actor)
         );
     }
 
@@ -416,7 +416,7 @@
      * <span class="hljs-doctag">@desc</span>
      *  Returns the first of items left after applying any filters,
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the first item&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving the first item&lt;/caption&gt;
      *  import { actorCalled, List } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { Ensure, equals, property } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -427,13 +427,13 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Item_Return_Type&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Item_Return_Type&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link List#where}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List#where</span>}
      */</span>
-    first(): Question&lt;Item_Return_Type&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the first of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.collection.toString() }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            <span class="hljs-built_in">this</span>.collection.first(actor)
+    <span class="hljs-title function_">first</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Item</span>_Return_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the first of <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.collection.toString() }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">first</span>(actor)
         );
     }
 
@@ -441,7 +441,7 @@
      * <span class="hljs-doctag">@desc</span>
      *  Returns the last of items left after applying any filters,
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the last item&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving the last item&lt;/caption&gt;
      *  import { actorCalled, List } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { Ensure, equals, property } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -452,13 +452,13 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Item_Return_Type&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Item_Return_Type&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link List#where}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List#where</span>}
      */</span>
-    last(): Question&lt;Item_Return_Type&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the last of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.collection.toString() }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            <span class="hljs-built_in">this</span>.collection.last(actor)
+    <span class="hljs-title function_">last</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Item</span>_Return_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the last of <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.collection.toString() }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">last</span>(actor)
         );
     }
 
@@ -466,7 +466,7 @@
      * <span class="hljs-doctag">@desc</span>
      *  Returns the nth of the items left after applying any filters,
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Retrieving the nth item&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Retrieving the nth item&lt;/caption&gt;
      *  import { actorCalled, List } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { Ensure, equals, property } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -477,24 +477,24 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{number}</span> <span class="hljs-variable">index</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">index</span>
      *  Zero-based index of the item to return
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Item_Return_Type&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Item_Return_Type&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link List#where}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List#where</span>}
      */</span>
-    get(index: <span class="hljs-built_in">number</span>): Question&lt;Item_Return_Type&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`the <span class="hljs-subst">${ List.ordinalSuffixOf(index + <span class="hljs-number">1</span>) }</span> of <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.collection }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            <span class="hljs-built_in">this</span>.collection.get(actor, index)
+    <span class="hljs-title function_">get</span>(<span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Item</span>_Return_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`the <span class="hljs-subst">${ List.ordinalSuffixOf(index + <span class="hljs-number">1</span>) }</span> of <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.collection }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">get</span>(actor, index)
         );
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Filters the underlying collection so that the result contains only those elements that meet the {<span class="hljs-doctag">@link </span>Expectation}
+     *  Filters the underlying collection so that the result contains only those elements that meet the {<span class="hljs-doctag">@link</span> Expectation}
      *
-     * <span class="hljs-doctag">@example </span>&lt;caption&gt;Filtering a list&lt;/caption&gt;
+     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Filtering a list&lt;/caption&gt;
      *  import { actorCalled, List, Property } from '<span class="hljs-doctag">@serenity</span>-js/core';
      *  import { contain, Ensure, equals, property } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
      *
@@ -508,36 +508,36 @@
      *      )
      *  )
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{MetaQuestion&lt;Item_Type, Promise&lt;Answer_Type&gt; | Answer_Type&gt;}</span> <span class="hljs-variable">question</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{Expectation&lt;any, Answer_Type&gt;}</span> <span class="hljs-variable">expectation</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">MetaQuestion&lt;Item_Type, Promise&lt;Answer_Type&gt; | Answer_Type&gt;</span>} <span class="hljs-variable">question</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Expectation&lt;any, Answer_Type&gt;</span>} <span class="hljs-variable">expectation</span>
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{List&lt;List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type&gt;}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">List&lt;List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type&gt;</span>}
      */</span>
-    where&lt;Answer_Type&gt;(
-        question: MetaQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Answer_Type&gt; | Answer_Type&gt;,
-        expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Answer_Type&gt;,
-    ): List&lt;List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> List&lt;List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type&gt;(
-            <span class="hljs-built_in">this</span>.collection.withFilter(question, expectation) <span class="hljs-keyword">as</span> List_Adapter_Type,
+    where&lt;<span class="hljs-title class_">Answer</span>_Type&gt;(
+        <span class="hljs-attr">question</span>: <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt; | <span class="hljs-title class_">Answer</span>_Type&gt;,
+        <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Answer</span>_Type&gt;,
+    ): <span class="hljs-title class_">List</span>&lt;<span class="hljs-title class_">List</span>_Adapter_Type, <span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type, <span class="hljs-title class_">Item</span>_Return_Type, <span class="hljs-title class_">Collection</span>_Return_Type&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">List</span>&lt;<span class="hljs-title class_">List</span>_Adapter_Type, <span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type, <span class="hljs-title class_">Item</span>_Return_Type, <span class="hljs-title class_">Collection</span>_Return_Type&gt;(
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">withFilter</span>(question, expectation) <span class="hljs-keyword">as</span> <span class="hljs-title class_">List</span>_Adapter_Type,
         );
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span>Actor} answer this {<span class="hljs-doctag">@link </span>Question} and return the underlying collection.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> Actor} answer this {<span class="hljs-doctag">@link</span> Question} and return the underlying collection.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{AnswersQuestions &amp; UsesAbilities}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Collection_Return_Type}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Collection_Return_Type</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link AnswersQuestions}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link UsesAbilities}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AnswersQuestions</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link UsesAbilities</span>}
      */</span>
-    answeredBy(actor: AnswersQuestions &amp; UsesAbilities): Collection_Return_Type {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.collection.items(actor);
+    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Collection</span>_Return_Type {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">items</span>(actor);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> ordinalSuffixOf(index: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">ordinalSuffixOf</span>(<span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span>
             lastDigit = index % <span class="hljs-number">10</span>,
             lastTwoDigits = index % <span class="hljs-number">100</span>;
@@ -549,7 +549,7 @@
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'nd'</span>;
             <span class="hljs-keyword">case</span> (lastDigit === <span class="hljs-number">3</span> &amp;&amp; lastTwoDigits !== <span class="hljs-number">13</span>):
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'rd'</span>;
-            <span class="hljs-keyword">default</span>:
+            <span class="hljs-attr">default</span>:
                 <span class="hljs-keyword">return</span> index + <span class="hljs-string">'th'</span>;
         }
     }

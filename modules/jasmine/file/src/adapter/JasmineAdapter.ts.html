@@ -130,61 +130,61 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/JasmineAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ModuleLoader, TestRunnerAdapter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
 <span class="hljs-keyword">import</span> reporter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../index'</span>);
-<span class="hljs-keyword">import</span> { ExecutionIgnored, Outcome } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExecutionIgnored</span>, <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
-<span class="hljs-keyword">import</span> { JasmineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'./JasmineConfig'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">JasmineConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./JasmineConfig'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Allows for programmatic execution of Jasmine test scenarios,
- *  using {<span class="hljs-doctag">@link </span>SerenityReporterForJasmine} to report progress.
+ *  using {<span class="hljs-doctag">@link</span> SerenityReporterForJasmine} to report progress.
  *
- * <span class="hljs-doctag">@implements <span class="hljs-type">{@serenity-js/core/lib/io~TestRunnerAdapter}</span></span>
+ * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JasmineAdapter</span> <span class="hljs-title">implements</span> <span class="hljs-title">TestRunnerAdapter</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JasmineAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">TestRunnerAdapter</span> {
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{JasmineConfig}</span> <span class="hljs-variable">config</span></span>
-     * <span class="hljs-doctag">@param <span class="hljs-type">{@serenity-js/core/lib/io~ModuleLoader}</span> <span class="hljs-variable">loader</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">JasmineConfig</span>} <span class="hljs-variable">config</span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~ModuleLoader</span>} <span class="hljs-variable">loader</span>
      */</span>
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: JasmineConfig,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
-    </span>)</span> {
+    </span>) {
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Scenario success threshold for this test runner.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Outcome | { Code: number }</span></span>}
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Outcome | { Code: number </span>}}
      */</span>
-    successThreshold(): Outcome | { <span class="hljs-attr">Code</span>: <span class="hljs-built_in">number</span> } {
-        <span class="hljs-keyword">return</span> ExecutionIgnored;
+    <span class="hljs-title function_">successThreshold</span>(): <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> } {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">ExecutionIgnored</span>;
     }
 
     <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">pathsToScenarios</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">pathsToScenarios</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    run(pathsToScenarios: <span class="hljs-built_in">string</span>[]): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
+    <span class="hljs-title function_">run</span>(<span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                JasmineRunner   = <span class="hljs-built_in">this</span>.loader.require(<span class="hljs-string">'jasmine'</span>),
-                runner          = <span class="hljs-keyword">new</span> JasmineRunner({           <span class="hljs-comment">// instantiating the JasmineRunner has a side-effect...</span>
+                <span class="hljs-title class_">JasmineRunner</span>   = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'jasmine'</span>),
+                runner          = <span class="hljs-keyword">new</span> <span class="hljs-title class_">JasmineRunner</span>({           <span class="hljs-comment">// instantiating the JasmineRunner has a side-effect...</span>
                     <span class="hljs-attr">projectBaseDir</span>: <span class="hljs-string">''</span>,
                 }),
-                jasmine         = (<span class="hljs-built_in">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).jasmine;      <span class="hljs-comment">// ... of registering a global jasmine instance</span>
+                jasmine         = (<span class="hljs-variable language_">global</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">jasmine</span>;      <span class="hljs-comment">// ... of registering a global jasmine instance</span>
 
-            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.config.defaultTimeoutInterval) {
-                jasmine.DEFAULT_TIMEOUT_INTERVAL = <span class="hljs-built_in">this</span>.config.defaultTimeoutInterval;
+            <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>.<span class="hljs-property">defaultTimeoutInterval</span>) {
+                jasmine.<span class="hljs-property">DEFAULT_TIMEOUT_INTERVAL</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>.<span class="hljs-property">defaultTimeoutInterval</span>;
             }
 
-            runner.clearReporters();
+            runner.<span class="hljs-title function_">clearReporters</span>();
 
-            runner.loadConfig(<span class="hljs-built_in">Object</span>.assign(
+            runner.<span class="hljs-title function_">loadConfig</span>(<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(
                 {
                     <span class="hljs-comment">/*
                      * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled
@@ -203,16 +203,16 @@
                      */</span>
                     <span class="hljs-attr">random</span>: <span class="hljs-literal">false</span>,
                 },
-                <span class="hljs-built_in">this</span>.config,
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>,
             ));
 
-            runner.addReporter(reporter(jasmine));
+            runner.<span class="hljs-title function_">addReporter</span>(<span class="hljs-title function_">reporter</span>(jasmine));
 
-            runner.onComplete(<span class="hljs-function">(<span class="hljs-params">passed: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> resolve());
+            runner.<span class="hljs-title function_">onComplete</span>(<span class="hljs-function">(<span class="hljs-params">passed: <span class="hljs-built_in">boolean</span></span>) =&gt;</span> <span class="hljs-title function_">resolve</span>());
 
-            runner.configureDefaultReporter(<span class="hljs-built_in">this</span>.config);
+            runner.<span class="hljs-title function_">configureDefaultReporter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>);
 
-            runner.execute(pathsToScenarios, <span class="hljs-built_in">this</span>.config.grep);
+            runner.<span class="hljs-title function_">execute</span>(pathsToScenarios, <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>.<span class="hljs-property">grep</span>);
         });
     }
 }

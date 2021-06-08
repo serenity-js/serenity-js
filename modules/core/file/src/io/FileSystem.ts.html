@@ -300,115 +300,115 @@
 <span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> nodeOS <span class="hljs-keyword">from</span> <span class="hljs-string">'os'</span>;
 <span class="hljs-keyword">import</span> { promisify } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
 
-<span class="hljs-keyword">import</span> { Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FileSystem</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileSystem</span> {
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> root: Path,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fs: <span class="hljs-keyword">typeof</span> nodeFS = gracefulFS,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> os: <span class="hljs-keyword">typeof</span> nodeOS = nodeOS,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> directoryMode = <span class="hljs-built_in">Number</span>.<span class="hljs-built_in">parseInt</span>(<span class="hljs-string">'0777'</span>, <span class="hljs-number">8</span>) &amp; (~process.umask()),
-    </span>)</span> {
+    </span>) {
     }
 
-    <span class="hljs-keyword">public</span> store(relativeOrAbsolutePathToFile: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">string</span> | NodeJS.ArrayBufferView, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve()
-            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
-            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">this</span>.write(<span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">store</span>(<span class="hljs-attr">relativeOrAbsolutePathToFile</span>: <span class="hljs-title class_">Path</span>, <span class="hljs-attr">data</span>: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Node</span>JS.<span class="hljs-property">ArrayBufferView</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Path</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>()
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">ensureDirectoryExistsAt</span>(relativeOrAbsolutePathToFile.<span class="hljs-title function_">directory</span>()))
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">write</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>.<span class="hljs-title function_">resolve</span>(relativeOrAbsolutePathToFile), data, encoding));
     }
 
-    <span class="hljs-keyword">public</span> createReadStream(relativeOrAbsolutePathToFile: Path): nodeFS.ReadStream {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fs.createReadStream(<span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFile).value);
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">createReadStream</span>(<span class="hljs-attr">relativeOrAbsolutePathToFile</span>: <span class="hljs-title class_">Path</span>): nodeFS.<span class="hljs-property">ReadStream</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-title function_">createReadStream</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>.<span class="hljs-title function_">resolve</span>(relativeOrAbsolutePathToFile).<span class="hljs-property">value</span>);
     }
 
-    <span class="hljs-keyword">public</span> createWriteStreamTo(relativeOrAbsolutePathToFile: Path): nodeFS.WriteStream {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.fs.createWriteStream(<span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFile).value);
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">createWriteStreamTo</span>(<span class="hljs-attr">relativeOrAbsolutePathToFile</span>: <span class="hljs-title class_">Path</span>): nodeFS.<span class="hljs-property">WriteStream</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-title function_">createWriteStream</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>.<span class="hljs-title function_">resolve</span>(relativeOrAbsolutePathToFile).<span class="hljs-property">value</span>);
     }
 
-    <span class="hljs-keyword">public</span> stat(relativeOrAbsolutePathToFile: Path): <span class="hljs-built_in">Promise</span>&lt;nodeFS.Stats&gt; {
-        <span class="hljs-keyword">const</span> stat = promisify(<span class="hljs-built_in">this</span>.fs.stat);
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">stat</span>(<span class="hljs-attr">relativeOrAbsolutePathToFile</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;nodeFS.<span class="hljs-property">Stats</span>&gt; {
+        <span class="hljs-keyword">const</span> stat = <span class="hljs-title function_">promisify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-property">stat</span>);
 
-        <span class="hljs-keyword">return</span> stat(<span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFile).value);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">stat</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>.<span class="hljs-title function_">resolve</span>(relativeOrAbsolutePathToFile).<span class="hljs-property">value</span>);
     }
 
-    <span class="hljs-keyword">public</span> remove(relativeOrAbsolutePathToFileOrDirectory: Path): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">remove</span>(<span class="hljs-attr">relativeOrAbsolutePathToFileOrDirectory</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">const</span>
-            stat = promisify(<span class="hljs-built_in">this</span>.fs.stat),
-            unlink = promisify(<span class="hljs-built_in">this</span>.fs.unlink),
-            readdir = promisify(<span class="hljs-built_in">this</span>.fs.readdir),
-            rmdir = promisify(<span class="hljs-built_in">this</span>.fs.rmdir);
+            stat = <span class="hljs-title function_">promisify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-property">stat</span>),
+            unlink = <span class="hljs-title function_">promisify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-property">unlink</span>),
+            readdir = <span class="hljs-title function_">promisify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-property">readdir</span>),
+            rmdir = <span class="hljs-title function_">promisify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-property">rmdir</span>);
 
-        <span class="hljs-keyword">const</span> absolutePath = <span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToFileOrDirectory);
+        <span class="hljs-keyword">const</span> absolutePath = <span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>.<span class="hljs-title function_">resolve</span>(relativeOrAbsolutePathToFileOrDirectory);
 
-        <span class="hljs-keyword">return</span> stat(absolutePath.value)
-            .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span>
-                result.isFile()
-                    ? unlink(absolutePath.value)
-                    : readdir(absolutePath.value)
-                        .then(<span class="hljs-function"><span class="hljs-params">entries</span> =&gt;</span>
-                            <span class="hljs-built_in">Promise</span>.all(entries.map(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span>
-                                <span class="hljs-built_in">this</span>.remove(absolutePath.join(<span class="hljs-keyword">new</span> Path(entry)))),
-                            ).then(<span class="hljs-function">() =&gt;</span> rmdir(absolutePath.value)),
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">stat</span>(absolutePath.<span class="hljs-property">value</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span>
+                result.<span class="hljs-title function_">isFile</span>()
+                    ? <span class="hljs-title function_">unlink</span>(absolutePath.<span class="hljs-property">value</span>)
+                    : <span class="hljs-title function_">readdir</span>(absolutePath.<span class="hljs-property">value</span>)
+                        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">entries</span> =&gt;</span>
+                            <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(entries.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">entry</span> =&gt;</span>
+                                <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">remove</span>(absolutePath.<span class="hljs-title function_">join</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(entry)))),
+                            ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">rmdir</span>(absolutePath.<span class="hljs-property">value</span>)),
                         ),
             )
-            .then(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
-            .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (error?.code === <span class="hljs-string">'ENOENT'</span>) {
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
+            .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (error?.<span class="hljs-property">code</span> === <span class="hljs-string">'ENOENT'</span>) {
                     <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
                 }
                 <span class="hljs-keyword">throw</span> error;
             });
     }
 
-    <span class="hljs-keyword">public</span> ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ensureDirectoryExistsAt</span>(<span class="hljs-attr">relativeOrAbsolutePathToDirectory</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Path</span>&gt; {
 
-        <span class="hljs-keyword">const</span> absolutePath = <span class="hljs-built_in">this</span>.root.resolve(relativeOrAbsolutePathToDirectory);
+        <span class="hljs-keyword">const</span> absolutePath = <span class="hljs-variable language_">this</span>.<span class="hljs-property">root</span>.<span class="hljs-title function_">resolve</span>(relativeOrAbsolutePathToDirectory);
 
-        <span class="hljs-keyword">return</span> absolutePath.split().reduce(<span class="hljs-function">(<span class="hljs-params">promisedParent, child</span>) =&gt;</span> {
-            <span class="hljs-keyword">return</span> promisedParent.then(<span class="hljs-function"><span class="hljs-params">parent</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-                <span class="hljs-keyword">const</span> current = parent.resolve(<span class="hljs-keyword">new</span> Path(child));
+        <span class="hljs-keyword">return</span> absolutePath.<span class="hljs-title function_">split</span>().<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">promisedParent, child</span>) =&gt;</span> {
+            <span class="hljs-keyword">return</span> promisedParent.<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">parent</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+                <span class="hljs-keyword">const</span> current = parent.<span class="hljs-title function_">resolve</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(child));
 
-                <span class="hljs-built_in">this</span>.fs.mkdir(current.value, <span class="hljs-built_in">this</span>.directoryMode, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                    <span class="hljs-keyword">if</span> (! error || error.code === <span class="hljs-string">'EEXIST'</span>) {
-                        <span class="hljs-keyword">return</span> resolve(current);
+                <span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-title function_">mkdir</span>(current.<span class="hljs-property">value</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">directoryMode</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+                    <span class="hljs-keyword">if</span> (! error || error.<span class="hljs-property">code</span> === <span class="hljs-string">'EEXIST'</span>) {
+                        <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>(current);
                     }
 
                     <span class="hljs-comment">// To avoid `EISDIR` error on Mac and `EACCES`--&gt;`ENOENT` and `EPERM` on Windows.</span>
-                    <span class="hljs-keyword">if</span> (error.code === <span class="hljs-string">'ENOENT'</span>) { <span class="hljs-comment">// Throw the original parentDir error on `current` `ENOENT` failure.</span>
-                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`EACCES: permission denied, mkdir '<span class="hljs-subst">${ parent.value }</span>'`</span>);
+                    <span class="hljs-keyword">if</span> (error.<span class="hljs-property">code</span> === <span class="hljs-string">'ENOENT'</span>) { <span class="hljs-comment">// Throw the original parentDir error on `current` `ENOENT` failure.</span>
+                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`EACCES: permission denied, mkdir '<span class="hljs-subst">${ parent.value }</span>'`</span>);
                     }
 
-                    <span class="hljs-keyword">const</span> caughtError = !! ~[<span class="hljs-string">'EACCES'</span>, <span class="hljs-string">'EPERM'</span>, <span class="hljs-string">'EISDIR'</span>].indexOf(error.code);
-                    <span class="hljs-keyword">if</span> (! caughtError || (caughtError &amp;&amp; current.equals(relativeOrAbsolutePathToDirectory))) {
+                    <span class="hljs-keyword">const</span> caughtError = !! ~[<span class="hljs-string">'EACCES'</span>, <span class="hljs-string">'EPERM'</span>, <span class="hljs-string">'EISDIR'</span>].<span class="hljs-title function_">indexOf</span>(error.<span class="hljs-property">code</span>);
+                    <span class="hljs-keyword">if</span> (! caughtError || (caughtError &amp;&amp; current.<span class="hljs-title function_">equals</span>(relativeOrAbsolutePathToDirectory))) {
                         <span class="hljs-keyword">throw</span> error; <span class="hljs-comment">// Throw if it's just the last created dir.</span>
                     }
 
-                    <span class="hljs-keyword">return</span> resolve(current);
+                    <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>(current);
                 });
             }));
-        }, <span class="hljs-built_in">Promise</span>.resolve(absolutePath.root()));
+        }, <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(absolutePath.<span class="hljs-title function_">root</span>()));
     }
 
-    <span class="hljs-keyword">public</span> rename(source: Path, <span class="hljs-attr">destination</span>: Path): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> rename = promisify(<span class="hljs-built_in">this</span>.fs.rename);
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">rename</span>(<span class="hljs-attr">source</span>: <span class="hljs-title class_">Path</span>, <span class="hljs-attr">destination</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">const</span> rename = <span class="hljs-title function_">promisify</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-property">rename</span>);
 
-        <span class="hljs-keyword">return</span> rename(source.value, destination.value);
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">rename</span>(source.<span class="hljs-property">value</span>, destination.<span class="hljs-property">value</span>);
     }
 
-    <span class="hljs-keyword">public</span> tempFilePath(prefix = <span class="hljs-string">''</span>, suffix = <span class="hljs-string">'.tmp'</span>): Path {
-        <span class="hljs-keyword">return</span> Path.from(<span class="hljs-built_in">this</span>.fs.realpathSync(<span class="hljs-built_in">this</span>.os.tmpdir()), <span class="hljs-string">`<span class="hljs-subst">${ prefix }</span><span class="hljs-subst">${ cuid() }</span><span class="hljs-subst">${ suffix }</span>`</span>);
+    <span class="hljs-keyword">public</span> <span class="hljs-title function_">tempFilePath</span>(prefix = <span class="hljs-string">''</span>, suffix = <span class="hljs-string">'.tmp'</span>): <span class="hljs-title class_">Path</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-title function_">realpathSync</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">os</span>.<span class="hljs-title function_">tmpdir</span>()), <span class="hljs-string">`<span class="hljs-subst">${ prefix }</span><span class="hljs-subst">${ cuid() }</span><span class="hljs-subst">${ suffix }</span>`</span>);
     }
 
-    <span class="hljs-keyword">private</span> write(path: Path, <span class="hljs-attr">data</span>: <span class="hljs-built_in">string</span> | NodeJS.ArrayBufferView, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">Promise</span>&lt;Path&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-            <span class="hljs-built_in">this</span>.fs.writeFile(
-                path.value,
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">write</span>(<span class="hljs-attr">path</span>: <span class="hljs-title class_">Path</span>, <span class="hljs-attr">data</span>: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Node</span>JS.<span class="hljs-property">ArrayBufferView</span>, encoding?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Path</span>&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">fs</span>.<span class="hljs-title function_">writeFile</span>(
+                path.<span class="hljs-property">value</span>,
                 data,
                 encoding,
                 <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> error
-                    ? reject(error)
-                    : resolve(path),
+                    ? <span class="hljs-title function_">reject</span>(error)
+                    : <span class="hljs-title function_">resolve</span>(path),
             );
         });
     }

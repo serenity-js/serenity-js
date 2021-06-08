@@ -187,13 +187,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Navigate} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Navigate</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber18">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber19">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -383,7 +383,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber145">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber146">source</a></span></span>
     </span>
   </h3>
 
@@ -427,18 +427,18 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Hannu'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/first'</span>),
-         Navigate.to(<span class="hljs-string">'/second'</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/first'</span>),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/second'</span>),
 
-         Navigate.back(),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">back</span>(),
 
-         Ensure.that(Website.url(), endsWith(<span class="hljs-string">'/first'</span>)),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Website</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'/first'</span>)),
      );</code></pre>
     </div>
 </div>
@@ -468,7 +468,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber190">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber191">source</a></span></span>
     </span>
   </h3>
 
@@ -512,19 +512,19 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Hannu'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/first'</span>),
-         Navigate.to(<span class="hljs-string">'/second'</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/first'</span>),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/second'</span>),
 
-         Navigate.back(),
-         Navigate.forward(),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">back</span>(),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">forward</span>(),
 
-         Ensure.that(Website.url(), endsWith(<span class="hljs-string">'/second'</span>)),
+         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Website</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'/second'</span>)),
      );</code></pre>
     </div>
 </div>
@@ -554,7 +554,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber232">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber233">source</a></span></span>
     </span>
   </h3>
 
@@ -598,15 +598,15 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { Navigate, BrowseTheWeb, DeleteCookies } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">DeleteCookies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Hannu'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/login'</span>),
-         DeleteCookies.called(<span class="hljs-string">'session_id'</span>),
-         Navigate.reloadPage(),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/login'</span>),
+         <span class="hljs-title class_">DeleteCookies</span>.<span class="hljs-title function_">called</span>(<span class="hljs-string">'session_id'</span>),
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">reloadPage</span>(),
      );</code></pre>
     </div>
 </div>
@@ -637,7 +637,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Navigate.ts.html#lineNumber91">source</a></span></span>
     </span>
   </h3>
 
@@ -704,7 +704,7 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.config = {
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
      <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'https://example.org'</span>,
      <span class="hljs-comment">// ...</span>
  }</code></pre>
@@ -712,34 +712,34 @@
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Hannu'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/search'</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/search'</span>),
      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to an absolute URL (overrides baseUrl)</div>
       <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Hannu'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'https://mycompany.org/login'</span>),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'https://mycompany.org/login'</span>),
      );</code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to URL with timeout</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { BrowseTheWeb, Navigate } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
 
- actorCalled(<span class="hljs-string">'Hannu'</span>)
-     .whoCan(BrowseTheWeb.using(protractor.browser))
-     .attemptsTo(
-         Navigate.to(<span class="hljs-string">'/search'</span>).withTimeout(Duration.ofSeconds(<span class="hljs-number">2</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
+     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
+     .<span class="hljs-title function_">attemptsTo</span>(
+         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/search'</span>).<span class="hljs-title function_">withTimeout</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">2</span>)),
      );</code></pre>
     </div>
 </div>

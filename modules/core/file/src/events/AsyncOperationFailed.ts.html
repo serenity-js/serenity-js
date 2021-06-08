@@ -296,34 +296,34 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/events/AsyncOperationFailed.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isDefined, JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
 
-<span class="hljs-keyword">import</span> { ErrorSerialiser } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Timestamp } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'./DomainEvent'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorSerialiser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Timestamp</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./DomainEvent'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AsyncOperationFailed</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span> </span>{
-    <span class="hljs-keyword">static</span> fromJSON(o: JSONObject): AsyncOperationFailed {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AsyncOperationFailed(
-            ErrorSerialiser.deserialise(o.error <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            CorrelationId.fromJSON(o.correlationId <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
-            Timestamp.fromJSON(o.timestamp <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AsyncOperationFailed</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">DomainEvent</span> {
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromJSON</span>(<span class="hljs-attr">o</span>: JSONObject): <span class="hljs-title class_">AsyncOperationFailed</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationFailed</span>(
+            <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(o.<span class="hljs-property">error</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">correlationId</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
+            <span class="hljs-title class_">Timestamp</span>.<span class="hljs-title function_">fromJSON</span>(o.<span class="hljs-property">timestamp</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">string</span>),
         );
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> error: <span class="hljs-built_in">Error</span>,
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> correlationId: CorrelationId,
         timestamp?: Timestamp,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>(timestamp);
-        ensure(<span class="hljs-string">'error'</span>, error, isDefined());
-        ensure(<span class="hljs-string">'correlationId'</span>, correlationId, isDefined());
+    </span>) {
+        <span class="hljs-variable language_">super</span>(timestamp);
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'error'</span>, error, <span class="hljs-title function_">isDefined</span>());
+        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'correlationId'</span>, correlationId, <span class="hljs-title function_">isDefined</span>());
     }
 
-    toJSON(): JSONObject {
+    <span class="hljs-title function_">toJSON</span>(): JSONObject {
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">correlationId</span>: <span class="hljs-built_in">this</span>.correlationId.toJSON(),
-            <span class="hljs-attr">error</span>: ErrorSerialiser.serialise(<span class="hljs-built_in">this</span>.error),
-            <span class="hljs-attr">timestamp</span>: <span class="hljs-built_in">this</span>.timestamp.toJSON(),
+            <span class="hljs-attr">correlationId</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">correlationId</span>.<span class="hljs-title function_">toJSON</span>(),
+            <span class="hljs-attr">error</span>: <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">serialise</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span>),
+            <span class="hljs-attr">timestamp</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">timestamp</span>.<span class="hljs-title function_">toJSON</span>(),
         };
     }
 }

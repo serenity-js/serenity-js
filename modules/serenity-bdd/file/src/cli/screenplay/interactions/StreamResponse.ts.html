@@ -128,98 +128,98 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/interactions/StreamResponse.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Answerable, AnswersQuestions, CollectsArtifacts, ConfigurationError, Interaction, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { formatted, Path } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { CallAnApi } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-<span class="hljs-keyword">import</span> { AxiosRequestConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">CollectsArtifacts</span>, <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { formatted, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AxiosRequestConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
 
-<span class="hljs-keyword">import</span> { DownloadProgressReport, Notification } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
-<span class="hljs-keyword">import</span> { UseFileSystem } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DownloadProgressReport</span>, <span class="hljs-title class_">Notification</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UseFileSystem</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">StreamResponse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Interaction</span> </span>{
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StreamResponse</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
 
-    <span class="hljs-keyword">static</span> <span class="hljs-function"><span class="hljs-title">to</span>(<span class="hljs-params">request: Answerable&lt;AxiosRequestConfig&gt;</span>)</span> {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">to</span>(<span class="hljs-params">request: Answerable&lt;AxiosRequestConfig&gt;</span>) {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
         <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> StreamResponse(request, destination),
+            <span class="hljs-attr">to</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StreamResponse</span>(request, destination),
         };
     }
 
-    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">
+    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> request: Answerable&lt;AxiosRequestConfig&gt;,
         <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> destination: Path,
-    </span>)</span> {
-        <span class="hljs-built_in">super</span>();
+    </span>) {
+        <span class="hljs-variable language_">super</span>();
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param <span class="hljs-type">{UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions}</span> <span class="hljs-variable">actor</span></span>
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Promise&lt;void&gt;}</span></span>
+     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      *
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~Actor}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}</span></span>
-     * <span class="hljs-doctag">@see <span class="hljs-type">{@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}</span></span>
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts</span>}
+     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
      */</span>
-    performAs(actor: UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions): <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.answer(<span class="hljs-built_in">this</span>.request)
-            .then(<span class="hljs-function">(<span class="hljs-params">config: AxiosRequestConfig</span>) =&gt;</span> CallAnApi.as(actor).request({
+    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">CollectsArtifacts</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>)
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">config: AxiosRequestConfig</span>) =&gt;</span> <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">request</span>({
                 ...config,
                 <span class="hljs-attr">responseType</span>: <span class="hljs-string">'stream'</span>,
             })
-            .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (response.status !== <span class="hljs-number">200</span>) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> ConfigurationError(<span class="hljs-string">`Received: "<span class="hljs-subst">${ response.status }</span> <span class="hljs-subst">${ response.statusText }</span>" when trying to download <span class="hljs-subst">${ config.url }</span>`</span>);
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> {
+                <span class="hljs-keyword">if</span> (response.<span class="hljs-property">status</span> !== <span class="hljs-number">200</span>) {
+                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Received: "<span class="hljs-subst">${ response.status }</span> <span class="hljs-subst">${ response.statusText }</span>" when trying to download <span class="hljs-subst">${ config.url }</span>`</span>);
                 }
 
                 <span class="hljs-keyword">return</span> response;
             })
-            .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
 
-                actor.collect(Notification.fromJSON({ <span class="hljs-attr">message</span>: <span class="hljs-string">`Downloading <span class="hljs-subst">${ config.url }</span> to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.destination.value }</span>`</span> }));
+                actor.<span class="hljs-title function_">collect</span>(<span class="hljs-title class_">Notification</span>.<span class="hljs-title function_">fromJSON</span>({ <span class="hljs-attr">message</span>: <span class="hljs-string">`Downloading <span class="hljs-subst">${ config.url }</span> to <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.destination.value }</span>`</span> }));
 
                 <span class="hljs-keyword">const</span>
-                    totalBytes  = <span class="hljs-built_in">Number</span>.parseInt(response.headers[<span class="hljs-string">'content-length'</span>], <span class="hljs-number">10</span>),
-                    output      = UseFileSystem.as(actor).createWriteStreamTo(<span class="hljs-built_in">this</span>.destination);
+                    totalBytes  = <span class="hljs-title class_">Number</span>.<span class="hljs-built_in">parseInt</span>(response.<span class="hljs-property">headers</span>[<span class="hljs-string">'content-length'</span>], <span class="hljs-number">10</span>),
+                    output      = <span class="hljs-title class_">UseFileSystem</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">createWriteStreamTo</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">destination</span>);
 
                 <span class="hljs-keyword">let</span> totalDownloadedBytes  = <span class="hljs-number">0</span>;
 
-                response.data.pipe(output);
+                response.<span class="hljs-property">data</span>.<span class="hljs-title function_">pipe</span>(output);
 
-                response.data.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">chunk</span> =&gt;</span> {
-                    <span class="hljs-keyword">const</span> downloadedBytes = chunk.length;
+                response.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">chunk</span> =&gt;</span> {
+                    <span class="hljs-keyword">const</span> downloadedBytes = chunk.<span class="hljs-property">length</span>;
                     totalDownloadedBytes += downloadedBytes;
 
-                    actor.collect(DownloadProgressReport.fromJSON({
+                    actor.<span class="hljs-title function_">collect</span>(<span class="hljs-title class_">DownloadProgressReport</span>.<span class="hljs-title function_">fromJSON</span>({
                         downloadedBytes,
                         totalDownloadedBytes,
                         totalBytes,
                     }));
                 });
 
-                response.data.on(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> {
-                    output.end();
-                    <span class="hljs-keyword">return</span> resolve();
+                response.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> {
+                    output.<span class="hljs-title function_">end</span>();
+                    <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>();
                 });
 
-                response.data.on(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> reject(error));
+                response.<span class="hljs-property">data</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-title function_">reject</span>(error));
             })));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link </span><span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{string}</span></span>
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
      */</span>
-    toString(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor saves response to <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.request }</span> in <span class="hljs-subst">${ <span class="hljs-built_in">this</span>.destination.value }</span>`</span>;
+    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
+        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor saves response to <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.request }</span> in <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.destination.value }</span>`</span>;
     }
 }
 </code></pre>

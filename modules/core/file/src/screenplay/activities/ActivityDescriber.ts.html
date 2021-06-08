@@ -294,24 +294,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/activities/ActivityDescriber.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
-<span class="hljs-keyword">import</span> { Activity } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Activity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@package </span>*/</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ActivityDescriber</span> </span>{
+<span class="hljs-comment">/** <span class="hljs-doctag">@package</span> */</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ActivityDescriber</span> {
 
-    describe(activity: Activity, <span class="hljs-attr">actor</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }): Name {
-        <span class="hljs-keyword">const</span> template = activity.toString() !== ({}).toString()
-            ? activity.toString()
+    <span class="hljs-title function_">describe</span>(<span class="hljs-attr">activity</span>: <span class="hljs-title class_">Activity</span>, <span class="hljs-attr">actor</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }): <span class="hljs-title class_">Name</span> {
+        <span class="hljs-keyword">const</span> template = activity.<span class="hljs-title function_">toString</span>() !== ({}).<span class="hljs-title function_">toString</span>()
+            ? activity.<span class="hljs-title function_">toString</span>()
             : <span class="hljs-string">`#actor performs <span class="hljs-subst">${ activity.constructor.name }</span>`</span>;
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Name(
-            <span class="hljs-built_in">this</span>.includeActorName(template, actor),
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">includeActorName</span>(template, actor),
         );
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-title">includeActorName</span>(<span class="hljs-params">template: <span class="hljs-built_in">string</span>, actor: { name: <span class="hljs-built_in">string</span> }</span>)</span> {
-        <span class="hljs-keyword">return</span> template.replace(<span class="hljs-string">'#actor'</span>, actor.name);
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">includeActorName</span>(<span class="hljs-params">template: <span class="hljs-built_in">string</span>, actor: { name: <span class="hljs-built_in">string</span> }</span>) {
+        <span class="hljs-keyword">return</span> template.<span class="hljs-title function_">replace</span>(<span class="hljs-string">'#actor'</span>, actor.<span class="hljs-property">name</span>);
     }
 }
 </code></pre>

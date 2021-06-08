@@ -294,84 +294,84 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/model/Artifact.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Artifact, JSONData, Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span>, JSONData, <span class="hljs-title class_">Photo</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
 describe (<span class="hljs-string">'Artifact'</span>, <span class="hljs-function">() =&gt;</span> {
-    describe(<span class="hljs-string">'Photo'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Photo'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> photo = Photo.fromBase64(<span class="hljs-string">'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEW01FWbeM52AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg=='</span>);
+        <span class="hljs-keyword">const</span> photo = <span class="hljs-title class_">Photo</span>.<span class="hljs-title function_">fromBase64</span>(<span class="hljs-string">'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEW01FWbeM52AAAACklEQVR4nGNiAAAABgADNjd8qAAAAABJRU5ErkJggg=='</span>);
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Photo#toJSON}</span> </span>*/</span>
-        it(<span class="hljs-string">'can be serialised'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> serialised = photo.toJSON();
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Photo#toJSON</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> serialised = photo.<span class="hljs-title function_">toJSON</span>();
 
-            expect(serialised.type).to.equal(<span class="hljs-string">'Photo'</span>);
-            expect(serialised.base64EncodedValue).to.equal(photo.base64EncodedValue);
+            <span class="hljs-title function_">expect</span>(serialised.<span class="hljs-property">type</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Photo'</span>);
+            <span class="hljs-title function_">expect</span>(serialised.<span class="hljs-property">base64EncodedValue</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(photo.<span class="hljs-property">base64EncodedValue</span>);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo#toJSON}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Artifact.fromJSON}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Photo#toJSON</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Artifact.fromJSON</span>}
          */</span>
-        it(<span class="hljs-string">'can be de-serialised'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be de-serialised'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                serialised = photo.toJSON(),
-                deserialised = Artifact.fromJSON(serialised);
+                serialised = photo.<span class="hljs-title function_">toJSON</span>(),
+                deserialised = <span class="hljs-title class_">Artifact</span>.<span class="hljs-title function_">fromJSON</span>(serialised);
 
-            expect(deserialised).to.equal(photo);
+            <span class="hljs-title function_">expect</span>(deserialised).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(photo);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo#map}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo#base64EncodedValue}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Photo#map</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Photo#base64EncodedValue</span>}
          */</span>
-        it(<span class="hljs-string">'allows for its value to be extracted as a Buffer'</span>, <span class="hljs-function">() =&gt;</span> {
-            photo.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value).to.be.instanceOf(Buffer));
-            photo.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value.toString(<span class="hljs-string">'base64'</span>)).to.equal(photo.base64EncodedValue));
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for its value to be extracted as a Buffer'</span>, <span class="hljs-function">() =&gt;</span> {
+            photo.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-title function_">expect</span>(value).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Buffer</span>));
+            photo.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-title function_">expect</span>(value.<span class="hljs-title function_">toString</span>(<span class="hljs-string">'base64'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(photo.<span class="hljs-property">base64EncodedValue</span>));
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Photo.fromBuffer}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Photo.fromBuffer</span>}
          */</span>
-        it(<span class="hljs-string">'can be instantiated from a Buffer'</span>, <span class="hljs-function">() =&gt;</span> {
-            expect(Photo.fromBuffer(Buffer.from(photo.base64EncodedValue, <span class="hljs-string">'base64'</span>))).to.equal(photo);
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be instantiated from a Buffer'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Photo</span>.<span class="hljs-title function_">fromBuffer</span>(<span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(photo.<span class="hljs-property">base64EncodedValue</span>, <span class="hljs-string">'base64'</span>))).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(photo);
         });
     });
 
-    describe(<span class="hljs-string">'JSONData'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'JSONData'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> json = JSONData.fromJSON({
+        <span class="hljs-keyword">const</span> json = JSONData.<span class="hljs-title function_">fromJSON</span>({
             <span class="hljs-attr">key</span>: [<span class="hljs-string">'v'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'u'</span>, <span class="hljs-string">'e'</span>],
         });
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#toJSON}</span> </span>*/</span>
-        it(<span class="hljs-string">'can be serialised'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> serialised = json.toJSON();
+        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">JSONData#toJSON</span>} */</span>
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be serialised'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> serialised = json.<span class="hljs-title function_">toJSON</span>();
 
-            expect(serialised.type).to.equal(<span class="hljs-string">'JSONData'</span>);
-            expect(serialised.base64EncodedValue).to.equal(json.base64EncodedValue);
+            <span class="hljs-title function_">expect</span>(serialised.<span class="hljs-property">type</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'JSONData'</span>);
+            <span class="hljs-title function_">expect</span>(serialised.<span class="hljs-property">base64EncodedValue</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(json.<span class="hljs-property">base64EncodedValue</span>);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#toJSON}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{Artifact.fromJSON}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">JSONData#toJSON</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Artifact.fromJSON</span>}
          */</span>
-        it(<span class="hljs-string">'can be de-serialised'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'can be de-serialised'</span>, <span class="hljs-function">() =&gt;</span> {
             <span class="hljs-keyword">const</span>
-                serialised = json.toJSON(),
-                deserialised = Artifact.fromJSON(serialised);
+                serialised = json.<span class="hljs-title function_">toJSON</span>(),
+                deserialised = <span class="hljs-title class_">Artifact</span>.<span class="hljs-title function_">fromJSON</span>(serialised);
 
-            expect(deserialised).to.equal(json);
+            <span class="hljs-title function_">expect</span>(deserialised).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(json);
         });
 
         <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#map}</span></span>
-         * <span class="hljs-doctag">@test <span class="hljs-type">{JSONData#base64EncodedValue}</span></span>
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">JSONData#map</span>}
+         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">JSONData#base64EncodedValue</span>}
          */</span>
-        it(<span class="hljs-string">'allows for its value to be extracted as a JSON value'</span>, <span class="hljs-function">() =&gt;</span> {
-            json.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value).to.be.instanceOf(<span class="hljs-built_in">Object</span>));
-            json.map(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> expect(value).to.deep.equal({
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for its value to be extracted as a JSON value'</span>, <span class="hljs-function">() =&gt;</span> {
+            json.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-title function_">expect</span>(value).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Object</span>));
+            json.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> <span class="hljs-title function_">expect</span>(value).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
                 <span class="hljs-attr">key</span>: [<span class="hljs-string">'v'</span>, <span class="hljs-string">'a'</span>, <span class="hljs-string">'l'</span>, <span class="hljs-string">'u'</span>, <span class="hljs-string">'e'</span>],
             }));
         });

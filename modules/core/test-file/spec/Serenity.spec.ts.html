@@ -298,190 +298,190 @@
 <span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
 <span class="hljs-keyword">import</span> sinon = <span class="hljs-built_in">require</span>(<span class="hljs-string">'sinon'</span>);
-<span class="hljs-keyword">import</span> { ConfigurationError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
-<span class="hljs-keyword">import</span> { ActivityFinished, ActivityStarts, DomainEvent, TestRunnerDetected } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/events'</span>;
-<span class="hljs-keyword">import</span> { OutputStream } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/io'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Name } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/model'</span>;
-<span class="hljs-keyword">import</span> { Actor, Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { Serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Serenity'</span>;
-<span class="hljs-keyword">import</span> { Cast, Clock, ListensToDomainEvents, Stage, StageCrewMember, StageCrewMemberBuilder } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/stage'</span>;
-<span class="hljs-keyword">import</span> { StageCrewMemberBuilderDependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/stage/StageCrewMemberBuilderDependencies'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title class_">ActivityStarts</span>, <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">TestRunnerDetected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/screenplay'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/Serenity'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">ListensToDomainEvents</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageCrewMember</span>, <span class="hljs-title class_">StageCrewMemberBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMemberBuilderDependencies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/stage/StageCrewMemberBuilderDependencies'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'./expect'</span>;
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test <span class="hljs-type">{Serenity}</span> </span>*/</span>
-describe(<span class="hljs-string">'Serenity'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Serenity</span>} */</span>
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Serenity'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    describe(<span class="hljs-string">'when constructing a Stage'</span>, <span class="hljs-function">() =&gt;</span> {
-        it(<span class="hljs-string">'connects it with a provided Cast'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when constructing a Stage'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'connects it with a provided Cast'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> prepareSpy = sinon.spy();
+            <span class="hljs-keyword">const</span> prepareSpy = sinon.<span class="hljs-title function_">spy</span>();
 
             <span class="hljs-comment">// no-op actors with no special Abilities</span>
-            <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-                prepare(actor: Actor): Actor {
-                    prepareSpy(actor);
+            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+                <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
+                    <span class="hljs-title function_">prepareSpy</span>(actor);
                     <span class="hljs-keyword">return</span> actor;
                 }
             }
 
-            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock());
+            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-            serenity.configure({
-                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Extras(),
+            serenity.<span class="hljs-title function_">configure</span>({
+                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
             });
 
-            <span class="hljs-keyword">const</span> Joe = serenity.theActorCalled(<span class="hljs-string">'Joe'</span>);
+            <span class="hljs-keyword">const</span> <span class="hljs-title class_">Joe</span> = serenity.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Joe'</span>);
 
-            expect(prepareSpy).to.have.been.calledOnce;
-            expect(prepareSpy.getCall(<span class="hljs-number">0</span>).args[<span class="hljs-number">0</span>]).to.equal(Joe);
+            <span class="hljs-title function_">expect</span>(prepareSpy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledOnce</span>;
+            <span class="hljs-title function_">expect</span>(prepareSpy.<span class="hljs-title function_">getCall</span>(<span class="hljs-number">0</span>).<span class="hljs-property">args</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title class_">Joe</span>);
         });
 
-        it(<span class="hljs-string">'connects it with provided StageCrewMembers'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'connects it with provided StageCrewMembers'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> stageCrewMember: StageCrewMember = {
-                <span class="hljs-attr">assignedTo</span>: sinon.spy(),
-                <span class="hljs-function"><span class="hljs-title">notifyOf</span>(<span class="hljs-params">event: DomainEvent</span>)</span> { <span class="hljs-comment">/* no-op */</span> }
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">stageCrewMember</span>: <span class="hljs-title class_">StageCrewMember</span> = {
+                <span class="hljs-attr">assignedTo</span>: sinon.<span class="hljs-title function_">spy</span>(),
+                <span class="hljs-title function_">notifyOf</span>(<span class="hljs-params">event: DomainEvent</span>) { <span class="hljs-comment">/* no-op */</span> }
             }
 
-            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock());
+            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-            serenity.configure({
+            serenity.<span class="hljs-title function_">configure</span>({
                 <span class="hljs-attr">crew</span>: [
                     stageCrewMember
                 ]
             });
 
-            expect(stageCrewMember.assignedTo).to.have.been.calledOnceWith(sinon.match.instanceOf(Stage));
+            <span class="hljs-title function_">expect</span>(stageCrewMember.<span class="hljs-property">assignedTo</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledOnceWith</span>(sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Stage</span>));
         });
 
-        it(<span class="hljs-string">'injects dependencies into StageCrewMemberBuilders'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'injects dependencies into StageCrewMemberBuilders'</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> stageCrewMemberBuilder: StageCrewMemberBuilder = {
-                <span class="hljs-attr">build</span>: sinon.spy(),
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">stageCrewMemberBuilder</span>: <span class="hljs-title class_">StageCrewMemberBuilder</span> = {
+                <span class="hljs-attr">build</span>: sinon.<span class="hljs-title function_">spy</span>(),
             };
 
-            <span class="hljs-keyword">const</span> outputStream: OutputStream = {
-                <span class="hljs-function"><span class="hljs-title">write</span>(<span class="hljs-params">content: <span class="hljs-built_in">string</span></span>)</span> {
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">outputStream</span>: <span class="hljs-title class_">OutputStream</span> = {
+                <span class="hljs-title function_">write</span>(<span class="hljs-params">content: <span class="hljs-built_in">string</span></span>) {
                     <span class="hljs-comment">// no-op</span>
                 }
             }
 
-            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock());
+            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-            serenity.configure({
+            serenity.<span class="hljs-title function_">configure</span>({
                 outputStream,
                 <span class="hljs-attr">crew</span>: [
                     stageCrewMemberBuilder
                 ]
             });
 
-            expect(stageCrewMemberBuilder.build).to.have.been.calledOnceWith(
-                sinon.match.has(<span class="hljs-string">'stage'</span>, sinon.match.instanceOf(Stage))
-                    .and(
-                        sinon.match.has(<span class="hljs-string">'outputStream'</span>, outputStream)
+            <span class="hljs-title function_">expect</span>(stageCrewMemberBuilder.<span class="hljs-property">build</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledOnceWith</span>(
+                sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">has</span>(<span class="hljs-string">'stage'</span>, sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">Stage</span>))
+                    .<span class="hljs-title function_">and</span>(
+                        sinon.<span class="hljs-property">match</span>.<span class="hljs-title function_">has</span>(<span class="hljs-string">'outputStream'</span>, outputStream)
                     )
             );
         });
 
-        it(<span class="hljs-string">`complains when a provided crew member doesn't implement StageCrewMember or StageCrewMemberBuilder interfaces`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">`complains when a provided crew member doesn't implement StageCrewMember or StageCrewMemberBuilder interfaces`</span>, <span class="hljs-function">() =&gt;</span> {
 
-            <span class="hljs-keyword">const</span> stageCrewMemberBuilder: StageCrewMemberBuilder = {
-                build(dependencies: StageCrewMemberBuilderDependencies): ListensToDomainEvents {
+            <span class="hljs-keyword">const</span> <span class="hljs-attr">stageCrewMemberBuilder</span>: <span class="hljs-title class_">StageCrewMemberBuilder</span> = {
+                <span class="hljs-title function_">build</span>(<span class="hljs-attr">dependencies</span>: <span class="hljs-title class_">StageCrewMemberBuilderDependencies</span>): <span class="hljs-title class_">ListensToDomainEvents</span> {
                     <span class="hljs-keyword">return</span> {
-                        notifyOf(event: DomainEvent): <span class="hljs-built_in">void</span> {
+                        <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
                             <span class="hljs-comment">// no-op</span>
                         }
                     };
                 }
             };
 
-            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(<span class="hljs-keyword">new</span> Clock());
+            <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
 
-            expect(<span class="hljs-function">() =&gt;</span> {
-                serenity.configure({
+            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
+                serenity.<span class="hljs-title function_">configure</span>({
                     <span class="hljs-attr">crew</span>: [
                         stageCrewMemberBuilder,
                         <span class="hljs-literal">undefined</span>,
                     ]
                 });
-            }).to.throw(ConfigurationError,
+            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">ConfigurationError</span>,
                 <span class="hljs-string">'Entries under `crew` should implement either StageCrewMember or StageCrewMemberBuilder interfaces, `undefined` found at index 1'</span>
             )
         });
     });
 
-    it(<span class="hljs-string">`enables propagation of DomainEvents triggered by Actors' Activities and StageCrewMembers`</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">`enables propagation of DomainEvents triggered by Actors' Activities and StageCrewMembers`</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Extras</span> <span class="hljs-title">implements</span> <span class="hljs-title">Cast</span> </span>{
-            prepare(actor: Actor): Actor {
+        <span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
+            <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
                 <span class="hljs-keyword">return</span> actor;
             }
         }
 
-        <span class="hljs-keyword">const</span> PerformSomeInteraction = <span class="hljs-function">() =&gt;</span>
-            Interaction.where(<span class="hljs-string">`#actor performs some interaction`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+        <span class="hljs-keyword">const</span> <span class="hljs-title function_">PerformSomeInteraction</span> = (<span class="hljs-params"></span>) =&gt;
+            <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor performs some interaction`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
                 <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
             });
 
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1983-07-03'</span>));
-        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
-        <span class="hljs-keyword">const</span> listener = <span class="hljs-keyword">new</span> Listener&lt;ActivityStarts | ActivityFinished&gt;();
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'1983-07-03'</span>));
+        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(frozenClock);
+        <span class="hljs-keyword">const</span> listener = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Listener</span>&lt;<span class="hljs-title class_">ActivityStarts</span> | <span class="hljs-title class_">ActivityFinished</span>&gt;();
 
-        serenity.configure({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> Extras(),
+        serenity.<span class="hljs-title function_">configure</span>({
+            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
             <span class="hljs-attr">crew</span>: [ listener ],
         });
 
-        <span class="hljs-keyword">return</span> serenity.theActorCalled(<span class="hljs-string">'Joe'</span>).attemptsTo(
-            PerformSomeInteraction(),
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Joe'</span>).<span class="hljs-title function_">attemptsTo</span>(
+            <span class="hljs-title class_">PerformSomeInteraction</span>(),
         ).
-        then(<span class="hljs-function">() =&gt;</span> serenity.waitForNextCue()).
-        then(<span class="hljs-function">() =&gt;</span> {
-            expect(listener.events).to.have.lengthOf(<span class="hljs-number">2</span>);
+        <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> serenity.<span class="hljs-title function_">waitForNextCue</span>()).
+        <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">2</span>);
 
-            expect(listener.events[<span class="hljs-number">0</span>]).to.be.instanceOf(ActivityStarts);
-            expect(listener.events[<span class="hljs-number">0</span>].details.name.value).to.equal(<span class="hljs-string">`Joe performs some interaction`</span>);
+            <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityStarts</span>);
+            <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>].<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Joe performs some interaction`</span>);
 
-            expect(listener.events[<span class="hljs-number">1</span>]).to.be.instanceOf(ActivityFinished);
-            expect(listener.events[<span class="hljs-number">1</span>].details.name.value).to.equal(<span class="hljs-string">`Joe performs some interaction`</span>);
+            <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">1</span>]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityFinished</span>);
+            <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">1</span>].<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`Joe performs some interaction`</span>);
         });
     });
 
-    it(<span class="hljs-string">'allows for external parties, such as test runner adapters, to announce DomainEvents'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for external parties, such as test runner adapters, to announce DomainEvents'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> Clock(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-string">'1983-07-03'</span>));
-        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> Serenity(frozenClock);
-        <span class="hljs-keyword">const</span> listener = <span class="hljs-keyword">new</span> Listener&lt;TestRunnerDetected&gt;();
+        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'1983-07-03'</span>));
+        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(frozenClock);
+        <span class="hljs-keyword">const</span> listener = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Listener</span>&lt;<span class="hljs-title class_">TestRunnerDetected</span>&gt;();
 
-        <span class="hljs-keyword">const</span> testRunnerName = <span class="hljs-keyword">new</span> Name(<span class="hljs-string">'mocha'</span>);
+        <span class="hljs-keyword">const</span> testRunnerName = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'mocha'</span>);
 
-        serenity.configure({ <span class="hljs-attr">crew</span>: [ listener ] });
+        serenity.<span class="hljs-title function_">configure</span>({ <span class="hljs-attr">crew</span>: [ listener ] });
 
-        serenity.announce(<span class="hljs-keyword">new</span> TestRunnerDetected(CorrelationId.create(), testRunnerName, serenity.currentTime()));
+        serenity.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunnerDetected</span>(<span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>(), testRunnerName, serenity.<span class="hljs-title function_">currentTime</span>()));
 
-        <span class="hljs-keyword">return</span> serenity.waitForNextCue().
-            then(<span class="hljs-function">() =&gt;</span> {
-                expect(listener.events).to.have.lengthOf(<span class="hljs-number">1</span>);
+        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>().
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
+                <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
 
-                expect(listener.events[<span class="hljs-number">0</span>]).to.be.instanceOf(TestRunnerDetected);
-                expect(listener.events[<span class="hljs-number">0</span>].name).to.equal(testRunnerName);
+                <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">TestRunnerDetected</span>);
+                <span class="hljs-title function_">expect</span>(listener.<span class="hljs-property">events</span>[<span class="hljs-number">0</span>].<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(testRunnerName);
             });
     });
 
-    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Listener</span>&lt;<span class="hljs-title">Event_Type</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">DomainEvent</span>&gt; <span class="hljs-title">implements</span> <span class="hljs-title">StageCrewMember</span> </span>{
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> events: Event_Type[] = [];
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Listener</span>&lt;<span class="hljs-title class_">Event</span>_Type <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">DomainEvent</span>&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">events</span>: <span class="hljs-title class_">Event</span>_Type[] = [];
 
-        <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> stage?: Stage</span>)</span> {
+        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> stage?: Stage</span>) {
         }
 
-        assignedTo(stage: Stage): StageCrewMember {
-            <span class="hljs-built_in">this</span>.stage = stage;
+        <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span> = stage;
 
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
         }
 
-        notifyOf(event: Event_Type): <span class="hljs-built_in">void</span> {
-            <span class="hljs-built_in">this</span>.events.push(event);
+        <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">Event</span>_Type): <span class="hljs-built_in">void</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-property">events</span>.<span class="hljs-title function_">push</span>(event);
         }
     }
 });

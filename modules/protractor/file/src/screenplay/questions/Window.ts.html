@@ -187,32 +187,33 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Window.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Question } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
-<span class="hljs-keyword">import</span> { BrowseTheWeb } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Window</span> </span>{
+<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Window</span> {
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the size of the current browser window.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;{ width: number, height: number }</span></span>&gt;&gt;}
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;{ width: number, height: number </span>}&gt;&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> size(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;{ <span class="hljs-attr">width</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">height</span>: <span class="hljs-built_in">number</span> }&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`browser window size`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            promiseOf(BrowseTheWeb.as(actor).manage().window().getSize()));
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">size</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">width</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">height</span>: <span class="hljs-built_in">number</span> }&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`browser window size`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title function_">promiseOf</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">manage</span>().<span class="hljs-title function_">window</span>().<span class="hljs-title function_">getSize</span>()));
     }
 
     <span class="hljs-comment">/**
      * <span class="hljs-doctag">@desc</span>
      *  Returns the `{ x: number, y: number }` position of the current browser window.
      *
-     * <span class="hljs-doctag">@returns <span class="hljs-type">{Question&lt;Promise&lt;{ x: number, y: number }</span></span>&gt;&gt;}
+     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Question&lt;Promise&lt;{ x: number, y: number </span>}&gt;&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> position(): Question&lt;<span class="hljs-built_in">Promise</span>&lt;{ <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span> }&gt;&gt; {
-        <span class="hljs-keyword">return</span> Question.about(<span class="hljs-string">`browser window position`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-            promiseOf(BrowseTheWeb.as(actor).manage().window().getPosition()));
+    <span class="hljs-keyword">static</span> <span class="hljs-title function_">position</span>(): <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;{ <span class="hljs-attr">x</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">y</span>: <span class="hljs-built_in">number</span> }&gt;&gt; {
+        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">`browser window position`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
+            <span class="hljs-title function_">promiseOf</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">manage</span>().<span class="hljs-title function_">window</span>().<span class="hljs-title function_">getPosition</span>()));
     }
 }
 </code></pre>

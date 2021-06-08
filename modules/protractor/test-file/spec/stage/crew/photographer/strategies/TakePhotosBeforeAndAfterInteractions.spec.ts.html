@@ -189,164 +189,164 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { EventRecorder, expect, PickEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { CorrelationId, Photo } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { Stage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span>, expect, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>, <span class="hljs-title class_">ActivityStarts</span>, <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Photo</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
 <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
 
-<span class="hljs-keyword">import</span> { Photographer, TakePhotosBeforeAndAfterInteractions } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Photographer</span>, <span class="hljs-title class_">TakePhotosBeforeAndAfterInteractions</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage'</span>;
 <span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'../create'</span>;
-<span class="hljs-keyword">import</span> { Perform } <span class="hljs-keyword">from</span> <span class="hljs-string">'../fixtures'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Perform</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../fixtures'</span>;
 
-describe(<span class="hljs-string">'Photographer'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Photographer'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
 
-    <span class="hljs-built_in">this</span>.timeout(<span class="hljs-number">60</span> * <span class="hljs-number">1000</span>);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">timeout</span>(<span class="hljs-number">60</span> * <span class="hljs-number">1000</span>);
 
-    describe(<span class="hljs-string">'when instructed to take photos before and after all interactions'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when instructed to take photos before and after all interactions'</span>, <span class="hljs-function">() =&gt;</span> {
 
-        <span class="hljs-keyword">let</span> photographer: Photographer,
-            <span class="hljs-attr">stage</span>: Stage,
-            <span class="hljs-attr">recorder</span>: EventRecorder;
+        <span class="hljs-keyword">let</span> <span class="hljs-attr">photographer</span>: <span class="hljs-title class_">Photographer</span>,
+            <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>,
+            <span class="hljs-attr">recorder</span>: <span class="hljs-title class_">EventRecorder</span>;
 
-        beforeEach(<span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> testSubject = create(Duration.ofSeconds(<span class="hljs-number">10</span>));
-            stage = testSubject.stage;
-            recorder = testSubject.recorder;
+        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
+            <span class="hljs-keyword">const</span> testSubject = <span class="hljs-title function_">create</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">10</span>));
+            stage = testSubject.<span class="hljs-property">stage</span>;
+            recorder = testSubject.<span class="hljs-property">recorder</span>;
 
-            photographer = <span class="hljs-keyword">new</span> Photographer(<span class="hljs-keyword">new</span> TakePhotosBeforeAndAfterInteractions(), stage);
-            stage.assign(photographer);
+            photographer = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Photographer</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TakePhotosBeforeAndAfterInteractions</span>(), stage);
+            stage.<span class="hljs-title function_">assign</span>(photographer);
         });
 
-        it(<span class="hljs-string">'takes a before and after photo when the interaction goes well'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
-                Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'takes a before and after photo when the interaction goes well'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Betty'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">interactionThatSucceeds</span>(<span class="hljs-number">1</span>),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> events = stringified(recorder.events);
+                <span class="hljs-keyword">const</span> events = <span class="hljs-title function_">stringified</span>(recorder.<span class="hljs-property">events</span>);
 
-                PickEvent.from(recorder.events)
-                    .next(AsyncOperationAttempted, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.taskDescription.value, events).to.match(<span class="hljs-regexp">/Taking screenshot of 'Before Betty succeeds \(#1\)'...$/</span>);
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">taskDescription</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Taking screenshot of 'Before Betty succeeds \(#1\)'...$/</span>);
                     })
-                    .next(AsyncOperationAttempted, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.taskDescription.value, events).to.match(<span class="hljs-regexp">/Taking screenshot of 'After Betty succeeds \(#1\)'...$/</span>);
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">taskDescription</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Taking screenshot of 'After Betty succeeds \(#1\)'...$/</span>);
                     });
             })));
 
-        it(<span class="hljs-string">'takes a photo when a problem occurs'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
-                Perform.interactionThatFailsWith(<span class="hljs-built_in">Error</span>),
-            )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'takes a photo when a problem occurs'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Betty'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">interactionThatFailsWith</span>(<span class="hljs-title class_">Error</span>),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">rejected</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> events = stringified(recorder.events);
+                <span class="hljs-keyword">const</span> events = <span class="hljs-title function_">stringified</span>(recorder.<span class="hljs-property">events</span>);
 
-                PickEvent.from(recorder.events)
-                    .next(AsyncOperationAttempted, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.taskDescription.value, events).to.match(<span class="hljs-regexp">/Taking screenshot of 'Before Betty fails due to Error'...$/</span>);
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">taskDescription</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Taking screenshot of 'Before Betty fails due to Error'...$/</span>);
                     })
-                    .next(AsyncOperationAttempted, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.taskDescription.value, events).to.match(<span class="hljs-regexp">/Taking screenshot of 'After Betty fails due to Error'...$/</span>);
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">taskDescription</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Taking screenshot of 'After Betty fails due to Error'...$/</span>);
                     });
             })));
 
-        it(<span class="hljs-string">'takes a photo before and after Interaction, even though nested tasks might all be marked as failing'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
-                Perform.taskWith(
-                    Perform.taskWith(
-                        Perform.interactionThatFailsWith(<span class="hljs-built_in">TypeError</span>),
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'takes a photo before and after Interaction, even though nested tasks might all be marked as failing'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Betty'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">taskWith</span>(
+                    <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">taskWith</span>(
+                        <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">interactionThatFailsWith</span>(<span class="hljs-title class_">TypeError</span>),
                     ),
                 ),
-            )).to.be.rejected.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">rejected</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> events = stringified(recorder.events);
+                <span class="hljs-keyword">const</span> events = <span class="hljs-title function_">stringified</span>(recorder.<span class="hljs-property">events</span>);
 
-                PickEvent.from(recorder.events)
-                    .next(AsyncOperationAttempted, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.taskDescription.value, events).to.match(<span class="hljs-regexp">/Taking screenshot of 'Before Betty fails due to TypeError'...$/</span>);
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">taskDescription</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Taking screenshot of 'Before Betty fails due to TypeError'...$/</span>);
                     })
-                    .next(AsyncOperationAttempted, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.taskDescription.value, events).to.match(<span class="hljs-regexp">/Taking screenshot of 'After Betty fails due to TypeError'...$/</span>);
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">taskDescription</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Taking screenshot of 'After Betty fails due to TypeError'...$/</span>);
                     });
             })));
 
-        it(<span class="hljs-string">'takes two photos per interaction'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
-                Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
-                Perform.interactionThatSucceeds(<span class="hljs-number">2</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().then(<span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'takes two photos per interaction'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Betty'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">interactionThatSucceeds</span>(<span class="hljs-number">1</span>),
+                <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">interactionThatSucceeds</span>(<span class="hljs-number">2</span>),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">waitForNextCue</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
 
-                <span class="hljs-keyword">let</span> cid1: CorrelationId,
-                    <span class="hljs-attr">cid2</span>: CorrelationId;
+                <span class="hljs-keyword">let</span> <span class="hljs-attr">cid1</span>: <span class="hljs-title class_">CorrelationId</span>,
+                    <span class="hljs-attr">cid2</span>: <span class="hljs-title class_">CorrelationId</span>;
 
-                PickEvent.from(recorder.events)
-                    .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid1 = event.activityId; })
-                    .next(ActivityStarts, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid2 = event.activityId; });
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityStarts</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid1 = event.<span class="hljs-property">activityId</span>; })
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityStarts</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> { cid2 = event.<span class="hljs-property">activityId</span>; });
 
                 <span class="hljs-keyword">const</span>
-                    firstActivityEvents  = recorder.events.filter(withCorrelationIdOf(cid1)),
-                    secondActivityEvents = recorder.events.filter(withCorrelationIdOf(cid2));
+                    firstActivityEvents  = recorder.<span class="hljs-property">events</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-title function_">withCorrelationIdOf</span>(cid1)),
+                    secondActivityEvents = recorder.<span class="hljs-property">events</span>.<span class="hljs-title function_">filter</span>(<span class="hljs-title function_">withCorrelationIdOf</span>(cid2));
 
-                expect(firstActivityEvents).to.have.lengthOf(<span class="hljs-number">4</span>);
-                expect(secondActivityEvents).to.have.lengthOf(<span class="hljs-number">4</span>);
+                <span class="hljs-title function_">expect</span>(firstActivityEvents).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">4</span>);
+                <span class="hljs-title function_">expect</span>(secondActivityEvents).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">4</span>);
 
-                PickEvent.from(firstActivityEvents)
-                    .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.name.value).to.match(<span class="hljs-regexp">/Before Betty succeeds \(#1\)$/</span>);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(firstActivityEvents)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Before Betty succeeds \(#1\)$/</span>);
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">artifact</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">Photo</span>);
                     })
-                    .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.name.value).to.match(<span class="hljs-regexp">/After Betty succeeds \(#1\)$/</span>);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/After Betty succeeds \(#1\)$/</span>);
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">artifact</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">Photo</span>);
                     });
 
-                PickEvent.from(secondActivityEvents)
-                    .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.name.value).to.match(<span class="hljs-regexp">/Before Betty succeeds \(#2\)$/</span>);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(secondActivityEvents)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/Before Betty succeeds \(#2\)$/</span>);
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">artifact</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">Photo</span>);
                     })
-                    .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.name.value).to.match(<span class="hljs-regexp">/After Betty succeeds \(#2\)$/</span>);
-                        expect(event.artifact).to.be.instanceof(Photo);
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">match</span>(<span class="hljs-regexp">/After Betty succeeds \(#2\)$/</span>);
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">artifact</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">Photo</span>);
                     });
             })));
 
-        it(<span class="hljs-string">'includes the browser context in the name of the emitted artifact'</span>, <span class="hljs-function">() =&gt;</span>
-            expect(stage.theActorCalled(<span class="hljs-string">'Betty'</span>).attemptsTo(
-                Perform.interactionThatSucceeds(<span class="hljs-number">1</span>),
-            )).to.be.fulfilled.then(<span class="hljs-function">() =&gt;</span> stage.waitForNextCue().
-            then(<span class="hljs-function">() =&gt;</span> protractor.browser.getCapabilities()).
-            then(<span class="hljs-function"><span class="hljs-params">capabilities</span> =&gt;</span> {
+        <span class="hljs-title function_">it</span>(<span class="hljs-string">'includes the browser context in the name of the emitted artifact'</span>, <span class="hljs-function">() =&gt;</span>
+            <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Betty'</span>).<span class="hljs-title function_">attemptsTo</span>(
+                <span class="hljs-title class_">Perform</span>.<span class="hljs-title function_">interactionThatSucceeds</span>(<span class="hljs-number">1</span>),
+            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">waitForNextCue</span>().
+            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getCapabilities</span>()).
+            <span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">capabilities</span> =&gt;</span> {
 
-                <span class="hljs-keyword">const</span> events = stringified(recorder.events);
+                <span class="hljs-keyword">const</span> events = <span class="hljs-title function_">stringified</span>(recorder.<span class="hljs-property">events</span>);
 
-                PickEvent.from(recorder.events)
-                    .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.name.value, events).to.equal(
+                <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(
                             <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'platform'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'browserName'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'version'</span>) }</span>-Before Betty succeeds (#1)`</span>,
                         );
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">artifact</span>, events).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">Photo</span>);
                     })
-                    .next(ArtifactGenerated, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
-                        expect(event.name.value, events).to.equal(
+                    .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> {
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>, events).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(
                             <span class="hljs-string">`<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'platform'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'browserName'</span>) }</span>-<span class="hljs-subst">${ capabilities.get(<span class="hljs-string">'version'</span>) }</span>-After Betty succeeds (#1)`</span>,
                         );
-                        expect(event.artifact, events).to.be.instanceof(Photo);
+                        <span class="hljs-title function_">expect</span>(event.<span class="hljs-property">artifact</span>, events).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">Photo</span>);
                     });
             })));
     });
 });
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stringified</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-title">string</span> </span>{
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(events.map(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.toJSON()), <span class="hljs-literal">undefined</span>, <span class="hljs-number">4</span>);
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">stringified</span>(<span class="hljs-params">events: DomainEvent[]</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(events.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.<span class="hljs-title function_">toJSON</span>()), <span class="hljs-literal">undefined</span>, <span class="hljs-number">4</span>);
 }
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withCorrelationIdOf</span>(<span class="hljs-params">cid: CorrelationId</span>) </span>{
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">withCorrelationIdOf</span>(<span class="hljs-params">cid: CorrelationId</span>) {
     <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">event: DomainEvent</span>) =&gt;</span> {
-        <span class="hljs-keyword">const</span> activityId = (event <span class="hljs-keyword">as</span> ActivityRelatedArtifactGenerated | ActivityStarts | ActivityFinished).activityId;
+        <span class="hljs-keyword">const</span> activityId = (event <span class="hljs-keyword">as</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span> | <span class="hljs-title class_">ActivityStarts</span> | <span class="hljs-title class_">ActivityFinished</span>).<span class="hljs-property">activityId</span>;
 
-        <span class="hljs-keyword">return</span> activityId &amp;&amp; cid.equals(activityId);
+        <span class="hljs-keyword">return</span> activityId &amp;&amp; cid.<span class="hljs-title function_">equals</span>(activityId);
     };
 }
 </code></pre>

@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {TestCompromisedError} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">TestCompromisedError</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/errors'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -332,12 +332,12 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Throwing a TestCompromisedError from a custom Interaction</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { Interaction } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
- <span class="hljs-keyword">const</span> SetUpTestDatabase = <span class="hljs-function">() =&gt;</span>
-     Interaction.where(<span class="hljs-string">`#actor sets up a test database`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-         <span class="hljs-keyword">return</span> SomeCustomDatabaseSpecificAbility.as(actor).setUpTestDatabase().catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> TestCompromisedError(<span class="hljs-string">'Could not set up the test database'</span>, error);
+ <span class="hljs-keyword">const</span> <span class="hljs-title function_">SetUpTestDatabase</span> = (<span class="hljs-params"></span>) =&gt;
+     <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor sets up a test database`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
+         <span class="hljs-keyword">return</span> <span class="hljs-title class_">SomeCustomDatabaseSpecificAbility</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">setUpTestDatabase</span>().<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
+             <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'Could not set up the test database'</span>, error);
          });
      });</code></pre>
     </div>

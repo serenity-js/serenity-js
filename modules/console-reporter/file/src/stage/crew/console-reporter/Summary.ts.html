@@ -132,55 +132,55 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/Summary.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Duration } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
-    ExecutionCompromised,
-    ExecutionFailedWithAssertionError,
-    ExecutionFailedWithError, ExecutionIgnored,
-    ExecutionSkipped, ExecutionSuccessful,
-    ImplementationPending,
-    Outcome,
-    ScenarioDetails,
+    <span class="hljs-title class_">ExecutionCompromised</span>,
+    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
+    <span class="hljs-title class_">ExecutionFailedWithError</span>, <span class="hljs-title class_">ExecutionIgnored</span>,
+    <span class="hljs-title class_">ExecutionSkipped</span>, <span class="hljs-title class_">ExecutionSuccessful</span>,
+    <span class="hljs-title class_">ImplementationPending</span>,
+    <span class="hljs-title class_">Outcome</span>,
+    <span class="hljs-title class_">ScenarioDetails</span>,
 } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Summary</span> </span>{
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> records: SummaryRecord[] = [];
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Summary</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">records</span>: <span class="hljs-title class_">SummaryRecord</span>[] = [];
 
-    record(details: ScenarioDetails, <span class="hljs-attr">outcome</span>: Outcome, <span class="hljs-attr">duration</span>: Duration): <span class="hljs-built_in">void</span> {
-        <span class="hljs-built_in">this</span>.records.push({ details, outcome, duration });
+    <span class="hljs-title function_">record</span>(<span class="hljs-attr">details</span>: <span class="hljs-title class_">ScenarioDetails</span>, <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>, <span class="hljs-attr">duration</span>: <span class="hljs-title class_">Duration</span>): <span class="hljs-built_in">void</span> {
+        <span class="hljs-variable language_">this</span>.<span class="hljs-property">records</span>.<span class="hljs-title function_">push</span>({ details, outcome, duration });
     }
 
-    aggregated(): AggregatedCategories {
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.records.reduce(<span class="hljs-function">(<span class="hljs-params">acc: AggregatedCategories, record</span>) =&gt;</span> {
-            acc.totalTime = acc.totalTime.plus(record.duration);
+    <span class="hljs-title function_">aggregated</span>(): <span class="hljs-title class_">AggregatedCategories</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">records</span>.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc: AggregatedCategories, record</span>) =&gt;</span> {
+            acc.<span class="hljs-property">totalTime</span> = acc.<span class="hljs-property">totalTime</span>.<span class="hljs-title function_">plus</span>(record.<span class="hljs-property">duration</span>);
 
-            <span class="hljs-keyword">const</span> categoryName = record.details.category.value;
+            <span class="hljs-keyword">const</span> categoryName = record.<span class="hljs-property">details</span>.<span class="hljs-property">category</span>.<span class="hljs-property">value</span>;
 
-            <span class="hljs-keyword">if</span> (! acc.categories[categoryName]) {
-                acc.categories[categoryName] = {
+            <span class="hljs-keyword">if</span> (! acc.<span class="hljs-property">categories</span>[categoryName]) {
+                acc.<span class="hljs-property">categories</span>[categoryName] = {
                     <span class="hljs-attr">name</span>: categoryName,
                     <span class="hljs-attr">outcomes</span>: {
-                        [ExecutionCompromised.name]:                { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ExecutionCompromised.Code                 },
-                        [ExecutionFailedWithError.name]:            { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ExecutionFailedWithError.Code             },
-                        [ExecutionFailedWithAssertionError.name]:   { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ExecutionFailedWithAssertionError.Code    },
-                        [ImplementationPending.name]:               { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ImplementationPending.Code                },
-                        [ExecutionSkipped.name]:                    { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ExecutionSkipped.Code                     },
-                        [ExecutionIgnored.name]:                    { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ExecutionIgnored.Code                     },
-                        [ExecutionSuccessful.name]:                 { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: ExecutionSuccessful.Code                  },
+                        [<span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">name</span>]:                { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ExecutionCompromised</span>.<span class="hljs-property">Code</span>                 },
+                        [<span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">name</span>]:            { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ExecutionFailedWithError</span>.<span class="hljs-property">Code</span>             },
+                        [<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">name</span>]:   { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>.<span class="hljs-property">Code</span>    },
+                        [<span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">name</span>]:               { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ImplementationPending</span>.<span class="hljs-property">Code</span>                },
+                        [<span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-property">name</span>]:                    { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ExecutionSkipped</span>.<span class="hljs-property">Code</span>                     },
+                        [<span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-property">name</span>]:                    { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ExecutionIgnored</span>.<span class="hljs-property">Code</span>                     },
+                        [<span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-property">name</span>]:                 { <span class="hljs-attr">count</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">code</span>: <span class="hljs-title class_">ExecutionSuccessful</span>.<span class="hljs-property">Code</span>                  },
                     },
-                    <span class="hljs-attr">totalTime</span>: Duration.ofMilliseconds(<span class="hljs-number">0</span>),
+                    <span class="hljs-attr">totalTime</span>: <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">0</span>),
                 };
             }
 
-            acc.categories[categoryName].outcomes[record.outcome.constructor.name].count ++;
+            acc.<span class="hljs-property">categories</span>[categoryName].<span class="hljs-property">outcomes</span>[record.<span class="hljs-property">outcome</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>].<span class="hljs-property">count</span> ++;
 
-            acc.categories[categoryName].totalTime = acc.categories[categoryName].totalTime.plus(record.duration);
+            acc.<span class="hljs-property">categories</span>[categoryName].<span class="hljs-property">totalTime</span> = acc.<span class="hljs-property">categories</span>[categoryName].<span class="hljs-property">totalTime</span>.<span class="hljs-title function_">plus</span>(record.<span class="hljs-property">duration</span>);
 
             <span class="hljs-keyword">return</span> acc;
-        }, { <span class="hljs-attr">categories</span>: {}, <span class="hljs-attr">totalTime</span>: Duration.ofMilliseconds(<span class="hljs-number">0</span>), <span class="hljs-attr">numberOfScenarios</span>: <span class="hljs-built_in">this</span>.records.length });
+        }, { <span class="hljs-attr">categories</span>: {}, <span class="hljs-attr">totalTime</span>: <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">0</span>), <span class="hljs-attr">numberOfScenarios</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">records</span>.<span class="hljs-property">length</span> });
     }
 }
 
@@ -188,9 +188,9 @@
  * <span class="hljs-doctag">@package</span>
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> AggregatedCategories {
-    <span class="hljs-attr">categories</span>: {[categoryName: <span class="hljs-built_in">string</span>]: AggregatedCategory};
-    totalTime: Duration;
-    numberOfScenarios: <span class="hljs-built_in">number</span>;
+    <span class="hljs-attr">categories</span>: {[<span class="hljs-attr">categoryName</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-title class_">AggregatedCategory</span>};
+    <span class="hljs-attr">totalTime</span>: <span class="hljs-title class_">Duration</span>;
+    <span class="hljs-attr">numberOfScenarios</span>: <span class="hljs-built_in">number</span>;
 }
 
 <span class="hljs-comment">/**
@@ -198,14 +198,14 @@
  */</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> AggregatedCategory {
     <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    outcomes: {[outcomeType: <span class="hljs-built_in">string</span>]: { <span class="hljs-attr">count</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">code</span>: <span class="hljs-built_in">number</span> }};
-    totalTime: Duration;
+    <span class="hljs-attr">outcomes</span>: {[<span class="hljs-attr">outcomeType</span>: <span class="hljs-built_in">string</span>]: { <span class="hljs-attr">count</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">code</span>: <span class="hljs-built_in">number</span> }};
+    <span class="hljs-attr">totalTime</span>: <span class="hljs-title class_">Duration</span>;
 }
 
 <span class="hljs-keyword">interface</span> SummaryRecord {
-    <span class="hljs-attr">details</span>: ScenarioDetails;
-    outcome: Outcome;
-    duration: Duration;
+    <span class="hljs-attr">details</span>: <span class="hljs-title class_">ScenarioDetails</span>;
+    <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>;
+    <span class="hljs-attr">duration</span>: <span class="hljs-title class_">Duration</span>;
 }
 </code></pre>
 

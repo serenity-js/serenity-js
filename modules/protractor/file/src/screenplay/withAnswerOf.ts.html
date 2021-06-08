@@ -187,24 +187,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/withAnswerOf.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { AnswersQuestions, Question, UsesAbilities } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">actor</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">maybeQuestion</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-variable">fn</span></span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">actor</span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">maybeQuestion</span>
+ * <span class="hljs-doctag">@param</span> <span class="hljs-variable">fn</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">withAnswerOf</span>&lt;<span class="hljs-title">T</span>, <span class="hljs-title">O</span>&gt;(<span class="hljs-params">
-    actor: AnswersQuestions &amp; UsesAbilities,
-    maybeQuestion: Question&lt;T&gt; | T,
-    fn: (item: T) =&gt; O,
-</span>): <span class="hljs-title">O</span> </span>{
-    <span class="hljs-keyword">const</span> answer = Question.isAQuestion(maybeQuestion)
-        ? maybeQuestion.answeredBy(actor)
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> withAnswerOf&lt;T, O&gt;(
+    <span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>,
+    <span class="hljs-attr">maybeQuestion</span>: <span class="hljs-title class_">Question</span>&lt;T&gt; | T,
+    <span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">item: T</span>) =&gt;</span> O,
+): O {
+    <span class="hljs-keyword">const</span> answer = <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(maybeQuestion)
+        ? maybeQuestion.<span class="hljs-title function_">answeredBy</span>(actor)
         : maybeQuestion;
 
-    <span class="hljs-keyword">return</span> fn(answer);
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(answer);
 }
 </code></pre>
 

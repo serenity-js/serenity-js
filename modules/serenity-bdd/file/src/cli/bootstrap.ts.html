@@ -136,34 +136,34 @@
  * <span class="hljs-doctag">@desc</span>
  *  Allows for the serenity-bdd command line interface output to be intercepted for testing purposes.
  *
- * <span class="hljs-doctag">@typedef <span class="hljs-type">{function(error: Error, parsed: object, output: string): void}</span> <span class="hljs-variable">Interceptor</span></span>
+ * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">function(error: Error, parsed: object, output: string): void</span>} <span class="hljs-variable">Interceptor</span>
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> Interceptor = <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span>, parsed: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> }, output: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Interceptor</span> = <span class="hljs-function">(<span class="hljs-params">error: <span class="hljs-built_in">Error</span>, parsed: { [key: <span class="hljs-built_in">string</span>]: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> }, output: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
 
 <span class="hljs-comment">/**
  * <span class="hljs-doctag">@desc</span>
  *  Invokes the serenity-bdd command line interface, responsible for downloading and running
  *  the [Serenity BDD CLI](https://github.com/serenity-bdd/serenity-cli)
  *
- * <span class="hljs-doctag">@param <span class="hljs-type">{string[]}</span> <span class="hljs-variable">argv</span></span>
- * <span class="hljs-doctag">@param <span class="hljs-type">{Interceptor}</span> <span class="hljs-variable">interceptor</span></span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">argv</span>
+ * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Interceptor</span>} <span class="hljs-variable">interceptor</span>
  *
  * <span class="hljs-doctag">@package</span>
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bootstrap</span>(<span class="hljs-params">argv: <span class="hljs-built_in">string</span>[], interceptor?: Interceptor</span>): <span class="hljs-title">void</span> </span>{
-    yargs()
-        .version(pkg.version)
-        .demand(<span class="hljs-number">1</span>)
-        .usage(<span class="hljs-string">'Usage: $0 &lt;command&gt; [options]'</span>)
-        .example(<span class="hljs-string">'$0 update [options]'</span>, <span class="hljs-string">'updates the Serenity jar to the latest version'</span>)
-        .example(<span class="hljs-string">'$0 run [options]'</span>,    <span class="hljs-string">'generates the HTML report from JSON reports produced by Serenity/JS'</span>)
-        .example(<span class="hljs-string">'$0 &lt;command&gt; --help'</span>, <span class="hljs-string">'shows the available parameters'</span>)
-        .epilog(<span class="hljs-string">`copyright (C) 2016-<span class="hljs-subst">${ <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getFullYear() }</span> <span class="hljs-subst">${ pkg.author.name }</span> &lt;<span class="hljs-subst">${ pkg.author.email }</span>&gt;`</span>)
-        .commandDir(<span class="hljs-string">'./commands'</span>)
-        .alias(<span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>).help()
-        .parse(argv, { }, interceptor);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">bootstrap</span>(<span class="hljs-params">argv: <span class="hljs-built_in">string</span>[], interceptor?: Interceptor</span>): <span class="hljs-built_in">void</span> {
+    <span class="hljs-title function_">yargs</span>()
+        .<span class="hljs-title function_">version</span>(pkg.<span class="hljs-property">version</span>)
+        .<span class="hljs-title function_">demand</span>(<span class="hljs-number">1</span>)
+        .<span class="hljs-title function_">usage</span>(<span class="hljs-string">'Usage: $0 &lt;command&gt; [options]'</span>)
+        .<span class="hljs-title function_">example</span>(<span class="hljs-string">'$0 update [options]'</span>, <span class="hljs-string">'updates the Serenity jar to the latest version'</span>)
+        .<span class="hljs-title function_">example</span>(<span class="hljs-string">'$0 run [options]'</span>,    <span class="hljs-string">'generates the HTML report from JSON reports produced by Serenity/JS'</span>)
+        .<span class="hljs-title function_">example</span>(<span class="hljs-string">'$0 &lt;command&gt; --help'</span>, <span class="hljs-string">'shows the available parameters'</span>)
+        .<span class="hljs-title function_">epilog</span>(<span class="hljs-string">`copyright (C) 2016-<span class="hljs-subst">${ <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().getFullYear() }</span> <span class="hljs-subst">${ pkg.author.name }</span> &lt;<span class="hljs-subst">${ pkg.author.email }</span>&gt;`</span>)
+        .<span class="hljs-title function_">commandDir</span>(<span class="hljs-string">'./commands'</span>)
+        .<span class="hljs-title function_">alias</span>(<span class="hljs-string">'h'</span>, <span class="hljs-string">'help'</span>).<span class="hljs-title function_">help</span>()
+        .<span class="hljs-title function_">parse</span>(argv, { }, interceptor);
 }
 </code></pre>
 

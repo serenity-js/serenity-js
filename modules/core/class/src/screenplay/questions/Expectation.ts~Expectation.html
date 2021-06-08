@@ -294,7 +294,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {Expectation} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Expectation</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -672,16 +672,16 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isDivisibleBy</span>(<span class="hljs-params">expected: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title">Expectation</span>&lt;<span class="hljs-title">number</span>&gt; </span>{
-     <span class="hljs-keyword">return</span> Expectation.thatActualShould&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">'have value divisible by'</span>, expected)
-         .soThat(<span class="hljs-function">(<span class="hljs-params">actualValue, expectedValue</span>) =&gt;</span> actualValue % expectedValue === <span class="hljs-number">0</span>);
+ <span class="hljs-keyword">function</span> <span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-params">expected: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">number</span>&gt; {
+     <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>.<span class="hljs-property">thatActualShould</span>&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">'have value divisible by'</span>, expected)
+         .<span class="hljs-title function_">soThat</span>(<span class="hljs-function">(<span class="hljs-params">actualValue, expectedValue</span>) =&gt;</span> actualValue % expectedValue === <span class="hljs-number">0</span>);
  }
 
- actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
-     Ensure.that(<span class="hljs-number">4</span>, isDivisibleBy(<span class="hljs-number">2</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">4</span>, <span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">2</span>)),
  );</code></pre>
     </div>
 </div>
@@ -767,20 +767,20 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, Expectation } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { Ensure, and, or, isGreaterThan, isLessThan, equals  } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+ <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, and, or, isGreaterThan, isLessThan, equals  } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
 
- <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) </span>{
-     <span class="hljs-keyword">return</span> Expectation
-         .to(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>)
-         .soThatActual(and(
-             or(isGreaterThan(lowerBound), equals(lowerBound)),
-             or(isLessThan(upperBound), equals(upperBound)),
+ <span class="hljs-keyword">function</span> <span class="hljs-title function_">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) {
+     <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>
+         .<span class="hljs-title function_">to</span>(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>)
+         .<span class="hljs-title function_">soThatActual</span>(<span class="hljs-title function_">and</span>(
+             <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isGreaterThan</span>(lowerBound), <span class="hljs-title function_">equals</span>(lowerBound)),
+             <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isLessThan</span>(upperBound), <span class="hljs-title function_">equals</span>(upperBound)),
          ));
  }
 
- actorCalled(<span class="hljs-string">'Erica'</span>).attemptsTo(
-     Ensure.that(<span class="hljs-number">5</span>, isWithin(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)),
+ <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>).<span class="hljs-title function_">attemptsTo</span>(
+     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">5</span>, <span class="hljs-title function_">isWithin</span>(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)),
  );</code></pre>
     </div>
 </div>

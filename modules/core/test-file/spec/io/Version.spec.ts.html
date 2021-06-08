@@ -296,21 +296,21 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/Version.spec.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
 
-<span class="hljs-keyword">import</span> { Version } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
 <span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
 
-describe(<span class="hljs-string">'Version'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Version'</span>, <span class="hljs-function">() =&gt;</span> {
 
-    it(<span class="hljs-string">'represents a comparable version number'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.2.3'</span>).isAtLeast(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.0.0'</span>))).to.equal(<span class="hljs-literal">true</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'represents a comparable version number'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.2.3'</span>).<span class="hljs-title function_">isAtLeast</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.0.0'</span>))).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
     });
 
-    it(<span class="hljs-string">'grants access to the major version number'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.2.3'</span>).major()).to.equal(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'grants access to the major version number'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.2.3'</span>).<span class="hljs-title function_">major</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
     });
 
-    it(<span class="hljs-string">'provides a sensible description'</span>, <span class="hljs-function">() =&gt;</span> {
-        expect(<span class="hljs-keyword">new</span> Version(<span class="hljs-string">'1.2.3'</span>).toString()).to.equal(<span class="hljs-string">'1.2.3'</span>);
+    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible description'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(<span class="hljs-string">'1.2.3'</span>).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'1.2.3'</span>);
     });
 });
 </code></pre>

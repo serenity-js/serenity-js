@@ -131,17 +131,17 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/cucumber-2.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { Dependencies } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Dependencies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
 
 <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types</span>
-<span class="hljs-keyword">export</span> = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cucumber, cache }: Dependencies</span>) </span>{
+<span class="hljs-keyword">export</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cucumber, cache }: Dependencies</span>) {
     <span class="hljs-keyword">const</span> adapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./cucumber-0'</span>);    <span class="hljs-comment">// eslint-disable-line  @typescript-eslint/no-var-requires</span>
 
-    cucumber.defineSupportCode(<span class="hljs-function"><span class="hljs-params">support</span> =&gt;</span>
-        adapter({ serenity, notifier, resultMapper, loader, cucumber, cache }).call(support)
+    cucumber.<span class="hljs-title function_">defineSupportCode</span>(<span class="hljs-function"><span class="hljs-params">support</span> =&gt;</span>
+        <span class="hljs-title function_">adapter</span>({ serenity, notifier, resultMapper, loader, cucumber, cache }).<span class="hljs-title function_">call</span>(support)
     );
 
-    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
         <span class="hljs-comment">// no-op</span>
     };
 };
