@@ -6,6 +6,7 @@ import { actorCalled, configure, engage } from '@serenity-js/core';
 import { AsyncOperationCompleted, InteractionFinished } from '@serenity-js/core/lib/events';
 import { Name } from '@serenity-js/core/lib/model';
 import { by } from 'protractor';
+
 import { Accept, Click, Dismiss, Enter, ModalDialog, Navigate, Photographer, TakePhotosOfInteractions, Target, Text, Wait } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
