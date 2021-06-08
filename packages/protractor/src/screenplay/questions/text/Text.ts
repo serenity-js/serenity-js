@@ -1,5 +1,6 @@
 import { MetaQuestion, Question } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
+
 import { TextOfMultipleElements } from './TextOfMultipleElements';
 import { TextOfSingleElement } from './TextOfSingleElement';
 

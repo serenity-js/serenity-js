@@ -1,8 +1,9 @@
 import { AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementArrayFinder, ElementFinder } from 'protractor';
+
 import { withAnswerOf } from '../../withAnswerOf';
-import { override } from './override';
 import { ElementArrayFinderListAdapter } from '../lists';
+import { override } from './override';
 
 /**
  * @desc

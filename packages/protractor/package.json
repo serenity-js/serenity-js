@@ -32,6 +32,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
     "test": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
     "compile": "tsc --project tsconfig.json",
