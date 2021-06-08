@@ -1,6 +1,7 @@
 /* eslint-disable unicorn/consistent-function-scoping */
 import { Answerable, AnswersQuestions, Question, Transform, UsesAbilities } from '@serenity-js/core';
 import { IWebDriverOptionsCookie } from 'selenium-webdriver';
+
 import { BrowseTheWeb } from '../abilities';
 
 export class Cookie {
