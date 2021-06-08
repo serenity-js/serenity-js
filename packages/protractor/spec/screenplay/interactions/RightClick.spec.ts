@@ -4,7 +4,8 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
-import { RightClick, Navigate, Target, Text } from '../../../src';
+
+import { Navigate, RightClick, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

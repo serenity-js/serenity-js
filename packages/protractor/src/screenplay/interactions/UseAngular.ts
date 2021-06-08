@@ -1,4 +1,5 @@
 import { Interaction } from '@serenity-js/core';
+
 import { BrowseTheWeb } from '../abilities';
 
 /**

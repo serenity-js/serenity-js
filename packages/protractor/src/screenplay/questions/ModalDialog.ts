@@ -1,5 +1,6 @@
 import { Question } from '@serenity-js/core';
 import { AlertPromise, error as errors } from 'selenium-webdriver';
+
 import { promiseOf } from '../../promiseOf';
 import { BrowseTheWeb } from '../abilities';
 
