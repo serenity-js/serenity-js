@@ -111,7 +111,7 @@ export class SerenityReporterForMocha extends reporters.Base {
             },
         );
 
-        const announceSceneFinishedFor = this.announceSceneFinishedFor.bind(this);
+        const announceSceneFinishedFor = SerenityReporterForMocha.prototype.announceSceneFinishedFor.bind(this);
 
         runner.suite.afterEach('Serenity/JS', function () {
             return announceSceneFinishedFor(this.currentTest, this.test);

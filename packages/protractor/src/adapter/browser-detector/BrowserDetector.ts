@@ -2,6 +2,7 @@ import { Stage } from '@serenity-js/core';
 import { AsyncOperationAttempted, AsyncOperationCompleted, DomainEvent, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';
 import { BrowserTag, CorrelationId, Description, PlatformTag } from '@serenity-js/core/lib/model';
 import { StageCrewMember } from '@serenity-js/core/lib/stage';
+
 import { StandardisedCapabilities } from './StandardisedCapabilities';
 
 /**

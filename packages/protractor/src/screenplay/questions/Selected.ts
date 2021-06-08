@@ -1,6 +1,7 @@
 import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
+
 import { promiseOf } from '../../promiseOf';
 import { withAnswerOf } from '../withAnswerOf';
 import { Value } from './Value';
