@@ -1,6 +1,7 @@
 import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { ElementFinder, WebElement, protractor } from 'protractor';
+import { ElementFinder, protractor,WebElement } from 'protractor';
+
 import { BrowseTheWeb } from '../abilities';
 import { withAnswerOf } from '../withAnswerOf';
 

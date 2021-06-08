@@ -1,5 +1,6 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
+
 import { BrowseTheWeb } from '../abilities';
 
 /**
