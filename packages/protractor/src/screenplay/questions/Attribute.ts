@@ -1,8 +1,9 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { withAnswerOf } from '../withAnswerOf';
+
 import { BrowseTheWeb } from '../abilities';
+import { withAnswerOf } from '../withAnswerOf';
 
 // todo: it might be better to swap the order of arguments
 //  - Attribute.called('href').of(link) to make it work with ArrayListFilter

@@ -1,6 +1,7 @@
 import { LogicError } from '@serenity-js/core';
 import { ActivityFinished, ActivityStarts, DomainEvent } from '@serenity-js/core/lib/events';
 import { Stage, StageCrewMember } from '@serenity-js/core/lib/stage';
+
 import { PhotoTakingStrategy } from './strategies';
 
 /**
