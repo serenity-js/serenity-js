@@ -3,11 +3,12 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, engage, Question } from '@serenity-js/core';
+import { given } from 'mocha-testdata';
 import { by, ElementFinder } from 'protractor';
+
 import { Click, CSSClasses, Navigate, Target, Text } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
-import { given } from 'mocha-testdata';
 
 /** @test {Target} */
 describe('Target', () => {
