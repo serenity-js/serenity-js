@@ -32,6 +32,7 @@
   "scripts": {
     "clean": "rimraf .nyc_output lib target",
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
     "test": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
     "compile": "tsc --project tsconfig.json",
@@ -82,7 +83,7 @@
     "@serenity-js/local-server": "2.29.0",
     "@serenity-js/mocha": "2.29.0",
     "@serenity-js/rest": "2.29.0",
-    "@types/express": "^4.17.11",
+    "@types/express": "^4.17.12",
     "@types/html-minifier": "^4.0.0",
     "@types/mocha": "^8.2.2",
     "@types/selenium-webdriver": "^3.0.17",
@@ -90,7 +91,7 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "html-minifier": "^4.0.0",
-    "mocha": "^8.4.0",
+    "mocha": "^9.0.0",
     "protractor": "^7.0.0",
     "selenium-webdriver": "^3.6.0"
   },
