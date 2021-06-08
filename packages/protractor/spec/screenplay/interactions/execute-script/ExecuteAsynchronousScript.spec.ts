@@ -6,8 +6,8 @@ import { actorCalled, engage, Question, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
-
 import { by } from 'protractor';
+
 import { ExecuteScript, Navigate, Target, Value } from '../../../../src';
 import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';

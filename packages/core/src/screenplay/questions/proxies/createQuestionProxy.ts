@@ -40,7 +40,7 @@ export function createQuestionProxy<Original_Type extends object>(subject: Answe
                     })
                 });
 
-                return question[name].bind(question);
+                return question[name].bind(question);   // eslint-disable-line unicorn/prefer-prototype-methods
             }
 
             return createQuestionProxy(subject, path.concat(name));

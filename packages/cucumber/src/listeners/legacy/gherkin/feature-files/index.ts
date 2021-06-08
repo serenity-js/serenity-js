@@ -1,5 +1,5 @@
 export * from './Cache';
-export * from './FeatureFileMap';
 export * from './FeatureFileLoader';
+export * from './FeatureFileMap';
 export * from './FeatureFileMapper';
 export * from './FeatureFileParser';
