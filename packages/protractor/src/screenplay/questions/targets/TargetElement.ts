@@ -64,7 +64,7 @@ export class TargetElement
         return override(
             BrowseTheWeb.as(actor).locate(this.locator),
             'toString',
-            this.toString.bind(this),
+            TargetElement.prototype.toString.bind(this),
         );
     }
 }
