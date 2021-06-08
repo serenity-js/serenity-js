@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 import 'mocha';
-import { expect } from '@integration/testing-tools';
 
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, ConfigurationError, engage } from '@serenity-js/core';
 

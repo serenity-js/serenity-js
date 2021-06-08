@@ -1,6 +1,7 @@
 import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder, Key } from 'protractor';
 import { AlertPromise } from 'selenium-webdriver';
+
 import { withAnswerOf } from '../withAnswerOf';
 import { PressBuilder } from './PressBuilder';
 
