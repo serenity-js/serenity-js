@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.29.2](https://github.com/serenity-js/serenity-js/compare/v2.29.1...v2.29.2) (2021-06-13)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.14.5 ([0c043ca](https://github.com/serenity-js/serenity-js/commit/0c043ca865a987099433f18e47182e7adf07b739))
+
+
+
+
+
 ## [2.29.1](https://github.com/serenity-js/serenity-js/compare/v2.29.0...v2.29.1) (2021-06-08)
 
 
