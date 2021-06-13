@@ -41,7 +41,9 @@ When reporting a bug, please kindly remember to:
 
 Serenity/JS is an open source project that's open to your contributions and [pull requests](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests).
 
-Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues/new) or [chatting with the development](https://gitter.im/serenity-js/Lobby) team on Gitter.
+Before putting your time and effort into a pull request, though, please gauge the potential interest in your idea either by raising a ticket on [Serenity/JS GitHub](https://github.com/serenity-js/serenity-js/issues/new) or chatting with the development team on the [Contributors Channel](https://gitter.im/serenity-js/Contributors) on Gitter.
+
+[![Gitter](https://badges.gitter.im/serenity-js/Contributors.svg)](https://gitter.im/serenity-js/Contributors?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 #### Working with the Serenity/JS code base
 
