@@ -4,7 +4,19 @@
  * using older versions.
  */
 
-import { messages } from '@cucumber/messages';
+import {
+    Attachment,
+    Envelope,
+    GherkinDocument,
+    Pickle,
+    PickleStepArgument,
+    TestCase,
+    TestCaseFinished,
+    TestCaseStarted,
+    TestStepFinished,
+    TestStepResult,
+    UndefinedParameterType,
+} from '@cucumber/messages';
 
 /**
  * https://github.com/cucumber/cucumber-js/blob/3d8d2327c794c01fd9c9fca58f4f924b9f9bde7a/src/formatter/helpers/event_data_collector.ts#L15
@@ -13,12 +25,12 @@ import { messages } from '@cucumber/messages';
  */
 export interface ITestCaseAttempt {
     attempt: number;
-    gherkinDocument: messages.IGherkinDocument;
-    pickle: messages.IPickle;
-    stepAttachments: { [ key: string ]: messages.IAttachment[] };
-    stepResults: { [ key: string ]: messages.TestStepFinished.ITestStepResult };
-    testCase: messages.ITestCase;
-    worstTestStepResult: messages.TestStepFinished.ITestStepResult;
+    gherkinDocument: GherkinDocument;
+    pickle: Pickle;
+    stepAttachments: { [ key: string ]: Attachment[] };
+    stepResults: { [ key: string ]: TestStepResult };
+    testCase: TestCase;
+    worstTestStepResult: TestStepResult;
 }
 
 /**
@@ -27,16 +39,16 @@ export interface ITestCaseAttempt {
  * @package
  */
 export interface EventDataCollector {
-    readonly undefinedParameterTypes: messages.IUndefinedParameterType[];
-    getGherkinDocument(uri: string): messages.IGherkinDocument;
-    getPickle(pickleId: string): messages.IPickle;
+    readonly undefinedParameterTypes: UndefinedParameterType[];
+    getGherkinDocument(uri: string): GherkinDocument;
+    getPickle(pickleId: string): Pickle;
     getTestCaseAttempts(): ITestCaseAttempt[];
     getTestCaseAttempt(testCaseStartedId: string): ITestCaseAttempt;
-    parseEnvelope(envelope: messages.Envelope): void;
-    initTestCaseAttempt(testCaseStarted: messages.ITestCaseStarted): void;
-    storeAttachment({ testCaseStartedId, testStepId, body, mediaType, }: messages.IAttachment): void;
-    storeTestStepResult({ testCaseStartedId, testStepId, testStepResult, }: messages.ITestStepFinished): void;
-    storeTestCaseResult({ testCaseStartedId }: messages.ITestCaseFinished): void;
+    parseEnvelope(envelope: Envelope): void;
+    initTestCaseAttempt(testCaseStarted: TestCaseStarted): void;
+    storeAttachment({ testCaseStartedId, testStepId, body, mediaType, }: Attachment): void;
+    storeTestStepResult({ testCaseStartedId, testStepId, testStepResult, }: TestStepFinished): void;
+    storeTestCaseResult({ testCaseStartedId }: TestCaseFinished): void;
 }
 
 /**
@@ -56,10 +68,10 @@ export interface ILineAndUri {
  */
 export interface IParsedTestStep {
     actionLocation?: ILineAndUri;
-    argument?: messages.IPickleStepArgument;
-    attachments: messages.IAttachment[];
+    argument?: PickleStepArgument;
+    attachments: Attachment[];
     keyword: string;
-    result: messages.TestStepFinished.ITestStepResult;
+    result: TestStepResult;
     snippet?: string;
     sourceLocation?: ILineAndUri;
     text?: string;
