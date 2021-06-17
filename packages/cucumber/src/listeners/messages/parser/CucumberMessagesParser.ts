@@ -1,4 +1,5 @@
-import { messages } from '@cucumber/messages';
+import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepStarted } from '@cucumber/messages';
+import { TestStepResultStatus } from '@cucumber/messages';
 import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';
 import {
     BusinessRuleDetected,
@@ -78,7 +79,7 @@ export class CucumberMessagesParser {
         this.supportCodeLibrary = formatterOptionsAndDependencies.supportCodeLibrary;
     }
 
-    parseTestCaseStarted(message: messages.ITestCaseStarted): DomainEvent[] {
+    parseTestCaseStarted(message: TestCaseStarted): DomainEvent[] {
         const
             testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.id),
             currentSceneId = this.serenity.assignNewSceneId();
@@ -112,7 +113,7 @@ export class CucumberMessagesParser {
         ];
     }
 
-    parseTestStepStarted(message: messages.ITestStepStarted): DomainEvent[] {
+    parseTestStepStarted(message: TestStepStarted): DomainEvent[] {
         return this.extract(this.stepFrom(message), step => {
             this.currentStepActivityId = this.serenity.assignNewActivityId();
 
@@ -127,7 +128,7 @@ export class CucumberMessagesParser {
         });
     }
 
-    parseTestStepFinished(message: messages.ITestStepStarted): DomainEvent[] {
+    parseTestStepFinished(message: TestStepStarted): DomainEvent[] {
         return this.extract(this.stepFrom(message), step => {
             if (this.shouldReportStep(step)) {
                 return new TaskFinished(
@@ -141,7 +142,7 @@ export class CucumberMessagesParser {
         })
     }
 
-    parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: messages.TestStepFinished.ITestStepResult }): DomainEvent {
+    parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: TestStepResult }): DomainEvent {
         return new SceneFinishes(
             this.serenity.currentSceneId(),
             this.currentScenario,
@@ -150,7 +151,7 @@ export class CucumberMessagesParser {
         );
     }
 
-    parseTestCaseFinished(message: messages.ITestCaseFinished): DomainEvent[] {
+    parseTestCaseFinished(message: TestCaseFinished): DomainEvent[] {
         const
             testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),
             currentSceneId  = this.serenity.currentSceneId();
@@ -175,7 +176,7 @@ export class CucumberMessagesParser {
             : [];
     }
 
-    private scenarioDetailsFor(gherkinDocument: messages.IGherkinDocument, pickle: messages.IPickle, location: messages.ILocation): ScenarioDetails {
+    private scenarioDetailsFor(gherkinDocument: GherkinDocument, pickle: Pickle, location: Location): ScenarioDetails {
         return new ScenarioDetails(
             new Name(pickle.name),
             new Category(gherkinDocument.feature.name),
@@ -245,7 +246,7 @@ export class CucumberMessagesParser {
         };
     }
 
-    private scenarioHierarchyTagsFor(gherkinDocument: messages.IGherkinDocument, pickle: messages.IPickle): Tag[] {
+    private scenarioHierarchyTagsFor(gherkinDocument: GherkinDocument, pickle: Pickle): Tag[] {
         const
             directories = new Path(pickle.uri).directory().split(),
             featuresIndex = directories.indexOf('features'),
@@ -260,7 +261,7 @@ export class CucumberMessagesParser {
         ]);
     }
 
-    private stepFrom(message: messages.ITestStepStarted | messages.ITestStepFinished) {
+    private stepFrom(message: TestStepStarted | TestStepFinished) {
         const { testCaseStartedId, testStepId } = message;
 
         const testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(testCaseStartedId);
@@ -275,7 +276,7 @@ export class CucumberMessagesParser {
         //  can be removed when the above PR is merged
         testCaseAttempt.testCase.testSteps.forEach(step => {
             if (! testCaseAttempt.stepResults[step.id]) {
-                testCaseAttempt.stepResults[step.id] = { status: messages.TestStepFinished.TestStepResult.Status.UNKNOWN };
+                testCaseAttempt.stepResults[step.id] = { duration: { seconds: 0, nanos: 0 }, status: TestStepResultStatus.UNKNOWN, willBeRetried: false };
             }
         });
         // ---
@@ -292,9 +293,9 @@ export class CucumberMessagesParser {
         return new ActivityDetails(new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)));
     }
 
-    private outcomeFrom(worstResult: messages.TestStepFinished.ITestStepResult, ...steps: IParsedTestStep[]): Outcome {
+    private outcomeFrom(worstResult: TestStepResult, ...steps: IParsedTestStep[]): Outcome {
 
-        const Status = messages.TestStepFinished.TestStepResult.Status;
+        const Status = TestStepResultStatus;
 
         switch (worstResult.status) {
             case Status.SKIPPED:

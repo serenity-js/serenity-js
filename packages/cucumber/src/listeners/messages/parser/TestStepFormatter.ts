@@ -1,4 +1,4 @@
-import { messages } from '@cucumber/messages';
+import { PickleDocString, PickleTable } from '@cucumber/messages';
 import Table = require('cli-table3');
 
 /**
@@ -7,8 +7,8 @@ import Table = require('cli-table3');
 export class TestStepFormatter {
 
     public format(keyword: string, text = '', argument?: {
-        docString?: messages.GherkinDocument.Feature.Step.IDocString,
-        dataTable?: messages.GherkinDocument.Feature.Step.IDataTable,
+        docString?: PickleDocString,
+        dataTable?: PickleTable,
     }): string {
         return [
             keyword,
@@ -18,8 +18,8 @@ export class TestStepFormatter {
     }
 
     private formatStepArgument(argument: {
-        docString?: messages.GherkinDocument.Feature.Step.IDocString,
-        dataTable?: messages.GherkinDocument.Feature.Step.IDataTable,
+        docString?: PickleDocString,
+        dataTable?: PickleTable,
     }): string {
 
         if (argument.docString) {
@@ -33,11 +33,11 @@ export class TestStepFormatter {
         return '';
     }
 
-    private formatDocString(docString: messages.PickleStepArgument.IPickleDocString): string {
+    private formatDocString(docString: PickleDocString): string {
         return `\n${ docString.content }`;
     }
 
-    private formatDataTable(dataTable: messages.PickleStepArgument.IPickleTable): string {
+    private formatDataTable(dataTable: PickleTable): string {
         const table = new Table({
             chars: {
                 bottom: '',
