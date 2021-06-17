@@ -131,7 +131,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/messages/parser/TestStepFormatter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { messages } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PickleDocString</span>, <span class="hljs-title class_">PickleTable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-title class_">Table</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cli-table3'</span>);
 
 <span class="hljs-comment">/**
@@ -140,8 +140,8 @@
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestStepFormatter</span> {
 
     <span class="hljs-keyword">public</span> <span class="hljs-title function_">format</span>(<span class="hljs-attr">keyword</span>: <span class="hljs-built_in">string</span>, text = <span class="hljs-string">''</span>, argument?: {
-        docString?: messages.<span class="hljs-property">GherkinDocument</span>.<span class="hljs-property">Feature</span>.<span class="hljs-property">Step</span>.<span class="hljs-property">IDocString</span>,
-        dataTable?: messages.<span class="hljs-property">GherkinDocument</span>.<span class="hljs-property">Feature</span>.<span class="hljs-property">Step</span>.<span class="hljs-property">IDataTable</span>,
+        docString?: <span class="hljs-title class_">PickleDocString</span>,
+        dataTable?: <span class="hljs-title class_">PickleTable</span>,
     }): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> [
             keyword,
@@ -151,8 +151,8 @@
     }
 
     <span class="hljs-keyword">private</span> <span class="hljs-title function_">formatStepArgument</span>(<span class="hljs-attr">argument</span>: {
-        docString?: messages.<span class="hljs-property">GherkinDocument</span>.<span class="hljs-property">Feature</span>.<span class="hljs-property">Step</span>.<span class="hljs-property">IDocString</span>,
-        dataTable?: messages.<span class="hljs-property">GherkinDocument</span>.<span class="hljs-property">Feature</span>.<span class="hljs-property">Step</span>.<span class="hljs-property">IDataTable</span>,
+        docString?: <span class="hljs-title class_">PickleDocString</span>,
+        dataTable?: <span class="hljs-title class_">PickleTable</span>,
     }): <span class="hljs-built_in">string</span> {
 
         <span class="hljs-keyword">if</span> (argument.<span class="hljs-property">docString</span>) {
@@ -166,11 +166,11 @@
         <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">formatDocString</span>(<span class="hljs-attr">docString</span>: messages.<span class="hljs-property">PickleStepArgument</span>.<span class="hljs-property">IPickleDocString</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">formatDocString</span>(<span class="hljs-attr">docString</span>: <span class="hljs-title class_">PickleDocString</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-string">`\n<span class="hljs-subst">${ docString.content }</span>`</span>;
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">formatDataTable</span>(<span class="hljs-attr">dataTable</span>: messages.<span class="hljs-property">PickleStepArgument</span>.<span class="hljs-property">IPickleTable</span>): <span class="hljs-built_in">string</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">formatDataTable</span>(<span class="hljs-attr">dataTable</span>: <span class="hljs-title class_">PickleTable</span>): <span class="hljs-built_in">string</span> {
         <span class="hljs-keyword">const</span> table = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Table</span>({
             <span class="hljs-attr">chars</span>: {
                 <span class="hljs-attr">bottom</span>: <span class="hljs-string">''</span>,

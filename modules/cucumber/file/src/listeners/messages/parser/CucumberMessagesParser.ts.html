@@ -131,7 +131,8 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/messages/parser/CucumberMessagesParser.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { messages } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
+<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">GherkinDocument</span>, <span class="hljs-title class_">Location</span>, <span class="hljs-title class_">Pickle</span>, <span class="hljs-title class_">TestCaseFinished</span>, <span class="hljs-title class_">TestCaseStarted</span>, <span class="hljs-title class_">TestStepFinished</span>, <span class="hljs-title class_">TestStepResult</span>, <span class="hljs-title class_">TestStepStarted</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestStepResultStatus</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">Serenity</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> {
     <span class="hljs-title class_">BusinessRuleDetected</span>,
@@ -211,7 +212,7 @@
         <span class="hljs-variable language_">this</span>.<span class="hljs-property">supportCodeLibrary</span> = formatterOptionsAndDependencies.<span class="hljs-property">supportCodeLibrary</span>;
     }
 
-    <span class="hljs-title function_">parseTestCaseStarted</span>(<span class="hljs-attr">message</span>: messages.<span class="hljs-property">ITestCaseStarted</span>): <span class="hljs-title class_">DomainEvent</span>[] {
+    <span class="hljs-title function_">parseTestCaseStarted</span>(<span class="hljs-attr">message</span>: <span class="hljs-title class_">TestCaseStarted</span>): <span class="hljs-title class_">DomainEvent</span>[] {
         <span class="hljs-keyword">const</span>
             testCaseAttempt = <span class="hljs-variable language_">this</span>.<span class="hljs-property">eventDataCollector</span>.<span class="hljs-title function_">getTestCaseAttempt</span>(message.<span class="hljs-property">id</span>),
             currentSceneId = <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">assignNewSceneId</span>();
@@ -245,7 +246,7 @@
         ];
     }
 
-    <span class="hljs-title function_">parseTestStepStarted</span>(<span class="hljs-attr">message</span>: messages.<span class="hljs-property">ITestStepStarted</span>): <span class="hljs-title class_">DomainEvent</span>[] {
+    <span class="hljs-title function_">parseTestStepStarted</span>(<span class="hljs-attr">message</span>: <span class="hljs-title class_">TestStepStarted</span>): <span class="hljs-title class_">DomainEvent</span>[] {
         <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">extract</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">stepFrom</span>(message), <span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> {
             <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentStepActivityId</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">assignNewActivityId</span>();
 
@@ -260,7 +261,7 @@
         });
     }
 
-    <span class="hljs-title function_">parseTestStepFinished</span>(<span class="hljs-attr">message</span>: messages.<span class="hljs-property">ITestStepStarted</span>): <span class="hljs-title class_">DomainEvent</span>[] {
+    <span class="hljs-title function_">parseTestStepFinished</span>(<span class="hljs-attr">message</span>: <span class="hljs-title class_">TestStepStarted</span>): <span class="hljs-title class_">DomainEvent</span>[] {
         <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">extract</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">stepFrom</span>(message), <span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> {
             <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">shouldReportStep</span>(step)) {
                 <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TaskFinished</span>(
@@ -274,7 +275,7 @@
         })
     }
 
-    <span class="hljs-title function_">parseTestCaseFinishes</span>(<span class="hljs-attr">hookMessage</span>: { <span class="hljs-attr">testCaseStartedId</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">result</span>: messages.<span class="hljs-property">TestStepFinished</span>.<span class="hljs-property">ITestStepResult</span> }): <span class="hljs-title class_">DomainEvent</span> {
+    <span class="hljs-title function_">parseTestCaseFinishes</span>(<span class="hljs-attr">hookMessage</span>: { <span class="hljs-attr">testCaseStartedId</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">result</span>: <span class="hljs-title class_">TestStepResult</span> }): <span class="hljs-title class_">DomainEvent</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(
             <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentSceneId</span>(),
             <span class="hljs-variable language_">this</span>.<span class="hljs-property">currentScenario</span>,
@@ -283,7 +284,7 @@
         );
     }
 
-    <span class="hljs-title function_">parseTestCaseFinished</span>(<span class="hljs-attr">message</span>: messages.<span class="hljs-property">ITestCaseFinished</span>): <span class="hljs-title class_">DomainEvent</span>[] {
+    <span class="hljs-title function_">parseTestCaseFinished</span>(<span class="hljs-attr">message</span>: <span class="hljs-title class_">TestCaseFinished</span>): <span class="hljs-title class_">DomainEvent</span>[] {
         <span class="hljs-keyword">const</span>
             testCaseAttempt = <span class="hljs-variable language_">this</span>.<span class="hljs-property">eventDataCollector</span>.<span class="hljs-title function_">getTestCaseAttempt</span>(message.<span class="hljs-property">testCaseStartedId</span>),
             currentSceneId  = <span class="hljs-variable language_">this</span>.<span class="hljs-property">serenity</span>.<span class="hljs-title function_">currentSceneId</span>();
@@ -308,7 +309,7 @@
             : [];
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">scenarioDetailsFor</span>(<span class="hljs-attr">gherkinDocument</span>: messages.<span class="hljs-property">IGherkinDocument</span>, <span class="hljs-attr">pickle</span>: messages.<span class="hljs-property">IPickle</span>, <span class="hljs-attr">location</span>: messages.<span class="hljs-property">ILocation</span>): <span class="hljs-title class_">ScenarioDetails</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">scenarioDetailsFor</span>(<span class="hljs-attr">gherkinDocument</span>: <span class="hljs-title class_">GherkinDocument</span>, <span class="hljs-attr">pickle</span>: <span class="hljs-title class_">Pickle</span>, <span class="hljs-attr">location</span>: <span class="hljs-title class_">Location</span>): <span class="hljs-title class_">ScenarioDetails</span> {
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
             <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(pickle.<span class="hljs-property">name</span>),
             <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(gherkinDocument.<span class="hljs-property">feature</span>.<span class="hljs-property">name</span>),
@@ -378,7 +379,7 @@
         };
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">scenarioHierarchyTagsFor</span>(<span class="hljs-attr">gherkinDocument</span>: messages.<span class="hljs-property">IGherkinDocument</span>, <span class="hljs-attr">pickle</span>: messages.<span class="hljs-property">IPickle</span>): <span class="hljs-title class_">Tag</span>[] {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">scenarioHierarchyTagsFor</span>(<span class="hljs-attr">gherkinDocument</span>: <span class="hljs-title class_">GherkinDocument</span>, <span class="hljs-attr">pickle</span>: <span class="hljs-title class_">Pickle</span>): <span class="hljs-title class_">Tag</span>[] {
         <span class="hljs-keyword">const</span>
             directories = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(pickle.<span class="hljs-property">uri</span>).<span class="hljs-title function_">directory</span>().<span class="hljs-title function_">split</span>(),
             featuresIndex = directories.<span class="hljs-title function_">indexOf</span>(<span class="hljs-string">'features'</span>),
@@ -393,7 +394,7 @@
         ]);
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">stepFrom</span>(<span class="hljs-params">message: messages.ITestStepStarted | messages.ITestStepFinished</span>) {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">stepFrom</span>(<span class="hljs-params">message: TestStepStarted | TestStepFinished</span>) {
         <span class="hljs-keyword">const</span> { testCaseStartedId, testStepId } = message;
 
         <span class="hljs-keyword">const</span> testCaseAttempt = <span class="hljs-variable language_">this</span>.<span class="hljs-property">eventDataCollector</span>.<span class="hljs-title function_">getTestCaseAttempt</span>(testCaseStartedId);
@@ -408,7 +409,7 @@
         <span class="hljs-comment">//  can be removed when the above PR is merged</span>
         testCaseAttempt.<span class="hljs-property">testCase</span>.<span class="hljs-property">testSteps</span>.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">step</span> =&gt;</span> {
             <span class="hljs-keyword">if</span> (! testCaseAttempt.<span class="hljs-property">stepResults</span>[step.<span class="hljs-property">id</span>]) {
-                testCaseAttempt.<span class="hljs-property">stepResults</span>[step.<span class="hljs-property">id</span>] = { <span class="hljs-attr">status</span>: messages.<span class="hljs-property">TestStepFinished</span>.<span class="hljs-property">TestStepResult</span>.<span class="hljs-property">Status</span>.<span class="hljs-property">UNKNOWN</span> };
+                testCaseAttempt.<span class="hljs-property">stepResults</span>[step.<span class="hljs-property">id</span>] = { <span class="hljs-attr">duration</span>: { <span class="hljs-attr">seconds</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">nanos</span>: <span class="hljs-number">0</span> }, <span class="hljs-attr">status</span>: <span class="hljs-title class_">TestStepResultStatus</span>.<span class="hljs-property">UNKNOWN</span>, <span class="hljs-attr">willBeRetried</span>: <span class="hljs-literal">false</span> };
             }
         });
         <span class="hljs-comment">// ---</span>
@@ -425,9 +426,9 @@
         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityDetails</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">testStepFormatter</span>.<span class="hljs-title function_">format</span>(parsedTestStep.<span class="hljs-property">keyword</span>, parsedTestStep.<span class="hljs-property">text</span>, parsedTestStep.<span class="hljs-property">argument</span>)));
     }
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">outcomeFrom</span>(<span class="hljs-attr">worstResult</span>: messages.<span class="hljs-property">TestStepFinished</span>.<span class="hljs-property">ITestStepResult</span>, ...<span class="hljs-attr">steps</span>: IParsedTestStep[]): <span class="hljs-title class_">Outcome</span> {
+    <span class="hljs-keyword">private</span> <span class="hljs-title function_">outcomeFrom</span>(<span class="hljs-attr">worstResult</span>: <span class="hljs-title class_">TestStepResult</span>, ...<span class="hljs-attr">steps</span>: IParsedTestStep[]): <span class="hljs-title class_">Outcome</span> {
 
-        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Status</span> = messages.<span class="hljs-property">TestStepFinished</span>.<span class="hljs-property">TestStepResult</span>.<span class="hljs-property">Status</span>;
+        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Status</span> = <span class="hljs-title class_">TestStepResultStatus</span>;
 
         <span class="hljs-keyword">switch</span> (worstResult.<span class="hljs-property">status</span>) {
             <span class="hljs-keyword">case</span> <span class="hljs-title class_">Status</span>.<span class="hljs-property">SKIPPED</span>:

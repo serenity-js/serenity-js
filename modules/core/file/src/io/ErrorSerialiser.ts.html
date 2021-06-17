@@ -346,7 +346,6 @@
     <span class="hljs-keyword">static</span> deserialise&lt;E <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Error</span>&gt;(<span class="hljs-attr">stringifiedError</span>: <span class="hljs-built_in">string</span>): E {
         <span class="hljs-keyword">const</span> serialisedError = <span class="hljs-title function_">parse</span>(stringifiedError) <span class="hljs-keyword">as</span> <span class="hljs-title class_">SerialisedError</span>;
 
-        <span class="hljs-comment">// todo: de-serialise the cause map well</span>
         <span class="hljs-keyword">const</span> constructor = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-property">recognisedErrors</span>.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">errorType</span> =&gt;</span> errorType.<span class="hljs-property">name</span> === serialisedError.<span class="hljs-property">name</span>) || <span class="hljs-title class_">Error</span>;
         <span class="hljs-keyword">const</span> deserialised = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(constructor.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> property <span class="hljs-keyword">in</span> serialisedError) {

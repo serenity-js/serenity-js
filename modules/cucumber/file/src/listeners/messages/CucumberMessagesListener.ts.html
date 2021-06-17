@@ -132,7 +132,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/messages/CucumberMessagesListener.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">IdGenerator</span>, messages } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Envelope</span>, <span class="hljs-title class_">IdGenerator</span>, <span class="hljs-title class_">TestStepResult</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">TestRunFinished</span>, <span class="hljs-title class_">TestRunFinishes</span>, <span class="hljs-title class_">TestRunStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
@@ -165,13 +165,13 @@
                     step?.<span class="hljs-property">actionLocation</span>?.<span class="hljs-property">uri</span> !== <span class="hljs-title class_">CucumberMessagesListener</span>.<span class="hljs-property">fakeInternalAfterHookUri</span>,
             );
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">addAfterHook</span>(<span class="hljs-function">(<span class="hljs-params">message: { testCaseStartedId: <span class="hljs-built_in">string</span>, result: messages.TestStepFinished.ITestStepResult }</span>) =&gt;</span> {
+            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">addAfterHook</span>(<span class="hljs-function">(<span class="hljs-params">message: { testCaseStartedId: <span class="hljs-built_in">string</span>, result: TestStepResult }</span>) =&gt;</span> {
                 <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parseTestCaseFinishes</span>(message));
 
                 <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>();
             });
 
-            options.<span class="hljs-property">eventBroadcaster</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'envelope'</span>, <span class="hljs-function">(<span class="hljs-params">envelope: messages.IEnvelope</span>) =&gt;</span> {
+            options.<span class="hljs-property">eventBroadcaster</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'envelope'</span>, <span class="hljs-function">(<span class="hljs-params">envelope: Envelope</span>) =&gt;</span> {
                 <span class="hljs-comment">// this.log('&gt; [cucumber] ' + JSON.stringify(envelope) + '\n');</span>
 
                 <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {

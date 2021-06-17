@@ -7172,7 +7172,7 @@
     "__docId__": 408,
     "kind": "file",
     "name": "src/listeners/messages/CucumberMessagesListener.ts",
-    "content": "// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';\nimport { IdGenerator, messages } from '@cucumber/messages';\nimport { Serenity } from '@serenity-js/core';\nimport { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';\nimport { ModuleLoader } from '@serenity-js/core/lib/io';\n\nimport { CucumberMessagesParser } from './parser/CucumberMessagesParser';\nimport { IParsedTestStep } from './types/cucumber';\n\nexport = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslint-disable-line @typescript-eslint/explicit-module-boundary-types\n\n    const\n        { Formatter, formatterHelpers } = moduleLoader.require('@cucumber/cucumber'),\n        TestCaseHookDefinition          = moduleLoader.require('@cucumber/cucumber/lib/models/test_case_hook_definition').default;\n\n    return class CucumberMessagesListener extends Formatter {\n        static readonly fakeInternalAfterHookUri = '/internal/serenity-js/cucumber';\n\n        readonly parser: CucumberMessagesParser;\n\n        log: (buffer: string | Uint8Array) => void;\n        supportCodeLibrary: any;\n\n        constructor(options) {\n            super(options);\n\n            this.parser = new CucumberMessagesParser(\n                serenity,\n                formatterHelpers,\n                options,\n                (step: IParsedTestStep) =>\n                    step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,\n            );\n\n            this.addAfterHook((message: { testCaseStartedId: string, result: messages.TestStepFinished.ITestStepResult }) => {\n                this.emit(this.parser.parseTestCaseFinishes(message));\n\n                return serenity.waitForNextCue();\n            });\n\n            options.eventBroadcaster.on('envelope', (envelope: messages.IEnvelope) => {\n                // this.log('> [cucumber] ' + JSON.stringify(envelope) + '\\n');\n\n                switch (true) {\n                    case !! envelope.testRunStarted:\n                        return this.emit(new TestRunStarts(serenity.currentTime()));\n\n                    case !! envelope.testCaseStarted:\n                        return this.emit(\n                            this.parser.parseTestCaseStarted(envelope.testCaseStarted),\n                        );\n\n                    case !! envelope.testStepStarted:\n                        return this.emit(\n                            this.parser.parseTestStepStarted(envelope.testStepStarted),\n                        );\n\n                    case !! envelope.testStepFinished:\n                        return this.emit(\n                            this.parser.parseTestStepFinished(envelope.testStepFinished),\n                        );\n\n                    case !! envelope.testCaseFinished:\n                        return this.emit(\n                            this.parser.parseTestCaseFinished(envelope.testCaseFinished),\n                        );\n                }\n            });\n        }\n\n        public async finished(): Promise<void> {\n            this.emit(new TestRunFinishes(serenity.currentTime()));\n\n            await serenity.waitForNextCue();\n            await super.finished();\n\n            this.emit(new TestRunFinished(serenity.currentTime()));\n        }\n\n        addAfterHook(code: (...args: any) => Promise<void> | void) {\n            this.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(\n                new TestCaseHookDefinition({\n                    code,\n                    id:     IdGenerator.uuid()(),\n                    line:   0,\n                    uri:    CucumberMessagesListener.fakeInternalAfterHookUri,\n                    options: {},\n                }),\n            );\n        }\n\n        emit(events: DomainEvent[] | DomainEvent): void {\n            [].concat(events).forEach(event => serenity.announce(event));\n        }\n    }\n}\n",
+    "content": "// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';\nimport { Envelope, IdGenerator, TestStepResult } from '@cucumber/messages';\nimport { Serenity } from '@serenity-js/core';\nimport { DomainEvent, TestRunFinished, TestRunFinishes, TestRunStarts } from '@serenity-js/core/lib/events';\nimport { ModuleLoader } from '@serenity-js/core/lib/io';\n\nimport { CucumberMessagesParser } from './parser/CucumberMessagesParser';\nimport { IParsedTestStep } from './types/cucumber';\n\nexport = function (serenity: Serenity, moduleLoader: ModuleLoader) {    // eslint-disable-line @typescript-eslint/explicit-module-boundary-types\n\n    const\n        { Formatter, formatterHelpers } = moduleLoader.require('@cucumber/cucumber'),\n        TestCaseHookDefinition          = moduleLoader.require('@cucumber/cucumber/lib/models/test_case_hook_definition').default;\n\n    return class CucumberMessagesListener extends Formatter {\n        static readonly fakeInternalAfterHookUri = '/internal/serenity-js/cucumber';\n\n        readonly parser: CucumberMessagesParser;\n\n        log: (buffer: string | Uint8Array) => void;\n        supportCodeLibrary: any;\n\n        constructor(options) {\n            super(options);\n\n            this.parser = new CucumberMessagesParser(\n                serenity,\n                formatterHelpers,\n                options,\n                (step: IParsedTestStep) =>\n                    step?.actionLocation?.uri !== CucumberMessagesListener.fakeInternalAfterHookUri,\n            );\n\n            this.addAfterHook((message: { testCaseStartedId: string, result: TestStepResult }) => {\n                this.emit(this.parser.parseTestCaseFinishes(message));\n\n                return serenity.waitForNextCue();\n            });\n\n            options.eventBroadcaster.on('envelope', (envelope: Envelope) => {\n                // this.log('> [cucumber] ' + JSON.stringify(envelope) + '\\n');\n\n                switch (true) {\n                    case !! envelope.testRunStarted:\n                        return this.emit(new TestRunStarts(serenity.currentTime()));\n\n                    case !! envelope.testCaseStarted:\n                        return this.emit(\n                            this.parser.parseTestCaseStarted(envelope.testCaseStarted),\n                        );\n\n                    case !! envelope.testStepStarted:\n                        return this.emit(\n                            this.parser.parseTestStepStarted(envelope.testStepStarted),\n                        );\n\n                    case !! envelope.testStepFinished:\n                        return this.emit(\n                            this.parser.parseTestStepFinished(envelope.testStepFinished),\n                        );\n\n                    case !! envelope.testCaseFinished:\n                        return this.emit(\n                            this.parser.parseTestCaseFinished(envelope.testCaseFinished),\n                        );\n                }\n            });\n        }\n\n        public async finished(): Promise<void> {\n            this.emit(new TestRunFinishes(serenity.currentTime()));\n\n            await serenity.waitForNextCue();\n            await super.finished();\n\n            this.emit(new TestRunFinished(serenity.currentTime()));\n        }\n\n        addAfterHook(code: (...args: any) => Promise<void> | void) {\n            this.supportCodeLibrary.afterTestCaseHookDefinitions.unshift(\n                new TestCaseHookDefinition({\n                    code,\n                    id:     IdGenerator.uuid()(),\n                    line:   0,\n                    uri:    CucumberMessagesListener.fakeInternalAfterHookUri,\n                    options: {},\n                }),\n            );\n        }\n\n        emit(events: DomainEvent[] | DomainEvent): void {\n            [].concat(events).forEach(event => serenity.announce(event));\n        }\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/src/listeners/messages/CucumberMessagesListener.ts",
     "access": "public",
@@ -7246,7 +7246,7 @@
     "__docId__": 411,
     "kind": "file",
     "name": "src/listeners/messages/parser/CucumberMessagesParser.ts",
-    "content": "import { messages } from '@cucumber/messages';\nimport { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';\nimport {\n    BusinessRuleDetected,\n    DomainEvent,\n    FeatureNarrativeDetected,\n    RetryableSceneDetected,\n    SceneDescriptionDetected,\n    SceneFinished,\n    SceneFinishes,\n    SceneParametersDetected,\n    SceneSequenceDetected,\n    SceneStarts,\n    SceneTagged,\n    SceneTemplateDetected,\n    TaskFinished,\n    TaskStarts,\n    TestRunnerDetected,\n} from '@serenity-js/core/lib/events';\nimport { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';\nimport {\n    ActivityDetails,\n    ArbitraryTag,\n    BusinessRule,\n    CapabilityTag,\n    Category,\n    CorrelationId,\n    Description,\n    ExecutionCompromised,\n    ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionRetriedTag,\n    ExecutionSkipped,\n    ExecutionSuccessful,\n    FeatureTag,\n    ImplementationPending,\n    Name,\n    Outcome,\n    ScenarioDetails,\n    ScenarioParameters,\n    Tag,\n    Tags,\n    ThemeTag,\n} from '@serenity-js/core/lib/model';\n\nimport { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';\nimport { TestStepFormatter } from './TestStepFormatter';\nimport { ExtractedScenario, ExtractedScenarioOutline } from './types';\n\n/**\n * @package\n */\nexport class CucumberMessagesParser {\n    private readonly testStepFormatter = new TestStepFormatter();\n\n    private currentScenario: ScenarioDetails;\n    private currentStepActivityId: CorrelationId;\n\n    private readonly cwd: string;\n    private readonly eventDataCollector: any;\n    private readonly snippetBuilder: any;\n    private readonly supportCodeLibrary: any;\n\n    constructor(\n        private readonly serenity: Serenity,\n        private readonly formatterHelpers: any,     // eslint-disable-line @typescript-eslint/explicit-module-boundary-types\n        formatterOptionsAndDependencies: {\n            cwd: string,\n            eventDataCollector: EventDataCollector,\n            snippetBuilder: any,\n            supportCodeLibrary: any,\n        },\n        private readonly shouldReportStep: (parsedTestStep: IParsedTestStep) => boolean,\n    ) {\n        this.cwd                = formatterOptionsAndDependencies.cwd;\n        this.eventDataCollector = formatterOptionsAndDependencies.eventDataCollector;\n        this.snippetBuilder     = formatterOptionsAndDependencies.snippetBuilder;\n        this.supportCodeLibrary = formatterOptionsAndDependencies.supportCodeLibrary;\n    }\n\n    parseTestCaseStarted(message: messages.ITestCaseStarted): DomainEvent[] {\n        const\n            testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.id),\n            currentSceneId = this.serenity.assignNewSceneId();\n\n        this.currentScenario = this.scenarioDetailsFor(\n            testCaseAttempt.gherkinDocument,\n            testCaseAttempt.pickle,\n            this.formatterHelpers.PickleParser.getPickleLocation(testCaseAttempt),\n        );\n\n        return [\n            ...this.extract(this.outlineFrom(testCaseAttempt), outline => [\n                new SceneSequenceDetected(currentSceneId, outline.details, this.serenity.currentTime()),\n                new SceneTemplateDetected(currentSceneId, outline.template, this.serenity.currentTime()),\n                new SceneParametersDetected(\n                    currentSceneId,\n                    this.currentScenario,\n                    outline.parameters,\n                    this.serenity.currentTime(),\n                ),\n            ]),\n\n            ...this.extract(this.scenarioFrom(testCaseAttempt), ({ featureDescription, rule, scenarioDescription, tags, testRunnerName }) => [\n                new SceneStarts(currentSceneId, this.currentScenario, this.serenity.currentTime()),\n                featureDescription && new FeatureNarrativeDetected(currentSceneId, featureDescription, this.serenity.currentTime()),\n                new TestRunnerDetected(currentSceneId, testRunnerName, this.serenity.currentTime()),\n                !! scenarioDescription && new SceneDescriptionDetected(currentSceneId, scenarioDescription, this.serenity.currentTime()),\n                !! rule && new BusinessRuleDetected(currentSceneId, this.currentScenario, rule, this.serenity.currentTime()),\n                ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),\n            ]),\n        ];\n    }\n\n    parseTestStepStarted(message: messages.ITestStepStarted): DomainEvent[] {\n        return this.extract(this.stepFrom(message), step => {\n            this.currentStepActivityId = this.serenity.assignNewActivityId();\n\n            if (this.shouldReportStep(step)) {\n                return new TaskStarts(\n                    this.serenity.currentSceneId(),\n                    this.currentStepActivityId,\n                    this.activityDetailsFor(step),\n                    this.serenity.currentTime()\n                )\n            }\n        });\n    }\n\n    parseTestStepFinished(message: messages.ITestStepStarted): DomainEvent[] {\n        return this.extract(this.stepFrom(message), step => {\n            if (this.shouldReportStep(step)) {\n                return new TaskFinished(\n                    this.serenity.currentSceneId(),\n                    this.currentStepActivityId,\n                    this.activityDetailsFor(step),\n                    this.outcomeFrom(step.result, step),\n                    this.serenity.currentTime()\n                );\n            }\n        })\n    }\n\n    parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: messages.TestStepFinished.ITestStepResult }): DomainEvent {\n        return new SceneFinishes(\n            this.serenity.currentSceneId(),\n            this.currentScenario,\n            this.outcomeFrom(hookMessage.result),\n            this.serenity.currentTime()\n        );\n    }\n\n    parseTestCaseFinished(message: messages.ITestCaseFinished): DomainEvent[] {\n        const\n            testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),\n            currentSceneId  = this.serenity.currentSceneId();\n\n        return this.extract(this.scenarioOutcomeFrom(testCaseAttempt), ({ outcome, willBeRetried, tags }) => [\n            willBeRetried ? new RetryableSceneDetected(currentSceneId, this.serenity.currentTime()) : undefined,\n            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),\n            new SceneFinished(\n                currentSceneId,\n                this.currentScenario,\n                outcome,\n                this.serenity.currentTime()\n            ),\n        ]);\n    }\n\n    // ---\n\n    private extract<T>(maybeValue: T | undefined, fn: (value: T) => DomainEvent[] | DomainEvent | void): DomainEvent[] {\n        return (maybeValue !== undefined)\n            ? [].concat(fn(maybeValue)).filter(item => !! item)\n            : [];\n    }\n\n    private scenarioDetailsFor(gherkinDocument: messages.IGherkinDocument, pickle: messages.IPickle, location: messages.ILocation): ScenarioDetails {\n        return new ScenarioDetails(\n            new Name(pickle.name),\n            new Category(gherkinDocument.feature.name),\n            new FileSystemLocation(\n                new Path(gherkinDocument.uri),\n                location.line,\n                location.column,\n            ),\n        );\n    }\n\n    private outlineFrom(testCaseAttempt: ITestCaseAttempt): ExtractedScenarioOutline {\n        const\n            { gherkinDocument, pickle } = testCaseAttempt,\n            gherkinScenarioMap = this.formatterHelpers.GherkinDocumentParser.getGherkinScenarioMap(gherkinDocument);\n\n        if (gherkinScenarioMap[pickle.astNodeIds[0]].examples.length === 0) {\n            return; // this is not an outline, skip it\n        }\n\n        const outline   = gherkinScenarioMap[pickle.astNodeIds[0]];\n        const details   = this.scenarioDetailsFor(gherkinDocument, outline, outline.location);\n        const template  = new Description(outline.steps.map(step => this.testStepFormatter.format(step.keyword, step.text, step)).join('\\n'));\n\n        const examples = flatten(\n            outline.examples.map(exampleSet =>\n                exampleSet.tableBody.map(row => ({\n                    header: exampleSet.tableHeader,\n                    row,\n                    name: exampleSet.name,\n                    description: exampleSet.description,\n                }))\n            ),\n        ).map((example: any) => ({\n            rowId:          example.row.id,\n            name:           example.name.trim(),\n            description:    example.description.trim(),\n            values:         example.header.cells\n                .map(cell => cell.value)\n                .reduce((values, header, i) => {\n                    values[header] = example.row.cells[i].value;\n                    return values;\n                }, {}),\n        }));\n\n        const parameters = examples.find(example => example.rowId === pickle.astNodeIds[pickle.astNodeIds.length - 1]);\n\n        return {\n            details, template, parameters: new ScenarioParameters(new Name(parameters.name), new Description(parameters.description), parameters.values),\n        };\n    }\n\n    private scenarioFrom({ gherkinDocument, pickle }: ITestCaseAttempt): ExtractedScenario {\n        const\n            gherkinScenarioMap      = this.formatterHelpers.GherkinDocumentParser.getGherkinScenarioMap(gherkinDocument),\n            gherkinExampleRuleMap   = this.formatterHelpers.GherkinDocumentParser.getGherkinExampleRuleMap(gherkinDocument),\n            scenarioDescription     = this.formatterHelpers.PickleParser.getScenarioDescription({ gherkinScenarioMap, pickle }),\n            scenarioTags: Tag[]     = flatten<Tag>(pickle.tags.map(tag => Tags.from(tag.name))),\n            rule                    = gherkinExampleRuleMap[pickle.astNodeIds[0]];\n\n        return {\n            featureDescription:     gherkinDocument.feature.description && new Description(gherkinDocument.feature.description),\n            scenarioDescription:    scenarioDescription && new Description(scenarioDescription),\n            rule:                   rule && new BusinessRule(new Name(rule.name), new Description(rule.description.trim())),\n            testRunnerName:         new Name('Cucumber'),\n            tags:                   this.scenarioHierarchyTagsFor(gherkinDocument, pickle).concat(scenarioTags),\n        };\n    }\n\n    private scenarioHierarchyTagsFor(gherkinDocument: messages.IGherkinDocument, pickle: messages.IPickle): Tag[] {\n        const\n            directories = new Path(pickle.uri).directory().split(),\n            featuresIndex = directories.indexOf('features'),\n            hierarchy = [...directories.slice(featuresIndex + 1), gherkinDocument.feature.name];\n\n        const [featureName, capabilityName, themeName]: string[] = hierarchy.reverse();\n\n        return notEmpty([\n            themeName && new ThemeTag(themeName),\n            capabilityName && new CapabilityTag(capabilityName),\n            new FeatureTag(featureName),\n        ]);\n    }\n\n    private stepFrom(message: messages.ITestStepStarted | messages.ITestStepFinished) {\n        const { testCaseStartedId, testStepId } = message;\n\n        const testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(testCaseStartedId);\n\n        const index = testCaseAttempt.testCase.testSteps.findIndex(step => step.id === testStepId);\n\n        return this.parseTestCaseAttempt(testCaseAttempt).testSteps[index];\n    }\n\n    private parseTestCaseAttempt(testCaseAttempt: ITestCaseAttempt) {\n        // todo: workaround for https://github.com/cucumber/cucumber-js/pull/1531\n        //  can be removed when the above PR is merged\n        testCaseAttempt.testCase.testSteps.forEach(step => {\n            if (! testCaseAttempt.stepResults[step.id]) {\n                testCaseAttempt.stepResults[step.id] = { status: messages.TestStepFinished.TestStepResult.Status.UNKNOWN };\n            }\n        });\n        // ---\n\n        return this.formatterHelpers.parseTestCaseAttempt({\n            cwd: this.cwd,\n            testCaseAttempt,\n            snippetBuilder: this.snippetBuilder,\n            supportCodeLibrary: this.supportCodeLibrary,\n        });\n    }\n\n    private activityDetailsFor(parsedTestStep: IParsedTestStep): ActivityDetails {\n        return new ActivityDetails(new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)));\n    }\n\n    private outcomeFrom(worstResult: messages.TestStepFinished.ITestStepResult, ...steps: IParsedTestStep[]): Outcome {\n\n        const Status = messages.TestStepFinished.TestStepResult.Status;\n\n        switch (worstResult.status) {\n            case Status.SKIPPED:\n                return new ExecutionSkipped();\n\n            case Status.UNDEFINED: {\n                const snippets = steps\n                    .filter(step => step.result.status === Status.UNDEFINED)\n                    .map(step => step.snippet);\n\n                const message = snippets.length > 0\n                    ? ['Step implementation missing:', ...snippets].join('\\n\\n')\n                    : 'Step implementation missing';\n\n                return new ImplementationPending(new ImplementationPendingError(message));\n            }\n\n            case Status.PENDING:\n                return new ImplementationPending(new ImplementationPendingError('Step implementation pending'));\n\n            case Status.AMBIGUOUS:\n            case Status.FAILED: {\n                const error = ErrorSerialiser.deserialiseFromStackTrace(worstResult.message);\n                if (error instanceof AssertionError) {\n                    return new ExecutionFailedWithAssertionError(error);\n                }\n                if (error instanceof TestCompromisedError) {\n                    return new ExecutionCompromised(error);\n                }\n                return new ExecutionFailedWithError(error);\n            }\n\n            case Status.UNKNOWN:\n                // ignore\n            case Status.PASSED: // eslint-disable-line no-fallthrough\n                return new ExecutionSuccessful();\n        }\n    }\n\n    private scenarioOutcomeFrom(testCaseAttempt: ITestCaseAttempt): { outcome: Outcome, willBeRetried: boolean, tags: Tag[] } {\n        const parsed = this.formatterHelpers.parseTestCaseAttempt({\n            cwd: this.cwd,\n            snippetBuilder: this.snippetBuilder,\n            supportCodeLibrary: this.supportCodeLibrary,\n            testCaseAttempt\n        });\n\n        const worstStepResult   = parsed.testCase.worstTestStepResult;\n        const willBeRetried     = worstStepResult.willBeRetried;\n        const outcome           = this.outcomeFrom(worstStepResult, ...parsed.testSteps);\n\n        const tags = [];\n\n        if (testCaseAttempt.attempt > 0 || willBeRetried) {\n            tags.push(new ArbitraryTag('retried'));\n        }\n\n        if (testCaseAttempt.attempt > 0) {\n            tags.push(new ExecutionRetriedTag(testCaseAttempt.attempt));\n        }\n\n        return { outcome, willBeRetried, tags };\n    }\n}\n\nfunction flatten<T>(listOfLists: T[][]): T[] {\n    return listOfLists.reduce((acc, current) => acc.concat(current), []);\n}\n\nfunction notEmpty<T>(list: T[]) {\n    return list.filter(item => !!item);\n}\n",
+    "content": "import { GherkinDocument, Location, Pickle, TestCaseFinished, TestCaseStarted, TestStepFinished, TestStepResult, TestStepStarted } from '@cucumber/messages';\nimport { TestStepResultStatus } from '@cucumber/messages';\nimport { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';\nimport {\n    BusinessRuleDetected,\n    DomainEvent,\n    FeatureNarrativeDetected,\n    RetryableSceneDetected,\n    SceneDescriptionDetected,\n    SceneFinished,\n    SceneFinishes,\n    SceneParametersDetected,\n    SceneSequenceDetected,\n    SceneStarts,\n    SceneTagged,\n    SceneTemplateDetected,\n    TaskFinished,\n    TaskStarts,\n    TestRunnerDetected,\n} from '@serenity-js/core/lib/events';\nimport { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';\nimport {\n    ActivityDetails,\n    ArbitraryTag,\n    BusinessRule,\n    CapabilityTag,\n    Category,\n    CorrelationId,\n    Description,\n    ExecutionCompromised,\n    ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionRetriedTag,\n    ExecutionSkipped,\n    ExecutionSuccessful,\n    FeatureTag,\n    ImplementationPending,\n    Name,\n    Outcome,\n    ScenarioDetails,\n    ScenarioParameters,\n    Tag,\n    Tags,\n    ThemeTag,\n} from '@serenity-js/core/lib/model';\n\nimport { EventDataCollector, IParsedTestStep, ITestCaseAttempt } from '../types/cucumber';\nimport { TestStepFormatter } from './TestStepFormatter';\nimport { ExtractedScenario, ExtractedScenarioOutline } from './types';\n\n/**\n * @package\n */\nexport class CucumberMessagesParser {\n    private readonly testStepFormatter = new TestStepFormatter();\n\n    private currentScenario: ScenarioDetails;\n    private currentStepActivityId: CorrelationId;\n\n    private readonly cwd: string;\n    private readonly eventDataCollector: any;\n    private readonly snippetBuilder: any;\n    private readonly supportCodeLibrary: any;\n\n    constructor(\n        private readonly serenity: Serenity,\n        private readonly formatterHelpers: any,     // eslint-disable-line @typescript-eslint/explicit-module-boundary-types\n        formatterOptionsAndDependencies: {\n            cwd: string,\n            eventDataCollector: EventDataCollector,\n            snippetBuilder: any,\n            supportCodeLibrary: any,\n        },\n        private readonly shouldReportStep: (parsedTestStep: IParsedTestStep) => boolean,\n    ) {\n        this.cwd                = formatterOptionsAndDependencies.cwd;\n        this.eventDataCollector = formatterOptionsAndDependencies.eventDataCollector;\n        this.snippetBuilder     = formatterOptionsAndDependencies.snippetBuilder;\n        this.supportCodeLibrary = formatterOptionsAndDependencies.supportCodeLibrary;\n    }\n\n    parseTestCaseStarted(message: TestCaseStarted): DomainEvent[] {\n        const\n            testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.id),\n            currentSceneId = this.serenity.assignNewSceneId();\n\n        this.currentScenario = this.scenarioDetailsFor(\n            testCaseAttempt.gherkinDocument,\n            testCaseAttempt.pickle,\n            this.formatterHelpers.PickleParser.getPickleLocation(testCaseAttempt),\n        );\n\n        return [\n            ...this.extract(this.outlineFrom(testCaseAttempt), outline => [\n                new SceneSequenceDetected(currentSceneId, outline.details, this.serenity.currentTime()),\n                new SceneTemplateDetected(currentSceneId, outline.template, this.serenity.currentTime()),\n                new SceneParametersDetected(\n                    currentSceneId,\n                    this.currentScenario,\n                    outline.parameters,\n                    this.serenity.currentTime(),\n                ),\n            ]),\n\n            ...this.extract(this.scenarioFrom(testCaseAttempt), ({ featureDescription, rule, scenarioDescription, tags, testRunnerName }) => [\n                new SceneStarts(currentSceneId, this.currentScenario, this.serenity.currentTime()),\n                featureDescription && new FeatureNarrativeDetected(currentSceneId, featureDescription, this.serenity.currentTime()),\n                new TestRunnerDetected(currentSceneId, testRunnerName, this.serenity.currentTime()),\n                !! scenarioDescription && new SceneDescriptionDetected(currentSceneId, scenarioDescription, this.serenity.currentTime()),\n                !! rule && new BusinessRuleDetected(currentSceneId, this.currentScenario, rule, this.serenity.currentTime()),\n                ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),\n            ]),\n        ];\n    }\n\n    parseTestStepStarted(message: TestStepStarted): DomainEvent[] {\n        return this.extract(this.stepFrom(message), step => {\n            this.currentStepActivityId = this.serenity.assignNewActivityId();\n\n            if (this.shouldReportStep(step)) {\n                return new TaskStarts(\n                    this.serenity.currentSceneId(),\n                    this.currentStepActivityId,\n                    this.activityDetailsFor(step),\n                    this.serenity.currentTime()\n                )\n            }\n        });\n    }\n\n    parseTestStepFinished(message: TestStepStarted): DomainEvent[] {\n        return this.extract(this.stepFrom(message), step => {\n            if (this.shouldReportStep(step)) {\n                return new TaskFinished(\n                    this.serenity.currentSceneId(),\n                    this.currentStepActivityId,\n                    this.activityDetailsFor(step),\n                    this.outcomeFrom(step.result, step),\n                    this.serenity.currentTime()\n                );\n            }\n        })\n    }\n\n    parseTestCaseFinishes(hookMessage: { testCaseStartedId: string, result: TestStepResult }): DomainEvent {\n        return new SceneFinishes(\n            this.serenity.currentSceneId(),\n            this.currentScenario,\n            this.outcomeFrom(hookMessage.result),\n            this.serenity.currentTime()\n        );\n    }\n\n    parseTestCaseFinished(message: TestCaseFinished): DomainEvent[] {\n        const\n            testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(message.testCaseStartedId),\n            currentSceneId  = this.serenity.currentSceneId();\n\n        return this.extract(this.scenarioOutcomeFrom(testCaseAttempt), ({ outcome, willBeRetried, tags }) => [\n            willBeRetried ? new RetryableSceneDetected(currentSceneId, this.serenity.currentTime()) : undefined,\n            ...tags.map(tag => new SceneTagged(currentSceneId, tag, this.serenity.currentTime())),\n            new SceneFinished(\n                currentSceneId,\n                this.currentScenario,\n                outcome,\n                this.serenity.currentTime()\n            ),\n        ]);\n    }\n\n    // ---\n\n    private extract<T>(maybeValue: T | undefined, fn: (value: T) => DomainEvent[] | DomainEvent | void): DomainEvent[] {\n        return (maybeValue !== undefined)\n            ? [].concat(fn(maybeValue)).filter(item => !! item)\n            : [];\n    }\n\n    private scenarioDetailsFor(gherkinDocument: GherkinDocument, pickle: Pickle, location: Location): ScenarioDetails {\n        return new ScenarioDetails(\n            new Name(pickle.name),\n            new Category(gherkinDocument.feature.name),\n            new FileSystemLocation(\n                new Path(gherkinDocument.uri),\n                location.line,\n                location.column,\n            ),\n        );\n    }\n\n    private outlineFrom(testCaseAttempt: ITestCaseAttempt): ExtractedScenarioOutline {\n        const\n            { gherkinDocument, pickle } = testCaseAttempt,\n            gherkinScenarioMap = this.formatterHelpers.GherkinDocumentParser.getGherkinScenarioMap(gherkinDocument);\n\n        if (gherkinScenarioMap[pickle.astNodeIds[0]].examples.length === 0) {\n            return; // this is not an outline, skip it\n        }\n\n        const outline   = gherkinScenarioMap[pickle.astNodeIds[0]];\n        const details   = this.scenarioDetailsFor(gherkinDocument, outline, outline.location);\n        const template  = new Description(outline.steps.map(step => this.testStepFormatter.format(step.keyword, step.text, step)).join('\\n'));\n\n        const examples = flatten(\n            outline.examples.map(exampleSet =>\n                exampleSet.tableBody.map(row => ({\n                    header: exampleSet.tableHeader,\n                    row,\n                    name: exampleSet.name,\n                    description: exampleSet.description,\n                }))\n            ),\n        ).map((example: any) => ({\n            rowId:          example.row.id,\n            name:           example.name.trim(),\n            description:    example.description.trim(),\n            values:         example.header.cells\n                .map(cell => cell.value)\n                .reduce((values, header, i) => {\n                    values[header] = example.row.cells[i].value;\n                    return values;\n                }, {}),\n        }));\n\n        const parameters = examples.find(example => example.rowId === pickle.astNodeIds[pickle.astNodeIds.length - 1]);\n\n        return {\n            details, template, parameters: new ScenarioParameters(new Name(parameters.name), new Description(parameters.description), parameters.values),\n        };\n    }\n\n    private scenarioFrom({ gherkinDocument, pickle }: ITestCaseAttempt): ExtractedScenario {\n        const\n            gherkinScenarioMap      = this.formatterHelpers.GherkinDocumentParser.getGherkinScenarioMap(gherkinDocument),\n            gherkinExampleRuleMap   = this.formatterHelpers.GherkinDocumentParser.getGherkinExampleRuleMap(gherkinDocument),\n            scenarioDescription     = this.formatterHelpers.PickleParser.getScenarioDescription({ gherkinScenarioMap, pickle }),\n            scenarioTags: Tag[]     = flatten<Tag>(pickle.tags.map(tag => Tags.from(tag.name))),\n            rule                    = gherkinExampleRuleMap[pickle.astNodeIds[0]];\n\n        return {\n            featureDescription:     gherkinDocument.feature.description && new Description(gherkinDocument.feature.description),\n            scenarioDescription:    scenarioDescription && new Description(scenarioDescription),\n            rule:                   rule && new BusinessRule(new Name(rule.name), new Description(rule.description.trim())),\n            testRunnerName:         new Name('Cucumber'),\n            tags:                   this.scenarioHierarchyTagsFor(gherkinDocument, pickle).concat(scenarioTags),\n        };\n    }\n\n    private scenarioHierarchyTagsFor(gherkinDocument: GherkinDocument, pickle: Pickle): Tag[] {\n        const\n            directories = new Path(pickle.uri).directory().split(),\n            featuresIndex = directories.indexOf('features'),\n            hierarchy = [...directories.slice(featuresIndex + 1), gherkinDocument.feature.name];\n\n        const [featureName, capabilityName, themeName]: string[] = hierarchy.reverse();\n\n        return notEmpty([\n            themeName && new ThemeTag(themeName),\n            capabilityName && new CapabilityTag(capabilityName),\n            new FeatureTag(featureName),\n        ]);\n    }\n\n    private stepFrom(message: TestStepStarted | TestStepFinished) {\n        const { testCaseStartedId, testStepId } = message;\n\n        const testCaseAttempt = this.eventDataCollector.getTestCaseAttempt(testCaseStartedId);\n\n        const index = testCaseAttempt.testCase.testSteps.findIndex(step => step.id === testStepId);\n\n        return this.parseTestCaseAttempt(testCaseAttempt).testSteps[index];\n    }\n\n    private parseTestCaseAttempt(testCaseAttempt: ITestCaseAttempt) {\n        // todo: workaround for https://github.com/cucumber/cucumber-js/pull/1531\n        //  can be removed when the above PR is merged\n        testCaseAttempt.testCase.testSteps.forEach(step => {\n            if (! testCaseAttempt.stepResults[step.id]) {\n                testCaseAttempt.stepResults[step.id] = { duration: { seconds: 0, nanos: 0 }, status: TestStepResultStatus.UNKNOWN, willBeRetried: false };\n            }\n        });\n        // ---\n\n        return this.formatterHelpers.parseTestCaseAttempt({\n            cwd: this.cwd,\n            testCaseAttempt,\n            snippetBuilder: this.snippetBuilder,\n            supportCodeLibrary: this.supportCodeLibrary,\n        });\n    }\n\n    private activityDetailsFor(parsedTestStep: IParsedTestStep): ActivityDetails {\n        return new ActivityDetails(new Name(this.testStepFormatter.format(parsedTestStep.keyword, parsedTestStep.text, parsedTestStep.argument)));\n    }\n\n    private outcomeFrom(worstResult: TestStepResult, ...steps: IParsedTestStep[]): Outcome {\n\n        const Status = TestStepResultStatus;\n\n        switch (worstResult.status) {\n            case Status.SKIPPED:\n                return new ExecutionSkipped();\n\n            case Status.UNDEFINED: {\n                const snippets = steps\n                    .filter(step => step.result.status === Status.UNDEFINED)\n                    .map(step => step.snippet);\n\n                const message = snippets.length > 0\n                    ? ['Step implementation missing:', ...snippets].join('\\n\\n')\n                    : 'Step implementation missing';\n\n                return new ImplementationPending(new ImplementationPendingError(message));\n            }\n\n            case Status.PENDING:\n                return new ImplementationPending(new ImplementationPendingError('Step implementation pending'));\n\n            case Status.AMBIGUOUS:\n            case Status.FAILED: {\n                const error = ErrorSerialiser.deserialiseFromStackTrace(worstResult.message);\n                if (error instanceof AssertionError) {\n                    return new ExecutionFailedWithAssertionError(error);\n                }\n                if (error instanceof TestCompromisedError) {\n                    return new ExecutionCompromised(error);\n                }\n                return new ExecutionFailedWithError(error);\n            }\n\n            case Status.UNKNOWN:\n                // ignore\n            case Status.PASSED: // eslint-disable-line no-fallthrough\n                return new ExecutionSuccessful();\n        }\n    }\n\n    private scenarioOutcomeFrom(testCaseAttempt: ITestCaseAttempt): { outcome: Outcome, willBeRetried: boolean, tags: Tag[] } {\n        const parsed = this.formatterHelpers.parseTestCaseAttempt({\n            cwd: this.cwd,\n            snippetBuilder: this.snippetBuilder,\n            supportCodeLibrary: this.supportCodeLibrary,\n            testCaseAttempt\n        });\n\n        const worstStepResult   = parsed.testCase.worstTestStepResult;\n        const willBeRetried     = worstStepResult.willBeRetried;\n        const outcome           = this.outcomeFrom(worstStepResult, ...parsed.testSteps);\n\n        const tags = [];\n\n        if (testCaseAttempt.attempt > 0 || willBeRetried) {\n            tags.push(new ArbitraryTag('retried'));\n        }\n\n        if (testCaseAttempt.attempt > 0) {\n            tags.push(new ExecutionRetriedTag(testCaseAttempt.attempt));\n        }\n\n        return { outcome, willBeRetried, tags };\n    }\n}\n\nfunction flatten<T>(listOfLists: T[][]): T[] {\n    return listOfLists.reduce((acc, current) => acc.concat(current), []);\n}\n\nfunction notEmpty<T>(list: T[]) {\n    return list.filter(item => !!item);\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/src/listeners/messages/parser/CucumberMessagesParser.ts",
     "access": "public",
@@ -7265,7 +7265,7 @@
     "importPath": "@serenity-js/cucumber/src/listeners/messages/parser/CucumberMessagesParser.ts",
     "importStyle": "{CucumberMessagesParser}",
     "description": "",
-    "lineNumber": 60,
+    "lineNumber": 61,
     "interface": false,
     "ignore": true
   },
@@ -7278,7 +7278,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#testStepFormatter",
     "access": "private",
     "description": " ",
-    "lineNumber": 54,
+    "lineNumber": 55,
     "ignore": true,
     "type": {
       "types": [
@@ -7295,7 +7295,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#currentScenario",
     "access": "private",
     "description": " ",
-    "lineNumber": 56,
+    "lineNumber": 57,
     "type": {
       "nullable": null,
       "types": [
@@ -7315,7 +7315,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#currentStepActivityId",
     "access": "private",
     "description": " ",
-    "lineNumber": 57,
+    "lineNumber": 58,
     "type": {
       "nullable": null,
       "types": [
@@ -7335,7 +7335,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#cwd",
     "access": "private",
     "description": " ",
-    "lineNumber": 59,
+    "lineNumber": 60,
     "type": {
       "nullable": null,
       "types": [
@@ -7355,7 +7355,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#eventDataCollector",
     "access": "private",
     "description": " ",
-    "lineNumber": 60,
+    "lineNumber": 61,
     "type": {
       "nullable": null,
       "types": [
@@ -7375,7 +7375,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#snippetBuilder",
     "access": "private",
     "description": " ",
-    "lineNumber": 61,
+    "lineNumber": 62,
     "type": {
       "nullable": null,
       "types": [
@@ -7395,7 +7395,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#supportCodeLibrary",
     "access": "private",
     "description": " ",
-    "lineNumber": 62,
+    "lineNumber": 63,
     "type": {
       "nullable": null,
       "types": [
@@ -7417,7 +7417,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 146,
+    "lineNumber": 147,
     "undocument": true
   },
   {
@@ -7431,12 +7431,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#parseTestCaseStarted",
     "access": "public",
     "description": " ",
-    "lineNumber": 81,
+    "lineNumber": 82,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "TestCaseStarted"
         ],
         "spread": false,
         "optional": false,
@@ -7464,12 +7464,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#parseTestStepStarted",
     "access": "public",
     "description": " ",
-    "lineNumber": 115,
+    "lineNumber": 116,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "TestStepStarted"
         ],
         "spread": false,
         "optional": false,
@@ -7497,12 +7497,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#parseTestStepFinished",
     "access": "public",
     "description": " ",
-    "lineNumber": 130,
+    "lineNumber": 131,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "TestStepStarted"
         ],
         "spread": false,
         "optional": false,
@@ -7530,7 +7530,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#parseTestCaseFinishes",
     "access": "public",
     "description": " ",
-    "lineNumber": 144,
+    "lineNumber": 145,
     "params": [
       {
         "nullable": null,
@@ -7563,12 +7563,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#parseTestCaseFinished",
     "access": "public",
     "description": " ",
-    "lineNumber": 153,
+    "lineNumber": 154,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "TestCaseFinished"
         ],
         "spread": false,
         "optional": false,
@@ -7596,7 +7596,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#extract",
     "access": "private",
     "description": " ",
-    "lineNumber": 172,
+    "lineNumber": 173,
     "params": [
       {
         "nullable": null,
@@ -7641,12 +7641,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#scenarioDetailsFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 178,
+    "lineNumber": 179,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "GherkinDocument"
         ],
         "spread": false,
         "optional": false,
@@ -7656,7 +7656,7 @@
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "Pickle"
         ],
         "spread": false,
         "optional": false,
@@ -7666,7 +7666,7 @@
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "Location"
         ],
         "spread": false,
         "optional": false,
@@ -7695,7 +7695,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#outlineFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 190,
+    "lineNumber": 191,
     "params": [
       {
         "nullable": null,
@@ -7729,7 +7729,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#scenarioFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 231,
+    "lineNumber": 232,
     "params": [
       {
         "nullable": null,
@@ -7763,12 +7763,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#scenarioHierarchyTagsFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 248,
+    "lineNumber": 249,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "GherkinDocument"
         ],
         "spread": false,
         "optional": false,
@@ -7778,7 +7778,7 @@
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "Pickle"
         ],
         "spread": false,
         "optional": false,
@@ -7807,13 +7807,13 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#stepFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 263,
+    "lineNumber": 264,
     "params": [
       {
         "nullable": null,
         "types": [
-          " ",
-          " "
+          "TestStepStarted ",
+          " TestStepFinished"
         ],
         "spread": false,
         "optional": false,
@@ -7839,7 +7839,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#parseTestCaseAttempt",
     "access": "private",
     "description": " ",
-    "lineNumber": 273,
+    "lineNumber": 274,
     "params": [
       {
         "nullable": null,
@@ -7870,7 +7870,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#activityDetailsFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 291,
+    "lineNumber": 292,
     "params": [
       {
         "nullable": null,
@@ -7904,12 +7904,12 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#outcomeFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 295,
+    "lineNumber": 296,
     "params": [
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "TestStepResult"
         ],
         "spread": false,
         "optional": false,
@@ -7948,7 +7948,7 @@
     "longname": "src/listeners/messages/parser/CucumberMessagesParser.ts~CucumberMessagesParser#scenarioOutcomeFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 337,
+    "lineNumber": 338,
     "params": [
       {
         "nullable": null,
@@ -7985,7 +7985,7 @@
     "importPath": "@serenity-js/cucumber/src/listeners/messages/parser/CucumberMessagesParser.ts",
     "importStyle": null,
     "description": " ",
-    "lineNumber": 363,
+    "lineNumber": 364,
     "params": [
       {
         "nullable": null,
@@ -8022,7 +8022,7 @@
     "importPath": "@serenity-js/cucumber/src/listeners/messages/parser/CucumberMessagesParser.ts",
     "importStyle": null,
     "description": " ",
-    "lineNumber": 367,
+    "lineNumber": 368,
     "params": [
       {
         "nullable": null,
@@ -8046,7 +8046,7 @@
     "__docId__": 444,
     "kind": "file",
     "name": "src/listeners/messages/parser/TestStepFormatter.ts",
-    "content": "import { messages } from '@cucumber/messages';\nimport Table = require('cli-table3');\n\n/**\n * @package\n */\nexport class TestStepFormatter {\n\n    public format(keyword: string, text = '', argument?: {\n        docString?: messages.GherkinDocument.Feature.Step.IDocString,\n        dataTable?: messages.GherkinDocument.Feature.Step.IDataTable,\n    }): string {\n        return [\n            keyword,\n            text,\n            argument && this.formatStepArgument(argument),\n        ].join('').trim();\n    }\n\n    private formatStepArgument(argument: {\n        docString?: messages.GherkinDocument.Feature.Step.IDocString,\n        dataTable?: messages.GherkinDocument.Feature.Step.IDataTable,\n    }): string {\n\n        if (argument.docString) {\n            return this.formatDocString(argument.docString);\n        }\n\n        if (argument.dataTable) {\n            return this.formatDataTable(argument.dataTable);\n        }\n\n        return '';\n    }\n\n    private formatDocString(docString: messages.PickleStepArgument.IPickleDocString): string {\n        return `\\n${ docString.content }`;\n    }\n\n    private formatDataTable(dataTable: messages.PickleStepArgument.IPickleTable): string {\n        const table = new Table({\n            chars: {\n                bottom: '',\n                'bottom-left': '',\n                'bottom-mid': '',\n                'bottom-right': '',\n                left: '|',\n                'left-mid': '',\n                mid: '',\n                'mid-mid': '',\n                middle: '|',\n                right: '|',\n                'right-mid': '',\n                top: '',\n                'top-left': '',\n                'top-mid': '',\n                'top-right': '',\n            },\n            style: {\n                border: [],\n                'padding-left': 1,\n                'padding-right': 1,\n            },\n        });\n\n        const rows = dataTable.rows.map(row =>\n            row.cells.map(cell =>\n                cell.value.replace(/\\\\\\\\/g, '\\\\\\\\\\\\\\\\').replace(/\\\\n/g, '\\\\\\\\n')\n            )\n        );\n\n        table.push(...rows);\n\n        return `\\n${ table.toString() }`;\n    }\n}\n",
+    "content": "import { PickleDocString, PickleTable } from '@cucumber/messages';\nimport Table = require('cli-table3');\n\n/**\n * @package\n */\nexport class TestStepFormatter {\n\n    public format(keyword: string, text = '', argument?: {\n        docString?: PickleDocString,\n        dataTable?: PickleTable,\n    }): string {\n        return [\n            keyword,\n            text,\n            argument && this.formatStepArgument(argument),\n        ].join('').trim();\n    }\n\n    private formatStepArgument(argument: {\n        docString?: PickleDocString,\n        dataTable?: PickleTable,\n    }): string {\n\n        if (argument.docString) {\n            return this.formatDocString(argument.docString);\n        }\n\n        if (argument.dataTable) {\n            return this.formatDataTable(argument.dataTable);\n        }\n\n        return '';\n    }\n\n    private formatDocString(docString: PickleDocString): string {\n        return `\\n${ docString.content }`;\n    }\n\n    private formatDataTable(dataTable: PickleTable): string {\n        const table = new Table({\n            chars: {\n                bottom: '',\n                'bottom-left': '',\n                'bottom-mid': '',\n                'bottom-right': '',\n                left: '|',\n                'left-mid': '',\n                mid: '',\n                'mid-mid': '',\n                middle: '|',\n                right: '|',\n                'right-mid': '',\n                top: '',\n                'top-left': '',\n                'top-mid': '',\n                'top-right': '',\n            },\n            style: {\n                border: [],\n                'padding-left': 1,\n                'padding-right': 1,\n            },\n        });\n\n        const rows = dataTable.rows.map(row =>\n            row.cells.map(cell =>\n                cell.value.replace(/\\\\\\\\/g, '\\\\\\\\\\\\\\\\').replace(/\\\\n/g, '\\\\\\\\n')\n            )\n        );\n\n        table.push(...rows);\n\n        return `\\n${ table.toString() }`;\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/src/listeners/messages/parser/TestStepFormatter.ts",
     "access": "public",
@@ -8172,7 +8172,7 @@
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "PickleDocString"
         ],
         "spread": false,
         "optional": false,
@@ -8206,7 +8206,7 @@
       {
         "nullable": null,
         "types": [
-          "undefined"
+          "PickleTable"
         ],
         "spread": false,
         "optional": false,
@@ -8278,7 +8278,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/cucumber\",\n  \"version\": \"2.29.1\",\n  \"description\": \"Serenity/JS adapter for Cucumber test runners version 1.x - 7.x\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"cucumber\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml --timeout 30000 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@cucumber/messages\": \"^15.0.0\",\n    \"@serenity-js/core\": \"2.29.1\",\n    \"cli-table3\": \"^0.6.0\",\n    \"gherkin\": \"5.1.0\",\n    \"tiny-types\": \"^1.16.1\"\n  },\n  \"peerDependencies\": {\n    \"@cucumber/cucumber\": \"^7.2.1\",\n    \"cucumber\": \"^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@cucumber/cucumber\": {\n      \"optional\": true\n    },\n    \"cucumber\": {\n      \"optional\": true\n    }\n  },\n  \"devDependencies\": {\n    \"@cucumber/cucumber\": \"^7.2.1\",\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/mocha\": \"^8.2.2\",\n    \"mocha\": \"^9.0.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/listeners/legacy/cucumber-*.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/cucumber\",\n  \"version\": \"2.29.1\",\n  \"description\": \"Serenity/JS adapter for Cucumber test runners version 1.x - 7.x\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"cucumber\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml --timeout 30000 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@cucumber/messages\": \"^16.0.1\",\n    \"@serenity-js/core\": \"2.29.1\",\n    \"cli-table3\": \"^0.6.0\",\n    \"gherkin\": \"5.1.0\",\n    \"tiny-types\": \"^1.16.1\"\n  },\n  \"peerDependencies\": {\n    \"@cucumber/cucumber\": \"^7.3.0\",\n    \"cucumber\": \"^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@cucumber/cucumber\": {\n      \"optional\": true\n    },\n    \"cucumber\": {\n      \"optional\": true\n    }\n  },\n  \"devDependencies\": {\n    \"@cucumber/cucumber\": \"^7.3.0\",\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/mocha\": \"^8.2.2\",\n    \"mocha\": \"^9.0.0\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/listeners/legacy/cucumber-*.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/package.json",
     "name": "package.json",
     "static": true,
