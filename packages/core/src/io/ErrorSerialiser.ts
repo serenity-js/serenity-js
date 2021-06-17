@@ -50,7 +50,6 @@ export class ErrorSerialiser {
     static deserialise<E extends Error>(stringifiedError: string): E {
         const serialisedError = parse(stringifiedError) as SerialisedError;
 
-        // todo: de-serialise the cause map well
         const constructor = ErrorSerialiser.recognisedErrors.find(errorType => errorType.name === serialisedError.name) || Error;
         const deserialised = Object.create(constructor.prototype);
         for (const property in serialisedError) {
