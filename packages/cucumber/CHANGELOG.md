@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.29.4](https://github.com/serenity-js/serenity-js/compare/v2.29.3...v2.29.4) (2021-06-24)
+
+
+### Bug Fixes
+
+* **core:** support for reporting Node-specific assertion errors ([3d2ca1f](https://github.com/serenity-js/serenity-js/commit/3d2ca1fe7e3e4d0fe6445b9807a5875d140042bf))
+
+
+
+
+
 ## [2.29.3](https://github.com/serenity-js/serenity-js/compare/v2.29.2...v2.29.3) (2021-06-17)
 
 
