@@ -1,5 +1,7 @@
 import 'mocha';
 
+import { strictEqual } from 'assert';
+
 import { AssertionError } from '../../src/errors';
 import { ErrorSerialiser, parse } from '../../src/io';
 import { expect } from '../expect';
@@ -48,7 +50,7 @@ describe ('ErrorSerialiser', () => {
     });
 
     /** @test {ErrorSerialiser} */
-    it('deserialises a serialised custom Error object from JSON', () => {
+    it('deserialises a serialised custom AssertionError object from JSON', () => {
         const stack = [
             'AssertionError: Expected false to equal true',
             '    at /app/index.js:38:20',
@@ -65,6 +67,34 @@ describe ('ErrorSerialiser', () => {
         expect(error.name).to.equal(`AssertionError`);
         expect(error.message).to.equal(`Expected false to equal true`);
         expect(error.stack).to.equal(stack);
+    });
+
+    /** @test {ErrorSerialiser} */
+    it('deserialises a serialised Node AssertionError object from JSON', () => {
+        try {
+            strictEqual(true, false);
+        } catch (error_) {
+
+            const error = ErrorSerialiser.deserialise(ErrorSerialiser.serialise(error_));
+
+            expect(error).to.be.instanceOf(AssertionError);
+            expect(error.name).to.equal(`AssertionError`);
+            expect(error.message).to.match(/Expected.*strictly equal/);
+        }
+    });
+
+    /** @test {ErrorSerialiser} */
+    it('deserialises a serialised Node AssertionError object from stack trace', () => {
+        try {
+            strictEqual(true, false);
+        } catch (error_) {
+
+            const error = ErrorSerialiser.deserialiseFromStackTrace(error_.stack);
+
+            expect(error).to.be.instanceOf(AssertionError);
+            expect(error.name).to.equal(`AssertionError`);
+            expect(error.message).to.match(/Expected.*strictly equal/);
+        }
     });
 
     /** @test {ErrorSerialiser} */
