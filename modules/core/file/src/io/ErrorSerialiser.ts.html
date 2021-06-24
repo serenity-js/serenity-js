@@ -359,7 +359,7 @@
     <span class="hljs-keyword">static</span> <span class="hljs-title function_">deserialiseFromStackTrace</span>(<span class="hljs-attr">stack</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Error</span> {
         <span class="hljs-keyword">const</span> lines = stack.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>);
 
-        <span class="hljs-keyword">const</span> pattern = <span class="hljs-regexp">/^([^\s:]*Error):\s(.*)$/</span>;
+        <span class="hljs-keyword">const</span> pattern = <span class="hljs-regexp">/^([^\s:]*Error).*?:\s(.*)$/</span>;
         <span class="hljs-keyword">if</span> (! pattern.<span class="hljs-title function_">test</span>(lines[<span class="hljs-number">0</span>])) {
             <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(stack);
         }

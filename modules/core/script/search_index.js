@@ -1627,43 +1627,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber7",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber9",
     "ErrorSerialiser",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber21",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber23",
     "ErrorSerialiser deserialises a serialised Error object from JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber51",
-    "ErrorSerialiser deserialises a serialised custom Error object from JSON",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber73",
+    "ErrorSerialiser deserialises a serialised Node AssertionError object from JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber71",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber87",
+    "ErrorSerialiser deserialises a serialised Node AssertionError object from stack trace",
+    "test"
+  ],
+  [
+    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber53",
+    "ErrorSerialiser deserialises a serialised custom AssertionError object from JSON",
+    "test"
+  ],
+  [
+    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber101",
     "ErrorSerialiser deserialises the error object from a stack trace alone (Cucumber event protocol)",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber83",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber113",
     "ErrorSerialiser deserialises the error object from a string (Cucumber event protocol)",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber41",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber43",
     "ErrorSerialiser serialises a custom Error object to JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber10",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber12",
     "ErrorSerialiser serialises an Error object to JSON",
     "test"
   ],

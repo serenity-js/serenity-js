@@ -1418,7 +1418,13 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber15",
-    "CucumberMessagesListener when working with Cucumber 7 recognises a scenario failing due to an assertion error",
+    "CucumberMessagesListener when working with Cucumber 7 recognises a scenario failing due to a Serenity/JS assertion error being thrown",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/listeners/messages/assertion_failure_scenario.spec.ts.html#lineNumber46",
+    "CucumberMessagesListener when working with Cucumber 7 recognises a scenario failing due to a non-Serenity/JS assertion error being thrown",
     "test"
   ],
   [
