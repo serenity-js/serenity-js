@@ -61,15 +61,14 @@ export class ErrorSerialiser {
     }
 
     static deserialiseFromStackTrace(stack: string): Error {
-        const lines = stack.split('\n');
+        const stackTracePattern = /^([^\s:]*Error).*?(?::\s)?(.*?)\n(^ +at.*)$/ms;
 
-        const pattern = /^([^\s:]*Error).*?:\s(.*)$/;
-        if (! pattern.test(lines[0])) {
-            return new Error(stack);
+        if (! stackTracePattern.test(stack)) {
+            return new Error(String(stack));
         }
 
-        const [, name, message ] = lines[0].match(pattern);
+        const [, name, message, callStack_ ] = stack.match(stackTracePattern);
 
-        return ErrorSerialiser.deserialise(stringify({ name, message, stack }));
+        return ErrorSerialiser.deserialise(stringify({ name, message: message.trim(), stack }));
     }
 }
