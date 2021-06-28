@@ -1,4 +1,4 @@
-Feature: Reports failing scenarios
+Feature: Reports errors in scenarios
 
   In order to see how Serenity/JS reports a failing Cucumber scenario
   As a curious developer
