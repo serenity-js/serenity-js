@@ -221,7 +221,7 @@ export class ConsoleReporter implements ListensToDomainEvents {
 
                 const artifactGeneratedEvents = this.artifacts.recordedFor(e.activityId);
 
-                if (artifactGeneratedEvents.filter(a => a instanceof AssertionReport || a instanceof LogEntry).length > 0) {
+                if (artifactGeneratedEvents.some(a => a instanceof AssertionReport || a instanceof LogEntry)) {
                     this.printer.println();
                 }
 

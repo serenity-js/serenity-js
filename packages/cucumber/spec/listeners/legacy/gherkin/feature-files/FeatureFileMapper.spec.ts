@@ -326,7 +326,7 @@ describe('FeatureFileMapper', () => {
 
             const mapper = new FeatureFileMapper();
 
-            expect(mapper.map(empty, fixtures).size()).to.equal(0);
+            expect(mapper.map(empty, fixtures).size()).to.equal(0); // eslint-disable-line unicorn/no-array-method-this-argument
         });
     });
 
@@ -349,6 +349,7 @@ describe('FeatureFileMapper', () => {
             mapper = new FeatureFileMapper(),
             loader = new FeatureFileParser(new Gherkin.Parser());
 
+        // eslint-disable-next-line unicorn/no-array-method-this-argument
         return () => loader.parse(path).then(document => mapper.map(document, path)).then(spec);
     }
 });
