@@ -34,6 +34,10 @@ module.exports = {
             'max': 1,
         }],
 
+        '@typescript-eslint/explicit-module-boundary-types': ['error', {
+            'allowHigherOrderFunctions': true
+        }],
+
         'indent': 'off',
         '@typescript-eslint/indent': ['error', 4, {
             'MemberExpression': 'off',
