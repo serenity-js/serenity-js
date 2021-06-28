@@ -355,7 +355,7 @@
 
                 <span class="hljs-keyword">const</span> artifactGeneratedEvents = <span class="hljs-variable language_">this</span>.<span class="hljs-property">artifacts</span>.<span class="hljs-title function_">recordedFor</span>(e.<span class="hljs-property">activityId</span>);
 
-                <span class="hljs-keyword">if</span> (artifactGeneratedEvents.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionReport</span> || a <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">LogEntry</span>).<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) {
+                <span class="hljs-keyword">if</span> (artifactGeneratedEvents.<span class="hljs-title function_">some</span>(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionReport</span> || a <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">LogEntry</span>)) {
                     <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
                 }
 

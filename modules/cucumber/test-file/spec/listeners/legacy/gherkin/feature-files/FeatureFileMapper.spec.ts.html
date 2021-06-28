@@ -459,7 +459,7 @@
 
             <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>();
 
-            <span class="hljs-title function_">expect</span>(mapper.<span class="hljs-title function_">map</span>(empty, fixtures).<span class="hljs-title function_">size</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>);
+            <span class="hljs-title function_">expect</span>(mapper.<span class="hljs-title function_">map</span>(empty, fixtures).<span class="hljs-title function_">size</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">0</span>); <span class="hljs-comment">// eslint-disable-line unicorn/no-array-method-this-argument</span>
         });
     });
 
@@ -482,6 +482,7 @@
             mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>(),
             loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileParser</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Gherkin</span>.<span class="hljs-title class_">Parser</span>());
 
+        <span class="hljs-comment">// eslint-disable-next-line unicorn/no-array-method-this-argument</span>
         <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> loader.<span class="hljs-title function_">parse</span>(path).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> mapper.<span class="hljs-title function_">map</span>(<span class="hljs-variable language_">document</span>, path)).<span class="hljs-title function_">then</span>(spec);
     }
 });

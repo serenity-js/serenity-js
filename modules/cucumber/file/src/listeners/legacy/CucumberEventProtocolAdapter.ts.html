@@ -177,7 +177,7 @@
                 <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'gherkin-document :: document'</span>, <span class="hljs-variable language_">document</span>, <span class="hljs-title function_">isDefined</span>());
 
                 <span class="hljs-keyword">const</span> path = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(uri);
-                cache.<span class="hljs-title function_">set</span>(path, mapper.<span class="hljs-title function_">map</span>(<span class="hljs-variable language_">document</span>, path));
+                cache.<span class="hljs-title function_">set</span>(path, mapper.<span class="hljs-title function_">map</span>(<span class="hljs-variable language_">document</span>, path));    <span class="hljs-comment">// eslint-disable-line unicorn/no-array-method-this-argument</span>
             });
 
             eventBroadcaster.<span class="hljs-title function_">on</span>(<span class="hljs-string">'test-case-prepared'</span>, <span class="hljs-function">(<span class="hljs-params">{ steps, sourceLocation }: {
