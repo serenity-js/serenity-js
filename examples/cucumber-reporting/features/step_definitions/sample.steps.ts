@@ -1,12 +1,17 @@
 import { AssertionError, TestCompromisedError } from '@serenity-js/core';
 import { Given, DataTable, Then, When } from '@cucumber/cucumber';
+import { strictEqual } from 'assert';
 
 Given(/^.*step.*passes$/, function () {
     return Promise.resolve();
 });
 
-Given(/^.*step.*fails with an assertion error$/, function () {
-    return Promise.reject(new AssertionError('expected true to equal false', false, true));
+Given(/^.*step.*fails with a Serenity\/JS AssertionError$/, function () {
+    throw new AssertionError('expected true to equal false', false, true);
+});
+
+Given(/^.*step.*fails with a Node.js AssertionError$/, function () {
+    strictEqual(true, false);
 });
 
 Given(/^.*step.*fails with a generic error$/, function () {
