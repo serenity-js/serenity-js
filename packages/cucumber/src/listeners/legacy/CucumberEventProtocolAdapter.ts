@@ -44,7 +44,7 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
                 ensure('gherkin-document :: document', document, isDefined());
 
                 const path = new Path(uri);
-                cache.set(path, mapper.map(document, path));
+                cache.set(path, mapper.map(document, path));    // eslint-disable-line unicorn/no-array-method-this-argument
             });
 
             eventBroadcaster.on('test-case-prepared', ({ steps, sourceLocation }: {
