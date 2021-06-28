@@ -1627,56 +1627,110 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber9",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber10",
     "ErrorSerialiser",
     "test"
   ],
   [
-    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber23",
-    "ErrorSerialiser deserialises a serialised Error object from JSON",
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber157",
+    "ErrorSerialiser ",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber172",
+    "ErrorSerialiser  instantiates a Serenity/JS AssertionError based on Chai AssertionError, to the best of its ability",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber188",
+    "ErrorSerialiser  instantiates a Serenity/JS AssertionError based on Node.js AssertionError, to the best of its ability",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber204",
+    "ErrorSerialiser  instantiates a Serenity/JS AssertionError, to the best of its ability",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber159",
+    "ErrorSerialiser  instantiates a standard Error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber55",
+    "ErrorSerialiser when deserialising errors from JSON",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber73",
-    "ErrorSerialiser deserialises a serialised Node AssertionError object from JSON",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber102",
+    "ErrorSerialiser when deserialising errors from JSON deserialises Node.js AssertionError as Serenity/JS AssertionError",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber87",
-    "ErrorSerialiser deserialises a serialised Node AssertionError object from stack trace",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber78",
+    "ErrorSerialiser when deserialising errors from JSON deserialises a custom AssertionError to Serenity/JS AssertionError, including all its fields",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber53",
-    "ErrorSerialiser deserialises a serialised custom AssertionError object from JSON",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber58",
+    "ErrorSerialiser when deserialising errors from JSON deserialises an Error",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber115",
+    "ErrorSerialiser when deserialising errors from stack trace",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber101",
-    "ErrorSerialiser deserialises the error object from a stack trace alone (Cucumber event protocol)",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber141",
+    "ErrorSerialiser when deserialising errors from stack trace instantiates a Serenity/JS AssertionError from an AssertionError-like stack trace, as well as it can",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber113",
-    "ErrorSerialiser deserialises the error object from a string (Cucumber event protocol)",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber130",
+    "ErrorSerialiser when deserialising errors from stack trace instantiates an Error object from a string (Cucumber event protocol)",
     "test"
   ],
   [
     "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
-    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber43",
-    "ErrorSerialiser serialises a custom Error object to JSON",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber118",
+    "ErrorSerialiser when deserialising errors from stack trace works with standard Error objects (Cucumber event protocol)",
     "test"
   ],
   [
-    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
+    "",
     "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber12",
-    "ErrorSerialiser serialises an Error object to JSON",
+    "ErrorSerialiser when serialising errors to JSON",
+    "test"
+  ],
+  [
+    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber40",
+    "ErrorSerialiser when serialising errors to JSON serialises all fields of a Node.js AssertionError",
+    "test"
+  ],
+  [
+    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber25",
+    "ErrorSerialiser when serialising errors to JSON serialises all fields of custom objects that extend Error",
+    "test"
+  ],
+  [
+    "errorserialiser src/io/errorserialiser.ts~errorserialiser,errorserialiser",
+    "test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber14",
+    "ErrorSerialiser when serialising errors to JSON works with Error objects",
     "test"
   ],
   [

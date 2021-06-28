@@ -330,14 +330,15 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber12">ErrorSerialiser serialises an Error object to JSON</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber23">ErrorSerialiser deserialises a serialised Error object from JSON</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber43">ErrorSerialiser serialises a custom Error object to JSON</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber53">ErrorSerialiser deserialises a serialised custom AssertionError object from JSON</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber73">ErrorSerialiser deserialises a serialised Node AssertionError object from JSON</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber87">ErrorSerialiser deserialises a serialised Node AssertionError object from stack trace</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber101">ErrorSerialiser deserialises the error object from a stack trace alone (Cucumber event protocol)</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber113">ErrorSerialiser deserialises the error object from a string (Cucumber event protocol)</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber14">ErrorSerialiser when serialising errors to JSON works with Error objects</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber25">ErrorSerialiser when serialising errors to JSON serialises all fields of custom objects that extend Error</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber40">ErrorSerialiser when serialising errors to JSON serialises all fields of a Node.js AssertionError</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber58">ErrorSerialiser when deserialising errors from JSON deserialises an Error</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber78">ErrorSerialiser when deserialising errors from JSON deserialises a custom AssertionError to Serenity/JS AssertionError, including all its fields</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber102">ErrorSerialiser when deserialising errors from JSON deserialises Node.js AssertionError as Serenity/JS AssertionError</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber118">ErrorSerialiser when deserialising errors from stack trace works with standard Error objects (Cucumber event protocol)</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber130">ErrorSerialiser when deserialising errors from stack trace instantiates an Error object from a string (Cucumber event protocol)</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/io/ErrorSerialiser.spec.ts.html#lineNumber141">ErrorSerialiser when deserialising errors from stack trace instantiates a Serenity/JS AssertionError from an AssertionError-like stack trace, as well as it can</a></span></li>
 </ul>
   </div>
 
