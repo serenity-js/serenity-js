@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.29.5](https://github.com/serenity-js/serenity-js/compare/v2.29.4...v2.29.5) (2021-06-28)
+
+
+### Bug Fixes
+
+* **cucumber:** support for reporting Node AssertionErrors thrown in Cucumber scenarios ([3d9cdb7](https://github.com/serenity-js/serenity-js/commit/3d9cdb745cd14f136b942786b449375f1a00d969)), closes [cucumber/cucumber-js#1453](https://github.com/cucumber/cucumber-js/issues/1453) [#887](https://github.com/serenity-js/serenity-js/issues/887)
+
+
+
+
+
 ## [2.29.4](https://github.com/serenity-js/serenity-js/compare/v2.29.3...v2.29.4) (2021-06-24)
 
 
