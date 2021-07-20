@@ -47,7 +47,7 @@ describe("'Click' interaction", () => {
         serenity.announce(new TestRunFinishes());
     });
 
-    it.each([
+    [
         {
             passedKeys: ['A', 'B', 'C', 'D', 'E', 'F'],
             pressedKeys: ['A', 'B', 'C', 'D', 'E', 'F'],
@@ -83,23 +83,24 @@ describe("'Click' interaction", () => {
             ],
             pressedKeys: ['H', 'i', '!', 'Meta+a', 'Backspace'],
         },
-    ])(
-        'presses the right keys',
-        async ({
+    ].forEach(
+        ({
             passedKeys,
             pressedKeys,
         }: {
             passedKeys: Key[];
             pressedKeys: string[];
         }) => {
-            await Press.the(...passedKeys)
-        .in($('element'))
-        .performAs(actor);
-            element.press.should.have.callCount(passedKeys.length);
-            pressedKeys.forEach((key, index) => {
-                expect((element.press as SinonStub).getCall(index).args[0]).to.be.equal(
-                    key
-                );
+            it('presses the right keys', async () => {
+                await Press.the(...passedKeys)
+            .in($('element'))
+            .performAs(actor);
+                element.press.should.have.callCount(passedKeys.length);
+                pressedKeys.forEach((key, index) => {
+                    expect((element.press as SinonStub).getCall(index).args[0]).to.be.equal(
+                        key
+                    );
+                });
             });
         }
     );

@@ -94,7 +94,7 @@ describe("'Wait' interaction", () => {
         .should.be.rejectedWith('Expected selector to be visible');
         });
 
-        it.each([
+        [
             {
                 expectationResult: true,
                 promiseResult: 'fulfilled',
@@ -103,21 +103,23 @@ describe("'Wait' interaction", () => {
                 expectationResult: false,
                 promiseResult: 'rejected',
             },
-        ])('in specific state', async ({ expectationResult, promiseResult }) => {
-            const element = elementHandleStub(sandbox);
-            const target = Target.$('selector');
-            target.whichShouldBecome = sandbox.stub().returns(target);
-            target.answeredBy = sandbox.stub().resolves(element);
-            const isReady = ElementHandleExpectation.forElementToBe(
-                'attached',
-                async () => expectationResult
-            );
+        ].forEach(({ expectationResult, promiseResult }) => {
+            it('in specific state', async () => {
+                const element = elementHandleStub(sandbox);
+                const target = Target.$('selector');
+                target.whichShouldBecome = sandbox.stub().returns(target);
+                target.answeredBy = sandbox.stub().resolves(element);
+                const isReady = ElementHandleExpectation.forElementToBe(
+                    'attached',
+                    async () => expectationResult
+                );
 
-            await actor.attemptsTo(Wait.until(target, isReady)).should.be[
-        promiseResult
-            ];
-            target.whichShouldBecome.should.have.been.called;
-            target.whichShouldBecome.should.have.been.calledWith(isReady);
+                await actor.attemptsTo(Wait.until(target, isReady)).should.be[
+            promiseResult
+                ];
+                target.whichShouldBecome.should.have.been.called;
+                target.whichShouldBecome.should.have.been.calledWith(isReady);
+            });
         });
     });
 });

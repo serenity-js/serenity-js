@@ -13,8 +13,6 @@ import {
 chai.should();
 const { expect } = chai;
 
-const { todo } = test;
-
 describe('BrowseTheWeb ability', () => {
     const sandbox = createSandbox();
     let page: Page;
@@ -187,13 +185,13 @@ describe('BrowseTheWeb ability', () => {
         page.waitForTimeout.should.have.been.calledWith(1000);
     });
 
-    todo('waits for Event'); // not implemented
-    todo('waits for Function'); // not implemented
-    todo('waits for LoadState'); // not implemented
-    todo('waits for Navigation'); // not implemented
-    todo('waits for Request'); // not implemented
-    todo('waits for Response'); // not implemented
-    todo('waits for Selector'); // not implemented
-    todo('waits for URL'); // not implemented
-    todo('switch between tabs'); // not implemented
+    it('waits for Event'); // not implemented
+    it('waits for Function'); // not implemented
+    it('waits for LoadState'); // not implemented
+    it('waits for Navigation'); // not implemented
+    it('waits for Request'); // not implemented
+    it('waits for Response'); // not implemented
+    it('waits for Selector'); // not implemented
+    it('waits for URL'); // not implemented
+    it('switch between tabs'); // not implemented
 });

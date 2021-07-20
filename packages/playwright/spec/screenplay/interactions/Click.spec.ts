@@ -9,8 +9,6 @@ import { browserTypeStub, pageStub } from '../../stubs/playwright';
 chai.use(chaiExclude);
 chai.should();
 
-const { todo } = test;
-
 describe("'Click' interaction", () => {
     const sandbox = createSandbox();
     let browseTheWeb: BrowseTheWeb;
@@ -24,7 +22,7 @@ describe("'Click' interaction", () => {
     });
 
     // Seems to be checked implicitly by playwright
-    todo('ensures the element is clickable');
+    it('ensures the element is clickable');
     // it("ensures the element is clickable", async () => {
     //   (page.$ as SinonStub).resolves(null);
 
