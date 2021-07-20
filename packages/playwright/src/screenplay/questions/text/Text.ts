@@ -1,8 +1,8 @@
-import { Answerable, MetaQuestion, Question } from "@serenity-js/core";
-import { ElementHandle } from "playwright";
+import { Answerable, MetaQuestion, Question } from '@serenity-js/core';
+import { ElementHandle } from 'playwright';
 
 // import { TextOfMultipleElements } from "./TextOfMultipleElements";
-import { TextOfSingleElement } from "./TextOfSingleElement";
+import { TextOfSingleElement } from './TextOfSingleElement';
 
 /**
  * @desc
@@ -18,7 +18,7 @@ import { TextOfSingleElement } from "./TextOfSingleElement";
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Text {
-  /**
+    /**
    * @desc
    *  Retrieves text of a single {@link WebElement},
    *  represented by {@link ElementFinder}
@@ -29,29 +29,29 @@ export class Text {
    *
    * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
    */
-  static of(
-    target: Answerable<ElementHandle>
-  ): Question<Promise<string>> &
-    MetaQuestion<Answerable<ElementHandle>, Promise<string>> {
-    return new TextOfSingleElement(target);
-  }
+    static of(
+        target: Answerable<ElementHandle>
+    ): Question<Promise<string>> &
+        MetaQuestion<Answerable<ElementHandle>, Promise<string>> {
+        return new TextOfSingleElement(target);
+    }
 
-  // /**
-  //  * @desc
-  //  *  Retrieves text of a group of {@link WebElement}s,
-  //  *  represented by {@link ElementArrayFinder}
-  //  *  or `Question<ElementArrayFinder>`
-  //  *
-  //  * @param {Question<ElementArrayFinder> | ElementArrayFinder} target
-  //  * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<ElementHandle>, Promise<string[]>>}
-  //  *
-  //  * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
-  //  */
-  // static ofAll(
-  //   target: Question<ElementArrayFinder> | ElementArrayFinder
-  // ): Question<Promise<string[]>> &
-  //   MetaQuestion<Answerable<ElementHandle>, Promise<string[]>> {
-  //   // eslint-disable-line @typescript-eslint/indent
-  //   return new TextOfMultipleElements(target);
-  // }
+    // /**
+    //  * @desc
+    //  *  Retrieves text of a group of {@link WebElement}s,
+    //  *  represented by {@link ElementArrayFinder}
+    //  *  or `Question<ElementArrayFinder>`
+    //  *
+    //  * @param {Question<ElementArrayFinder> | ElementArrayFinder} target
+    //  * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<ElementHandle>, Promise<string[]>>}
+    //  *
+    //  * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
+    //  */
+    // static ofAll(
+    //   target: Question<ElementArrayFinder> | ElementArrayFinder
+    // ): Question<Promise<string[]>> &
+    //   MetaQuestion<Answerable<ElementHandle>, Promise<string[]>> {
+    //   // eslint-disable-line @typescript-eslint/indent
+    //   return new TextOfMultipleElements(target);
+    // }
 }

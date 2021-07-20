@@ -536,7 +536,7 @@ export class BrowseTheWeb implements Ability {
                 return page.frame({ name: nameorIndexOrHandle as string });
             }
             default: {
-                return await (nameorIndexOrHandle as ElementHandle).contentFrame();
+                return (nameorIndexOrHandle as ElementHandle).contentFrame();
             }
         }
     }

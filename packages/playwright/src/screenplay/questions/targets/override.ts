@@ -6,14 +6,14 @@
  * @param name - name of the method or field to override
  * @param implementation
  */
-export function override<T extends Object, K extends keyof T | "toString">(
-  obj: T,
-  name: K,
-  implementation: T[K]
+export function override<T extends Object, K extends keyof T | 'toString'>(
+    obj: T,
+    name: K,
+    implementation: T[K]
 ) {
-  return new Proxy<T>(obj, {
-    get(o: T, property: string | symbol) {
-      return property === name ? implementation : obj[property];
-    },
-  });
+    return new Proxy<T>(obj, {
+        get(o: T, property: string | symbol) {
+            return property === name ? implementation : obj[property];
+        },
+    });
 }

@@ -1,7 +1,8 @@
-import { Answerable } from "@serenity-js/core";
-import { ElementHandle } from "playwright";
-import { NestedTargetBuilder, TargetBuilder } from "./builders";
-import { TargetElement } from "./TargetElement";
+import { Answerable } from '@serenity-js/core';
+import { ElementHandle } from 'playwright';
+
+import { NestedTargetBuilder, TargetBuilder } from './builders';
+import { TargetElement } from './TargetElement';
 // import { TargetElements } from "./TargetElements";
 // import { TargetNestedElements } from "./TargetNestedElements";
 
@@ -151,63 +152,63 @@ import { TargetElement } from "./TargetElement";
  *       );
  */
 export class Target {
-  /**
+    /**
    * @desc
    *  Locates a single web element
    *
    * @param {string} name - A human-readable name of the element to be used in the report
    * @returns {TargetBuilder<TargetElement> & NestedTargetBuilder<TargetElement>}
    */
-  static the(
-    name: string
-  ): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetElement> {
-    return {
-      selectedBy: (selector: string): TargetElement =>
-        TargetElement.at(selector).as(`the ${name}`),
-
-      of: (parent: Answerable<ElementHandle>) => {
+    static the(
+        name: string
+    ): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetElement> {
         return {
-          selectedBy: (selector: string): TargetElement =>
-            TargetElement.at(selector).as(`the ${name}`).of(parent),
-        };
-      },
-    };
-  }
+            selectedBy: (selector: string): TargetElement =>
+                TargetElement.at(selector).as(`the ${name}`),
 
-  /**
+            of: (parent: Answerable<ElementHandle>) => {
+                return {
+                    selectedBy: (selector: string): TargetElement =>
+                        TargetElement.at(selector).as(`the ${name}`).of(parent),
+                };
+            },
+        };
+    }
+
+    /**
    * @desc
    *  Locates a single web element
    *
    * @param {string} selector - selector to get the element from a page
    * @returns {TargetElement}
    */
-  static $(selector: string): TargetElement {
-    return TargetElement.at(selector);
-  }
+    static $(selector: string): TargetElement {
+        return TargetElement.at(selector);
+    }
 
-  // /**
-  //  * @desc
-  //  *  Locates a group of web elements
-  //  *
-  //  * @param {string} name - A human-readable name of the elements to be used in the report
-  //  * @returns {TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements>}
-  //  */
-  // static all(
-  //   name: string
-  // ): TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements> {
-  //   return {
-  //     selectedBy: (selector: string): TargetElements =>
-  //       new TargetElements(name, selector),
+    // /**
+    //  * @desc
+    //  *  Locates a group of web elements
+    //  *
+    //  * @param {string} name - A human-readable name of the elements to be used in the report
+    //  * @returns {TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements>}
+    //  */
+    // static all(
+    //   name: string
+    // ): TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements> {
+    //   return {
+    //     selectedBy: (selector: string): TargetElements =>
+    //       new TargetElements(name, selector),
 
-  //     of: (parent: Question<ElementHandle> | ElementHandle) => {
-  //       return {
-  //         selectedBy: (selector: string): TargetNestedElements =>
-  //           new TargetNestedElements(
-  //             parent,
-  //             new TargetElements(name, selector)
-  //           ),
-  //       };
-  //     },
-  //   };
-  // }
+    //     of: (parent: Question<ElementHandle> | ElementHandle) => {
+    //       return {
+    //         selectedBy: (selector: string): TargetNestedElements =>
+    //           new TargetNestedElements(
+    //             parent,
+    //             new TargetElements(name, selector)
+    //           ),
+    //       };
+    //     },
+    //   };
+    // }
 }
