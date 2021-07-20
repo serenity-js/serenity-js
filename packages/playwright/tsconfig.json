@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2018",
+    "moduleResolution": "node",
+    "lib": ["es2018", "ES6", "DOM"],
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "importHelpers": true,
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "noUnusedLocals": false,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true,
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "features",
+    "spec",
+    "node_modules"
+  ]
+}
