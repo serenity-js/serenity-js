@@ -24,9 +24,6 @@ import {
 chai.use(chaiExclude);
 chai.should();
 
-const { expect } = chai;
-const { todo } = test;
-
 describe("'Wait' interaction", () => {
     const sandbox = createSandbox();
     let browseTheWeb: BrowseTheWeb;

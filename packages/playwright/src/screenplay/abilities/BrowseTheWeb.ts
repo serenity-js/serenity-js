@@ -230,7 +230,6 @@ export class BrowseTheWeb implements Ability {
    * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
    */
     async mouse(): Promise<Mouse> {
-        const context = await this.browserContext();
         return (await this.page()).mouse;
     }
 

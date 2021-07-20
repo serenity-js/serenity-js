@@ -19,8 +19,6 @@ chai.should();
 
 const { expect } = chai;
 
-const { todo } = test;
-
 describe('TargetElement Question', () => {
     const sandbox = createSandbox();
     let browseTheWeb: BrowseTheWeb;

@@ -16,8 +16,6 @@ import {
 
 chai.should();
 
-const { todo } = test;
-
 const { the } = Target;
 
 describe('Ensure element is', () => {

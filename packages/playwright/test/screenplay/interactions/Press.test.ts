@@ -23,8 +23,6 @@ chai.should();
 
 const { expect } = chai;
 
-const { todo } = test;
-
 const { $ } = Target;
 
 describe("'Click' interaction", () => {

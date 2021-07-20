@@ -34,7 +34,13 @@
     "url": "https://github.com/serenity-js/serenity-js.git"
   },
   "scripts": {
-    "test": "echo \"Error: run tests from root\" && exit 1"
+    "test": "jest",
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
+    "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
   },
   "bugs": {
     "url": "https://github.com/serenity-js/serenity-js/issues"

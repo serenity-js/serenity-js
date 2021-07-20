@@ -7,11 +7,12 @@ import { ElementHandleExpectation } from './ElementHandleExpectation';
 const isAttachedFunction = (actual) => actual.isExisting();
 const isVisibleFunction = (actual) => isAttachedFunction(actual) && actual.isVisible();
 
-const isDisabled = (): Expectation<any, ElementHandleAnswer> => {
-    return ElementHandleExpectation.forElementToBe('disabled', (actual) =>
-        actual.isDisabled()
-    );
-};
+// TODO: add expectation
+// const isDisabled = (): Expectation<any, ElementHandleAnswer> => {
+//     return ElementHandleExpectation.forElementToBe('disabled', (actual) =>
+//         actual.isDisabled()
+//     );
+// };
 
 const isEnabledFunction = (): Expectation<any, ElementHandleAnswer> => {
     return ElementHandleExpectation.forElementToBe('enabled', (actual) =>
@@ -19,17 +20,19 @@ const isEnabledFunction = (): Expectation<any, ElementHandleAnswer> => {
     );
 };
 
-const isEditable = (): Expectation<any, ElementHandleAnswer> => {
-    return ElementHandleExpectation.forElementToBe('editable', (actual) =>
-        actual.isEditable()
-    );
-};
+// TODO: add expectation
+// const isEditable = (): Expectation<any, ElementHandleAnswer> => {
+//     return ElementHandleExpectation.forElementToBe('editable', (actual) =>
+//         actual.isEditable()
+//     );
+// };
 
-const isChecked = (): Expectation<any, ElementHandleAnswer> => {
-    return ElementHandleExpectation.forElementToBe('checked', (actual) =>
-        actual.isChecked()
-    );
-};
+// TODO: add expectation
+// const isChecked = (): Expectation<any, ElementHandleAnswer> => {
+//     return ElementHandleExpectation.forElementToBe('checked', (actual) =>
+//         actual.isChecked()
+//     );
+// };
 
 // TODO: isActive
 // TODO: isSelected
