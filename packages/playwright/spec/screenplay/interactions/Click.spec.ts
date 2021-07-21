@@ -1,35 +1,39 @@
+import { Ensure, not } from '@serenity-js/assertions';
+import { actorCalled } from '@serenity-js/core';
 import chaiExclude from 'chai-exclude';
-import { Page } from 'playwright';
-import { createSandbox } from 'sinon';
+import { chromium, Page } from 'playwright';
 
-import { BrowseTheWeb } from '../../../src/screenplay';
+import { isVisible } from '../../../src/expectations';
+import { BrowseTheWeb, Click, Target } from '../../../src/screenplay';
 import { chai } from '../../chai-extra';
-import { browserTypeStub, pageStub } from '../../stubs/playwright';
 
 chai.use(chaiExclude);
 chai.should();
 
 describe("'Click' interaction", () => {
-    const sandbox = createSandbox();
-    let browseTheWeb: BrowseTheWeb;
-    let page: Page;
+    const actor = actorCalled('Mike').whoCan(BrowseTheWeb.using(chromium));
 
-    beforeEach(() => {
-        browseTheWeb = BrowseTheWeb.using(browserTypeStub(sandbox));
-        page = pageStub(sandbox);
-        browseTheWeb.waitForTimeout = sandbox.stub();
-        (browseTheWeb as any).page = sandbox.stub().resolves(page);
+    beforeEach(async () => {
+        const page: Page = await (actor.abilityTo(BrowseTheWeb) as any).page();
+        page.setContent(`
+        <html>
+            <button
+                    id="to-hide"
+                    onclick="
+                            document.getElementById('to-hide').style.display = 'none';"
+            >
+                Click me!
+            </button>
+        </html>`);
     });
 
-    // Seems to be checked implicitly by playwright
-    it('ensures the element is clickable');
-    // it("ensures the element is clickable", async () => {
-    //   (page.$ as SinonStub).resolves(null);
-
-    //   await actor
-    //     .attemptsTo(Click.on(the("non exsiting element").selectedBy("selector")))
-    //     .should.be.rejectedWith(
-    //       "Expected the non exsiting element to be visible"
-    //     );
-    // });
+    it('clicks element', async () => {
+        const theButton = Target.$('id=to-hide');
+        await actor.attemptsTo(
+            Ensure.that(theButton, isVisible()),
+            Click.on(theButton),
+            Ensure.that(theButton, not(isVisible())),
+        )
+    });
 });
+
