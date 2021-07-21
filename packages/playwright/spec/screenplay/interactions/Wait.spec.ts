@@ -1,6 +1,7 @@
 import {
     Actor,
     actorCalled,
+    Duration,
     serenity,
 } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
@@ -43,9 +44,9 @@ describe("'Wait' interaction", () => {
         serenity.announce(new TestRunFinishes());
     });
 
-    describe('can wait for several seconds', () => {
-        it('seconds', () => {
-            const action = Wait.for(5).seconds();
+    describe('can wait for duration of', () => {
+        it('5 seconds', () => {
+            const action = Wait.for(Duration.ofSeconds(5));
             action.performAs(actor);
 
             (browseTheWeb.waitForTimeout as SinonStub).should.have.been.called;
@@ -54,8 +55,8 @@ describe("'Wait' interaction", () => {
             );
         });
 
-        it('milliseconds', () => {
-            const action = Wait.for(5000).milliseconds();
+        it('5000 milliseconds', () => {
+            const action = Wait.for(Duration.ofMilliseconds(5000));
             action.performAs(actor);
 
             (browseTheWeb.waitForTimeout as SinonStub).should.have.been.called;
@@ -64,8 +65,8 @@ describe("'Wait' interaction", () => {
             );
         });
 
-        it('minutes', () => {
-            const action = Wait.for(1).minutes();
+        it('1 minute', () => {
+            const action = Wait.for(Duration.ofMinutes(1));
             action.performAs(actor);
 
             (browseTheWeb.waitForTimeout as SinonStub).should.have.been.called;

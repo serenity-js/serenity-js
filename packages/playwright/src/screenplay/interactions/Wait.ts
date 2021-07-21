@@ -1,6 +1,7 @@
 import { Ensure } from '@serenity-js/assertions';
 import {
     AnswersQuestions,
+    Duration,
     Expectation,
     Interaction,
     PerformsActivities,
@@ -40,16 +41,16 @@ export class Wait {
         };
     }
 
-    public static for(timeToWait: number): TimeoutBuilder {
-        return {
-            seconds: () => new Timeout(timeToWait, TimeMeasures.SEC),
-            milliseconds: () => new Timeout(timeToWait, TimeMeasures.MS),
-            minutes: () => new Timeout(timeToWait, TimeMeasures.MIN),
-        };
+    static for(duration: Duration): Interaction {
+        return Timeout.of(duration);
     }
 }
 
 class Timeout extends Interaction {
+    static of(duration: Duration) {
+        return new this(duration.inMilliseconds(), TimeMeasures.MS);
+    }
+
     constructor(
         private readonly timeout: number,
         private readonly measure: TimeMeasures
