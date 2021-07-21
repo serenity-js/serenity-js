@@ -1,5 +1,6 @@
 import { Ensure, not } from '@serenity-js/assertions';
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, serenity } from '@serenity-js/core';
+import { TestRunFinishes } from '@serenity-js/core/lib/events';
 import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
@@ -25,6 +26,10 @@ describe("'Click' interaction", () => {
                 Click me!
             </button>
         </html>`);
+    });
+
+    afterEach(() => {
+        serenity.announce(new TestRunFinishes());
     });
 
     it('clicks element', async () => {
