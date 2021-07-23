@@ -1,5 +1,6 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder } from 'protractor';
+import { WebElementPromise } from 'selenium-webdriver';
 
 import { BrowseTheWeb } from '../abilities';
 
@@ -206,10 +207,10 @@ class SwitchToFrame extends Interaction {
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.targetOrIndex)
-            .then(targetOrIndex =>
+            .then((targetOrIndex: ElementFinder) =>
                 BrowseTheWeb.as(actor).switchToFrame(
                     targetOrIndex instanceof ElementFinder
-                        ? targetOrIndex.getWebElement() // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
+                        ? targetOrIndex.getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
                         : targetOrIndex,
                 ),
             );

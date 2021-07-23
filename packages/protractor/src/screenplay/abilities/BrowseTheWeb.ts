@@ -1,6 +1,6 @@
 import { Ability, ConfigurationError, LogicError, UsesAbilities } from '@serenity-js/core';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser } from 'protractor';
-import { AlertPromise, Capabilities, Navigation, Options, WebElement } from 'selenium-webdriver';
+import { AlertPromise, Capabilities, Navigation, Options, WebElement, WebElementPromise } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
 
@@ -164,7 +164,7 @@ export class BrowseTheWeb implements Ability {
      *
      * @returns {Promise<void>}
      */
-    switchToFrame(elementOrIndexOrName: number | string | WebElement): Promise<void> {
+    switchToFrame(elementOrIndexOrName: number | string | WebElement | WebElementPromise): Promise<void> {
         // incorrect type definition in selenium-webdriver prevents us from providing a string arg
         return promiseOf(this.browser.switchTo().frame(elementOrIndexOrName as any));
     }
