@@ -189,7 +189,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/BrowseTheWeb.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActionSequence</span>, <span class="hljs-title class_">ElementArrayFinder</span>, <span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Locator</span>, <span class="hljs-title class_">ProtractorBrowser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AlertPromise</span>, <span class="hljs-title class_">Capabilities</span>, <span class="hljs-title class_">Navigation</span>, <span class="hljs-title class_">Options</span>, <span class="hljs-title class_">WebElement</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AlertPromise</span>, <span class="hljs-title class_">Capabilities</span>, <span class="hljs-title class_">Navigation</span>, <span class="hljs-title class_">Options</span>, <span class="hljs-title class_">WebElement</span>, <span class="hljs-title class_">WebElementPromise</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
 
 <span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../promiseOf'</span>;
 
@@ -353,7 +353,7 @@
      *
      * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
      */</span>
-    <span class="hljs-title function_">switchToFrame</span>(<span class="hljs-attr">elementOrIndexOrName</span>: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span> | <span class="hljs-title class_">WebElement</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
+    <span class="hljs-title function_">switchToFrame</span>(<span class="hljs-attr">elementOrIndexOrName</span>: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span> | <span class="hljs-title class_">WebElement</span> | <span class="hljs-title class_">WebElementPromise</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-comment">// incorrect type definition in selenium-webdriver prevents us from providing a string arg</span>
         <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">switchTo</span>().<span class="hljs-title function_">frame</span>(elementOrIndexOrName <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>));
     }

@@ -189,6 +189,7 @@
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Switch.ts</h1>
 <pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Activity</span>, <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">PerformsActivities</span>, <span class="hljs-title class_">Task</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WebElementPromise</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'selenium-webdriver'</span>;
 
 <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
 
@@ -395,10 +396,10 @@
 
     <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
         <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">targetOrIndex</span>)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">targetOrIndex</span> =&gt;</span>
+            .<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">targetOrIndex: ElementFinder</span>) =&gt;</span>
                 <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">switchToFrame</span>(
                     targetOrIndex <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ElementFinder</span>
-                        ? targetOrIndex.<span class="hljs-title function_">getWebElement</span>() <span class="hljs-comment">// https://github.com/angular/protractor/issues/1846#issuecomment-82634739</span>
+                        ? targetOrIndex.<span class="hljs-title function_">getWebElement</span>() <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">WebElementPromise</span> <span class="hljs-comment">// https://github.com/angular/protractor/issues/1846#issuecomment-82634739</span>
                         : targetOrIndex,
                 ),
             );
