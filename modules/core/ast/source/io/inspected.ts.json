@@ -9808,24 +9808,6 @@
                                       },
                                       "identifierName": "replace"
                                     },
-                                    "leadingComments": [
-                                      {
-                                        "type": "CommentLine",
-                                        "value": " Escape any special regexp characters",
-                                        "start": 6545,
-                                        "end": 6584,
-                                        "loc": {
-                                          "start": {
-                                            "line": 350,
-                                            "column": 8
-                                          },
-                                          "end": {
-                                            "line": 350,
-                                            "column": 47
-                                          }
-                                        }
-                                      }
-                                    ],
                                     "name": "replace"
                                   }
                                 },
@@ -9888,56 +9870,6 @@
                                   },
                                   "identifierName": "replace"
                                 },
-                                "leadingComments": [
-                                  {
-                                    "type": "CommentLine",
-                                    "value": " Replace mentions of `toString` with `.*?` to keep the template generic.",
-                                    "start": 6651,
-                                    "end": 6725,
-                                    "loc": {
-                                      "start": {
-                                        "line": 352,
-                                        "column": 12
-                                      },
-                                      "end": {
-                                        "line": 352,
-                                        "column": 86
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "CommentLine",
-                                    "value": " Replace thing like `for ...` to support environments like Rhino which add extra info",
-                                    "start": 6738,
-                                    "end": 6825,
-                                    "loc": {
-                                      "start": {
-                                        "line": 353,
-                                        "column": 12
-                                      },
-                                      "end": {
-                                        "line": 353,
-                                        "column": 99
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "type": "CommentLine",
-                                    "value": " such as method arity.",
-                                    "start": 6838,
-                                    "end": 6862,
-                                    "loc": {
-                                      "start": {
-                                        "line": 354,
-                                        "column": 12
-                                      },
-                                      "end": {
-                                        "line": 354,
-                                        "column": 36
-                                      }
-                                    }
-                                  }
-                                ],
                                 "name": "replace"
                               }
                             },
@@ -10226,40 +10158,6 @@
                       "column": 57
                     }
                   },
-                  "leadingComments": [
-                    {
-                      "type": "CommentLine",
-                      "value": " Use `Function#toString` to bypass the value's own `toString` method",
-                      "start": 7033,
-                      "end": 7103,
-                      "loc": {
-                        "start": {
-                          "line": 361,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 361,
-                          "column": 78
-                        }
-                      }
-                    },
-                    {
-                      "type": "CommentLine",
-                      "value": " and avoid being faked out.",
-                      "start": 7112,
-                      "end": 7141,
-                      "loc": {
-                        "start": {
-                          "line": 362,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 362,
-                          "column": 37
-                        }
-                      }
-                    }
-                  ],
                   "trailingComments": [
                     {
                       "type": "CommentLine",
@@ -10461,56 +10359,6 @@
                       "column": 85
                     }
                   },
-                  "leadingComments": [
-                    {
-                      "type": "CommentLine",
-                      "value": " Fallback to a host object check because some environments will represent",
-                      "start": 7208,
-                      "end": 7283,
-                      "loc": {
-                        "start": {
-                          "line": 364,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 364,
-                          "column": 83
-                        }
-                      }
-                    },
-                    {
-                      "type": "CommentLine",
-                      "value": " things like typed arrays as DOM methods which may not conform to the",
-                      "start": 7292,
-                      "end": 7363,
-                      "loc": {
-                        "start": {
-                          "line": 365,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 365,
-                          "column": 79
-                        }
-                      }
-                    },
-                    {
-                      "type": "CommentLine",
-                      "value": " normal native pattern.",
-                      "start": 7372,
-                      "end": 7397,
-                      "loc": {
-                        "start": {
-                          "line": 366,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 366,
-                          "column": 33
-                        }
-                      }
-                    }
-                  ],
                   "left": {
                     "type": "LogicalExpression",
                     "start": 7409,
