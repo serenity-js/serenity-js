@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.29.8](https://github.com/serenity-js/serenity-js/compare/v2.29.7...v2.29.8) (2021-07-24)
+
+
+### Bug Fixes
+
+* **cucumber:** updated @cucumber/cucumber to 7.3.1 ([a8d20fa](https://github.com/serenity-js/serenity-js/commit/a8d20faa1ed7b8b664327892bdbc987dba38ce3d))
+* **deps:** update dependency @babel/parser to ^7.14.8 ([fba26be](https://github.com/serenity-js/serenity-js/commit/fba26beba433ed6caabd206a8e74354a33da6e77))
+* **deps:** update dependency fast-glob to ^3.2.7 ([f81fbaa](https://github.com/serenity-js/serenity-js/commit/f81fbaaa519cc42d333a8db6b5d294f2e812e907))
+* **deps:** updated dependencies ([e843503](https://github.com/serenity-js/serenity-js/commit/e84350360044658951afa8765f726ebf2a18119f))
+
+
+
+
+
 ## [2.29.7](https://github.com/serenity-js/serenity-js/compare/v2.29.6...v2.29.7) (2021-07-23)
 
 
