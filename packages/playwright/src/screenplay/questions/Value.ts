@@ -9,7 +9,6 @@ import { formatted } from '@serenity-js/core/lib/io';
 import { ElementHandle } from 'playwright';
 
 import { UnsupportedOperationError } from '../../errors';
-import { BrowseTheWeb } from '../abilities';
 
 /**
  * @desc
@@ -67,11 +66,6 @@ export class Value
    */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const element: ElementHandle = await actor.answer(this.target);
-        // TODO rewrite this to use element.inputValue
-    //     const value = await actor
-    //   .abilityTo(BrowseTheWeb)
-    //   .evaluate((element_: any) => element_.value, element);
-        // return value && value.toString();
         return element.inputValue();
     }
 }
