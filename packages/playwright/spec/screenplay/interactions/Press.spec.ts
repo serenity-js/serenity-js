@@ -4,7 +4,7 @@ import { TestRunFinishes } from '@serenity-js/core/lib/events';
 import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
-import { BrowseTheWeb, Press, Value } from '../../../src/screenplay';
+import { BrowseTheWeb, Close, Press, Value } from '../../../src/screenplay';
 import { Target } from '../../../src/screenplay/questions/targets';
 import { chai } from '../../chai-extra';
 
@@ -25,6 +25,7 @@ describe("'Press' interaction", () => {
     });
 
     afterEach(() => {
+        actor.attemptsTo(Close.browser());
         serenity.announce(new TestRunFinishes());
     });
 

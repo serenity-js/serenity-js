@@ -1,7 +1,6 @@
 import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
-import { WebElement } from 'selenium-webdriver';
 
 import { BrowseTheWeb } from '../abilities';
 import { withAnswerOf } from '../withAnswerOf';
@@ -88,7 +87,11 @@ export class Hover extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return withAnswerOf(actor, this.target, (elf: WebElement) => BrowseTheWeb.as(actor).actions().mouseMove(elf).perform());
+        return withAnswerOf(actor, this.target, (elf: ElementFinder) =>
+            BrowseTheWeb.as(actor).actions()
+                .mouseMove(elf as unknown as any)
+                .perform()
+        );
     }
 
     /**

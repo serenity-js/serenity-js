@@ -66,10 +66,12 @@ export class Value
    * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
    */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const element = await actor.answer(this.target);
-        const value = await actor
-      .abilityTo(BrowseTheWeb)
-      .evaluate((element_: any) => element_.value, element);
-        return value && value.toString();
+        const element: ElementHandle = await actor.answer(this.target);
+        // TODO rewrite this to use element.inputValue
+    //     const value = await actor
+    //   .abilityTo(BrowseTheWeb)
+    //   .evaluate((element_: any) => element_.value, element);
+        // return value && value.toString();
+        return element.inputValue();
     }
 }

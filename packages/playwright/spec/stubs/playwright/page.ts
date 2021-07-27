@@ -28,6 +28,8 @@ const notStubbed = 'Method not stubbed. Check your mocks';
 
 export const pageStub = (sandbox: SinonSandbox): Page =>
     sandbox.createStubInstance(TestPage, {
+        dragAndDrop: sandbox.stub(),
+        inputValue: sandbox.stub(),
         waitForFunction: sandbox.stub(),
         waitForSelector: sandbox.stub(),
         evaluate: sandbox.stub(),
@@ -107,6 +109,12 @@ export const pageStub = (sandbox: SinonSandbox): Page =>
     });
 
 class TestPage implements Page {
+    dragAndDrop(source: string, target: string, options?: { force?: boolean; noWaitAfter?: boolean; timeout?: number; trial?: boolean; }): Promise<void> {
+        throw new Error('Method not implemented.');
+    }
+    inputValue(selector: string, options?: { timeout?: number; }): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
     waitForFunction(pageFunction: any, arg?: any, options?: any): Promise<any> {
         throw new Error(notStubbed);
     }

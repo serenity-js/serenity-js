@@ -4,6 +4,7 @@ import { SinonSandbox } from 'sinon';
 
 export const elementHandleStub = (sandbox: SinonSandbox): ElementHandle =>
     sandbox.createStubInstance(TestElementHandle, {
+        inputValue: sandbox.stub(),
         $: sandbox.stub(),
         $$: sandbox.stub(),
         $eval: sandbox.stub(),
@@ -49,6 +50,9 @@ export const elementHandleStub = (sandbox: SinonSandbox): ElementHandle =>
     });
 
 class TestElementHandle implements ElementHandle {
+    inputValue(options?: { timeout?: number; }): Promise<string> {
+        throw new Error('Method not implemented.');
+    }
     $(selector: any): Promise<any> {
         throw new Error('Method not implemented.');
     }

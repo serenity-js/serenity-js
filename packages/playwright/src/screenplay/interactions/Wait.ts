@@ -19,12 +19,6 @@ enum TimeMeasures {
     MS = 1,
 }
 
-interface TimeoutBuilder {
-    seconds(): Timeout;
-    milliseconds(): Timeout;
-    minutes(): Timeout;
-}
-
 export class Wait {
     static until(
         target: TargetElement,

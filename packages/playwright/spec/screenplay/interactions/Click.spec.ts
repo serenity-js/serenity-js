@@ -5,7 +5,7 @@ import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
 import { isVisible } from '../../../src/expectations';
-import { BrowseTheWeb, Click, Target } from '../../../src/screenplay';
+import { BrowseTheWeb, Click, Close, Target } from '../../../src/screenplay';
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
@@ -29,6 +29,7 @@ describe("'Click' interaction", () => {
     });
 
     afterEach(() => {
+        actor.attemptsTo(Close.browser());
         serenity.announce(new TestRunFinishes());
     });
 

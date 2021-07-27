@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.29.8](https://github.com/serenity-js/serenity-js/compare/v2.29.7...v2.29.8) (2021-07-24)
+
+
+### Bug Fixes
+
+* **deps:** update dependency fast-glob to ^3.2.7 ([f81fbaa](https://github.com/serenity-js/serenity-js/commit/f81fbaaa519cc42d333a8db6b5d294f2e812e907))
+
+
+
+
+
+## [2.29.7](https://github.com/serenity-js/serenity-js/compare/v2.29.6...v2.29.7) (2021-07-23)
+
+
+### Bug Fixes
+
+* **deps:** update dependency filenamify to v5 ([b74e674](https://github.com/serenity-js/serenity-js/commit/b74e674fd581f6acde9add69fd185dd9aad235fa))
+* **protractor:** corrected type definitions to work with the latest TypeScript ([9260520](https://github.com/serenity-js/serenity-js/commit/926052094341cacead2d6fe97d9402c6f7577d46))
+
+
+
+
+
 ## [2.29.6](https://github.com/serenity-js/serenity-js/compare/v2.29.5...v2.29.6) (2021-06-28)
 
 
