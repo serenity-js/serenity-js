@@ -68,24 +68,6 @@
     line-height: 1.5;
   }
 
-  code {
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  }
-
-  pre > code {
-    display: block;
-  }
-
-  pre > code {
-    padding: 4px;
-    margin: 1em 0;
-    border-radius: 3px;
-  }
-
-  pre > code {
-    //margin: 0;
-  }
-
   p > code,
   li > code {
     padding: 0.2em 0.5em;
@@ -95,6 +77,7 @@
     border-radius: 3px;
   }
 
+  code,
   .code {
     font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
     font-size: 13px;
@@ -102,10 +85,10 @@
 
   .import-path pre,
   .import-path pre code {
-    margin: 0;
-    padding: 0;
-    border: none;
-    background: white;
+    //margin: 0;
+    padding: 0.5em;
+    //border: none;
+    //background: white;
   }
 
   .layout-container > header {
@@ -473,60 +456,6 @@
   .example-caption + pre.source-code {
     margin-top: 0;
     border-top-left-radius: 0;
-  }
-
-  pre.source-code {
-    padding: 4px;
-  }
-
-  pre.raw-source-code > code {
-    //padding: 0;
-    //margin: 0;
-    font-size: 12px;
-    border: solid 1px #ddd;
-    line-height: 1.5;
-  }
-
-  pre.raw-source-code > code > ol {
-    counter-reset: number;
-    list-style: none;
-    //margin: 0;
-    //padding: 0;
-    overflow: hidden;
-  }
-
-  pre.raw-source-code > code > ol li:before {
-    counter-increment: number;
-    content: counter(number);
-    display: inline-block;
-    min-width: 3em;
-    color: #aaa;
-    text-align: right;
-    padding-right: 1em;
-  }
-
-  pre.source-code.line-number {
-    padding: 0;
-  }
-
-  pre.source-code ol {
-    background: #eee;
-    padding-left: 40px;
-  }
-
-  pre.source-code li {
-    background: white;
-    padding-left: 4px;
-    list-style: decimal;
-    margin: 0;
-  }
-
-  pre.source-code.line-number li.active {
-    background: rgb(255, 255, 150) !important;
-  }
-
-  pre.source-code.line-number li.error-line {
-    background: #ffb8bf;
   }
 
   .inner-link-active {
