@@ -1,4 +1,7 @@
 @import "api-docs/style.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/css/all";
+@import "../../node_modules/prismjs/themes/prism";
+@import "../../node_modules/prism-themes/themes/prism-material-oceanic";
 
 $accent-1: #fdd20a !default;
 $accent-2: #454545 !default;
@@ -431,4 +434,30 @@ $serenity-gold-light: lighten($serenity-gold, 20%);
       stroke-dasharray: 5 5;
     }
   }
+}
+
+code[class*=language-],
+pre[class*=language-],
+{
+  text-shadow: none !important;
+  border-radius: 5px;
+
+  .token.operator {
+    background: none !important;
+  }
+}
+
+/* Fix Prism selection highlighting */
+code[class*='language-']::-moz-selection,
+pre[class*='language-']::-moz-selection,
+code[class*='language-'] ::-moz-selection,
+pre[class*='language-'] ::-moz-selection {
+  background: #4f5b66 !important;
+}
+
+code[class*='language-']::selection,
+pre[class*='language-']::selection,
+code[class*='language-'] ::selection,
+pre[class*='language-'] ::selection {
+  background: #4f5b66 !important;
 }
