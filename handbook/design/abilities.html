@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -161,51 +158,51 @@ An "ability" is a thin wrapper around a lower-level, interface-specific client s
 
 <h2 id="implementing-abilities">Implementing Abilities</h2>
 <p>Consider the <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a> ability from the <a href="/modules/protractor"><code>@serenity-js/protractor</code></a> module:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrowseTheWeb</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BrowseTheWeb</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">using</span>(<span class="hljs-attr">browser</span>: <span class="hljs-title class_">ProtractorBrowser</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowseTheWeb</span>(browser);
-    }
+    <span class="token keyword">static</span> <span class="token function">using</span><span class="token punctuation">(</span>browser<span class="token operator">:</span> ProtractorBrowser<span class="token punctuation">)</span><span class="token operator">:</span> BrowseTheWeb <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BrowseTheWeb</span><span class="token punctuation">(</span>browser<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">BrowseTheWeb</span>);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> BrowseTheWeb <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">abilityTo</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> browser: ProtractorBrowser</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> browser<span class="token operator">:</span> ProtractorBrowser<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">locate</span>(<span class="hljs-attr">locator</span>: <span class="hljs-title class_">Locator</span>): <span class="hljs-title class_">ElementFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">browser</span>.<span class="hljs-title function_">element</span>(locator);
-    }
+    <span class="token function">locate</span><span class="token punctuation">(</span>locator<span class="token operator">:</span> Locator<span class="token punctuation">)</span><span class="token operator">:</span> ElementFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">element</span><span class="token punctuation">(</span>locator<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// rest omitted for brevity</span>
-}
+    <span class="token comment">// rest omitted for brevity</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In order to enable the actor to <code>BrowseTheWeb</code>, we'd give it an instance of said ability, linked with the lower-level client - in this case <code>protractor.browser</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Abby'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>));
+<span class="token keyword">const</span> actor <span class="token operator">=</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'Abby'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>So how would our actor make use of their newly acquired ability? That's what <a href="(/handbook/design/interactions.html">interactions</a> are for!</p>
 <p>Let's take the below, <em>much simplified</em>, version of the original <a href="/modules/protractor/class/src/screenplay/interactions/Click.ts~Click.html"><code>Click</code></a> interaction, where <code>BrowseTheWeb</code> is used to locate the element of interest and perform the <code>.click()</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Locator</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Locator <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">Click</span> = {
-    <span class="hljs-attr">onElement</span>: <span class="hljs-function">(<span class="hljs-params">locator: Locator</span>) =&gt;</span>
-        <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor clicks on the <span class="hljs-subst">${ target }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-            <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">locate</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">locator</span>).<span class="hljs-title function_">click</span>();
-        }),
-}
+<span class="token keyword">const</span> Click <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">onElement</span><span class="token operator">:</span> <span class="token punctuation">(</span>locator<span class="token operator">:</span> Locator<span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor clicks on the </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> target <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">locate</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>locator<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>With the interaction in place, we can tell the actor to perform the click as part of their <a href="/handbook/design/actors.html">interaction flow</a>,
 and therefore indirectly invoke their ability to <code>BrowseTheWeb</code>:</p>
-<pre><code class="lang-typescript hljs typescript">actor.<span class="hljs-title function_">attemptsTo</span>(
-    <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">onElement</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'button'</span>)),
-)
+<pre class="language-typescript"><code class="lang-typescript">actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Click<span class="token punctuation">.</span><span class="token function">onElement</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'button'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
 </code></pre>
 <p>If you're wondering why you'd want to create a wrapper around the lower-level client you could just call directly from an <a href="(/handbook/design/interactions.html">interaction</a>, think about all the opportunities having a dedicated ability class presents:</p>
 <ul>

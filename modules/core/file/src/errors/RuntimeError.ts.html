@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,12 +291,12 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/errors/RuntimeError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/**
+ * @desc
  *  Base class for custom errors that may occur during execution of a test scenario.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Custom Error definition&lt;/caption&gt;
- * import { RuntimeError } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * @example &lt;caption&gt;Custom Error definition&lt;/caption&gt;
+ * import { RuntimeError } from '@serenity-js/core';
  *
  * export class CustomError extends RuntimeError {
  *   constructor(message: string, cause?: Error) {
@@ -307,7 +304,7 @@
  *   }
  * }
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Sync error handling&lt;/caption&gt;
+ * @example &lt;caption&gt;Sync error handling&lt;/caption&gt;
  * try {
  *     operationThatMightThrowAnError();
  * } catch(error) {
@@ -315,45 +312,45 @@
  *     throw new CustomError('operationThatMightThrowAnError has failed', error);
  * }
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Async error handling&lt;/caption&gt;
+ * @example &lt;caption&gt;Async error handling&lt;/caption&gt;
  * operationThatMightRejectAPromise().catch(error =&gt; {
  *     // catch and re-throw
  *     throw new CustomError('operationThatMightThrowAnError has failed', error);
  * });
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Error</span>}
+ * @extends {Error}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RuntimeError</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Error</span> {
+<span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">RuntimeError</span> <span class="token keyword">extends</span> <span class="token class-name">Error</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Function</span>} <span class="hljs-variable">type</span> - Constructor function used to instantiate a subclass of a RuntimeError
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">message</span> - Human-readable description of the error
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Error</span>} [cause] - The root cause of this {<span class="hljs-doctag">@link</span> RuntimeError}, if any
+    <span class="token comment">/**
+     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError
+     * @param {string} message - Human-readable description of the error
+     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">type</span>: <span class="hljs-keyword">new</span> (...args: <span class="hljs-built_in">any</span>[]) =&gt; RuntimeError,
-        message: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> cause?: <span class="hljs-built_in">Error</span>,
-    </span>) {
-        <span class="hljs-variable language_">super</span>(message);
-        <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">setPrototypeOf</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">type</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>;
+    <span class="token keyword">protected</span> <span class="token function">constructor</span><span class="token punctuation">(</span>
+        type<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> RuntimeError<span class="token punctuation">,</span>
+        message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+        <span class="token keyword">public</span> <span class="token keyword">readonly</span> cause<span class="token operator">?</span><span class="token operator">:</span> Error<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Object<span class="token punctuation">.</span><span class="token function">setPrototypeOf</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> type<span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
 
-        <span class="hljs-title class_">Error</span>.<span class="hljs-title function_">captureStackTrace</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-keyword">type</span>);
+        Error<span class="token punctuation">.</span><span class="token function">captureStackTrace</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> type<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">if</span> (cause) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">stack</span> = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.stack }</span>\nCaused by: <span class="hljs-subst">${ cause.stack }</span>`</span>;
-        }
-    }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>cause<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>stack <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>stack <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">\nCaused by: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> cause<span class="token punctuation">.</span>stack <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Human-readable description
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.message }</span>`</span>;
-    }
-}
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

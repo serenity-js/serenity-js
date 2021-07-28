@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,80 +291,80 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/ErrorSerialiser.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> JSONObject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> serenitySpecificErrors <span class="hljs-keyword">from</span> <span class="hljs-string">'../errors'</span>;
-<span class="hljs-keyword">import</span> { parse, stringify } <span class="hljs-keyword">from</span> <span class="hljs-string">'./json'</span>;
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> serenitySpecificErrors <span class="token keyword">from</span> <span class="token string">'../errors'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> parse<span class="token punctuation">,</span> stringify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./json'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
+<span class="token comment">/**
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">tiny-types~JSONObject</span>}
- * <span class="hljs-doctag">@public</span>
+ * @extends {tiny-types~JSONObject}
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerialisedError <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-comment">/**
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">SerialisedError</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
      *  Name of the constructor function used to instantiate
-     *  the original {<span class="hljs-doctag">@link</span> Error} object.
+     *  the original {@link Error} object.
      */</span>
-    <span class="hljs-attr">name</span>:    <span class="hljs-built_in">string</span>;
+    name<span class="token operator">:</span>    <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     *  Message of the original {<span class="hljs-doctag">@link</span> Error} object
+    <span class="token comment">/**
+     *  Message of the original {@link Error} object
      */</span>
-    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
+    message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     *  Stack trace of the original {<span class="hljs-doctag">@link</span> Error} object
+    <span class="token comment">/**
+     *  Stack trace of the original {@link Error} object
      */</span>
-    <span class="hljs-attr">stack</span>:   <span class="hljs-built_in">string</span>;
-}
+    stack<span class="token operator">:</span>   <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ErrorSerialiser</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> recognisedErrors = [
-        ...<span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(serenitySpecificErrors).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> serenitySpecificErrors[key]),
-        <span class="hljs-title class_">Error</span>,
-        <span class="hljs-title class_">EvalError</span>,
-        <span class="hljs-title class_">RangeError</span>,
-        <span class="hljs-title class_">ReferenceError</span>,
-        <span class="hljs-title class_">SyntaxError</span>,
-        <span class="hljs-title class_">TypeError</span>,
-        <span class="hljs-built_in">URIError</span>,
-    ];
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ErrorSerialiser</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> recognisedErrors <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token operator">...</span>Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>serenitySpecificErrors<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>key <span class="token operator">=&gt;</span> serenitySpecificErrors<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Error<span class="token punctuation">,</span>
+        EvalError<span class="token punctuation">,</span>
+        RangeError<span class="token punctuation">,</span>
+        ReferenceError<span class="token punctuation">,</span>
+        SyntaxError<span class="token punctuation">,</span>
+        TypeError<span class="token punctuation">,</span>
+        URIError<span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">serialise</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> serialisedError = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(error).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">serialised, key</span>) =&gt;</span> {
-            serialised[key] = error[key]
-            <span class="hljs-keyword">return</span> serialised;
-        }, { <span class="hljs-attr">name</span>: error.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span> || error.<span class="hljs-property">name</span> }) <span class="hljs-keyword">as</span> <span class="hljs-title class_">SerialisedError</span>;
+    <span class="token keyword">static</span> <span class="token function">serialise</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> serialisedError <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">getOwnPropertyNames</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>serialised<span class="token punctuation">,</span> key<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            serialised<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> error<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
+            <span class="token keyword">return</span> serialised<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> error<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token operator">||</span> error<span class="token punctuation">.</span>name <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token keyword">as</span> SerialisedError<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">stringify</span>(serialisedError);
-    }
+        <span class="token keyword">return</span> <span class="token function">stringify</span><span class="token punctuation">(</span>serialisedError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">static</span> deserialise&lt;E <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Error</span>&gt;(<span class="hljs-attr">stringifiedError</span>: <span class="hljs-built_in">string</span>): E {
-        <span class="hljs-keyword">const</span> serialisedError = <span class="hljs-title function_">parse</span>(stringifiedError) <span class="hljs-keyword">as</span> <span class="hljs-title class_">SerialisedError</span>;
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">deserialise</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">E</span> <span class="token keyword">extends</span> Error<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>stringifiedError<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">E</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> serialisedError <span class="token operator">=</span> <span class="token function">parse</span><span class="token punctuation">(</span>stringifiedError<span class="token punctuation">)</span> <span class="token keyword">as</span> SerialisedError<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> constructor = <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-property">recognisedErrors</span>.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">errorType</span> =&gt;</span> errorType.<span class="hljs-property">name</span> === serialisedError.<span class="hljs-property">name</span>) || <span class="hljs-title class_">Error</span>;
-        <span class="hljs-keyword">const</span> deserialised = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(constructor.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> property <span class="hljs-keyword">in</span> serialisedError) {
-            <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(serialisedError, property)) {
-                deserialised[property] = serialisedError[property];
-            }
-        }
-        <span class="hljs-keyword">return</span> deserialised;
-    }
+        <span class="token keyword">const</span> constructor <span class="token operator">=</span> ErrorSerialiser<span class="token punctuation">.</span>recognisedErrors<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>errorType <span class="token operator">=&gt;</span> errorType<span class="token punctuation">.</span>name <span class="token operator">===</span> serialisedError<span class="token punctuation">.</span>name<span class="token punctuation">)</span> <span class="token operator">||</span> Error<span class="token punctuation">;</span>
+        <span class="token keyword">const</span> deserialised <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>constructor<span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> property <span class="token keyword">in</span> serialisedError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>serialisedError<span class="token punctuation">,</span> property<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                deserialised<span class="token punctuation">[</span>property<span class="token punctuation">]</span> <span class="token operator">=</span> serialisedError<span class="token punctuation">[</span>property<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> deserialised<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">deserialiseFromStackTrace</span>(<span class="hljs-attr">stack</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Error</span> {
-        <span class="hljs-keyword">const</span> stackTracePattern = <span class="hljs-regexp">/^([^\s:]*Error).*?(?::\s)?(.*?)\n(^ +at.*)$/m</span>s;
+    <span class="token keyword">static</span> <span class="token function">deserialiseFromStackTrace</span><span class="token punctuation">(</span>stack<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Error <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> stackTracePattern <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^([^\s:]*Error).*?(?::\s)?(.*?)\n(^ +at.*)$</span><span class="token regex-delimiter">/</span><span class="token regex-flags">ms</span></span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">if</span> (! stackTracePattern.<span class="hljs-title function_">test</span>(stack)) {
-            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-title class_">String</span>(stack));
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> stackTracePattern<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>stack<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token function">String</span><span class="token punctuation">(</span>stack<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">const</span> [, name, message, callStack_ ] = stack.<span class="hljs-title function_">match</span>(stackTracePattern);
+        <span class="token keyword">const</span> <span class="token punctuation">[</span><span class="token punctuation">,</span> name<span class="token punctuation">,</span> message<span class="token punctuation">,</span> callStack_ <span class="token punctuation">]</span> <span class="token operator">=</span> stack<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span>stackTracePattern<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">ErrorSerialiser</span>.<span class="hljs-title function_">deserialise</span>(<span class="hljs-title function_">stringify</span>({ name, <span class="hljs-attr">message</span>: message.<span class="hljs-title function_">trim</span>(), stack }));
-    }
-}
+        <span class="token keyword">return</span> ErrorSerialiser<span class="token punctuation">.</span><span class="token function">deserialise</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token punctuation">,</span> message<span class="token operator">:</span> message<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stack <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -402,20 +402,6 @@ table.test-summary .test-target > span:first-child {
   line-height: 1.5;
 }
 
-#api-docs code {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-}
-
-#api-docs pre > code {
-  display: block;
-}
-
-#api-docs pre > code {
-  padding: 4px;
-  margin: 1em 0;
-  border-radius: 3px;
-}
-
 #api-docs p > code,
 #api-docs li > code {
   padding: 0.2em 0.5em;
@@ -425,6 +411,7 @@ table.test-summary .test-target > span:first-child {
   border-radius: 3px;
 }
 
+#api-docs code,
 #api-docs .code {
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 13px;
@@ -432,10 +419,7 @@ table.test-summary .test-target > span:first-child {
 
 #api-docs .import-path pre,
 #api-docs .import-path pre code {
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: white;
+  padding: 0.5em;
 }
 
 #api-docs .layout-container > header {
@@ -790,56 +774,6 @@ table.test-summary .test-target > span:first-child {
 #api-docs .example-caption + pre.source-code {
   margin-top: 0;
   border-top-left-radius: 0;
-}
-
-#api-docs pre.source-code {
-  padding: 4px;
-}
-
-#api-docs pre.raw-source-code > code {
-  font-size: 12px;
-  border: solid 1px #ddd;
-  line-height: 1.5;
-}
-
-#api-docs pre.raw-source-code > code > ol {
-  counter-reset: number;
-  list-style: none;
-  overflow: hidden;
-}
-
-#api-docs pre.raw-source-code > code > ol li:before {
-  counter-increment: number;
-  content: counter(number);
-  display: inline-block;
-  min-width: 3em;
-  color: #aaa;
-  text-align: right;
-  padding-right: 1em;
-}
-
-#api-docs pre.source-code.line-number {
-  padding: 0;
-}
-
-#api-docs pre.source-code ol {
-  background: #eee;
-  padding-left: 40px;
-}
-
-#api-docs pre.source-code li {
-  background: white;
-  padding-left: 4px;
-  list-style: decimal;
-  margin: 0;
-}
-
-#api-docs pre.source-code.line-number li.active {
-  background: #ffff96 !important;
-}
-
-#api-docs pre.source-code.line-number li.error-line {
-  background: #ffb8bf;
 }
 
 #api-docs .inner-link-active {

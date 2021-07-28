@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,7 +291,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Expectation</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Expectation<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/screenplay/questions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -672,17 +669,17 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Expectation <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">function</span> <span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-params">expected: Answerable&lt;<span class="hljs-built_in">number</span>&gt;</span>): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">number</span>&gt; {
-     <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>.<span class="hljs-property">thatActualShould</span>&lt;<span class="hljs-built_in">number</span>, <span class="hljs-built_in">number</span>&gt;(<span class="hljs-string">'have value divisible by'</span>, expected)
-         .<span class="hljs-title function_">soThat</span>(<span class="hljs-function">(<span class="hljs-params">actualValue, expectedValue</span>) =&gt;</span> actualValue % expectedValue === <span class="hljs-number">0</span>);
- }
+ <span class="token keyword">function</span> <span class="token function">isDivisibleBy</span><span class="token punctuation">(</span>expected<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+     <span class="token keyword">return</span> Expectation<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">thatActualShould</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token punctuation">,</span> <span class="token builtin">number</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'have value divisible by'</span><span class="token punctuation">,</span> expected<span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">soThat</span><span class="token punctuation">(</span><span class="token punctuation">(</span>actualValue<span class="token punctuation">,</span> expectedValue<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actualValue <span class="token operator">%</span> expectedValue <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>).<span class="hljs-title function_">attemptsTo</span>(
-     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">4</span>, <span class="hljs-title function_">isDivisibleBy</span>(<span class="hljs-number">2</span>)),
- );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Erica'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+     Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token function">isDivisibleBy</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 
@@ -767,21 +764,21 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, and, or, isGreaterThan, isLessThan, equals  } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Expectation <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> and<span class="token punctuation">,</span> or<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> isLessThan<span class="token punctuation">,</span> equals  <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">function</span> <span class="hljs-title function_">isWithin</span>(<span class="hljs-params">lowerBound: <span class="hljs-built_in">number</span>, upperBound: <span class="hljs-built_in">number</span></span>) {
-     <span class="hljs-keyword">return</span> <span class="hljs-title class_">Expectation</span>
-         .<span class="hljs-title function_">to</span>(<span class="hljs-string">`have value within <span class="hljs-subst">${ lowerBound }</span> and <span class="hljs-subst">${ upperBound }</span>`</span>)
-         .<span class="hljs-title function_">soThatActual</span>(<span class="hljs-title function_">and</span>(
-             <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isGreaterThan</span>(lowerBound), <span class="hljs-title function_">equals</span>(lowerBound)),
-             <span class="hljs-title function_">or</span>(<span class="hljs-title function_">isLessThan</span>(upperBound), <span class="hljs-title function_">equals</span>(upperBound)),
-         ));
- }
+ <span class="token keyword">function</span> <span class="token function">isWithin</span><span class="token punctuation">(</span>lowerBound<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> upperBound<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">return</span> Expectation
+         <span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">have value within </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> lowerBound <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> upperBound <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">soThatActual</span><span class="token punctuation">(</span><span class="token function">and</span><span class="token punctuation">(</span>
+             <span class="token function">or</span><span class="token punctuation">(</span><span class="token function">isGreaterThan</span><span class="token punctuation">(</span>lowerBound<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span>lowerBound<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+             <span class="token function">or</span><span class="token punctuation">(</span><span class="token function">isLessThan</span><span class="token punctuation">(</span>upperBound<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span>upperBound<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Erica'</span>).<span class="hljs-title function_">attemptsTo</span>(
-     <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-number">5</span>, <span class="hljs-title function_">isWithin</span>(<span class="hljs-number">3</span>, <span class="hljs-number">6</span>)),
- );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Erica'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+     Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token function">isWithin</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 

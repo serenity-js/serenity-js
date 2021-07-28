@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,35 +291,35 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Expectation.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-title class_">ExpectationOutcome</span>  } <span class="hljs-keyword">from</span> <span class="hljs-string">'./expectations'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable<span class="token punctuation">,</span> AnswersQuestions<span class="token punctuation">,</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ExpectationMet<span class="token punctuation">,</span> ExpectationNotMet<span class="token punctuation">,</span> ExpectationOutcome  <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./expectations'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@public</span>
+<span class="token comment">/**
+ * @public
  *
- * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">function(actual: A, expected: E) =&gt; boolean</span>} Predicate&lt;A,E&gt;
+ * @typedef {function(actual: A, expected: E) =&gt; boolean} Predicate&lt;A,E&gt;
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Predicate</span>&lt;A, E&gt; = <span class="hljs-function">(<span class="hljs-params">actual: A, expected: E</span>) =&gt;</span> <span class="hljs-built_in">boolean</span>;
+<span class="token keyword">export</span> <span class="token keyword">type</span> <span class="token class-name">Predicate<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">E</span><span class="token operator">&gt;</span></span> <span class="token operator">=</span> <span class="token punctuation">(</span>actual<span class="token operator">:</span> <span class="token constant">A</span><span class="token punctuation">,</span> expected<span class="token operator">:</span> <span class="token constant">E</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Defines an expectation to be used with [assertions](/modules/assertions)
- *  and {<span class="hljs-doctag">@link</span> Question}s like {<span class="hljs-doctag">@link</span> List}.
+ *  and {@link Question}s like {@link List}.
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Question</span>}
+ * @extends {Question}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span> = <span class="hljs-title class_">Expected</span>&gt;
-    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt;&gt;&gt;
-{
+<span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">Expectation<span class="token operator">&lt;</span>Expected<span class="token punctuation">,</span> Actual <span class="token operator">=</span> Expected<span class="token operator">&gt;</span></span>
+    <span class="token keyword">extends</span> <span class="token class-name">Question<span class="token operator">&lt;</span><span class="token punctuation">(</span>actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span> <span class="token operator">=&gt;</span></span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>ExpectationOutcome<span class="token operator">&lt;</span>Expected<span class="token punctuation">,</span> Actual<span class="token operator">&gt;&gt;&gt;</span>
+<span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Used to define a simple {<span class="hljs-doctag">@link</span> Expectation}
+    <span class="token comment">/**
+     * @desc
+     *  Used to define a simple {@link Expectation}
      *
-     * <span class="hljs-doctag">@example</span>
-     *  import { actorCalled, Expectation } from '<span class="hljs-doctag">@serenity</span>-js/core';
-     *  import { Ensure } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     * @example
+     *  import { actorCalled, Expectation } from '@serenity-js/core';
+     *  import { Ensure } from '@serenity-js/assertions';
      *
      *  function isDivisibleBy(expected: Answerable&lt;number&gt;): Expectation&lt;number&gt; {
      *      return Expectation.thatActualShould&lt;number, number&gt;('have value divisible by', expected)
@@ -333,28 +330,28 @@
      *      Ensure.that(4, isDivisibleBy(2)),
      *  );
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">relationshipName</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;E&gt;</span>} <span class="hljs-variable">expectedValue</span>
+     * @param {string} relationshipName
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;E&gt;} expectedValue
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">"soThat": function(predicate: Predicate&lt;A,E&gt;): Expectation&lt;E, A&gt;</span>}
+     * @returns {"soThat": function(predicate: Predicate&lt;A,E&gt;): Expectation&lt;E, A&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> thatActualShould&lt;E, A&gt;(<span class="hljs-attr">relationshipName</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">expectedValue</span>: <span class="hljs-title class_">Answerable</span>&lt;E&gt;): {
-        <span class="hljs-attr">soThat</span>: <span class="hljs-function">(<span class="hljs-params">predicate: Predicate&lt;A, E&gt;</span>) =&gt;</span> <span class="hljs-title class_">Expectation</span>&lt;E, A&gt;,
-    } {
-        <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">soThat</span>: (<span class="hljs-attr">predicate</span>: <span class="hljs-title class_">Predicate</span>&lt;A, E&gt;): <span class="hljs-title class_">Expectation</span>&lt;E, A&gt; =&gt; {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DynamicallyGeneratedExpectation</span>&lt;E, A&gt;(relationshipName, predicate, expectedValue);
-            },
-        });
-    }
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">thatActualShould</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">E</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>relationshipName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> expectedValue<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token constant">E</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token function-variable function">soThat</span><span class="token operator">:</span> <span class="token punctuation">(</span>predicate<span class="token operator">:</span> Predicate<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">E</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Expectation<span class="token operator">&lt;</span><span class="token constant">E</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+            soThat<span class="token operator">:</span> <span class="token punctuation">(</span>predicate<span class="token operator">:</span> Predicate<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token punctuation">,</span> <span class="token constant">E</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token constant">E</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">DynamicallyGeneratedExpectation<span class="token operator">&lt;</span><span class="token constant">E</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span></span><span class="token punctuation">(</span>relationshipName<span class="token punctuation">,</span> predicate<span class="token punctuation">,</span> expectedValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Used to compose {<span class="hljs-doctag">@link</span> Expectation}s.
+    <span class="token comment">/**
+     * @desc
+     *  Used to compose {@link Expectation}s.
      *
-     * <span class="hljs-doctag">@example</span>
-     *  import { actorCalled, Expectation } from '<span class="hljs-doctag">@serenity</span>-js/core';
-     *  import { Ensure, and, or, isGreaterThan, isLessThan, equals  } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     * @example
+     *  import { actorCalled, Expectation } from '@serenity-js/core';
+     *  import { Ensure, and, or, isGreaterThan, isLessThan, equals  } from '@serenity-js/assertions';
      *
      *  function isWithin(lowerBound: number, upperBound: number) {
      *      return Expectation
@@ -369,67 +366,67 @@
      *      Ensure.that(5, isWithin(3, 6)),
      *  );
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">relationshipName</span>
+     * @param {string} relationshipName
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">"soThat": function(...expectations: Array&lt;Expectation&lt;any, A&gt;&gt;): Expectation&lt;any, A&gt;</span>}
+     * @returns {"soThat": function(...expectations: Array&lt;Expectation&lt;any, A&gt;&gt;): Expectation&lt;any, A&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> to&lt;A&gt;(<span class="hljs-attr">relationshipName</span>: <span class="hljs-built_in">string</span>): {
-        <span class="hljs-attr">soThatActual</span>: <span class="hljs-function">(<span class="hljs-params">...expectations: <span class="hljs-built_in">Array</span>&lt;Expectation&lt;<span class="hljs-built_in">any</span>, A&gt;&gt;</span>) =&gt;</span> <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;,
-    } {
-        <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">soThatActual</span>: (<span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;): <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt; =&gt; {
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationAlias</span>&lt;A&gt;(relationshipName, expectation);
-            },
-        };
-    }
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">to</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>relationshipName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token function-variable function">soThatActual</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token operator">...</span>expectations<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+            soThatActual<span class="token operator">:</span> <span class="token punctuation">(</span>expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExpectationAlias<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span></span><span class="token punctuation">(</span>relationshipName<span class="token punctuation">,</span> expectation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt;&gt;;
-}
+    <span class="token keyword">abstract</span> <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">(</span>actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>ExpectationOutcome<span class="token operator">&lt;</span>Expected<span class="token punctuation">,</span> Actual<span class="token operator">&gt;&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">DynamicallyGeneratedExpectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Expectation</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt; {
+<span class="token keyword">class</span> <span class="token class-name">DynamicallyGeneratedExpectation<span class="token operator">&lt;</span>Expected<span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">Expectation<span class="token operator">&lt;</span>Expected<span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> description: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> predicate: Predicate&lt;Actual, Expected&gt;,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectedValue: Answerable&lt;Expected&gt;,
-    </span>) {
-        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> <span class="hljs-subst">${ formatted <span class="hljs-string">`<span class="hljs-subst">${ expectedValue }</span>`</span> }</span>`</span>);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> predicate<span class="token operator">:</span> Predicate<span class="token operator">&lt;</span>Actual<span class="token punctuation">,</span> Expected<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> expectedValue<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Expected<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> description <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> expectedValue <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-title class_">Expected</span>, <span class="hljs-title class_">Actual</span>&gt;&gt; {
+    <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">(</span>actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>ExpectationOutcome<span class="token operator">&lt;</span>Expected<span class="token punctuation">,</span> Actual<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">expectedValue</span>)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">expected</span> =&gt;</span> {
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">predicate</span>(actual, expected)
-                    ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), expected, actual)
-                    : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), expected, actual);
-            });
-    }
-}
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>expectedValue<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>expected <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">predicate</span><span class="token punctuation">(</span>actual<span class="token punctuation">,</span> expected<span class="token punctuation">)</span>
+                    <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">ExpectationMet</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> expected<span class="token punctuation">,</span> actual<span class="token punctuation">)</span>
+                    <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">ExpectationNotMet</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> expected<span class="token punctuation">,</span> actual<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ExpectationAlias</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt; {
+<span class="token keyword">class</span> <span class="token class-name">ExpectationAlias<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        subject: <span class="hljs-built_in">string</span>,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Actual&gt;,
-    </span>) {
-        <span class="hljs-variable language_">super</span>(subject);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        subject<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>subject<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;&gt; {
+    <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">(</span>actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>ExpectationOutcome<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">actual: Actual</span>) =&gt;</span>
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>.<span class="hljs-title function_">answeredBy</span>(actor)(actual).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _ <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>
-                ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationMet</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">subject</span>, _.<span class="hljs-property">expected</span>, _.<span class="hljs-property">actual</span>)
-                : <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExpectationNotMet</span>(_.<span class="hljs-property">message</span>, _.<span class="hljs-property">expected</span>, _.<span class="hljs-property">actual</span>));
-    }
-}
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>expectation<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">(</span>actual<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _ <span class="token keyword">instanceof</span> <span class="token class-name">ExpectationMet</span>
+                <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">ExpectationMet</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>subject<span class="token punctuation">,</span> _<span class="token punctuation">.</span>expected<span class="token punctuation">,</span> _<span class="token punctuation">.</span>actual<span class="token punctuation">)</span>
+                <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">ExpectationNotMet</span><span class="token punctuation">(</span>_<span class="token punctuation">.</span>message<span class="token punctuation">,</span> _<span class="token punctuation">.</span>expected<span class="token punctuation">,</span> _<span class="token punctuation">.</span>actual<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

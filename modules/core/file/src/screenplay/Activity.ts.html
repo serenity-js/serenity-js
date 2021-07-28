@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,40 +291,40 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Activity.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">PerformsActivities</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./actor'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> PerformsActivities<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./actor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  A command object representing an activity that an {<span class="hljs-doctag">@link</span> Actor} can perform.
+<span class="token comment">/**
+ * @desc
+ *  A command object representing an activity that an {@link Actor} can perform.
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
- * <span class="hljs-doctag">@see</span> https://en.wikipedia.org/wiki/Command_pattern
+ * @see {@link Actor}
+ * @see https://en.wikipedia.org/wiki/Command_pattern
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Activity {
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Activity</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> Actor}
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link Actor}
      *  perform this Activity.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">PerformsActivities | UsesAbilities | AnswersQuestions</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     * @param {PerformsActivities | UsesAbilities | AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link PerformsActivities</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link UsesAbilities</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AnswersQuestions</span>}
+     * @see {@link Actor}
+     * @see {@link PerformsActivities}
+     * @see {@link UsesAbilities}
+     * @see {@link AnswersQuestions}
      */</span>
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsActivities</span> | <span class="hljs-title class_">UsesAbilities</span> | <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">any</span>&gt;;
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsActivities <span class="token operator">|</span> UsesAbilities <span class="token operator">|</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Generates a description to be used when reporting this Activity.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span>;
-}
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

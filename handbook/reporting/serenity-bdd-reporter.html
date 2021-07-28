@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -158,17 +155,17 @@
 
 <h2 id="installation">Installation</h2>
 <p>To use the <code>SerenityBDDReporter</code>, install the <code>@serenity-js/serenity-bdd</code> module:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,serenity-bdd}</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span>serenity<span class="token operator">-</span>bdd<span class="token punctuation">}</span>
 </code></pre>
 <p>To generate Serenity BDD HTML reports, you'll need the Serenity BDD Reporting CLI. You can download it using the <code>serenity-bdd</code> command available as part of this module:</p>
-<pre><code class="lang-console hljs plaintext">npx serenity-bdd update
+<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd update
 </code></pre>
 <p>The best way to ensure you always have the latest version of the CLI available is to run <code>serenity-bdd update</code> whenever you run <code>npm install</code>. To automate this process, add the below entry to your <code>package.json</code>: </p>
-<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">"postinstall"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update"</span>
-  <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span>
+<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p><strong>Please note</strong>: Serenity BDD Reporting CLI is a Java library, so make sure you have installed the <a href="/handbook/integration/runtime-dependencies.html#java-runtime-environment">Java Runtime Environment</a>.</p>
 <h2 id="integration">Integration</h2>
@@ -232,35 +229,35 @@ graph TB
 
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/serenity-bdd/class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html"><code>SerenityBDDReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>, together with the <a href="/handbook/reporting/artifact-archiver.html"><code>ArtifactArchiver</code></a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, <span class="hljs-title class_">ArtifactArchiver</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure<span class="token punctuation">,</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(),
-        <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        ArtifactArchiver<span class="token punctuation">.</span><span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token string">'./target/site/serenity'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>When your test suite has finished running, generate the Serenity BDD reports by executing the following command in your terminal:</p>
-<pre><code class="lang-console hljs plaintext">npx serenity-bdd run
+<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd run
 </code></pre>
 <p>To automate this process, install the following additional modules:</p>
-<pre><code class="lang-console hljs plaintext">npm install --save-dev rimraf npm-failsafe
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev rimraf npm<span class="token operator">-</span>failsafe
 </code></pre>
 <p>Next, add the below scripts to your <code>package.json</code>:</p>
-<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">"postinstall"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"failsafe test:clean test:run test:report"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test:clean"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"rimraf target/site/serenity"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test:run"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/* invoke your test runner of choice, i.e. cucumber-js */"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run"</span>    
-  <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span>
+<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update"</span><span class="token punctuation">,</span>
+    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"failsafe test:clean test:run test:report"</span><span class="token punctuation">,</span>
+    <span class="token property">"test:clean"</span><span class="token operator">:</span> <span class="token string">"rimraf target/site/serenity"</span><span class="token punctuation">,</span>
+    <span class="token property">"test:run"</span><span class="token operator">:</span> <span class="token string">"/* invoke your test runner of choice, i.e. cucumber-js */"</span><span class="token punctuation">,</span>
+    <span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run"</span>    
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Now to run your test suite, execute:</p>
-<pre><code class="lang-console hljs bash">npm <span class="hljs-built_in">test</span>
+<pre class="language-typescript"><code class="lang-console">npm test
 </code></pre>
 <p>The above command invokes:</p>
 <ul>

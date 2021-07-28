@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -132,58 +129,58 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/restarting.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, actorCalled, actorInTheSpotlight, <span class="hljs-title class_">Cast</span>, configure, <span class="hljs-title class_">Log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-<span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
-<span class="hljs-keyword">import</span> { satisfies } <span class="hljs-keyword">from</span> <span class="hljs-string">'semver'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> actorCalled<span class="token punctuation">,</span> actorInTheSpotlight<span class="token punctuation">,</span> Cast<span class="token punctuation">,</span> configure<span class="token punctuation">,</span> Log <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CallAnApi <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> given <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha-testdata'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> satisfies <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'semver'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LocalServer</span>, <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">StartLocalServer</span>, <span class="hljs-title class_">StopLocalServer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src'</span>;
-<span class="hljs-keyword">import</span> servers = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./servers'</span>);
+<span class="token keyword">import</span> <span class="token punctuation">{</span> LocalServer<span class="token punctuation">,</span> ManageALocalServer<span class="token punctuation">,</span> StartLocalServer<span class="token punctuation">,</span> StopLocalServer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> servers <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'./servers'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ManageALocalServer'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'ManageALocalServer'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ManageALocalServer</span>} */</span>
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'restarting'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token comment">/** @test {ManageALocalServer} */</span>
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'restarting'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">given</span>(servers).
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the Actor to restart a server on the same port multiple times'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">{ handler, node }</span>) {
-            <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">satisfies</span>(process.<span class="hljs-property">versions</span>.<span class="hljs-property">node</span>, node)) {
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">skip</span>();
-            }
+        <span class="token function">given</span><span class="token punctuation">(</span>servers<span class="token punctuation">)</span><span class="token punctuation">.</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the Actor to restart a server on the same port multiple times'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> handler<span class="token punctuation">,</span> node <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token function">satisfies</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>versions<span class="token punctuation">.</span>node<span class="token punctuation">,</span> node<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">skip</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-                <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-                    <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
-                        <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">runningAHttpListener</span>(<span class="hljs-title function_">handler</span>()),
-                        <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(axios.<span class="hljs-title function_">create</span>()),
-                    );
-                }
-            }
+            <span class="token keyword">class</span> <span class="token class-name">Actors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+                <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
+                        ManageALocalServer<span class="token punctuation">.</span><span class="token function">runningAHttpListener</span><span class="token punctuation">(</span><span class="token function">handler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        CallAnApi<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
 
-            <span class="hljs-title function_">configure</span>({
-                <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>(),
-            });
+            <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                actors<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nadia'</span>).<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onPort</span>(<span class="hljs-number">30000</span>),
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'http://127.0.0.1:30000'</span>)),
-                <span class="hljs-title class_">StopLocalServer</span>.<span class="hljs-title function_">ifRunning</span>(),
-                <span class="hljs-title class_">StartLocalServer</span>.<span class="hljs-title function_">onPort</span>(<span class="hljs-number">30000</span>),
-                <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>()),
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'http://127.0.0.1:30000'</span>)),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
-        });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Nadia'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                StartLocalServer<span class="token punctuation">.</span><span class="token function">onPort</span><span class="token punctuation">(</span><span class="token number">30000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LocalServer<span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'http://127.0.0.1:30000'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                StopLocalServer<span class="token punctuation">.</span><span class="token function">ifRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                StartLocalServer<span class="token punctuation">.</span><span class="token function">onPort</span><span class="token punctuation">(</span><span class="token number">30000</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>LocalServer<span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LocalServer<span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'http://127.0.0.1:30000'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>fulfilled<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">StopLocalServer</span>.<span class="hljs-title function_">ifRunning</span>(),
-        ));
-    });
-});
+        <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            StopLocalServer<span class="token punctuation">.</span><span class="token function">ifRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

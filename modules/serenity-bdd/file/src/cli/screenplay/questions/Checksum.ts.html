@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,31 +125,31 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/screenplay/questions/Checksum.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { createHash } <span class="hljs-keyword">from</span> <span class="hljs-string">'crypto'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> createHash <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'crypto'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UseFileSystem</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> UseFileSystem <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../abilities'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">Checksum</span> = {
-    <span class="hljs-attr">of</span>: <span class="hljs-function">(<span class="hljs-params">destination: Path</span>) =&gt;</span> ({   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
-        <span class="hljs-attr">calculatedUsing</span>: <span class="hljs-function">(<span class="hljs-params">hashingAlgorithm: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-            <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">`checksum of <span class="hljs-subst">${ destination.value }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> hash = <span class="hljs-title function_">createHash</span>(hashingAlgorithm);
+<span class="token keyword">export</span> <span class="token keyword">const</span> Checksum <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">of</span><span class="token operator">:</span> <span class="token punctuation">(</span>destination<span class="token operator">:</span> Path<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>   <span class="token comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+        <span class="token function-variable function">calculatedUsing</span><span class="token operator">:</span> <span class="token punctuation">(</span>hashingAlgorithm<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            Question<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">about</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;&gt;</span></span></span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">checksum of </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> destination<span class="token punctuation">.</span>value <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> hash <span class="token operator">=</span> <span class="token function">createHash</span><span class="token punctuation">(</span>hashingAlgorithm<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> input = <span class="hljs-title class_">UseFileSystem</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">createReadStream</span>(destination);
+                <span class="token keyword">const</span> input <span class="token operator">=</span> UseFileSystem<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span>destination<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-                    input.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> hash.<span class="hljs-title function_">update</span>(data));
-                    input.<span class="hljs-title function_">on</span>(<span class="hljs-string">'end'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">resolve</span>(hash.<span class="hljs-title function_">digest</span>(<span class="hljs-string">'hex'</span>)));
-                    input.<span class="hljs-title function_">on</span>(<span class="hljs-string">'error'</span>, <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> <span class="hljs-title function_">reject</span>(error));
-                });
-            }),
-    }),
-};
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    input<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> data <span class="token operator">=&gt;</span> hash<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    input<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'end'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">resolve</span><span class="token punctuation">(</span>hash<span class="token punctuation">.</span><span class="token function">digest</span><span class="token punctuation">(</span><span class="token string">'hex'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    input<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> error <span class="token operator">=&gt;</span> <span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

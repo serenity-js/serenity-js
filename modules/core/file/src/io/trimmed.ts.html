@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,33 +291,33 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/trimmed.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<pre class="source-code line-number raw-source-code language-markup"><code class="linenums" data-ice="content">/**
+ * @desc
  *  A tag function trimming the leading and trailing whitespace from multi-line strings.
  *
- * <span class="hljs-doctag">@link</span> https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
+ * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">TemplateStringsArray</span>} <span class="hljs-variable">templates</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Array&lt;string&gt;</span>} <span class="hljs-variable">placeholders</span>
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">trimmed</span>(<span class="hljs-params">templates: TemplateStringsArray, ...placeholders: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-built_in">string</span> {
+ * @param {TemplateStringsArray} templates
+ * @param {Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>} placeholders
+ * @returns {string}
+ */
+export function trimmed(templates: TemplateStringsArray, ...placeholders: string[]): string {
 
-    <span class="hljs-keyword">const</span> lines = templates
-        .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">template, i</span>) =&gt;</span> i &lt; placeholders.<span class="hljs-property">length</span>
+    const lines = templates
+        .map((template, i) =&gt; i &lt; placeholders.length
             ? [ template, placeholders[i] ]
             : [ template ])
-        .<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, tuple</span>) =&gt;</span> acc.<span class="hljs-title function_">concat</span>(tuple))
-        .<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>)
-        .<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>);
+        .reduce((acc, tuple) =&gt; acc.concat(tuple))
+        .join('')
+        .split('\n');
 
-    <span class="hljs-keyword">const</span> nonEmptyLines = lines
-        .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">trim</span>())
-        .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> !! line);
+    const nonEmptyLines = lines
+        .map(line =&gt; line.trim())
+        .filter(line =&gt; !! line);
 
-    <span class="hljs-keyword">return</span> nonEmptyLines
-        .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/\|\s?(.*)$/</span>, <span class="hljs-string">'$1\n'</span>))
-        .<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);
+    return nonEmptyLines
+        .map(line =&gt; line.replace(/\|\s?(.*)$/, '$1\n'))
+        .join('');
 }
 </code></pre>
 

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,20 +135,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/CallAnApi.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">TestCompromisedError</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> axios, { <span class="hljs-title class_">AxiosError</span>, <span class="hljs-title class_">AxiosInstance</span>, <span class="hljs-title class_">AxiosPromise</span>, <span class="hljs-title class_">AxiosRequestConfig</span>, <span class="hljs-title class_">AxiosResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-<span class="hljs-keyword">const</span> mergeConfig = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/lib/core/mergeConfig'</span>);      <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
-<span class="hljs-keyword">const</span> buildFullPath = <span class="hljs-built_in">require</span>(<span class="hljs-string">'axios/lib/core/buildFullPath'</span>);  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> ConfigurationError<span class="token punctuation">,</span> LogicError<span class="token punctuation">,</span> TestCompromisedError<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> axios<span class="token punctuation">,</span> <span class="token punctuation">{</span> AxiosError<span class="token punctuation">,</span> AxiosInstance<span class="token punctuation">,</span> AxiosPromise<span class="token punctuation">,</span> AxiosRequestConfig<span class="token punctuation">,</span> AxiosResponse <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> mergeConfig <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'axios/lib/core/mergeConfig'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>      <span class="token comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+<span class="token keyword">const</span> buildFullPath <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'axios/lib/core/buildFullPath'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link</span> Actor} to call a HTTP API.
+<span class="token comment">/**
+ * @desc
+ *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link Actor} to call a HTTP API.
  *  If you need to connect via a proxy, check out [this article](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d).
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using a default Axios HTTP client&lt;/caption&gt;
- *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
- *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Using a default Axios HTTP client&lt;/caption&gt;
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  const actor = Actor.named('Apisit').whoCan(
  *      CallAnApi.at('https://myapp.com/api'),
@@ -162,10 +159,10 @@
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using Axios client with custom configuration&lt;/caption&gt;
- *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
- *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Using Axios client with custom configuration&lt;/caption&gt;
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  import axios from 'axios';
  *
@@ -185,19 +182,19 @@
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * <span class="hljs-doctag">@see</span> https://github.com/axios/axios
- * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+ * @see https://github.com/axios/axios
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
  *
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay~Ability</span>}
+ * @public
+ * @implements {@link @serenity-js/core/lib/screenplay~Ability}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CallAnApi</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CallAnApi</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@private</span> */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-attr">lastResponse</span>: <span class="hljs-title class_">AxiosResponse</span>;
+    <span class="token comment">/** @private */</span>
+    <span class="token keyword">private</span> lastResponse<span class="token operator">:</span> AxiosResponse<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Ability to Call and api at a specified baseUrl
      *
      *  Default timeout is set to 2s.
@@ -205,152 +202,152 @@
      *  Default request headers:
      *  - Accept: application/json,application/xml
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">baseURL</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">CallAnApi</span>}
+     * @param {string} baseURL
+     * @returns {CallAnApi}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">at</span>(<span class="hljs-attr">baseURL</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">CallAnApi</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CallAnApi</span>(axios.<span class="hljs-title function_">create</span>({
-            baseURL,
-            <span class="hljs-attr">timeout</span>: <span class="hljs-number">2000</span>,
-            <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Accept</span>: <span class="hljs-string">'application/json,application/xml'</span> },
-        }));
-    }
+    <span class="token keyword">static</span> <span class="token function">at</span><span class="token punctuation">(</span>baseURL<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> CallAnApi <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CallAnApi</span><span class="token punctuation">(</span>axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            baseURL<span class="token punctuation">,</span>
+            timeout<span class="token operator">:</span> <span class="token number">2000</span><span class="token punctuation">,</span>
+            headers<span class="token operator">:</span> <span class="token punctuation">{</span> Accept<span class="token operator">:</span> <span class="token string">'application/json,application/xml'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Ability to Call a REST API using a given axios instance.
      *
      *  Useful when you need to customise Axios to
      *  [make it aware of proxies](https://janmolak.com/node-js-axios-behind-corporate-proxies-8b17a6f31f9d),
      *  for example.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosInstance</span>} <span class="hljs-variable">axiosInstance</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">CallAnApi</span>}
+     * @param {AxiosInstance} axiosInstance
+     * @returns {CallAnApi}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosInstance</span>}
+     * @see {@link AxiosInstance}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">using</span>(<span class="hljs-attr">axiosInstance</span>: <span class="hljs-title class_">AxiosInstance</span>): <span class="hljs-title class_">CallAnApi</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CallAnApi</span>(axiosInstance);
-    }
+    <span class="token keyword">static</span> <span class="token function">using</span><span class="token punctuation">(</span>axiosInstance<span class="token operator">:</span> AxiosInstance<span class="token punctuation">)</span><span class="token operator">:</span> CallAnApi <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CallAnApi</span><span class="token punctuation">(</span>axiosInstance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Used to access the Actor's ability to {<span class="hljs-doctag">@link</span> CallAnApi}
-     *  from within the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} classes,
-     *  such as {<span class="hljs-doctag">@link</span> Send}.
+    <span class="token comment">/**
+     * @desc
+     *  Used to access the Actor's ability to {@link CallAnApi}
+     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
+     *  such as {@link Send}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">CallAnApi</span>}
+     * @param {UsesAbilities} actor
+     * @return {CallAnApi}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">CallAnApi</span> {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">CallAnApi</span>);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> CallAnApi <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">abilityTo</span><span class="token punctuation">(</span>CallAnApi<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosInstance</span>} <span class="hljs-variable">axiosInstance</span>
+    <span class="token comment">/**
+     * @param {AxiosInstance} axiosInstance
      *  A pre-configured instance of the Axios HTTP client
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosInstance</span>}
+     * @see {@link AxiosInstance}
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> axiosInstance: AxiosInstance</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> axiosInstance<span class="token operator">:</span> AxiosInstance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Allows for the original Axios config to be changed after
-     *  the {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}
-     *  has been instantiated and given to the {<span class="hljs-doctag">@link</span> Actor}.
+     *  the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}
+     *  has been instantiated and given to the {@link Actor}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function (original: AxiosRequestConfig): any</span>} <span class="hljs-variable">fn</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
+     * @param {function (original: AxiosRequestConfig): any} fn
+     * @returns {void}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
+     * @see {@link AxiosRequestConfig}
      */</span>
-    <span class="hljs-title function_">modifyConfig</span>(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">original: AxiosRequestConfig</span>) =&gt;</span> <span class="hljs-built_in">any</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">axiosInstance</span>.<span class="hljs-property">defaults</span>);
-    }
+    <span class="token function">modifyConfig</span><span class="token punctuation">(</span><span class="token function-variable function">fn</span><span class="token operator">:</span> <span class="token punctuation">(</span>original<span class="token operator">:</span> AxiosRequestConfig<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>axiosInstance<span class="token punctuation">.</span>defaults<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Sends a HTTP request to a specified url.
-     *  Response will be cached and available via {<span class="hljs-doctag">@link</span> CallAnApi#mapLastResponse}
+     *  Response will be cached and available via {@link CallAnApi#mapLastResponse}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosRequestConfig</span>} <span class="hljs-variable">config</span>
+     * @param {AxiosRequestConfig} config
      *  Axios request configuration, which can be used to override the defaults
-     *  provided when the {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} is instantiated
+     *  provided when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} is instantiated
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;AxiosResponse&gt;</span>}
+     * @returns {Promise&lt;AxiosResponse&gt;}
      *  A promise of an AxiosResponse
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosResponse</span>}
+     * @see {@link AxiosRequestConfig}
+     * @see {@link AxiosResponse}
      */</span>
-    <span class="hljs-title function_">request</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">AxiosRequestConfig</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">AxiosResponse</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">captureResponseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">axiosInstance</span>.<span class="hljs-title function_">request</span>(config));
-    }
+    <span class="token function">request</span><span class="token punctuation">(</span>config<span class="token operator">:</span> AxiosRequestConfig<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>AxiosResponse<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">captureResponseOf</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>axiosInstance<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Resolves the final URL, based on the {<span class="hljs-doctag">@link</span> AxiosRequestConfig} provided
-     *  any any defaults {<span class="hljs-doctag">@link</span> AxiosInstance} has been configured with.
+    <span class="token comment">/**
+     * @desc
+     *  Resolves the final URL, based on the {@link AxiosRequestConfig} provided
+     *  any any defaults {@link AxiosInstance} has been configured with.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AxiosRequestConfig</span>} <span class="hljs-variable">config</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @param {AxiosRequestConfig} config
+     * @returns {string}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosInstance</span>}
+     * @see {@link AxiosRequestConfig}
+     * @see {@link AxiosInstance}
      */</span>
-    <span class="hljs-title function_">resolveUrl</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">AxiosRequestConfig</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> merged = <span class="hljs-title function_">mergeConfig</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">axiosInstance</span>.<span class="hljs-property">defaults</span>, config);
+    <span class="token function">resolveUrl</span><span class="token punctuation">(</span>config<span class="token operator">:</span> AxiosRequestConfig<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> merged <span class="token operator">=</span> <span class="token function">mergeConfig</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>axiosInstance<span class="token punctuation">.</span>defaults<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">buildFullPath</span>(merged.<span class="hljs-property">baseURL</span>, merged.<span class="hljs-property">url</span>);
-    }
+        <span class="token keyword">return</span> <span class="token function">buildFullPath</span><span class="token punctuation">(</span>merged<span class="token punctuation">.</span>baseURL<span class="token punctuation">,</span> merged<span class="token punctuation">.</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Maps the last cached response to another type.
-     *  Useful when you need to extract a portion of the {<span class="hljs-doctag">@link</span> AxiosResponse} object.
+     *  Useful when you need to extract a portion of the {@link AxiosResponse} object.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function&lt;T&gt;(AxiosResponse): T</span>} <span class="hljs-variable">fn</span> - mapper function
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">T</span>}
+     * @param {function&lt;T&gt;(AxiosResponse): T} fn - mapper function
+     * @returns {T}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosResponse</span>}
+     * @see {@link AxiosResponse}
      */</span>
-    mapLastResponse&lt;T&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> T): T {
-        <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span>) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(<span class="hljs-string">`Make sure to perform a HTTP API call before checking on the response`</span>);
-        }
+    <span class="token generic-function"><span class="token function">mapLastResponse</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token function-variable function">fn</span><span class="token operator">:</span> <span class="token punctuation">(</span>response<span class="token operator">:</span> AxiosResponse<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">T</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>lastResponse<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">LogicError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Make sure to perform a HTTP API call before checking on the response</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span>);
-    }
+        <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>lastResponse<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">captureResponseOf</span>(<span class="hljs-attr">promisedResponse</span>: <span class="hljs-title class_">AxiosPromise</span>): <span class="hljs-title class_">AxiosPromise</span> {
-        <span class="hljs-keyword">return</span> promisedResponse
-            .<span class="hljs-title function_">then</span>(
-                <span class="hljs-function"><span class="hljs-params">lastResponse</span> =&gt;</span> {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span> = lastResponse;
+    <span class="token keyword">private</span> <span class="token function">captureResponseOf</span><span class="token punctuation">(</span>promisedResponse<span class="token operator">:</span> AxiosPromise<span class="token punctuation">)</span><span class="token operator">:</span> AxiosPromise <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> promisedResponse
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>
+                lastResponse <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>lastResponse <span class="token operator">=</span> lastResponse<span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">return</span> lastResponse;
-                },
-                <span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                    <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-                        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/timeout.*exceeded/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`The request has timed out`</span>, error);
-                        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/Network Error/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`A network error has occurred`</span>, error);
-                        <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TypeError</span>:
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Looks like there was an issue with Axios configuration`</span>, error);
-                        <span class="hljs-keyword">case</span> ! (error <span class="hljs-keyword">as</span> <span class="hljs-title class_">AxiosError</span>).<span class="hljs-property">response</span>:
-                            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`The API call has failed`</span>, error);
-                        <span class="hljs-attr">default</span>:
-                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastResponse</span> = error.<span class="hljs-property">response</span>;
+                    <span class="token keyword">return</span> lastResponse<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                error <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">case</span> <span class="token operator">/</span>timeout<span class="token punctuation">.</span><span class="token operator">*</span>exceeded<span class="token operator">/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token operator">:</span>
+                            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TestCompromisedError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">The request has timed out</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">case</span> <span class="token operator">/</span>Network Error<span class="token operator">/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token operator">:</span>
+                            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TestCompromisedError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">A network error has occurred</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">case</span> error <span class="token keyword">instanceof</span> <span class="token class-name">TypeError</span><span class="token operator">:</span>
+                            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConfigurationError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Looks like there was an issue with Axios configuration</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">case</span> <span class="token operator">!</span> <span class="token punctuation">(</span>error <span class="token keyword">as</span> AxiosError<span class="token punctuation">)</span><span class="token punctuation">.</span>response<span class="token operator">:</span>
+                            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">TestCompromisedError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">The API call has failed</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">default</span><span class="token operator">:</span>
+                            <span class="token keyword">this</span><span class="token punctuation">.</span>lastResponse <span class="token operator">=</span> error<span class="token punctuation">.</span>response<span class="token punctuation">;</span>
 
-                            <span class="hljs-keyword">return</span> error.<span class="hljs-property">response</span>;
-                    }
-                },
-            );
-    }
-}
+                            <span class="token keyword">return</span> error<span class="token punctuation">.</span>response<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,225 +291,225 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/inspected.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> inspect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'util'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay/Answerable'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay/Question'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../screenplay/Answerable'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../screenplay/Question'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Provides a human-readable description of the {<span class="hljs-doctag">@link</span> Answerable&lt;T&gt;}.
- *  Similar to {<span class="hljs-doctag">@link</span> util~inspect}.
+<span class="token comment">/**
+ * @desc
+ *  Provides a human-readable description of the {@link Answerable&lt;T&gt;}.
+ *  Similar to {@link util~inspect}.
  *
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">value</span>
- * <span class="hljs-doctag">@return</span> {<span class="hljs-type">string</span>}
+ * @public
+ * @param {Answerable&lt;any&gt;} value
+ * @return {string}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">inspected</span>(<span class="hljs-params">value: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): <span class="hljs-built_in">string</span> {
-    <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">isDefined</span>(value)) {
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">inspect</span>(value);
-    }
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">inspected</span><span class="token punctuation">(</span>value<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token function">isDefined</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">inspect</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(value)) {
-        <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">'['</span>,
-            value.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> <span class="hljs-string">`  <span class="hljs-subst">${ inspected(item) }</span>`</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">',\n'</span>),
-            <span class="hljs-string">']'</span>,
-        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span>
+            <span class="token string">'['</span><span class="token punctuation">,</span>
+            value<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>item <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">  </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token function">inspected</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">',\n'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token string">']'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isAPromise</span>(value)) {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`a Promise`</span>;
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isAPromise</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">a Promise</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(value)) {
-        <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">toString</span>();
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>Question<span class="token punctuation">.</span><span class="token function">isAQuestion</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isADate</span>(value)) {
-        <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">toISOString</span>();
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isADate</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">.</span><span class="token function">toISOString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">hasItsOwnToString</span>(value)) {
-        <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">toString</span>();
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">hasItsOwnToString</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isInspectable</span>(value)) {
-        <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">inspect</span>();
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isInspectable</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">.</span><span class="token function">inspect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (<span class="hljs-title function_">isANamedFunction</span>(value)) {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ value.name }</span> property`</span>;
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isANamedFunction</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> value<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> property</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">if</span> (! <span class="hljs-title function_">hasCustomInspectionFunction</span>(value) &amp;&amp; <span class="hljs-title function_">isPlainObject</span>(value) &amp;&amp; <span class="hljs-title function_">isSerialisableAsJSON</span>(value)) {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value, <span class="hljs-literal">undefined</span>, <span class="hljs-number">4</span>);
-    }
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token function">hasCustomInspectionFunction</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isPlainObject</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isSerialisableAsJSON</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">return</span> <span class="hljs-title function_">inspect</span>(value, { <span class="hljs-attr">breakLength</span>: <span class="hljs-title class_">Number</span>.<span class="hljs-property">POSITIVE_INFINITY</span>, <span class="hljs-attr">compact</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">sorted</span>: <span class="hljs-literal">false</span>  });
-}
+    <span class="token keyword">return</span> <span class="token function">inspect</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token punctuation">{</span> breakLength<span class="token operator">:</span> Number<span class="token punctuation">.</span><span class="token constant">POSITIVE_INFINITY</span><span class="token punctuation">,</span> compact<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> sorted<span class="token operator">:</span> <span class="token boolean">false</span>  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  * Checks if the value is defined
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isDefined</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>) {
-    <span class="hljs-keyword">return</span> !! v;
-}
+<span class="token keyword">function</span> <span class="token function">isDefined</span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> v<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  * Checks if the value defines its own `toString` method
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">hasItsOwnToString</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): v is { <span class="hljs-attr">toString</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span> } {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> v === <span class="hljs-string">'object'</span>
-        &amp;&amp; !! (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">toString</span>
-        &amp;&amp; <span class="hljs-keyword">typeof</span> (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">toString</span> === <span class="hljs-string">'function'</span>
-        &amp;&amp; ! <span class="hljs-title function_">isNative</span>((v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">toString</span>);
-}
+<span class="token keyword">function</span> <span class="token function">hasItsOwnToString</span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> <span class="token punctuation">{</span> <span class="token function-variable function">toString</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">string</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> v <span class="token operator">===</span> <span class="token string">'object'</span>
+        <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>toString
+        <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> <span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>toString <span class="token operator">===</span> <span class="token string">'function'</span>
+        <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span> <span class="token function">isNative</span><span class="token punctuation">(</span><span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>toString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  * Checks if the value defines its own `inspect` method
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isInspectable</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): v is { <span class="hljs-attr">inspect</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">string</span> } {
-    <span class="hljs-keyword">return</span> !! (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">inspect</span> &amp;&amp; <span class="hljs-keyword">typeof</span> (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">inspect</span> === <span class="hljs-string">'function'</span>;
-}
+<span class="token keyword">function</span> <span class="token function">isInspectable</span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> <span class="token punctuation">{</span> <span class="token function-variable function">inspect</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">string</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>inspect <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> <span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>inspect <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- * Checks if the value is a {<span class="hljs-doctag">@link</span> Date}
+<span class="token comment">/**
+ * @desc
+ * Checks if the value is a {@link Date}
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isADate</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): v is <span class="hljs-title class_">Date</span> {
-    <span class="hljs-keyword">return</span> v <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Date</span>;
-}
+<span class="token keyword">function</span> <span class="token function">isADate</span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> Date <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> v <span class="token keyword">instanceof</span> <span class="token class-name">Date</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- * Checks if the value is a {<span class="hljs-doctag">@link</span> Promise}
+<span class="token comment">/**
+ * @desc
+ * Checks if the value is a {@link Promise}
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> isAPromise&lt;T&gt;(<span class="hljs-attr">v</span>: <span class="hljs-title class_">Answerable</span>&lt;T&gt;): v is <span class="hljs-title class_">Promise</span>&lt;T&gt; {
-    <span class="hljs-keyword">return</span> !! (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">then</span>;
-}
+<span class="token keyword">function</span> <span class="token generic-function"><span class="token function">isAPromise</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>then<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- * Checks if the value is a named {<span class="hljs-doctag">@link</span> Function}
+<span class="token comment">/**
+ * @desc
+ * Checks if the value is a named {@link Function}
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isANamedFunction</span>(<span class="hljs-params">v: <span class="hljs-built_in">any</span></span>): v is { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> } {
-    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(v) === <span class="hljs-string">'[object Function]'</span> &amp;&amp; (v <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">name</span> !== <span class="hljs-string">''</span>;
-}
+<span class="token keyword">function</span> <span class="token function">isANamedFunction</span><span class="token punctuation">(</span>v<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'[object Function]'</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>v <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name <span class="token operator">!==</span> <span class="token string">''</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  * Checks if the value defines its own `inspect` method
  * See: https://nodejs.org/api/util.html#util_util_inspect_custom
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">hasCustomInspectionFunction</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): v is <span class="hljs-built_in">object</span> { <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-    <span class="hljs-keyword">return</span> v &amp;&amp; v[<span class="hljs-title class_">Symbol</span>.<span class="hljs-title function_">for</span>(<span class="hljs-string">'nodejs.util.inspect.custom'</span>)];
-}
+<span class="token keyword">function</span> <span class="token function">hasCustomInspectionFunction</span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> object <span class="token punctuation">{</span> <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+    <span class="token keyword">return</span> v <span class="token operator">&amp;&amp;</span> v<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span><span class="token function">for</span><span class="token punctuation">(</span><span class="token string">'nodejs.util.inspect.custom'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  * Checks if the value has a good chance of being a plain JavaScript object
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isPlainObject</span>(<span class="hljs-params">v: Answerable&lt;<span class="hljs-built_in">any</span>&gt;</span>): v is <span class="hljs-built_in">object</span> {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+<span class="token keyword">function</span> <span class="token function">isPlainObject</span><span class="token punctuation">(</span>v<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> object <span class="token punctuation">{</span>   <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
 
-    <span class="hljs-comment">// Basic check for Type object that's not null</span>
-    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> v === <span class="hljs-string">'object'</span> &amp;&amp; v !== <span class="hljs-literal">null</span>) {
+    <span class="token comment">// Basic check for Type object that's not null</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> v <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">&amp;&amp;</span> v <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">// If Object.getPrototypeOf supported, use it</span>
-        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property">getPrototypeOf</span> === <span class="hljs-string">'function'</span>) {
-            <span class="hljs-keyword">const</span> proto = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getPrototypeOf</span>(v);
-            <span class="hljs-keyword">return</span> proto === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> || proto === <span class="hljs-literal">null</span>;
-        }
+        <span class="token comment">// If Object.getPrototypeOf supported, use it</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> Object<span class="token punctuation">.</span>getPrototypeOf <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> proto <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">getPrototypeOf</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> proto <span class="token operator">===</span> Object<span class="token punctuation">.</span>prototype <span class="token operator">||</span> proto <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-comment">// Otherwise, use internal class</span>
-        <span class="hljs-comment">// This should be reliable as if getPrototypeOf not supported, is pre-ES5</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(v) === <span class="hljs-string">'[object Object]'</span>;
-    }
+        <span class="token comment">// Otherwise, use internal class</span>
+        <span class="token comment">// This should be reliable as if getPrototypeOf not supported, is pre-ES5</span>
+        <span class="token keyword">return</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'[object Object]'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// Not an object</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-}
+    <span class="token comment">// Not an object</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  * Checks if the value is a JSON object that can be stringified
  *
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;any&gt;</span>} <span class="hljs-variable">v</span>
+ * @private
+ * @param {Answerable&lt;any&gt;} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isSerialisableAsJSON</span>(<span class="hljs-params">v: <span class="hljs-built_in">any</span></span>): v is <span class="hljs-built_in">object</span> {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-    <span class="hljs-keyword">try</span> {
-        <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(v);
+<span class="token keyword">function</span> <span class="token function">isSerialisableAsJSON</span><span class="token punctuation">(</span>v<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> object <span class="token punctuation">{</span>    <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
-    } <span class="hljs-keyword">catch</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
-    }
-}
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
+<span class="token comment">/**
  * https://davidwalsh.name/detect-native-function
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any</span>} <span class="hljs-variable">v</span>
+ * @param {any} v
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isNative</span>(<span class="hljs-params">v: <span class="hljs-built_in">any</span></span>): v is <span class="hljs-title class_">Function</span> {  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+<span class="token keyword">function</span> <span class="token function">isNative</span><span class="token punctuation">(</span>v<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token operator">:</span> v <span class="token keyword">is</span> <span class="token builtin">Function</span> <span class="token punctuation">{</span>  <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
 
-    <span class="hljs-keyword">const</span>
-        toString        = <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>,    <span class="hljs-comment">// Used to resolve the internal `[[Class]]` of values</span>
-        fnToString      = <span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>,  <span class="hljs-comment">// Used to resolve the decompiled source of functions</span>
-        hostConstructor = <span class="hljs-regexp">/^\[object .+?Constructor]$/</span>; <span class="hljs-comment">// Used to detect host constructors (Safari &gt; 4; really typed array specific)</span>
+    <span class="token keyword">const</span>
+        toString        <span class="token operator">=</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">,</span>    <span class="token comment">// Used to resolve the internal `[[Class]]` of values</span>
+        fnToString      <span class="token operator">=</span> <span class="token builtin">Function</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">,</span>  <span class="token comment">// Used to resolve the decompiled source of functions</span>
+        hostConstructor <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\[object .+?Constructor]$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span> <span class="token comment">// Used to detect host constructors (Safari &gt; 4; really typed array specific)</span>
 
-    <span class="hljs-comment">// Compile a regexp using a common native method as a template.</span>
-    <span class="hljs-comment">// We chose `Object#toString` because there's a good chance it is not being mucked with.</span>
-    <span class="hljs-keyword">const</span> nativeFunctionTemplate = <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(
-        <span class="hljs-string">'^'</span> +
-        <span class="hljs-comment">// Coerce `Object#toString` to a string</span>
-        <span class="hljs-title class_">String</span>(toString)
-        <span class="hljs-comment">// Escape any special regexp characters</span>
-            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/[$()*+./?[\\\]^{|}]/g</span> , <span class="hljs-string">'\\$&amp;'</span>)
-            <span class="hljs-comment">// Replace mentions of `toString` with `.*?` to keep the template generic.</span>
-            <span class="hljs-comment">// Replace thing like `for ...` to support environments like Rhino which add extra info</span>
-            <span class="hljs-comment">// such as method arity.</span>
-            .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/toString|(function).*?(?=\\\()| for .+?(?=\\])/g</span>, <span class="hljs-string">'$1.*?'</span>) +
-        <span class="hljs-string">'$'</span>,
-    );
+    <span class="token comment">// Compile a regexp using a common native method as a template.</span>
+    <span class="token comment">// We chose `Object#toString` because there's a good chance it is not being mucked with.</span>
+    <span class="token keyword">const</span> nativeFunctionTemplate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span>
+        <span class="token string">'^'</span> <span class="token operator">+</span>
+        <span class="token comment">// Coerce `Object#toString` to a string</span>
+        <span class="token function">String</span><span class="token punctuation">(</span>toString<span class="token punctuation">)</span>
+        <span class="token comment">// Escape any special regexp characters</span>
+            <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[$()*+./?[\\\]^{|}]</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span> <span class="token punctuation">,</span> <span class="token string">'\\$&amp;'</span><span class="token punctuation">)</span>
+            <span class="token comment">// Replace mentions of `toString` with `.*?` to keep the template generic.</span>
+            <span class="token comment">// Replace thing like `for ...` to support environments like Rhino which add extra info</span>
+            <span class="token comment">// such as method arity.</span>
+            <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">toString|(function).*?(?=\\\()| for .+?(?=\\])</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'$1.*?'</span><span class="token punctuation">)</span> <span class="token operator">+</span>
+        <span class="token string">'$'</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> <span class="hljs-keyword">type</span> = <span class="hljs-keyword">typeof</span> v;
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">type</span> === <span class="hljs-string">'function'</span>
-        <span class="hljs-comment">// Use `Function#toString` to bypass the value's own `toString` method</span>
-        <span class="hljs-comment">// and avoid being faked out.</span>
-        ? nativeFunctionTemplate.<span class="hljs-title function_">test</span>(fnToString.<span class="hljs-title function_">call</span>(v))
-        <span class="hljs-comment">// Fallback to a host object check because some environments will represent</span>
-        <span class="hljs-comment">// things like typed arrays as DOM methods which may not conform to the</span>
-        <span class="hljs-comment">// normal native pattern.</span>
-        : (v &amp;&amp; <span class="hljs-keyword">type</span> === <span class="hljs-string">'object'</span> &amp;&amp; hostConstructor.<span class="hljs-title function_">test</span>(toString.<span class="hljs-title function_">call</span>(v))) || <span class="hljs-literal">false</span>;
-}
+    <span class="token keyword">const</span> type <span class="token operator">=</span> <span class="token keyword">typeof</span> v<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> type <span class="token operator">===</span> <span class="token string">'function'</span>
+        <span class="token comment">// Use `Function#toString` to bypass the value's own `toString` method</span>
+        <span class="token comment">// and avoid being faked out.</span>
+        <span class="token operator">?</span> nativeFunctionTemplate<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token function">fnToString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token comment">// Fallback to a host object check because some environments will represent</span>
+        <span class="token comment">// things like typed arrays as DOM methods which may not conform to the</span>
+        <span class="token comment">// normal native pattern.</span>
+        <span class="token operator">:</span> <span class="token punctuation">(</span>v <span class="token operator">&amp;&amp;</span> type <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">&amp;&amp;</span> hostConstructor<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span><span class="token function">toString</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>v<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

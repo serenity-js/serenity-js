@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -130,30 +127,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/Expectation.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
- * <span class="hljs-doctag">@see</span> https://jasmine.github.io/api/edge/global.html#Expectation
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/**
+ * @package
+ * @see https://jasmine.github.io/api/edge/global.html#Expectation
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Expectation {
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Expectation</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/** The name of the matcher that was executed for this expectation. */</span>
-    <span class="hljs-attr">matcherName</span>: <span class="hljs-built_in">string</span>;
+    <span class="token comment">/** The name of the matcher that was executed for this expectation. */</span>
+    matcherName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** The failure message for the expectation. */</span>
-    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
+    <span class="token comment">/** The failure message for the expectation. */</span>
+    message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** The stack trace for the failure if available. */</span>
-    stack?: <span class="hljs-built_in">string</span>;
+    <span class="token comment">/** The stack trace for the failure if available. */</span>
+    stack<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** Whether the expectation passed or failed. */</span>
-    <span class="hljs-attr">passed</span>:	<span class="hljs-built_in">boolean</span>;
+    <span class="token comment">/** Whether the expectation passed or failed. */</span>
+    passed<span class="token operator">:</span>	<span class="token builtin">boolean</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** If the expectation failed, what was the expected value. */</span>
-    expected?: <span class="hljs-built_in">any</span>;
+    <span class="token comment">/** If the expectation failed, what was the expected value. */</span>
+    expected<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** If the expectation failed, what actual value was produced. */</span>
-    actual?: <span class="hljs-built_in">any</span>;
-}
+    <span class="token comment">/** If the expectation failed, what actual value was produced. */</span>
+    actual<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

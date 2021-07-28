@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -157,7 +154,7 @@
 
 <h2 id="installation">Installation</h2>
 <p>To install the module, run the following command in your computer terminal:</p>
-<pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-variable language_">console</span>-reporter}
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span><span class="token builtin">console</span><span class="token operator">-</span>reporter<span class="token punctuation">}</span>
 </code></pre>
 <h2 id="integration">Integration</h2>
 <p><a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a> listens to <a href="/modules/core/identifiers.html#events"><code>DomainEvents</code></a> emitted by <a href="/handbook/design/actors.html"><code>Actors</code></a> and Serenity/JS test runner adapters.</p>
@@ -194,14 +191,14 @@ graph TB
 
 <h2 id="usage">Usage</h2>
 <p>To use the <a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">forDarkTerminals</span>(),
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        ConsoleReporter<span class="token punctuation">.</span><span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>To learn more about the available configuration options, consult the <a href="/modules/console-reporter/class/src/stage/crew/console-reporter/ConsoleReporter.ts~ConsoleReporter.html"><code>ConsoleReporter</code> API docs</a> and its <a href="/modules/console-reporter/test-file/spec/stage/crew/console-reporter/ConsoleReporter.spec.ts.html">test suite</a>.</p>
 <p>You might also want to explore the <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">example projects</a>.</p>

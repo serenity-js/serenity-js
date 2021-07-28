@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,55 +125,55 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/io/formatError.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">RuntimeError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> RuntimeError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">formatError</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span></span>): <span class="hljs-built_in">string</span> {
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">formatError</span><span class="token punctuation">(</span>error<span class="token operator">:</span> RuntimeError <span class="token operator">|</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span> learnMore = <span class="hljs-string">`Learn more at https://serenity-js.org/modules/serenity-bdd`</span>;
+    <span class="token keyword">const</span> learnMore <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Learn more at https://serenity-js.org/modules/serenity-bdd</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/ETIMEDOUT/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
-                <span class="hljs-string">`Are you behind a proxy or a firewall that needs to be configured?`</span>,
-                ...<span class="hljs-title function_">messages</span>(error),
-                <span class="hljs-string">''</span>,
-                learnMore,
-            );
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token operator">/</span><span class="token constant">ETIMEDOUT</span><span class="token operator">/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token function">lines</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Are you behind a proxy or a firewall that needs to be configured?</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                <span class="token operator">...</span><span class="token function">messages</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">''</span><span class="token punctuation">,</span>
+                learnMore<span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">case</span> <span class="hljs-regexp">/self signed certificate in certificate chain/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">message</span>):
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
-                <span class="hljs-string">`If you're using a self-signed certificate please check if it's configured correctly or use the --ignoreSSL option.`</span>,
-                <span class="hljs-string">''</span>,
-                learnMore,
-            );
+        <span class="token keyword">case</span> <span class="token operator">/</span>self signed certificate <span class="token keyword">in</span> certificate chain<span class="token operator">/</span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token function">lines</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">If you're using a self-signed certificate please check if it's configured correctly or use the --ignoreSSL option.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                <span class="token string">''</span><span class="token punctuation">,</span>
+                learnMore<span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">case</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">RuntimeError</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
-                ...<span class="hljs-title function_">messages</span>(error),
-                <span class="hljs-string">''</span>,
+        <span class="token keyword">case</span> error <span class="token keyword">instanceof</span> <span class="token class-name">RuntimeError</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token function">lines</span><span class="token punctuation">(</span>
+                <span class="token operator">...</span><span class="token function">messages</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">''</span><span class="token punctuation">,</span>
                 learnMore
-            );
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-attr">default</span>:
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">lines</span>(
-                <span class="hljs-string">`I'm terribly sorry, but something didn't go according to plan:`</span>,
-                ...<span class="hljs-title function_">messages</span>(error),
-            );
-    }
-}
+        <span class="token keyword">default</span><span class="token operator">:</span>
+            <span class="token keyword">return</span> <span class="token function">lines</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">I'm terribly sorry, but something didn't go according to plan:</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                <span class="token operator">...</span><span class="token function">messages</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">messages</span>(<span class="hljs-params">error: RuntimeError | <span class="hljs-built_in">Error</span>, acc: <span class="hljs-built_in">string</span>[] = []</span>): <span class="hljs-built_in">string</span>[] {
-    <span class="hljs-keyword">return</span> error.<span class="hljs-property">message</span> &amp;&amp; (error <span class="hljs-keyword">as</span> <span class="hljs-title class_">RuntimeError</span>).<span class="hljs-property">cause</span>
-        ? <span class="hljs-title function_">messages</span>((error <span class="hljs-keyword">as</span> <span class="hljs-title class_">RuntimeError</span>).<span class="hljs-property">cause</span>, acc.<span class="hljs-title function_">concat</span>(error.<span class="hljs-property">message</span>))
-        : acc.<span class="hljs-title function_">concat</span>(error.<span class="hljs-property">message</span> || <span class="hljs-string">`<span class="hljs-subst">${ error }</span>`</span>);
-}
+<span class="token keyword">function</span> <span class="token function">messages</span><span class="token punctuation">(</span>error<span class="token operator">:</span> RuntimeError <span class="token operator">|</span> Error<span class="token punctuation">,</span> acc<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> error<span class="token punctuation">.</span>message <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>error <span class="token keyword">as</span> RuntimeError<span class="token punctuation">)</span><span class="token punctuation">.</span>cause
+        <span class="token operator">?</span> <span class="token function">messages</span><span class="token punctuation">(</span><span class="token punctuation">(</span>error <span class="token keyword">as</span> RuntimeError<span class="token punctuation">)</span><span class="token punctuation">.</span>cause<span class="token punctuation">,</span> acc<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token operator">:</span> acc<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message <span class="token operator">||</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> error <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">lines</span>(<span class="hljs-params">...entries: <span class="hljs-built_in">string</span>[]</span>): <span class="hljs-built_in">string</span> {
-    <span class="hljs-keyword">return</span> entries.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> line !== <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
-}
+<span class="token keyword">function</span> <span class="token function">lines</span><span class="token punctuation">(</span><span class="token operator">...</span>entries<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> entries<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>line <span class="token operator">=&gt;</span> line <span class="token operator">!==</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

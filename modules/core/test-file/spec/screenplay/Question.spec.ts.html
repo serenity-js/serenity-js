@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,164 +291,164 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/Question.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> given <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha-testdata'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Mappable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Question</span>, replace, toNumber, trim } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Mappable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> replace<span class="token punctuation">,</span> toNumber<span class="token punctuation">,</span> trim <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/screenplay'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Question'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {Question} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Question'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'provides a convenient way to define a custom question that'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'provides a convenient way to define a custom question that'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a static value'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns a static value'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token function-variable function">Name</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'a name'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> answer = <span class="hljs-title class_">Name</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>));
+            <span class="token keyword">const</span> answer <span class="token operator">=</span> <span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(answer).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Jacques'</span>);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a Promise of a value'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(actor.<span class="hljs-property">name</span>));
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns a Promise of a value'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token function-variable function">Name</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'a name'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> answer = <span class="hljs-title class_">Name</span>().<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jill'</span>));
+            <span class="token keyword">const</span> answer <span class="token operator">=</span> <span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jill'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(answer).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Jill'</span>);
-        });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Jill'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#toString</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'has a description'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token comment">/** @test {Question#toString} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has a description'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token function-variable function">Name</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'a name'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Name</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'a name'</span>);
-        });
-    });
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'a name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#describedAs</span>} */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for a custom description to override the default one'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> <span class="hljs-title function_">Name</span> = (<span class="hljs-params"></span>) =&gt;
-            <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'a name'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
+    <span class="token comment">/** @test {Question.about} */</span>
+    <span class="token comment">/** @test {Question#describedAs} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows for a custom description to override the default one'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token function-variable function">Name</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'a name'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Name</span>().<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'first name'</span>).<span class="hljs-title function_">toString</span>())
-            .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'first name'</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">Name</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">describedAs</span><span class="token punctuation">(</span><span class="token string">'first name'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'first name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when mapping the answer'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when mapping the answer'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a static value'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token comment">/** @test {Question#map} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'works with a static value'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResult</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'result of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-string">' 6.67%\n'</span>);
+            <span class="token keyword">const</span> <span class="token function-variable function">SomeResult</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'result of some calculation'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token string">' 6.67%\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResult</span>()
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
+            <span class="token keyword">const</span> endResult <span class="token operator">=</span> <span class="token function">SomeResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">6.67</span>);
-        });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>endResult<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">6.67</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a promise'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token comment">/** @test {Question#map} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'works with a promise'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResult</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'result of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">' 6.67%\n'</span>));
+            <span class="token keyword">const</span> <span class="token function-variable function">SomeResult</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'result of some calculation'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">' 6.67%\n'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResult</span>()
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
+            <span class="token keyword">const</span> endResult <span class="token operator">=</span> <span class="token function">SomeResult</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">6.67</span>);
-        });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>endResult<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">6.67</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a static list of values'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResults</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-built_in">string</span>[]&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> [
-                    <span class="hljs-string">' 6.67%\n'</span>,
-                    <span class="hljs-string">' 3.34%\n'</span>,
-                ]);
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token comment">/** @test {Question#map} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'works with a static list of values'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token function-variable function">SomeResults</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">about</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'results of some calculation'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+                    <span class="token string">' 6.67%\n'</span><span class="token punctuation">,</span>
+                    <span class="token string">' 3.34%\n'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResults</span>()
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
+            <span class="token keyword">const</span> endResult <span class="token operator">=</span> <span class="token function">SomeResults</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
-        });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>endResult<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">6.67</span><span class="token punctuation">,</span> <span class="token number">3.34</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a promised list'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResults</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt;&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>([
-                    <span class="hljs-string">' 6.67%\n'</span>,
-                    <span class="hljs-string">' 3.34%\n'</span>,
-                ]));
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token comment">/** @test {Question#map} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'works with a promised list'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token function-variable function">SomeResults</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">about</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'results of some calculation'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                    <span class="token string">' 6.67%\n'</span><span class="token punctuation">,</span>
+                    <span class="token string">' 3.34%\n'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResults</span>()
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
+            <span class="token keyword">const</span> endResult <span class="token operator">=</span> <span class="token function">SomeResults</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
-        });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>endResult<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">6.67</span><span class="token punctuation">,</span> <span class="token number">3.34</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question.about</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Question#map</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'works with a mappable collection (Array, ElementArrayFinder, etc.)'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> <span class="hljs-title function_">SomeResults</span> = (<span class="hljs-params"></span>) =&gt;
-                <span class="hljs-title class_">Question</span>.<span class="hljs-property">about</span>&lt;<span class="hljs-title class_">Mappable</span>&lt;<span class="hljs-built_in">string</span>&gt;&gt;(<span class="hljs-string">'results of some calculation'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> [
-                    <span class="hljs-string">' 6.67%\n'</span>,
-                    <span class="hljs-string">' 3.34%\n'</span>,
-                ]);
+        <span class="token comment">/** @test {Question.about} */</span>
+        <span class="token comment">/** @test {Question#map} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'works with a mappable collection (Array, ElementArrayFinder, etc.)'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token function-variable function">SomeResults</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                Question<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">about</span><span class="token generic class-name"><span class="token operator">&lt;</span>Mappable<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;&gt;</span></span></span><span class="token punctuation">(</span><span class="token string">'results of some calculation'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">[</span>
+                    <span class="token string">' 6.67%\n'</span><span class="token punctuation">,</span>
+                    <span class="token string">' 3.34%\n'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> endResult = <span class="hljs-title class_">SomeResults</span>()
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-                .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-                .<span class="hljs-title function_">answeredBy</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Jacques'</span>))
+            <span class="token keyword">const</span> endResult <span class="token operator">=</span> <span class="token function">SomeResults</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Jacques'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(endResult).<span class="hljs-property">to</span>.<span class="hljs-property">eventually</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>([<span class="hljs-number">6.67</span>, <span class="hljs-number">3.34</span>]);
-        });
-    });
+            <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>endResult<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>eventually<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">6.67</span><span class="token punctuation">,</span> <span class="token number">3.34</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">given</span>([
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>                                           },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-literal">false</span>                                          },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>                                         },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">''</span>                                             },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: {}                                             },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>                                             },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">false</span>, <span class="hljs-attr">value</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>                                   },
-        { <span class="hljs-attr">isAQuestion</span>: <span class="hljs-literal">true</span>,  <span class="hljs-attr">value</span>: <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'something'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)   },
-    ]).
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises if something is a question'</span>, <span class="hljs-function">(<span class="hljs-params">{ value, isAQuestion }</span>) =&gt;</span> {
-        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(isAQuestion);
-    });
-});
+    <span class="token function">given</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token keyword">null</span>                                           <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token boolean">false</span>                                          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token keyword">void</span> <span class="token number">0</span>                                         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token string">''</span>                                             <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>                                             <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token number">42</span>                                             <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token function-variable function">value</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span>                                   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span> isAQuestion<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'something'</span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span>   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises if something is a question'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> value<span class="token punctuation">,</span> isAQuestion <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span>Question<span class="token punctuation">.</span><span class="token function">isAQuestion</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>isAQuestion<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -163,10 +160,10 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 <p>The <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#static-method-about"><code>Question.about</code></a> <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">factory method</a> is the easiest way to define a custom question.</p>
 <p>Let's say that we wanted to define a question called <code>NameOfTheActor()</code> that returned the name of the <a href="/handbook/design/actors.html">actor</a> who answers it. </p>
 <p>Here's how we could go about it:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">NameOfTheActor</span> = (<span class="hljs-params"></span>) =&gt; 
-    <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'the name of the actor'</span>, <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> actor.<span class="hljs-property">name</span>);
+<span class="token keyword">const</span> <span class="token function-variable function">NameOfTheActor</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> 
+    Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'the name of the actor'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>As you can see above, there are only three things you need to define a custom question:</p>
 <ul>
@@ -176,13 +173,13 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 </ul>
 <p>While in the above example we return the answer to the question directly, a much more common and idiomatic approach is to use the actor's <a href="/handbook/design/abilities.html">abilities</a> to produce it.</p>
 <p>For example, a question to retrieve the title of the current page could be designed to use the ability to <a href="/modules/protractor/class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html"><code>BrowseTheWeb</code></a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">WebsiteTitle</span> = (<span class="hljs-params"></span>) =&gt;
-    <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'the title of the website'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> 
-        <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">getTitle</span>() <span class="hljs-comment">// returns Promise&lt;string&gt;</span>
-    );
+<span class="token keyword">const</span> <span class="token function-variable function">WebsiteTitle</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+    Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'the title of the website'</span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> 
+        BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// returns Promise&lt;string&gt;</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In the above example we retrieve actor's ability to <code>BrowseTheWeb</code> and then use that to perform the lower-level call.</p>
 <p><strong>Please note</strong>: Instead of implementing your own custom question to retrieve the title of the website it's better to  use <a href="/modules/protractor/class/src/screenplay/questions/Website.ts~Website.html#static-method-title"><code>Website.title()</code></a> Serenity/JS already ships with.</p>
@@ -199,42 +196,42 @@ you can use in your acceptance tests. You'll find the ones you'll need in your W
 that you don't need to worry if a given interaction is synchronous or asynchronous, or if a given question returns a static value or a <code>Promise</code> -  Serenity/JS will synchronise them all for you and help you keep your code free of callback mess.</p>
 <p>To illustrate how questions and interactions work together, let's look at <a href="/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html"><code>Target</code></a> - a question we use to identify interactive elements on a website.</p>
 <p>Consider the below <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form">HTML form</a> component, allowing readers to add a comment to an article on an imaginary website:</p>
-<pre><code class="lang-html hljs html">    <span class="hljs-tag">&lt;<span class="hljs-name">form</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"new-comment"</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"comment"</span>&gt;</span>Comment:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"comment"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"name"</span>&gt;</span>Name:<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"name"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
-            <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"submit"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-name">form</span>&gt;</span>
+<pre class="language-html"><code class="lang-html">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>new-comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Comment:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>textarea</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>comment<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>textarea</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Name:<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>name<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
 <p>To interact with the component, we define a <a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Object</a> called <code>NewComment</code>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">NewComment</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Form</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'"new comment" form'</span>)
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'new-comment'</span>));
+<span class="token keyword">class</span> <span class="token class-name">NewComment</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> Form <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'"new comment" form'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'new-comment'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">NameField</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'name field'</span>)
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'name'</span>));
+    <span class="token keyword">static</span> NameField <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'name field'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">CommentField</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'comment field'</span>)
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'comment'</span>));
+    <span class="token keyword">static</span> CommentField <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'comment field'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'comment'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">SubmitButton</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'submit button'</span>)
-            .<span class="hljs-title function_">of</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">Form</span>)            <span class="hljs-comment">// &lt;- a nested Target</span>
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'input[type="submit"]'</span>));
-}
+    <span class="token keyword">static</span> SubmitButton <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'submit button'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>NewComment<span class="token punctuation">.</span>Form<span class="token punctuation">)</span>            <span class="token comment">// &lt;- a nested Target</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'input[type="submit"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <div class="pro-tip">
     <div class="icon"><i class="fas fa-lightbulb"></i></div>
@@ -251,21 +248,21 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 </div>
 
 <p>Now, to fill out the form, we define a sequence of parameterised interactions and give them to an actor to perform:  </p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Enter</span>, <span class="hljs-title class_">Click</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Enter<span class="token punctuation">,</span> Click <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>)
-    .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-    .<span class="hljs-title function_">attemptsTo</span>(
-        <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-string">'Nice website!'</span>)     <span class="hljs-comment">// &lt;- a static value</span>
-            .<span class="hljs-title function_">into</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">CommentField</span>), <span class="hljs-comment">// &lt;- a Target passed to an interaction to Enter</span>
+<span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+        Enter<span class="token punctuation">.</span><span class="token function">theValue</span><span class="token punctuation">(</span><span class="token string">'Nice website!'</span><span class="token punctuation">)</span>     <span class="token comment">// &lt;- a static value</span>
+            <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>NewComment<span class="token punctuation">.</span>CommentField<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// &lt;- a Target passed to an interaction to Enter</span>
 
-        <span class="hljs-title class_">Enter</span>.<span class="hljs-title function_">theValue</span>(<span class="hljs-title class_">NameOfTheActor</span>())    <span class="hljs-comment">// &lt;- our custom question</span>
-            .<span class="hljs-title function_">into</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">NameField</span>),    <span class="hljs-comment">//    returning a static value</span>
+        Enter<span class="token punctuation">.</span><span class="token function">theValue</span><span class="token punctuation">(</span><span class="token function">NameOfTheActor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment">// &lt;- our custom question</span>
+            <span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>NewComment<span class="token punctuation">.</span>NameField<span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment">//    returning a static value</span>
 
-        <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">NewComment</span>.<span class="hljs-property">SubmitButton</span>),  <span class="hljs-comment">// &lt;- a Target passed to an interaction to Click</span>
-    );
+        Click<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>NewComment<span class="token punctuation">.</span>SubmitButton<span class="token punctuation">)</span><span class="token punctuation">,</span>  <span class="token comment">// &lt;- a Target passed to an interaction to Click</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>There are several interesting things about the code samples above:</p>
 <ul>
@@ -275,51 +272,51 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 <h3 id="mapping-the-answers">Mapping the answers</h3>
 <p>So now you know how to retrieve information about the system under test and its execution environment, but what if this information needs some processing before it can be used further?</p>
 <p>Let's say for example that we have the following widget, describing a discount a customer would get on our website:</p>
-<pre><code class="lang-html hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"order-summary"</span>&gt;</span>
-    <span class="hljs-comment">&lt;!-- other entries of the order summary --&gt;</span> 
+<pre class="language-html"><code class="lang-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>order-summary<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- other entries of the order summary --&gt;</span> 
 
-    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">data-test</span>=<span class="hljs-string">"percentage-discount"</span>&gt;</span>7.5%<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">data-test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>percentage-discount<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>7.5%<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
 </code></pre>
 <p>We can, of course, get its text using the <a href="/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html#static-method-of"><code>Text.of</code></a> question and then pass it to an interaction like <a href="/modules/assertions/class/src/Ensure.ts~Ensure.html"><code>Ensure</code></a> (responsible for performing <a href="/handbook/design/assertions.html">assertions</a>):</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Target<span class="token punctuation">,</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountWidget</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'discount widget'</span>)
-           .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
-}
+<span class="token keyword">class</span> <span class="token class-name">OrderSummary</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> DiscountWidget <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'discount widget'</span><span class="token punctuation">)</span>
+           <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'[data-test="percentage-discount"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>).<span class="hljs-title function_">attemptsTo</span>(
-    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'7.5%'</span>)),
-);
+<span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>OrderSummary<span class="token punctuation">.</span>DiscountWidget<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'7.5%'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In many cases, asserting on a text value of an element is perfectly fine, but what if our test needed to check if the discount applied is <strong>less than 10%</strong>?</p>
 <p>We'd have to first convert the text value to a number, wouldn't we?</p>
 <p>That's where <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-map"><code>Question#map</code></a> comes into play!</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, isLessThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> isLessThan <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> trim<span class="token punctuation">,</span> replace<span class="token punctuation">,</span> toNumber <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Target<span class="token punctuation">,</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountWidget</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'discount widget'</span>)
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
+<span class="token keyword">class</span> <span class="token class-name">OrderSummary</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> DiscountWidget <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'discount widget'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'[data-test="percentage-discount"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountPercentage</span> =
-        <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>)
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())                        <span class="hljs-comment">// &lt;- remove leading and trailing whitespace</span>
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))              <span class="hljs-comment">// &lt;- remove the '%' character</span>
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())                    <span class="hljs-comment">// &lt;- map what's left to a `number`</span>
-}
+    <span class="token keyword">static</span> DiscountPercentage <span class="token operator">=</span>
+        Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>OrderSummary<span class="token punctuation">.</span>DiscountWidget<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                        <span class="token comment">// &lt;- remove leading and trailing whitespace</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>              <span class="token comment">// &lt;- remove the '%' character</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                    <span class="token comment">// &lt;- map what's left to a `number`</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Alice'</span>).<span class="hljs-title function_">attemptsTo</span>(
-    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountPercentage</span>, <span class="hljs-title function_">isLessThan</span>(<span class="hljs-number">10</span>)), <span class="hljs-comment">// compare as number rather than string</span>
-);
+<span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>OrderSummary<span class="token punctuation">.</span>DiscountPercentage<span class="token punctuation">,</span> <span class="token function">isLessThan</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token comment">// compare as number rather than string</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>There are several interesting things demonstrated in the code sample above:</p>
 <ul>
@@ -355,39 +352,39 @@ that you don't need to worry if a given interaction is synchronous or asynchrono
 </ul>
 <p>However, this also means that in more complex cases this description can become quite a mouthful.</p>
 <p>Consider the below example that uses <a href="/modules/protractor/test-file/spec/screenplay/questions/Target.spec.ts.html">nested targets</a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { trim, replace, toNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span>, <span class="hljs-title class_">Text</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
-<span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> trim<span class="token punctuation">,</span> replace<span class="token punctuation">,</span> toNumber <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Target<span class="token punctuation">,</span> Text <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">Widget</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'order summary'</span>)
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">'order-summary'</span>));
+<span class="token keyword">class</span> <span class="token class-name">OrderSummary</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> Widget <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'order summary'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'order-summary'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountWidget</span> =
-        <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'discount widget'</span>)
-            .<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">Widget</span>)            <span class="hljs-comment">// &lt;- nested Target</span>
-            .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="percentage-discount"]'</span>));
+    <span class="token keyword">static</span> DiscountWidget <span class="token operator">=</span>
+        Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'discount widget'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>OrderSummary<span class="token punctuation">.</span>Widget<span class="token punctuation">)</span>            <span class="token comment">// &lt;- nested Target</span>
+            <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'[data-test="percentage-discount"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountPercentage</span> =
-        <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>)
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())                        <span class="hljs-comment">// &lt;- mappings</span>
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-}
+    <span class="token keyword">static</span> DiscountPercentage <span class="token operator">=</span>
+        Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>OrderSummary<span class="token punctuation">.</span>DiscountWidget<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                        <span class="token comment">// &lt;- mappings</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In this case, <code>OrderSummary.DiscountPercentage</code> would get reported as <code>"text of the discount widget of the order summary"</code>. </p>
 <p>To override this automatically-generated description of the question's subject with a custom one, use <a href="/modules/core/class/src/screenplay/Question.ts~Question.html#instance-method-describedAs"><code>Question#describedAs()</code></a>: </p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderSummary</span> {
-    <span class="hljs-comment">// other fields omitted for brevity</span>
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">class</span> <span class="token class-name">OrderSummary</span> <span class="token punctuation">{</span>
+    <span class="token comment">// other fields omitted for brevity</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title class_">DiscountPercentage</span> =
-        <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">OrderSummary</span>.<span class="hljs-property">DiscountWidget</span>)
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">trim</span>())                        
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">replace</span>(<span class="hljs-string">'%'</span>, <span class="hljs-string">''</span>))
-            .<span class="hljs-title function_">map</span>(<span class="hljs-title function_">toNumber</span>())
-            .<span class="hljs-title function_">describedAs</span>(<span class="hljs-string">'discount percentage'</span>) <span class="hljs-comment">// &lt;- subject name override</span>
-}
+    <span class="token keyword">static</span> DiscountPercentage <span class="token operator">=</span>
+        Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>OrderSummary<span class="token punctuation">.</span>DiscountWidget<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                        
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'%'</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token function">toNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">describedAs</span><span class="token punctuation">(</span><span class="token string">'discount percentage'</span><span class="token punctuation">)</span> <span class="token comment">// &lt;- subject name override</span>
+<span class="token punctuation">}</span>
 </code></pre>
 </body></html>
                         </section>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -132,47 +129,47 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/ConsoleReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ListensToDomainEvents</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageCrewMemberBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib'</span>;
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>,
-    <span class="hljs-title class_">DomainEvent</span>,
-    <span class="hljs-title class_">InteractionFinished</span>,
-    <span class="hljs-title class_">InteractionStarts</span>,
-    <span class="hljs-title class_">SceneFinished</span>,
-    <span class="hljs-title class_">SceneStarts</span>,
-    <span class="hljs-title class_">TaskFinished</span>,
-    <span class="hljs-title class_">TaskStarts</span>,
-    <span class="hljs-title class_">TestRunFinished</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">AssertionReport</span>,
-    <span class="hljs-title class_">CorrelationId</span>,
-    <span class="hljs-title class_">Duration</span>,
-    <span class="hljs-title class_">ExecutionCompromised</span>,
-    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
-    <span class="hljs-title class_">ExecutionFailedWithError</span>,
-    <span class="hljs-title class_">ExecutionIgnored</span>,
-    <span class="hljs-title class_">ExecutionSkipped</span>,
-    <span class="hljs-title class_">ExecutionSuccessful</span>,
-    <span class="hljs-title class_">ImplementationPending</span>,
-    <span class="hljs-title class_">LogEntry</span>,
-    <span class="hljs-title class_">Name</span>,
-    <span class="hljs-title class_">Outcome</span>,
-    <span class="hljs-title class_">ProblemIndication</span>,
-    <span class="hljs-title class_">Timestamp</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Instance</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ChalkInstance</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
-<span class="hljs-keyword">import</span> { ensure, isDefined, match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ListensToDomainEvents<span class="token punctuation">,</span> Stage<span class="token punctuation">,</span> StageCrewMemberBuilder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AssertionError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    ActivityRelatedArtifactGenerated<span class="token punctuation">,</span>
+    DomainEvent<span class="token punctuation">,</span>
+    InteractionFinished<span class="token punctuation">,</span>
+    InteractionStarts<span class="token punctuation">,</span>
+    SceneFinished<span class="token punctuation">,</span>
+    SceneStarts<span class="token punctuation">,</span>
+    TaskFinished<span class="token punctuation">,</span>
+    TaskStarts<span class="token punctuation">,</span>
+    TestRunFinished<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> OutputStream <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    AssertionReport<span class="token punctuation">,</span>
+    CorrelationId<span class="token punctuation">,</span>
+    Duration<span class="token punctuation">,</span>
+    ExecutionCompromised<span class="token punctuation">,</span>
+    ExecutionFailedWithAssertionError<span class="token punctuation">,</span>
+    ExecutionFailedWithError<span class="token punctuation">,</span>
+    ExecutionIgnored<span class="token punctuation">,</span>
+    ExecutionSkipped<span class="token punctuation">,</span>
+    ExecutionSuccessful<span class="token punctuation">,</span>
+    ImplementationPending<span class="token punctuation">,</span>
+    LogEntry<span class="token punctuation">,</span>
+    Name<span class="token punctuation">,</span>
+    Outcome<span class="token punctuation">,</span>
+    ProblemIndication<span class="token punctuation">,</span>
+    Timestamp<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Instance <span class="token keyword">as</span> ChalkInstance <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'chalk'</span><span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line unicorn/import-style</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ensure<span class="token punctuation">,</span> isDefined<span class="token punctuation">,</span> match <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Printer'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Summary</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Summary'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SummaryFormatter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SummaryFormatter'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TerminalTheme</span>, <span class="hljs-title class_">ThemeForDarkTerminals</span>, <span class="hljs-title class_">ThemeForLightTerminals</span>, <span class="hljs-title class_">ThemeForMonochromaticTerminals</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./themes'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Printer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Printer'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Summary <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Summary'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SummaryFormatter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./SummaryFormatter'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> TerminalTheme<span class="token punctuation">,</span> ThemeForDarkTerminals<span class="token punctuation">,</span> ThemeForLightTerminals<span class="token punctuation">,</span> ThemeForMonochromaticTerminals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./themes'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Uses [standard output](https://en.wikipedia.org/wiki/Standard_streams)
  *  to report on progress of your Serenity/JS acceptance tests.
  *
@@ -180,17 +177,17 @@
  *  as well as a monochromatic theme for those moments when you're in a noir mood
  *  (or have a terminal that doesn't support colours, like the good old `cmd.exe` on Windows).
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
- *  import { configure } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { ConsoleReporter } from '<span class="hljs-doctag">@serenity</span>-js/console-reporter';
+ * @example &lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
+ *  import { configure } from '@serenity-js/core';
+ *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *
  *  configure({
  *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
  *  });
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Redirecting output to a file&lt;/caption&gt;
- *  import { configure } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { ConsoleReporter } from '<span class="hljs-doctag">@serenity</span>-js/console-reporter';
+ * @example &lt;caption&gt;Redirecting output to a file&lt;/caption&gt;
+ *  import { configure } from '@serenity-js/core';
+ *  import { ConsoleReporter } from '@serenity-js/console-reporter';
  *  import { createWriteStream } from 'fs';
  *
  *  configure({
@@ -198,13 +195,13 @@
  *      crew: [ ConsoleReporter.withDefaultColourSupport() ],
  *  });
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
+ * @example &lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
- *  const { ConsoleReporter } = require('<span class="hljs-doctag">@serenity</span>-js/console-reporter');
+ *  const { ConsoleReporter } = require('@serenity-js/console-reporter');
  *
  *  exports.config = {
  *    framework:     'custom',
- *    frameworkPath: require.resolve('<span class="hljs-doctag">@serenity</span>-js/protractor/adapter'),
+ *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
  *    serenity: {
  *      crew: [
@@ -216,19 +213,19 @@
  *    // other Protractor config
  *  };
  *
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/stage~ListensToDomainEvents</span>}
+ * @public
+ * @implements {@serenity-js/core/lib/stage~ListensToDomainEvents}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsoleReporter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ListensToDomainEvents</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ConsoleReporter</span> <span class="token keyword">implements</span> <span class="token class-name">ListensToDomainEvents</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">private</span> startTimes = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StartTimes</span>();
-    <span class="hljs-keyword">private</span> artifacts = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifacts</span>();
-    <span class="hljs-keyword">private</span> summary = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Summary</span>();
-    <span class="hljs-keyword">private</span> <span class="hljs-attr">firstError</span>: <span class="hljs-title class_">FirstError</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FirstError</span>();
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">summaryFormatter</span>: <span class="hljs-title class_">SummaryFormatter</span>;
+    <span class="token keyword">private</span> startTimes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StartTimes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> artifacts <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ActivityRelatedArtifacts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> summary <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Summary</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> firstError<span class="token operator">:</span> FirstError <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FirstError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> summaryFormatter<span class="token operator">:</span> SummaryFormatter<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Instantiates a `ConsoleReporter` that auto-detects
      *  your terminal's support for colours and use a colour theme
      *  for dark terminals if successful.
@@ -238,325 +235,325 @@
      *  causes the `ConsoleReporter` to use the monochromatic colour scheme,
      *  as colour support can't be detected in child processes.
      *
-     *  If the above describes your setup, use {<span class="hljs-doctag">@link</span> ConsoleReporter#forDarkTerminals}
-     *  or {<span class="hljs-doctag">@link</span> ConsoleReporter#forLightTerminals} to make the sub-process produce colour output.
+     *  If the above describes your setup, use {@link ConsoleReporter#forDarkTerminals}
+     *  or {@link ConsoleReporter#forLightTerminals} to make the sub-process produce colour output.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/stage~StageCrewMemberBuilder</span>}
+     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">withDefaultColourSupport</span>(): <span class="hljs-title class_">StageCrewMemberBuilder</span>&lt;<span class="hljs-title class_">ConsoleReporter</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConsoleReporterBuilder</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ThemeForDarkTerminals</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ChalkInstance</span>(<span class="hljs-comment">/* auto-detect */</span>)));
-    }
+    <span class="token keyword">static</span> <span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMemberBuilder<span class="token operator">&lt;</span>ConsoleReporter<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ConsoleReporterBuilder</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ThemeForDarkTerminals</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ChalkInstance</span><span class="token punctuation">(</span><span class="token comment">/* auto-detect */</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Instantiates a `ConsoleReporter` with a monochromatic colour theme.
      *  Good for terminals with no colour support (like the `cmd.exe` on Windows),
      *  or for when you need to pipe the output to a text file and want
      *  to avoid printing control characters.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/stage~StageCrewMemberBuilder</span>}
+     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">forMonochromaticTerminals</span>(): <span class="hljs-title class_">StageCrewMemberBuilder</span>&lt;<span class="hljs-title class_">ConsoleReporter</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConsoleReporterBuilder</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ThemeForMonochromaticTerminals</span>());
-    }
+    <span class="token keyword">static</span> <span class="token function">forMonochromaticTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMemberBuilder<span class="token operator">&lt;</span>ConsoleReporter<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ConsoleReporterBuilder</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ThemeForMonochromaticTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with dark backgrounds.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/stage~StageCrewMemberBuilder</span>}
+     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">forDarkTerminals</span>(): <span class="hljs-title class_">StageCrewMemberBuilder</span>&lt;<span class="hljs-title class_">ConsoleReporter</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConsoleReporterBuilder</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ThemeForDarkTerminals</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ChalkInstance</span>({ <span class="hljs-attr">level</span>: <span class="hljs-number">2</span> })));
-    }
+    <span class="token keyword">static</span> <span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMemberBuilder<span class="token operator">&lt;</span>ConsoleReporter<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ConsoleReporterBuilder</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ThemeForDarkTerminals</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ChalkInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span> level<span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Instantiates a `ConsoleReporter` with a colour theme optimised for terminals with light backgrounds.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/stage~StageCrewMemberBuilder</span>}
+     * @returns {@serenity-js/core/lib/stage~StageCrewMemberBuilder}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">forLightTerminals</span>(): <span class="hljs-title class_">StageCrewMemberBuilder</span>&lt;<span class="hljs-title class_">ConsoleReporter</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConsoleReporterBuilder</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ThemeForLightTerminals</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ChalkInstance</span>({ <span class="hljs-attr">level</span>: <span class="hljs-number">2</span> })));
-    }
+    <span class="token keyword">static</span> <span class="token function">forLightTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMemberBuilder<span class="token operator">&lt;</span>ConsoleReporter<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ConsoleReporterBuilder</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ThemeForLightTerminals</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ChalkInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span> level<span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Printer</span>} <span class="hljs-variable">printer</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">TerminalTheme</span>} <span class="hljs-variable">theme</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/stage~Stage</span>} [stage=null]
+    <span class="token comment">/**
+     * @param {Printer} printer
+     * @param {TerminalTheme} theme
+     * @param {@serenity-js/core/lib/stage~Stage} [stage=null]
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
-    </span>) {
-        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'printer'</span>, printer, <span class="hljs-title function_">isDefined</span>());
-        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'theme'</span>, theme, <span class="hljs-title function_">isDefined</span>());
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> printer<span class="token operator">:</span> Printer<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> theme<span class="token operator">:</span> TerminalTheme<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> stage<span class="token operator">?</span><span class="token operator">:</span> Stage<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'printer'</span><span class="token punctuation">,</span> printer<span class="token punctuation">,</span> <span class="token function">isDefined</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'theme'</span><span class="token punctuation">,</span> theme<span class="token punctuation">,</span> <span class="token function">isDefined</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">summaryFormatter</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">SummaryFormatter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>);
-    }
+        <span class="token keyword">this</span><span class="token punctuation">.</span>summaryFormatter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SummaryFormatter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/events~DomainEvent} objects emitted by the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}.
+    <span class="token comment">/**
+     * @desc
+     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/stage~StageCrewMember</span>}
+     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
      *
-     * <span class="hljs-doctag">@listens</span> {<span class="hljs-type">@serenity-js/core/lib/events~DomainEvent</span>}
+     * @listens {@serenity-js/core/lib/events~DomainEvent}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/events~DomainEvent</span>} <span class="hljs-variable">event</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
+     * @param {@serenity-js/core/lib/events~DomainEvent} event
+     * @returns {void}
      */</span>
-    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-title function_">match</span>(event)
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">SceneStarts</span>, <span class="hljs-function">(<span class="hljs-params">e: SceneStarts</span>) =&gt;</span> {
+    <span class="token function">notifyOf</span><span class="token punctuation">(</span>event<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token function">match</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>SceneStarts<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> SceneStarts<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">firstError</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FirstError</span>();
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTimes</span>.<span class="hljs-title function_">recordStartOf</span>(e);
+                <span class="token keyword">this</span><span class="token punctuation">.</span>firstError <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FirstError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>startTimes<span class="token punctuation">.</span><span class="token function">recordStartOf</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-comment">// Print scenario header</span>
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">separator</span>(<span class="hljs-string">'-'</span>));
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">location</span>.<span class="hljs-property">path</span>.<span class="hljs-property">value</span>, e.<span class="hljs-property">details</span>.<span class="hljs-property">location</span>.<span class="hljs-property">line</span> ? <span class="hljs-string">`:<span class="hljs-subst">${ e.details.location.line }</span>`</span> : <span class="hljs-string">''</span>);
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">heading</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">category</span>.<span class="hljs-property">value</span>, <span class="hljs-string">': '</span>, e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>));
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-            })
+                <span class="token comment">// Print scenario header</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">separator</span><span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>location<span class="token punctuation">.</span>path<span class="token punctuation">.</span>value<span class="token punctuation">,</span> e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>location<span class="token punctuation">.</span>line <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>location<span class="token punctuation">.</span>line <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span> <span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">heading</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>category<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token string">': '</span><span class="token punctuation">,</span> e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-        <span class="hljs-comment">// todo: add SceneTagged ...</span>
+        <span class="token comment">// todo: add SceneTagged ...</span>
 
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">TaskStarts</span>, <span class="hljs-function">(<span class="hljs-params">e: TaskStarts</span>) =&gt;</span> {
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>TaskStarts<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> TaskStarts<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">firstError</span>.<span class="hljs-title function_">alreadyRecorded</span>()) {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
-                }
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span>firstError<span class="token punctuation">.</span><span class="token function">alreadyRecorded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-            })
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">InteractionStarts</span>, <span class="hljs-function">(<span class="hljs-params">e: InteractionStarts</span>) =&gt;</span> {
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>InteractionStarts<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> InteractionStarts<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTimes</span>.<span class="hljs-title function_">recordStartOf</span>(e);
+                <span class="token keyword">this</span><span class="token punctuation">.</span>startTimes<span class="token punctuation">.</span><span class="token function">recordStartOf</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            })
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">InteractionFinished</span>, <span class="hljs-function">(<span class="hljs-params">e: InteractionFinished</span>) =&gt;</span> {
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>InteractionFinished<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> InteractionFinished<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">formattedOutcome</span>(e));
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">formattedOutcome</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">if</span> (e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ProblemIndication</span>) {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">firstError</span>.<span class="hljs-title function_">recordIfNeeded</span>(e.<span class="hljs-property">outcome</span>.<span class="hljs-property">error</span>);
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ProblemIndication</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>firstError<span class="token punctuation">.</span><span class="token function">recordIfNeeded</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">if</span> (! (e.<span class="hljs-property">outcome</span>.<span class="hljs-property">error</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionError</span>)) {
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">outcome</span>(e.<span class="hljs-property">outcome</span>, <span class="hljs-string">`<span class="hljs-subst">${ e.outcome.error }</span>`</span>));
-                    }
-                }
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error <span class="token keyword">instanceof</span> <span class="token class-name">AssertionError</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">outcome</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
 
-                <span class="hljs-keyword">const</span> artifactGeneratedEvents = <span class="hljs-variable language_">this</span>.<span class="hljs-property">artifacts</span>.<span class="hljs-title function_">recordedFor</span>(e.<span class="hljs-property">activityId</span>);
+                <span class="token keyword">const</span> artifactGeneratedEvents <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>artifacts<span class="token punctuation">.</span><span class="token function">recordedFor</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>activityId<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">if</span> (artifactGeneratedEvents.<span class="hljs-title function_">some</span>(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionReport</span> || a <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">LogEntry</span>)) {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-                }
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>artifactGeneratedEvents<span class="token punctuation">.</span><span class="token function">some</span><span class="token punctuation">(</span>a <span class="token operator">=&gt;</span> a <span class="token keyword">instanceof</span> <span class="token class-name">AssertionReport</span> <span class="token operator">||</span> a <span class="token keyword">instanceof</span> <span class="token class-name">LogEntry</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-                artifactGeneratedEvents.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">artifactGenerated</span> =&gt;</span> {
-                    <span class="hljs-keyword">if</span> (artifactGenerated.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionReport</span>) {
-                        <span class="hljs-keyword">const</span> details = artifactGenerated.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(
-                            <span class="hljs-function">(<span class="hljs-params">artifactContents: { expected: <span class="hljs-built_in">string</span>, actual: <span class="hljs-built_in">string</span> }</span>) =&gt;</span>
-                                <span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">diff</span>(
-                                    artifactContents.<span class="hljs-property">expected</span>,
-                                    artifactContents.<span class="hljs-property">actual</span>,
-                                ),
-                        );
+                artifactGeneratedEvents<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>artifactGenerated <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>artifact <span class="token keyword">instanceof</span> <span class="token class-name">AssertionReport</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">const</span> details <span class="token operator">=</span> artifactGenerated<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
+                            <span class="token punctuation">(</span>artifactContents<span class="token operator">:</span> <span class="token punctuation">{</span> expected<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> actual<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                                <span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">diff</span><span class="token punctuation">(</span>
+                                    artifactContents<span class="token punctuation">.</span>expected<span class="token punctuation">,</span>
+                                    artifactContents<span class="token punctuation">.</span>actual<span class="token punctuation">,</span>
+                                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(details);
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>details<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-                    }
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
 
-                    <span class="hljs-keyword">if</span> (artifactGenerated.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">LogEntry</span>) {
-                        <span class="hljs-keyword">const</span> details = artifactGenerated.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">artifactContents: { data: <span class="hljs-built_in">string</span> }</span>) =&gt;</span> artifactContents.<span class="hljs-property">data</span>);
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>artifact <span class="token keyword">instanceof</span> <span class="token class-name">LogEntry</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">const</span> details <span class="token operator">=</span> artifactGenerated<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>artifactContents<span class="token operator">:</span> <span class="token punctuation">{</span> data<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> artifactContents<span class="token punctuation">.</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                        <span class="hljs-keyword">if</span> (artifactGenerated.<span class="hljs-property">name</span>.<span class="hljs-property">value</span> !== details) {
-                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">log</span>(artifactGenerated.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>, <span class="hljs-string">':'</span>));
-                        }
+                        <span class="token keyword">if</span> <span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value <span class="token operator">!==</span> details<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token string">':'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
 
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(details);
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-                    }
-                });
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>details<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            })
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>, <span class="hljs-function">(<span class="hljs-params">e: ActivityRelatedArtifactGenerated</span>) =&gt;</span> {
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>ActivityRelatedArtifactGenerated<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> ActivityRelatedArtifactGenerated<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">artifacts</span>.<span class="hljs-title function_">record</span>(e);
+                <span class="token keyword">this</span><span class="token punctuation">.</span>artifacts<span class="token punctuation">.</span><span class="token function">record</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            })
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">TaskFinished</span>, <span class="hljs-function">(<span class="hljs-params">e: TaskFinished</span>) =&gt;</span> {
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>TaskFinished<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> TaskFinished<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">if</span> (e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ProblemIndication</span>) {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ProblemIndication</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">firstError</span>.<span class="hljs-title function_">alreadyRecorded</span>()) {
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">outcome</span>(e.<span class="hljs-property">outcome</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">iconFrom</span>(e.<span class="hljs-property">outcome</span>), <span class="hljs-string">`<span class="hljs-subst">${ e.outcome.error }</span>`</span>));
-                    }
-
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
-
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">firstError</span>.<span class="hljs-title function_">recordIfNeeded</span>(e.<span class="hljs-property">outcome</span>.<span class="hljs-property">error</span>);
-                }
-
-                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (! (e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExecutionSuccessful</span>)) {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">iconFrom</span>(e.<span class="hljs-property">outcome</span>), e.<span class="hljs-property">details</span>.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
-
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
-                }
-
-            })
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">SceneFinished</span>, <span class="hljs-function">(<span class="hljs-params">e: SceneFinished</span>) =&gt;</span> {
-
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">summary</span>.<span class="hljs-title function_">record</span>(e.<span class="hljs-property">details</span>, e.<span class="hljs-property">outcome</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">startTimes</span>.<span class="hljs-title function_">eventDurationOf</span>(e));
-
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">outcome</span>(e.<span class="hljs-property">outcome</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">formattedOutcome</span>(e, <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">deCamelCased</span>(e.<span class="hljs-property">outcome</span>.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>))));
-
-                <span class="hljs-keyword">if</span> (e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ProblemIndication</span>) {
-
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>();
-
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">indent</span>();
-
-                    <span class="hljs-keyword">if</span> (e.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ImplementationPending</span>) {
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-string">`<span class="hljs-subst">${ e.outcome.error.name }</span>: <span class="hljs-subst">${ e.outcome.error.message }</span>`</span>);
-                    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (e.<span class="hljs-property">outcome</span>.<span class="hljs-property">error</span>?.<span class="hljs-property">stack</span>) {
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(e.<span class="hljs-property">outcome</span>.<span class="hljs-property">error</span>.<span class="hljs-property">stack</span>);
-                    }
-
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">outdent</span>();
-                }
-
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">artifacts</span>.<span class="hljs-title function_">clear</span>();
-            })
-            .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">TestRunFinished</span>, <span class="hljs-function">(<span class="hljs-params">_: TestRunFinished</span>) =&gt;</span> {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">separator</span>(<span class="hljs-string">'='</span>));
-
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">print</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">summaryFormatter</span>.<span class="hljs-title function_">format</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">summary</span>.<span class="hljs-title function_">aggregated</span>()));
-
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-title function_">println</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">separator</span>(<span class="hljs-string">'='</span>));
-            })
-            .<span class="hljs-title function_">else</span>(<span class="hljs-function">(<span class="hljs-params">_: DomainEvent</span>) =&gt;</span> {
-                <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
-            });
-    }
-
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">formattedOutcome</span>(<span class="hljs-params">event: IdentifiableEvent &amp; { outcome: Outcome }, description: <span class="hljs-built_in">string</span> = event.details.name.value</span>) {
-        <span class="hljs-keyword">const</span>
-            icon = <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.iconFrom(event.outcome) }</span>`</span>,
-            message = <span class="hljs-string">`<span class="hljs-subst">${ description }</span> (<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.startTimes.eventDurationOf(event) }</span>)`</span>;
-
-        <span class="hljs-keyword">return</span> (event.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ProblemIndication</span>)
-            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>.<span class="hljs-title function_">outcome</span>(event.<span class="hljs-property">outcome</span>, <span class="hljs-string">`<span class="hljs-subst">${icon}</span><span class="hljs-subst">${message}</span>`</span>)
-            : <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.theme.outcome(event.outcome, icon) }</span><span class="hljs-subst">${ message }</span>`</span>;
-    }
-
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">deCamelCased</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-keyword">const</span> deCamelCased = name.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/([^A-Z])([A-Z])/g</span>, <span class="hljs-string">'$1 $2'</span>);
-
-        <span class="hljs-keyword">return</span> deCamelCased.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">0</span>).<span class="hljs-title function_">toUpperCase</span>() + deCamelCased.<span class="hljs-title function_">slice</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">toLocaleLowerCase</span>();
-    }
-
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">iconFrom</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">switch</span> (outcome.<span class="hljs-property">constructor</span>) {
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionCompromised</span>:
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionFailedWithError</span>:
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'✗ '</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ImplementationPending</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'☕'</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionSkipped</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'⇢ '</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionIgnored</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'? '</span>;
-            <span class="hljs-keyword">case</span> <span class="hljs-title class_">ExecutionSuccessful</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">'✓ '</span>;
-            <span class="hljs-attr">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
-        }
-    }
-}
-
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsoleReporterBuilder</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMemberBuilder</span>&lt;<span class="hljs-title class_">ConsoleReporter</span>&gt; {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> theme: TerminalTheme</span>) {
-    }
-
-    <span class="hljs-title function_">build</span>({ stage, outputStream }: { <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>; <span class="hljs-attr">outputStream</span>: <span class="hljs-title class_">OutputStream</span>; }): <span class="hljs-title class_">ConsoleReporter</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConsoleReporter</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Printer</span>(outputStream), <span class="hljs-variable language_">this</span>.<span class="hljs-property">theme</span>, stage);
-    }
-}
-
-<span class="hljs-keyword">interface</span> IdentifiableEvent {
-    <span class="hljs-attr">details</span>: { <span class="hljs-attr">name</span>: <span class="hljs-title class_">Name</span>, <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> };
-    <span class="hljs-attr">timestamp</span>: <span class="hljs-title class_">Timestamp</span>;
-}
-
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">StartTimes</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-attr">times</span>: { [<span class="hljs-attr">correlationId</span>: <span class="hljs-built_in">string</span>]: <span class="hljs-title class_">Timestamp</span> } = {};
-
-    <span class="hljs-title function_">recordStartOf</span>(<span class="hljs-params">event: IdentifiableEvent</span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">times</span>[event.<span class="hljs-property">details</span>.<span class="hljs-title function_">toString</span>()] = event.<span class="hljs-property">timestamp</span>;
-    }
-
-    <span class="hljs-title function_">eventDurationOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">IdentifiableEvent</span> &amp; { <span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span> }): <span class="hljs-title class_">Duration</span> {
-        <span class="hljs-keyword">return</span> event.<span class="hljs-property">timestamp</span>.<span class="hljs-title function_">diff</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">times</span>[event.<span class="hljs-property">details</span>.<span class="hljs-title function_">toString</span>()]);
-    }
-}
-
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">FirstError</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>;
-
-    <span class="hljs-title function_">recordIfNeeded</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span></span>) {
-        <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span>) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span> = error;
-        }
-    }
-
-    <span class="hljs-title function_">alreadyRecorded</span>(): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> !! <span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span>;
-    }
-
-    <span class="hljs-title function_">get</span>(): <span class="hljs-title class_">Error</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">error</span>;
-    }
-}
-
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ActivityRelatedArtifacts</span> {
-
-    <span class="hljs-keyword">private</span> <span class="hljs-attr">events</span>: <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>[] = [];
-
-    <span class="hljs-title function_">record</span>(<span class="hljs-params">event: ActivityRelatedArtifactGenerated</span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">events</span>.<span class="hljs-title function_">push</span>(event);
-    }
-
-    <span class="hljs-title function_">recordedFor</span>(<span class="hljs-attr">activityId</span>: <span class="hljs-title class_">CorrelationId</span>): <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>[] {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">events</span>
-            .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> event.<span class="hljs-property">activityId</span>.<span class="hljs-title function_">equals</span>(activityId));
-    }
-
-    <span class="hljs-title function_">clear</span>(<span class="hljs-params"></span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">events</span> = [];
-    }
-}
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span>firstError<span class="token punctuation">.</span><span class="token function">alreadyRecorded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">outcome</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">iconFrom</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>firstError<span class="token punctuation">.</span><span class="token function">recordIfNeeded</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">iconFrom</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">.</span>details<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>SceneFinished<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> SceneFinished<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+                <span class="token keyword">this</span><span class="token punctuation">.</span>summary<span class="token punctuation">.</span><span class="token function">record</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>details<span class="token punctuation">,</span> e<span class="token punctuation">.</span>outcome<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>startTimes<span class="token punctuation">.</span><span class="token function">eventDurationOf</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">outcome</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">formattedOutcome</span><span class="token punctuation">(</span>e<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">deCamelCased</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ProblemIndication</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">indent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ImplementationPending</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error<span class="token punctuation">.</span>message <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error<span class="token operator">?.</span>stack<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>outcome<span class="token punctuation">.</span>error<span class="token punctuation">.</span>stack<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">outdent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">this</span><span class="token punctuation">.</span>artifacts<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>TestRunFinished<span class="token punctuation">,</span> <span class="token punctuation">(</span>_<span class="token operator">:</span> TestRunFinished<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">separator</span><span class="token punctuation">(</span><span class="token string">'='</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>summaryFormatter<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>summary<span class="token punctuation">.</span><span class="token function">aggregated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">separator</span><span class="token punctuation">(</span><span class="token string">'='</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">else</span><span class="token punctuation">(</span><span class="token punctuation">(</span>_<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">formattedOutcome</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IdentifiableEvent <span class="token operator">&amp;</span> <span class="token punctuation">{</span> outcome<span class="token operator">:</span> Outcome <span class="token punctuation">}</span><span class="token punctuation">,</span> description<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">=</span> event<span class="token punctuation">.</span>details<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span>
+            icon <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">iconFrom</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>outcome<span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            message <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> description <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> (</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>startTimes<span class="token punctuation">.</span><span class="token function">eventDurationOf</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">)</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ProblemIndication</span><span class="token punctuation">)</span>
+            <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">outcome</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>outcome<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>icon<span class="token interpolation-punctuation punctuation">}</span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>message<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">.</span><span class="token function">outcome</span><span class="token punctuation">(</span>event<span class="token punctuation">.</span>outcome<span class="token punctuation">,</span> icon<span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> message <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">deCamelCased</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> deCamelCased <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">([^A-Z])([A-Z])</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'$1 $2'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> deCamelCased<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> deCamelCased<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toLocaleLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">iconFrom</span><span class="token punctuation">(</span>outcome<span class="token operator">:</span> Outcome<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span>outcome<span class="token punctuation">.</span>constructor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> ExecutionCompromised<span class="token operator">:</span>
+            <span class="token keyword">case</span> ExecutionFailedWithError<span class="token operator">:</span>
+            <span class="token keyword">case</span> ExecutionFailedWithAssertionError<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token string">'✗ '</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> ImplementationPending<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token string">'☕'</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> ExecutionSkipped<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token string">'⇢ '</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> ExecutionIgnored<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token string">'? '</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> ExecutionSuccessful<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token string">'✓ '</span><span class="token punctuation">;</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">ConsoleReporterBuilder</span> <span class="token keyword">implements</span> <span class="token class-name">StageCrewMemberBuilder<span class="token operator">&lt;</span>ConsoleReporter<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> theme<span class="token operator">:</span> TerminalTheme<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">{</span> stage<span class="token punctuation">,</span> outputStream <span class="token punctuation">}</span><span class="token operator">:</span> <span class="token punctuation">{</span> stage<span class="token operator">:</span> Stage<span class="token punctuation">;</span> outputStream<span class="token operator">:</span> OutputStream<span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token operator">:</span> ConsoleReporter <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ConsoleReporter</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Printer</span><span class="token punctuation">(</span>outputStream<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>theme<span class="token punctuation">,</span> stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">IdentifiableEvent</span> <span class="token punctuation">{</span>
+    details<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> Name<span class="token punctuation">,</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    timestamp<span class="token operator">:</span> Timestamp<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">StartTimes</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> times<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>correlationId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">:</span> Timestamp <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token function">recordStartOf</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IdentifiableEvent<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>times<span class="token punctuation">[</span>event<span class="token punctuation">.</span>details<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> event<span class="token punctuation">.</span>timestamp<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">eventDurationOf</span><span class="token punctuation">(</span>event<span class="token operator">:</span> IdentifiableEvent <span class="token operator">&amp;</span> <span class="token punctuation">{</span> outcome<span class="token operator">:</span> Outcome <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token operator">:</span> Duration <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> event<span class="token punctuation">.</span>timestamp<span class="token punctuation">.</span><span class="token function">diff</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>times<span class="token punctuation">[</span>event<span class="token punctuation">.</span>details<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">FirstError</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> error<span class="token operator">:</span> Error<span class="token punctuation">;</span>
+
+    <span class="token function">recordIfNeeded</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>error <span class="token operator">=</span> error<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">alreadyRecorded</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span>error<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Error <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>error<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">ActivityRelatedArtifacts</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> events<span class="token operator">:</span> ActivityRelatedArtifactGenerated<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+    <span class="token function">record</span><span class="token punctuation">(</span>event<span class="token operator">:</span> ActivityRelatedArtifactGenerated<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>events<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">recordedFor</span><span class="token punctuation">(</span>activityId<span class="token operator">:</span> CorrelationId<span class="token punctuation">)</span><span class="token operator">:</span> ActivityRelatedArtifactGenerated<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>events
+            <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>event <span class="token operator">=&gt;</span> event<span class="token punctuation">.</span>activityId<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>activityId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>events <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

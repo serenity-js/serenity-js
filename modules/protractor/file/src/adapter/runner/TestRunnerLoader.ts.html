@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,102 +184,102 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/runner/TestRunnerLoader.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span>, <span class="hljs-title class_">FileFinder</span>, <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Path</span>, <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/prevent-abbreviations,@typescript-eslint/ban-types */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Config<span class="token punctuation">,</span> FileFinder<span class="token punctuation">,</span> FileSystem<span class="token punctuation">,</span> ModuleLoader<span class="token punctuation">,</span> Path<span class="token punctuation">,</span> TestRunnerAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CucumberConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/cucumber/lib/cli'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberAdapterConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./CucumberAdapterConfig'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CucumberAdapterConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./CucumberAdapterConfig'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Loads a {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/io~TestRunnerAdapter}, needed to invoke
+<span class="token comment">/**
+ * @desc
+ *  Loads a {@link @serenity-js/core/lib/io~TestRunnerAdapter}, needed to invoke
  *  the chosen test runner programmatically.
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestRunnerLoader</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TestRunnerLoader</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">moduleLoader</span>: <span class="hljs-title class_">ModuleLoader</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">fileSystem</span>: <span class="hljs-title class_">FileSystem</span>;
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">finder</span>: <span class="hljs-title class_">FileFinder</span>;
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token keyword">module</span>Loader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> fileSystem<span class="token operator">:</span> FileSystem<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> finder<span class="token operator">:</span> FileFinder<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~Path</span>} <span class="hljs-variable">cwd</span>
+    <span class="token comment">/**
+     * @param {@serenity-js/core/lib/io~Path} cwd
      *  Current working directory; used to resolve glob paths to files for Cucumber.js to `require`,
      *  and instructing Serenity/JS where to look for this module's optional
-     *  dependencies, like [`<span class="hljs-doctag">@serenity</span>-js/cucumber`](/modules/cucumber),
-     *  [`<span class="hljs-doctag">@serenity</span>-js/mocha`](/modules/mocha),
-     *  [`<span class="hljs-doctag">@serenity</span>-js/jasmine`](/modules/jasmine), etc.
+     *  dependencies, like [`@serenity-js/cucumber`](/modules/cucumber),
+     *  [`@serenity-js/mocha`](/modules/mocha),
+     *  [`@serenity-js/jasmine`](/modules/jasmine), etc.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number | string</span>} <span class="hljs-variable">runnerId</span>
+     * @param {number | string} runnerId
      *  Unique identifier used to differentiate output files produced by native Cucumber.js formatters.
      *  For example, `process.pid`
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">cwd: Path, <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> runnerId: <span class="hljs-built_in">number</span> | <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(cwd.<span class="hljs-property">value</span>);
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(cwd);
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">finder</span>         = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileFinder</span>(cwd);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>cwd<span class="token operator">:</span> Path<span class="token punctuation">,</span> <span class="token keyword">private</span> <span class="token keyword">readonly</span> runnerId<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader   <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModuleLoader</span><span class="token punctuation">(</span>cwd<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>fileSystem     <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileSystem</span><span class="token punctuation">(</span>cwd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>finder         <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileFinder</span><span class="token punctuation">(</span>cwd<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/jasmine/lib/adapter~JasmineConfig</span>} <span class="hljs-variable">jasmineNodeOpts</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
+    <span class="token comment">/**
+     * @param {@serenity-js/jasmine/lib/adapter~JasmineConfig} jasmineNodeOpts
+     * @returns {@serenity-js/core/lib/io~TestRunnerAdapter}
      */</span>
-    <span class="hljs-title function_">forJasmine</span>(<span class="hljs-attr">jasmineNodeOpts</span>: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* JasmineConfig */</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
-        <span class="hljs-keyword">const</span> { <span class="hljs-title class_">JasmineAdapter</span> } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/jasmine/lib/adapter'</span>)
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JasmineAdapter</span>(jasmineNodeOpts, <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>);
-    }
+    <span class="token function">forJasmine</span><span class="token punctuation">(</span>jasmineNodeOpts<span class="token operator">:</span> object <span class="token comment">/* JasmineConfig */</span><span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> JasmineAdapter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/jasmine/lib/adapter'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>jasmineNodeOpts<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/mocha/lib/adapter~MochaConfig</span>} <span class="hljs-variable">mochaOpts</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
+    <span class="token comment">/**
+     * @param {@serenity-js/mocha/lib/adapter~MochaConfig} mochaOpts
+     * @returns {@serenity-js/core/lib/io~TestRunnerAdapter}
      */</span>
-    <span class="hljs-title function_">forMocha</span>(<span class="hljs-attr">mochaOpts</span>: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* MochaConfig */</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
-        <span class="hljs-keyword">const</span> { <span class="hljs-title class_">MochaAdapter</span> } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/mocha/lib/adapter'</span>)
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MochaAdapter</span>(mochaOpts, <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>);
-    }
+    <span class="token function">forMocha</span><span class="token punctuation">(</span>mochaOpts<span class="token operator">:</span> object <span class="token comment">/* MochaConfig */</span><span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> MochaAdapter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/mocha/lib/adapter'</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MochaAdapter</span><span class="token punctuation">(</span>mochaOpts<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
+    <span class="token comment">/**
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/cucumber/lib/cli~CucumberConfig</span>} <span class="hljs-variable">cucumberOpts</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">CucumberAdapterConfig</span>} <span class="hljs-variable">adapterConfig</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
+     * @param {@serenity-js/cucumber/lib/cli~CucumberConfig} cucumberOpts
+     * @param {CucumberAdapterConfig} adapterConfig
+     * @returns {@serenity-js/core/lib/io~TestRunnerAdapter}
      */</span>
-    <span class="hljs-title function_">forCucumber</span>(<span class="hljs-attr">cucumberOpts</span>: <span class="hljs-built_in">object</span> <span class="hljs-comment">/* CucumberConfig */</span>, <span class="hljs-attr">adapterConfig</span>: <span class="hljs-title class_">CucumberAdapterConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
-        <span class="hljs-keyword">const</span> { <span class="hljs-title class_">Cucumber</span>CLIAdapter, <span class="hljs-title class_">CucumberFormat</span>, <span class="hljs-title class_">StandardOutput</span>, <span class="hljs-title class_">TempFileOutput</span> } = <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/cucumber/lib/cli'</span>);
+    <span class="token function">forCucumber</span><span class="token punctuation">(</span>cucumberOpts<span class="token operator">:</span> object <span class="token comment">/* CucumberConfig */</span><span class="token punctuation">,</span> adapterConfig<span class="token operator">:</span> CucumberAdapterConfig<span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> CucumberCLIAdapter<span class="token punctuation">,</span> CucumberFormat<span class="token punctuation">,</span> StandardOutput<span class="token punctuation">,</span> TempFileOutput <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/cucumber/lib/cli'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> config = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Config</span>&lt;<span class="hljs-title class_">CucumberConfig</span>&gt;(cucumberOpts)
-            .<span class="hljs-title function_">where</span>(<span class="hljs-string">'require'</span>, <span class="hljs-function"><span class="hljs-params">requires</span> =&gt;</span>
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">finder</span>.<span class="hljs-title function_">filesMatching</span>(requires).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> p.<span class="hljs-property">value</span>)
-            )
-            .<span class="hljs-title function_">whereIf</span>(adapterConfig.<span class="hljs-property">uniqueFormatterOutputs</span>, <span class="hljs-string">'format'</span>, <span class="hljs-function"><span class="hljs-params">values</span> =&gt;</span>
-                [].<span class="hljs-title function_">concat</span>(values).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> {
-                    <span class="hljs-keyword">const</span> format = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberFormat</span>(value);
+        <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Config<span class="token operator">&lt;</span>CucumberConfig<span class="token operator">&gt;</span></span><span class="token punctuation">(</span>cucumberOpts<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">'require'</span><span class="token punctuation">,</span> requires <span class="token operator">=&gt;</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>finder<span class="token punctuation">.</span><span class="token function">filesMatching</span><span class="token punctuation">(</span>requires<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>p <span class="token operator">=&gt;</span> p<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">whereIf</span><span class="token punctuation">(</span>adapterConfig<span class="token punctuation">.</span>uniqueFormatterOutputs<span class="token punctuation">,</span> <span class="token string">'format'</span><span class="token punctuation">,</span> values <span class="token operator">=&gt;</span>
+                <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>value <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">const</span> format <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CucumberFormat</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">if</span> (format.<span class="hljs-property">output</span> === <span class="hljs-string">''</span>) {
-                        <span class="hljs-keyword">return</span> format.<span class="hljs-property">value</span>;
-                    }
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>format<span class="token punctuation">.</span>output <span class="token operator">===</span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> format<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
 
-                    <span class="hljs-keyword">const</span> basename = <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">from</span>(format.<span class="hljs-property">output</span>).<span class="hljs-title function_">basename</span>();
-                    <span class="hljs-keyword">const</span> filenameParts = basename.<span class="hljs-title function_">split</span>(<span class="hljs-string">'.'</span>);
+                    <span class="token keyword">const</span> basename <span class="token operator">=</span> Path<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>format<span class="token punctuation">.</span>output<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">basename</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">const</span> filenameParts <span class="token operator">=</span> basename<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">if</span> (filenameParts[<span class="hljs-number">0</span>] === basename) {
-                        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ format.formatter }</span>:<span class="hljs-subst">${ format.output }</span>.<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.runnerId }</span>`</span>;
-                    }
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>filenameParts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">===</span> basename<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> format<span class="token punctuation">.</span>formatter <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> format<span class="token punctuation">.</span>output <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>runnerId <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
 
-                    filenameParts.<span class="hljs-title function_">splice</span>(-<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.runnerId }</span>`</span>);
+                    filenameParts<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>runnerId <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ format.formatter }</span>:<span class="hljs-subst">${ format.output.replace(basename, filenameParts.join(<span class="hljs-string">'.'</span>)) }</span>`</span>;
-                })
-            );
+                    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> format<span class="token punctuation">.</span>formatter <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">:</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> format<span class="token punctuation">.</span>output<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>basename<span class="token punctuation">,</span> filenameParts<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> output = adapterConfig.<span class="hljs-property">useStandardOutput</span>
-            ? <span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardOutput</span>()
-            : <span class="hljs-keyword">new</span> <span class="hljs-title class_">TempFileOutput</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>);
+        <span class="token keyword">const</span> output <span class="token operator">=</span> adapterConfig<span class="token punctuation">.</span>useStandardOutput
+            <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">StandardOutput</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">TempFileOutput</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>fileSystem<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cucumber</span>CLIAdapter(config.<span class="hljs-title function_">object</span>(), <span class="hljs-variable language_">this</span>.<span class="hljs-property">moduleLoader</span>, output);
-    }
-}
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CucumberCLIAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span><span class="token function">object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">module</span>Loader<span class="token punctuation">,</span> output<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

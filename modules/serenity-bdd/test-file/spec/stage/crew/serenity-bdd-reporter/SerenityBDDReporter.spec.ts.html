@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,536 +125,536 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">StageManager</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">TestRunFinishes</span>, <span class="hljs-title class_">TestRunnerDetected</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">Category</span>,
-    <span class="hljs-title class_">CorrelationId</span>,
-    <span class="hljs-title class_">Duration</span>,
-    <span class="hljs-title class_">ExecutionCompromised</span>,
-    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
-    <span class="hljs-title class_">ExecutionFailedWithError</span>,
-    <span class="hljs-title class_">ExecutionIgnored</span>,
-    <span class="hljs-title class_">ExecutionSkipped</span>,
-    <span class="hljs-title class_">ExecutionSuccessful</span>,
-    <span class="hljs-title class_">ImplementationPending</span>,
-    JSONData,
-    <span class="hljs-title class_">Name</span>,
-    <span class="hljs-title class_">ScenarioDetails</span>,
-    <span class="hljs-title class_">TestReport</span>,
-    <span class="hljs-title class_">Timestamp</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AssertionError<span class="token punctuation">,</span> ImplementationPendingError<span class="token punctuation">,</span> StageManager<span class="token punctuation">,</span> TestCompromisedError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactGenerated<span class="token punctuation">,</span> SceneFinished<span class="token punctuation">,</span> SceneStarts<span class="token punctuation">,</span> TestRunFinishes<span class="token punctuation">,</span> TestRunnerDetected <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> FileSystemLocation<span class="token punctuation">,</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    Category<span class="token punctuation">,</span>
+    CorrelationId<span class="token punctuation">,</span>
+    Duration<span class="token punctuation">,</span>
+    ExecutionCompromised<span class="token punctuation">,</span>
+    ExecutionFailedWithAssertionError<span class="token punctuation">,</span>
+    ExecutionFailedWithError<span class="token punctuation">,</span>
+    ExecutionIgnored<span class="token punctuation">,</span>
+    ExecutionSkipped<span class="token punctuation">,</span>
+    ExecutionSuccessful<span class="token punctuation">,</span>
+    ImplementationPending<span class="token punctuation">,</span>
+    JSONData<span class="token punctuation">,</span>
+    Name<span class="token punctuation">,</span>
+    ScenarioDetails<span class="token punctuation">,</span>
+    TestReport<span class="token punctuation">,</span>
+    Timestamp<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> sinon <span class="token keyword">from</span> <span class="token string">'sinon'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'../given'</span>;
-<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'./create'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../../src/stage'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReport <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> given <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../given'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> create <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./create'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {SerenityBDDReporter} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'SerenityBDDReporter'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span>
-        startTime = <span class="hljs-title class_">Timestamp</span>.<span class="hljs-title function_">fromJSON</span>(<span class="hljs-string">'2018-05-25T00:00:00.123Z'</span>),
-        scenarioDuration = <span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">142</span>);
+    <span class="token keyword">const</span>
+        startTime <span class="token operator">=</span> Timestamp<span class="token punctuation">.</span><span class="token function">fromJSON</span><span class="token punctuation">(</span><span class="token string">'2018-05-25T00:00:00.123Z'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        scenarioDuration <span class="token operator">=</span> Duration<span class="token punctuation">.</span><span class="token function">ofMilliseconds</span><span class="token punctuation">(</span><span class="token number">142</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span>
-        aSceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'a-scene-id'</span>),
-        anotherSceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'another-scene-id'</span>);
+    <span class="token keyword">const</span>
+        aSceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'a-scene-id'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        anotherSceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'another-scene-id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> defaultCardScenario = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Paying with a default card'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Online Checkout'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`payments/checkout.feature`</span>),
-        ),
-    );
+    <span class="token keyword">const</span> defaultCardScenario <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ScenarioDetails</span><span class="token punctuation">(</span>
+        <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Paying with a default card'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">Category</span><span class="token punctuation">(</span><span class="token string">'Online Checkout'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">FileSystemLocation</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">payments/checkout.feature</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> voucherScenario = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Paying with a voucher'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Online Checkout'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`payments/checkout.feature`</span>),
-        ),
-    );
+    <span class="token keyword">const</span> voucherScenario <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ScenarioDetails</span><span class="token punctuation">(</span>
+        <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Paying with a voucher'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">Category</span><span class="token punctuation">(</span><span class="token string">'Online Checkout'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">FileSystemLocation</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">payments/checkout.feature</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> jasmineScenario = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Paying with a default card'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Online Checkout'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">`spec/checkout.spec.ts`</span>),
-        ),
-    );
+    <span class="token keyword">const</span> jasmineScenario <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ScenarioDetails</span><span class="token punctuation">(</span>
+        <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Paying with a default card'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">Category</span><span class="token punctuation">(</span><span class="token string">'Online Checkout'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">FileSystemLocation</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">spec/checkout.spec.ts</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">let</span> <span class="hljs-attr">stageManager</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">StageManager</span>&gt;,
-        <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">Serenity</span>BDDReporter;
+    <span class="token keyword">let</span> stageManager<span class="token operator">:</span> sinon<span class="token punctuation">.</span>SinonStubbedInstance<span class="token operator">&lt;</span>StageManager<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        reporter<span class="token operator">:</span> SerenityBDDReporter<span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> env = <span class="hljs-title function_">create</span>();
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        stageManager    = env.<span class="hljs-property">stageManager</span>;
-        reporter        = env.<span class="hljs-property">reporter</span>;
-    });
+        stageManager    <span class="token operator">=</span> env<span class="token punctuation">.</span>stageManager<span class="token punctuation">;</span>
+        reporter        <span class="token operator">=</span> env<span class="token punctuation">.</span>reporter<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'generates a SerenityBDDReport Artifact that'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'generates a SerenityBDDReport Artifact that'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">let</span> <span class="hljs-attr">artifact</span>: JSONData;
+        <span class="token keyword">let</span> artifact<span class="token operator">:</span> JSONData<span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, defaultCardScenario),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-            );
+        <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">callCount</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">1</span>);
+            <span class="token function">expect</span><span class="token punctuation">(</span>stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>callCount<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            artifact = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>;
-        });
+            artifact <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
+        <span class="token comment">/**
+         * @test {SerenityBDDReporter}
+         * @test {SceneStarts}
+         * @test {SceneFinished}
+         * @test {ExecutionSuccessful}
+         * @test {TestRunFinishes}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'is a valid artifact'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">expect</span>(artifact).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">TestReport</span>);
-        });
-    });
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'is a valid artifact'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>artifact<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceOf</span><span class="token punctuation">(</span>TestReport<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'emits an ArtifactGenerated event that'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'emits an ArtifactGenerated event that'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSkipped</span>}
+        <span class="token comment">/**
+         * @test {SerenityBDDReporter}
+         * @test {SceneStarts}
+         * @test {SceneFinished}
+         * @test {TestRunFinishes}
+         * @test {ExecutionSuccessful}
+         * @test {ExecutionSkipped}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'is separate for each scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, defaultCardScenario),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(anotherSceneId, voucherScenario),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(anotherSceneId, voucherScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>()),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-            );
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'is separate for each scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> voucherScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> voucherScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSkipped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">callCount</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-number">2</span>);
+            <span class="token function">expect</span><span class="token punctuation">(</span>stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>callCount<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span>
-                <span class="hljs-attr">event1</span>: <span class="hljs-title class_">ArtifactGenerated</span> = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>,
-                <span class="hljs-attr">event2</span>: <span class="hljs-title class_">ArtifactGenerated</span> = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">secondCall</span>.<span class="hljs-property">lastArg</span>;
+            <span class="token keyword">const</span>
+                event1<span class="token operator">:</span> ArtifactGenerated <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">,</span>
+                event2<span class="token operator">:</span> ArtifactGenerated <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>secondCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(event1.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(defaultCardScenario.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
+            <span class="token function">expect</span><span class="token punctuation">(</span>event1<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>defaultCardScenario<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(event2.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _).<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(voucherScenario.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
-        });
-    });
+            <span class="token function">expect</span><span class="token punctuation">(</span>event2<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>voucherScenario<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'produces a SerenityBDDReport that'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'produces a SerenityBDDReport that'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">let</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport;
+        <span class="token keyword">let</span> report<span class="token operator">:</span> SerenityBDDReport<span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'at the scenario level'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'at the scenario level'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, defaultCardScenario, startTime),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>(), startTime.<span class="hljs-title function_">plus</span>(scenarioDuration)),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+            <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> startTime<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> startTime<span class="token punctuation">.</span><span class="token function">plus</span><span class="token punctuation">(</span>scenarioDuration<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
-            });
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'contains the id of the scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">id</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'online-checkout;paying-with-a-default-card'</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'contains the id of the scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>id<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'online-checkout;paying-with-a-default-card'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'contains the name of the scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(defaultCardScenario.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">title</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(defaultCardScenario.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'contains the name of the scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>defaultCardScenario<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>title<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>defaultCardScenario<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'contains the start time of the scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">startTime</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(startTime.<span class="hljs-title function_">toMillisecondTimestamp</span>());
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'contains the start time of the scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>startTime<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>startTime<span class="token punctuation">.</span><span class="token function">toMillisecondTimestamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'contains the duration of the scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">duration</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(scenarioDuration.<span class="hljs-title function_">inMilliseconds</span>());
-            });
-        });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'contains the duration of the scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>duration<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>scenarioDuration<span class="token punctuation">.</span><span class="token function">inMilliseconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'describes the result of scenario execution that'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'describes the result of scenario execution that'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, defaultCardScenario),
-                );
-            });
+            <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has finished with success'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has finished with success'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'SUCCESS'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'SUCCESS'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ImplementationPending</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ImplementationPending}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'hasn\'t been implemented yet'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'hasn\'t been implemented yet'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">'method missing'</span>))),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ImplementationPending</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ImplementationPendingError</span><span class="token punctuation">(</span><span class="token string">'method missing'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'PENDING'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'PENDING'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionIgnored</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionIgnored}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has been ignored'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has been ignored'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Failed, retrying`</span>))),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionIgnored</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Failed, retrying</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'IGNORED'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'IGNORED'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSkipped</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSkipped}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has been skipped'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has been skipped'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>()),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSkipped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'SKIPPED'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'SKIPPED'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionFailedWithAssertionError</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionFailedWithAssertionError}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has failed with an assertion error'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has failed with an assertion error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-keyword">const</span> assertionError = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(<span class="hljs-string">'expected true to equal false'</span>, <span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+                <span class="token keyword">const</span> assertionError <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AssertionError</span><span class="token punctuation">(</span><span class="token string">'expected true to equal false'</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(assertionError)),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionFailedWithAssertionError</span><span class="token punctuation">(</span>assertionError<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'FAILURE'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'AssertionError'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'expected true to equal false'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>.<span class="hljs-property">stackTrace</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">an</span>(<span class="hljs-string">'array'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'FAILURE'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">.</span>errorType<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'AssertionError'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'expected true to equal false'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">.</span>stackTrace<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">an</span><span class="token punctuation">(</span><span class="token string">'array'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestCompromisedError</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionCompromised</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {TestCompromisedError}
+             * @test {ExecutionCompromised}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has been compromised'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has been compromised'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-comment">// const assertionError = new AssertionError('expected true to equal false', false, true);</span>
-                <span class="hljs-keyword">const</span> assertionError = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'expected true to equal false'</span>);
+                <span class="token comment">// const assertionError = new AssertionError('expected true to equal false', false, true);</span>
+                <span class="token keyword">const</span> assertionError <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestCompromisedError</span><span class="token punctuation">(</span><span class="token string">'expected true to equal false'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(assertionError)),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionCompromised</span><span class="token punctuation">(</span>assertionError<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'COMPROMISED'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'TestCompromisedError'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'expected true to equal false'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>.<span class="hljs-property">stackTrace</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">an</span>(<span class="hljs-string">'array'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'COMPROMISED'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">.</span>errorType<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'TestCompromisedError'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'expected true to equal false'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">.</span>stackTrace<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">an</span><span class="token punctuation">(</span><span class="token string">'array'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionFailedWithError</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionFailedWithError}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has failed with a non-assertion error'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"We're sorry, something happened"</span>);
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has failed with a non-assertion error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">"We're sorry, something happened"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                error.<span class="hljs-property">stack</span> = [
-                    <span class="hljs-string">"Error: We're sorry, something happened"</span>,
-                    <span class="hljs-string">'    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)'</span>,
-                    <span class="hljs-string">'    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)'</span>,
-                    <span class="hljs-comment">// and so on</span>
-                ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
+                error<span class="token punctuation">.</span>stack <span class="token operator">=</span> <span class="token punctuation">[</span>
+                    <span class="token string">"Error: We're sorry, something happened"</span><span class="token punctuation">,</span>
+                    <span class="token string">'    at callFn (/fake/path/node_modules/mocha/lib/runnable.js:326:21)'</span><span class="token punctuation">,</span>
+                    <span class="token string">'    at Test.Runnable.run (/fake/path/node_modules/mocha/lib/runnable.js:319:7)'</span><span class="token punctuation">,</span>
+                    <span class="token comment">// and so on</span>
+                <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error)),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionFailedWithError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'ERROR'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                    <span class="hljs-attr">errorType</span>: <span class="hljs-string">'Error'</span>,
-                    <span class="hljs-attr">message</span>: <span class="hljs-string">`We're sorry, something happened`</span>,
-                    <span class="hljs-attr">stackTrace</span>: [ {
-                        <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">''</span>,
-                        <span class="hljs-attr">fileName</span>: <span class="hljs-string">'/fake/path/node_modules/mocha/lib/runnable.js'</span>,
-                        <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">326</span>,
-                        <span class="hljs-attr">methodName</span>: <span class="hljs-string">'callFn()'</span>,
-                    }, {
-                        <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">''</span>,
-                        <span class="hljs-attr">fileName</span>: <span class="hljs-string">'/fake/path/node_modules/mocha/lib/runnable.js'</span>,
-                        <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">319</span>,
-                        <span class="hljs-attr">methodName</span>: <span class="hljs-string">'Test.Runnable.run()'</span>,
-                    } ],
-                });
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'ERROR'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    errorType<span class="token operator">:</span> <span class="token string">'Error'</span><span class="token punctuation">,</span>
+                    message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">We're sorry, something happened</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                    stackTrace<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+                        declaringClass<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                        fileName<span class="token operator">:</span> <span class="token string">'/fake/path/node_modules/mocha/lib/runnable.js'</span><span class="token punctuation">,</span>
+                        lineNumber<span class="token operator">:</span> <span class="token number">326</span><span class="token punctuation">,</span>
+                        methodName<span class="token operator">:</span> <span class="token string">'callFn()'</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                        declaringClass<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                        fileName<span class="token operator">:</span> <span class="token string">'/fake/path/node_modules/mocha/lib/runnable.js'</span><span class="token punctuation">,</span>
+                        lineNumber<span class="token operator">:</span> <span class="token number">319</span><span class="token punctuation">,</span>
+                        methodName<span class="token operator">:</span> <span class="token string">'Test.Runnable.run()'</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionCompromised</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionCompromised}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'has been compromised'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> databaseError = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Could not connect to the database`</span>);
-                databaseError.<span class="hljs-property">stack</span> = [
-                    <span class="hljs-string">'Error: Could not connect to the database'</span>,
-                    <span class="hljs-string">'    at callFn (/fake/path/node_modules/db-module/index.js:56:78)'</span>,
-                    <span class="hljs-comment">// and so on</span>
-                ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'has been compromised'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> databaseError <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Could not connect to the database</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                databaseError<span class="token punctuation">.</span>stack <span class="token operator">=</span> <span class="token punctuation">[</span>
+                    <span class="token string">'Error: Could not connect to the database'</span><span class="token punctuation">,</span>
+                    <span class="token string">'    at callFn (/fake/path/node_modules/db-module/index.js:56:78)'</span><span class="token punctuation">,</span>
+                    <span class="token comment">// and so on</span>
+                <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">`Test database not deployed, no point running the test`</span>, databaseError);
-                error.<span class="hljs-property">stack</span> = [
-                    <span class="hljs-string">'TestCompromisedError: Test database not deployed, no point running the test'</span>,
-                    <span class="hljs-string">'    at callFn (/fake/path/my-test/index.js:12:34)'</span>,
-                    <span class="hljs-comment">// and so on</span>
-                ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
+                <span class="token keyword">const</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestCompromisedError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Test database not deployed, no point running the test</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> databaseError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                error<span class="token punctuation">.</span>stack <span class="token operator">=</span> <span class="token punctuation">[</span>
+                    <span class="token string">'TestCompromisedError: Test database not deployed, no point running the test'</span><span class="token punctuation">,</span>
+                    <span class="token string">'    at callFn (/fake/path/my-test/index.js:12:34)'</span><span class="token punctuation">,</span>
+                    <span class="token comment">// and so on</span>
+                <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(error)),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionCompromised</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">result</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'COMPROMISED'</span>);
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testFailureCause</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                    <span class="hljs-attr">errorType</span>: <span class="hljs-string">'TestCompromisedError'</span>,
-                    <span class="hljs-attr">message</span>: <span class="hljs-string">`Test database not deployed, no point running the test`</span>,
-                    <span class="hljs-attr">stackTrace</span>: [
-                        {
-                            <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">''</span>,
-                            <span class="hljs-attr">fileName</span>: <span class="hljs-string">'/fake/path/my-test/index.js'</span>,
-                            <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">12</span>,
-                            <span class="hljs-attr">methodName</span>: <span class="hljs-string">'callFn()'</span>,
-                        },
-                    ],
-                    <span class="hljs-attr">rootCause</span>: {
-                        <span class="hljs-attr">errorType</span>: <span class="hljs-string">`Error`</span>,
-                        <span class="hljs-attr">message</span>: <span class="hljs-string">`Could not connect to the database`</span>,
-                        <span class="hljs-attr">stackTrace</span>: [
-                            {
-                                <span class="hljs-attr">declaringClass</span>: <span class="hljs-string">''</span>,
-                                <span class="hljs-attr">fileName</span>: <span class="hljs-string">'/fake/path/node_modules/db-module/index.js'</span>,
-                                <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">56</span>,
-                                <span class="hljs-attr">methodName</span>: <span class="hljs-string">'callFn()'</span>,
-                            },
-                        ],
-                    },
-                });
-            });
-        });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'COMPROMISED'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testFailureCause<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    errorType<span class="token operator">:</span> <span class="token string">'TestCompromisedError'</span><span class="token punctuation">,</span>
+                    message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Test database not deployed, no point running the test</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                    stackTrace<span class="token operator">:</span> <span class="token punctuation">[</span>
+                        <span class="token punctuation">{</span>
+                            declaringClass<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                            fileName<span class="token operator">:</span> <span class="token string">'/fake/path/my-test/index.js'</span><span class="token punctuation">,</span>
+                            lineNumber<span class="token operator">:</span> <span class="token number">12</span><span class="token punctuation">,</span>
+                            methodName<span class="token operator">:</span> <span class="token string">'callFn()'</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    rootCause<span class="token operator">:</span> <span class="token punctuation">{</span>
+                        errorType<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Error</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                        message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Could not connect to the database</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                        stackTrace<span class="token operator">:</span> <span class="token punctuation">[</span>
+                            <span class="token punctuation">{</span>
+                                declaringClass<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                                fileName<span class="token operator">:</span> <span class="token string">'/fake/path/node_modules/db-module/index.js'</span><span class="token punctuation">,</span>
+                                lineNumber<span class="token operator">:</span> <span class="token number">56</span><span class="token punctuation">,</span>
+                                methodName<span class="token operator">:</span> <span class="token string">'callFn()'</span><span class="token punctuation">,</span>
+                            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'indicates its execution context'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'indicates its execution context'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunnerDetected</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {TestRunnerDetected}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'specifies the test runner'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunnerDetected</span>(aSceneId, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Cucumber'</span>)),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'specifies the test runner'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunnerDetected</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">testSource</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Cucumber'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>testSource<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'specifies the user story covered'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, defaultCardScenario),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'specifies the user story covered'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">userStory</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">'online-checkout'</span>,
-                    <span class="hljs-attr">storyName</span>: <span class="hljs-string">'Online Checkout'</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
-                    <span class="hljs-attr">path</span>: <span class="hljs-string">'payments/checkout.feature'</span>,
-                    <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
-                });
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>userStory<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    id<span class="token operator">:</span> <span class="token string">'online-checkout'</span><span class="token punctuation">,</span>
+                    storyName<span class="token operator">:</span> <span class="token string">'Online Checkout'</span><span class="token punctuation">,</span>           <span class="token comment">// category name, a.k.a. feature name</span>
+                    path<span class="token operator">:</span> <span class="token string">'payments/checkout.feature'</span><span class="token punctuation">,</span>
+                    type<span class="token operator">:</span> <span class="token string">'feature'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-comment">/**
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
-             * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
+            <span class="token comment">/**
+             * @test {SerenityBDDReporter}
+             * @test {SceneStarts}
+             * @test {SceneFinished}
+             * @test {TestRunFinishes}
+             * @test {ExecutionSuccessful}
              */</span>
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(aSceneId, jasmineScenario),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(aSceneId, jasmineScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-                );
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'does not mention the user story path for non-Cucumber scenarios (as it breaks the Serenity BDD HTML report)'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> jasmineScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>aSceneId<span class="token punctuation">,</span> jasmineScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                report = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+                report <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">userStory</span>).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                    <span class="hljs-attr">id</span>: <span class="hljs-string">'online-checkout'</span>,
-                    <span class="hljs-attr">storyName</span>: <span class="hljs-string">'Online Checkout'</span>,           <span class="hljs-comment">// category name, a.k.a. feature name</span>
-                    <span class="hljs-attr">path</span>: <span class="hljs-string">''</span>,
-                    <span class="hljs-attr">type</span>: <span class="hljs-string">'feature'</span>,
-                });
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>userStory<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    id<span class="token operator">:</span> <span class="token string">'online-checkout'</span><span class="token punctuation">,</span>
+                    storyName<span class="token operator">:</span> <span class="token string">'Online Checkout'</span><span class="token punctuation">,</span>           <span class="token comment">// category name, a.k.a. feature name</span>
+                    path<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                    type<span class="token operator">:</span> <span class="token string">'feature'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">describe</span>(<span class="hljs-string">'reports information from the cucumber feature file'</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'reports information from the cucumber feature file'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>} */</span>
-                <span class="hljs-title function_">it</span>(<span class="hljs-string">'reports the scenario-level narrative'</span>);
+                <span class="token comment">/** @test {SerenityBDDReporter} */</span>
+                <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'reports the scenario-level narrative'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>} */</span>
-                <span class="hljs-title function_">it</span>(<span class="hljs-string">'reports the scenario-level background title'</span>);
+                <span class="token comment">/** @test {SerenityBDDReporter} */</span>
+                <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'reports the scenario-level background title'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>} */</span>
-                <span class="hljs-title function_">it</span>(<span class="hljs-string">'reports the scenario-level background description'</span>);
-            });
-        });
-    });
+                <span class="token comment">/** @test {SerenityBDDReporter} */</span>
+                <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'reports the scenario-level background description'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'attachements'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'todo'</span>);
-        <span class="hljs-comment">// todo:</span>
-        <span class="hljs-comment">// - screenshots</span>
-        <span class="hljs-comment">// - html source</span>
-        <span class="hljs-comment">// - http request/responses</span>
-        <span class="hljs-comment">// - arbitrary text data</span>
-    });
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'attachements'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'todo'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment">// todo:</span>
+        <span class="token comment">// - screenshots</span>
+        <span class="token comment">// - html source</span>
+        <span class="token comment">// - http request/responses</span>
+        <span class="token comment">// - arbitrary text data</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Error handling'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Error handling'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">// todo: node-cleanup</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'generates the report even when the test runner has crashed'</span>);
-    });
-});
+        <span class="token comment">// todo: node-cleanup</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'generates the report even when the test runner has crashed'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

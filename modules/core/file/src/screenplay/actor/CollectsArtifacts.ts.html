@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,24 +291,24 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/CollectsArtifacts.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span>, <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Artifact<span class="token punctuation">,</span> Name <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../model'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link</span> Actor} to collect {<span class="hljs-doctag">@link</span> Artifact}s while the scenario is being executed
+<span class="token comment">/**
+ * @desc
+ *  Enables the {@link Actor} to collect {@link Artifact}s while the scenario is being executed
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CollectsArtifacts {
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     * Makes the {<span class="hljs-doctag">@link</span> Actor} collect an {<span class="hljs-doctag">@link</span> Artifact} so that it's included in the test report.
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">CollectsArtifacts</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @desc
+     * Makes the {@link Actor} collect an {@link Artifact} so that it's included in the test report.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Artifact</span>} <span class="hljs-variable">artifact</span> - The artifact to be collected, such as {<span class="hljs-doctag">@link</span> JSONData}
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Name</span>} [name] - The name of the artifact to make it easy to recognise in the test report
+     * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}
+     * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report
      */</span>
-    <span class="hljs-title function_">collect</span>(<span class="hljs-attr">artifact</span>: <span class="hljs-title class_">Artifact</span>, name?: <span class="hljs-title class_">Name</span>): <span class="hljs-built_in">void</span>;
-}
+    <span class="token function">collect</span><span class="token punctuation">(</span>artifact<span class="token operator">:</span> Artifact<span class="token punctuation">,</span> name<span class="token operator">?</span><span class="token operator">:</span> Name<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -131,20 +128,20 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/cucumber-2.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Dependencies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Dependencies'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Dependencies <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Dependencies'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types</span>
-<span class="hljs-keyword">export</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">{ serenity, notifier, resultMapper, loader, cucumber, cache }: Dependencies</span>) {
-    <span class="hljs-keyword">const</span> adapter = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./cucumber-0'</span>);    <span class="hljs-comment">// eslint-disable-line  @typescript-eslint/no-var-requires</span>
+<span class="token comment">// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types</span>
+<span class="token function-variable function">export</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> serenity<span class="token punctuation">,</span> notifier<span class="token punctuation">,</span> resultMapper<span class="token punctuation">,</span> loader<span class="token punctuation">,</span> cucumber<span class="token punctuation">,</span> cache <span class="token punctuation">}</span><span class="token operator">:</span> Dependencies<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'./cucumber-0'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment">// eslint-disable-line  @typescript-eslint/no-var-requires</span>
 
-    cucumber.<span class="hljs-title function_">defineSupportCode</span>(<span class="hljs-function"><span class="hljs-params">support</span> =&gt;</span>
-        <span class="hljs-title function_">adapter</span>({ serenity, notifier, resultMapper, loader, cucumber, cache }).<span class="hljs-title function_">call</span>(support)
-    );
+    cucumber<span class="token punctuation">.</span><span class="token function">defineSupportCode</span><span class="token punctuation">(</span>support <span class="token operator">=&gt;</span>
+        <span class="token function">adapter</span><span class="token punctuation">(</span><span class="token punctuation">{</span> serenity<span class="token punctuation">,</span> notifier<span class="token punctuation">,</span> resultMapper<span class="token punctuation">,</span> loader<span class="token punctuation">,</span> cucumber<span class="token punctuation">,</span> cache <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>support<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-        <span class="hljs-comment">// no-op</span>
-    };
-};
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// no-op</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

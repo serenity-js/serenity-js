@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,15 +291,15 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/reflection/has.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<pre class="source-code line-number raw-source-code language-markup"><code class="linenums" data-ice="content">/**
+ * @desc
  *  Checks if the `candidate` value "quacks like a duck".
  *  In particular, it checks if the `candidate`:
  *  - is not `null`
  *  - is not `undefined`
  *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))
  *
- * <span class="hljs-doctag">@example</span>
+ * @example
  *  const looksLikeADuck = has({
  *      name:   'string',
  *      quack:  'function',
@@ -315,20 +312,20 @@
  *
  *  looksLikeADuck(daisy) // true
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">object</span>} <span class="hljs-variable">api</span>
+ * @param {object} api
  *  An object where the keys are names of member fields and methods expected on the `candidate`,
  *  and values are the names of their types, i.e. `function`, `object`, etc.
  *
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">boolean</span>}
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> has&lt;T&gt;(<span class="hljs-attr">api</span>: <span class="hljs-title class_">Record</span>&lt;keyof T, <span class="hljs-built_in">string</span>&gt;): <span class="hljs-function">(<span class="hljs-params">candidate: unknown</span>) =&gt;</span> candidate is T {
-    <span class="hljs-keyword">return</span> (<span class="hljs-attr">candidate</span>: unknown): candidate is T =&gt;
-        candidate !== <span class="hljs-literal">null</span>
-        &amp;&amp; candidate !== <span class="hljs-literal">undefined</span>
-        &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">entries</span>(api).<span class="hljs-title function_">reduce</span>(
-            <span class="hljs-function">(<span class="hljs-params">result, [key, <span class="hljs-keyword">type</span>]</span>) =&gt;</span>
-                result &amp;&amp; (<span class="hljs-keyword">typeof</span> candidate[key]) === <span class="hljs-keyword">type</span>,
-            <span class="hljs-literal">true</span>,
+ * @returns {boolean}
+ */
+export function has<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span>(api: Record<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>keyof</span> <span class="token attr-name">T,</span> <span class="token attr-name">string</span><span class="token punctuation">&gt;</span></span>): (candidate: unknown) =&gt; candidate is T {
+    return (candidate: unknown): candidate is T =&gt;
+        candidate !== null
+        &amp;&amp; candidate !== undefined
+        &amp;&amp; Object.entries(api).reduce(
+            (result, [key, type]) =&gt;
+                result &amp;&amp; (typeof candidate[key]) === type,
+            true,
         )
 }
 </code></pre>

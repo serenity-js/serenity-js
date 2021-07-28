@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,18 +291,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/Note.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../actor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Question'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../abilities'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../actor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Question'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link</span> Actor} to recall an answer to a given {<span class="hljs-doctag">@link</span> Question},
- *  recorded using {<span class="hljs-doctag">@link</span> TakeNote}.
+<span class="token comment">/**
+ * @desc
+ *  Enables the {@link Actor} to recall an answer to a given {@link Question},
+ *  recorded using {@link TakeNote}.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using default subject name based on the name of the question&lt;/caption&gt;
- *  import { actorCalled, Note, TakeNote, TakeNotes } from '<span class="hljs-doctag">@serenity</span>-js/core'
- *  import { BrowseTheWeb, Target, Text } from '<span class="hljs-doctag">@serenity</span>-js/protractor'
+ * @example &lt;caption&gt;Using default subject name based on the name of the question&lt;/caption&gt;
+ *  import { actorCalled, Note, TakeNote, TakeNotes } from '@serenity-js/core'
+ *  import { BrowseTheWeb, Target, Text } from '@serenity-js/protractor'
  *  import { by, protractor } from 'protractor';
  *
  *  class Vouchers {
@@ -324,55 +321,55 @@
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of(Text.of(Vouchers.code)))),
  *  );
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using custom subject name&lt;/caption&gt;
+ * @example &lt;caption&gt;Using custom subject name&lt;/caption&gt;
  *  actor.attemptsTo(
  *      TakeNote.of(Text.of(Vouchers.code)).as('voucher code'),
  *      // ... add the product to a basket, go to checkout, etc.
  *      Ensure.that(Text.of(Vouchers.appliedVoucher), equals(Note.of('voucher code'))),
  *  );
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link TakeNote</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link TakeNotes</span>}
+ * @see {@link TakeNote}
+ * @see {@link TakeNotes}
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Question</span>}
+ * @extends {Question}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Note</span>&lt;<span class="hljs-title class_">Answer</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>&gt;&gt; {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Note<span class="token operator">&lt;</span>Answer<span class="token operator">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer<span class="token operator">&gt;&gt;</span></span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Retrieves the previously recorded answer to a given {<span class="hljs-doctag">@link</span> Question}
+    <span class="token comment">/**
+     * @desc
+     *  Retrieves the previously recorded answer to a given {@link Question}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string</span>} <span class="hljs-variable">topic</span>
+     * @param {Question&lt;Promise&lt;A&gt;&gt; | Question&lt;A&gt; | string} topic
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Note&lt;A&gt;</span>}
+     * @returns {Note&lt;A&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>&lt;A&gt;(<span class="hljs-attr">topic</span>: <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;A&gt;&gt; | <span class="hljs-title class_">Question</span>&lt;A&gt; | <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Note</span>&lt;A&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Note</span>&lt;A&gt;(topic);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span><span class="token punctuation">(</span>topic<span class="token operator">:</span> Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;&gt;</span> <span class="token operator">|</span> Question<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Note<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Note<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span></span><span class="token punctuation">(</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string</span>} <span class="hljs-variable">topic</span>
+    <span class="token comment">/**
+     * @param {Question&lt;Promise&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | string} topic
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> topic: Question&lt;<span class="hljs-built_in">Promise</span>&lt;Answer&gt;&gt; | Question&lt;Answer&gt; | <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-variable language_">super</span>(<span class="hljs-string">`a note of <span class="hljs-subst">${ topic }</span>`</span>);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> topic<span class="token operator">:</span> Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer<span class="token operator">&gt;&gt;</span> <span class="token operator">|</span> Question<span class="token operator">&lt;</span>Answer<span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">a note of </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> topic <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> Actor}
-     *  answer this {<span class="hljs-doctag">@link</span> Question}.
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link Actor}
+     *  answer this {@link Question}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;Answer&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;Answer&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AnswersQuestions</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link UsesAbilities</span>}
+     * @see {@link Actor}
+     * @see {@link AnswersQuestions}
+     * @see {@link UsesAbilities}
      */</span>
-    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">answerTo</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">topic</span>);
-    }
-}
+    <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> TakeNotes<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">answerTo</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>topic<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

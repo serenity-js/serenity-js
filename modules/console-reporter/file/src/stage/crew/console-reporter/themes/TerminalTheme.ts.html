@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -132,66 +129,66 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/TerminalTheme.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionReportDiffer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> AssertionReportDiffer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Outcome <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Decorates text with control characters to make the terminal
  *  print output in colour.
  *
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@abstract</span>
+ * @public
+ * @abstract
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TerminalTheme</span> {
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~AssertionReportDiffer</span>} <span class="hljs-variable">differ</span>
+<span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">TerminalTheme</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @param {@serenity-js/core/lib/io~AssertionReportDiffer} differ
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> differ: AssertionReportDiffer</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">protected</span> <span class="token keyword">readonly</span> differ<span class="token operator">:</span> AssertionReportDiffer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">heading</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">outcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">Outcome</span> | <span class="hljs-built_in">string</span>, ...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">separator</span>(<span class="hljs-attr">pattern</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">diff</span>(<span class="hljs-attr">expected</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actual</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">log</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span>;
+    <span class="token keyword">abstract</span> <span class="token function">heading</span><span class="token punctuation">(</span><span class="token operator">...</span>parts<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">abstract</span> <span class="token function">outcome</span><span class="token punctuation">(</span>outcome<span class="token operator">:</span> Outcome <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token operator">...</span>parts<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">abstract</span> <span class="token function">separator</span><span class="token punctuation">(</span>pattern<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">abstract</span> <span class="token function">diff</span><span class="token punctuation">(</span>expected<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> actual<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">abstract</span> <span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">...</span>parts<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Converts the `parts` to `string` and joins them together.
      *
-     * <span class="hljs-doctag">@protected</span>
+     * @protected
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any[]</span>} <span class="hljs-variable">parts</span>
+     * @param {any[]} parts
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">joined</span>(<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> parts.<span class="hljs-title function_">map</span>(<span class="hljs-title class_">String</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);
-    }
+    <span class="token keyword">protected</span> <span class="token function">joined</span><span class="token punctuation">(</span>parts<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> parts<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>String<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Repeats a given `pattern` so that it takes up to `maxLength` characters.
      *  Used to produce separator lines.
      *
-     * <span class="hljs-doctag">@protected</span>
+     * @protected
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">pattern</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} [maxLength=80] maxLength
+     * @param {string} pattern
+     * @param {number} [maxLength=80] maxLength
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">repeat</span>(<span class="hljs-attr">pattern</span>: <span class="hljs-built_in">string</span>, maxLength = <span class="hljs-number">80</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">if</span> (! pattern) {
-            <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>;
-        }
+    <span class="token keyword">protected</span> <span class="token function">repeat</span><span class="token punctuation">(</span>pattern<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> maxLength <span class="token operator">=</span> <span class="token number">80</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> pattern<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">''</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">const</span> repetitions = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(maxLength / pattern.<span class="hljs-property">length</span>);
+        <span class="token keyword">const</span> repetitions <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>maxLength <span class="token operator">/</span> pattern<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> pattern.<span class="hljs-title function_">repeat</span>(repetitions);
-    }
-}
+        <span class="token keyword">return</span> pattern<span class="token punctuation">.</span><span class="token function">repeat</span><span class="token punctuation">(</span>repetitions<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

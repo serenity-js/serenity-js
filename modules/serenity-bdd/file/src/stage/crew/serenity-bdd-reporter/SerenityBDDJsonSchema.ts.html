@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,142 +125,142 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/filename-case */</span>
 
-<span class="hljs-keyword">import</span> { JSONObject } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> JSONObject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/tree/50a3b1824001f192da2cdca6326d7525d4dd7f25/serenity-model/src/test/resources</span>
-<span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java</span>
+<span class="token comment">// https://github.com/serenity-bdd/serenity-core/tree/50a3b1824001f192da2cdca6326d7525d4dd7f25/serenity-model/src/test/resources</span>
+<span class="token comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/TestOutcome.java</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@package</span> */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> SerenityBDDReport <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">testSteps</span>: <span class="hljs-title class_">TestStep</span>[];
-    <span class="hljs-attr">userStory</span>: <span class="hljs-title class_">UserStory</span>;
-    <span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/</span>
-    <span class="hljs-comment">// serenity-core/src/test/resources/historical-reports/sample-report-4.json</span>
+<span class="token comment">/** @package */</span>
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">SerenityBDDReport</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    testSteps<span class="token operator">:</span> TestStep<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    userStory<span class="token operator">:</span> UserStory<span class="token punctuation">;</span>
+    <span class="token comment">// https://github.com/serenity-bdd/serenity-core/blob/c89cd6ee4127738ac88525d29d99537921f34701/</span>
+    <span class="token comment">// serenity-core/src/test/resources/historical-reports/sample-report-4.json</span>
 
-    <span class="hljs-attr">featureTag</span>: <span class="hljs-title class_">Tag</span>;
-    <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">tags</span>: <span class="hljs-title class_">Tag</span>[];
-    <span class="hljs-attr">startTime</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">rule</span>: <span class="hljs-title class_">BusinessRule</span>;
-    <span class="hljs-attr">projectKey</span>: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
-    sessionId?: <span class="hljs-built_in">string</span>;                 <span class="hljs-comment">// todo [ ]     protractor</span>
-    driver?: <span class="hljs-built_in">string</span>;                    <span class="hljs-comment">// todo [ ]     protractor     'chrome:jill'</span>
-    context?: <span class="hljs-built_in">string</span>;
-    dataTable?: <span class="hljs-title class_">DataTable</span>;
-    <span class="hljs-attr">manual</span>: <span class="hljs-built_in">boolean</span>;
-    issues?: <span class="hljs-built_in">string</span>[];
-    additionalIssues?: <span class="hljs-built_in">string</span>[];
-    <span class="hljs-attr">testSource</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">result</span>: <span class="hljs-built_in">string</span>;
-    testFailureCause?: <span class="hljs-title class_">ErrorDetails</span>;
-    testFailureClassname?: <span class="hljs-built_in">string</span>;
-    testFailureMessage?: <span class="hljs-built_in">string</span>;
-    testFailureSummary?: <span class="hljs-built_in">string</span>;
-    backgroundTitle?: <span class="hljs-built_in">string</span>;
-    backgroundDescription?: <span class="hljs-built_in">string</span>;
-}
+    featureTag<span class="token operator">:</span> Tag<span class="token punctuation">;</span>
+    title<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    tags<span class="token operator">:</span> Tag<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    startTime<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    duration<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    rule<span class="token operator">:</span> BusinessRule<span class="token punctuation">;</span>
+    projectKey<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>                 <span class="token comment">// todo [ ]     protractor</span>
+    sessionId<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>                 <span class="token comment">// todo [ ]     protractor</span>
+    driver<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>                    <span class="token comment">// todo [ ]     protractor     'chrome:jill'</span>
+    context<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    dataTable<span class="token operator">?</span><span class="token operator">:</span> DataTable<span class="token punctuation">;</span>
+    manual<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    issues<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    additionalIssues<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    testSource<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    result<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    testFailureCause<span class="token operator">?</span><span class="token operator">:</span> ErrorDetails<span class="token punctuation">;</span>
+    testFailureClassname<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    testFailureMessage<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    testFailureSummary<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    backgroundTitle<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    backgroundDescription<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> BusinessRule <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    description?: <span class="hljs-built_in">string</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">BusinessRule</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    description<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> TestStep <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">number</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">startTime</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">result</span>: <span class="hljs-built_in">string</span>;
-    children?: <span class="hljs-title class_">TestStep</span>[];
-    screenshots?: <span class="hljs-title class_">Screenshot</span>[];
-    <span class="hljs-attr">reportData</span>: <span class="hljs-title class_">ReportData</span>[];
-    restQuery?: RESTQuery;
-    exception?: <span class="hljs-title class_">ErrorDetails</span>;
-    <span class="hljs-comment">// precondition: false;             // not needed?</span>
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">TestStep</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    <span class="token builtin">number</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    duration<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    startTime<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    result<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    children<span class="token operator">?</span><span class="token operator">:</span> TestStep<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    screenshots<span class="token operator">?</span><span class="token operator">:</span> Screenshot<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    reportData<span class="token operator">:</span> ReportData<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    restQuery<span class="token operator">?</span><span class="token operator">:</span> RESTQuery<span class="token punctuation">;</span>
+    exception<span class="token operator">?</span><span class="token operator">:</span> ErrorDetails<span class="token punctuation">;</span>
+    <span class="token comment">// precondition: false;             // not needed?</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ReportData.java</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ReportData <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">isEvidence</span>: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">contents</span>: <span class="hljs-built_in">string</span>;
-}
+<span class="token comment">// https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ReportData.java</span>
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ReportData</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    isEvidence<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    title<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    contents<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
+<span class="token comment">/**
  * https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/screenshots/ScreenshotAndHtmlSource.java
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Screenshot <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">screenshot</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">timeStamp</span>: <span class="hljs-built_in">number</span>;
-    htmlSource?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// "htmlSource": "pagesource7953468346968205961.html.txt"</span>
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Screenshot</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    screenshot<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    timeStamp<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    htmlSource<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>     <span class="token comment">// "htmlSource": "pagesource7953468346968205961.html.txt"</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> UserStory <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">id</span>: <span class="hljs-built_in">string</span>;             <span class="hljs-comment">// dashified feature name</span>
-    <span class="hljs-attr">storyName</span>: <span class="hljs-built_in">string</span>;      <span class="hljs-comment">// feature name</span>
-    <span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// relative feature file path</span>
-    <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;           <span class="hljs-comment">// 'feature'</span>
-    narrative?: <span class="hljs-built_in">string</span>;     <span class="hljs-comment">// cucumber narrative, if any</span>
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">UserStory</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>             <span class="token comment">// dashified feature name</span>
+    storyName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>      <span class="token comment">// feature name</span>
+    path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>           <span class="token comment">// relative feature file path</span>
+    type<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>           <span class="token comment">// 'feature'</span>
+    narrative<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>     <span class="token comment">// cucumber narrative, if any</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Tag <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">displayName</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">type</span>: <span class="hljs-built_in">string</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">Tag</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    displayName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    type<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTable <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">headers</span>: <span class="hljs-built_in">string</span>[];
-    <span class="hljs-attr">rows</span>: <span class="hljs-title class_">DataTableRow</span>[];
-    <span class="hljs-attr">predefinedRows</span>: <span class="hljs-built_in">boolean</span>;
-    <span class="hljs-attr">scenarioOutline</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">dataSetDescriptors</span>: <span class="hljs-title class_">DataTableDataSetDescriptor</span>[];
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">DataTable</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    headers<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    rows<span class="token operator">:</span> DataTableRow<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    predefinedRows<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    scenarioOutline<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    dataSetDescriptors<span class="token operator">:</span> DataTableDataSetDescriptor<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTableRow <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">values</span>: <span class="hljs-built_in">string</span>[];
-    result?: <span class="hljs-built_in">string</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">DataTableRow</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    values<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    result<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> DataTableDataSetDescriptor <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">startRow</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">rowCount</span>: <span class="hljs-built_in">number</span>;
-    <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">description</span>: <span class="hljs-built_in">string</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">DataTableDataSetDescriptor</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    startRow<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    rowCount<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    description<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> RESTQuery <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">method</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">path</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">content</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">contentType</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">requestHeaders</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">requestCookies</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">responseHeaders</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">responseCookies</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">responseBody</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">statusCode</span>: <span class="hljs-built_in">number</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">RESTQuery</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    method<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    path<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    content<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    contentType<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    requestHeaders<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    requestCookies<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    responseHeaders<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    responseCookies<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    responseBody<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    statusCode<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ErrorDetails <span class="hljs-keyword">extends</span> JSONObject {
-    <span class="hljs-attr">errorType</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">stackTrace</span>: <span class="hljs-title class_">Array</span>&lt;{
-        <span class="hljs-attr">declaringClass</span>: <span class="hljs-built_in">string</span>,
-        <span class="hljs-attr">methodName</span>: <span class="hljs-built_in">string</span>,
-        <span class="hljs-attr">fileName</span>: <span class="hljs-built_in">string</span>,
-        <span class="hljs-attr">lineNumber</span>: <span class="hljs-built_in">number</span>,
-    }&gt;;
-    rootCause?: <span class="hljs-title class_">ErrorDetails</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ErrorDetails</span> <span class="token keyword">extends</span> <span class="token class-name">JSONObject</span> <span class="token punctuation">{</span>
+    errorType<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    stackTrace<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span><span class="token punctuation">{</span>
+        declaringClass<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+        methodName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+        fileName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+        lineNumber<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+    rootCause<span class="token operator">?</span><span class="token operator">:</span> ErrorDetails<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

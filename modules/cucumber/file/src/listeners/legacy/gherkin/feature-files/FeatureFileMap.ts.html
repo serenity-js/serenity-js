@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -131,65 +128,65 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileMap.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/ban-types */</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable @typescript-eslint/ban-types */</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Constructor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../constructables'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ItemNotFoundError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Constructor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../constructables'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ItemNotFoundError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./errors'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
+<span class="token comment">/**
+ * @private
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureFileMap</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FeatureFileMap</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> map: { [line: <span class="hljs-built_in">number</span>]: <span class="hljs-built_in">object</span> } = {}</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> map<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>line<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">]</span><span class="token operator">:</span> object <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">set</span>(<span class="hljs-params">item: <span class="hljs-built_in">object</span></span>) {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
-        <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">onLine</span>: (<span class="hljs-attr">line</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">FeatureFileMap</span> =&gt;</span> {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>[line] = item;
+    <span class="token function">set</span><span class="token punctuation">(</span>item<span class="token operator">:</span> object<span class="token punctuation">)</span> <span class="token punctuation">{</span>   <span class="token comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+            onLine<span class="token operator">:</span> <span class="token punctuation">(</span>line<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> FeatureFileMap <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">[</span>line<span class="token punctuation">]</span> <span class="token operator">=</span> item<span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
-            },
-        });
-    }
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    get&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-title class_">Constructor</span>&lt;T&gt;) {  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
-        <span class="hljs-keyword">return</span> ({
-            <span class="hljs-attr">onLine</span>: (<span class="hljs-attr">line</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">T</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> found = <span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>[line];
+    <span class="token generic-function"><span class="token function">get</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>type<span class="token operator">:</span> Constructor<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>  <span class="token comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+            onLine<span class="token operator">:</span> <span class="token punctuation">(</span>line<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> found <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">if</span> (! found) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemNotFoundError</span>(<span class="hljs-string">`Nothing was found on line <span class="hljs-subst">${ line }</span>`</span>);
-                }
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ItemNotFoundError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Nothing was found on line </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> line <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-                <span class="hljs-keyword">if</span> (! (found <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>))  {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemNotFoundError</span>(<span class="hljs-string">`Item on line <span class="hljs-subst">${ line }</span> is a <span class="hljs-subst">${ found.constructor.name }</span>, not a <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span>`</span>);
-                }
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token punctuation">(</span>found <span class="token keyword">instanceof</span> <span class="token class-name"><span class="token keyword">type</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token punctuation">{</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ItemNotFoundError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Item on line </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> line <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is a </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> found<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">, not a </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> type<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-                <span class="hljs-keyword">return</span> found <span class="hljs-keyword">as</span> T;
-            },
-        });
-    }
+                <span class="token keyword">return</span> found <span class="token keyword">as</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    getFirst&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-title class_">Constructor</span>&lt;T&gt;): T {
-        <span class="hljs-keyword">const</span>
-            items = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>).<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>[line]),
-            found = items.<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">value</span> =&gt;</span> value <span class="hljs-keyword">instanceof</span> <span class="hljs-keyword">type</span>);
+    <span class="token generic-function"><span class="token function">getFirst</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>type<span class="token operator">:</span> Constructor<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span>
+            items <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>line <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">[</span>line<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            found <span class="token operator">=</span> items<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>value <span class="token operator">=&gt;</span> value <span class="token keyword">instanceof</span> <span class="token class-name"><span class="token keyword">type</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">if</span> (! found) {
-            <span class="hljs-keyword">const</span> existingTypes = items.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> item.<span class="hljs-property">constructor</span>.<span class="hljs-property">name</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">', '</span>) || <span class="hljs-string">'no items.'</span>;
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> found<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> existingTypes <span class="token operator">=</span> items<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>item <span class="token operator">=&gt;</span> item<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">', '</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token string">'no items.'</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ItemNotFoundError</span>(<span class="hljs-string">`Didn't find any <span class="hljs-subst">${ <span class="hljs-keyword">type</span>.name }</span> amongst <span class="hljs-subst">${ existingTypes }</span>`</span>);
-        }
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ItemNotFoundError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Didn't find any </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> type<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> amongst </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> existingTypes <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">return</span> found;
-    }
+        <span class="token keyword">return</span> found<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">size</span>(): <span class="hljs-built_in">number</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">map</span>).<span class="hljs-property">length</span>;
-    }
-}
+    <span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>map<span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,25 +291,25 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/FileFinder.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> fg = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fast-glob'</span>);
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Path'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> fg <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'fast-glob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Path'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileFinder</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> cwd: Path</span>) {
-    }
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FileFinder</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> cwd<span class="token operator">:</span> Path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">filesMatching</span>(<span class="hljs-attr">globPatterns</span>: <span class="hljs-built_in">string</span>[] | <span class="hljs-built_in">string</span> | <span class="hljs-literal">undefined</span>): <span class="hljs-title class_">Path</span>[] {
-        <span class="hljs-keyword">if</span> (! globPatterns) {
-            <span class="hljs-keyword">return</span> [];
-        }
+    <span class="token function">filesMatching</span><span class="token punctuation">(</span>globPatterns<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token operator">:</span> Path<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> globPatterns<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">return</span> fg.<span class="hljs-title function_">sync</span>(globPatterns, {
-            <span class="hljs-attr">cwd</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">cwd</span>.<span class="hljs-property">value</span>,
-            <span class="hljs-attr">absolute</span>: <span class="hljs-literal">true</span>,
-            <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,
-        }).<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(value));
-    }
-}
+        <span class="token keyword">return</span> fg<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span>globPatterns<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            cwd<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>cwd<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+            absolute<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            unique<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

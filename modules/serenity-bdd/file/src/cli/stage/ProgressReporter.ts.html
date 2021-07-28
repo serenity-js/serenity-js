@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,49 +125,49 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/stage/ProgressReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">DomainEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProgressBar</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'progress'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Stage<span class="token punctuation">,</span> StageCrewMember <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactGenerated<span class="token punctuation">,</span> DomainEvent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> ProgressBar <span class="token keyword">from</span> <span class="token string">'progress'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DownloadProgressReport</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> DownloadProgressReport <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Printer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Printer'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Notifies the user of the progress of the Serenity BDD CLI jar download.
  *
- * <span class="hljs-doctag">@package</span>
+ * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProgressReporter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> printer: Printer,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
-        <span class="hljs-keyword">private</span> progressBar?: ProgressBar,
-    </span>) {
-    }
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ProgressReporter</span> <span class="token keyword">implements</span> <span class="token class-name">StageCrewMember</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> printer<span class="token operator">:</span> Printer<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> stage<span class="token operator">?</span><span class="token operator">:</span> Stage<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> progressBar<span class="token operator">?</span><span class="token operator">:</span> ProgressBar<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressReporter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>, stage, <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span>);
-    }
+    <span class="token function">assignedTo</span><span class="token punctuation">(</span>stage<span class="token operator">:</span> Stage<span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMember <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ProgressReporter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">,</span> stage<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>progressBar<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArtifactGenerated</span> &amp;&amp; event.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">DownloadProgressReport</span>) {
-            <span class="hljs-keyword">const</span> { downloadedBytes, totalBytes } = event.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">report</span> =&gt;</span> report) <span class="hljs-keyword">as</span> { <span class="hljs-attr">downloadedBytes</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">totalDownloadedBytes</span>: <span class="hljs-built_in">number</span>, <span class="hljs-attr">totalBytes</span>: <span class="hljs-built_in">number</span> };
+    <span class="token function">notifyOf</span><span class="token punctuation">(</span>event<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">ArtifactGenerated</span> <span class="token operator">&amp;&amp;</span> event<span class="token punctuation">.</span>artifact <span class="token keyword">instanceof</span> <span class="token class-name">DownloadProgressReport</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> <span class="token punctuation">{</span> downloadedBytes<span class="token punctuation">,</span> totalBytes <span class="token punctuation">}</span> <span class="token operator">=</span> event<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>report <span class="token operator">=&gt;</span> report<span class="token punctuation">)</span> <span class="token keyword">as</span> <span class="token punctuation">{</span> downloadedBytes<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> totalDownloadedBytes<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">,</span> totalBytes<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">if</span> (! <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span>) {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressBar</span>(<span class="hljs-string">`[:bar] Downloaded :percent at :ratebps. We should be done in about :etas`</span>, {
-                    <span class="hljs-attr">complete</span>: <span class="hljs-string">'='</span>,
-                    <span class="hljs-attr">incomplete</span>: <span class="hljs-string">'-'</span>,
-                    <span class="hljs-attr">width</span>: <span class="hljs-number">20</span>,
-                    <span class="hljs-attr">total</span>: totalBytes,
-                    <span class="hljs-attr">stream</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">printer</span>.<span class="hljs-property">out</span>,
-                });
-            }
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span>progressBar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>progressBar <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProgressBar</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[:bar] Downloaded :percent at :ratebps. We should be done in about :etas</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                    complete<span class="token operator">:</span> <span class="token string">'='</span><span class="token punctuation">,</span>
+                    incomplete<span class="token operator">:</span> <span class="token string">'-'</span><span class="token punctuation">,</span>
+                    width<span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+                    total<span class="token operator">:</span> totalBytes<span class="token punctuation">,</span>
+                    stream<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>printer<span class="token punctuation">.</span>out<span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">progressBar</span>.<span class="hljs-title function_">tick</span>(downloadedBytes);
-        }
-    }
-}
+            <span class="token keyword">this</span><span class="token punctuation">.</span>progressBar<span class="token punctuation">.</span><span class="token function">tick</span><span class="token punctuation">(</span>downloadedBytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

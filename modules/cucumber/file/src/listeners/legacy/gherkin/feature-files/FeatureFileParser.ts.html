@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -131,40 +128,40 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/gherkin/feature-files/FeatureFileParser.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> fs <span class="token keyword">from</span> <span class="token string">'fs'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">GherkinDocument</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../nodes'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">UnableToParseFeatureFileError</span>, <span class="hljs-title class_">UnableToReadFeatureFileError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./errors'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> GherkinDocument <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../nodes'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> UnableToParseFeatureFileError<span class="token punctuation">,</span> UnableToReadFeatureFileError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./errors'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
+<span class="token comment">/**
+ * @private
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FeatureFileParser</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> gherkinParser: { parse: (feature: <span class="hljs-built_in">string</span>) =&gt; GherkinDocument }</span>) {
-    }
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">FeatureFileParser</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> gherkinParser<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token function-variable function">parse</span><span class="token operator">:</span> <span class="token punctuation">(</span>feature<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> GherkinDocument <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">parse</span>(<span class="hljs-attr">uri</span>: <span class="hljs-title class_">Path</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">GherkinDocument</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-            fs.<span class="hljs-title function_">readFile</span>(uri.<span class="hljs-property">value</span>, <span class="hljs-function">(<span class="hljs-params">error: NodeJS.ErrnoException | <span class="hljs-literal">undefined</span>, data: Buffer</span>) =&gt;</span> {
-                <span class="hljs-keyword">if</span> (error) {
-                    <span class="hljs-keyword">return</span> <span class="hljs-title function_">reject</span>(
-                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">UnableToReadFeatureFileError</span>(<span class="hljs-string">`Could not read feature file at "<span class="hljs-subst">${ uri.value }</span>"`</span>, error),
-                    );
-                }
+    <span class="token function">parse</span><span class="token punctuation">(</span>uri<span class="token operator">:</span> Path<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>GherkinDocument<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span>uri<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token punctuation">(</span>error<span class="token operator">:</span> NodeJS<span class="token punctuation">.</span>ErrnoException <span class="token operator">|</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span> data<span class="token operator">:</span> Buffer<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token function">reject</span><span class="token punctuation">(</span>
+                        <span class="token keyword">new</span> <span class="token class-name">UnableToReadFeatureFileError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Could not read feature file at "</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> uri<span class="token punctuation">.</span>value <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">"</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-                <span class="hljs-keyword">try</span> {
-                    <span class="hljs-keyword">return</span> <span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">gherkinParser</span>.<span class="hljs-title function_">parse</span>(data.<span class="hljs-title function_">toString</span>(<span class="hljs-string">'utf8'</span>)));
-                }
-                <span class="hljs-keyword">catch</span> (parseError) {
-                    <span class="hljs-keyword">return</span> <span class="hljs-title function_">reject</span>(
-                        <span class="hljs-keyword">new</span> <span class="hljs-title class_">UnableToParseFeatureFileError</span>(<span class="hljs-string">`Could not parse feature file at "<span class="hljs-subst">${ uri.value }</span>"`</span>, parseError),
-                    );
-                }
-            });
-        });
-    }
-}
+                <span class="token keyword">try</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>gherkinParser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>data<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">'utf8'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">catch</span> <span class="token punctuation">(</span>parseError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token function">reject</span><span class="token punctuation">(</span>
+                        <span class="token keyword">new</span> <span class="token class-name">UnableToParseFeatureFileError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Could not parse feature file at "</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> uri<span class="token punctuation">.</span>value <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">"</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> parseError<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

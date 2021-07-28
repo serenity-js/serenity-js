@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,191 +291,191 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/lists/ArrayListAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isArray, isNumber } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ensure<span class="token punctuation">,</span> isArray<span class="token punctuation">,</span> isNumber <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Answerable'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Question'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Expectation'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExpectationMet</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expectations'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MetaQuestion</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../MetaQuestion'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ListAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ListAdapter'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../actor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../Answerable'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../Question'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Expectation'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ExpectationMet <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../expectations'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MetaQuestion <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../MetaQuestion'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ListAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./ListAdapter'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Adapts an {<span class="hljs-doctag">@link</span> Array} so that it can be used with {<span class="hljs-doctag">@link</span> List}
+<span class="token comment">/**
+ * @desc
+ *  Adapts an {@link Array} so that it can be used with {@link List}
  *
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">ListAdapter</span>}
+ * @implements {ListAdapter}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArrayListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Item</span>_Type[], <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt;&gt; {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ArrayListAdapter<span class="token operator">&lt;</span>Item_Type<span class="token operator">&gt;</span></span> <span class="token keyword">implements</span> <span class="token class-name">ListAdapter<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;&gt;</span></span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Answerable&lt;Item_Type[]&gt;</span>} <span class="hljs-variable">array</span>
+    <span class="token comment">/**
+     * @param {Answerable&lt;Item_Type[]&gt;} array
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> array: Answerable&lt;Item_Type[]&gt;</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> array<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the number of items the underlying {<span class="hljs-doctag">@link</span> Array} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the number of items the underlying {@link Array} contains,
      *  left after applying any filters.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;number&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;number&gt;}
      */</span>
-    <span class="hljs-title function_">count</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">arrayAs</span>(actor)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> items.<span class="hljs-property">length</span>);
-    }
+    <span class="token function">count</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">arrayAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>items <span class="token operator">=&gt;</span> items<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the underlying {<span class="hljs-doctag">@link</span> Array},
+    <span class="token comment">/**
+     * @desc
+     *  Returns the underlying {@link Array},
      *  with any filters applied.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;number&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;number&gt;}
      */</span>
-    <span class="hljs-title function_">items</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">arrayAs</span>(actor);
-    }
+    <span class="token function">items</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">arrayAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the first of items the underlying {<span class="hljs-doctag">@link</span> Array} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the first of items the underlying {@link Array} contains,
      *  left after applying any filters.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;Item_Type&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;Item_Type&gt;}
      */</span>
-    <span class="hljs-title function_">first</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">arrayAs</span>(actor)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getItemAt</span>(items, <span class="hljs-number">0</span>));
-    }
+    <span class="token function">first</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">arrayAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>items <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getItemAt</span><span class="token punctuation">(</span>items<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the nth of items the underlying {<span class="hljs-doctag">@link</span> Array} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the nth of items the underlying {@link Array} contains,
      *  left after applying any filters.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">index</span>
+     * @param {number} index
      *  Zero-based index of the item to return
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;Item_Type&gt;</span>}
+     * @returns {Promise&lt;Item_Type&gt;}
      */</span>
-    <span class="hljs-title function_">get</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">arrayAs</span>(actor)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getItemAt</span>(items, index));
-    }
+    <span class="token function">get</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">,</span> index<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">arrayAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>items <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getItemAt</span><span class="token punctuation">(</span>items<span class="token punctuation">,</span> index<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the last of items the underlying {<span class="hljs-doctag">@link</span> Array} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the last of items the underlying {@link Array} contains,
      *  left after applying any filters.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;Item_Type&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;Item_Type&gt;}
      */</span>
-    <span class="hljs-title function_">last</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">arrayAs</span>(actor)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">getItemAt</span>(items, items.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>));
-    }
+    <span class="token function">last</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">arrayAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>items <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getItemAt</span><span class="token punctuation">(</span>items<span class="token punctuation">,</span> items<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Filters the underlying {<span class="hljs-doctag">@link</span> Array} so that the result contains only those items that meet the {<span class="hljs-doctag">@link</span> Expectation}
+    <span class="token comment">/**
+     * @desc
+     *  Filters the underlying {@link Array} so that the result contains only those items that meet the {@link Expectation}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">MetaQuestion&lt;Item_Type, Promise&lt;Answer_Type&gt; | Answer_Type&gt;</span>} <span class="hljs-variable">question</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Expectation&lt;any, Answer_Type&gt;</span>} <span class="hljs-variable">expectation</span>
+     * @param {MetaQuestion&lt;Item_Type, Promise&lt;Answer_Type&gt; | Answer_Type&gt;} question
+     * @param {Expectation&lt;any, Answer_Type&gt;} expectation
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ListAdapter&lt;Item_Type, Item_Type[], Promise&lt;Item_Type&gt;, Promise&lt;Item_Type[]&gt;&gt;</span>}
+     * @returns {ListAdapter&lt;Item_Type, Item_Type[], Promise&lt;Item_Type&gt;, Promise&lt;Item_Type[]&gt;&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">MetaQuestion</span>}
+     * @see {MetaQuestion}
      */</span>
-    withFilter&lt;<span class="hljs-title class_">Answer</span>_Type&gt;(
-        <span class="hljs-attr">question</span>: <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt; | <span class="hljs-title class_">Answer</span>_Type&gt;,
-        <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Answer</span>_Type&gt;
-    ): <span class="hljs-title class_">ListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Item</span>_Type[], <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type&gt;, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt;&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListAdapter</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayListFilter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">array</span>, question, expectation)
-        );
-    }
+    <span class="token generic-function"><span class="token function">withFilter</span><span class="token generic class-name"><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>
+        question<span class="token operator">:</span> MetaQuestion<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span> <span class="token operator">|</span> Answer_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Answer_Type<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token operator">:</span> ListAdapter<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArrayListAdapter</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">ArrayListFilter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>array<span class="token punctuation">,</span> question<span class="token punctuation">,</span> expectation<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns a human-readable description of the underlying {<span class="hljs-doctag">@link</span> Array}.
+    <span class="token comment">/**
+     * @desc
+     *  Returns a human-readable description of the underlying {@link Array}.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.array }</span>`</span>
-    }
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>array <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">arrayAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt; {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">array</span>)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">array</span> =&gt;</span> <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'ArrayListAdapter constructor parameter'</span>, array, <span class="hljs-title function_">isArray</span>()));
-    }
+    <span class="token keyword">private</span> <span class="token function">arrayAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>array<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>array <span class="token operator">=&gt;</span> <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'ArrayListAdapter constructor parameter'</span><span class="token punctuation">,</span> array<span class="token punctuation">,</span> <span class="token function">isArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">getItemAt</span>(<span class="hljs-attr">items</span>: <span class="hljs-title class_">Item</span>_Type[], <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Item</span>_Type {
+    <span class="token keyword">private</span> <span class="token function">getItemAt</span><span class="token punctuation">(</span>items<span class="token operator">:</span> Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> index<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> Item_Type <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'index'</span>, index, <span class="hljs-title function_">isNumber</span>());
+        <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'index'</span><span class="token punctuation">,</span> index<span class="token punctuation">,</span> <span class="token function">isNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> collectionDescription = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>();
-        <span class="hljs-keyword">const</span> itemsDescription = formatted<span class="hljs-string">`<span class="hljs-subst">${ items }</span>`</span>;
-        <span class="hljs-keyword">const</span> description = collectionDescription !== itemsDescription
-            ? <span class="hljs-string">`<span class="hljs-subst">${ collectionDescription }</span> <span class="hljs-subst">${ itemsDescription }</span>`</span>
-            : itemsDescription;
+        <span class="token keyword">const</span> collectionDescription <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> itemsDescription <span class="token operator">=</span> formatted<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> items <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> description <span class="token operator">=</span> collectionDescription <span class="token operator">!==</span> itemsDescription
+            <span class="token operator">?</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> collectionDescription <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> itemsDescription <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+            <span class="token operator">:</span> itemsDescription<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">if</span> (items.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) {
-            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> is empty`</span>);
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>items<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> description <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is empty</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">if</span> (index <span class="hljs-keyword">in</span> items) {
-            <span class="hljs-keyword">return</span> items[index];
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>index <span class="token keyword">in</span> items<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> items<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`<span class="hljs-subst">${ description }</span> has no item at index <span class="hljs-subst">${ index }</span>`</span>);
-    }
-}
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> description <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> has no item at index </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> index <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ArrayListFilter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Answer</span>_Type&gt;
-    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt;&gt;
-{
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: Answerable&lt;Item_Type[]&gt;,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: MetaQuestion&lt;Item_Type, <span class="hljs-built_in">Promise</span>&lt;Answer_Type&gt; | Answer_Type&gt;,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Answer_Type&gt;
-    </span>) {
-        <span class="hljs-variable language_">super</span>([
-            formatted <span class="hljs-string">`<span class="hljs-subst">${ collection }</span>`</span>,
-            collection <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArrayListFilter</span> ? <span class="hljs-string">'and'</span> : <span class="hljs-string">'where'</span>,
-            formatted <span class="hljs-string">`<span class="hljs-subst">${ question }</span> does <span class="hljs-subst">${ expectation }</span>`</span>
-        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">' '</span>));
-    }
+<span class="token keyword">class</span> <span class="token class-name">ArrayListFilter<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> Answer_Type<span class="token operator">&gt;</span></span>
+    <span class="token keyword">extends</span> <span class="token class-name">Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;&gt;</span></span>
+<span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> collection<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> question<span class="token operator">:</span> MetaQuestion<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span> <span class="token operator">|</span> Answer_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Answer_Type<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+            formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> collection <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            collection <span class="token keyword">instanceof</span> <span class="token class-name">ArrayListFilter</span> <span class="token operator">?</span> <span class="token string">'and'</span> <span class="token operator">:</span> <span class="token string">'where'</span><span class="token punctuation">,</span>
+            formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> question <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> does </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> expectation <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+        <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Item</span>_Type[]&gt; {
+    <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Item_Type<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">array</span> =&gt;</span> <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'ArrayListAdapter constructor parameter'</span>, array, <span class="hljs-title function_">isArray</span>()))  <span class="hljs-comment">// todo: extract to avoid duplication?</span>
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">array</span> =&gt;</span>
-                <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(array.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>
-                    <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">question</span>.<span class="hljs-title function_">of</span>(item).<span class="hljs-title function_">answeredBy</span>(actor))
-                        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>.<span class="hljs-title function_">answeredBy</span>(actor)(answer))
-                        .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> ({ item, outcome }))
-                ))
-            )
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">results</span> =&gt;</span>
-                results.<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result.<span class="hljs-property">outcome</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>)
-                    .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result.<span class="hljs-property">item</span>)
-            );
-    }
-}
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>array <span class="token operator">=&gt;</span> <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'ArrayListAdapter constructor parameter'</span><span class="token punctuation">,</span> array<span class="token punctuation">,</span> <span class="token function">isArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>  <span class="token comment">// todo: extract to avoid duplication?</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>array <span class="token operator">=&gt;</span>
+                <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>array<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>item <span class="token operator">=&gt;</span>
+                    <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>question<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>answer <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>expectation<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>outcome <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span> item<span class="token punctuation">,</span> outcome <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>results <span class="token operator">=&gt;</span>
+                results<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>result <span class="token operator">=&gt;</span> result<span class="token punctuation">.</span>outcome <span class="token keyword">instanceof</span> <span class="token class-name">ExpectationMet</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>result <span class="token operator">=&gt;</span> result<span class="token punctuation">.</span>item<span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 </code></pre>
 

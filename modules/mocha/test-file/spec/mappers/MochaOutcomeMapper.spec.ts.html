@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -127,176 +124,176 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/mappers/MochaOutcomeMapper.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">ExecutionCompromised</span>,
-    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
-    <span class="hljs-title class_">ExecutionFailedWithError</span>,
-    <span class="hljs-title class_">ExecutionIgnored</span>,
-    <span class="hljs-title class_">ExecutionSkipped</span>,
-    <span class="hljs-title class_">ExecutionSuccessful</span>,
-    <span class="hljs-title class_">ImplementationPending</span>,
-    <span class="hljs-title class_">ProblemIndication</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { strictEqual } <span class="hljs-keyword">from</span> <span class="hljs-string">'assert'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Test</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AssertionError<span class="token punctuation">,</span> TestCompromisedError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    ExecutionCompromised<span class="token punctuation">,</span>
+    ExecutionFailedWithAssertionError<span class="token punctuation">,</span>
+    ExecutionFailedWithError<span class="token punctuation">,</span>
+    ExecutionIgnored<span class="token punctuation">,</span>
+    ExecutionSkipped<span class="token punctuation">,</span>
+    ExecutionSuccessful<span class="token punctuation">,</span>
+    ImplementationPending<span class="token punctuation">,</span>
+    ProblemIndication<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> strictEqual <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'assert'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Test <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MochaOutcomeMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/mappers'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MochaOutcomeMapper <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/mappers'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'MochaTestMapper'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'MochaTestMapper'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span> mapper = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MochaOutcomeMapper</span>();
-    <span class="hljs-keyword">const</span> <span class="hljs-title function_">someScenario</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/consistent-function-scoping</span>
+    <span class="token keyword">const</span> mapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MochaOutcomeMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">someScenario</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line unicorn/consistent-function-scoping</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises passing tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises passing tests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
-        test.<span class="hljs-property">state</span> = <span class="hljs-string">'passed'</span>;
+        <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token string">'passed'</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+        <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionSuccessful</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionSuccessful<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises pending tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises pending tests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, <span class="hljs-literal">undefined</span>);
-        test.<span class="hljs-property">pending</span> = <span class="hljs-literal">true</span>;
+        <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>pending <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+        <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ImplementationPending</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ImplementationPending<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises skipped tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises skipped tests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
-        test.<span class="hljs-property">pending</span> = <span class="hljs-literal">true</span>;
+        <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>pending <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+        <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionSkipped</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionSkipped<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises compromised tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises compromised tests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCompromisedError</span>(<span class="hljs-string">'DB is down'</span>);
+        <span class="token keyword">const</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestCompromisedError</span><span class="token punctuation">(</span><span class="token string">'DB is down'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
-        test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
-        test.<span class="hljs-property">err</span> = error;
+        <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token string">'failed'</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>err <span class="token operator">=</span> error<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+        <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionCompromised</span>);
-        <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionCompromised<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>outcome <span class="token keyword">as</span> ProblemIndication<span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises tests that failed with a Serenity/JS AssertionError'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises tests that failed with a Serenity/JS AssertionError'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(<span class="hljs-string">'Expected false to be true'</span>, <span class="hljs-literal">true</span>, <span class="hljs-literal">false</span>);
+        <span class="token keyword">const</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AssertionError</span><span class="token punctuation">(</span><span class="token string">'Expected false to be true'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
-        test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
-        test.<span class="hljs-property">err</span> = error;
+        <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token string">'failed'</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>err <span class="token operator">=</span> error<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+        <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
-        <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionFailedWithAssertionError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>outcome <span class="token keyword">as</span> ProblemIndication<span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises tests that failed with a generic AssertionError'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises tests that failed with a generic AssertionError'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">try</span> {
-            <span class="hljs-title function_">strictEqual</span>(<span class="hljs-literal">false</span>, <span class="hljs-literal">true</span>);
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token function">strictEqual</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fail</span>()
-        } <span class="hljs-keyword">catch</span> (error) {
-            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
-            test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
-            test.<span class="hljs-property">err</span> = error;
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fail</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            test<span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token string">'failed'</span><span class="token punctuation">;</span>
+            test<span class="token punctuation">.</span>err <span class="token operator">=</span> error<span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+            <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithAssertionError</span>);
-            <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
-        }
-    });
+            <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionFailedWithAssertionError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>outcome <span class="token keyword">as</span> ProblemIndication<span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'recognises tests that failed with an Error'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises tests that failed with an Error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> error = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`We're sorry, something happened`</span>);
+        <span class="token keyword">const</span> error <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">We're sorry, something happened</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'example'</span>, someScenario);
-        test.<span class="hljs-property">state</span> = <span class="hljs-string">'failed'</span>;
-        test.<span class="hljs-property">err</span> = error;
+        <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>state <span class="token operator">=</span> <span class="token string">'failed'</span><span class="token punctuation">;</span>
+        test<span class="token punctuation">.</span>err <span class="token operator">=</span> error<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test);
+        <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
-        <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(error);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionFailedWithError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>outcome <span class="token keyword">as</span> ProblemIndication<span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when working with retryable tests'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when working with retryable tests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> errorThrownInTest = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`Something happened`</span>)
+        <span class="token keyword">const</span> errorThrownInTest <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Something happened</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'ignores the failure as long as execution is going to be retried'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'ignores the failure as long as execution is going to be retried'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'has retries left'</span>, someScenario);
-            test.<span class="hljs-property">err</span> = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
-            test.<span class="hljs-property">isPending</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-            test.<span class="hljs-property">isPassed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-            test.<span class="hljs-property">isFailed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-            test.<span class="hljs-property">retries</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
-            (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">currentRetry</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">0</span>;
+            <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'has retries left'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            test<span class="token punctuation">.</span>err <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>           <span class="token comment">// retryable tests don't have the `err` property</span>
+            test<span class="token punctuation">.</span><span class="token function-variable function">isPending</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            test<span class="token punctuation">.</span><span class="token function-variable function">isPassed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            test<span class="token punctuation">.</span><span class="token function-variable function">isFailed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            test<span class="token punctuation">.</span><span class="token function-variable function">retries</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">(</span>test <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">currentRetry</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test, errorThrownInTest);
+            <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">,</span> errorThrownInTest<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionIgnored</span>);
-            <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Something happened'</span>);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionIgnored<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>outcome <span class="token keyword">as</span> ProblemIndication<span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Something happened'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when there are no retries left'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">`marks execution as failed if there's an error`</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when there are no retries left'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">marks execution as failed if there's an error</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'has no retries left'</span>, someScenario);
-                test.<span class="hljs-property">err</span> = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
-                test.<span class="hljs-property">isPending</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.<span class="hljs-property">isPassed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.<span class="hljs-property">isFailed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.<span class="hljs-property">retries</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
-                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">currentRetry</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'has no retries left'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span>err <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>           <span class="token comment">// retryable tests don't have the `err` property</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">isPending</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">isPassed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">isFailed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">retries</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">(</span>test <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">currentRetry</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test, errorThrownInTest);
+                <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">,</span> errorThrownInTest<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionFailedWithError</span>);
-                <span class="hljs-title function_">expect</span>((outcome <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProblemIndication</span>).<span class="hljs-property">error</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Something happened'</span>);
-            });
+                <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionFailedWithError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>outcome <span class="token keyword">as</span> ProblemIndication<span class="token punctuation">)</span><span class="token punctuation">.</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Something happened'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">`marks execution as successful if there are no errors`</span>, <span class="hljs-function">() =&gt;</span> {
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">marks execution as successful if there are no errors</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-keyword">const</span> noError = <span class="hljs-literal">undefined</span>;
+                <span class="token keyword">const</span> noError <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> test = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Test</span>(<span class="hljs-string">'has no retries left'</span>, someScenario);
-                test.<span class="hljs-property">err</span> = <span class="hljs-literal">undefined</span>;           <span class="hljs-comment">// retryable tests don't have the `err` property</span>
-                test.<span class="hljs-property">isPending</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.<span class="hljs-property">isPassed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.<span class="hljs-property">isFailed</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-literal">false</span>;
-                test.<span class="hljs-property">retries</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
-                (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-property">currentRetry</span> = <span class="hljs-function">() =&gt;</span> <span class="hljs-number">1</span>;
+                <span class="token keyword">const</span> test <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Test</span><span class="token punctuation">(</span><span class="token string">'has no retries left'</span><span class="token punctuation">,</span> someScenario<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span>err <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>           <span class="token comment">// retryable tests don't have the `err` property</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">isPending</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">isPassed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">isFailed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                test<span class="token punctuation">.</span><span class="token function-variable function">retries</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token punctuation">(</span>test <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function-variable function">currentRetry</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> outcome = mapper.<span class="hljs-title function_">outcomeOf</span>(test, noError);
+                <span class="token keyword">const</span> outcome <span class="token operator">=</span> mapper<span class="token punctuation">.</span><span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token punctuation">,</span> noError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(outcome).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceof</span>(<span class="hljs-title class_">ExecutionSuccessful</span>);
-            });
-        });
-    });
-});
+                <span class="token function">expect</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceof</span><span class="token punctuation">(</span>ExecutionSuccessful<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

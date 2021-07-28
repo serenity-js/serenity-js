@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,27 +291,27 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/json/cycle.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable @typescript-eslint/no-unused-vars,unicorn/better-regex,unicorn/escape-case,no-useless-escape,no-control-regex,@typescript-eslint/explicit-module-boundary-types */</span>
+<pre class="source-code line-number raw-source-code language-markup"><code class="linenums" data-ice="content">/* eslint-disable @typescript-eslint/no-unused-vars,unicorn/better-regex,unicorn/escape-case,no-useless-escape,no-control-regex,@typescript-eslint/explicit-module-boundary-types */
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">stringify</span>(<span class="hljs-params">value: unknown, replacer?: (<span class="hljs-variable language_">this</span>: <span class="hljs-built_in">any</span>, key: <span class="hljs-built_in">string</span>, value: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span>, space?: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span></span>): <span class="hljs-built_in">string</span> {
-    <span class="hljs-keyword">return</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">decycle</span>(value), replacer, space);
+export function stringify(value: unknown, replacer?: (this: any, key: string, value: any) =&gt; any, space?: string | number): string {
+    return JSON.stringify(decycle(value), replacer, space);
 }
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+/**
+ * @desc
  *  Converts a JavaScript Object Notation (JSON) string into an object.
  *  Supports objects with cyclic references.
  *
- * <span class="hljs-doctag">@param</span> text A valid JSON string.
- * <span class="hljs-doctag">@param</span> reviver A function that transforms the results. This function is called for each member of the object.
+ * @param text A valid JSON string.
+ * @param reviver A function that transforms the results. This function is called for each member of the object.
  *   If a member contains nested objects, the nested objects are transformed before the parent object is.
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">parse</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, reviver?: (<span class="hljs-variable language_">this</span>: <span class="hljs-built_in">any</span>, key: <span class="hljs-built_in">string</span>, value: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">any</span></span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-title function_">retrocycle</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(text, reviver));
+ */
+export function parse(text: string, reviver?: (this: any, key: string, value: any) =&gt; any) {
+    return retrocycle(JSON.parse(text, reviver));
 }
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+/**
+ * @desc
  *  Makes a deep copy of an object or array, assuring that there is at most
  *  one instance of each object or array in the resulting structure. The
  *  duplicate references (which might be forming cycles) are replaced with
@@ -341,66 +338,66 @@
  *  Based on work by Douglas Crockford
  *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any</span>} <span class="hljs-variable">object</span>
+ * @param {any} object
  *
- * <span class="hljs-doctag">@package</span>
- */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">decycle</span>(<span class="hljs-params"><span class="hljs-built_in">object</span>: <span class="hljs-built_in">any</span></span>) {
-    <span class="hljs-keyword">const</span> objects = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">string</span>&gt;();     <span class="hljs-comment">// object to path mappings</span>
+ * @package
+ */
+function decycle(object: any) {
+    const objects = new WeakMap<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>any,</span> <span class="token attr-name">string</span><span class="token punctuation">&gt;</span></span>();     // object to path mappings
 
-    <span class="hljs-comment">// The derez function recurses through the object, producing a deep copy</span>
-    <span class="hljs-keyword">return</span> (<span class="hljs-keyword">function</span> <span class="hljs-title function_">derez</span>(<span class="hljs-params">value, path</span>) {
+    // The derez function recurses through the object, producing a deep copy
+    return (function derez(value, path) {
 
-        <span class="hljs-keyword">let</span> old_path,   <span class="hljs-comment">// The path of an earlier occurance of value</span>
-            nu;         <span class="hljs-comment">// The new object or array</span>
+        let old_path,   // The path of an earlier occurance of value
+            nu;         // The new object or array
 
-        <span class="hljs-keyword">if</span> (
-            <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span>
-            &amp;&amp; value !== <span class="hljs-literal">null</span>
-            &amp;&amp; !(value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Boolean</span>)
-            &amp;&amp; !(value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Date</span>)
-            &amp;&amp; !(value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Number</span>)
-            &amp;&amp; !(value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">RegExp</span>)
-            &amp;&amp; !(value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">String</span>)
+        if (
+            typeof value === 'object'
+            &amp;&amp; value !== null
+            &amp;&amp; !(value instanceof Boolean)
+            &amp;&amp; !(value instanceof Date)
+            &amp;&amp; !(value instanceof Number)
+            &amp;&amp; !(value instanceof RegExp)
+            &amp;&amp; !(value instanceof String)
         ) {
-            <span class="hljs-comment">// If the value is an object or array, look to see if we have already</span>
-            <span class="hljs-comment">// encountered it. If so, return a {"$ref":PATH} object.</span>
+            // If the value is an object or array, look to see if we have already
+            // encountered it. If so, return a {"$ref":PATH} object.
 
-            old_path = objects.<span class="hljs-title function_">get</span>(value);
-            <span class="hljs-keyword">if</span> (old_path !== <span class="hljs-literal">undefined</span>) {
-                <span class="hljs-keyword">return</span> { <span class="hljs-attr">$ref</span>: old_path };
+            old_path = objects.get(value);
+            if (old_path !== undefined) {
+                return { $ref: old_path };
             }
-            <span class="hljs-comment">// Otherwise, accumulate the unique value and its path.</span>
+            // Otherwise, accumulate the unique value and its path.
 
-            objects.<span class="hljs-title function_">set</span>(value, path);
+            objects.set(value, path);
 
-            <span class="hljs-comment">// If it is an array, replicate the array.</span>
+            // If it is an array, replicate the array.
 
-            <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(value)) {
+            if (Array.isArray(value)) {
                 nu = [];
-                value.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">element, i</span>) {
-                    nu[i] = <span class="hljs-title function_">derez</span>(element, path + <span class="hljs-string">'['</span> + i + <span class="hljs-string">']'</span>);
+                value.forEach(function (element, i) {
+                    nu[i] = derez(element, path + '[' + i + ']');
                 });
-            } <span class="hljs-keyword">else</span> {
+            } else {
 
-                <span class="hljs-comment">// If it is an object, replicate the object.</span>
+                // If it is an object, replicate the object.
 
                 nu = {};
-                <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(value).<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) {
-                    nu[name] = <span class="hljs-title function_">derez</span>(
+                Object.keys(value).forEach(function (name) {
+                    nu[name] = derez(
                         value[name],
-                        path + <span class="hljs-string">'['</span> + <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(name) + <span class="hljs-string">']'</span>
+                        path + '[' + JSON.stringify(name) + ']'
                     );
                 });
             }
-            <span class="hljs-keyword">return</span> nu;
+            return nu;
         }
-        <span class="hljs-keyword">return</span> value;
-    }(<span class="hljs-built_in">object</span>, <span class="hljs-string">'$'</span>));
+        return value;
+    }(object, '$'));
 }
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+/**
+ * @desc
  *  Restore an object that was reduced by decycle. Members which values are
  *  objects of the form
  *  ```
@@ -427,41 +424,41 @@
  *  Based on work by Douglas Crockford
  *   https://github.com/jan-molak/JSON-js/blob/master/cycle.js
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">any</span>} <span class="hljs-variable">$</span>
+ * @param {any} $
  *
- * <span class="hljs-doctag">@package</span>
- */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">retrocycle</span>(<span class="hljs-params">$: <span class="hljs-built_in">any</span></span>) {
-    <span class="hljs-keyword">const</span> px = <span class="hljs-regexp">/^\$(?:\[(?:\d+|"(?:[^\\"\u0000-\u001f]|\\(?:[\\"\/bfnrt]|u[0-9a-zA-Z]{4}))*")\])*$/</span>;
+ * @package
+ */
+function retrocycle($: any) {
+    const px = /^\$(?:\[(?:\d+|"(?:[^\\"\u0000-\u001f]|\\(?:[\\"\/bfnrt]|u[0-9a-zA-Z]{4}))*")\])*$/;
 
-    (<span class="hljs-keyword">function</span> <span class="hljs-title function_">rez</span>(<span class="hljs-params">value</span>) {
+    (function rez(value) {
 
-        <span class="hljs-comment">// The rez function walks recursively through the object looking for $ref</span>
-        <span class="hljs-comment">// properties. When it finds one that has a value that is a path, then it</span>
-        <span class="hljs-comment">// replaces the $ref object with a reference to the value that is found by</span>
-        <span class="hljs-comment">// the path.</span>
+        // The rez function walks recursively through the object looking for $ref
+        // properties. When it finds one that has a value that is a path, then it
+        // replaces the $ref object with a reference to the value that is found by
+        // the path.
 
-        <span class="hljs-keyword">if</span> (value &amp;&amp; <span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span>) {
-            <span class="hljs-keyword">if</span> (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(value)) {
-                value.<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">element, i</span>) {
-                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> element === <span class="hljs-string">'object'</span> &amp;&amp; element !== <span class="hljs-literal">null</span>) {
-                        <span class="hljs-keyword">const</span> path = element.<span class="hljs-property">$ref</span>;
-                        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> path === <span class="hljs-string">'string'</span> &amp;&amp; px.<span class="hljs-title function_">test</span>(path)) {
-                            value[i] = <span class="hljs-built_in">eval</span>(path);
-                        } <span class="hljs-keyword">else</span> {
-                            <span class="hljs-title function_">rez</span>(element);
+        if (value &amp;&amp; typeof value === 'object') {
+            if (Array.isArray(value)) {
+                value.forEach(function (element, i) {
+                    if (typeof element === 'object' &amp;&amp; element !== null) {
+                        const path = element.$ref;
+                        if (typeof path === 'string' &amp;&amp; px.test(path)) {
+                            value[i] = eval(path);
+                        } else {
+                            rez(element);
                         }
                     }
                 });
-            } <span class="hljs-keyword">else</span> {
-                <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(value).<span class="hljs-title function_">forEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) {
-                    <span class="hljs-keyword">const</span> item = value[name];
-                    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> item === <span class="hljs-string">'object'</span> &amp;&amp; item !== <span class="hljs-literal">null</span>) {
-                        <span class="hljs-keyword">const</span> path = item.<span class="hljs-property">$ref</span>;
-                        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> path === <span class="hljs-string">'string'</span> &amp;&amp; px.<span class="hljs-title function_">test</span>(path)) {
-                            value[name] = <span class="hljs-built_in">eval</span>(path);
-                        } <span class="hljs-keyword">else</span> {
-                            <span class="hljs-title function_">rez</span>(item);
+            } else {
+                Object.keys(value).forEach(function (name) {
+                    const item = value[name];
+                    if (typeof item === 'object' &amp;&amp; item !== null) {
+                        const path = item.$ref;
+                        if (typeof path === 'string' &amp;&amp; px.test(path)) {
+                            value[name] = eval(path);
+                        } else {
+                            rez(item);
                         }
                     }
                 });
@@ -469,7 +466,7 @@
         }
     }($));
 
-    <span class="hljs-keyword">return</span> $;
+    return $;
 }
 </code></pre>
 

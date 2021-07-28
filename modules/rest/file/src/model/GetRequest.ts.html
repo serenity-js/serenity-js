@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,13 +135,13 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/GetRequest.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AxiosRequestConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AxiosRequestConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { HTTPRequest } <span class="hljs-keyword">from</span> <span class="hljs-string">'./HTTPRequest'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> HTTPRequest <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./HTTPRequest'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  The HTTP GET method requests a representation of the specified resource.
  *  It is the most frequent type of request made by consumers of a typical HTTP API.
  *  For this reason it's important to test every known endpoint that responds to GET requests and ensure that it
@@ -156,10 +153,10 @@
  *  This means that an identical request can be made once or several times in a row with the same effect while leaving
  *  the server in the same state.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
- *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
- *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Verify response to a GET request&lt;/caption&gt;
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  interface Book {
  *      title: string;
@@ -177,45 +174,45 @@
  *      })),
  *  );
  *
- * <span class="hljs-doctag">@see</span> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
- * <span class="hljs-doctag">@see</span> https://tools.ietf.org/html/rfc7231#section-4.3.1
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET
+ * @see https://tools.ietf.org/html/rfc7231#section-4.3.1
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">HTTPRequest</span>}
+ * @extends {HTTPRequest}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GetRequest</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">HTTPRequest</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">GetRequest</span> <span class="token keyword">extends</span> <span class="token class-name">HTTPRequest</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Configures the object with a destination URI.
      *
      *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,
      *  it gets concatenated with the URL provided to the Axios instance
-     *  when the {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
+     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;</span>} <span class="hljs-variable">resourceUri</span>
-     *  The URI where the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  should send the {<span class="hljs-doctag">@link</span> HTTPRequest}.
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} resourceUri
+     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  should send the {@link HTTPRequest}.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">GetRequest</span>}
+     * @returns {GetRequest}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">to</span>(<span class="hljs-attr">resourceUri</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">string</span>&gt;): <span class="hljs-title class_">GetRequest</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetRequest</span>(resourceUri);
-    }
+    <span class="token keyword">static</span> <span class="token function">to</span><span class="token punctuation">(</span>resourceUri<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> GetRequest <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">GetRequest</span><span class="token punctuation">(</span>resourceUri<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Overrides the default Axios request configuration provided
-     *  when {<span class="hljs-doctag">@link</span> CallAnApi} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} was instantiated.
+     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;</span>} <span class="hljs-variable">config</span>
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;} config
      *  Axios request configuration overrides
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">GetRequest</span>}
+     * @returns {GetRequest}
      */</span>
-    <span class="hljs-title function_">using</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">AxiosRequestConfig</span>&gt;): <span class="hljs-title class_">GetRequest</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GetRequest</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">resourceUri</span>, <span class="hljs-literal">undefined</span>, config);
-    }
-}
+    <span class="token function">using</span><span class="token punctuation">(</span>config<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>AxiosRequestConfig<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> GetRequest <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">GetRequest</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>resourceUri<span class="token punctuation">,</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

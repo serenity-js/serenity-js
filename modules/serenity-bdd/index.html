@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,127 +135,127 @@ and <a href="https://serenity-js.org/modules/">API docs</a>, and follow <a href=
 <p>This integration enables your Serenity/JS tests to produce interim JSON reports, which the Serenity BDD reporting CLI
 can then turn into world-class, illustrated test reports and living documentation. Learn more about <a href="https://serenity-js.org/handbook/reporting/index.html">Serenity/JS reporting</a>.</p>
 <h3 id="installation">Installation</h3><p>To install this module, run the following command in your computer terminal:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,serenity-bdd}</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span>serenity<span class="token operator">-</span>bdd<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="serenitybddreporter">SerenityBDDReporter</h3><p>To allow Serenity/JS to produce Serenity BDD-standard JSON reports, assign the <code>SerenityBDDReporter</code> to the <code>Stage</code>
 and configure the <code>ArtifactArchiver</code> to store the reports at the location where Serenity BDD expects to find them.</p>
 <p>This can be done in your <code>protractor.conf.js</code> file if you're using Protractor, or programmatically.</p>
-<h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactArchiver</span>, serenity } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/serenity-bdd'</span>;
+<h4 id="programmatic-configuration">Programmatic configuration</h4><pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver<span class="token punctuation">,</span> serenity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
 
-serenity.<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter()
-    ],
-});
+serenity<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        ArtifactArchiver<span class="token punctuation">.</span><span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token string">'./target/site/serenity'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h4 id="protractor">Protractor</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+<h4 id="protractor">Protractor</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
 
-<span class="hljs-keyword">const</span>
-    { <span class="hljs-title class_">ArtifactArchiver</span> }    = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>),
-    { <span class="hljs-title class_">Serenity</span>BDDReporter } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/serenity-bdd'</span>),
+<span class="token keyword">const</span>
+    <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span>    <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/core'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
+exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    <span class="hljs-attr">serenity</span>: {
-        <span class="hljs-attr">crew</span>: [
-            <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">'./target/site/serenity'</span>),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(),
-        ]
-    },
+    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
+        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+            ArtifactArchiver<span class="token punctuation">.</span><span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token string">'./target/site/serenity'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-    <span class="hljs-comment">// ...</span>
-}
+    <span class="token comment">// ...</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h3 id="serenity-bdd-living-documentation">Serenity BDD Living Documentation</h3><p>To turn the Serenity BDD-standard JSON reports produced by the <code>SerenityBDDReporter</code> into Serenity BDD test reports,
 you need the <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD reporting CLI</a>.</p>
 <p>The Serenity BDD reporting CLI is a Java program, distributed as an executable <code>.jar</code> file and <a href="https://bintray.com/serenity/maven/serenity-cli">available on Bintray</a>.</p>
 <p>This module ships with a <code>serenity-bdd</code> CLI wrapper that makes downloading and running the Serenity BDD reporting CLI easy.</p>
 <p>To learn more about the usage of the <code>serenity-bdd</code> wrapper, run:</p>
-<pre><code class="lang-console hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span>
+<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd <span class="token operator">--</span>help
 </code></pre>
 <h4 id="configuring-serenity-bdd-reporting-cli">Configuring Serenity BDD reporting CLI</h4><p>To configure the <a href="https://github.com/serenity-bdd/serenity-cli">Serenity BDD reporting CLI</a>, place a file called <code>serenity.properties</code>
 in your project root directory. </p>
 <p>For example:</p>
-<pre><code class="hljs gherkin"><span class="hljs-comment"># serenity.properties</span>
-serenity.project.name=My awesome project
+<pre class="language-typescript"><code># serenity<span class="token punctuation">.</span>properties
+serenity<span class="token punctuation">.</span>project<span class="token punctuation">.</span>name<span class="token operator">=</span>My awesome project
 </code></pre><p>Please note that the reporting CLI considers only those properties that are related to producing test reports.
 Learn more about configuring <a href="https://serenity-bdd.github.io/theserenitybook/latest/serenity-system-properties.html"><code>serenity.properties</code></a>.</p>
 <h4 id="downloading-the-serenity-bdd-reporting-cli">Downloading the Serenity BDD reporting CLI</h4><p>To download the Serenity BDD reporting CLI or to update it, use the update command:</p>
-<pre><code class="lang-console hljs plaintext">npx serenity-bdd update
+<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd update
 </code></pre>
 <p>You can also tell it to download the Serenity BDD reporting CLI jar from your company's artifact repository if you can't use the official Bintray one:</p>
-<pre><code class="hljs typescript">npx serenity-bdd update --repository <span class="hljs-attr">https</span>:<span class="hljs-comment">//artifactory.example.org/</span>
+<pre class="language-typescript"><code>npx serenity<span class="token operator">-</span>bdd update <span class="token operator">--</span>repository https<span class="token operator">:</span><span class="token operator">/</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">artifactory.example.org</span><span class="token regex-delimiter">/</span></span>
 </code></pre><p>To learn more about the <code>update</code> command, run:</p>
-<pre><code class="hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span> update
+<pre class="language-typescript"><code>npx serenity<span class="token operator">-</span>bdd <span class="token operator">--</span>help update
 </code></pre><p>Please note that the <code>update</code> command will try to download the <code>.jar</code> only if you don't have it cached already, or when the one you have is not up to date. Otherwise, no outbound network calls are made.</p>
 <h5 id="downloading-through-a-proxy">Downloading through a proxy</h5><p>The <code>update</code> command will pick up your proxy configuration automatically from your <a href="https://docs.npmjs.com/cli/v6/commands/npm-config">NPM config</a>, <a href="https://docs.npmjs.com/cli/v6/configuring-npm/npmrc"><code>.npmrc</code> file</a>, or environment variables. </p>
 <p>Please note that you only need to use one of those configuration mechanisms.</p>
 <h6 id="use-npm-config--linux--macos--windows-">Use NPM config (Linux, macOS, Windows)</h6><p>To use NPM-level configuration, run the following commands in your terminal:</p>
-<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> proxy http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
-npm config <span class="hljs-built_in">set</span> https-proxy http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+<pre class="language-typescript"><code class="lang-console">npm config <span class="token keyword">set</span> proxy http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
+npm config <span class="token keyword">set</span> https<span class="token operator">-</span>proxy http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
 </code></pre>
 <p>If your proxy requires a certificate file, you can provide a path to it as follows:</p>
-<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> cafile /path/to/root-ca.pem
+<pre class="language-typescript"><code class="lang-console">npm config <span class="token keyword">set</span> cafile <span class="token operator">/</span>path<span class="token operator">/</span>to<span class="token operator">/</span>root<span class="token operator">-</span>ca<span class="token punctuation">.</span>pem
 </code></pre>
 <p>The above can also be accomplished by placing an <a href="https://docs.npmjs.com/cli/v6/configuring-npm/npmrc"><code>.npmrc</code> file</a> with following contents in your home directory or your project root:</p>
-<pre><code class="lang-bash hljs gherkin"><span class="hljs-comment"># ~/.npmrc</span>
-proxy = http://[user:pwd]<span class="hljs-meta">@domain.tld:port</span>
-https-proxy = http://[user:pwd]<span class="hljs-meta">@domain.tld:port</span>
+<pre class="language-bash"><code class="lang-bash"><span class="token comment"># ~/.npmrc</span>
+proxy <span class="token operator">=</span> http://<span class="token punctuation">[</span>user:pwd<span class="token punctuation">]</span>@domain.tld:port
+https-proxy <span class="token operator">=</span> http://<span class="token punctuation">[</span>user:pwd<span class="token punctuation">]</span>@domain.tld:port
 
-cafile = /path/to/root-ca.pem          <span class="hljs-comment"># optional</span>
-noproxy = localhost,mycompany.com      <span class="hljs-comment"># optional</span>
+cafile <span class="token operator">=</span> /path/to/root-ca.pem          <span class="token comment"># optional</span>
+noproxy <span class="token operator">=</span> localhost,mycompany.com      <span class="token comment"># optional</span>
 </code></pre>
 <h6 id="environment-variables-on-linux-or-macos">Environment variables on Linux or macOS</h6><p>To set your proxy on Linux or macOS, run the following commands in your terminal:</p>
-<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">HTTP_PROXY</span>=<span class="hljs-attr">http</span>:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
-<span class="hljs-keyword">export</span> <span class="hljs-variable constant_">HTTPS_PROXY</span>=<span class="hljs-attr">http</span>:<span class="hljs-comment">//[user:pwd]@domain.tld:port</span>
+<pre class="language-typescript"><code class="lang-console"><span class="token keyword">export</span> <span class="token constant">HTTP_PROXY</span><span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
+<span class="token keyword">export</span> <span class="token constant">HTTPS_PROXY</span><span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
 </code></pre>
 <p>If needed, you can also set a <code>NO_PROXY</code> variable to a comma-separated list of domains that don't require a proxy, for example:</p>
-<pre><code class="lang-console hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">NO_PROXY</span>=localhost,mycompany.<span class="hljs-property">com</span>
+<pre class="language-typescript"><code class="lang-console"><span class="token keyword">export</span> <span class="token constant">NO_PROXY</span><span class="token operator">=</span>localhost<span class="token punctuation">,</span>mycompany<span class="token punctuation">.</span>com
 </code></pre>
 <p>Please note that you can add the above commands to your shell's <code>~/.profile</code>, so that they're executed whenever you open a new terminal.</p>
 <h6 id="environment-variables-on-windows">Environment variables on Windows</h6><p>To configure a proxy on Windows, run the following commands in Command Prompt:</p>
-<pre><code class="lang-console hljs bash"><span class="hljs-built_in">set</span> HTTP_PROXY=http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
-<span class="hljs-built_in">set</span> HTTPS_PROXY=http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+<pre class="language-typescript"><code class="lang-console"><span class="token keyword">set</span> <span class="token constant">HTTP_PROXY</span><span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
+<span class="token keyword">set</span> <span class="token constant">HTTPS_PROXY</span><span class="token operator">=</span>http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
 </code></pre>
 <p>If you're using Powershell, run the following commands instead:</p>
-<pre><code class="lang-console hljs bash"><span class="hljs-variable">$env</span>:HTTP_PROXY = http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
-<span class="hljs-variable">$env</span>:HTTPS_PROXY = http://[user:<span class="hljs-built_in">pwd</span>]@domain.tld:port
+<pre class="language-typescript"><code class="lang-console">$env<span class="token operator">:</span><span class="token constant">HTTP_PROXY</span> <span class="token operator">=</span> http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
+$env<span class="token operator">:</span><span class="token constant">HTTPS_PROXY</span> <span class="token operator">=</span> http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span><span class="token punctuation">[</span>user<span class="token operator">:</span>pwd<span class="token punctuation">]</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">domain</span></span><span class="token punctuation">.</span>tld<span class="token operator">:</span>port
 </code></pre>
 <h5 id="use-a-specific-user-agent">Use a specific User-Agent</h5><p>If your artifact registry requires you to use a specific user agent, you can configure it using NPM config:</p>
-<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> user-agent <span class="hljs-string">"Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"</span>
+<pre class="language-typescript"><code class="lang-console">npm config <span class="token keyword">set</span> user<span class="token operator">-</span>agent <span class="token string">"Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"</span>
 </code></pre>
 <h5 id="ignore-ssl-checks">Ignore SSL checks</h5><p>You can instruct the <code>update</code> command to ignore any SSL certificate errors by providing an <code>--ignoreSSL</code> flag when running the command:  </p>
-<pre><code class="lang-console hljs plaintext">npx serenity-bdd update --ignoreSSL
+<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd update <span class="token operator">--</span>ignoreSSL
 </code></pre>
 <p>You can also disable certificate checks at the NPM config level by running: </p>
-<pre><code class="lang-console hljs bash">npm config <span class="hljs-built_in">set</span> strict-ssl <span class="hljs-literal">false</span>
+<pre class="language-typescript"><code class="lang-console">npm config <span class="token keyword">set</span> strict<span class="token operator">-</span>ssl <span class="token boolean">false</span>
 </code></pre>
 <p>Alternative, you can accomplish the same with an <code>.npmrc</code> file:</p>
-<pre><code class="lang-bash hljs bash"><span class="hljs-comment"># ~/.npmrc</span>
-npm_config_strict-ssl = <span class="hljs-literal">false</span>
+<pre class="language-bash"><code class="lang-bash"><span class="token comment"># ~/.npmrc</span>
+npm_config_strict-ssl <span class="token operator">=</span> <span class="token boolean">false</span>
 </code></pre>
 <h4 id="producing-the-serenity-bdd-test-report">Producing the Serenity BDD test report</h4><p>To produce the Serenity BDD test report and living documentation using default settings, run:</p>
-<pre><code class="hljs plaintext">npx serenity-bdd run
+<pre class="language-typescript"><code>npx serenity<span class="token operator">-</span>bdd run
 </code></pre><p>To learn more about the <code>run</code> command and how to change the default settings, run:</p>
-<pre><code class="hljs bash">npx serenity-bdd --<span class="hljs-built_in">help</span> run
+<pre class="language-typescript"><code>npx serenity<span class="token operator">-</span>bdd <span class="token operator">--</span>help run
 </code></pre><h3 id="using-npm-scripts">Using NPM scripts</h3><p>The easiest way to ensure that the Serenity BDD reporting CLI is up to date
 and that the Serenity BDD test report is produced after each test run is to
 add the following entries to the scripts section of the <code>package.json</code> file:</p>
-<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"scripts"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">"test:update-serenity"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test:acceptance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"/* invoke the test runner */"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"test"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"failsafe test:acceptance test:update-serenity test:report"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-comment">// ... other scripts</span>
-  <span class="hljs-punctuation">}</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-comment">// ... other config</span>
-<span class="hljs-punctuation">}</span>
+<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">"scripts"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"test:update-serenity"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update"</span><span class="token punctuation">,</span>
+    <span class="token property">"test:acceptance"</span><span class="token operator">:</span> <span class="token string">"/* invoke the test runner */"</span><span class="token punctuation">,</span>
+    <span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run"</span><span class="token punctuation">,</span>
+    <span class="token property">"test"</span><span class="token operator">:</span> <span class="token string">"failsafe test:acceptance test:update-serenity test:report"</span><span class="token punctuation">,</span>
+    <span class="token comment">// ... other scripts</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">// ... other config</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In the above example, the <a href="https://www.npmjs.com/package/npm-failsafe"><code>npm-failsafe</code></a> module is used to invoke
 each of the <code>test:update-serenity</code>, <code>test:acceptance</code> and <code>test:report</code> scripts when <code>npm test</code> is executed.

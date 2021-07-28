@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -136,37 +133,37 @@ of modern full-stack applications faster, more collaborative and easier to scale
 <h2 id="serenity-js-console-reporter">Serenity/JS Console Reporter</h2><p><code>@serenity-js/console-reporter</code> module reports progress of your Serenity/JS tests to the terminal.</p>
 <p><code>ConsoleReporter</code> supports both colour and monochromatic output, as well as simple colour themes for terminals
 with dark and light backgrounds.</p>
-<h3 id="installation">Installation</h3><pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-variable language_">console</span>-reporter}
+<h3 id="installation">Installation</h3><pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span><span class="token builtin">console</span><span class="token operator">-</span>reporter<span class="token punctuation">}</span>
 </code></pre>
 <p>Learn more about <a href="https://serenity-js.org/handbook/reporting/console-reporter.html">Serenity/JS Console Reporter</a></p>
 <h4 id="windows">Windows</h4><p>If you're on Windows, consider using <a href="https://github.com/microsoft/terminal">Windows Terminal</a>
 instead of <code>cmd.exe</code> to benefit from the colour output.</p>
 <h3 id="usage">Usage</h3><p>To allow Serenity/JS to print the progress report to standard output, assign the <code>ConsoleReporter</code> to the <code>Stage</code>.</p>
 <p>This can be done in your <code>protractor.conf.js</code> file if you're using Protractor, or programmatically.</p>
-<h4 id="programmatic-configuration">Programmatic configuration</h4><pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
+<h4 id="programmatic-configuration">Programmatic configuration</h4><pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">withDefaultColourSupport</span>(),
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        ConsoleReporter<span class="token punctuation">.</span><span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h4 id="protractor">Protractor</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+<h4 id="protractor">Protractor</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// protractor.conf.js</span>
 
-<span class="hljs-keyword">const</span> { <span class="hljs-title class_">ConsoleReporter</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>);
+<span class="token keyword">const</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
-  <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
-    <span class="hljs-attr">serenity</span>: {
-      <span class="hljs-attr">crew</span>: [
-        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">withDefaultColourSupport</span>(),
-      ],
-      <span class="hljs-comment">// other Serenity/JS config</span>
-    },
-    <span class="hljs-comment">// other Protractor config</span>
- };
+exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
+  framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    frameworkPath<span class="token operator">:</span> require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
+      crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        ConsoleReporter<span class="token punctuation">.</span><span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token comment">// other Serenity/JS config</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// other Protractor config</span>
+ <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="colour-themes">Colour Themes</h4><p>Consult the API docs of the <code>ConsoleReporter</code> class to learn more about the supported colour themes.</p>
 </div>

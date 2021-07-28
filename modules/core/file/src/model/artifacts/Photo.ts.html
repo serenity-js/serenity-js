@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,41 +291,41 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/model/artifacts/Photo.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Artifact'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Artifact <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Artifact'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Artifact</span>}
+<span class="token comment">/**
+ * @public
+ * @extends {Artifact}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Photo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Artifact</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Photo</span> <span class="token keyword">extends</span> <span class="token class-name">Artifact</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">value</span>
+    <span class="token comment">/**
+     * @desc
+     * @param {string} value
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromBase64</span>(<span class="hljs-attr">value</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Photo</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Photo</span>(value);
-    }
+    <span class="token keyword">static</span> <span class="token function">fromBase64</span><span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Photo <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Photo</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Buffer | ArrayBuffer</span>} <span class="hljs-variable">value</span>
+    <span class="token comment">/**
+     * @desc
+     * @param {Buffer | ArrayBuffer} value
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">fromBuffer</span>(<span class="hljs-attr">value</span>: <span class="hljs-title class_">Buffer</span> | <span class="hljs-title class_">ArrayBuffer</span>): <span class="hljs-title class_">Photo</span> {
-        <span class="hljs-keyword">const</span> buffer = value <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArrayBuffer</span>
-            ? <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(value)
-            : value;
+    <span class="token keyword">static</span> <span class="token function">fromBuffer</span><span class="token punctuation">(</span>value<span class="token operator">:</span> Buffer <span class="token operator">|</span> ArrayBuffer<span class="token punctuation">)</span><span class="token operator">:</span> Photo <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> buffer <span class="token operator">=</span> value <span class="token keyword">instanceof</span> <span class="token class-name">ArrayBuffer</span>
+            <span class="token operator">?</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
+            <span class="token operator">:</span> value<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Photo</span>.<span class="hljs-title function_">fromBase64</span>(buffer.<span class="hljs-title function_">toString</span>(<span class="hljs-string">'base64'</span>));
-    }
+        <span class="token keyword">return</span> Photo<span class="token punctuation">.</span><span class="token function">fromBase64</span><span class="token punctuation">(</span>buffer<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token string">'base64'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> <span class="hljs-variable">fn</span>
+    <span class="token comment">/**
+     * @param fn
      */</span>
-    map&lt;O&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">decodedValue: Buffer</span>) =&gt;</span> O): O {
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(<span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">base64EncodedValue</span>, <span class="hljs-string">'base64'</span>));
-    }
-}
+    <span class="token generic-function"><span class="token function">map</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">O</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token function-variable function">fn</span><span class="token operator">:</span> <span class="token punctuation">(</span>decodedValue<span class="token operator">:</span> Buffer<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">O</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">O</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">(</span>Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>base64EncodedValue<span class="token punctuation">,</span> <span class="token string">'base64'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

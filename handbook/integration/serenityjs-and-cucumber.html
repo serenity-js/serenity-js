@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -195,45 +192,45 @@ graph TB
 <li><a href="https://www.npmjs.com/package/@cucumber/cucumber"><code>@cucumber/cucumber</code></a></li>
 </ul>
 <p>To do that, run the following command in your terminal:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,cucumber}</span> <span class="hljs-meta">@cucumber/cucumber</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span>cucumber<span class="token punctuation">}</span> <span class="token decorator"><span class="token at operator">@</span><span class="token function">cucumber</span></span><span class="token operator">/</span>cucumber
 </code></pre>
 <p>If you'd like to implement your test suite in TypeScript, also run:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev typescript ts-node <span class="hljs-meta">@types/node</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token keyword">type</span>script ts<span class="token operator">-</span>node @<span class="token keyword">type</span>s<span class="token operator">/</span>node
 </code></pre>
 <h2 id="configuration">Configuration</h2>
 <p>In a <a href="https://www.typescriptlang.org/">TypeScript</a> project, create a configuration file at <code>features/support/config.ts</code> to inform Serenity/JS what <a href="/handbook/reporting/">reporting services</a> you wish to use:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// features/support/config.ts</span>
-<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// features/support/config.ts</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-comment">// ... reporting services</span>
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token comment">// ... reporting services</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>In a JavaScript project, create a configuration file at <code>features/support/config.js</code> instead:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// features/support/config.js</span>
-<span class="hljs-keyword">const</span> { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
+<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// features/support/config.js</span>
+<span class="token keyword">const</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-comment">// ... reporting services</span>
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token comment">// ... reporting services</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Learn more about <a href="/handbook/reporting/">Serenity/JS reporting services</a>.</p>
 <h2 id="reporting">Reporting</h2>
 <p>To register <code>@serenity-js/cucumber</code> test runner adapter with Cucumber, use the <a href="https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats"><code>--format</code></a> option when invoking the runner.</p>
 <p>For example, when running Cucumber in a JavaScript project:</p>
-<pre><code class="lang-console hljs typescript">npx cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
-    --<span class="hljs-built_in">require</span> <span class="hljs-string">'features/support/config.js'</span> \
-    [... <span class="hljs-built_in">any</span> other options]
+<pre class="language-typescript"><code class="lang-console">npx cucumber<span class="token operator">-</span>js <span class="token operator">--</span>format <span class="token string">'@serenity-js/cucumber'</span> \
+    <span class="token operator">--</span><span class="token keyword">require</span> <span class="token string">'features/support/config.js'</span> \
+    <span class="token punctuation">[</span><span class="token operator">...</span> <span class="token builtin">any</span> other options<span class="token punctuation">]</span>
 </code></pre>
 <p>To make Cucumber support step definitions and configuration written in TypeScript, you'll need to add a dev dependency on <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a> and register it via <a href="https://github.com/cucumber/cucumber-js/blob/master/features/require_module.feature"><code>--require-module</code></a>:</p>
-<pre><code class="lang-console hljs typescript">npx cucumber-js --format <span class="hljs-string">'@serenity-js/cucumber'</span> \
-    --<span class="hljs-built_in">require</span>-<span class="hljs-variable language_">module</span> <span class="hljs-string">'ts-node/register'</span> \
-    --<span class="hljs-built_in">require</span> <span class="hljs-string">'features/support/config.ts'</span> \ 
-    [... <span class="hljs-built_in">any</span> other options]
+<pre class="language-typescript"><code class="lang-console">npx cucumber<span class="token operator">-</span>js <span class="token operator">--</span>format <span class="token string">'@serenity-js/cucumber'</span> \
+    <span class="token operator">--</span><span class="token keyword">require</span><span class="token operator">-</span><span class="token keyword">module</span> <span class="token string">'ts-node/register'</span> \
+    <span class="token operator">--</span><span class="token keyword">require</span> <span class="token string">'features/support/config.ts'</span> \ 
+    <span class="token punctuation">[</span><span class="token operator">...</span> <span class="token builtin">any</span> other options<span class="token punctuation">]</span>
 </code></pre>
 <p>The above configuration works with the latest version of the <code>cucumber.Cli</code> available as part of the <a href="https://www.npmjs.com/package/@cucumber/cucumber"><code>@cucumber/cucumber</code></a> module. Consult the <a href="/modules/cucumber"><code>@serenity-js/cucumber</code> documentation</a> to learn how to configure the adapter with older versions of the runner.</p>
 <p>To install and configure Serenity/JS reporting services appropriate for your project - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>

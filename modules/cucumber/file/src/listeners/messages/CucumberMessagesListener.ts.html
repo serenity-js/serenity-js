@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -131,102 +128,102 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/messages/CucumberMessagesListener.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Envelope</span>, <span class="hljs-title class_">IdGenerator</span>, <span class="hljs-title class_">TestStepResult</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@cucumber/messages'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">TestRunFinished</span>, <span class="hljs-title class_">TestRunFinishes</span>, <span class="hljs-title class_">TestRunStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">// import type { Formatter, formatterHelpers } from '@cucumber/cucumber';</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Envelope<span class="token punctuation">,</span> IdGenerator<span class="token punctuation">,</span> TestStepResult <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@cucumber/messages'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Serenity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> DomainEvent<span class="token punctuation">,</span> TestRunFinished<span class="token punctuation">,</span> TestRunFinishes<span class="token punctuation">,</span> TestRunStarts <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CucumberMessagesParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./parser/CucumberMessagesParser'</span>;
-<span class="hljs-keyword">import</span> { IParsedTestStep } <span class="hljs-keyword">from</span> <span class="hljs-string">'./types/cucumber'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CucumberMessagesParser <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./parser/CucumberMessagesParser'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> IParsedTestStep <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./types/cucumber'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">serenity: Serenity, moduleLoader: ModuleLoader</span>) {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
+<span class="token function-variable function">export</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>serenity<span class="token operator">:</span> Serenity<span class="token punctuation">,</span> <span class="token keyword">module</span>Loader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment">// eslint-disable-line @typescript-eslint/explicit-module-boundary-types</span>
 
-    <span class="hljs-keyword">const</span>
-        { <span class="hljs-title class_">Formatter</span>, formatterHelpers } = moduleLoader.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@cucumber/cucumber'</span>),
-        <span class="hljs-title class_">TestCaseHookDefinition</span>          = moduleLoader.<span class="hljs-built_in">require</span>(<span class="hljs-string">'@cucumber/cucumber/lib/models/test_case_hook_definition'</span>).<span class="hljs-property">default</span>;
+    <span class="token keyword">const</span>
+        <span class="token punctuation">{</span> Formatter<span class="token punctuation">,</span> formatterHelpers <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'@cucumber/cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        TestCaseHookDefinition          <span class="token operator">=</span> <span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'@cucumber/cucumber/lib/models/test_case_hook_definition'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>default<span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CucumberMessagesListener</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Formatter</span> {
-        <span class="hljs-keyword">static</span> <span class="hljs-keyword">readonly</span> fakeInternalAfterHookUri = <span class="hljs-string">'/internal/serenity-js/cucumber'</span>;
+    <span class="token keyword">return</span> <span class="token keyword">class</span> <span class="token class-name">CucumberMessagesListener</span> <span class="token keyword">extends</span> <span class="token class-name">Formatter</span> <span class="token punctuation">{</span>
+        <span class="token keyword">static</span> <span class="token keyword">readonly</span> fakeInternalAfterHookUri <span class="token operator">=</span> <span class="token string">'/internal/serenity-js/cucumber'</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">readonly</span> <span class="hljs-attr">parser</span>: <span class="hljs-title class_">CucumberMessagesParser</span>;
+        <span class="token keyword">readonly</span> parser<span class="token operator">:</span> CucumberMessagesParser<span class="token punctuation">;</span>
 
-        <span class="hljs-attr">log</span>: <span class="hljs-function">(<span class="hljs-params">buffer: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Uint8Array</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>;
-        <span class="hljs-attr">supportCodeLibrary</span>: <span class="hljs-built_in">any</span>;
+        <span class="token function-variable function">log</span><span class="token operator">:</span> <span class="token punctuation">(</span>buffer<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> Uint8Array<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+        supportCodeLibrary<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">constructor</span>(<span class="hljs-params">options</span>) {
-            <span class="hljs-variable language_">super</span>(options);
+        <span class="token function">constructor</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">super</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CucumberMessagesParser</span>(
-                serenity,
-                formatterHelpers,
-                options,
-                <span class="hljs-function">(<span class="hljs-params">step: IParsedTestStep</span>) =&gt;</span>
-                    step?.<span class="hljs-property">actionLocation</span>?.<span class="hljs-property">uri</span> !== <span class="hljs-title class_">CucumberMessagesListener</span>.<span class="hljs-property">fakeInternalAfterHookUri</span>,
-            );
+            <span class="token keyword">this</span><span class="token punctuation">.</span>parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CucumberMessagesParser</span><span class="token punctuation">(</span>
+                serenity<span class="token punctuation">,</span>
+                formatterHelpers<span class="token punctuation">,</span>
+                options<span class="token punctuation">,</span>
+                <span class="token punctuation">(</span>step<span class="token operator">:</span> IParsedTestStep<span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                    step<span class="token operator">?.</span>actionLocation<span class="token operator">?.</span>uri <span class="token operator">!==</span> CucumberMessagesListener<span class="token punctuation">.</span>fakeInternalAfterHookUri<span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">addAfterHook</span>(<span class="hljs-function">(<span class="hljs-params">message: { testCaseStartedId: <span class="hljs-built_in">string</span>, result: TestStepResult }</span>) =&gt;</span> {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parseTestCaseFinishes</span>(message));
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">addAfterHook</span><span class="token punctuation">(</span><span class="token punctuation">(</span>message<span class="token operator">:</span> <span class="token punctuation">{</span> testCaseStartedId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> result<span class="token operator">:</span> TestStepResult <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">parseTestCaseFinishes</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">waitForNextCue</span>();
-            });
+                <span class="token keyword">return</span> serenity<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            options.<span class="hljs-property">eventBroadcaster</span>.<span class="hljs-title function_">on</span>(<span class="hljs-string">'envelope'</span>, <span class="hljs-function">(<span class="hljs-params">envelope: Envelope</span>) =&gt;</span> {
-                <span class="hljs-comment">// this.log('&gt; [cucumber] ' + JSON.stringify(envelope) + '\n');</span>
+            options<span class="token punctuation">.</span>eventBroadcaster<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'envelope'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>envelope<span class="token operator">:</span> Envelope<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token comment">// this.log('&gt; [cucumber] ' + JSON.stringify(envelope) + '\n');</span>
 
-                <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-                    <span class="hljs-keyword">case</span> !! envelope.<span class="hljs-property">testRunStarted</span>:
-                        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunStarts</span>(serenity.<span class="hljs-title function_">currentTime</span>()));
+                <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> envelope<span class="token punctuation">.</span>testRunStarted<span class="token operator">:</span>
+                        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunStarts</span><span class="token punctuation">(</span>serenity<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">case</span> !! envelope.<span class="hljs-property">testCaseStarted</span>:
-                        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
-                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parseTestCaseStarted</span>(envelope.<span class="hljs-property">testCaseStarted</span>),
-                        );
+                    <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> envelope<span class="token punctuation">.</span>testCaseStarted<span class="token operator">:</span>
+                        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span>
+                            <span class="token keyword">this</span><span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">parseTestCaseStarted</span><span class="token punctuation">(</span>envelope<span class="token punctuation">.</span>testCaseStarted<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">case</span> !! envelope.<span class="hljs-property">testStepStarted</span>:
-                        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
-                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parseTestStepStarted</span>(envelope.<span class="hljs-property">testStepStarted</span>),
-                        );
+                    <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> envelope<span class="token punctuation">.</span>testStepStarted<span class="token operator">:</span>
+                        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span>
+                            <span class="token keyword">this</span><span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">parseTestStepStarted</span><span class="token punctuation">(</span>envelope<span class="token punctuation">.</span>testStepStarted<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">case</span> !! envelope.<span class="hljs-property">testStepFinished</span>:
-                        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
-                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parseTestStepFinished</span>(envelope.<span class="hljs-property">testStepFinished</span>),
-                        );
+                    <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> envelope<span class="token punctuation">.</span>testStepFinished<span class="token operator">:</span>
+                        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span>
+                            <span class="token keyword">this</span><span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">parseTestStepFinished</span><span class="token punctuation">(</span>envelope<span class="token punctuation">.</span>testStepFinished<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-keyword">case</span> !! envelope.<span class="hljs-property">testCaseFinished</span>:
-                        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(
-                            <span class="hljs-variable language_">this</span>.<span class="hljs-property">parser</span>.<span class="hljs-title function_">parseTestCaseFinished</span>(envelope.<span class="hljs-property">testCaseFinished</span>),
-                        );
-                }
-            });
-        }
+                    <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> envelope<span class="token punctuation">.</span>testCaseFinished<span class="token operator">:</span>
+                        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span>
+                            <span class="token keyword">this</span><span class="token punctuation">.</span>parser<span class="token punctuation">.</span><span class="token function">parseTestCaseFinished</span><span class="token punctuation">(</span>envelope<span class="token punctuation">.</span>testCaseFinished<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> <span class="hljs-title function_">finished</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(serenity.<span class="hljs-title function_">currentTime</span>()));
+        <span class="token keyword">public</span> <span class="token keyword">async</span> <span class="token function">finished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span>serenity<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">await</span> serenity.<span class="hljs-title function_">waitForNextCue</span>();
-            <span class="hljs-keyword">await</span> <span class="hljs-variable language_">super</span>.<span class="hljs-title function_">finished</span>();
+            <span class="token keyword">await</span> serenity<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">await</span> <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">finished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">emit</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>(serenity.<span class="hljs-title function_">currentTime</span>()));
-        }
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinished</span><span class="token punctuation">(</span>serenity<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-title function_">addAfterHook</span>(<span class="hljs-params">code: (...args: <span class="hljs-built_in">any</span>) =&gt; <span class="hljs-built_in">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span></span>) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">supportCodeLibrary</span>.<span class="hljs-property">afterTestCaseHookDefinitions</span>.<span class="hljs-title function_">unshift</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestCaseHookDefinition</span>({
-                    code,
-                    <span class="hljs-attr">id</span>:     <span class="hljs-title class_">IdGenerator</span>.<span class="hljs-title function_">uuid</span>()(),
-                    <span class="hljs-attr">line</span>:   <span class="hljs-number">0</span>,
-                    <span class="hljs-attr">uri</span>:    <span class="hljs-title class_">CucumberMessagesListener</span>.<span class="hljs-property">fakeInternalAfterHookUri</span>,
-                    <span class="hljs-attr">options</span>: {},
-                }),
-            );
-        }
+        <span class="token function">addAfterHook</span><span class="token punctuation">(</span><span class="token function-variable function">code</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>supportCodeLibrary<span class="token punctuation">.</span>afterTestCaseHookDefinitions<span class="token punctuation">.</span><span class="token function">unshift</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">TestCaseHookDefinition</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    code<span class="token punctuation">,</span>
+                    id<span class="token operator">:</span>     IdGenerator<span class="token punctuation">.</span><span class="token function">uuid</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    line<span class="token operator">:</span>   <span class="token number">0</span><span class="token punctuation">,</span>
+                    uri<span class="token operator">:</span>    CucumberMessagesListener<span class="token punctuation">.</span>fakeInternalAfterHookUri<span class="token punctuation">,</span>
+                    options<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-title function_">emit</span>(<span class="hljs-attr">events</span>: <span class="hljs-title class_">DomainEvent</span>[] | <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
-            [].<span class="hljs-title function_">concat</span>(events).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">event</span> =&gt;</span> serenity.<span class="hljs-title function_">announce</span>(event));
-        }
-    }
-}
+        <span class="token function">emit</span><span class="token punctuation">(</span>events<span class="token operator">:</span> DomainEvent<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">|</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+            <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>events<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>event <span class="token operator">=&gt;</span> serenity<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -162,25 +159,25 @@ However, if you ever need to implement a custom interaction, there are two ways 
 <p>For the sake of argument, let's say that we wanted to enable our actor to write arbitrary messages to an output stream,
 such as a file or a computer terminal, and that we already have created a custom <a href="/handbook/design/abilities.html">ability</a>
 that took care of the low-level integration:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">WriteStream</span> = <span class="hljs-title class_">Node</span>JS.<span class="hljs-property">WriteStream</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> WriteStream <span class="token operator">=</span> NodeJS<span class="token punctuation">.</span>WriteStream<span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WriteToStream</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">of</span>(<span class="hljs-params">stream: WriteStream</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">WriteToStream</span>(stream);
-    }
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">WriteToStream</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token punctuation">(</span>stream<span class="token operator">:</span> WriteStream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">WriteToStream</span><span class="token punctuation">(</span>stream<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">BrowseTheWeb</span> {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">WriteToStream</span>);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> BrowseTheWeb <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">abilityTo</span><span class="token punctuation">(</span>WriteToStream<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stream: WriteStream</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> stream<span class="token operator">:</span> WriteStream<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">printLine</span>(<span class="hljs-params">parts: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stream</span>.<span class="hljs-title function_">write</span>(message + <span class="hljs-string">'\n'</span>);
-    }
-}
+    <span class="token function">printLine</span><span class="token punctuation">(</span>parts<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>stream<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>message <span class="token operator">+</span> <span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>With this simple "ability" in place, let's now look into the different ways we could implement an interaction exercising it.</p>
 <div class="pro-tip">
@@ -194,12 +191,12 @@ that took care of the low-level integration:</p>
 <h3 id="an-interaction-where-">An <code>Interaction.where</code>...</h3>
 <p>The <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html#static-method-where"><code>Interaction.where</code></a>
 <a href="https://en.wikipedia.org/wiki/Factory_method_pattern">factory method</a> provides an easy pattern to define a custom interaction:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Interaction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> <span class="hljs-title function_">GreetTheWorld</span> = (<span class="hljs-params"></span>) =&gt;
-    <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor greets the world`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-        <span class="hljs-title class_">WriteToStream</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">printLine</span>(<span class="hljs-string">`Hello World!`</span>)
-    );
+<span class="token keyword">const</span> <span class="token function-variable function">GreetTheWorld</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+    Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor greets the world</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span>
+        WriteToStream<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">printLine</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Hello World!</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>As you can see, there are only three things you need to define an interaction:</p>
 <ul>
@@ -218,44 +215,44 @@ the interaction,</li>
 
 <p>An interaction defined using the <a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html#static-method-where"><code>Interaction.where</code></a>
 factory method can be then given to an actor to perform:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Ernest'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">WriteToStream</span>.<span class="hljs-title function_">of</span>(process.<span class="hljs-property">stdout</span>));
+<span class="token keyword">const</span> actor <span class="token operator">=</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'Ernest'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>WriteToStream<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>stdout<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-actor.<span class="hljs-title function_">attemptsTo</span>(
-    <span class="hljs-title class_">GreetTheWorld</span>(),
-);
+actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    <span class="token function">GreetTheWorld</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="extending-interaction">Extending <code>Interaction</code></h3>
 <p>Another pattern you can follow when designing a custom interaction is extending the base <code>Interaction</code> class.</p>
 <p>This is useful if the interaction you're designing requires helper methods to convert the data from one format to another,
 or you'd like to <a href="/handbook/design/creational-patterns.html">implement a builder pattern</a> to simplify how the interaction
 is configured.</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">Greet</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">all</span>(<span class="hljs-params">...names: <span class="hljs-built_in">string</span>[]</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Greet</span>(names);
-    }
+<span class="token keyword">class</span> <span class="token class-name">Greet</span> <span class="token keyword">extends</span> <span class="token class-name">Interaction</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token function">all</span><span class="token punctuation">(</span><span class="token operator">...</span>names<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Greet</span><span class="token punctuation">(</span>names<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> names: <span class="hljs-built_in">string</span>[]</span>) {
-        <span class="hljs-variable language_">super</span>();
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> names<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(
-            <span class="hljs-title class_">WriteToStream</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">printLine</span>(<span class="hljs-string">`Hello <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.join(<span class="hljs-variable language_">this</span>.names) }</span>!`</span>))
-        );
-    }
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>
+            WriteToStream<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">printLine</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Hello </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>names<span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">!</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor greets <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.join(<span class="hljs-variable language_">this</span>.names) }</span>`</span>;
-    }
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor greets </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>names<span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">join</span>(<span class="hljs-params">names: <span class="hljs-built_in">string</span>[]</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`<span class="hljs-subst">${ names.slice(<span class="hljs-number">0</span>, -<span class="hljs-number">1</span>).join(<span class="hljs-string">', '</span>) }</span> and <span class="hljs-subst">${ a.slice(-<span class="hljs-number">1</span>) }</span>`</span>;
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">join</span><span class="token punctuation">(</span>names<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> names<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">', '</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> a<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Similarly to the factory method approach, the inheritance approach requires you to specify:</p>
 <ul>
@@ -273,13 +270,13 @@ is configured.</p>
 </div>
 
 <p>In the above example, the interaction to <code>Greet</code> could be given to an actor to perform as follows:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> actor = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Ernest'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">WriteToStream</span>.<span class="hljs-title function_">of</span>(process.<span class="hljs-property">stdout</span>));
+<span class="token keyword">const</span> actor <span class="token operator">=</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'Ernest'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>WriteToStream<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>stdout<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-actor.<span class="hljs-title function_">attemptsTo</span>(
-    <span class="hljs-title class_">Greet</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Cindy'</span>),
-);
+actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    Greet<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Cindy'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Performing this interaction will result in the actor printing <code>Hello Alice, Bob and Cindy!</code> to the output stream.</p>
 <div class="pro-tip">

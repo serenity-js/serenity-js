@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,75 +184,75 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/browser-detector/BrowserDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AsyncOperationAttempted</span>, <span class="hljs-title class_">AsyncOperationCompleted</span>, <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">SceneTagged</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowserTag</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">PlatformTag</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Stage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AsyncOperationAttempted<span class="token punctuation">,</span> AsyncOperationCompleted<span class="token punctuation">,</span> DomainEvent<span class="token punctuation">,</span> SceneStarts<span class="token punctuation">,</span> SceneTagged <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowserTag<span class="token punctuation">,</span> CorrelationId<span class="token punctuation">,</span> Description<span class="token punctuation">,</span> PlatformTag <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StageCrewMember <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/stage'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StandardisedCapabilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./StandardisedCapabilities'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StandardisedCapabilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./StandardisedCapabilities'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
+<span class="token comment">/**
+ * @private
  *
- * <span class="hljs-doctag">@see</span> https://github.com/serenity-js/serenity-js/issues/455
- * <span class="hljs-doctag">@see</span> https://github.com/serenity-bdd/serenity-core/pull/1860/files
- * <span class="hljs-doctag">@see</span> https://github.com/serenity-js/serenity-js/issues/132
+ * @see https://github.com/serenity-js/serenity-js/issues/455
+ * @see https://github.com/serenity-bdd/serenity-core/pull/1860/files
+ * @see https://github.com/serenity-js/serenity-js/issues/132
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BrowserDetector</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">BrowserDetector</span> <span class="token keyword">implements</span> <span class="token class-name">StageCrewMember</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">with</span>(<span class="hljs-attr">capabilities</span>: <span class="hljs-title class_">StandardisedCapabilities</span>): <span class="hljs-title class_">BrowserDetector</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserDetector</span>(capabilities);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">with</span><span class="token punctuation">(</span>capabilities<span class="token operator">:</span> StandardisedCapabilities<span class="token punctuation">)</span><span class="token operator">:</span> BrowserDetector <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BrowserDetector</span><span class="token punctuation">(</span>capabilities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> capabilities: StandardisedCapabilities,
-        <span class="hljs-keyword">private</span> stage?: Stage,
-    </span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> capabilities<span class="token operator">:</span> StandardisedCapabilities<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> stage<span class="token operator">?</span><span class="token operator">:</span> Stage<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserDetector</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>, stage);
-    }
+    <span class="token function">assignedTo</span><span class="token punctuation">(</span>stage<span class="token operator">:</span> Stage<span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMember <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">BrowserDetector</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>capabilities<span class="token punctuation">,</span> stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">SceneStarts</span>) {
-            <span class="hljs-keyword">const</span> id = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>();
+    <span class="token function">notifyOf</span><span class="token punctuation">(</span>event<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> id <span class="token operator">=</span> CorrelationId<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Detecting web browser details...`</span>),
-                id,
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
-            ));
+            <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncOperationAttempted</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] Detecting web browser details...</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                id<span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">browserName</span>(),
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">browserVersion</span>(),
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">platformName</span>(),
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">capabilities</span>.<span class="hljs-title function_">platformVersion</span>(),
-            ]).
-            <span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[browserName, browserVersion, platformName, platformVersion]</span>) =&gt;</span> {
+            <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>capabilities<span class="token punctuation">.</span><span class="token function">browserName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>capabilities<span class="token punctuation">.</span><span class="token function">browserVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>capabilities<span class="token punctuation">.</span><span class="token function">platformName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>capabilities<span class="token punctuation">.</span><span class="token function">platformVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+            <span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">[</span>browserName<span class="token punctuation">,</span> browserVersion<span class="token punctuation">,</span> platformName<span class="token punctuation">,</span> platformVersion<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTagged</span>(
-                    event.<span class="hljs-property">sceneId</span>,
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">BrowserTag</span>(browserName, browserVersion),
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
-                ));
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneTagged</span><span class="token punctuation">(</span>
+                    event<span class="token punctuation">.</span>sceneId<span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">BrowserTag</span><span class="token punctuation">(</span>browserName<span class="token punctuation">,</span> browserVersion<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneTagged</span>(
-                    event.<span class="hljs-property">sceneId</span>,
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">PlatformTag</span>(platformName, platformVersion),
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
-                ));
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneTagged</span><span class="token punctuation">(</span>
+                    event<span class="token punctuation">.</span>sceneId<span class="token punctuation">,</span>
+                    <span class="token keyword">new</span> <span class="token class-name">PlatformTag</span><span class="token punctuation">(</span>platformName<span class="token punctuation">,</span> platformVersion<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationCompleted</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Detected web browser details`</span>),
-                    id,
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
-                ));
-            });
-        }
-    }
-}
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncOperationCompleted</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] Detected web browser details</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    id<span class="token punctuation">,</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

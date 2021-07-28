@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,18 +184,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/promiseOf.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<pre class="source-code line-number raw-source-code language-markup"><code class="linenums" data-ice="content">/**
+ * @desc
  *  Wraps Webdriver promise into a Node-native promise to allow for correct promise chaining.
  *
- * <span class="hljs-doctag">@private</span>
+ * @private
  *
- * <span class="hljs-doctag">@param</span> <span class="hljs-variable">promiseLike</span>
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;T&gt;</span>}
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> promiseOf&lt;T&gt;(<span class="hljs-attr">promiseLike</span>: <span class="hljs-title class_">PromiseLike</span>&lt;T&gt;): <span class="hljs-title class_">Promise</span>&lt;T&gt; {
-    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-        promiseLike.<span class="hljs-title function_">then</span>(resolve, reject);
+ * @param promiseLike
+ * @returns {Promise<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span>}
+ */
+export function promiseOf<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span>(promiseLike: PromiseLike<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span>): Promise<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span><span class="token punctuation">&gt;</span></span> {
+    return new Promise((resolve, reject) =&gt; {
+        promiseLike.then(resolve, reject);
     });
 }
 </code></pre>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -132,69 +129,69 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/console-reporter/themes/ThemeForDarkTerminals.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* istanbul ignore file */</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Chalk</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'chalk'</span>;  <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Chalk <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'chalk'</span><span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line unicorn/import-style</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ThemeForColourTerminals</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./ThemeForColourTerminals'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ThemeForColourTerminals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./ThemeForColourTerminals'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  A simple colour theme for terminals with dark backgrounds.
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">ThemeForColourTerminals</span>}
+ * @extends {ThemeForColourTerminals}
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ThemeForDarkTerminals</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ThemeForColourTerminals</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ThemeForDarkTerminals</span> <span class="token keyword">extends</span> <span class="token class-name">ThemeForColourTerminals</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">chalk~Chalk</span>} <span class="hljs-variable">chalk</span>
+    <span class="token comment">/**
+     * @param {chalk~Chalk} chalk
      *
-     * <span class="hljs-doctag">@see</span> https://www.npmjs.com/package/chalk
+     * @see https://www.npmjs.com/package/chalk
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">chalk: Chalk</span>) {
-        <span class="hljs-variable language_">super</span>(chalk);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>chalk<span class="token operator">:</span> Chalk<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>chalk<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Formats the heading
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">...any[]</span>} <span class="hljs-variable">parts</span>
+     * @param {...any[]} parts
      *  `parts` to be converted to string, joined together, and formatted as a heading
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">heading</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-property">bold</span>.<span class="hljs-title function_">white</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
-    }
+    <span class="token function">heading</span><span class="token punctuation">(</span><span class="token operator">...</span>parts<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>chalk<span class="token punctuation">.</span>bold<span class="token punctuation">.</span><span class="token function">white</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">joined</span><span class="token punctuation">(</span>parts<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Decorates the heading with theme colours.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">pattern</span>
+     * @param {string} pattern
      *  The pattern to be repeated to create a separator, for example `-`, `✂ - - `, etc.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">separator</span>(<span class="hljs-attr">pattern</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">yellow</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">repeat</span>(pattern));
-    }
+    <span class="token function">separator</span><span class="token punctuation">(</span>pattern<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>chalk<span class="token punctuation">.</span><span class="token function">yellow</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">repeat</span><span class="token punctuation">(</span>pattern<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Decorates the log entries that the developer wanted to have captured in the output.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">...any[]</span>} <span class="hljs-variable">parts</span>
+     * @param {...any[]} parts
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">log</span>(...<span class="hljs-attr">parts</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">chalk</span>.<span class="hljs-title function_">yellow</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">joined</span>(parts));
-    }
-}
+    <span class="token function">log</span><span class="token punctuation">(</span><span class="token operator">...</span>parts<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>chalk<span class="token punctuation">.</span><span class="token function">yellow</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">joined</span><span class="token punctuation">(</span>parts<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

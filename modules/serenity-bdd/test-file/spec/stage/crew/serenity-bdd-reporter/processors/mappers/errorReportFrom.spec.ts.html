@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,131 +125,131 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/processors/mappers/errorReportFrom.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { inspect } <span class="hljs-keyword">from</span> <span class="hljs-string">'util'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ConfigurationError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> inspect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'util'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { errorReportFrom } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> errorReportFrom <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../../../../src/stage/crew/serenity-bdd-reporter/processors/mappers'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'errorReportFrom'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'errorReportFrom'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when representing Errors as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when representing Errors as Serenity BDD-standard JSON reports'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports native Error'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports native Error'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'boom'</span>))
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token function">thrown</span><span class="token punctuation">(</span>Error<span class="token punctuation">,</span> <span class="token string">'boom'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Error'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'boom'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">stackTrace</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">greaterThan</span>(<span class="hljs-number">0</span>);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>errorType<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Error'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'boom'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>stackTrace<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">greaterThan</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports Serenity/JS Errors'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports Serenity/JS Errors'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">'wrong config'</span>))
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token function">thrown</span><span class="token punctuation">(</span>ConfigurationError<span class="token punctuation">,</span> <span class="token string">'wrong config'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'ConfigurationError'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'wrong config'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">stackTrace</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">greaterThan</span>(<span class="hljs-number">0</span>);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>errorType<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'ConfigurationError'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'wrong config'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>stackTrace<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">greaterThan</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports Serenity/JS Errors with root causes'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports Serenity/JS Errors with root causes'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">'wrong config'</span>, <span class="hljs-title function_">thrown</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'config file does not exist'</span>)))
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token function">thrown</span><span class="token punctuation">(</span>ConfigurationError<span class="token punctuation">,</span> <span class="token string">'wrong config'</span><span class="token punctuation">,</span> <span class="token function">thrown</span><span class="token punctuation">(</span>Error<span class="token punctuation">,</span> <span class="token string">'config file does not exist'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
 
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'ConfigurationError'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'wrong config'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rootCause</span>.<span class="hljs-property">errorType</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Error'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">rootCause</span>.<span class="hljs-property">message</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'config file does not exist'</span>);
-            <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">stackTrace</span>.<span class="hljs-property">length</span>).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">greaterThan</span>(<span class="hljs-number">0</span>);
-        });
-    });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>errorType<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'ConfigurationError'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'wrong config'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>rootCause<span class="token punctuation">.</span>errorType<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Error'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>rootCause<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'config file does not exist'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>stackTrace<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">greaterThan</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when representing non-Error "throwables" as Serenity BDD-standard JSON reports'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when representing non-Error "throwables" as Serenity BDD-standard JSON reports'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports null'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-literal">null</span>);   <span class="hljs-comment">// eslint-disable-line unicorn/no-null</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports null'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// eslint-disable-line unicorn/no-null</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'null'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-string">''</span>,
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'null'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports undefined'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-literal">undefined</span>);  <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports undefined'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line unicorn/no-useless-undefined</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'undefined'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-string">''</span>,
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'undefined'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports objects'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> maybeError = { <span class="hljs-attr">message</span>: <span class="hljs-string">`something's wrong`</span>, <span class="hljs-attr">code</span>: <span class="hljs-number">500</span> };
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(maybeError);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports objects'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> maybeError <span class="token operator">=</span> <span class="token punctuation">{</span> message<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">something's wrong</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> code<span class="token operator">:</span> <span class="token number">500</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Object'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-title function_">inspect</span>(maybeError),
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Object'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token function">inspect</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports arrays'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> maybeError = [ <span class="hljs-string">'you'</span>, <span class="hljs-string">'really'</span>, <span class="hljs-string">`shouldn't`</span>, <span class="hljs-string">'throw'</span>, <span class="hljs-string">'arrays'</span> ];
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(maybeError);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports arrays'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> maybeError <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">'you'</span><span class="token punctuation">,</span> <span class="token string">'really'</span><span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">shouldn't</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token string">'throw'</span><span class="token punctuation">,</span> <span class="token string">'arrays'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Array'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-title function_">inspect</span>(maybeError),
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Array'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token function">inspect</span><span class="token punctuation">(</span>maybeError<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports numbers'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-number">404</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports numbers'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token number">404</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Number'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-string">'404'</span>,
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Number'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">'404'</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports strings'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-string">'skipped step'</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports strings'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token string">'skipped step'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'String'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-string">'skipped step'</span>,
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'String'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">'skipped step'</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'supports booleans'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> report = <span class="hljs-title function_">errorReportFrom</span>(<span class="hljs-literal">false</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'supports booleans'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> report <span class="token operator">=</span> <span class="token function">errorReportFrom</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(report).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>({
-                <span class="hljs-string">'errorType'</span>: <span class="hljs-string">'Boolean'</span>,
-                <span class="hljs-string">'message'</span>: <span class="hljs-string">'false'</span>,
-                <span class="hljs-string">'stackTrace'</span>: [],
-            });
-        });
-    });
-});
+            <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                <span class="token string">'errorType'</span><span class="token operator">:</span> <span class="token string">'Boolean'</span><span class="token punctuation">,</span>
+                <span class="token string">'message'</span><span class="token operator">:</span> <span class="token string">'false'</span><span class="token punctuation">,</span>
+                <span class="token string">'stackTrace'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">function</span> thrown&lt;T&gt;(<span class="hljs-attr">type</span>: <span class="hljs-keyword">new</span> (...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]) =&gt; T, ...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): T {
-    <span class="hljs-keyword">try</span> {
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">type</span>(...args);
-    } <span class="hljs-keyword">catch</span> (error) {
-        <span class="hljs-keyword">return</span> error;
-    }
-}
+<span class="token keyword">function</span> <span class="token generic-function"><span class="token function">thrown</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>type<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">T</span><span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token keyword">type</span></span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> error<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 </code></pre>
 

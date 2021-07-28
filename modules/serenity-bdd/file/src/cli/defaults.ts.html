@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,31 +125,31 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/defaults.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/**
+ * @desc
  *  Default configuration to be used when invoking the serenity-bdd command line interface.
  *  See the source code to find out more about the values being used.
  *
- * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">Object</span>} <span class="hljs-variable">defaults</span>
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} artifact      The GAV identifier of the artifact to download from the artifact repository
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} repository    The URL of the repository where the artifact can be found
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} cacheDir      A relative path to the directory where the artifact should be downloaded
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} sourceDir     A relative path to the directory where the intermediate Serenity/JS JSON reports have been generated
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} reportDir     A relative path to the directory where the Serenity BDD HTML report should be generated
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} featuresDir   A relative path to the Cucumber.js features directory (if Cucumber is used)
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} log           A Logback log level that Serenity BDD CLI should use (info, warn, debug)
+ * @typedef {Object} defaults
+ * @property {string} artifact      The GAV identifier of the artifact to download from the artifact repository
+ * @property {string} repository    The URL of the repository where the artifact can be found
+ * @property {string} cacheDir      A relative path to the directory where the artifact should be downloaded
+ * @property {string} sourceDir     A relative path to the directory where the intermediate Serenity/JS JSON reports have been generated
+ * @property {string} reportDir     A relative path to the directory where the Serenity BDD HTML report should be generated
+ * @property {string} featuresDir   A relative path to the Cucumber.js features directory (if Cucumber is used)
+ * @property {string} log           A Logback log level that Serenity BDD CLI should use (info, warn, debug)
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> defaults = {
-    <span class="hljs-attr">artifact</span>:    <span class="hljs-string">'net.serenity-bdd:serenity-cli:jar:2.3.31'</span>,
-    <span class="hljs-attr">repository</span>:  <span class="hljs-string">'https://repo1.maven.org/maven2/'</span>,
-    <span class="hljs-attr">cacheDir</span>:    <span class="hljs-string">'node_modules/@serenity-js/serenity-bdd/cache'</span>,
-    <span class="hljs-attr">sourceDir</span>:   <span class="hljs-string">'target/site/serenity'</span>,
-    <span class="hljs-attr">reportDir</span>:   <span class="hljs-string">'target/site/serenity'</span>,
-    <span class="hljs-attr">featuresDir</span>: <span class="hljs-string">'features'</span>,
-    <span class="hljs-attr">log</span>:         <span class="hljs-string">'warn'</span>,
-};
+<span class="token keyword">export</span> <span class="token keyword">const</span> defaults <span class="token operator">=</span> <span class="token punctuation">{</span>
+    artifact<span class="token operator">:</span>    <span class="token string">'net.serenity-bdd:serenity-cli:jar:2.3.31'</span><span class="token punctuation">,</span>
+    repository<span class="token operator">:</span>  <span class="token string">'https://repo1.maven.org/maven2/'</span><span class="token punctuation">,</span>
+    cacheDir<span class="token operator">:</span>    <span class="token string">'node_modules/@serenity-js/serenity-bdd/cache'</span><span class="token punctuation">,</span>
+    sourceDir<span class="token operator">:</span>   <span class="token string">'target/site/serenity'</span><span class="token punctuation">,</span>
+    reportDir<span class="token operator">:</span>   <span class="token string">'target/site/serenity'</span><span class="token punctuation">,</span>
+    featuresDir<span class="token operator">:</span> <span class="token string">'features'</span><span class="token punctuation">,</span>
+    log<span class="token operator">:</span>         <span class="token string">'warn'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

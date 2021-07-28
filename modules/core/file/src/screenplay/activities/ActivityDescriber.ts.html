@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,26 +291,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/activities/ActivityDescriber.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Activity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Activity'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Name <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Activity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Activity'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@package</span> */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ActivityDescriber</span> {
+<span class="token comment">/** @package */</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ActivityDescriber</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-attr">activity</span>: <span class="hljs-title class_">Activity</span>, <span class="hljs-attr">actor</span>: { <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span> }): <span class="hljs-title class_">Name</span> {
-        <span class="hljs-keyword">const</span> template = activity.<span class="hljs-title function_">toString</span>() !== ({}).<span class="hljs-title function_">toString</span>()
-            ? activity.<span class="hljs-title function_">toString</span>()
-            : <span class="hljs-string">`#actor performs <span class="hljs-subst">${ activity.constructor.name }</span>`</span>;
+    <span class="token function">describe</span><span class="token punctuation">(</span>activity<span class="token operator">:</span> Activity<span class="token punctuation">,</span> actor<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token operator">:</span> Name <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> template <span class="token operator">=</span> activity<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!==</span> <span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token operator">?</span> activity<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor performs </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> activity<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">includeActorName</span>(template, actor),
-        );
-    }
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">includeActorName</span><span class="token punctuation">(</span>template<span class="token punctuation">,</span> actor<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">includeActorName</span>(<span class="hljs-params">template: <span class="hljs-built_in">string</span>, actor: { name: <span class="hljs-built_in">string</span> }</span>) {
-        <span class="hljs-keyword">return</span> template.<span class="hljs-title function_">replace</span>(<span class="hljs-string">'#actor'</span>, actor.<span class="hljs-property">name</span>);
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">includeActorName</span><span class="token punctuation">(</span>template<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> actor<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> template<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">'#actor'</span><span class="token punctuation">,</span> actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

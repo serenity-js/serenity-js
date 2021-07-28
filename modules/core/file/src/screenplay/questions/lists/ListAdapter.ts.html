@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,39 +291,39 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/lists/ListAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Expectation'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MetaQuestion</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../MetaQuestion'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../actor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Expectation'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MetaQuestion <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../MetaQuestion'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Adapts various types of collections so that they can be used with {<span class="hljs-doctag">@link</span> List}.
+<span class="token comment">/**
+ * @desc
+ *  Adapts various types of collections so that they can be used with {@link List}.
  *
  *  You probably won't need to implement this interface, unless you're extending Serenity/JS.
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link List</span>}
+ * @see {@link List}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ListAdapter&lt;
-    Item_Type,
-    Collection_Type,
-    Item_Return_Type = Item_Type,
-    Collection_Return_Type = Collection_Type
-&gt; {
-    <span class="hljs-title function_">count</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt;;
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ListAdapter<span class="token operator">&lt;</span>
+    Item_Type<span class="token punctuation">,</span>
+    Collection_Type<span class="token punctuation">,</span>
+    Item_Return_Type <span class="token operator">=</span> Item_Type<span class="token punctuation">,</span>
+    Collection_Return_Type <span class="token operator">=</span> Collection_Type
+<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token function">count</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">first</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Item</span>_Return_Type;
-    <span class="hljs-title function_">last</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Item</span>_Return_Type;
-    <span class="hljs-title function_">get</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">Item</span>_Return_Type;
+    <span class="token function">first</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Item_Return_Type<span class="token punctuation">;</span>
+    <span class="token function">last</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Item_Return_Type<span class="token punctuation">;</span>
+    <span class="token function">get</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">,</span> index<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> Item_Return_Type<span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">items</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Collection</span>_Return_Type;
+    <span class="token function">items</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Collection_Return_Type<span class="token punctuation">;</span>
 
-    withFilter&lt;<span class="hljs-title class_">Answer</span>_Type&gt;(
-        <span class="hljs-attr">question</span>: <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt; | <span class="hljs-title class_">Answer</span>_Type&gt;,
-        <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Answer</span>_Type&gt;,
-    ): <span class="hljs-title class_">ListAdapter</span>&lt;<span class="hljs-title class_">Item</span>_Type, <span class="hljs-title class_">Collection</span>_Type, <span class="hljs-title class_">Item</span>_Return_Type, <span class="hljs-title class_">Collection</span>_Return_Type&gt;;
+    <span class="token generic-function"><span class="token function">withFilter</span><span class="token generic class-name"><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>
+        question<span class="token operator">:</span> MetaQuestion<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span> <span class="token operator">|</span> Answer_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Answer_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token operator">:</span> ListAdapter<span class="token operator">&lt;</span>Item_Type<span class="token punctuation">,</span> Collection_Type<span class="token punctuation">,</span> Item_Return_Type<span class="token punctuation">,</span> Collection_Return_Type<span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span>;
-}
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

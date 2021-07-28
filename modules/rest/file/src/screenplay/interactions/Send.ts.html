@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,22 +135,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Send.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">CollectsArtifacts</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span>, HTTPRequestResponse, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">RequestAndResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AxiosRequestConfig</span>, <span class="hljs-title class_">AxiosResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable<span class="token punctuation">,</span> AnswersQuestions<span class="token punctuation">,</span> CollectsArtifacts<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Artifact<span class="token punctuation">,</span> HTTPRequestResponse<span class="token punctuation">,</span> Name<span class="token punctuation">,</span> RequestAndResponse <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AxiosRequestConfig<span class="token punctuation">,</span> AxiosResponse <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CallAnApi <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../abilities'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Sends a {<span class="hljs-doctag">@link</span> HTTPRequest} to a specified url.
- *  The response to the request is made available via the {<span class="hljs-doctag">@link</span> LastResponse}
- *  {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}s.
+<span class="token comment">/**
+ * @desc
+ *  Sends a {@link HTTPRequest} to a specified url.
+ *  The response to the request is made available via the {@link LastResponse}
+ *  {@link @serenity-js/core/lib/screenplay~Question}s.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Send a GET request&lt;/caption&gt;
- *  import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest'
- *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Send a GET request&lt;/caption&gt;
+ *  import { Actor } from '@serenity-js/core';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));
  *
@@ -162,95 +159,95 @@
  *      Ensure.that(LastResponse.status(), equals(200)),
  *  );
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">Interaction</span>}
+ * @extends {Interaction}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Send</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Send</span> <span class="token keyword">extends</span> <span class="token class-name">Interaction</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Instantiates a new {<span class="hljs-doctag">@link</span> Send} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+    <span class="token comment">/**
+     * @desc
+     *  Instantiates a new {@link Send} {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/lib/core/screenplay~Answerable&lt;AxiosRequestConfig&gt;</span>} <span class="hljs-variable">request</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
+     * @param {@serenity-js/lib/core/screenplay~Answerable&lt;AxiosRequestConfig&gt;} request
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
+     * @see {@link AxiosRequestConfig}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">a</span>(<span class="hljs-attr">request</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-title class_">AxiosRequestConfig</span>&gt;): <span class="hljs-title class_">Interaction</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Send</span>(request);
-    }
+    <span class="token keyword">static</span> <span class="token function">a</span><span class="token punctuation">(</span>request<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>AxiosRequestConfig<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Interaction <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Send</span><span class="token punctuation">(</span>request<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;</span>} <span class="hljs-variable">request</span>
+    <span class="token comment">/**
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;AxiosRequestConfig&gt;} request
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link AxiosRequestConfig</span>}
+     * @see {@link AxiosRequestConfig}
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> request: Answerable&lt;AxiosRequestConfig&gt;</span>) {
-        <span class="hljs-variable language_">super</span>();
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> request<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>AxiosRequestConfig<span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     * @param {UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">CollectsArtifacts</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> callAnApi = <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">as</span>(actor);
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> CollectsArtifacts <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> callAnApi <span class="token operator">=</span> CallAnApi<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">request</span>)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">config</span> =&gt;</span>
-                callAnApi.<span class="hljs-title function_">request</span>(config).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">response: AxiosResponse</span>) =&gt;</span> {
-                    <span class="hljs-keyword">const</span> resolvedUrl = callAnApi.<span class="hljs-title function_">resolveUrl</span>(config);
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>request<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>config <span class="token operator">=&gt;</span>
+                callAnApi<span class="token punctuation">.</span><span class="token function">request</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>response<span class="token operator">:</span> AxiosResponse<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">const</span> resolvedUrl <span class="token operator">=</span> callAnApi<span class="token punctuation">.</span><span class="token function">resolveUrl</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    actor.<span class="hljs-title function_">collect</span>(
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">responseToArtifact</span>(resolvedUrl, response),
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">requestToArtifactName</span>(response.<span class="hljs-property">config</span>.<span class="hljs-property">method</span>, resolvedUrl),
-                    );
-                })
-            );
-    }
+                    actor<span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">responseToArtifact</span><span class="token punctuation">(</span>resolvedUrl<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">requestToArtifactName</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>config<span class="token punctuation">.</span>method<span class="token punctuation">,</span> resolvedUrl<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+    <span class="token comment">/**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor sends <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.request.toString() }</span>`</span>;
-    }
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor sends </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>request<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">responseToArtifact</span>(<span class="hljs-attr">targetUrl</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">response</span>: <span class="hljs-title class_">AxiosResponse</span>): <span class="hljs-title class_">Artifact</span> {
-        <span class="hljs-keyword">const</span>
-            <span class="hljs-attr">request</span>: <span class="hljs-title class_">AxiosRequestConfig</span> = response.<span class="hljs-property">config</span>,
-            <span class="hljs-attr">requestAndResponse</span>: <span class="hljs-title class_">RequestAndResponse</span> = {
-                <span class="hljs-attr">request</span>: {
-                    <span class="hljs-attr">method</span>:     request.<span class="hljs-property">method</span>,
-                    <span class="hljs-attr">url</span>:        targetUrl,
-                    <span class="hljs-attr">headers</span>:    request.<span class="hljs-property">headers</span>,
-                    <span class="hljs-attr">data</span>:       request.<span class="hljs-property">data</span>,
-                },
-                <span class="hljs-attr">response</span>: {
-                    <span class="hljs-attr">status</span>:     response.<span class="hljs-property">status</span>,
-                    <span class="hljs-attr">headers</span>:    response.<span class="hljs-property">headers</span>,
-                    <span class="hljs-attr">data</span>:       response.<span class="hljs-property">data</span>,
-                },
-            };
+    <span class="token keyword">private</span> <span class="token function">responseToArtifact</span><span class="token punctuation">(</span>targetUrl<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> response<span class="token operator">:</span> AxiosResponse<span class="token punctuation">)</span><span class="token operator">:</span> Artifact <span class="token punctuation">{</span>
+        <span class="token keyword">const</span>
+            request<span class="token operator">:</span> AxiosRequestConfig <span class="token operator">=</span> response<span class="token punctuation">.</span>config<span class="token punctuation">,</span>
+            requestAndResponse<span class="token operator">:</span> RequestAndResponse <span class="token operator">=</span> <span class="token punctuation">{</span>
+                request<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    method<span class="token operator">:</span>     request<span class="token punctuation">.</span>method<span class="token punctuation">,</span>
+                    url<span class="token operator">:</span>        targetUrl<span class="token punctuation">,</span>
+                    headers<span class="token operator">:</span>    request<span class="token punctuation">.</span>headers<span class="token punctuation">,</span>
+                    data<span class="token operator">:</span>       request<span class="token punctuation">.</span>data<span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                response<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    status<span class="token operator">:</span>     response<span class="token punctuation">.</span>status<span class="token punctuation">,</span>
+                    headers<span class="token operator">:</span>    response<span class="token punctuation">.</span>headers<span class="token punctuation">,</span>
+                    data<span class="token operator">:</span>       response<span class="token punctuation">.</span>data<span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> HTTPRequestResponse.<span class="hljs-title function_">fromJSON</span>(requestAndResponse);
-    }
+        <span class="token keyword">return</span> HTTPRequestResponse<span class="token punctuation">.</span><span class="token function">fromJSON</span><span class="token punctuation">(</span>requestAndResponse<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">requestToArtifactName</span>(<span class="hljs-params">method: <span class="hljs-built_in">string</span>, url: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`<span class="hljs-subst">${ method.toUpperCase() }</span> <span class="hljs-subst">${ url }</span>`</span>);
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">requestToArtifactName</span><span class="token punctuation">(</span>method<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> url<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> method<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> url <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

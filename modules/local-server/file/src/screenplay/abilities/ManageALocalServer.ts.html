@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -132,23 +129,23 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/ManageALocalServer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">'http'</span>;
-<span class="hljs-keyword">import</span> withShutdownSupport = <span class="hljs-built_in">require</span>(<span class="hljs-string">'http-shutdown'</span>);
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">'https'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> net <span class="hljs-keyword">from</span> <span class="hljs-string">'net'</span>;
-<span class="hljs-keyword">import</span> { getPortPromise } <span class="hljs-keyword">from</span> <span class="hljs-string">'portfinder'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> ConfigurationError<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> http <span class="token keyword">from</span> <span class="token string">'http'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> withShutdownSupport <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'http-shutdown'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> https <span class="token keyword">from</span> <span class="token string">'https'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> net <span class="token keyword">from</span> <span class="token string">'net'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> getPortPromise <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'portfinder'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} that enables the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
+<span class="token comment">/**
+ * @desc
+ *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}
  *  to manage a local [Node.js](https://nodejs.org/) server.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using a raw Node.js server&lt;/caption&gt;
- * import { Actor } from '<span class="hljs-doctag">@serenity</span>-js/core';
- * import { CallAnApi, GetRequest, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest';
- * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '<span class="hljs-doctag">@serenity</span>-js/local-server'
- * import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Using a raw Node.js server&lt;/caption&gt;
+ * import { Actor } from '@serenity-js/core';
+ * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';
+ * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'
+ * import { Ensure, equals } from '@serenity-js/assertions';
  *
  * import axios from 'axios';
  * import * as http from 'http';
@@ -171,162 +168,162 @@
  *     StopLocalTestServer.ifRunning(),
  * );
  *
- * <span class="hljs-doctag">@see</span> https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
- * <span class="hljs-doctag">@see</span> https://nodejs.org/api/http.html#http_class_http_server
+ * @see https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/
+ * @see https://nodejs.org/api/http.html#http_class_http_server
  *
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay~Ability</span>}
+ * @implements {@link @serenity-js/core/lib/screenplay~Ability}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ManageALocalServer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ManageALocalServer</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">server</span>: <span class="hljs-title class_">ServerWithShutdown</span>;
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> server<span class="token operator">:</span> ServerWithShutdown<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.
+    <span class="token comment">/**
+     * @desc
+     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">RequestListener | net~Server</span>} <span class="hljs-variable">listener</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ManageALocalServer</span>}
+     * @param {RequestListener | net~Server} listener
+     * @returns {ManageALocalServer}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">runningAHttpListener</span>(<span class="hljs-attr">listener</span>: <span class="hljs-title class_">RequestListener</span> | net.<span class="hljs-property">Server</span>): <span class="hljs-title class_">Manage</span>ALocalServer {
-        <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">'function'</span>
-            ? http.<span class="hljs-title function_">createServer</span>(listener)
-            : listener;
+    <span class="token keyword">static</span> <span class="token function">runningAHttpListener</span><span class="token punctuation">(</span>listener<span class="token operator">:</span> RequestListener <span class="token operator">|</span> net<span class="token punctuation">.</span>Server<span class="token punctuation">)</span><span class="token operator">:</span> ManageALocalServer <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token keyword">typeof</span> listener <span class="token operator">===</span> <span class="token string">'function'</span>
+            <span class="token operator">?</span> http<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>listener<span class="token punctuation">)</span>
+            <span class="token operator">:</span> listener<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Manage</span>ALocalServer(<span class="hljs-title class_">SupportedProtocols</span>.<span class="hljs-property">HTTP</span>, server);
-    }
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ManageALocalServer</span><span class="token punctuation">(</span>SupportedProtocols<span class="token punctuation">.</span><span class="token constant">HTTP</span><span class="token punctuation">,</span> server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
+    <span class="token comment">/**
+     * @desc
+     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">RequestListener | https~Server</span>} <span class="hljs-variable">listener</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">https~ServerOptions</span>} <span class="hljs-variable">options</span> - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ManageALocalServer</span>}
+     * @param {RequestListener | https~Server} listener
+     * @param {https~ServerOptions} options - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.
+     * @returns {ManageALocalServer}
      *
-     * <span class="hljs-doctag">@see</span> https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
+     * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">runningAHttpsListener</span>(<span class="hljs-attr">listener</span>: <span class="hljs-title class_">RequestListener</span> | https.<span class="hljs-property">Server</span>, <span class="hljs-attr">options</span>: https.<span class="hljs-property">ServerOptions</span> = {}): <span class="hljs-title class_">Manage</span>ALocalServer {
-        <span class="hljs-keyword">const</span> server = <span class="hljs-keyword">typeof</span> listener === <span class="hljs-string">'function'</span>
-            ? https.<span class="hljs-title function_">createServer</span>(options, listener)
-            : listener;
+    <span class="token keyword">static</span> <span class="token function">runningAHttpsListener</span><span class="token punctuation">(</span>listener<span class="token operator">:</span> RequestListener <span class="token operator">|</span> https<span class="token punctuation">.</span>Server<span class="token punctuation">,</span> options<span class="token operator">:</span> https<span class="token punctuation">.</span>ServerOptions <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token operator">:</span> ManageALocalServer <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token keyword">typeof</span> listener <span class="token operator">===</span> <span class="token string">'function'</span>
+            <span class="token operator">?</span> https<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>options<span class="token punctuation">,</span> listener<span class="token punctuation">)</span>
+            <span class="token operator">:</span> listener<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Manage</span>ALocalServer(<span class="hljs-title class_">SupportedProtocols</span>.<span class="hljs-property">HTTPS</span>, server);
-    }
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ManageALocalServer</span><span class="token punctuation">(</span>SupportedProtocols<span class="token punctuation">.</span><span class="token constant">HTTPS</span><span class="token punctuation">,</span> server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Used to access the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}'s {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}  to {<span class="hljs-doctag">@link</span> ManageALocalServer}
-     *  from within the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction} classes,
-     *  such as {<span class="hljs-doctag">@link</span> StartLocalServer}.
+    <span class="token comment">/**
+     * @desc
+     *  Used to access the {@link @serenity-js/core/lib/screenplay/actor~Actor}'s {@link @serenity-js/core/lib/screenplay~Ability}  to {@link ManageALocalServer}
+     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
+     *  such as {@link StartLocalServer}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@return</span> {<span class="hljs-type">ManageALocalServer</span>}
+     * @param {@serenity-js/core/lib/screenplay~UsesAbilities} actor
+     * @return {ManageALocalServer}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Manage</span>ALocalServer {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">Manage</span>ALocalServer);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ManageALocalServer <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">abilityTo</span><span class="token punctuation">(</span>ManageALocalServer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">protocol</span> - Protocol to be used when communicating with the running server; `http` or `https`
+    <span class="token comment">/**
+     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">net~Server</span>} <span class="hljs-variable">server</span> - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
+     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).
      *
-     * <span class="hljs-doctag">@see</span> https://www.npmjs.com/package/http-shutdown
+     * @see https://www.npmjs.com/package/http-shutdown
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> protocol: SupportedProtocols, server: net.Server</span>) {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">server</span> = <span class="hljs-title function_">withShutdownSupport</span>(server);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> protocol<span class="token operator">:</span> SupportedProtocols<span class="token punctuation">,</span> server<span class="token operator">:</span> net<span class="token punctuation">.</span>Server<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>server <span class="token operator">=</span> <span class="token function">withShutdownSupport</span><span class="token punctuation">(</span>server<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} [preferredPort=8000]
+     * @param {number} [preferredPort=8000]
      *  Lower bound of the preferred port range
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} [highestPort=65535] highestPort
+     * @param {number} [highestPort=65535] highestPort
      *  Upper bound of the preferred port range
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     * @returns {Promise&lt;void&gt;}
      */</span>
-    <span class="hljs-title function_">listen</span>(preferredPort = <span class="hljs-number">8000</span>, highestPort = <span class="hljs-number">65535</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">getPortPromise</span>({ <span class="hljs-attr">port</span>: preferredPort, <span class="hljs-attr">stopPort</span>: highestPort })
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">port</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt;(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-                <span class="hljs-keyword">function</span> <span class="hljs-title function_">errorHandler</span>(<span class="hljs-params">error: <span class="hljs-built_in">Error</span> &amp; {code: <span class="hljs-built_in">string</span>}</span>) {
-                    <span class="hljs-keyword">if</span> (error.<span class="hljs-property">code</span> === <span class="hljs-string">'EADDRINUSE'</span>) {
-                        <span class="hljs-keyword">return</span> <span class="hljs-title function_">reject</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Server address is in use. Is there another server running on port <span class="hljs-subst">${ port }</span>?`</span>, error));
-                    }
+    <span class="token function">listen</span><span class="token punctuation">(</span>preferredPort <span class="token operator">=</span> <span class="token number">8000</span><span class="token punctuation">,</span> highestPort <span class="token operator">=</span> <span class="token number">65535</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">getPortPromise</span><span class="token punctuation">(</span><span class="token punctuation">{</span> port<span class="token operator">:</span> preferredPort<span class="token punctuation">,</span> stopPort<span class="token operator">:</span> highestPort <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>port <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">function</span> <span class="token function">errorHandler</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error <span class="token operator">&amp;</span> <span class="token punctuation">{</span>code<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">.</span>code <span class="token operator">===</span> <span class="token string">'EADDRINUSE'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">return</span> <span class="token function">reject</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ConfigurationError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Server address is in use. Is there another server running on port </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> port <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">?</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
 
-                    <span class="hljs-keyword">return</span> <span class="hljs-title function_">reject</span>(error);
-                }
+                    <span class="token keyword">return</span> <span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">server</span>.<span class="hljs-title function_">once</span>(<span class="hljs-string">'error'</span>, errorHandler);
+                <span class="token keyword">this</span><span class="token punctuation">.</span>server<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> errorHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">server</span>.<span class="hljs-title function_">listen</span>(port, <span class="hljs-string">'127.0.0.1'</span>, <span class="hljs-function">() =&gt;</span> {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">server</span>.<span class="hljs-title function_">removeListener</span>(<span class="hljs-string">'error'</span>, errorHandler);
+                <span class="token keyword">this</span><span class="token punctuation">.</span>server<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span>port<span class="token punctuation">,</span> <span class="token string">'127.0.0.1'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>server<span class="token punctuation">.</span><span class="token function">removeListener</span><span class="token punctuation">(</span><span class="token string">'error'</span><span class="token punctuation">,</span> errorHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                    <span class="hljs-title function_">resolve</span>();
-                });
-            }));
-    }
+                    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Provides access to the server requestListener
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">function(server: ServerWithShutdown, protocol?: SupportedProtocols): T</span>} <span class="hljs-variable">fn</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">T</span>}
+     * @param {function(server: ServerWithShutdown, protocol?: SupportedProtocols): T} fn
+     * @returns {T}
      */</span>
-    mapInstance&lt;T&gt;(<span class="hljs-attr">fn</span>: <span class="hljs-function">(<span class="hljs-params">server: ServerWithShutdown, protocol?: SupportedProtocols</span>) =&gt;</span> T): T {
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">fn</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">server</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">protocol</span>);
-    }
-}
+    <span class="token generic-function"><span class="token function">mapInstance</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token function-variable function">fn</span><span class="token operator">:</span> <span class="token punctuation">(</span>server<span class="token operator">:</span> ServerWithShutdown<span class="token punctuation">,</span> protocol<span class="token operator">?</span><span class="token operator">:</span> SupportedProtocols<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">T</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>server<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>protocol<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  A `requestListener` function that Node's
  *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)
  *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)
  *  would accept.
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  *
- * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">function(request: http.IncomingMessage, response: http.ServerResponse): void</span>} <span class="hljs-variable">RequestListener</span>
+ * @typedef {function(request: http.IncomingMessage, response: http.ServerResponse): void} RequestListener
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">RequestListener</span> = <span class="hljs-function">(<span class="hljs-params">request: http.IncomingMessage, response: http.ServerResponse</span>) =&gt;</span> <span class="hljs-built_in">void</span>;
+<span class="token keyword">export</span> <span class="token keyword">type</span> <span class="token class-name">RequestListener</span> <span class="token operator">=</span> <span class="token punctuation">(</span>request<span class="token operator">:</span> http<span class="token punctuation">.</span>IncomingMessage<span class="token punctuation">,</span> response<span class="token operator">:</span> http<span class="token punctuation">.</span>ServerResponse<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  A {<span class="hljs-doctag">@link</span> net~Server} with an added shutdown method.
+<span class="token comment">/**
+ * @desc
+ *  A {@link net~Server} with an added shutdown method.
  *
- * <span class="hljs-doctag">@see</span> https://www.npmjs.com/package/http-shutdown
+ * @see https://www.npmjs.com/package/http-shutdown
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  *
- * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">net~Server &amp; { shutdown: (callback: (error?: Error) =&gt; void) =&gt; void </span>}} ServerWithShutdown
+ * @typedef {net~Server &amp; { shutdown: (callback: (error?: Error) =&gt; void) =&gt; void }} ServerWithShutdown
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">ServerWithShutdown</span> = net.<span class="hljs-property">Server</span> &amp; {
-    <span class="hljs-attr">shutdown</span>: <span class="hljs-function">(<span class="hljs-params">callback: (error?: <span class="hljs-built_in">Error</span>) =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>,
-    <span class="hljs-attr">forceShutdown</span>: <span class="hljs-function">(<span class="hljs-params">callback: (error?: <span class="hljs-built_in">Error</span>) =&gt; <span class="hljs-built_in">void</span></span>) =&gt;</span> <span class="hljs-built_in">void</span>,
-};
+<span class="token keyword">export</span> <span class="token keyword">type</span> <span class="token class-name">ServerWithShutdown</span> <span class="token operator">=</span> net<span class="token punctuation">.</span>Server <span class="token operator">&amp;</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">shutdown</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token function-variable function">callback</span><span class="token operator">:</span> <span class="token punctuation">(</span>error<span class="token operator">?</span><span class="token operator">:</span> Error<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">,</span>
+    <span class="token function-variable function">forceShutdown</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token function-variable function">callback</span><span class="token operator">:</span> <span class="token punctuation">(</span>error<span class="token operator">?</span><span class="token operator">:</span> Error<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  The protocol supported by the instance of the {<span class="hljs-doctag">@link</span> ServerWithShutdown},
- *  wrapped by the {<span class="hljs-doctag">@link</span> ManageALocalServer} {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Ability}.
+<span class="token comment">/**
+ * @desc
+ *  The protocol supported by the instance of the {@link ServerWithShutdown},
+ *  wrapped by the {@link ManageALocalServer} {@link @serenity-js/core/lib/screenplay~Ability}.
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link ManageALocalServer#mapInstance</span>}
+ * @see {@link ManageALocalServer#mapInstance}
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  *
- * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">Object</span>} <span class="hljs-variable">SupportedProtocols</span>
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">HTTP</span>
- * <span class="hljs-doctag">@property</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">HTTPS</span>
+ * @typedef {Object} SupportedProtocols
+ * @property {string} HTTP
+ * @property {string} HTTPS
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-built_in">enum</span> <span class="hljs-title class_">SupportedProtocols</span> {
-    <span class="hljs-variable constant_">HTTP</span> = <span class="hljs-string">'http'</span>,
-    <span class="hljs-variable constant_">HTTPS</span> = <span class="hljs-string">'https'</span>,
-}
+<span class="token keyword">export</span> <span class="token keyword">enum</span> SupportedProtocols <span class="token punctuation">{</span>
+    <span class="token constant">HTTP</span> <span class="token operator">=</span> <span class="token string">'http'</span><span class="token punctuation">,</span>
+    <span class="token constant">HTTPS</span> <span class="token operator">=</span> <span class="token string">'https'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,131 +135,131 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Send.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityFinished</span>, <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>, <span class="hljs-title class_">ActivityStarts</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { HTTPRequestResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Clock</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/stage'</span>;
-<span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-<span class="hljs-keyword">import</span> <span class="hljs-title class_">MockAdapter</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'axios-mock-adapter'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> EventRecorder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Serenity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ActivityFinished<span class="token punctuation">,</span> ActivityRelatedArtifactGenerated<span class="token punctuation">,</span> ActivityStarts <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> HTTPRequestResponse <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Clock <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/stage'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> MockAdapter <span class="token keyword">from</span> <span class="token string">'axios-mock-adapter'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance, APIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> GetRequest<span class="token punctuation">,</span> LastResponse<span class="token punctuation">,</span> Send <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorUsingAMockedAxiosInstance<span class="token punctuation">,</span> APIActors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../actors'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Send'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {Send} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Send'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">interface</span> ExampleResponse {
-        <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-    }
+    <span class="token keyword">interface</span> <span class="token class-name">ExampleResponse</span> <span class="token punctuation">{</span>
+        id<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send.a</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HTTPRequest</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">GetRequest.to</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.status</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.body</span>}
+    <span class="token comment">/**
+     * @test {Send.a}
+     * @test {HTTPRequest}
+     * @test {GetRequest.to}
+     * @test {LastResponse.status}
+     * @test {LastResponse.body}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables the actor to send a HTTPRequest'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables the actor to send a HTTPRequest'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> actor<span class="token punctuation">,</span> mock <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">actorUsingAMockedAxiosInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        mock.<span class="hljs-title function_">onGet</span>(<span class="hljs-string">'/products/2'</span>).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, {
-            <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
-        });
+        mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span><span class="token string">'/products/2'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/products/2'</span>)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">ExampleResponse</span>&gt;(), <span class="hljs-title function_">equals</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })),
-        );
-    });
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/products/2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">body</span><span class="token generic class-name"><span class="token operator">&lt;</span>ExampleResponse<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send.a</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HTTPRequest</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">GetRequest.to</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.status</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.body</span>}
+    <span class="token comment">/**
+     * @test {Send.a}
+     * @test {HTTPRequest}
+     * @test {GetRequest.to}
+     * @test {LastResponse.status}
+     * @test {LastResponse.body}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables the actor to send an Axios Request'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables the actor to send an Axios Request'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> actor<span class="token punctuation">,</span> mock <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">actorUsingAMockedAxiosInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        mock.<span class="hljs-title function_">onGet</span>(<span class="hljs-string">'/products/2'</span>).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, {
-            <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
-        });
+        mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span><span class="token string">'/products/2'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>({
-                <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
-                <span class="hljs-attr">url</span>: <span class="hljs-string">'/products/2'</span>,
-            }),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">ExampleResponse</span>&gt;(), <span class="hljs-title function_">equals</span>({ <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> })),
-        );
-    });
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                method<span class="token operator">:</span> <span class="token string">'get'</span><span class="token punctuation">,</span>
+                url<span class="token operator">:</span> <span class="token string">'/products/2'</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">body</span><span class="token generic class-name"><span class="token operator">&lt;</span>ExampleResponse<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Send.a</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">HTTPRequest</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">GetRequest.to</span>}
+    <span class="token comment">/**
+     * @test {Send.a}
+     * @test {HTTPRequest}
+     * @test {GetRequest.to}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'emits the events so that the details of the HTTP interaction can be reported'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> frozenClock = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(<span class="hljs-string">'1970-01-01'</span>));
-        <span class="hljs-keyword">const</span> axiosInstance = axios.<span class="hljs-title function_">create</span>({
-            <span class="hljs-attr">baseURL</span>: <span class="hljs-string">'https://myapp.com/api'</span>
-        });
-        <span class="hljs-keyword">const</span> mock     = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MockAdapter</span>(axiosInstance);
-        <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(frozenClock);
-        <span class="hljs-keyword">const</span> recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>();
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'emits the events so that the details of the HTTP interaction can be reported'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> frozenClock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Clock</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token string">'1970-01-01'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> axiosInstance <span class="token operator">=</span> axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            baseURL<span class="token operator">:</span> <span class="token string">'https://myapp.com/api'</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> mock     <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MockAdapter</span><span class="token punctuation">(</span>axiosInstance<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> serenity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Serenity</span><span class="token punctuation">(</span>frozenClock<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">const</span> recorder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventRecorder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        serenity.<span class="hljs-title function_">configure</span>({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title function_">APIActors</span>(axiosInstance),
-            <span class="hljs-attr">crew</span>: [ recorder ],
-        });
+        serenity<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            actors<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">APIActors</span><span class="token punctuation">(</span>axiosInstance<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            crew<span class="token operator">:</span> <span class="token punctuation">[</span> recorder <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        mock.<span class="hljs-title function_">onGet</span>(<span class="hljs-string">'products/2'</span>).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, {   <span class="hljs-comment">// axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')</span>
-            <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>,
-        }, {
-            <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
-        });
+        mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span><span class="token string">'products/2'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>   <span class="token comment">// axios-mock-adapter doesn't resolve baseUrl; it should've really been mock.onGet('/api/products/2')</span>
+            id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            <span class="token string">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">theActorCalled</span>(<span class="hljs-string">'Apisitt'</span>).<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'products/2'</span>)),
-        ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> events = recorder.<span class="hljs-property">events</span>;
+        <span class="token keyword">return</span> serenity<span class="token punctuation">.</span><span class="token function">theActorCalled</span><span class="token punctuation">(</span><span class="token string">'Apisitt'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'products/2'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> events <span class="token operator">=</span> recorder<span class="token punctuation">.</span>events<span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(events).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">3</span>);
-            <span class="hljs-title function_">expect</span>(events[ <span class="hljs-number">0</span> ]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityStarts</span>);
-            <span class="hljs-title function_">expect</span>(events[ <span class="hljs-number">1</span> ]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>);
-            <span class="hljs-title function_">expect</span>(events[ <span class="hljs-number">2</span> ]).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">instanceOf</span>(<span class="hljs-title class_">ActivityFinished</span>);
+            <span class="token function">expect</span><span class="token punctuation">(</span>events<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span><span class="token function">lengthOf</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span> <span class="token number">0</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceOf</span><span class="token punctuation">(</span>ActivityStarts<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span> <span class="token number">1</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceOf</span><span class="token punctuation">(</span>ActivityRelatedArtifactGenerated<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>events<span class="token punctuation">[</span> <span class="token number">2</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">instanceOf</span><span class="token punctuation">(</span>ActivityFinished<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> artifactGenerated = events[ <span class="hljs-number">1</span> ] <span class="hljs-keyword">as</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>;
+            <span class="token keyword">const</span> artifactGenerated <span class="token operator">=</span> events<span class="token punctuation">[</span> <span class="token number">1</span> <span class="token punctuation">]</span> <span class="token keyword">as</span> ActivityRelatedArtifactGenerated<span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(artifactGenerated.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`GET https://myapp.com/api/products/2`</span>);
-            <span class="hljs-title function_">expect</span>(artifactGenerated.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">equals</span>(HTTPRequestResponse.<span class="hljs-title function_">fromJSON</span>({
-                <span class="hljs-attr">request</span>: {
-                    <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
-                    <span class="hljs-attr">url</span>: <span class="hljs-string">'https://myapp.com/api/products/2'</span>,
-                    <span class="hljs-attr">headers</span>: { <span class="hljs-title class_">Accept</span>: <span class="hljs-string">'application/json, text/plain, */*'</span> },
-                },
-                <span class="hljs-attr">response</span>: {
-                    <span class="hljs-attr">status</span>: <span class="hljs-number">200</span>,
-                    <span class="hljs-attr">headers</span>: {
-                        <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
-                    },
-                    <span class="hljs-attr">data</span>: { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span> },
-                },
-            }))).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>, <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(artifactGenerated.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">toJSON</span>()));
+            <span class="token function">expect</span><span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">GET https://myapp.com/api/products/2</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>HTTPRequestResponse<span class="token punctuation">.</span><span class="token function">fromJSON</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                request<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    method<span class="token operator">:</span> <span class="token string">'get'</span><span class="token punctuation">,</span>
+                    url<span class="token operator">:</span> <span class="token string">'https://myapp.com/api/products/2'</span><span class="token punctuation">,</span>
+                    headers<span class="token operator">:</span> <span class="token punctuation">{</span> Accept<span class="token operator">:</span> <span class="token string">'application/json, text/plain, */*'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                response<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    status<span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+                    headers<span class="token operator">:</span> <span class="token punctuation">{</span>
+                        <span class="token string">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/json'</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                    data<span class="token operator">:</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">toJSON</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(artifactGenerated.<span class="hljs-property">timestamp</span>.<span class="hljs-title function_">equals</span>(frozenClock.<span class="hljs-title function_">now</span>()))
-                .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>, artifactGenerated.<span class="hljs-property">timestamp</span>.<span class="hljs-title function_">toString</span>());
-        });
-    });
-});
+            <span class="token function">expect</span><span class="token punctuation">(</span>artifactGenerated<span class="token punctuation">.</span>timestamp<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>frozenClock<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">,</span> artifactGenerated<span class="token punctuation">.</span>timestamp<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

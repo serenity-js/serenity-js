@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,7 +184,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Navigate</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Navigate<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -426,20 +423,20 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> endsWith <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/first'</span>),
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/second'</span>),
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Hannu'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/first'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/second'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">back</span>(),
+         Navigate<span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Website</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'/first'</span>)),
-     );</code></pre>
+         Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Website<span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">'/first'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 
@@ -511,21 +508,21 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> endsWith <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/first'</span>),
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/second'</span>),
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Hannu'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/first'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/second'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">back</span>(),
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">forward</span>(),
+         Navigate<span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">forward</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Website</span>.<span class="hljs-title function_">url</span>(), <span class="hljs-title function_">endsWith</span>(<span class="hljs-string">'/second'</span>)),
-     );</code></pre>
+         Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Website<span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">endsWith</span><span class="token punctuation">(</span><span class="token string">'/second'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 
@@ -597,17 +594,17 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, endsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">DeleteCookies</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> endsWith <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Navigate<span class="token punctuation">,</span> BrowseTheWeb<span class="token punctuation">,</span> DeleteCookies <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/login'</span>),
-         <span class="hljs-title class_">DeleteCookies</span>.<span class="hljs-title function_">called</span>(<span class="hljs-string">'session_id'</span>),
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">reloadPage</span>(),
-     );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Hannu'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/login'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         DeleteCookies<span class="token punctuation">.</span><span class="token function">called</span><span class="token punctuation">(</span><span class="token string">'session_id'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">reloadPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 
@@ -704,43 +701,43 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">protractor.conf.js</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
-     <span class="hljs-attr">baseUrl</span>: <span class="hljs-string">'https://example.org'</span>,
-     <span class="hljs-comment">// ...</span>
- }</code></pre>
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
+     baseUrl<span class="token operator">:</span> <span class="token string">'https://example.org'</span><span class="token punctuation">,</span>
+     <span class="token comment">// ...</span>
+ <span class="token punctuation">}</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to path relative to baseUrl</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/search'</span>),
-     );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Hannu'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/search'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to an absolute URL (overrides baseUrl)</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'https://mycompany.org/login'</span>),
-     );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Hannu'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'https://mycompany.org/login'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Navigate to URL with timeout</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Navigate</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Duration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Navigate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Hannu'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/search'</span>).<span class="hljs-title function_">withTimeout</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofSeconds</span>(<span class="hljs-number">2</span>)),
-     );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Hannu'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/search'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withTimeout</span><span class="token punctuation">(</span>Duration<span class="token punctuation">.</span><span class="token function">ofSeconds</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 

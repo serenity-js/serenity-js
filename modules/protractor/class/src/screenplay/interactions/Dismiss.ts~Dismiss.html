@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,7 +184,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Dismiss</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Dismiss<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor/lib/screenplay/interactions'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -224,32 +221,32 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Example widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;button
-     data-test=<span class="hljs-string">"trigger"</span>
-     onclick=<span class="hljs-string">"alert('hello!')"</span>&gt;<span class="hljs-title class_">Trigger</span> <span class="hljs-title class_">Alert</span>&lt;/button&gt;</code></pre>
+      <pre class="source-code language-markup"><code data-ice="exampleCode"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span>
+     <span class="token attr-name">data-test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>trigger<span class="token punctuation">"</span></span>
+     <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>alert(<span class="token punctuation">'</span>hello!<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Trigger Alert<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">class</span> <span class="hljs-title class_">Widget</span> {
-     <span class="hljs-keyword">static</span> trigger = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'trigger button'</span>)
-         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="trigger"]'</span>));
- }</code></pre>
+ <span class="token keyword">class</span> <span class="token class-name">Widget</span> <span class="token punctuation">{</span>
+     <span class="token keyword">static</span> trigger <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'trigger button'</span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'[data-test="trigger"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Dismissing a modal dialog window</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">Dismiss</span>, <span class="hljs-title class_">ModalDialog</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Click<span class="token punctuation">,</span> Dismiss<span class="token punctuation">,</span> ModalDialog <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Nick'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Widget</span>.<span class="hljs-property">trigger</span>),
-         <span class="hljs-title class_">Dismiss</span>.<span class="hljs-title function_">the</span>(<span class="hljs-title class_">ModalDialog</span>.<span class="hljs-title function_">window</span>()),
-     );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Nick'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Click<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>Widget<span class="token punctuation">.</span>trigger<span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Dismiss<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span>ModalDialog<span class="token punctuation">.</span><span class="token function">window</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 

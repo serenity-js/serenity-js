@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,22 +125,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ArtifactGenerated</span>, <span class="hljs-title class_">DomainEvent</span>, <span class="hljs-title class_">TestRunFinishes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Stage<span class="token punctuation">,</span> StageCrewMember <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactGenerated<span class="token punctuation">,</span> DomainEvent<span class="token punctuation">,</span> TestRunFinishes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CorrelationId <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventQueueProcessors</span>, <span class="hljs-title class_">EventQueues</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./processors'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> EventQueueProcessors<span class="token punctuation">,</span> EventQueues <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./processors'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Produces [Serenity BDD](http://serenity-bdd.info/)-standard JSON reports
  *  that [Serenity BDD CLI Reporter](https://github.com/serenity-bdd/serenity-cli)
  *  can parse to produce HTML reports and living documentation.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
- *  import { ArtifactArchiver, configure } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { SerenityBDDReporter } from '<span class="hljs-doctag">@serenity</span>-js/serenity-bdd';
+ * @example &lt;caption&gt;Registering the reporter programmatically&lt;/caption&gt;
+ *  import { ArtifactArchiver, configure } from '@serenity-js/core';
+ *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
  *
  *  configure({
  *    crew: [
@@ -152,15 +149,15 @@
  *    ],
  *  });
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
+ * @example &lt;caption&gt;Registering the reporter using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
  *  const
- *    { ArtifactArchiver }    = require('<span class="hljs-doctag">@serenity</span>-js/core'),
- *    { SerenityBDDReporter } = require('<span class="hljs-doctag">@serenity</span>-js/serenity-bdd');
+ *    { ArtifactArchiver }    = require('@serenity-js/core'),
+ *    { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
  *
  *  exports.config = {
  *    framework:     'custom',
- *    frameworkPath: require.resolve('<span class="hljs-doctag">@serenity</span>-js/protractor/adapter'),
+ *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
  *    serenity: {
  *      crew: [
@@ -173,76 +170,76 @@
  *    // other Protractor config
  *  };
  *
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/stage~StageCrewMember</span>}
+ * @public
+ * @implements {@serenity-js/core/lib/stage~StageCrewMember}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SerenityBDDReporter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> eventQueues = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventQueues</span>();
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> processors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventQueueProcessors</span>();
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SerenityBDDReporter</span> <span class="token keyword">implements</span> <span class="token class-name">StageCrewMember</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> eventQueues <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventQueues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> processors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventQueueProcessors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
+    <span class="token comment">/**
      * A queue for domain events that took place before the SceneStarts event,
      * for example in Mocha's `before` hook.
      */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">eventQueue</span>: <span class="hljs-title class_">DomainEvent</span>[] = [];
+    <span class="token keyword">private</span> <span class="token keyword">readonly</span> eventQueue<span class="token operator">:</span> DomainEvent<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/stage~Stage</span>} [stage=undefined] stage
+    <span class="token comment">/**
+     * @param {@serenity-js/core/lib/stage~Stage} [stage=undefined] stage
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> stage<span class="token operator">?</span><span class="token operator">:</span> Stage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Creates a new instance of this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}
-     *  and assigns it to a given {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~Stage}.
+    <span class="token comment">/**
+     * @desc
+     *  Creates a new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
+     *  and assigns it to a given {@link @serenity-js/core/lib/stage~Stage}.
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/stage~StageCrewMember</span>}
+     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/stage~Stage</span>} <span class="hljs-variable">stage</span>
-     *  An instance of a {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~Stage} this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember} will be assigned to
+     * @param {@serenity-js/core/lib/stage~Stage} stage
+     *  An instance of a {@link @serenity-js/core/lib/stage~Stage} this {@link @serenity-js/core/lib/stage~StageCrewMember} will be assigned to
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/stage~StageCrewMember</span>}
-     *  A new instance of this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}
+     * @returns {@serenity-js/core/lib/stage~StageCrewMember}
+     *  A new instance of this {@link @serenity-js/core/lib/stage~StageCrewMember}
      */</span>
-    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(stage);
-    }
+    <span class="token function">assignedTo</span><span class="token punctuation">(</span>stage<span class="token operator">:</span> Stage<span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMember <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span>stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/events~DomainEvent} objects emitted by the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/stage~StageCrewMember}.
+    <span class="token comment">/**
+     * @desc
+     *  Handles {@link @serenity-js/core/lib/events~DomainEvent} objects emitted by the {@link @serenity-js/core/lib/stage~StageCrewMember}.
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/stage~StageCrewMember</span>}
+     * @see {@link @serenity-js/core/lib/stage~StageCrewMember}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/events~DomainEvent</span>} <span class="hljs-variable">event</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
+     * @param {@serenity-js/core/lib/events~DomainEvent} event
+     * @returns {void}
      */</span>
-    notifyOf (<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+    <span class="token function">notifyOf</span> <span class="token punctuation">(</span>event<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isSceneSpecific</span>(event)) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">eventQueues</span>.<span class="hljs-title function_">enqueue</span>(event);
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isSceneSpecific</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>eventQueues<span class="token punctuation">.</span><span class="token function">enqueue</span><span class="token punctuation">(</span>event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TestRunFinishes</span>) {
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">processors</span>
-                .<span class="hljs-title function_">process</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">eventQueues</span>)
-                .<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> {
-                    <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactGenerated</span>(
-                        result.<span class="hljs-property">sceneId</span>,
-                        result.<span class="hljs-property">name</span>,
-                        result.<span class="hljs-property">artifact</span>,
-                        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">currentTime</span>(),
-                    ));
-                });
-        }
-    }
+            <span class="token keyword">this</span><span class="token punctuation">.</span>processors
+                <span class="token punctuation">.</span><span class="token function">process</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>eventQueues<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>result <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ArtifactGenerated</span><span class="token punctuation">(</span>
+                        result<span class="token punctuation">.</span>sceneId<span class="token punctuation">,</span>
+                        result<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                        result<span class="token punctuation">.</span>artifact<span class="token punctuation">,</span>
+                        <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isSceneSpecific</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): event is <span class="hljs-title class_">DomainEvent</span> &amp; { <span class="hljs-attr">sceneId</span>: <span class="hljs-title class_">CorrelationId</span> } {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(event, <span class="hljs-string">'sceneId'</span>);
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">isSceneSpecific</span><span class="token punctuation">(</span>event<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> event <span class="token keyword">is</span> DomainEvent <span class="token operator">&amp;</span> <span class="token punctuation">{</span> sceneId<span class="token operator">:</span> CorrelationId <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> <span class="token string">'sceneId'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

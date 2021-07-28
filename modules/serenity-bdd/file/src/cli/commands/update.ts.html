@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,86 +125,86 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/commands/update.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { isTrue } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Check</span>, configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-variable constant_">URL</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'url'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> isTrue <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Check<span class="token punctuation">,</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">URL</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'url'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Argv</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Argv'</span>;
-<span class="hljs-keyword">import</span> { defaults } <span class="hljs-keyword">from</span> <span class="hljs-string">'../defaults'</span>;
-<span class="hljs-keyword">import</span> { axiosClient, formatError } <span class="hljs-keyword">from</span> <span class="hljs-string">'../io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Credentials</span>, <span class="hljs-variable constant_">GAV</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Printer</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Printer'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">DownloadArtifact</span>, <span class="hljs-title class_">FileExists</span>, <span class="hljs-title class_">Notify</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">NotificationReporter</span>, <span class="hljs-title class_">ProgressReporter</span>, <span class="hljs-title class_">UpdateCommandActors</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../stage'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Argv <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Argv'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> defaults <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../defaults'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> axiosClient<span class="token punctuation">,</span> formatError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Credentials<span class="token punctuation">,</span> <span class="token constant">GAV</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Printer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Printer'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> DownloadArtifact<span class="token punctuation">,</span> FileExists<span class="token punctuation">,</span> Notify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../screenplay'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> NotificationReporter<span class="token punctuation">,</span> ProgressReporter<span class="token punctuation">,</span> UpdateCommandActors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../stage'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> yargs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'yargs'</span>); <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+<span class="token keyword">const</span> yargs <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'yargs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-<span class="hljs-keyword">export</span> = {
-    <span class="hljs-attr">command</span>: <span class="hljs-string">'update'</span>,
-    <span class="hljs-attr">desc</span>: <span class="hljs-string">'Makes sure the Serenity BDD CLI jar file is available and up to date'</span>,
-    <span class="hljs-attr">builder</span>: {
-        <span class="hljs-attr">cacheDir</span>: {
-            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">cacheDir</span>,
-            <span class="hljs-attr">describe</span>: <span class="hljs-string">'A relative path to where the Serenity BDD CLI jar file should be stored'</span>,
-        },
-        <span class="hljs-attr">ignoreSSL</span>: {
-            <span class="hljs-attr">default</span>:   <span class="hljs-literal">false</span>,
-            <span class="hljs-attr">type</span>:     <span class="hljs-string">'boolean'</span>,
-            <span class="hljs-attr">describe</span>: <span class="hljs-string">'Ignore SSL certificates'</span>,
-        },
-        <span class="hljs-attr">repository</span>: {
-            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">repository</span>,
-            <span class="hljs-attr">describe</span>: <span class="hljs-string">'Maven repository url where we should look for the Serenity BDD CLI artifact'</span>,
-        },
-        <span class="hljs-attr">auth</span>: {
-            <span class="hljs-attr">describe</span>: <span class="hljs-string">`Credentials to authenticate with your repository - "&lt;username&gt;:&lt;password&gt;"`</span>,
-        },
-        <span class="hljs-attr">artifact</span>: {
-            <span class="hljs-attr">default</span>:   defaults.<span class="hljs-property">artifact</span>,
-            <span class="hljs-attr">describe</span>: <span class="hljs-string">`The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.`</span>,
-        },
-    },
-    <span class="hljs-attr">handler</span>: (<span class="hljs-attr">argv</span>: <span class="hljs-title class_">Argv</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; =&gt; {
+<span class="token keyword">export</span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    command<span class="token operator">:</span> <span class="token string">'update'</span><span class="token punctuation">,</span>
+    desc<span class="token operator">:</span> <span class="token string">'Makes sure the Serenity BDD CLI jar file is available and up to date'</span><span class="token punctuation">,</span>
+    builder<span class="token operator">:</span> <span class="token punctuation">{</span>
+        cacheDir<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>   defaults<span class="token punctuation">.</span>cacheDir<span class="token punctuation">,</span>
+            describe<span class="token operator">:</span> <span class="token string">'A relative path to where the Serenity BDD CLI jar file should be stored'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        ignoreSSL<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>   <span class="token boolean">false</span><span class="token punctuation">,</span>
+            type<span class="token operator">:</span>     <span class="token string">'boolean'</span><span class="token punctuation">,</span>
+            describe<span class="token operator">:</span> <span class="token string">'Ignore SSL certificates'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        repository<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>   defaults<span class="token punctuation">.</span>repository<span class="token punctuation">,</span>
+            describe<span class="token operator">:</span> <span class="token string">'Maven repository url where we should look for the Serenity BDD CLI artifact'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        auth<span class="token operator">:</span> <span class="token punctuation">{</span>
+            describe<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Credentials to authenticate with your repository - "&lt;username&gt;:&lt;password&gt;"</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        artifact<span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>   defaults<span class="token punctuation">.</span>artifact<span class="token punctuation">,</span>
+            describe<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">The GAV identifier of the Serenity BDD CLI artifact to use; You're best off with the default option unless you want to experiment.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    handler<span class="token operator">:</span> <span class="token punctuation">(</span>argv<span class="token operator">:</span> Argv<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span>
-            printer         = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Printer</span>(process.<span class="hljs-property">stdout</span>, process.<span class="hljs-property">stderr</span>),
-            artifactGAV     = <span class="hljs-variable constant_">GAV</span>.<span class="hljs-title function_">fromString</span>(argv.<span class="hljs-property">artifact</span>),
-            pathToArtifact  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(argv.<span class="hljs-property">cacheDir</span>).<span class="hljs-title function_">join</span>(artifactGAV.<span class="hljs-title function_">toPath</span>()),
-            repository      = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(argv.<span class="hljs-property">repository</span>);
+        <span class="token keyword">const</span>
+            printer         <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Printer</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>stdout<span class="token punctuation">,</span> process<span class="token punctuation">.</span>stderr<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            artifactGAV     <span class="token operator">=</span> <span class="token constant">GAV</span><span class="token punctuation">.</span><span class="token function">fromString</span><span class="token punctuation">(</span>argv<span class="token punctuation">.</span>artifact<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            pathToArtifact  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span>argv<span class="token punctuation">.</span>cacheDir<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>artifactGAV<span class="token punctuation">.</span><span class="token function">toPath</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            repository      <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token constant">URL</span></span><span class="token punctuation">(</span>argv<span class="token punctuation">.</span>repository<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">configure</span>({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">UpdateCommandActors</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(process.<span class="hljs-title function_">cwd</span>()),
-                <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">axiosClient</span>(repository, !! argv.<span class="hljs-property">ignoreSSL</span>, process.<span class="hljs-property">env</span>, <span class="hljs-title class_">Credentials</span>.<span class="hljs-title function_">fromString</span>(argv.<span class="hljs-property">auth</span>))
-            ),
-            <span class="hljs-attr">crew</span>: [
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">NotificationReporter</span>(printer),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProgressReporter</span>(printer),
-            ],
-        });
+        <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            actors<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">UpdateCommandActors</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span><span class="token function">cwd</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">axiosClient</span><span class="token punctuation">(</span>repository<span class="token punctuation">,</span> <span class="token operator">!</span><span class="token operator">!</span> argv<span class="token punctuation">.</span>ignoreSSL<span class="token punctuation">,</span> process<span class="token punctuation">.</span>env<span class="token punctuation">,</span> Credentials<span class="token punctuation">.</span><span class="token function">fromString</span><span class="token punctuation">(</span>argv<span class="token punctuation">.</span>auth<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+                <span class="token keyword">new</span> <span class="token class-name">NotificationReporter</span><span class="token punctuation">(</span>printer<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">ProgressReporter</span><span class="token punctuation">(</span>printer<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>()
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span>
-                <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Serenity/JS Updater'</span>).<span class="hljs-title function_">attemptsTo</span>(
-                    <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-title class_">FileExists</span>.<span class="hljs-title function_">at</span>(pathToArtifact), <span class="hljs-title function_">isTrue</span>())
-                        .<span class="hljs-title function_">andIfSo</span>(
-                            <span class="hljs-title class_">Notify</span>.<span class="hljs-title function_">that</span>(<span class="hljs-string">`Looks like you're good to go! Serenity BDD CLI is already at <span class="hljs-subst">${ pathToArtifact.value }</span>`</span>),
-                        )
-                        .<span class="hljs-title function_">otherwise</span>(
-                            <span class="hljs-title class_">DownloadArtifact</span>
-                                .<span class="hljs-title function_">identifiedBy</span>(artifactGAV)
-                                .<span class="hljs-title function_">availableFrom</span>(repository)
-                                .<span class="hljs-title function_">to</span>(pathToArtifact.<span class="hljs-title function_">directory</span>())
-                        ),
-                )
-            )
-            .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                printer.<span class="hljs-title function_">error</span>(<span class="hljs-title function_">formatError</span>(error));
-                yargs.<span class="hljs-title function_">exit</span>(<span class="hljs-number">1</span>, error.<span class="hljs-property">message</span>);
-            });
-    },
-};
+        <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Serenity/JS Updater'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                    Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span>FileExists<span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span>pathToArtifact<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">isTrue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span>
+                            Notify<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Looks like you're good to go! Serenity BDD CLI is already at </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> pathToArtifact<span class="token punctuation">.</span>value <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token punctuation">)</span>
+                        <span class="token punctuation">.</span><span class="token function">otherwise</span><span class="token punctuation">(</span>
+                            DownloadArtifact
+                                <span class="token punctuation">.</span><span class="token function">identifiedBy</span><span class="token punctuation">(</span>artifactGAV<span class="token punctuation">)</span>
+                                <span class="token punctuation">.</span><span class="token function">availableFrom</span><span class="token punctuation">(</span>repository<span class="token punctuation">)</span>
+                                <span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>pathToArtifact<span class="token punctuation">.</span><span class="token function">directory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                        <span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span>
+            <span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span>error <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                printer<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token function">formatError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                yargs<span class="token punctuation">.</span><span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> error<span class="token punctuation">.</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

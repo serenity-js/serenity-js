@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -127,68 +124,68 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/mappers/MochaOutcomeMapper.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AssertionError</span>, <span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-title class_">TestCompromisedError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">ExecutionCompromised</span>,
-    <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>,
-    <span class="hljs-title class_">ExecutionFailedWithError</span>,
-    <span class="hljs-title class_">ExecutionIgnored</span>,
-    <span class="hljs-title class_">ExecutionSkipped</span>,
-    <span class="hljs-title class_">ExecutionSuccessful</span>,
-    <span class="hljs-title class_">ImplementationPending</span>,
-    <span class="hljs-title class_">Outcome</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Test</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> AssertionError<span class="token punctuation">,</span> ImplementationPendingError<span class="token punctuation">,</span> TestCompromisedError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    ExecutionCompromised<span class="token punctuation">,</span>
+    ExecutionFailedWithAssertionError<span class="token punctuation">,</span>
+    ExecutionFailedWithError<span class="token punctuation">,</span>
+    ExecutionIgnored<span class="token punctuation">,</span>
+    ExecutionSkipped<span class="token punctuation">,</span>
+    ExecutionSuccessful<span class="token punctuation">,</span>
+    ImplementationPending<span class="token punctuation">,</span>
+    Outcome<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Test <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MochaOutcomeMapper</span> {
-    <span class="hljs-keyword">public</span> <span class="hljs-title function_">outcomeOf</span>(<span class="hljs-attr">test</span>: <span class="hljs-title class_">Test</span>, maybeError?: <span class="hljs-title class_">Error</span>): <span class="hljs-title class_">Outcome</span> {
-        <span class="hljs-keyword">const</span> error = maybeError || test.<span class="hljs-property">err</span>;
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MochaOutcomeMapper</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">outcomeOf</span><span class="token punctuation">(</span>test<span class="token operator">:</span> Test<span class="token punctuation">,</span> maybeError<span class="token operator">?</span><span class="token operator">:</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> Outcome <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> error <span class="token operator">=</span> maybeError <span class="token operator">||</span> test<span class="token punctuation">.</span>err<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isGoingToBeRetried</span>(test):
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionIgnored</span>(error);
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> error <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isGoingToBeRetried</span><span class="token punctuation">(</span>test<span class="token punctuation">)</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionIgnored</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">case</span> !! error &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">isAssertionError</span>(error):
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithAssertionError</span>(error <span class="hljs-keyword">as</span> <span class="hljs-title class_">AssertionError</span>);
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> error <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">isAssertionError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionFailedWithAssertionError</span><span class="token punctuation">(</span>error <span class="token keyword">as</span> AssertionError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">case</span> !! error &amp;&amp; error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TestCompromisedError</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionCompromised</span>(error <span class="hljs-keyword">as</span> <span class="hljs-title class_">TestCompromisedError</span>);
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> error <span class="token operator">&amp;&amp;</span> error <span class="token keyword">instanceof</span> <span class="token class-name">TestCompromisedError</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionCompromised</span><span class="token punctuation">(</span>error <span class="token keyword">as</span> TestCompromisedError<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">case</span> !! <span class="hljs-attr">error</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionFailedWithError</span>(error);
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> error<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionFailedWithError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">case</span> test.<span class="hljs-title function_">isPending</span>() &amp;&amp; !! test.<span class="hljs-property">fn</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSkipped</span>();
+            <span class="token keyword">case</span> test<span class="token punctuation">.</span><span class="token function">isPending</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token operator">!</span> test<span class="token punctuation">.</span>fn<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSkipped</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">case</span> test.<span class="hljs-title function_">isPending</span>() &amp;&amp; ! test.<span class="hljs-property">fn</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPending</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ImplementationPendingError</span>(<span class="hljs-string">`Scenario not implemented`</span>));
+            <span class="token keyword">case</span> test<span class="token punctuation">.</span><span class="token function">isPending</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span> test<span class="token punctuation">.</span>fn<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ImplementationPending</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ImplementationPendingError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Scenario not implemented</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-attr">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>();
-        }
-    }
+            <span class="token keyword">default</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isGoingToBeRetried</span>(<span class="hljs-params">test: Test</span>) {
-        <span class="hljs-keyword">return</span> ! test.<span class="hljs-title function_">isPassed</span>()
-            &amp;&amp; ! test.<span class="hljs-title function_">isFailed</span>()
-            &amp;&amp; ! test.<span class="hljs-title function_">isPending</span>()
-            &amp;&amp; (test <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-title function_">currentRetry</span>() &lt; test.<span class="hljs-title function_">retries</span>();
-    }
+    <span class="token keyword">private</span> <span class="token function">isGoingToBeRetried</span><span class="token punctuation">(</span>test<span class="token operator">:</span> Test<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">!</span> test<span class="token punctuation">.</span><span class="token function">isPassed</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span> test<span class="token punctuation">.</span><span class="token function">isFailed</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span> test<span class="token punctuation">.</span><span class="token function">isPending</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>test <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">currentRetry</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> test<span class="token punctuation">.</span><span class="token function">retries</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">isAssertionError</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>): error is <span class="hljs-title class_">AssertionError</span> {
-        <span class="hljs-keyword">return</span> error <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">AssertionError</span>
-            || <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">looksLikeAnAssertionError</span>(error);
-    }
+    <span class="token keyword">private</span> <span class="token function">isAssertionError</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> error <span class="token keyword">is</span> AssertionError <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> error <span class="token keyword">instanceof</span> <span class="token class-name">AssertionError</span>
+            <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">looksLikeAnAssertionError</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">looksLikeAnAssertionError</span>(<span class="hljs-attr">error</span>: <span class="hljs-title class_">Error</span>): error is <span class="hljs-title class_">AssertionError</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^AssertionError/</span>.<span class="hljs-title function_">test</span>(error.<span class="hljs-property">name</span>)   <span class="hljs-comment">// eslint-disable-line unicorn/prefer-string-starts-ends-with</span>
-            &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(error, <span class="hljs-string">'expected'</span>)
-            &amp;&amp; <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(error, <span class="hljs-string">'actual'</span>)
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">looksLikeAnAssertionError</span><span class="token punctuation">(</span>error<span class="token operator">:</span> Error<span class="token punctuation">)</span><span class="token operator">:</span> error <span class="token keyword">is</span> AssertionError <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^AssertionError</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>name<span class="token punctuation">)</span>   <span class="token comment">// eslint-disable-line unicorn/prefer-string-starts-ends-with</span>
+            <span class="token operator">&amp;&amp;</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token string">'expected'</span><span class="token punctuation">)</span>
+            <span class="token operator">&amp;&amp;</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> <span class="token string">'actual'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

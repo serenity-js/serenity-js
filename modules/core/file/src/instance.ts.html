@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,57 +291,57 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/instance.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./screenplay/actor'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Serenity'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SerenityConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./SerenityConfig'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">Clock</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./screenplay/actor'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Serenity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Serenity'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./SerenityConfig'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Cast<span class="token punctuation">,</span> Clock <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./stage'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> clock = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>();
+<span class="token keyword">const</span> clock <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> serenity = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>(clock);
+<span class="token keyword">export</span> <span class="token keyword">const</span> serenity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Serenity</span><span class="token punctuation">(</span>clock<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Configures Serenity/JS. Every call to this function
  *  replaces the previous configuration provided,
  *  so this function should called be exactly once
  *  in your test suite.
  *
- *  This function is an alias for {<span class="hljs-doctag">@link</span> Serenity#configure}.
+ *  This function is an alias for {@link Serenity#configure}.
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">SerenityConfig</span>} <span class="hljs-variable">config</span>
- * <span class="hljs-doctag">@return</span> {<span class="hljs-type">void</span>}
+ * @param {SerenityConfig} config
+ * @return {void}
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Serenity#configure</span>}
+ * @see {@link Serenity#configure}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">configure</span>(<span class="hljs-params">config: SerenityConfig</span>): <span class="hljs-built_in">void</span> {
-    serenity.<span class="hljs-title function_">configure</span>(config);
-}
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token operator">:</span> SerenityConfig<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    serenity<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Re-configures Serenity/JS with a new {<span class="hljs-doctag">@link</span> Cast} of {<span class="hljs-doctag">@link</span> Actor}s
- *  you'd like to use in any subsequent call to {<span class="hljs-doctag">@link</span> actorCalled}.
+<span class="token comment">/**
+ * @desc
+ *  Re-configures Serenity/JS with a new {@link Cast} of {@link Actor}s
+ *  you'd like to use in any subsequent call to {@link actorCalled}.
  *
- *  This function is an alias for {<span class="hljs-doctag">@link</span> Serenity#engage},
- *  which provides an alternative to calling {<span class="hljs-doctag">@link</span> Actor#whoCan}
+ *  This function is an alias for {@link Serenity#engage},
+ *  which provides an alternative to calling {@link Actor#whoCan}
  *  directly in your tests and is typically invoked in a "before all"
  *  or "before each" hook of your test runner of choice.
  *
- *  If your implementation of the {<span class="hljs-doctag">@link</span> Cast} interface is stateless,
+ *  If your implementation of the {@link Cast} interface is stateless,
  *  you can invoke this function once before your entire test suite is executed, see
  *  - [`beforeAll`](https://jasmine.github.io/api/3.6/global.html#beforeAll) in Jasmine,
  *  - [`before`](https://mochajs.org/#hooks) in Mocha,
  *  - [`BeforeAll`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#beforeall--afterall) in Cucumber.js
  *
- *  However, if your {<span class="hljs-doctag">@link</span> Cast} holds state that you want reset before each scenario,
+ *  However, if your {@link Cast} holds state that you want reset before each scenario,
  *  it's better to invoke `engage` before each test using:
  *  - [`beforeEach`](https://jasmine.github.io/api/3.6/global.html#beforeEach) in Jasmine
  *  - [`beforeEach`](https://mochajs.org/#hooks) in Mocha,
  *  - [`Before`](https://github.com/cucumber/cucumber-js/blob/master/docs/support_files/hooks.md#hooks) in Cucumber.js
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
- *  import { Actor, Cast } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * @example &lt;caption&gt;Engaging a cast of actors&lt;/caption&gt;
+ *  import { Actor, Cast } from '@serenity-js/core';
  *
  *  class Actors implements Cast {
  *      prepare(actor: Actor) {
@@ -356,38 +353,38 @@
  *
  * engage(new Actors();
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+ * @example &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
  *  import 'jasmine';
  *
  *  beforeEach(() =&gt; engage(new Actors()));
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+ * @example &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
  *  import { Before } from 'cucumber';
  *
  *  Before(() =&gt; engage(new Actors());
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Cast</span>} <span class="hljs-variable">actors</span>
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
+ * @param {Cast} actors
+ * @returns {void}
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
+ * @see {@link Actor}
+ * @see {@link Cast}
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Serenity#engage</span>}
+ * @see {@link Serenity#engage}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">engage</span>(<span class="hljs-params">actors: Cast</span>): <span class="hljs-built_in">void</span> {
-    serenity.<span class="hljs-title function_">engage</span>(actors);
-}
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">engage</span><span class="token punctuation">(</span>actors<span class="token operator">:</span> Cast<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    serenity<span class="token punctuation">.</span><span class="token function">engage</span><span class="token punctuation">(</span>actors<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Instantiates or retrieves an actor {<span class="hljs-doctag">@link</span> Actor}
+<span class="token comment">/**
+ * @desc
+ *  Instantiates or retrieves an actor {@link Actor}
  *  called `name` if one has already been instantiated.
  *
- *  This method is an alias for {<span class="hljs-doctag">@link</span> Serenity#theActorCalled}.
+ *  This method is an alias for {@link Serenity#theActorCalled}.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+ * @example &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
  *   import 'jasmine';
- *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ *   import { actorCalled } from '@serenity-js/core';
  *
  *   describe('Feature', () =&gt; {
  *
@@ -397,8 +394,8 @@
  *          ));
  *   });
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
- *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * @example &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+ *   import { actorCalled } from '@serenity-js/core';
  *   import { Given } from 'cucumber';
  *
  *   Given(/(.*?) is a registered user/, (name: string) =&gt;
@@ -406,31 +403,31 @@
  *              // ... activities
  *          ));
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span>
+ * @param {string} name
  *  The name of the actor to instantiate or retrieve
  *
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Actor</span>}
+ * @returns {Actor}
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link engage</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Serenity#theActorCalled</span>}
+ * @see {@link engage}
+ * @see {@link Actor}
+ * @see {@link Cast}
+ * @see {@link Serenity#theActorCalled}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>): <span class="hljs-title class_">Actor</span> {
-    <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">theActorCalled</span>(name);
-}
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> serenity<span class="token punctuation">.</span><span class="token function">theActorCalled</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Retrieves an actor who was last instantiated or retrieved
- *  using {<span class="hljs-doctag">@link</span> actorCalled}.
+ *  using {@link actorCalled}.
  *
  *  This function is particularly useful when automating Cucumber scenarios.
  *
- *  This function is an alias for {<span class="hljs-doctag">@link</span> Serenity#theActorInTheSpotlight}.
+ *  This function is an alias for {@link Serenity#theActorInTheSpotlight}.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
- *   import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * @example &lt;caption&gt;Usage with Cucumber&lt;/caption&gt;
+ *   import { actorCalled } from '@serenity-js/core';
  *   import { Given, When } from 'cucumber';
  *
  *   Given(/(.*?) is a registered user/, (name: string) =&gt;
@@ -443,16 +440,16 @@
  *              // ... activities
  *          ));
  *
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Actor</span>}
+ * @returns {Actor}
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link engage</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link actorCalled</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Actor</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
+ * @see {@link engage}
+ * @see {@link actorCalled}
+ * @see {@link Actor}
+ * @see {@link Cast}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">actorInTheSpotlight</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Actor</span> {
-    <span class="hljs-keyword">return</span> serenity.<span class="hljs-title function_">theActorInTheSpotlight</span>();
-}
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">actorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> serenity<span class="token punctuation">.</span><span class="token function">theActorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

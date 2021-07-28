@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -153,7 +150,7 @@ for the <a href="http://todomvc.com/examples/angularjs/#/">TodoMVC app</a> -&nbs
 that allows its users to manage a to-do list.</p>
 <p>To make things a bit more interesting, let's say that the <a href="https://en.wikipedia.org/wiki/User_story">user story</a>
 we want to write an acceptance test for looks as follows:</p>
-<pre><code class="lang-plaintext hljs plaintext">In order to focus on my outstanding tasks
+<pre class="language-plaintext"><code class="lang-plaintext">In order to focus on my outstanding tasks
 As a forgetful person
 I want to be able to filter my todos to see active items only
 </code></pre>
@@ -172,50 +169,50 @@ I want to be able to filter my todos to see active items only
 and exhibit few or no business-focused abstractions.</p>
 <p>Below is an example test following the scripting approach, implemented using raw <a href="https://www.protractortest.org/#">Protractor</a> and <a href="https://jasmine.github.io/">Jasmine</a>.
 Please note, however, that this style is by no means specific to those particular tools as you'll see it often being used with other similar libraries and frameworks:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-title function_">describe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the user to show active items only'</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-        <span class="hljs-comment">// low-level navigation and synchronisation code</span>
-        <span class="hljs-keyword">await</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);
-        <span class="hljs-keyword">await</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">wait</span>(
-                protractor.<span class="hljs-property">ExpectedConditions</span>.<span class="hljs-title function_">presenceOf</span>(<span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>))),
-                <span class="hljs-number">2000</span>,
-            );
-        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getTitle</span>()).<span class="hljs-title function_">toMatch</span>(<span class="hljs-regexp">/.*TodoMVC$/</span>);
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the user to show active items only'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// low-level navigation and synchronisation code</span>
+        <span class="token keyword">await</span> protractor<span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://todomvc.com/examples/angularjs/#/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> protractor<span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span>
+                protractor<span class="token punctuation">.</span>ExpectedConditions<span class="token punctuation">.</span><span class="token function">presenceOf</span><span class="token punctuation">(</span><span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token number">2000</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token keyword">await</span> protractor<span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toMatch</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">.*TodoMVC$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// duplicated code</span>
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>)).<span class="hljs-title function_">sendKeys</span>(<span class="hljs-string">'Play some guitar'</span>);
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>)).<span class="hljs-title function_">sendKeys</span>(protractor.<span class="hljs-property">Key</span>.<span class="hljs-property">ENTER</span>);
+        <span class="token comment">// duplicated code</span>
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span><span class="token string">'Play some guitar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>Key<span class="token punctuation">.</span><span class="token constant">ENTER</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>)).<span class="hljs-title function_">sendKeys</span>(<span class="hljs-string">'Read a book'</span>);
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>)).<span class="hljs-title function_">sendKeys</span>(protractor.<span class="hljs-property">Key</span>.<span class="hljs-property">ENTER</span>);
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span><span class="token string">'Read a book'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>Key<span class="token punctuation">.</span><span class="token constant">ENTER</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>)).<span class="hljs-title function_">sendKeys</span>(<span class="hljs-string">'Write some code'</span>);
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>)).<span class="hljs-title function_">sendKeys</span>(protractor.<span class="hljs-property">Key</span>.<span class="hljs-property">ENTER</span>);
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span><span class="token string">'Write some code'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>Key<span class="token punctuation">.</span><span class="token constant">ENTER</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// complex XPath locators</span>
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">xpath</span>(
-                <span class="hljs-string">`//li[*[@class='view' and contains(.,'Write some code')]]//input[contains(@class,'toggle')]`</span>)
-            ).<span class="hljs-title function_">click</span>();
+        <span class="token comment">// complex XPath locators</span>
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">xpath</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">//li[*[@class='view' and contains(.,'Write some code')]]//input[contains(@class,'toggle')]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">linkText</span>(<span class="hljs-string">`Active`</span>))
-            .<span class="hljs-title function_">click</span>();
+        <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">linkText</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Active</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// a mix of async/await style and Promises</span>
-        <span class="hljs-keyword">await</span> element.<span class="hljs-title function_">all</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.todo-list li'</span>)).<span class="hljs-title function_">getText</span>()
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(items).<span class="hljs-title function_">toEqual</span>([
-                    <span class="hljs-string">'Play some guitar'</span>,
-                    <span class="hljs-string">'Read a book'</span>,
-                ]);
-            });
-    });
+        <span class="token comment">// a mix of async/await style and Promises</span>
+        <span class="token keyword">await</span> element<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.todo-list li'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">items</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>items<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                    <span class="token string">'Play some guitar'</span><span class="token punctuation">,</span>
+                    <span class="token string">'Read a book'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">afterEach</span>(<span class="hljs-keyword">async</span> () =&gt; {
-        <span class="hljs-comment">// clean up code required to avoid state leakage</span>
-        <span class="hljs-keyword">await</span> browser.<span class="hljs-title function_">executeScript</span>(<span class="hljs-string">`window.localStorage.clear()`</span>);
-    });
-});
+    <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// clean up code required to avoid state leakage</span>
+        <span class="token keyword">await</span> browser<span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">window.localStorage.clear()</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The code above "gets the job done" and automates the scenario we talked about.</p>
 <p>However, this implementation is far from ideal for a  number of reasons, some of which I've highlighted in the comments in the code sample above:</p>
@@ -244,95 +241,95 @@ This simple pattern focuses on the user interface and models it in terms of page
 <p>What you'll see in the code sample below is a by-the-book implementation of the Page Objects pattern.
 For simplicity, I've implemented the page object representing the <code>TodoList</code> in the same file as the test using it, as well as the test-specific <a href="https://jasmine.github.io/api/3.5/global.html#afterEach">teardown method</a>
 that prevents the application state from leaking between the tests. I've also annotated the code to highlight the features and limitations of this implementation:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-title function_">describe</span>(<span class="hljs-string">'Todo List App'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Todo List App'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">// The page object representing the Todo list:</span>
-    <span class="hljs-keyword">class</span> <span class="hljs-title class_">TodoList</span> {
+    <span class="token comment">// The page object representing the Todo list:</span>
+    <span class="token keyword">class</span> <span class="token class-name">TodoList</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
-            <span class="hljs-comment">// Interactive elements represented as "private" fields of the page object</span>
-            <span class="hljs-comment">// to encourage the developers to use the "public" methods instead</span>
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">_whatNeedsToBeDoneInputBox</span> = <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>));
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">_recordedItems</span>             = element.<span class="hljs-title function_">all</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.todo-list li'</span>));
-        }
+        <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Interactive elements represented as "private" fields of the page object</span>
+            <span class="token comment">// to encourage the developers to use the "public" methods instead</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_whatNeedsToBeDoneInputBox <span class="token operator">=</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_recordedItems             <span class="token operator">=</span> element<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.todo-list li'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-comment">// The methods of the page object represent the tasks that the user</span>
-        <span class="hljs-comment">// can perform on a given page or using a given UI widget, such as:</span>
-        <span class="hljs-comment">// - recordItemCalled(itemName)</span>
-        <span class="hljs-comment">// - completeItemCalled(itemName)</span>
-        <span class="hljs-comment">// - filterToShowActiveItemsOnly(), etc.</span>
+        <span class="token comment">// The methods of the page object represent the tasks that the user</span>
+        <span class="token comment">// can perform on a given page or using a given UI widget, such as:</span>
+        <span class="token comment">// - recordItemCalled(itemName)</span>
+        <span class="token comment">// - completeItemCalled(itemName)</span>
+        <span class="token comment">// - filterToShowActiveItemsOnly(), etc.</span>
 
-        <span class="hljs-comment">// Each "task method" encapsulates the low-level interactions</span>
-        <span class="hljs-comment">// like entering a value into a form field or clicking on a button:</span>
-        <span class="hljs-keyword">async</span> <span class="hljs-title function_">recordItemCalled</span>(<span class="hljs-params">itemName</span>) {
-            <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_whatNeedsToBeDoneInputBox</span>.<span class="hljs-title function_">sendKeys</span>(itemName);
-            <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_whatNeedsToBeDoneInputBox</span>.<span class="hljs-title function_">sendKeys</span>(protractor.<span class="hljs-property">Key</span>.<span class="hljs-property">ENTER</span>);
-        }
+        <span class="token comment">// Each "task method" encapsulates the low-level interactions</span>
+        <span class="token comment">// like entering a value into a form field or clicking on a button:</span>
+        <span class="token keyword">async</span> <span class="token function">recordItemCalled</span><span class="token punctuation">(</span><span class="token parameter">itemName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_whatNeedsToBeDoneInputBox<span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>itemName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_whatNeedsToBeDoneInputBox<span class="token punctuation">.</span><span class="token function">sendKeys</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>Key<span class="token punctuation">.</span><span class="token constant">ENTER</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">async</span> <span class="hljs-title function_">completeItemCalled</span>(<span class="hljs-params">itemName</span>) {
-            <span class="hljs-comment">// The dynamically-generated XPath locator is now encapsulated</span>
-            <span class="hljs-comment">// within the page object. But, even though it's swept under the carpet,</span>
-            <span class="hljs-comment">// it's still just as complex as it was before:</span>
+        <span class="token keyword">async</span> <span class="token function">completeItemCalled</span><span class="token punctuation">(</span><span class="token parameter">itemName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// The dynamically-generated XPath locator is now encapsulated</span>
+            <span class="token comment">// within the page object. But, even though it's swept under the carpet,</span>
+            <span class="token comment">// it's still just as complex as it was before:</span>
 
-            <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">xpath</span>(
-                <span class="hljs-string">`//li[*[@class='view' and contains(.,'<span class="hljs-subst">${ itemName }</span>')]]//input[contains(@class,'toggle')]`</span>)
-            ).<span class="hljs-title function_">click</span>();
-        }
+            <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">xpath</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">//li[*[@class='view' and contains(.,'</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> itemName <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">')]]//input[contains(@class,'toggle')]</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">async</span> <span class="hljs-title function_">filterToShowActiveItemsOnly</span>(<span class="hljs-params"></span>) {
-            <span class="hljs-keyword">await</span> <span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">linkText</span>(<span class="hljs-string">`Active`</span>))
-                .<span class="hljs-title function_">click</span>();
-        },
+        <span class="token keyword">async</span> <span class="token function">filterToShowActiveItemsOnly</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">await</span> <span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">linkText</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Active</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">click</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-        <span class="hljs-comment">// A data retrieval method designed to make it easier to perform</span>
-        <span class="hljs-comment">// an assertion in the test</span>
-        <span class="hljs-keyword">async</span> <span class="hljs-title function_">textOfRecordedItems</span>(<span class="hljs-params"></span>) {
-            <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_recordedItems</span>.<span class="hljs-title function_">getText</span>();
-        },
-    };
+        <span class="token comment">// A data retrieval method designed to make it easier to perform</span>
+        <span class="token comment">// an assertion in the test</span>
+        <span class="token keyword">async</span> <span class="token function">textOfRecordedItems</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_recordedItems<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">// The test where the TodoList page object is used:</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows for the list to show active items only'</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="token comment">// The test where the TodoList page object is used:</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows for the list to show active items only'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">// Operations that are not part of the page object's responsibilities</span>
-        <span class="hljs-comment">// are still present in the test:</span>
-        <span class="hljs-keyword">await</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">get</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);
-        <span class="hljs-keyword">await</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">wait</span>(
-                protractor.<span class="hljs-property">ExpectedConditions</span>.<span class="hljs-title function_">presenceOf</span>(<span class="hljs-title function_">element</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'.new-todo'</span>))),
-                <span class="hljs-number">2000</span>,
-            );
-        <span class="hljs-title function_">expect</span>(<span class="hljs-keyword">await</span> protractor.<span class="hljs-property">browser</span>.<span class="hljs-title function_">getTitle</span>()).<span class="hljs-title function_">toMatch</span>(<span class="hljs-regexp">/.*TodoMVC$/</span>);
+        <span class="token comment">// Operations that are not part of the page object's responsibilities</span>
+        <span class="token comment">// are still present in the test:</span>
+        <span class="token keyword">await</span> protractor<span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://todomvc.com/examples/angularjs/#/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> protractor<span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">wait</span><span class="token punctuation">(</span>
+                protractor<span class="token punctuation">.</span>ExpectedConditions<span class="token punctuation">.</span><span class="token function">presenceOf</span><span class="token punctuation">(</span><span class="token function">element</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'.new-todo'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token number">2000</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token keyword">await</span> protractor<span class="token punctuation">.</span>browser<span class="token punctuation">.</span><span class="token function">getTitle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toMatch</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">.*TodoMVC$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// Page objects have to be explicitly instantiated in the test</span>
-        <span class="hljs-keyword">const</span> todoList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TodoList</span>();
+        <span class="token comment">// Page objects have to be explicitly instantiated in the test</span>
+        <span class="token keyword">const</span> todoList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TodoList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// Repeated calls to `recordItemCalled`</span>
-        <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">recordItemCalled</span>(<span class="hljs-string">'Play some guitar'</span>);
-        <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">recordItemCalled</span>(<span class="hljs-string">'Read a book'</span>);
-        <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">recordItemCalled</span>(<span class="hljs-string">'Write some code'</span>);
+        <span class="token comment">// Repeated calls to `recordItemCalled`</span>
+        <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">recordItemCalled</span><span class="token punctuation">(</span><span class="token string">'Play some guitar'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">recordItemCalled</span><span class="token punctuation">(</span><span class="token string">'Read a book'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">recordItemCalled</span><span class="token punctuation">(</span><span class="token string">'Write some code'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">completeItemCalled</span>(<span class="hljs-string">'Write some code'</span>);
+        <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">completeItemCalled</span><span class="token punctuation">(</span><span class="token string">'Write some code'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">filterToShowActiveItemsOnly</span>();
+        <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">filterToShowActiveItemsOnly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// Every now and then we might have to break the await/async style</span>
-        <span class="hljs-comment">// and go back to chaining Promises using `.then`:</span>
-        <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">textOfRecordedItems</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> {
-            <span class="hljs-title function_">expect</span>(items).<span class="hljs-title function_">toEqual</span>([
-                <span class="hljs-string">'Play some guitar'</span>,
-                <span class="hljs-string">'Read a book'</span>,
-            ]);
-        });
-    });
+        <span class="token comment">// Every now and then we might have to break the await/async style</span>
+        <span class="token comment">// and go back to chaining Promises using `.then`:</span>
+        <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">textOfRecordedItems</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">items</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>items<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                <span class="token string">'Play some guitar'</span><span class="token punctuation">,</span>
+                <span class="token string">'Read a book'</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">// Teardown method responsible for clearing any application state</span>
-    <span class="hljs-title function_">afterEach</span>(<span class="hljs-keyword">async</span> () =&gt; {
-        <span class="hljs-comment">// Since the cleanup method doesn't belong to the page object</span>
-        <span class="hljs-comment">// representing the TodoList, it's left in the test:</span>
+    <span class="token comment">// Teardown method responsible for clearing any application state</span>
+    <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Since the cleanup method doesn't belong to the page object</span>
+        <span class="token comment">// representing the TodoList, it's left in the test:</span>
 
-        <span class="hljs-keyword">await</span> browser.<span class="hljs-title function_">executeScript</span>(<span class="hljs-string">`window.localStorage.clear()`</span>);
-    });
-});
+        <span class="token keyword">await</span> browser<span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">window.localStorage.clear()</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>As you can see above, the clarity of our test has already improved:</p>
 <ul>
@@ -381,53 +378,53 @@ Just as we shape our tools, they shape us too - instead of placing the primary f
 <p>What such a move would definitely help us with is to introduce a layer of domain-specific language we could use to capture the vernacular of the business stakeholders.
 Additionally, expressing acceptance test scenarios in a human-readable language, such as English, makes it easier for non-technical stakeholders to work with and review.</p>
 <p>At the business level, our test scenario could be expressed as follows:</p>
-<pre><code class="lang-gherkin hljs gherkin"><span class="hljs-keyword">Scenario</span>: Filter the list to show active items
+<pre class="language-gherkin"><code class="lang-gherkin"><span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"> Filter the list to show active items</span></span>
 
-  <span class="hljs-keyword">Given</span> James has a list containing: Play some guitar, Read a book, Write some code
-   <span class="hljs-keyword">When</span> he completes the item called Write some code
-    <span class="hljs-keyword">And</span> he filters the list to show only active items
-   <span class="hljs-keyword">Then</span> he should see: Play some guitar, Read a book
+  <span class="token atrule">Given</span> James has a list containing: Play some guitar, Read a book, Write some code
+   <span class="token atrule">When</span> he completes the item called Write some code
+    <span class="token atrule">And</span> he filters the list to show only active items
+   <span class="token atrule">Then</span> he should see: Play some guitar, Read a book
 </code></pre>
 <p>This looks better, doesn't it?</p>
 <p>Let's look at the implementation of the <a href="https://cucumber.io/docs/gherkin/step-organization/">step library</a> that powers this test, though:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-keyword">const</span> { <span class="hljs-title class_">Given</span>, <span class="hljs-title class_">Then</span>, <span class="hljs-title class_">When</span>, <span class="hljs-title class_">Before</span>, <span class="hljs-title class_">After</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>);
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span> Given<span class="token punctuation">,</span> Then<span class="token punctuation">,</span> When<span class="token punctuation">,</span> Before<span class="token punctuation">,</span> After <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">Before</span>(<span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">await</span> browser.<span class="hljs-title function_">get</span>(<span class="hljs-string">'http://todomvc.com/examples/angularjs/#/'</span>);
-});
+<span class="token function">Before</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> browser<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'http://todomvc.com/examples/angularjs/#/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">Given</span>(<span class="hljs-regexp">/(.*) has a list containing: (.*)/</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">actorName, commaSeparatedItems</span>) {
-    <span class="hljs-keyword">const</span> todoList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">TodoList</span>();
+<span class="token function">Given</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(.*) has a list containing: (.*)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">actorName<span class="token punctuation">,</span> commaSeparatedItems</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> todoList <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TodoList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">itemsFrom</span>(commaSeparatedItems)
-        .<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">itemName</span> =&gt;</span> {
-            <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">recordItemCalled</span>(itemName);
-        });
-});
+    <span class="token function">itemsFrom</span><span class="token punctuation">(</span>commaSeparatedItems<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">itemName</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">recordItemCalled</span><span class="token punctuation">(</span>itemName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">When</span>(<span class="hljs-regexp">/he completes the item called (.*)/</span>, <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">itemName</span>) {
-    <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">completeItemCalled</span>(itemName);
-});
+<span class="token function">When</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">he completes the item called (.*)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">itemName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">completeItemCalled</span><span class="token punctuation">(</span>itemName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">When</span>(<span class="hljs-regexp">/he filters the list to show only active items/</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">itemName</span>) {
-    <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">filterToShowActiveItemsOnly</span>();
-});
+<span class="token function">When</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">he filters the list to show only active items</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">itemName</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">filterToShowActiveItemsOnly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">Then</span>(<span class="hljs-regexp">/he should see: (.*)/</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">commaSeparatedItems</span>) {
-    <span class="hljs-keyword">await</span> todoList.<span class="hljs-title function_">textOfRecordedItems</span>().<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(items).<span class="hljs-title function_">toEqual</span>(<span class="hljs-title function_">itemsFrom</span>(commaSeparatedItems));
-            });
-});
+<span class="token function">Then</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">he should see: (.*)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">commaSeparatedItems</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> todoList<span class="token punctuation">.</span><span class="token function">textOfRecordedItems</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">items</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>items<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toEqual</span><span class="token punctuation">(</span><span class="token function">itemsFrom</span><span class="token punctuation">(</span>commaSeparatedItems<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">After</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">await</span> browser.<span class="hljs-title function_">executeScript</span>(<span class="hljs-string">`window.localStorage.clear()`</span>);
-});
+<span class="token function">After</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">await</span> browser<span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">window.localStorage.clear()</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">itemsFrom</span>(<span class="hljs-params">commaSeparatedItems</span>) {
-    <span class="hljs-keyword">return</span> commaSeparatedItems
-               .<span class="hljs-title function_">split</span>(<span class="hljs-string">','</span>)
-               .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">itemName</span> =&gt;</span> itemName.<span class="hljs-title function_">trim</span>());
-}
+<span class="token keyword">function</span> <span class="token function">itemsFrom</span><span class="token punctuation">(</span><span class="token parameter">commaSeparatedItems</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> commaSeparatedItems
+               <span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span>
+               <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">itemName</span> <span class="token operator">=&gt;</span> itemName<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Even with a gold standard Cucumber scenario like the one above, the Cucumber step definitions suffer from the same issues
 our previous Protractor/Jasmine scenario has experienced:</p>

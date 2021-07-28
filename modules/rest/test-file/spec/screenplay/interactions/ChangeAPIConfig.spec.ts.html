@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,143 +135,143 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/ChangeAPIConfig.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/filename-case */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LogicError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> LogicError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ChangeApiConfig</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ChangeApiConfig<span class="token punctuation">,</span> GetRequest<span class="token punctuation">,</span> LastResponse<span class="token punctuation">,</span> Send <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorUsingAMockedAxiosInstance <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../actors'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ChangeApiConfig'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {ChangeApiConfig} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'ChangeApiConfig'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span>
-        originalUrl             = <span class="hljs-string">'http://localhost/'</span>,
-        newUrl                  = <span class="hljs-string">'http://example.com/'</span>,
-        originalUrlWithNewPort  = <span class="hljs-string">'http://localhost:8080/'</span>;
+    <span class="token keyword">const</span>
+        originalUrl             <span class="token operator">=</span> <span class="token string">'http://localhost/'</span><span class="token punctuation">,</span>
+        newUrl                  <span class="token operator">=</span> <span class="token string">'http://example.com/'</span><span class="token punctuation">,</span>
+        originalUrlWithNewPort  <span class="token operator">=</span> <span class="token string">'http://localhost:8080/'</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when changing the API URL'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when changing the API URL'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>({ <span class="hljs-attr">baseURL</span>: originalUrl });
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> actor<span class="token punctuation">,</span> mock <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">actorUsingAMockedAxiosInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span> baseURL<span class="token operator">:</span> originalUrl <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-            mock.<span class="hljs-title function_">onGet</span>(originalUrl).<span class="hljs-title function_">reply</span>(<span class="hljs-number">500</span>);
-            mock.<span class="hljs-title function_">onGet</span>(newUrl).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>);
-        });
+        <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrl<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>newUrl<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">reset</span>());
+        <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>  mock<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setUrlTo</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setUrlTo}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'changes the base URL used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/'</span>)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">500</span>)),
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'changes the base URL used by any subsequent requests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-            <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setUrlTo</span>(newUrl),
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/'</span>)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-        ));
-    });
+            ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setUrlTo</span><span class="token punctuation">(</span>newUrl<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when changing the API port'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when changing the API port'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>({ <span class="hljs-attr">baseURL</span>: originalUrl });
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> actor<span class="token punctuation">,</span> mock <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">actorUsingAMockedAxiosInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span> baseURL<span class="token operator">:</span> originalUrl <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-            mock.<span class="hljs-title function_">onGet</span>(originalUrl).<span class="hljs-title function_">reply</span>(<span class="hljs-number">500</span>);
-            mock.<span class="hljs-title function_">onGet</span>(originalUrlWithNewPort).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>);
-        });
+        <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrl<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrlWithNewPort<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">reset</span>());
+        <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>  mock<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setPortTo</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setPortTo}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'changes the base URL used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span>
-            actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/'</span>)),
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">500</span>)),
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'changes the base URL used by any subsequent requests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setPortTo</span>(<span class="hljs-number">8080</span>),
-                <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/'</span>)),
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-            ));
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setPortTo</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setPortTo</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setPortTo}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the url has not been set prior to attempted port change'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setUrlTo</span>(<span class="hljs-literal">undefined</span>),    <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setPortTo</span>(<span class="hljs-number">8080</span>),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">`Can't change the port of a baseURL that has not been set.`</span>));
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the url has not been set prior to attempted port change'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setUrlTo</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment">// eslint-disable-line unicorn/no-useless-undefined</span>
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setPortTo</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Can't change the port of a baseURL that has not been set.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setPortTo</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setPortTo}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the url to be changed is invalid'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setUrlTo</span>(<span class="hljs-string">'invalid'</span>),
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setPortTo</span>(<span class="hljs-number">8080</span>),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">`Could not change the API port`</span>));
-    });
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the url to be changed is invalid'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setUrlTo</span><span class="token punctuation">(</span><span class="token string">'invalid'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setPortTo</span><span class="token punctuation">(</span><span class="token number">8080</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Could not change the API port</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when setting a request header'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when setting a request header'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>({ <span class="hljs-attr">baseURL</span>: originalUrl });
+        <span class="token keyword">const</span> <span class="token punctuation">{</span> actor<span class="token punctuation">,</span> mock <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">actorUsingAMockedAxiosInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span> baseURL<span class="token operator">:</span> originalUrl <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> dataMatcher = <span class="hljs-literal">undefined</span>;
-            mock.<span class="hljs-title function_">onGet</span>(originalUrl, dataMatcher).<span class="hljs-title function_">replyOnce</span>(<span class="hljs-number">401</span>);
-            mock.<span class="hljs-title function_">onGet</span>(originalUrl, dataMatcher, {
-                <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json, text/plain, */*'</span>,
-                <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'my-token'</span>
-            }).<span class="hljs-title function_">replyOnce</span>(<span class="hljs-number">200</span>);
-        });
+        <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> dataMatcher <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+            mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrl<span class="token punctuation">,</span> dataMatcher<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replyOnce</span><span class="token punctuation">(</span><span class="token number">401</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>originalUrl<span class="token punctuation">,</span> dataMatcher<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                <span class="token string">'Accept'</span><span class="token operator">:</span> <span class="token string">'application/json, text/plain, */*'</span><span class="token punctuation">,</span>
+                <span class="token string">'Authorization'</span><span class="token operator">:</span> <span class="token string">'my-token'</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">replyOnce</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">reset</span>());
+        <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>  mock<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setHeader</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setHeader}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'sets a header to be used by any subsequent requests'</span>, <span class="hljs-function">() =&gt;</span>
-            actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/'</span>)),
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">401</span>)),
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'sets a header to be used by any subsequent requests'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">401</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Authorization'</span>, <span class="hljs-string">'my-token'</span>),
-                <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/'</span>)),
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-            ));
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">'Authorization'</span><span class="token punctuation">,</span> <span class="token string">'my-token'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setHeader</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setHeader}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the name of the header is empty'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">''</span>, <span class="hljs-string">'value'</span>),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">`Looks like the name of the header is missing, "" given`</span>));
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the name of the header is empty'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> <span class="token string">'value'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Looks like the name of the header is missing, "" given</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ChangeApiConfig.setHeader</span>}
+        <span class="token comment">/**
+         * @test {ChangeApiConfig}
+         * @test {ChangeApiConfig.setHeader}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the name of the header is undefined'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">ChangeApiConfig</span>.<span class="hljs-title function_">setHeader</span>(<span class="hljs-literal">undefined</span>, <span class="hljs-string">'value'</span>),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">`Looks like the name of the header is missing, "undefined" given`</span>));
-    });
-});
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the name of the header is undefined'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                ChangeApiConfig<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> <span class="token string">'value'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Looks like the name of the header is missing, "undefined" given</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

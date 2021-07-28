@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,384 +291,384 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/Stage.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> sinon <span class="token keyword">from</span> <span class="token string">'sinon'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">LogicError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneFinishes</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">TestRunFinished</span>, <span class="hljs-title class_">TestRunFinishes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystemLocation</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Category</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Duration</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">ScenarioDetails</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Discardable</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">Clock</span>, <span class="hljs-title class_">Stage</span>, <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ConfigurationError<span class="token punctuation">,</span> LogicError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/errors'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SceneFinished<span class="token punctuation">,</span> SceneFinishes<span class="token punctuation">,</span> SceneStarts<span class="token punctuation">,</span> TestRunFinished<span class="token punctuation">,</span> TestRunFinishes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> FileSystemLocation<span class="token punctuation">,</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Category<span class="token punctuation">,</span> CorrelationId<span class="token punctuation">,</span> Duration<span class="token punctuation">,</span> ExecutionSuccessful<span class="token punctuation">,</span> Name<span class="token punctuation">,</span> ScenarioDetails <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> Actor<span class="token punctuation">,</span> Discardable <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/screenplay'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Cast<span class="token punctuation">,</span> Clock<span class="token punctuation">,</span> Stage<span class="token punctuation">,</span> StageManager <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/stage'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Stage'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Stage'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">class</span> <span class="hljs-title class_">Extras</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-        <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-            <span class="hljs-keyword">return</span> actor;
-        }
-    }
+    <span class="token keyword">class</span> <span class="token class-name">Extras</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+        <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> actor<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">const</span> stageManager = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">StageManager</span>);
+    <span class="token keyword">const</span> stageManager <span class="token operator">=</span> sinon<span class="token punctuation">.</span><span class="token function">createStubInstance</span><span class="token punctuation">(</span>StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#theActorCalled</span>}
+    <span class="token comment">/**
+     * @test {Stage#actor}
+     * @test {Stage#theActorCalled}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides both the more verbose and more concise way of accessing the actors'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span>
-            name   = <span class="hljs-string">'Alice'</span>,
-            actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-            stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides both the more verbose and more concise way of accessing the actors'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span>
+            name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+            actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(stage.<span class="hljs-title function_">actor</span>(name)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(stage.<span class="hljs-title function_">theActorCalled</span>(name));
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>stage<span class="token punctuation">.</span><span class="token function">theActorCalled</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when instantiating actors'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when instantiating actors'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'instantiates a new actor when their name is called for the first time'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'instantiates a new actor when their name is called for the first time'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            sinon.<span class="hljs-title function_">spy</span>(actors, <span class="hljs-string">'prepare'</span>);
+            sinon<span class="token punctuation">.</span><span class="token function">spy</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> <span class="token string">'prepare'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> actor = stage.<span class="hljs-title function_">actor</span>(name);
+            <span class="token keyword">const</span> actor <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>((actors.<span class="hljs-property">prepare</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-title function_">getCall</span>(<span class="hljs-number">0</span>).<span class="hljs-property">args</span>[<span class="hljs-number">0</span>].<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(name);
-            <span class="hljs-title function_">expect</span>(actor.<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Alice'</span>);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>actors<span class="token punctuation">.</span>prepare <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCall</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Alice'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns an existing actor if it has already been instantiated before'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns an existing actor if it has already been instantiated before'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            sinon.<span class="hljs-title function_">spy</span>(actors, <span class="hljs-string">'prepare'</span>);
+            sinon<span class="token punctuation">.</span><span class="token function">spy</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> <span class="token string">'prepare'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> a1 = stage.<span class="hljs-title function_">actor</span>(name);
-            <span class="hljs-keyword">const</span> a2 = stage.<span class="hljs-title function_">actor</span>(name);
+            <span class="token keyword">const</span> a1 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> a2 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>((actors.<span class="hljs-property">prepare</span> <span class="hljs-keyword">as</span> <span class="hljs-built_in">any</span>).<span class="hljs-title function_">getCall</span>(<span class="hljs-number">0</span>).<span class="hljs-property">args</span>[<span class="hljs-number">0</span>].<span class="hljs-property">name</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(name);
-            <span class="hljs-title function_">expect</span>(actors.<span class="hljs-property">prepare</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledOnce</span>;
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span>actors<span class="token punctuation">.</span>prepare <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getCall</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">.</span>args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>actors<span class="token punctuation">.</span>prepare<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>calledOnce<span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(a1).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(a2);
-        });
-    });
+            <span class="token function">expect</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when referencing a recently retrieved actor'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when referencing a recently retrieved actor'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'retrieves the current actor, if there is any'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'retrieves the current actor, if there is any'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> a1 = stage.<span class="hljs-title function_">actor</span>(name);
-            <span class="hljs-keyword">const</span> a2 = stage.<span class="hljs-title function_">theActorInTheSpotlight</span>();
+            <span class="token keyword">const</span> a1 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> a2 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">theActorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(a2).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(a1);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>a2<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#theActorInTheSpotlight</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#theActorInTheSpotlight</span>}
+        <span class="token comment">/**
+         * @test {Stage#theActorInTheSpotlight}
+         * @test {Stage#theActorInTheSpotlight}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides both the more verbose and more concise way of accessing the actors in the spotlight'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides both the more verbose and more concise way of accessing the actors in the spotlight'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> a1 = stage.<span class="hljs-title function_">actor</span>(name);
-            <span class="hljs-keyword">const</span> a2 = stage.<span class="hljs-title function_">theActorCalled</span>(name);
-            <span class="hljs-keyword">const</span> a3 = stage.<span class="hljs-title function_">theActorInTheSpotlight</span>();
+            <span class="token keyword">const</span> a1 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> a2 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">theActorCalled</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> a3 <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">theActorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(a1).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(a2);
-            <span class="hljs-title function_">expect</span>(a1).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(a3);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>a2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>a1<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>a3<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#theActorInTheSpotlight</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#theActorInTheSpotlight</span>}
+        <span class="token comment">/**
+         * @test {Stage#theActorInTheSpotlight}
+         * @test {Stage#theActorInTheSpotlight}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">`complains if you try to access the actor in the spotlight, but there isn't any yet`</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">complains if you try to access the actor in the spotlight, but there isn't any yet</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(
-                <span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">theActorInTheSpotlight</span>(),
-            ).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">`There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.`</span>);
-        });
-    });
+            <span class="token function">expect</span><span class="token punctuation">(</span>
+                <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> stage<span class="token punctuation">.</span><span class="token function">theActorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">There is no actor in the spotlight yet. Make sure you instantiate one with stage.actor(actorName) before calling this method.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when instantiating and dismissing the actors'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when instantiating and dismissing the actors'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">class</span> <span class="hljs-title class_">SomeAbilityThatNeedsDiscarding</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Discardable</span>, <span class="hljs-title class_">Ability</span> {
-            <span class="hljs-title function_">discard</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
-                <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>();
-            }
-        }
+        <span class="token keyword">class</span> <span class="token class-name">SomeAbilityThatNeedsDiscarding</span> <span class="token keyword">implements</span> <span class="token class-name">Discardable</span><span class="token punctuation">,</span> Ability <span class="token punctuation">{</span>
+            <span class="token function">discard</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">class</span> <span class="hljs-title class_">Spies</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-            <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">calls</span>: <span class="hljs-title class_">Actor</span>[] = [];
+        <span class="token keyword">class</span> <span class="token class-name">Spies</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+            <span class="token keyword">public</span> <span class="token keyword">readonly</span> calls<span class="token operator">:</span> Actor<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">calls</span>.<span class="hljs-title function_">push</span>(actor);
+            <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>calls<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                sinon.<span class="hljs-title function_">spy</span>(actor, <span class="hljs-string">'dismiss'</span>);
+                sinon<span class="token punctuation">.</span><span class="token function">spy</span><span class="token punctuation">(</span>actor<span class="token punctuation">,</span> <span class="token string">'dismiss'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SomeAbilityThatNeedsDiscarding</span>());
-            }
-        }
+                <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SomeAbilityThatNeedsDiscarding</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">const</span>
-            sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'example scene'</span>),
-            anotherSceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'another example scene'</span>),
-            scenario = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ScenarioDetails</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Paying with a default card'</span>),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Category</span>(<span class="hljs-string">'Online Checkout'</span>),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemLocation</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(<span class="hljs-string">'payments/checkout.feature'</span>),
-                ),
-            );
+        <span class="token keyword">const</span>
+            sceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'example scene'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            anotherSceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'another example scene'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            scenario <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ScenarioDetails</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Paying with a default card'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">Category</span><span class="token punctuation">(</span><span class="token string">'Online Checkout'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">FileSystemLocation</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span><span class="token string">'payments/checkout.feature'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">let</span> <span class="hljs-attr">manager</span>: <span class="hljs-title class_">StageManager</span>;
+        <span class="token keyword">let</span> manager<span class="token operator">:</span> StageManager<span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-            manager = <span class="hljs-keyword">new</span> <span class="hljs-title class_">StageManager</span>(<span class="hljs-title class_">Duration</span>.<span class="hljs-title function_">ofMilliseconds</span>(<span class="hljs-number">100</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Clock</span>());
-        });
+        <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            manager <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StageManager</span><span class="token punctuation">(</span>Duration<span class="token punctuation">.</span><span class="token function">ofMilliseconds</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Clock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'performing a single scene'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'dismisses actors instantiated after SceneStarts when SceneFinished'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Spies</span>(), manager);
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'performing a single scene'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'dismisses actors instantiated after SceneStarts when SceneFinished'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> stage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Spies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> manager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, scenario));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> actor = stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
+                <span class="token keyword">const</span> actor <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinishes</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(actor.<span class="hljs-property">dismiss</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledOnce</span>;
+                <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span>dismiss<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>calledOnce<span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>());
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>());
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>()
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-                <span class="hljs-comment">// make sure it's not called again</span>
-                <span class="hljs-title function_">expect</span>(actor.<span class="hljs-property">dismiss</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledOnce</span>;
-            });
+                <span class="token comment">// make sure it's not called again</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span>dismiss<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>calledOnce<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'re-instantiates actors dismissed when the SceneFinished'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                <span class="hljs-keyword">const</span> actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Spies</span>();
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'re-instantiates actors dismissed when the SceneFinished'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Spies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, manager);
+                <span class="token keyword">const</span> stage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> manager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, scenario));
-                stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinishes</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>();
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(anotherSceneId, scenario));
-                stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(anotherSceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(anotherSceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinishes</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>();
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>());
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>());
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>();
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(actors.<span class="hljs-property">calls</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">2</span>);
-            });
-        });
+                <span class="token function">expect</span><span class="token punctuation">(</span>actors<span class="token punctuation">.</span>calls<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span><span class="token function">lengthOf</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'performing across multiple scenes'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'performing across multiple scenes'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'dismisses actors instantiated before SceneStarts when TestRunFinishes'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Spies</span>(), manager);
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'dismisses actors instantiated before SceneStarts when TestRunFinishes'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> stage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Spies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> manager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> actor = stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
+                <span class="token keyword">const</span> actor <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, scenario));
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinishes</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinishes</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(actor.<span class="hljs-property">dismiss</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">not</span>.<span class="hljs-property">been</span>.<span class="hljs-property">called</span>;
+                <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span>dismiss<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>not<span class="token punctuation">.</span>been<span class="token punctuation">.</span>called<span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>());
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>());
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>()
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-                <span class="hljs-comment">// make sure it's called</span>
-                <span class="hljs-title function_">expect</span>(actor.<span class="hljs-property">dismiss</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">calledOnce</span>;
-            });
+                <span class="token comment">// make sure it's called</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span>dismiss<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>calledOnce<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'retains instances of actors instantiated before the SceneStarts'</span>, <span class="hljs-keyword">async</span> () =&gt; {
-                <span class="hljs-keyword">const</span> actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Spies</span>();
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'retains instances of actors instantiated before the SceneStarts'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Spies</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> stage = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, manager);
+                <span class="token keyword">const</span> stage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> manager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, scenario));
-                stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>();
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(anotherSceneId, scenario));
-                stage.<span class="hljs-title function_">actor</span>(<span class="hljs-string">'Bob'</span>);
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(anotherSceneId, scenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()));
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span><span class="token string">'Bob'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>anotherSceneId<span class="token punctuation">,</span> scenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>();
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>());
-                stage.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinished</span>());
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinished</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">await</span> stage.<span class="hljs-title function_">waitForNextCue</span>();
+                <span class="token keyword">await</span> stage<span class="token punctuation">.</span><span class="token function">waitForNextCue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-title function_">expect</span>(actors.<span class="hljs-property">calls</span>).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-title function_">lengthOf</span>(<span class="hljs-number">1</span>);
-            });
-        });
-    });
+                <span class="token function">expect</span><span class="token punctuation">(</span>actors<span class="token punctuation">.</span>calls<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span><span class="token function">lengthOf</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when correlating activities'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when correlating activities'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'assigns sceneIds'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'assigns sceneIds'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> assigned = stage.<span class="hljs-title function_">assignNewSceneId</span>();
-            <span class="hljs-keyword">const</span> retrieved = stage.<span class="hljs-title function_">currentSceneId</span>();
+            <span class="token keyword">const</span> assigned <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">assignNewSceneId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> retrieved <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">currentSceneId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(assigned).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(retrieved);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>assigned<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>retrieved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns a default sceneId when activities are performed outside of a test runner'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns a default sceneId when activities are performed outside of a test runner'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span> retrieved = stage.<span class="hljs-title function_">currentSceneId</span>();
-
-            <span class="hljs-title function_">expect</span>(retrieved.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'unknown'</span>);
-        });
-
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'assigns activityIds'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-
-            <span class="hljs-keyword">const</span> assigned = stage.<span class="hljs-title function_">assignNewActivityId</span>();
-            <span class="hljs-keyword">const</span> retrieved = stage.<span class="hljs-title function_">currentActivityId</span>();
-
-            <span class="hljs-title function_">expect</span>(assigned).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(retrieved);
-        });
-
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if an activityId is attempted to be retrieved before is has been assigned'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> stage.<span class="hljs-title function_">currentActivityId</span>()).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">'No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?'</span>);
-        });
-    });
-
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when an error occurs'</span>, <span class="hljs-function">() =&gt;</span> {
-
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with no Cast'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> stage_ = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-literal">undefined</span>, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'Cast should be defined'</span>);
-        });
-
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains when instantiated with no StageManager'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-keyword">const</span> stage_ = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Extras</span>(), <span class="hljs-literal">undefined</span>);
-            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">'StageManager should be defined'</span>);
-        });
-
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the Cast does not provide a way to instantiate a given actor'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                <span class="hljs-attr">actors</span>: <span class="hljs-title class_">Cast</span> = {
-                    <span class="hljs-attr">prepare</span>: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> <span class="hljs-literal">undefined</span>,   <span class="hljs-comment">// eslint-disable-line unicorn/no-useless-undefined</span>
-                },
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
-                stage.<span class="hljs-title function_">actor</span>(name);
-            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`Instead of a new instance of actor "<span class="hljs-subst">${ name }</span>", Cast returned undefined`</span>);
-        });
-
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">class</span> <span class="hljs-title class_">AwesomeActors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-                <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-                    <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
-                }
-            }
-
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">AwesomeActors</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
-                stage.<span class="hljs-title function_">actor</span>(name);
-            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`Instead of a new instance of actor "<span class="hljs-subst">${ name }</span>", AwesomeActors returned undefined`</span>);
-        });
-
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the Cast throws an error during actor instantiation'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                <span class="hljs-attr">actors</span>: <span class="hljs-title class_">Cast</span> = {
-                    <span class="hljs-attr">prepare</span>: <span class="hljs-function">(<span class="hljs-params">actor: Actor</span>) =&gt;</span> { <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`I'm not working today`</span>); },
-                },
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
-                stage.<span class="hljs-title function_">actor</span>(name);
-            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`Cast encountered a problem when preparing actor "<span class="hljs-subst">${ name }</span>" for stage`</span>);
-        });
-
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Stage#actor</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">class</span> <span class="hljs-title class_">MoodyActors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-                <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">`I'm not working today`</span>);
-                }
-            }
-
-            <span class="hljs-keyword">const</span>
-                name   = <span class="hljs-string">'Alice'</span>,
-                actors = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MoodyActors</span>(),
-                stage  = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stage</span>(actors, stageManager <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">StageManager</span>);
-
-            <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> {
-                stage.<span class="hljs-title function_">actor</span>(name);
-            }).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-string">`MoodyActors encountered a problem when preparing actor "<span class="hljs-subst">${ name }</span>" for stage`</span>);
-        });
-    });
-});
+            <span class="token keyword">const</span> retrieved <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">currentSceneId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span>retrieved<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'unknown'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'assigns activityIds'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">const</span> assigned <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">assignNewActivityId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> retrieved <span class="token operator">=</span> stage<span class="token punctuation">.</span><span class="token function">currentActivityId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span>assigned<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>retrieved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if an activityId is attempted to be retrieved before is has been assigned'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> stage<span class="token punctuation">.</span><span class="token function">currentActivityId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token string">'No activity is being performed. Did you call assignNewActivityId before invoking currentActivityId?'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when an error occurs'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains when instantiated with no Cast'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> stage_ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>Error<span class="token punctuation">,</span> <span class="token string">'Cast should be defined'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains when instantiated with no StageManager'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> stage_ <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Extras</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>Error<span class="token punctuation">,</span> <span class="token string">'StageManager should be defined'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the Cast does not provide a way to instantiate a given actor'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                actors<span class="token operator">:</span> Cast <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    <span class="token function-variable function">prepare</span><span class="token operator">:</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span>   <span class="token comment">// eslint-disable-line unicorn/no-useless-undefined</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>ConfigurationError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Instead of a new instance of actor "</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">", Cast returned undefined</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the Cast does not provide a way to prepare a given actor and mentions the type of the Cast, when available'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">class</span> <span class="token class-name">AwesomeActors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+                <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AwesomeActors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>ConfigurationError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Instead of a new instance of actor "</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">", AwesomeActors returned undefined</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the Cast throws an error during actor instantiation'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                actors<span class="token operator">:</span> Cast <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    <span class="token function-variable function">prepare</span><span class="token operator">:</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">I'm not working today</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>ConfigurationError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Cast encountered a problem when preparing actor "</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">" for stage</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/** @test {Stage#actor} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the Cast throws an error during actor instantiation and mentions the type of the Cast, when available'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">class</span> <span class="token class-name">MoodyActors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+                <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">I'm not working today</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">const</span>
+                name   <span class="token operator">=</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+                actors <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MoodyActors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                stage  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Stage</span><span class="token punctuation">(</span>actors<span class="token punctuation">,</span> stageManager <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> StageManager<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                stage<span class="token punctuation">.</span><span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>ConfigurationError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">MoodyActors encountered a problem when preparing actor "</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">" for stage</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

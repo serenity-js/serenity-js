@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,164 +184,164 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/lists/ElementArrayFinderListAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-title class_">MetaQuestion</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ListAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/questions/lists'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementArrayFinder</span>, <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Expectation<span class="token punctuation">,</span> ExpectationMet<span class="token punctuation">,</span> MetaQuestion<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ListAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/screenplay/questions/lists'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ElementArrayFinder<span class="token punctuation">,</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Adapts {<span class="hljs-doctag">@link</span> ElementArrayFinder} so that it can be used with {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~List}.
+<span class="token comment">/**
+ * @desc
+ *  Adapts {@link ElementArrayFinder} so that it can be used with {@link @serenity-js/core/lib/screenplay/questions~List}.
  *
- *  You most likely won't need to use this class directly. Instead, check out {<span class="hljs-doctag">@link</span> Target} and {<span class="hljs-doctag">@link</span> Target.all}.
+ *  You most likely won't need to use this class directly. Instead, check out {@link Target} and {@link Target.all}.
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Target</span>}
+ * @see {@link Target}
  *
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions/lists~ListAdapter</span>}
+ * @implements {@serenity-js/core/lib/screenplay/questions/lists~ListAdapter}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ElementArrayFinderListAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ListAdapter</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt; {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ElementArrayFinderListAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">ListAdapter<span class="token operator">&lt;</span>ElementFinder<span class="token punctuation">,</span> ElementArrayFinder<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Question&lt;ElementArrayFinder&gt; | ElementArrayFinder</span>} <span class="hljs-variable">collection</span>
+    <span class="token comment">/**
+     * @param {Question&lt;ElementArrayFinder&gt; | ElementArrayFinder} collection
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> collection<span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementArrayFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementArrayFinder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the number of {<span class="hljs-doctag">@link</span> ElementFinder}s that the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the number of {@link ElementFinder}s that the underlying {@link ElementArrayFinder} contains,
      *  left after applying any filters.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;number&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;number&gt;}
      */</span>
-    <span class="hljs-title function_">count</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">number</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">elements</span>(actor).<span class="hljs-title function_">count</span>());
-    }
+    <span class="token function">count</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">elements</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the first of {<span class="hljs-doctag">@link</span> ElementFinder}s that the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the first of {@link ElementFinder}s that the underlying {@link ElementArrayFinder} contains,
      *  left after applying any filters
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ElementFinder</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {ElementFinder}
      */</span>
-    <span class="hljs-title function_">first</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">elements</span>(actor).<span class="hljs-title function_">first</span>();
-    }
+    <span class="token function">first</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ElementFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">elements</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">first</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the last of {<span class="hljs-doctag">@link</span> ElementFinder}s that the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the last of {@link ElementFinder}s that the underlying {@link ElementArrayFinder} contains,
      *  left after applying any filters
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ElementFinder</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {ElementFinder}
      */</span>
-    <span class="hljs-title function_">last</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">elements</span>(actor).<span class="hljs-title function_">last</span>();
-    }
+    <span class="token function">last</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ElementFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">elements</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">last</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the nth of {<span class="hljs-doctag">@link</span> ElementFinder}s that the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder} contains,
+    <span class="token comment">/**
+     * @desc
+     *  Returns the nth of {@link ElementFinder}s that the underlying {@link ElementArrayFinder} contains,
      *  left after applying any filters
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">number</span>} <span class="hljs-variable">index</span>
+     * @param {number} index
      *  Zero-based index of the item to return
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ElementFinder</span>}
+     * @returns {ElementFinder}
      */</span>
-    <span class="hljs-title function_">get</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>, <span class="hljs-attr">index</span>: <span class="hljs-built_in">number</span>): <span class="hljs-title class_">ElementFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">elements</span>(actor).<span class="hljs-title function_">get</span>(index);
-    }
+    <span class="token function">get</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">,</span> index<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> ElementFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">elements</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder},
+    <span class="token comment">/**
+     * @desc
+     *  Returns the underlying {@link ElementArrayFinder},
      *  with any filters applied.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ElementFinder</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {ElementFinder}
      */</span>
-    <span class="hljs-title function_">items</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementArrayFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">elements</span>(actor);
-    }
+    <span class="token function">items</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ElementArrayFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">elements</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Filters the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder} so that the result contains only those {<span class="hljs-doctag">@link</span> ElementFinder}s that meet the {<span class="hljs-doctag">@link</span> Expectation}
+    <span class="token comment">/**
+     * @desc
+     *  Filters the underlying {@link ElementArrayFinder} so that the result contains only those {@link ElementFinder}s that meet the {@link Expectation}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~MetaQuestion&lt;ElementFinder, Promise&lt;Answer_Type&gt; | Answer_Type&gt;</span>} <span class="hljs-variable">question</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, Answer_Type&gt;</span>} <span class="hljs-variable">expectation</span>
+     * @param {@serenity-js/core/lib/screenplay/questions~MetaQuestion&lt;ElementFinder, Promise&lt;Answer_Type&gt; | Answer_Type&gt;} question
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, Answer_Type&gt;} expectation
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions/lists~ListAdapter&lt;ElementFinder, ElementArrayFinder&gt;</span>}
+     * @returns {@serenity-js/core/lib/screenplay/questions/lists~ListAdapter&lt;ElementFinder, ElementArrayFinder&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/questions~MetaQuestion</span>}
+     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */</span>
-    withFilter&lt;<span class="hljs-title class_">Answer</span>_Type&gt;(
-        <span class="hljs-attr">question</span>: <span class="hljs-title class_">MetaQuestion</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt; | <span class="hljs-title class_">Answer</span>_Type&gt;,
-        <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Answer</span>_Type&gt;
-    ): <span class="hljs-title class_">ListAdapter</span>&lt;<span class="hljs-title class_">ElementFinder</span>, <span class="hljs-title class_">ElementArrayFinder</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ElementArrayFinderListAdapter</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">ElementArrayFinderArrayListFilter</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>, question, expectation)
-        );
-    }
+    <span class="token generic-function"><span class="token function">withFilter</span><span class="token generic class-name"><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>
+        question<span class="token operator">:</span> MetaQuestion<span class="token operator">&lt;</span>ElementFinder<span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span> <span class="token operator">|</span> Answer_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Answer_Type<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span><span class="token operator">:</span> ListAdapter<span class="token operator">&lt;</span>ElementFinder<span class="token punctuation">,</span> ElementArrayFinder<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ElementArrayFinderListAdapter</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">ElementArrayFinderArrayListFilter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">,</span> question<span class="token punctuation">,</span> expectation<span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Returns a human-readable description of the underlying {<span class="hljs-doctag">@link</span> ElementArrayFinder}.
+    <span class="token comment">/**
+     * @desc
+     *  Returns a human-readable description of the underlying {@link ElementArrayFinder}.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.collection }</span>`</span>;
-    }
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>collection <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">elements</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementArrayFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>)
-            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">answeredBy</span>(actor)
-            : <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>;
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">elements</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ElementArrayFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Question<span class="token punctuation">.</span><span class="token function">isAQuestion</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">)</span>
+            <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
+<span class="token comment">/**
+ * @private
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ElementArrayFinderArrayListFilter</span>&lt;<span class="hljs-title class_">Answer</span>_Type&gt;
-    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">ElementArrayFinder</span>&gt;
-{
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> collection: Question&lt;ElementArrayFinder&gt; | ElementArrayFinder,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> question: MetaQuestion&lt;ElementFinder, <span class="hljs-built_in">Promise</span>&lt;Answer_Type&gt; | Answer_Type&gt;,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;<span class="hljs-built_in">any</span>, Answer_Type&gt;
-    </span>) {
-        <span class="hljs-variable language_">super</span>([
-            formatted <span class="hljs-string">`<span class="hljs-subst">${ collection }</span>`</span>,
-            collection <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ElementArrayFinderArrayListFilter</span> ? <span class="hljs-string">'and'</span> : <span class="hljs-string">'where'</span>,
-            formatted <span class="hljs-string">`<span class="hljs-subst">${ question }</span> does <span class="hljs-subst">${ expectation }</span>`</span>
-        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">' '</span>));
-    }
+<span class="token keyword">class</span> <span class="token class-name">ElementArrayFinderArrayListFilter<span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span></span>
+    <span class="token keyword">extends</span> <span class="token class-name">Question<span class="token operator">&lt;</span>ElementArrayFinder<span class="token operator">&gt;</span></span>
+<span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> collection<span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementArrayFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementArrayFinder<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> question<span class="token operator">:</span> MetaQuestion<span class="token operator">&lt;</span>ElementFinder<span class="token punctuation">,</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span>Answer_Type<span class="token operator">&gt;</span> <span class="token operator">|</span> Answer_Type<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Answer_Type<span class="token operator">&gt;</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+            formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> collection <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            collection <span class="token keyword">instanceof</span> <span class="token class-name">ElementArrayFinderArrayListFilter</span> <span class="token operator">?</span> <span class="token string">'and'</span> <span class="token operator">:</span> <span class="token string">'where'</span><span class="token punctuation">,</span>
+            formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> question <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> does </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> expectation <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+        <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementArrayFinder</span> {
+    <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ElementArrayFinder <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">finderAs</span>(actor)
-            .<span class="hljs-title function_">filter</span>(<span class="hljs-function">(<span class="hljs-params">elementFinder: ElementFinder</span>) =&gt;</span>
-                <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">question</span>.<span class="hljs-title function_">of</span>(elementFinder).<span class="hljs-title function_">answeredBy</span>(actor))
-                    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>.<span class="hljs-title function_">answeredBy</span>(actor)(answer))
-                    .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span> outcome <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ExpectationMet</span>)
-            );
-    }
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">finderAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">(</span>elementFinder<span class="token operator">:</span> ElementFinder<span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>question<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>elementFinder<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>answer <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>expectation<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">(</span>answer<span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>outcome <span class="token operator">=&gt;</span> outcome <span class="token keyword">instanceof</span> <span class="token class-name">ExpectationMet</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">finderAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">ElementArrayFinder</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>)
-            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>.<span class="hljs-title function_">answeredBy</span>(actor)
-            : <span class="hljs-variable language_">this</span>.<span class="hljs-property">collection</span>;
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">finderAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> ElementArrayFinder <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Question<span class="token punctuation">.</span><span class="token function">isAQuestion</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">)</span>
+            <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>collection<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -127,83 +124,83 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/MochaAdapter.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* istanbul ignore file */</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExecutionIgnored</span>, <span class="hljs-title class_">Outcome</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> path <span class="hljs-keyword">from</span> <span class="hljs-string">'path'</span>;   <span class="hljs-comment">// eslint-disable-line unicorn/import-style</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* istanbul ignore file */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader<span class="token punctuation">,</span> TestRunnerAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ExecutionIgnored<span class="token punctuation">,</span> Outcome <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> fs <span class="token keyword">from</span> <span class="token string">'fs'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> path <span class="token keyword">from</span> <span class="token string">'path'</span><span class="token punctuation">;</span>   <span class="token comment">// eslint-disable-line unicorn/import-style</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">MochaConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./MochaConfig'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> MochaConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./MochaConfig'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Allows for programmatic execution of Mocha test scenarios,
- *  using {<span class="hljs-doctag">@link</span> SerenityReporterForMocha} to report progress.
+ *  using {@link SerenityReporterForMocha} to report progress.
  *
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">@serenity-js/core/lib/io~TestRunnerAdapter</span>}
+ * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MochaAdapter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">TestRunnerAdapter</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MochaAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">TestRunnerAdapter</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  test
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">MochaConfig</span>} <span class="hljs-variable">config</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~ModuleLoader</span>} <span class="hljs-variable">loader</span>
+     * @param {MochaConfig} config
+     * @param {@serenity-js/core/lib/io~ModuleLoader} loader
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: MochaConfig,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> loader: ModuleLoader,
-    </span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> config<span class="token operator">:</span> MochaConfig<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> loader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Scenario success threshold for this test runner.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Outcome | { Code: number </span>}}
+     * @returns {Outcome | { Code: number }}
      */</span>
-    <span class="hljs-title function_">successThreshold</span>(): <span class="hljs-title class_">Outcome</span> | { <span class="hljs-title class_">Code</span>: <span class="hljs-built_in">number</span> } {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">ExecutionIgnored</span>;
-    }
+    <span class="token function">successThreshold</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Outcome <span class="token operator">|</span> <span class="token punctuation">{</span> Code<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> ExecutionIgnored<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">pathsToScenarios</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+    <span class="token comment">/**
+     * @param {string[]} pathsToScenarios
+     * @returns {Promise&lt;void&gt;}
      */</span>
-    <span class="hljs-title function_">run</span>(<span class="hljs-attr">pathsToScenarios</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
-            <span class="hljs-variable language_">this</span>.requireAny(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>.<span class="hljs-property">require</span>);
+    <span class="token function">run</span><span class="token punctuation">(</span>pathsToScenarios<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">requireAny</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">const</span>
-                <span class="hljs-title class_">Mocha</span>   = <span class="hljs-variable language_">this</span>.<span class="hljs-property">loader</span>.<span class="hljs-built_in">require</span>(<span class="hljs-string">'mocha'</span>),
-                mocha   = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Mocha</span>({
-                    ...<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>,
-                    <span class="hljs-attr">reporter</span>: <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'../index'</span>),
-                });
+            <span class="token keyword">const</span>
+                Mocha   <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'mocha'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                mocha   <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Mocha</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    <span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">,</span>
+                    reporter<span class="token operator">:</span> <span class="token keyword">require</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'../index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            mocha.<span class="hljs-property">files</span> = pathsToScenarios;
+            mocha<span class="token punctuation">.</span>files <span class="token operator">=</span> pathsToScenarios<span class="token punctuation">;</span>
 
-            mocha.<span class="hljs-title function_">loadFilesAsync</span>()
-                .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span>
-                    mocha.<span class="hljs-title function_">run</span>(<span class="hljs-function"><span class="hljs-params">numberOfFailures</span> =&gt;</span> <span class="hljs-title function_">resolve</span>())
-                );
-        });
-    }
+            mocha<span class="token punctuation">.</span><span class="token function">loadFilesAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                    mocha<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>numberOfFailures <span class="token operator">=&gt;</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">requireAny</span>(<span class="hljs-params">filesOrModules: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]</span>) {
-        <span class="hljs-keyword">const</span> requires = filesOrModules
-            ? [].<span class="hljs-title function_">concat</span>(filesOrModules).<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> !! item)
-            : [];
+    <span class="token keyword">private</span> <span class="token function">requireAny</span><span class="token punctuation">(</span>filesOrModules<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> requires <span class="token operator">=</span> filesOrModules
+            <span class="token operator">?</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>filesOrModules<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>item <span class="token operator">=&gt;</span> <span class="token operator">!</span><span class="token operator">!</span> item<span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-        requires.<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">fileOrModule</span> =&gt;</span> {
-            <span class="hljs-keyword">const</span> required = fs.<span class="hljs-title function_">existsSync</span>(fileOrModule) || fs.<span class="hljs-title function_">existsSync</span>(<span class="hljs-string">`<span class="hljs-subst">${ fileOrModule }</span>.js`</span>)
-                ? path.<span class="hljs-title function_">resolve</span>(fileOrModule)    <span class="hljs-comment">// local file</span>
-                : fileOrModule;                 <span class="hljs-comment">// module</span>
+        requires<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>fileOrModule <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> required <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span>fileOrModule<span class="token punctuation">)</span> <span class="token operator">||</span> fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> fileOrModule <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.js</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+                <span class="token operator">?</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>fileOrModule<span class="token punctuation">)</span>    <span class="token comment">// local file</span>
+                <span class="token operator">:</span> fileOrModule<span class="token punctuation">;</span>                 <span class="token comment">// module</span>
 
-            <span class="hljs-built_in">require</span>(required);
-        });
-    }
-}
+            <span class="token keyword">require</span><span class="token punctuation">(</span>required<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

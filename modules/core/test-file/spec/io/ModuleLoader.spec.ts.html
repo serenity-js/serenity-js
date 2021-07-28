@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,51 +291,51 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/ModuleLoader.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>);
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Version</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/io'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
+<span class="token keyword">import</span> path <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader<span class="token punctuation">,</span> Version <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'ModuleLoader'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'ModuleLoader'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the version number of a given package'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns the version number of a given package'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> loader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModuleLoader</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../../package.json'</span>).<span class="hljs-property">version</span>;  <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+        <span class="token keyword">const</span> expectedVersion <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'../../package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">;</span>  <span class="token comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-        <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'../../'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(expectedVersion));
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>loader<span class="token punctuation">.</span><span class="token function">versionOf</span><span class="token punctuation">(</span><span class="token string">'../../'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Version</span><span class="token punctuation">(</span>expectedVersion<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns the version of the npm-resolved package if the local package could not be found'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">'non-existent'</span>, <span class="hljs-string">'local'</span>, <span class="hljs-string">'directory'</span>));
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns the version of the npm-resolved package if the local package could not be found'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> loader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModuleLoader</span><span class="token punctuation">(</span>path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'non-existent'</span><span class="token punctuation">,</span> <span class="token string">'local'</span><span class="token punctuation">,</span> <span class="token string">'directory'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> expectedVersion = <span class="hljs-built_in">require</span>(<span class="hljs-string">'tiny-types/package.json'</span>).<span class="hljs-property">version</span>; <span class="hljs-comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
+        <span class="token keyword">const</span> expectedVersion <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'tiny-types/package.json'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">;</span> <span class="token comment">// eslint-disable-line @typescript-eslint/no-var-requires</span>
 
-        <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'tiny-types'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Version</span>(expectedVersion));
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>loader<span class="token punctuation">.</span><span class="token function">versionOf</span><span class="token punctuation">(</span><span class="token string">'tiny-types'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Version</span><span class="token punctuation">(</span>expectedVersion<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if neither a local version or the npm-resolved version could be found'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if neither a local version or the npm-resolved version could be found'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> loader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModuleLoader</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> loader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'non-existent-module'</span>)).<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">Error</span>, <span class="hljs-string">`Cannot find module 'non-existent-module/package.json'`</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> loader<span class="token punctuation">.</span><span class="token function">versionOf</span><span class="token punctuation">(</span><span class="token string">'non-existent-module'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>Error<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Cannot find module 'non-existent-module/package.json'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when checking if a given module is available to be required'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when checking if a given module is available to be required'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns true if the module is available'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns true if the module is available'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> loader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModuleLoader</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">hasAvailable</span>(<span class="hljs-string">'tiny-types'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">true</span>);
-        });
+            <span class="token function">expect</span><span class="token punctuation">(</span>loader<span class="token punctuation">.</span><span class="token function">hasAvailable</span><span class="token punctuation">(</span><span class="token string">'tiny-types'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'returns false if the module is not available'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-keyword">const</span> loader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ModuleLoader</span>(__dirname);
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'returns false if the module is not available'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> loader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModuleLoader</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">expect</span>(loader.<span class="hljs-title function_">hasAvailable</span>(<span class="hljs-string">'non-existent-module'</span>)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-literal">false</span>);
-        });
-    });
-});
+            <span class="token function">expect</span><span class="token punctuation">(</span>loader<span class="token punctuation">.</span><span class="token function">hasAvailable</span><span class="token punctuation">(</span><span class="token string">'non-existent-module'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

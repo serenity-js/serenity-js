@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,7 +291,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Serenity</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Serenity<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -1160,29 +1157,29 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Engaging a cast of actors</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-     <span class="hljs-title function_">prepare</span>(<span class="hljs-params">actor: Actor</span>) {
-         <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
-             <span class="hljs-comment">// ... abilities you'd like the Actor to have</span>
-         );
-     }
- }
+ <span class="token keyword">class</span> <span class="token class-name">Actors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+     <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
+             <span class="token comment">// ... abilities you'd like the Actor to have</span>
+         <span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
 
-<span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>();</code></pre>
+<span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Jasmine</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>()));</code></pre>
+ <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Before</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Before <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'cucumber'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title class_">Before</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>());</code></pre>
+ <span class="token function">Before</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 
@@ -1264,26 +1261,26 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Jasmine</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> <span class="hljs-string">'jasmine'</span>;
-  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">  <span class="token keyword">import</span> <span class="token string">'jasmine'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Feature'</span>, <span class="hljs-function">() =&gt;</span> {
+  <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Feature'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-     <span class="hljs-title function_">it</span>(<span class="hljs-string">'should have some behaviour'</span>, <span class="hljs-function">() =&gt;</span>
-         <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'James'</span>).<span class="hljs-title function_">attemptsTo</span>(
-             <span class="hljs-comment">// ... activities</span>
-         ));
-  });</code></pre>
+     <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should have some behaviour'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+         <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'James'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+             <span class="token comment">// ... activities</span>
+         <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-  <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Given</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">  <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Given <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'cucumber'</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title class_">Given</span>(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-     <span class="hljs-title function_">actorCalled</span>(name).<span class="hljs-title function_">attemptsTo</span>(
-             <span class="hljs-comment">// ... activities</span>
-         ));</code></pre>
+  <span class="token function">Given</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(.*?) is a registered user</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+     <span class="token function">actorCalled</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+             <span class="token comment">// ... activities</span>
+         <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 
@@ -1350,18 +1347,18 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Usage with Cucumber</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">  <span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-  <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Given</span>, <span class="hljs-title class_">When</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">  <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+  <span class="token keyword">import</span> <span class="token punctuation">{</span> Given<span class="token punctuation">,</span> When <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'cucumber'</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title class_">Given</span>(<span class="hljs-regexp">/(.*?) is a registered user/</span>, <span class="hljs-function">(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>) =&gt;</span>
-     <span class="hljs-title function_">actorCalled</span>(name).<span class="hljs-title function_">attemptsTo</span>(
-             <span class="hljs-comment">// ... activities</span>
-         ));
+  <span class="token function">Given</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(.*?) is a registered user</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+     <span class="token function">actorCalled</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+             <span class="token comment">// ... activities</span>
+         <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title class_">When</span>(<span class="hljs-regexp">/(?:he|she|they) browse their recent orders/</span>, <span class="hljs-function">() =&gt;</span>
-     <span class="hljs-title function_">actorInTheSpotlight</span>().<span class="hljs-title function_">attemptsTo</span>(
-             <span class="hljs-comment">// ... activities</span>
-         ));</code></pre>
+  <span class="token function">When</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(?:he|she|they) browse their recent orders</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+     <span class="token function">actorInTheSpotlight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+             <span class="token comment">// ... activities</span>
+         <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 

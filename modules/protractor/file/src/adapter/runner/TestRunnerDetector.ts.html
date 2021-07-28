@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,102 +184,102 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/runner/TestRunnerDetector.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunnerAdapter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Config</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ProtractorConfig</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> TestRunnerAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Config <span class="token keyword">as</span> ProtractorConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TestRunnerLoader</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./TestRunnerLoader'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> TestRunnerLoader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./TestRunnerLoader'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Detects the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/io~TestRunnerAdapter} to use,
+<span class="token comment">/**
+ * @desc
+ *  Detects the {@link @serenity-js/core/lib/io~TestRunnerAdapter} to use,
  *  based on Protractor configuration.
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestRunnerDetector</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">TestRunnerDetector</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">static</span> cucumberOpts = <span class="hljs-string">'cucumberOpts'</span>;
-    <span class="hljs-keyword">static</span> jasmineNodeOpts = <span class="hljs-string">'jasmineNodeOpts'</span>;
-    <span class="hljs-keyword">static</span> mochaOpts = <span class="hljs-string">'mochaOpts'</span>;
+    <span class="token keyword">static</span> cucumberOpts <span class="token operator">=</span> <span class="token string">'cucumberOpts'</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> jasmineNodeOpts <span class="token operator">=</span> <span class="token string">'jasmineNodeOpts'</span><span class="token punctuation">;</span>
+    <span class="token keyword">static</span> mochaOpts <span class="token operator">=</span> <span class="token string">'mochaOpts'</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">protractorCliOptions</span>(): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">return</span> [
-            <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">cucumberOpts</span>,
-            <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">jasmineNodeOpts</span>,
-            <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">mochaOpts</span>,
-        ];
-    }
+    <span class="token keyword">static</span> <span class="token function">protractorCliOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span>
+            TestRunnerDetector<span class="token punctuation">.</span>cucumberOpts<span class="token punctuation">,</span>
+            TestRunnerDetector<span class="token punctuation">.</span>jasmineNodeOpts<span class="token punctuation">,</span>
+            TestRunnerDetector<span class="token punctuation">.</span>mochaOpts<span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">TestRunnerLoader</span>} <span class="hljs-variable">testRunnerLoader</span>
+    <span class="token comment">/**
+     * @param {TestRunnerLoader} testRunnerLoader
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> testRunnerLoader: TestRunnerLoader</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> testRunnerLoader<span class="token operator">:</span> TestRunnerLoader<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">protractor~ProtractorConfig</span>} <span class="hljs-variable">config</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">TestRunnerAdapter</span>}
+    <span class="token comment">/**
+     * @param {protractor~ProtractorConfig} config
+     * @returns {TestRunnerAdapter}
      */</span>
-    <span class="hljs-title function_">runnerFor</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+    <span class="token function">runnerFor</span><span class="token punctuation">(</span>config<span class="token operator">:</span> ProtractorConfig<span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span>
-            <span class="hljs-title function_">specifiesRunnerFor</span> = (<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span></span>) =&gt;
-                !!config.<span class="hljs-property">serenity</span> &amp;&amp;
-                !!config.<span class="hljs-property">serenity</span>.<span class="hljs-property">runner</span> &amp;&amp;
-                config.<span class="hljs-property">serenity</span>.<span class="hljs-property">runner</span> === <span class="hljs-keyword">type</span>;
+        <span class="token keyword">const</span>
+            <span class="token function-variable function">specifiesRunnerFor</span> <span class="token operator">=</span> <span class="token punctuation">(</span>type<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+                <span class="token operator">!</span><span class="token operator">!</span>config<span class="token punctuation">.</span>serenity <span class="token operator">&amp;&amp;</span>
+                <span class="token operator">!</span><span class="token operator">!</span>config<span class="token punctuation">.</span>serenity<span class="token punctuation">.</span>runner <span class="token operator">&amp;&amp;</span>
+                config<span class="token punctuation">.</span>serenity<span class="token punctuation">.</span>runner <span class="token operator">===</span> type<span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">switch</span> (<span class="hljs-literal">true</span>) {
-            <span class="hljs-keyword">case</span> <span class="hljs-title function_">specifiesRunnerFor</span>(<span class="hljs-string">'cucumber'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useCucumber</span>(config);
-            <span class="hljs-keyword">case</span> <span class="hljs-title function_">specifiesRunnerFor</span>(<span class="hljs-string">'jasmine'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useJasmine</span>(config);
-            <span class="hljs-keyword">case</span> <span class="hljs-title function_">specifiesRunnerFor</span>(<span class="hljs-string">'mocha'</span>):
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useMocha</span>(config);
-            <span class="hljs-keyword">case</span> !! config.<span class="hljs-property">cucumberOpts</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useCucumber</span>(config);
-            <span class="hljs-keyword">case</span> !! config.<span class="hljs-property">mochaOpts</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useMocha</span>(config);
-            <span class="hljs-keyword">case</span> !! config.<span class="hljs-property">jasmineNodeOpts</span>:
-            <span class="hljs-attr">default</span>:
-                <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">useJasmine</span>(config);
-        }
-    }
+        <span class="token keyword">switch</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">case</span> <span class="token function">specifiesRunnerFor</span><span class="token punctuation">(</span><span class="token string">'cucumber'</span><span class="token punctuation">)</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">useCucumber</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> <span class="token function">specifiesRunnerFor</span><span class="token punctuation">(</span><span class="token string">'jasmine'</span><span class="token punctuation">)</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">useJasmine</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> <span class="token function">specifiesRunnerFor</span><span class="token punctuation">(</span><span class="token string">'mocha'</span><span class="token punctuation">)</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">useMocha</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> config<span class="token punctuation">.</span>cucumberOpts<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">useCucumber</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> config<span class="token punctuation">.</span>mochaOpts<span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">useMocha</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">case</span> <span class="token operator">!</span><span class="token operator">!</span> config<span class="token punctuation">.</span>jasmineNodeOpts<span class="token operator">:</span>
+            <span class="token keyword">default</span><span class="token operator">:</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">useJasmine</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">useJasmine</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">testRunnerLoader</span>.<span class="hljs-title function_">forJasmine</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mergedConfigFor</span>(config, <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">jasmineNodeOpts</span>));
-    }
+    <span class="token keyword">private</span> <span class="token function">useJasmine</span><span class="token punctuation">(</span>config<span class="token operator">:</span> ProtractorConfig<span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>testRunnerLoader<span class="token punctuation">.</span><span class="token function">forJasmine</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mergedConfigFor</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> TestRunnerDetector<span class="token punctuation">.</span>jasmineNodeOpts<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">useMocha</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">testRunnerLoader</span>.<span class="hljs-title function_">forMocha</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mergedConfigFor</span>(config, <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">mochaOpts</span>));
-    }
+    <span class="token keyword">private</span> <span class="token function">useMocha</span><span class="token punctuation">(</span>config<span class="token operator">:</span> ProtractorConfig<span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>testRunnerLoader<span class="token punctuation">.</span><span class="token function">forMocha</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mergedConfigFor</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> TestRunnerDetector<span class="token punctuation">.</span>mochaOpts<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">useCucumber</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-title class_">TestRunnerAdapter</span> {
+    <span class="token keyword">private</span> <span class="token function">useCucumber</span><span class="token punctuation">(</span>config<span class="token operator">:</span> ProtractorConfig<span class="token punctuation">)</span><span class="token operator">:</span> TestRunnerAdapter <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> serenityReportingServicesConfigured  = config?.<span class="hljs-property">serenity</span>?.<span class="hljs-property">crew</span>?.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>;
+        <span class="token keyword">const</span> serenityReportingServicesConfigured  <span class="token operator">=</span> config<span class="token operator">?.</span>serenity<span class="token operator">?.</span>crew<span class="token operator">?.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">testRunnerLoader</span>.<span class="hljs-title function_">forCucumber</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">mergedConfigFor</span>(config, <span class="hljs-title class_">TestRunnerDetector</span>.<span class="hljs-property">cucumberOpts</span>), {
-            <span class="hljs-attr">useStandardOutput</span>:      serenityReportingServicesConfigured,
-            <span class="hljs-attr">uniqueFormatterOutputs</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">multiCapabilitiesOrTestShardingEnabled</span>(config),
-        })
-    }
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>testRunnerLoader<span class="token punctuation">.</span><span class="token function">forCucumber</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">mergedConfigFor</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> TestRunnerDetector<span class="token punctuation">.</span>cucumberOpts<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+            useStandardOutput<span class="token operator">:</span>      serenityReportingServicesConfigured<span class="token punctuation">,</span>
+            uniqueFormatterOutputs<span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">multiCapabilitiesOrTestShardingEnabled</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> mergedConfigFor&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> <span class="hljs-title class_">ProtractorConfig</span>&gt;(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span> = {}, <span class="hljs-attr">key</span>: K): <span class="hljs-title class_">ProtractorConfig</span>[K] {
+    <span class="token keyword">private</span> <span class="token generic-function"><span class="token function">mergedConfigFor</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">K</span> <span class="token keyword">extends</span> <span class="token keyword">keyof</span> ProtractorConfig<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>config<span class="token operator">:</span> ProtractorConfig <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> key<span class="token operator">:</span> <span class="token constant">K</span><span class="token punctuation">)</span><span class="token operator">:</span> ProtractorConfig<span class="token punctuation">[</span><span class="token constant">K</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">assign</span>(
-            {},
-            config[key],
-            (config.<span class="hljs-property">capabilities</span> || {})[key],
-        );
-    }
+        <span class="token keyword">return</span> Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
+            <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+            config<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">(</span>config<span class="token punctuation">.</span>capabilities <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">multiCapabilitiesOrTestShardingEnabled</span>(<span class="hljs-attr">config</span>: <span class="hljs-title class_">ProtractorConfig</span>): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> !! (
-            (<span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(config.<span class="hljs-property">multiCapabilities</span>) &amp;&amp; config.<span class="hljs-property">multiCapabilities</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>)
-            || <span class="hljs-keyword">typeof</span> config.<span class="hljs-property">getMultiCapabilities</span> === <span class="hljs-string">'function'</span>
-            || config.<span class="hljs-property">capabilities</span>?.<span class="hljs-property">shardTestFiles</span>
-        );
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">multiCapabilitiesOrTestShardingEnabled</span><span class="token punctuation">(</span>config<span class="token operator">:</span> ProtractorConfig<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token punctuation">(</span>
+            <span class="token punctuation">(</span><span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>multiCapabilities<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> config<span class="token punctuation">.</span>multiCapabilities<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span>
+            <span class="token operator">||</span> <span class="token keyword">typeof</span> config<span class="token punctuation">.</span>getMultiCapabilities <span class="token operator">===</span> <span class="token string">'function'</span>
+            <span class="token operator">||</span> config<span class="token punctuation">.</span>capabilities<span class="token operator">?.</span>shardTestFiles
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

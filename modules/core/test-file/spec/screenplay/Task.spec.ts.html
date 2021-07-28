@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,68 +291,68 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/Task.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> sinon <span class="token keyword">from</span> <span class="token string">'sinon'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ImplementationPendingError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/errors'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">Task</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/screenplay'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../src/stage'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ImplementationPendingError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/errors'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CorrelationId <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span> Task <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/screenplay'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Stage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/stage'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Task'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Task'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">let</span> <span class="hljs-attr">stage</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">Stage</span>&gt;;
+    <span class="token keyword">let</span> stage<span class="token operator">:</span> sinon<span class="token punctuation">.</span>SinonStubbedInstance<span class="token operator">&lt;</span>Stage<span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-        stage = sinon.<span class="hljs-title function_">createStubInstance</span>(<span class="hljs-title class_">Stage</span>);
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        stage <span class="token operator">=</span> sinon<span class="token punctuation">.</span><span class="token function">createStubInstance</span><span class="token punctuation">(</span>Stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span>
-            sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'some-scene-id'</span>),
-            activityId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'some-activity-id'</span>);
+        <span class="token keyword">const</span>
+            sceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'some-scene-id'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            activityId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'some-activity-id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        stage.<span class="hljs-property">currentSceneId</span>.<span class="hljs-title function_">returns</span>(sceneId);
-        stage.<span class="hljs-property">assignNewActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
-        stage.<span class="hljs-property">currentActivityId</span>.<span class="hljs-title function_">returns</span>(activityId);
-    });
+        stage<span class="token punctuation">.</span>currentSceneId<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        stage<span class="token punctuation">.</span>assignNewActivityId<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>activityId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        stage<span class="token punctuation">.</span>currentActivityId<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>activityId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span>
-        <span class="hljs-title function_">Nock</span>    = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor places an arrow on the bow`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-        <span class="hljs-title class_">Draw</span>    = <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor pulls back the bow string`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>),
-        <span class="hljs-title class_">Loose</span>   = <span class="hljs-function">() =&gt;</span> <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor releases an arrow from the bow`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>);
+    <span class="token keyword">const</span>
+        <span class="token function-variable function">Nock</span>    <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor places an arrow on the bow</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">Draw</span>    <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor pulls back the bow string</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function-variable function">Loose</span>   <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor releases an arrow from the bow</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> <span class="hljs-title function_">ShootAnArrow</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor shoots an arrow`</span>,
-        <span class="hljs-title class_">Nock</span>(),
-        <span class="hljs-title class_">Draw</span>(),
-        <span class="hljs-title class_">Loose</span>(),
-    );
+    <span class="token keyword">const</span> <span class="token function-variable function">ShootAnArrow</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor shoots an arrow</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        <span class="token function">Nock</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">Draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token function">Loose</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Task</span>} */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a convenient factory method for defining tasks'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token comment">/** @test {Task} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides a convenient factory method for defining tasks'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Lara</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(<span class="hljs-string">'Lara'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
+        <span class="token keyword">const</span> Lara <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Actor</span><span class="token punctuation">(</span><span class="token string">'Lara'</span><span class="token punctuation">,</span> stage <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> Stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Lara</span>.<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-title class_">ShootAnArrow</span>())).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>;
-    });
+        <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>Lara<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span><span class="token function">ShootAnArrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>fulfilled<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Task</span>} */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a way to describe a collection of activities'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">ShootAnArrow</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor shoots an arrow`</span>);
-    });
+    <span class="token comment">/** @test {Task} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides a way to describe a collection of activities'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">ShootAnArrow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor shoots an arrow</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Task</span>} */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'generates a pending task if no activities are provided'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token comment">/** @test {Task} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'generates a pending task if no activities are provided'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">const</span> <span class="hljs-title class_">Lara</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Actor</span>(<span class="hljs-string">'Lara'</span>, stage <span class="hljs-keyword">as</span> unknown <span class="hljs-keyword">as</span> <span class="hljs-title class_">Stage</span>);
+        <span class="token keyword">const</span> Lara <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Actor</span><span class="token punctuation">(</span><span class="token string">'Lara'</span><span class="token punctuation">,</span> stage <span class="token keyword">as</span> <span class="token builtin">unknown</span> <span class="token keyword">as</span> Stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> <span class="hljs-title function_">ClimbAMountain</span> = (<span class="hljs-params"></span>) =&gt; <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor climbs a mountain`</span>);
+        <span class="token keyword">const</span> <span class="token function-variable function">ClimbAMountain</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor climbs a mountain</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Lara</span>.<span class="hljs-title function_">attemptsTo</span>(<span class="hljs-title class_">Climb</span>AMountain()))
-            .<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">ImplementationPendingError</span>, <span class="hljs-string">`A task where "#actor climbs a mountain" has not been implemented yet`</span>);
-    });
-});
+        <span class="token keyword">return</span> <span class="token function">expect</span><span class="token punctuation">(</span>Lara<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span><span class="token function">ClimbAMountain</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>ImplementationPendingError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">A task where "#actor climbs a mountain" has not been implemented yet</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

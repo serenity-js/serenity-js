@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,55 +291,55 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/SerenityConfig.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">OutputStream</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Duration</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cast</span>, <span class="hljs-title class_">StageCrewMember</span>, <span class="hljs-title class_">StageCrewMemberBuilder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./stage'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> OutputStream <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Duration <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Cast<span class="token punctuation">,</span> StageCrewMember<span class="token punctuation">,</span> StageCrewMemberBuilder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./stage'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@interface</span>
+<span class="token comment">/**
+ * @interface
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link configure</span>}
+ * @see {@link configure}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SerenityConfig</span> {
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  A {<span class="hljs-doctag">@link</span> Cast} of {<span class="hljs-doctag">@link</span> Actor}s to be used when {<span class="hljs-doctag">@link</span> actorCalled}
-     *  and {<span class="hljs-doctag">@link</span> actorInTheSpotlight} functions are called.
+<span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">SerenityConfig</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @desc
+     *  A {@link Cast} of {@link Actor}s to be used when {@link actorCalled}
+     *  and {@link actorInTheSpotlight} functions are called.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?Cast</span>}
+     * @type {?Cast}
      */</span>
-    actors?:        <span class="hljs-title class_">Cast</span>;
+    actors<span class="token operator">?</span><span class="token operator">:</span>        Cast<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  A list of {<span class="hljs-doctag">@link</span> StageCrewMemberBuilder}s or {<span class="hljs-doctag">@link</span> StageCrewMember}s
-     *  to be notified of {<span class="hljs-doctag">@link</span> DomainEvent}s that occur during the scenario execution.
+    <span class="token comment">/**
+     * @desc
+     *  A list of {@link StageCrewMemberBuilder}s or {@link StageCrewMember}s
+     *  to be notified of {@link DomainEvent}s that occur during the scenario execution.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?Array&lt;StageCrewMember | StageCrewMemberBuilder&gt;</span>}
+     * @type {?Array&lt;StageCrewMember | StageCrewMemberBuilder&gt;}
      */</span>
-    crew?:          <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">StageCrewMember</span> | <span class="hljs-title class_">StageCrewMemberBuilder</span>&gt;;
+    crew<span class="token operator">?</span><span class="token operator">:</span>          <span class="token builtin">Array</span><span class="token operator">&lt;</span>StageCrewMember <span class="token operator">|</span> StageCrewMemberBuilder<span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  The maximum amount of time Serenity/JS should wait for any post-scenario
      *  async operations to complete. Those include generating the screenshots,
      *  saving reports to disk and so on. **Please note** that this is not
      *  a scenario timeout, which should be configured in your test runner.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?Duration</span>}
+     * @type {?Duration}
      */</span>
-    cueTimeout?:    <span class="hljs-title class_">Duration</span>;
+    cueTimeout<span class="token operator">?</span><span class="token operator">:</span>    Duration<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  An output stream to be injected into {<span class="hljs-doctag">@link</span> StageCrewMemberBuilder}s
+    <span class="token comment">/**
+     * @desc
+     *  An output stream to be injected into {@link StageCrewMemberBuilder}s
      *
      *  Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">?OutputStream</span>}
+     * @type {?OutputStream}
      */</span>
-    outputStream?: <span class="hljs-title class_">OutputStream</span>;
-}
+    outputStream<span class="token operator">?</span><span class="token operator">:</span> OutputStream<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

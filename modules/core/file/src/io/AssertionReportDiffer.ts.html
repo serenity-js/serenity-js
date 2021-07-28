@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,49 +291,49 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/AssertionReportDiffer.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Change</span>, diffLines } <span class="hljs-keyword">from</span> <span class="hljs-string">'diff'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Change<span class="token punctuation">,</span> diffLines <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'diff'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AssertionReportDiffer</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> mappers: AssertionReportDiffMappers</span>) {
-    }
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AssertionReportDiffer</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> mappers<span class="token operator">:</span> AssertionReportDiffMappers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">diff</span>(<span class="hljs-attr">expectedValue</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">actualValue</span>: <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">const</span> changes = <span class="hljs-title function_">diffLines</span>(actualValue, expectedValue)
-            .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">change</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">markChanges</span>(change));
+    <span class="token function">diff</span><span class="token punctuation">(</span>expectedValue<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> actualValue<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> changes <span class="token operator">=</span> <span class="token function">diffLines</span><span class="token punctuation">(</span>actualValue<span class="token punctuation">,</span> expectedValue<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>change <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">markChanges</span><span class="token punctuation">(</span>change<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> [
-            <span class="hljs-string">`Difference (<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.mappers.expected(<span class="hljs-string">'expected'</span>) }</span>, <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.mappers.actual(<span class="hljs-string">'actual'</span>) }</span>):`</span>,
-            <span class="hljs-string">''</span>,
-            changes.<span class="hljs-property">length</span> === <span class="hljs-number">2</span>
-                ? changes.<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>)
-                : changes.<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>),
-        ].<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
-    }
+        <span class="token keyword">return</span> <span class="token punctuation">[</span>
+            <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Difference (</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mappers<span class="token punctuation">.</span><span class="token function">expected</span><span class="token punctuation">(</span><span class="token string">'expected'</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">, </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mappers<span class="token punctuation">.</span><span class="token function">actual</span><span class="token punctuation">(</span><span class="token string">'actual'</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">):</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            <span class="token string">''</span><span class="token punctuation">,</span>
+            changes<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">2</span>
+                <span class="token operator">?</span> changes<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span>
+                <span class="token operator">:</span> changes<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">markChanges</span>(<span class="hljs-attr">change</span>: <span class="hljs-title class_">Change</span>): <span class="hljs-built_in">string</span> {
+    <span class="token keyword">private</span> <span class="token function">markChanges</span><span class="token punctuation">(</span>change<span class="token operator">:</span> Change<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">return</span> change.<span class="hljs-property">added</span>
-            ? <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">eachLineOf</span>(change.<span class="hljs-property">value</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">mappers</span>.<span class="hljs-property">expected</span>)
-            : (change.<span class="hljs-property">removed</span>
-                ? <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">eachLineOf</span>(change.<span class="hljs-property">value</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">mappers</span>.<span class="hljs-property">actual</span>)
-                : <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">eachLineOf</span>(change.<span class="hljs-property">value</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">mappers</span>.<span class="hljs-property">matching</span>));
-    }
+        <span class="token keyword">return</span> change<span class="token punctuation">.</span>added
+            <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">eachLineOf</span><span class="token punctuation">(</span>change<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mappers<span class="token punctuation">.</span>expected<span class="token punctuation">)</span>
+            <span class="token operator">:</span> <span class="token punctuation">(</span>change<span class="token punctuation">.</span>removed
+                <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">eachLineOf</span><span class="token punctuation">(</span>change<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mappers<span class="token punctuation">.</span>actual<span class="token punctuation">)</span>
+                <span class="token operator">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">eachLineOf</span><span class="token punctuation">(</span>change<span class="token punctuation">.</span>value<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mappers<span class="token punctuation">.</span>matching<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">eachLineOf</span>(<span class="hljs-attr">lines</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">mapper</span>: <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> lines.<span class="hljs-title function_">split</span>(<span class="hljs-string">'\n'</span>).<span class="hljs-title function_">map</span>(
-            <span class="hljs-function"><span class="hljs-params">line</span> =&gt;</span>
-                line.<span class="hljs-title function_">trim</span>()
-                    ? <span class="hljs-title function_">mapper</span>(line)
-                    : line
-        ).<span class="hljs-title function_">join</span>(<span class="hljs-string">'\n'</span>);
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">eachLineOf</span><span class="token punctuation">(</span>lines<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token function-variable function">mapper</span><span class="token operator">:</span> <span class="token punctuation">(</span>line<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> lines<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>
+            line <span class="token operator">=&gt;</span>
+                line<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token operator">?</span> <span class="token function">mapper</span><span class="token punctuation">(</span>line<span class="token punctuation">)</span>
+                    <span class="token operator">:</span> line
+        <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> AssertionReportDiffMappers {
-    <span class="hljs-attr">expected</span>:   <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">actual</span>:     <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>;
-    <span class="hljs-attr">matching</span>:   <span class="hljs-function">(<span class="hljs-params">line: <span class="hljs-built_in">string</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">AssertionReportDiffMappers</span> <span class="token punctuation">{</span>
+    <span class="token function-variable function">expected</span><span class="token operator">:</span>   <span class="token punctuation">(</span>line<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token function-variable function">actual</span><span class="token operator">:</span>     <span class="token punctuation">(</span>line<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token function-variable function">matching</span><span class="token operator">:</span>   <span class="token punctuation">(</span>line<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

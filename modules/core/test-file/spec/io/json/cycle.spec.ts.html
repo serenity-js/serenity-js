@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,216 +291,216 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/io/json/cycle.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-zero-fractions,unicorn/prevent-abbreviations */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/consistent-function-scoping,unicorn/no-null,unicorn/no-zero-fractions,unicorn/prevent-abbreviations */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'mocha-testdata'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> given <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mocha-testdata'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { parse, stringify } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src/io'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> parse<span class="token punctuation">,</span> stringify <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'cycle'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'cycle'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used with primitives'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when used with primitives'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'stringify'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">given</span>([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'number'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-number">1.5</span>          },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'hi'</span>         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'boolean'</span>,   <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,      <span class="hljs-attr">value</span>: <span class="hljs-literal">null</span>         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'undefined'</span>, <span class="hljs-attr">value</span>: <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>       },
-            ]).
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.stringify'</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value));
-            });
-        });
+            <span class="token function">given</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'number'</span><span class="token punctuation">,</span>    value<span class="token operator">:</span> <span class="token number">1.5</span>          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'string'</span><span class="token punctuation">,</span>    value<span class="token operator">:</span> <span class="token string">'hi'</span>         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'boolean'</span><span class="token punctuation">,</span>   value<span class="token operator">:</span> <span class="token boolean">true</span>         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'null'</span><span class="token punctuation">,</span>      value<span class="token operator">:</span> <span class="token keyword">null</span>         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'undefined'</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token keyword">void</span> <span class="token number">0</span>       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'behaves just like JSON.stringify'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'parse'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">given</span>([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'number'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'1.5'</span>,   <span class="hljs-attr">expected</span>: <span class="hljs-number">1.5</span>       },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'string'</span>,    <span class="hljs-attr">value</span>: <span class="hljs-string">'"hi"'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-string">'hi'</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'boolean'</span>,   <span class="hljs-attr">value</span>: <span class="hljs-string">'true'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-literal">true</span>      },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'null'</span>,      <span class="hljs-attr">value</span>: <span class="hljs-string">'null'</span>,  <span class="hljs-attr">expected</span>: <span class="hljs-literal">null</span>      },
-            ]).
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.parse'</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(value));
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(expected);
-            });
-        });
-    });
+            <span class="token function">given</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'number'</span><span class="token punctuation">,</span>    value<span class="token operator">:</span> <span class="token string">'1.5'</span><span class="token punctuation">,</span>   expected<span class="token operator">:</span> <span class="token number">1.5</span>       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'string'</span><span class="token punctuation">,</span>    value<span class="token operator">:</span> <span class="token string">'"hi"'</span><span class="token punctuation">,</span>  expected<span class="token operator">:</span> <span class="token string">'hi'</span>      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'boolean'</span><span class="token punctuation">,</span>   value<span class="token operator">:</span> <span class="token string">'true'</span><span class="token punctuation">,</span>  expected<span class="token operator">:</span> <span class="token boolean">true</span>      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'null'</span><span class="token punctuation">,</span>      value<span class="token operator">:</span> <span class="token string">'null'</span><span class="token punctuation">,</span>  expected<span class="token operator">:</span> <span class="token keyword">null</span>      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'behaves just like JSON.parse'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>  value<span class="token punctuation">,</span> expected <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>expected<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used with acyclic objects'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when used with acyclic objects'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'stringify'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">given</span>([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty object'</span>,  <span class="hljs-attr">value</span>: { }                               },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'simple object'</span>, <span class="hljs-attr">value</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }                   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested object'</span>, <span class="hljs-attr">value</span>: { <span class="hljs-attr">l1</span>: { <span class="hljs-attr">l2</span>: <span class="hljs-string">'value'</span>} }            },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty array'</span>,   <span class="hljs-attr">value</span>: []                                },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'simple array'</span>,  <span class="hljs-attr">value</span>: [ <span class="hljs-string">'1'</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3.0</span> ]                   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested array'</span>,  <span class="hljs-attr">value</span>: [ [ <span class="hljs-string">'1'</span> ], [[<span class="hljs-string">'2'</span>]], <span class="hljs-string">'3'</span> ]         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'mixed'</span>,         <span class="hljs-attr">value</span>: [{ <span class="hljs-attr">values</span>: [<span class="hljs-number">1</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }]}] },
-            ]).
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.stringify'</span>, <span class="hljs-function">(<span class="hljs-params">value: <span class="hljs-built_in">any</span></span>) =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(value));
-            });
-        });
+            <span class="token function">given</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'empty object'</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>                               <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'simple object'</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Jan'</span> <span class="token punctuation">}</span>                   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'nested object'</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token punctuation">{</span> l1<span class="token operator">:</span> <span class="token punctuation">{</span> l2<span class="token operator">:</span> <span class="token string">'value'</span><span class="token punctuation">}</span> <span class="token punctuation">}</span>            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'empty array'</span><span class="token punctuation">,</span>   value<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>                                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'simple array'</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3.0</span> <span class="token punctuation">]</span>                   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'nested array'</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">[</span> <span class="token string">'1'</span> <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'2'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'3'</span> <span class="token punctuation">]</span>         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'mixed'</span><span class="token punctuation">,</span>         value<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> values<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Jan'</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'behaves just like JSON.stringify'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>value<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'parse'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">given</span>([
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty object'</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">'{}'</span>,                                <span class="hljs-attr">expected</span>: { }                               },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'simple object'</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">'{"name":"Jan"}'</span>,                    <span class="hljs-attr">expected</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span>}                    },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested object'</span>, <span class="hljs-attr">value</span>: <span class="hljs-string">'{"l1":{"l2":"value"}}'</span>,             <span class="hljs-attr">expected</span>: { <span class="hljs-attr">l1</span>: { <span class="hljs-attr">l2</span>: <span class="hljs-string">'value'</span>} }            },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'empty array'</span>,   <span class="hljs-attr">value</span>: <span class="hljs-string">'[]'</span>,                                <span class="hljs-attr">expected</span>: []                                },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'simple array'</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">'["1",2,3]'</span>,                         <span class="hljs-attr">expected</span>: [ <span class="hljs-string">'1'</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3.0</span> ]                   },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'nested array'</span>,  <span class="hljs-attr">value</span>: <span class="hljs-string">'[["1"],[["2"]],"3"]'</span>,               <span class="hljs-attr">expected</span>: [ [ <span class="hljs-string">'1'</span> ], [[<span class="hljs-string">'2'</span>]], <span class="hljs-string">'3'</span> ]         },
-                { <span class="hljs-attr">description</span>: <span class="hljs-string">'mixed'</span>,         <span class="hljs-attr">value</span>: <span class="hljs-string">'[{"values":[1,{"name":"Jan"}]}]'</span>,   <span class="hljs-attr">expected</span>: [{ <span class="hljs-attr">values</span>: [<span class="hljs-number">1</span>, { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }]}] },
-            ]).
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'behaves just like JSON.parse'</span>, <span class="hljs-function">(<span class="hljs-params">{  value, expected }</span>) =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">parse</span>(value));
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(value)).<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(expected);
-            });
-        });
-    });
+            <span class="token function">given</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'empty object'</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> <span class="token string">'{}'</span><span class="token punctuation">,</span>                                expected<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>                               <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'simple object'</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token string">'{"name":"Jan"}'</span><span class="token punctuation">,</span>                    expected<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Jan'</span><span class="token punctuation">}</span>                    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'nested object'</span><span class="token punctuation">,</span> value<span class="token operator">:</span> <span class="token string">'{"l1":{"l2":"value"}}'</span><span class="token punctuation">,</span>             expected<span class="token operator">:</span> <span class="token punctuation">{</span> l1<span class="token operator">:</span> <span class="token punctuation">{</span> l2<span class="token operator">:</span> <span class="token string">'value'</span><span class="token punctuation">}</span> <span class="token punctuation">}</span>            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'empty array'</span><span class="token punctuation">,</span>   value<span class="token operator">:</span> <span class="token string">'[]'</span><span class="token punctuation">,</span>                                expected<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>                                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'simple array'</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> <span class="token string">'["1",2,3]'</span><span class="token punctuation">,</span>                         expected<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3.0</span> <span class="token punctuation">]</span>                   <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'nested array'</span><span class="token punctuation">,</span>  value<span class="token operator">:</span> <span class="token string">'[["1"],[["2"]],"3"]'</span><span class="token punctuation">,</span>               expected<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">[</span> <span class="token string">'1'</span> <span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'2'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">'3'</span> <span class="token punctuation">]</span>         <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                <span class="token punctuation">{</span> description<span class="token operator">:</span> <span class="token string">'mixed'</span><span class="token punctuation">,</span>         value<span class="token operator">:</span> <span class="token string">'[{"values":[1,{"name":"Jan"}]}]'</span><span class="token punctuation">,</span>   expected<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span> values<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Jan'</span> <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">}</span><span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'behaves just like JSON.parse'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>  value<span class="token punctuation">,</span> expected <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>expected<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when used with cyclic objects'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when used with cyclic objects'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'JSON.stringify'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'JSON.stringify'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a circular reference in a round robin list'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">2</span>)))
-                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should fail because of a circular reference in a round robin list'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">roundRobin</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>TypeError<span class="token punctuation">,</span> <span class="token string">'Converting circular structure to JSON'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a circular reference in simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">simpleNestedObject</span>()))
-                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should fail because of a circular reference in simple nested object'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">simpleNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>TypeError<span class="token punctuation">,</span> <span class="token string">'Converting circular structure to JSON'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a circular reference in complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">complexNestedObject</span>()))
-                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should fail because of a circular reference in complex nested object'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">complexNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>TypeError<span class="token punctuation">,</span> <span class="token string">'Converting circular structure to JSON'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should fail because of a cycles in object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable constant_">JSON</span>.<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">objectWithParallelReferences</span>()))
-                    .<span class="hljs-property">to</span>.<span class="hljs-keyword">throw</span>(<span class="hljs-title class_">TypeError</span>, <span class="hljs-string">'Converting circular structure to JSON'</span>);
-            });
-        });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should fail because of a cycles in object with parallel references'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">objectWithParallelReferences</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">throw</span><span class="token punctuation">(</span>TypeError<span class="token punctuation">,</span> <span class="token string">'Converting circular structure to JSON'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'stringify'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise a round robin list data structure'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">1</span>)))
-                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'[{"prev":{"$ref":"$[0]"}}]'</span>);
-            });
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'stringify'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should serialise a round robin list data structure'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">roundRobin</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'[{"prev":{"$ref":"$[0]"}}]'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise a simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">simpleNestedObject</span>()))
-                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{"property":"value","self":{"$ref":"$"}}'</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should serialise a simple nested object'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">simpleNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'{"property":"value","self":{"$ref":"$"}}'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise a complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">complexNestedObject</span>()))
-                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{"property":"value","another":{"property":"another value","self":{"$ref":"$[\\"another\\"]"}},"self":{"$ref":"$"}}'</span>);
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should serialise a complex nested object'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">complexNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'{"property":"value","another":{"property":"another value","self":{"$ref":"$[\\"another\\"]"}},"self":{"$ref":"$"}}'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should serialise an object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">objectWithParallelReferences</span>()))
-                    .<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'{"property1":{"value":42,"sibling":{"$ref":"$[\\"property1\\"]"}},"property2":{"$ref":"$[\\"property1\\"]"}}'</span>);
-            });
-        });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should serialise an object with parallel references'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">objectWithParallelReferences</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'{"property1":{"value":42,"sibling":{"$ref":"$[\\"property1\\"]"}},"property2":{"$ref":"$[\\"property1\\"]"}}'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">describe</span>(<span class="hljs-string">'parse'</span>, <span class="hljs-function">() =&gt;</span> {
+        <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'parse'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise a round robin list data structure'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">1</span>))))
-                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">roundRobin</span>(<span class="hljs-number">1</span>));
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should deserialise a round robin list data structure'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">roundRobin</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token function">roundRobin</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise a simple nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">simpleNestedObject</span>())))
-                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">simpleNestedObject</span>());
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should deserialise a simple nested object'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">simpleNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token function">simpleNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise a complex nested object'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">complexNestedObject</span>())))
-                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">complexNestedObject</span>());
-            });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should deserialise a complex nested object'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">complexNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token function">complexNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-title function_">it</span>(<span class="hljs-string">'should deserialise an object with parallel references'</span>, <span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">parse</span>(<span class="hljs-title function_">stringify</span>(<span class="hljs-title function_">objectWithParallelReferences</span>())))
-                    .<span class="hljs-property">to</span>.<span class="hljs-property">deep</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-title function_">objectWithParallelReferences</span>());
-            });
-        });
+            <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'should deserialise an object with parallel references'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token function">stringify</span><span class="token punctuation">(</span><span class="token function">objectWithParallelReferences</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span>to<span class="token punctuation">.</span>deep<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token function">objectWithParallelReferences</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">function</span> <span class="hljs-title function_">roundRobin</span>(<span class="hljs-params">segments: <span class="hljs-built_in">number</span></span>) {
-            <span class="hljs-keyword">if</span> (segments &lt;= <span class="hljs-number">0</span>) {
-                <span class="hljs-keyword">return</span> [];
-            }
+        <span class="token keyword">function</span> <span class="token function">roundRobin</span><span class="token punctuation">(</span>segments<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>segments <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            <span class="hljs-keyword">const</span> list = [];
-            <span class="hljs-keyword">let</span> prev = <span class="hljs-literal">null</span>;
+            <span class="token keyword">const</span> list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token keyword">let</span> prev <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; segments; ++i) {
-                prev = list[i] = { prev }
-            }
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> segments<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                prev <span class="token operator">=</span> list<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span> prev <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
 
-            list[<span class="hljs-number">0</span>].<span class="hljs-property">prev</span> = list[segments - <span class="hljs-number">1</span>];
+            list<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>prev <span class="token operator">=</span> list<span class="token punctuation">[</span>segments <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">return</span> list;
-        }
+            <span class="token keyword">return</span> list<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">function</span> <span class="hljs-title function_">simpleNestedObject</span>(<span class="hljs-params"></span>) {
+        <span class="token keyword">function</span> <span class="token function">simpleNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> sample = {
-                <span class="hljs-attr">property</span>: <span class="hljs-string">'value'</span>,
-                <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
-            };
-            sample.<span class="hljs-property">self</span> = sample;
+            <span class="token keyword">const</span> sample <span class="token operator">=</span> <span class="token punctuation">{</span>
+                property<span class="token operator">:</span> <span class="token string">'value'</span><span class="token punctuation">,</span>
+                self<span class="token operator">:</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            sample<span class="token punctuation">.</span>self <span class="token operator">=</span> sample<span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">return</span> sample;
-        }
+            <span class="token keyword">return</span> sample<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">function</span> <span class="hljs-title function_">complexNestedObject</span>(<span class="hljs-params"></span>) {
+        <span class="token keyword">function</span> <span class="token function">complexNestedObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> sample = {
-                <span class="hljs-attr">property</span>: <span class="hljs-string">'value'</span>,
-                <span class="hljs-attr">another</span>: {
-                    <span class="hljs-attr">property</span>: <span class="hljs-string">'another value'</span>,
-                    <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
-                },
-                <span class="hljs-attr">self</span>: <span class="hljs-literal">undefined</span>,
-            };
-            sample.<span class="hljs-property">another</span>.<span class="hljs-property">self</span> = sample.<span class="hljs-property">another</span>;
-            sample.<span class="hljs-property">self</span> = sample;
+            <span class="token keyword">const</span> sample <span class="token operator">=</span> <span class="token punctuation">{</span>
+                property<span class="token operator">:</span> <span class="token string">'value'</span><span class="token punctuation">,</span>
+                another<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    property<span class="token operator">:</span> <span class="token string">'another value'</span><span class="token punctuation">,</span>
+                    self<span class="token operator">:</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                self<span class="token operator">:</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
+            sample<span class="token punctuation">.</span>another<span class="token punctuation">.</span>self <span class="token operator">=</span> sample<span class="token punctuation">.</span>another<span class="token punctuation">;</span>
+            sample<span class="token punctuation">.</span>self <span class="token operator">=</span> sample<span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">return</span> sample;
-        }
+            <span class="token keyword">return</span> sample<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">function</span> <span class="hljs-title function_">objectWithParallelReferences</span>(<span class="hljs-params"></span>) {
+        <span class="token keyword">function</span> <span class="token function">objectWithParallelReferences</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-            <span class="hljs-keyword">const</span> property = {
-                <span class="hljs-attr">value</span>: <span class="hljs-number">42</span>,
-                <span class="hljs-attr">sibling</span>: <span class="hljs-literal">undefined</span>,
-            }
+            <span class="token keyword">const</span> property <span class="token operator">=</span> <span class="token punctuation">{</span>
+                value<span class="token operator">:</span> <span class="token number">42</span><span class="token punctuation">,</span>
+                sibling<span class="token operator">:</span> <span class="token keyword">undefined</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span>
 
-            <span class="hljs-keyword">const</span> sample = {
-                <span class="hljs-attr">property1</span>: property,
-                <span class="hljs-attr">property2</span>: property,
-            };
+            <span class="token keyword">const</span> sample <span class="token operator">=</span> <span class="token punctuation">{</span>
+                property1<span class="token operator">:</span> property<span class="token punctuation">,</span>
+                property2<span class="token operator">:</span> property<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-            sample.<span class="hljs-property">property1</span>.<span class="hljs-property">sibling</span> = sample.<span class="hljs-property">property2</span>;
-            sample.<span class="hljs-property">property2</span>.<span class="hljs-property">sibling</span> = sample.<span class="hljs-property">property1</span>;
+            sample<span class="token punctuation">.</span>property1<span class="token punctuation">.</span>sibling <span class="token operator">=</span> sample<span class="token punctuation">.</span>property2<span class="token punctuation">;</span>
+            sample<span class="token punctuation">.</span>property2<span class="token punctuation">.</span>sibling <span class="token operator">=</span> sample<span class="token punctuation">.</span>property1<span class="token punctuation">;</span>
 
-            <span class="hljs-keyword">return</span> sample;
-        }
-    });
-});
+            <span class="token keyword">return</span> sample<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

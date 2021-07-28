@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -144,35 +141,35 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/Ensure.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">Answerable</span>,
-    <span class="hljs-title class_">AnswersQuestions</span>,
-    <span class="hljs-title class_">AssertionError</span>,
-    <span class="hljs-title class_">CollectsArtifacts</span>,
-    <span class="hljs-title class_">Expectation</span>,
-    <span class="hljs-title class_">ExpectationMet</span>,
-    <span class="hljs-title class_">ExpectationNotMet</span>,
-    <span class="hljs-title class_">ExpectationOutcome</span>,
-    <span class="hljs-title class_">Interaction</span>,
-    <span class="hljs-title class_">LogicError</span>,
-    <span class="hljs-title class_">RuntimeError</span>,
-    <span class="hljs-title class_">UsesAbilities</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { inspected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io/inspected'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span>, <span class="hljs-title class_">AssertionReport</span>, <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> { match } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span>
+    Answerable<span class="token punctuation">,</span>
+    AnswersQuestions<span class="token punctuation">,</span>
+    AssertionError<span class="token punctuation">,</span>
+    CollectsArtifacts<span class="token punctuation">,</span>
+    Expectation<span class="token punctuation">,</span>
+    ExpectationMet<span class="token punctuation">,</span>
+    ExpectationNotMet<span class="token punctuation">,</span>
+    ExpectationOutcome<span class="token punctuation">,</span>
+    Interaction<span class="token punctuation">,</span>
+    LogicError<span class="token punctuation">,</span>
+    RuntimeError<span class="token punctuation">,</span>
+    UsesAbilities<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> inspected <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io/inspected'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Artifact<span class="token punctuation">,</span> AssertionReport<span class="token punctuation">,</span> Name <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> match <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Used to perform verification of the system under test.
  *
  *  Resolves any `Answerable` describing the actual
- *  state and ensures that its value meets the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions~Expectation}s provided.
+ *  state and ensures that its value meets the {@link @serenity-js/core/lib/screenplay/questions~Expectation}s provided.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with static values&lt;/caption&gt;
- *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { Ensure, equals } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Usage with static values&lt;/caption&gt;
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  const actor = actorCalled('Erica');
  *
@@ -180,9 +177,9 @@
  *    Ensure.that('Hello world!', equals('Hello world!'))
  *  );
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Composing expectations with `and`&lt;/caption&gt;
- *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { and, Ensure, startsWith, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+ * @example &lt;caption&gt;Composing expectations with `and`&lt;/caption&gt;
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';
  *
  *  const actor = actorCalled('Erica');
  *
@@ -190,10 +187,10 @@
  *    Ensure.that('Hello world!', and(startsWith('Hello'), endsWith('!'))
  *  );
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Overriding the type of Error thrown upon assertion failure&lt;/caption&gt;
- *  import { actorCalled, TestCompromisedError } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { and, Ensure, startsWith, endsWith } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
- *  import { CallAnApi, GetRequest, LastResponse, Send } from '<span class="hljs-doctag">@serenity</span>-js/rest';
+ * @example &lt;caption&gt;Overriding the type of Error thrown upon assertion failure&lt;/caption&gt;
+ *  import { actorCalled, TestCompromisedError } from '@serenity-js/core';
+ *  import { and, Ensure, startsWith, endsWith } from '@serenity-js/assertions';
+ *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest';
  *
  *  const actor = actorCalled('Erica')
  *      .whoCan(CallAnApi.at('https://example.com'));
@@ -204,148 +201,148 @@
  *      .otherwiseFailWith(TestCompromisedError, 'The server is down, please cheer it up!')
  *  );
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
+ * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Ensure</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
-    <span class="hljs-comment">/**
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Ensure<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">Interaction</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;</span>} <span class="hljs-variable">actual</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, A&gt;</span>} <span class="hljs-variable">expectation</span>
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;} actual
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation&lt;any, A&gt;} expectation
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Ensure&lt;A&gt;</span>}
+     * @returns {Ensure&lt;A&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> that&lt;A&gt;(<span class="hljs-attr">actual</span>: <span class="hljs-title class_">Answerable</span>&lt;A&gt;, <span class="hljs-attr">expectation</span>: <span class="hljs-title class_">Expectation</span>&lt;<span class="hljs-built_in">any</span>, A&gt;): <span class="hljs-title class_">Ensure</span>&lt;A&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Ensure</span>(actual, expectation);
-    }
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">that</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>actual<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span><span class="token punctuation">,</span> expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> <span class="token constant">A</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Ensure<span class="token operator">&lt;</span><span class="token constant">A</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Ensure</span><span class="token punctuation">(</span>actual<span class="token punctuation">,</span> expectation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;</span>} <span class="hljs-variable">actual</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions~Expectation&lt;T&gt;</span>} <span class="hljs-variable">expectation</span>
+    <span class="token comment">/**
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;T&gt;} actual
+     * @param {@serenity-js/core/lib/screenplay/questions~Expectation&lt;T&gt;} expectation
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> actual: Answerable&lt;Actual&gt;,
-        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> expectation: Expectation&lt;Actual&gt;,
-    </span>) {
-        <span class="hljs-variable language_">super</span>();
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">protected</span> <span class="token keyword">readonly</span> actual<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token keyword">protected</span> <span class="token keyword">readonly</span> expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     * @param {UsesAbilities &amp; CollectsArtifacts &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">CollectsArtifacts</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>([
-            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">actual</span>),
-            actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>),
-        ]).<span class="hljs-title function_">then</span>(<span class="hljs-function">(<span class="hljs-params">[ actual, expectation ]</span>) =&gt;</span>
-            <span class="hljs-title function_">expectation</span>(actual).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">outcome</span> =&gt;</span>
-                match&lt;<span class="hljs-title class_">ExpectationOutcome</span>&lt;unknown, <span class="hljs-title class_">Actual</span>&gt;, <span class="hljs-built_in">void</span>&gt;(outcome)
-                    .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExpectationNotMet</span>, <span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
-                        actor.<span class="hljs-title function_">collect</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">artifactFrom</span>(o.<span class="hljs-property">expected</span>, o.<span class="hljs-property">actual</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">`Assertion Report`</span>));
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions <span class="token operator">&amp;</span> CollectsArtifacts<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+            actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>actual<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>expectation<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">[</span> actual<span class="token punctuation">,</span> expectation <span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expectation</span><span class="token punctuation">(</span>actual<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>outcome <span class="token operator">=&gt;</span>
+                <span class="token generic-function"><span class="token function">match</span><span class="token generic class-name"><span class="token operator">&lt;</span>ExpectationOutcome<span class="token operator">&lt;</span><span class="token builtin">unknown</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span><span class="token punctuation">,</span> <span class="token keyword">void</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>ExpectationNotMet<span class="token punctuation">,</span> o <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                        actor<span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">artifactFrom</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>expected<span class="token punctuation">,</span> o<span class="token punctuation">.</span>actual<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Assertion Report</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                        <span class="hljs-keyword">throw</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">errorForOutcome</span>(o);
-                    })
-                    .<span class="hljs-title function_">when</span>(<span class="hljs-title class_">ExpectationMet</span>, <span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>)
-                    .<span class="hljs-title function_">else</span>(<span class="hljs-function"><span class="hljs-params">o</span> =&gt;</span> {
-                        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(formatted <span class="hljs-string">`An Expectation should return an instance of an ExpectationOutcome, not <span class="hljs-subst">${ o }</span>`</span>);
-                    }),
-            ),
-        );
-    }
+                        <span class="token keyword">throw</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">errorForOutcome</span><span class="token punctuation">(</span>o<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">when</span><span class="token punctuation">(</span>ExpectationMet<span class="token punctuation">,</span> _ <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">else</span><span class="token punctuation">(</span>o <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">LogicError</span><span class="token punctuation">(</span>formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">An Expectation should return an instance of an ExpectationOutcome, not </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> o <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+    <span class="token comment">/**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> formatted <span class="hljs-string">`#actor ensures that <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.actual }</span> does <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.expectation }</span>`</span>;
-    }
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor ensures that </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>actual <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> does </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>expectation <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Overrides the default {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/errors~AssertionError} thrown when
+    <span class="token comment">/**
+     * @desc
+     *  Overrides the default {@link @serenity-js/core/lib/errors~AssertionError} thrown when
      *  the actual value does not meet the expectations set.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Function</span>} <span class="hljs-variable">typeOfRuntimeError</span>
+     * @param {Function} typeOfRuntimeError
      *  The type of RuntimeError to throw, i.e. TestCompromisedError
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">message</span>
+     * @param {string} message
      *  The message explaining the failure
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
-    <span class="hljs-title function_">otherwiseFailWith</span>(<span class="hljs-attr">typeOfRuntimeError</span>: <span class="hljs-keyword">new</span> (<span class="hljs-attr">message</span>: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-title class_">Error</span>) =&gt; <span class="hljs-title class_">RuntimeError</span>, message?: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Interaction</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">EnsureOrFailWithCustomError</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">actual</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">expectation</span>, typeOfRuntimeError, message);
-    }
+    <span class="token function">otherwiseFailWith</span><span class="token punctuation">(</span><span class="token keyword">type</span>OfRuntimeError<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token punctuation">(</span>message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> cause<span class="token operator">?</span><span class="token operator">:</span> Error<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> RuntimeError<span class="token punctuation">,</span> message<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Interaction <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">EnsureOrFailWithCustomError</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>actual<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>expectation<span class="token punctuation">,</span> <span class="token keyword">type</span>OfRuntimeError<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Maps an {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} to appropriate {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/errors~RuntimeError}.
+    <span class="token comment">/**
+     * @desc
+     *  Maps an {@link @serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} to appropriate {@link @serenity-js/core/lib/errors~RuntimeError}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome</span>} <span class="hljs-variable">outcome</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/errors~RuntimeError</span>}
+     * @param {@serenity-js/core/lib/screenplay/questions/expectations~ExpectationOutcome} outcome
+     * @returns {@serenity-js/core/lib/errors~RuntimeError}
      *
-     * <span class="hljs-doctag">@protected</span>
+     * @protected
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">errorForOutcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">RuntimeError</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asAssertionError</span>(outcome);
-    }
+    <span class="token keyword">protected</span> <span class="token function">errorForOutcome</span><span class="token punctuation">(</span>outcome<span class="token operator">:</span> ExpectationOutcome<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> RuntimeError <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">asAssertionError</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Maps an {<span class="hljs-doctag">@link</span> Outcome} to {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/errors~AssertionError}.
+    <span class="token comment">/**
+     * @desc
+     *  Maps an {@link Outcome} to {@link @serenity-js/core/lib/errors~AssertionError}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Outcome</span>} <span class="hljs-variable">outcome</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/errors~AssertionError</span>}
+     * @param {Outcome} outcome
+     * @returns {@serenity-js/core/lib/errors~AssertionError}
      *
-     * <span class="hljs-doctag">@protected</span>
+     * @protected
      */</span>
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">asAssertionError</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">AssertionError</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AssertionError</span>(
-            <span class="hljs-string">`Expected <span class="hljs-subst">${ formatted<span class="hljs-string">`<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.actual }</span>`</span> }</span> to <span class="hljs-subst">${ outcome.message }</span>`</span>,
-            outcome.<span class="hljs-property">expected</span>,
-            outcome.<span class="hljs-property">actual</span>,
-        );
-    }
+    <span class="token keyword">protected</span> <span class="token function">asAssertionError</span><span class="token punctuation">(</span>outcome<span class="token operator">:</span> ExpectationOutcome<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> AssertionError <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AssertionError</span><span class="token punctuation">(</span>
+            <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Expected </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> formatted<span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>actual <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> outcome<span class="token punctuation">.</span>message <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+            outcome<span class="token punctuation">.</span>expected<span class="token punctuation">,</span>
+            outcome<span class="token punctuation">.</span>actual<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">artifactFrom</span>(<span class="hljs-attr">expected</span>: <span class="hljs-built_in">any</span>, <span class="hljs-attr">actual</span>: <span class="hljs-title class_">Actual</span>): <span class="hljs-title class_">Artifact</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">AssertionReport</span>.<span class="hljs-title function_">fromJSON</span>({
-            <span class="hljs-attr">expected</span>: <span class="hljs-title function_">inspected</span>(expected),
-            <span class="hljs-attr">actual</span>: <span class="hljs-title function_">inspected</span>(actual),
-        });
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">artifactFrom</span><span class="token punctuation">(</span>expected<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">,</span> actual<span class="token operator">:</span> Actual<span class="token punctuation">)</span><span class="token operator">:</span> Artifact <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> AssertionReport<span class="token punctuation">.</span><span class="token function">fromJSON</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            expected<span class="token operator">:</span> <span class="token function">inspected</span><span class="token punctuation">(</span>expected<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            actual<span class="token operator">:</span> <span class="token function">inspected</span><span class="token punctuation">(</span>actual<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">EnsureOrFailWithCustomError</span>&lt;<span class="hljs-title class_">Actual</span>&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Ensure</span>&lt;<span class="hljs-title class_">Actual</span>&gt; {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        actual: Answerable&lt;Actual&gt;,
-        expectation: Expectation&lt;Actual&gt;,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> typeOfRuntimeError: <span class="hljs-keyword">new</span> (message: <span class="hljs-built_in">string</span>, cause?: <span class="hljs-built_in">Error</span>) =&gt; RuntimeError,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> message?: <span class="hljs-built_in">string</span>,
-    </span>) {
-        <span class="hljs-variable language_">super</span>(actual, expectation);
-    }
+<span class="token keyword">class</span> <span class="token class-name">EnsureOrFailWithCustomError<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span></span> <span class="token keyword">extends</span> <span class="token class-name">Ensure<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span></span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        actual<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        expectation<span class="token operator">:</span> Expectation<span class="token operator">&lt;</span>Actual<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> <span class="token keyword">type</span>OfRuntimeError<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token punctuation">(</span>message<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> cause<span class="token operator">?</span><span class="token operator">:</span> Error<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> RuntimeError<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> message<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>actual<span class="token punctuation">,</span> expectation<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">errorForOutcome</span>(<span class="hljs-attr">outcome</span>: <span class="hljs-title class_">ExpectationOutcome</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-title class_">Actual</span>&gt;): <span class="hljs-title class_">RuntimeError</span> {
-        <span class="hljs-keyword">const</span> assertionError = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">asAssertionError</span>(outcome);
+    <span class="token keyword">protected</span> <span class="token function">errorForOutcome</span><span class="token punctuation">(</span>outcome<span class="token operator">:</span> ExpectationOutcome<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">,</span> Actual<span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> RuntimeError <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> assertionError <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">asAssertionError</span><span class="token punctuation">(</span>outcome<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">typeOfRuntimeError</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">message</span> || assertionError.<span class="hljs-property">message</span>, assertionError);
-    }
-}
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token keyword">this</span></span><span class="token punctuation">.</span><span class="token keyword">type</span><span class="token function">OfRuntimeError</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>message <span class="token operator">||</span> assertionError<span class="token punctuation">.</span>message<span class="token punctuation">,</span> assertionError<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

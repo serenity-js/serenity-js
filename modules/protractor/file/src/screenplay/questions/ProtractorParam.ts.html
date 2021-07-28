@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,34 +184,34 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/questions/ProtractorParam.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/prevent-abbreviations */</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/prevent-abbreviations */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable<span class="token punctuation">,</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../abilities'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Returns a Protractor configuration parameter specified in `protractor.conf.js`.
  *  Note that Protractor configuration parameters can be overridden via the command line.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;protractor.conf.js&lt;/caption&gt;
+ * @example &lt;caption&gt;protractor.conf.js&lt;/caption&gt;
  *  exports.config = {
  *    params: {
  *        login: {
- *            username: 'jane<span class="hljs-doctag">@example</span>.org'
+ *            username: 'jane@example.org'
  *            password: process.env.PASSWORD
  *        }
  *    }
  *    // ...
  * }
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Overriding configuration parameter via the command line&lt;/caption&gt;
- *  protractor ./protractor.conf.js --params.login.username="bob<span class="hljs-doctag">@example</span>.org"
+ * @example &lt;caption&gt;Overriding configuration parameter via the command line&lt;/caption&gt;
+ *  protractor ./protractor.conf.js --params.login.username="bob@example.org"
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Using in a test scenario&lt;/caption&gt;
- *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
- *  import { BrowseTheWeb, Enter, ProtractorParam } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
+ * @example &lt;caption&gt;Using in a test scenario&lt;/caption&gt;
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWeb, Enter, ProtractorParam } from '@serenity-js/protractor';
  *  import { protractor } from 'protractor';
  *
  *  actorCalled('Jane')
@@ -223,49 +220,49 @@
  *          Enter.theValue(ProtractorParam.called('login.username').into(Form.exampleInput),
  *      );
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;T&gt;&gt;</span>}
+ * @extends {@serenity-js/core/lib/screenplay~Question&lt;Promise&lt;T&gt;&gt;}
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link BrowseTheWeb#param</span>}
+ * @see {@link BrowseTheWeb#param}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProtractorParam</span>&lt;T = <span class="hljs-built_in">any</span>&gt;
-    <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;T&gt;&gt;
-{
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ProtractorParam<span class="token operator">&lt;</span><span class="token constant">T</span> <span class="token operator">=</span> <span class="token builtin">any</span><span class="token operator">&gt;</span></span>
+    <span class="token keyword">extends</span> <span class="token class-name">Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;&gt;</span></span>
+<span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @desc
      *  Name of the parameter to retrieve. This could also be a dot-delimited path,
      *  i.e. `login.username`
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;</span>} <span class="hljs-variable">name</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ProtractorParam&lt;R&gt;</span>}
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} name
+     * @returns {ProtractorParam&lt;R&gt;}
      */</span>
-    <span class="hljs-keyword">static</span> called&lt;R&gt;(<span class="hljs-attr">name</span>: <span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">string</span>&gt;): <span class="hljs-title class_">ProtractorParam</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ProtractorParam</span>&lt;R&gt;(name);
-    }
+    <span class="token keyword">static</span> <span class="token generic-function"><span class="token function">called</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">R</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>name<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> ProtractorParam <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ProtractorParam<span class="token operator">&lt;</span><span class="token constant">R</span><span class="token operator">&gt;</span></span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;</span>} <span class="hljs-variable">name</span>
+    <span class="token comment">/**
+     * @param {@serenity-js/core/lib/screenplay~Answerable&lt;string&gt;} name
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> name: Answerable&lt;<span class="hljs-built_in">string</span>&gt;</span>) {
-        <span class="hljs-variable language_">super</span>(formatted <span class="hljs-string">`the <span class="hljs-subst">${ name }</span> param specified in Protractor config`</span>);
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> name<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">the </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> param specified in Protractor config</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  answer this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}.
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AnswersQuestions &amp; UsesAbilities</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     * @param {AnswersQuestions &amp; UsesAbilities} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */</span>
-    <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;T&gt; {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span>)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">name</span> =&gt;</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">param</span>(name));
-    }
-}
+    <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>name <span class="token operator">=&gt;</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">param</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

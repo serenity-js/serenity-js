@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,31 +184,31 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProtractorReport.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">SpecResult</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor/built/plugins'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> SpecResult <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor/built/plugins'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  A JSON object which needs to be returned to Protractor when {<span class="hljs-doctag">@link</span> ProtractorFrameworkAdapter}
+<span class="token comment">/**
+ * @desc
+ *  A JSON object which needs to be returned to Protractor when {@link ProtractorFrameworkAdapter}
  *  is done with executing the test scenarios.
  *
- * <span class="hljs-doctag">@see</span> https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
+ * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md
  *
- * <span class="hljs-doctag">@private</span>
+ * @private
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ProtractorReport {
-    <span class="hljs-comment">/**
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ProtractorReport</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
      * Total number of failed scenarios
      */</span>
-    <span class="hljs-attr">failedCount</span>: <span class="hljs-built_in">number</span>;
+    failedCount<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
+    <span class="token comment">/**
      * Results per scenario
      *
      * Note: duration is not part of the SpecResult, but is being used by the Jasmine reporter
      * https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L32
      */</span>
-    <span class="hljs-attr">specResults</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">SpecResult</span> &amp; { <span class="hljs-attr">duration</span>: <span class="hljs-built_in">number</span> }&gt;;
-}
+    specResults<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>SpecResult <span class="token operator">&amp;</span> <span class="token punctuation">{</span> duration<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">}</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

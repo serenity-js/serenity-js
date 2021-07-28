@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,113 +291,113 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/Check.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/consistent-function-scoping */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> sinon <span class="token keyword">from</span> <span class="token string">'sinon'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Check</span>, <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
-<span class="hljs-keyword">import</span> { isIdenticalTo } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../isIdenticalTo'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Check<span class="token punctuation">,</span> Interaction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../expect'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> isIdenticalTo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../isIdenticalTo'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'Check'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {Check} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Check'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span> <span class="hljs-title function_">Call</span> = (<span class="hljs-params">fn: () =&gt; <span class="hljs-built_in">void</span></span>) =&gt;
-        <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor calls a function`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span> <span class="hljs-title function_">fn</span>());
+    <span class="token keyword">const</span> <span class="token function-variable function">Call</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token function-variable function">fn</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor calls a function</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">let</span> <span class="hljs-attr">spy</span>: sinon.<span class="hljs-property">SinonSpy</span>;
-    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> spy = sinon.<span class="hljs-title function_">spy</span>());
+    <span class="token keyword">let</span> spy<span class="token operator">:</span> sinon<span class="token punctuation">.</span>SinonSpy<span class="token punctuation">;</span>
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> spy <span class="token operator">=</span> sinon<span class="token punctuation">.</span><span class="token function">spy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(if branch)'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'(if branch)'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor execute the activities when the expectation is met'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'Hello World'</span>))
-                    .<span class="hljs-title function_">andIfSo</span>(
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
-                    ),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
-            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_">callCount</span>(<span class="hljs-number">2</span>);
-            }),
-        );
+        <span class="token comment">/** @test {Check.whether} */</span>
+        <span class="token comment">/** @test {Check#andIfSo} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'makes the actor execute the activities when the expectation is met'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Enrique'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">,</span> <span class="token function">isIdenticalTo</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>fulfilled<span class="token punctuation">.</span>
+            <span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>spy<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span><span class="token function">calledWith</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">callCount</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor ignore the activities when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'¡Hola'</span>))
-                    .<span class="hljs-title function_">andIfSo</span>(
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
-                    ),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
-            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">not</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-property">called</span>;
-            }),
-        );
-    });
+        <span class="token comment">/** @test {Check.whether} */</span>
+        <span class="token comment">/** @test {Check#andIfSo} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'makes the actor ignore the activities when the expectation is not met'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Enrique'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">,</span> <span class="token function">isIdenticalTo</span><span class="token punctuation">(</span><span class="token string">'¡Hola'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>fulfilled<span class="token punctuation">.</span>
+            <span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>spy<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>not<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>called<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'(if/else branches)'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#otherwise</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor execute the activities when the expectation is met'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'Hello World'</span>))
-                    .<span class="hljs-title function_">andIfSo</span>(
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
-                    )
-                    .<span class="hljs-title function_">otherwise</span>(
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">false</span>)),
-                    ),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
-            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_">callCount</span>(<span class="hljs-number">1</span>);
-            }),
-        );
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'(if/else branches)'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token comment">/** @test {Check.whether} */</span>
+        <span class="token comment">/** @test {Check#andIfSo} */</span>
+        <span class="token comment">/** @test {Check#otherwise} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'makes the actor execute the activities when the expectation is met'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Enrique'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">,</span> <span class="token function">isIdenticalTo</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">otherwise</span><span class="token punctuation">(</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>fulfilled<span class="token punctuation">.</span>
+            <span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>spy<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span><span class="token function">calledWith</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">callCount</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#andIfSo</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#otherwise</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'makes the actor execute the alternative activities when the expectation is not met'</span>, <span class="hljs-function">() =&gt;</span>
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Enrique'</span>).<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-string">'Hello World'</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-string">'¡Hola'</span>))
-                    .<span class="hljs-title function_">andIfSo</span>(
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">true</span>)),
-                    )
-                    .<span class="hljs-title function_">otherwise</span>(
-                        <span class="hljs-title class_">Call</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">spy</span>(<span class="hljs-literal">false</span>)),
-                    ),
-            )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-property">fulfilled</span>.
-            <span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(spy).<span class="hljs-property">to</span>.<span class="hljs-property">have</span>.<span class="hljs-property">been</span>.<span class="hljs-title function_">calledWith</span>(<span class="hljs-literal">false</span>).<span class="hljs-title function_">callCount</span>(<span class="hljs-number">1</span>);
-            }),
-        );
-    });
+        <span class="token comment">/** @test {Check.whether} */</span>
+        <span class="token comment">/** @test {Check#andIfSo} */</span>
+        <span class="token comment">/** @test {Check#otherwise} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'makes the actor execute the alternative activities when the expectation is not met'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Enrique'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span><span class="token string">'Hello World'</span><span class="token punctuation">,</span> <span class="token function">isIdenticalTo</span><span class="token punctuation">(</span><span class="token string">'¡Hola'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">otherwise</span><span class="token punctuation">(</span>
+                        <span class="token function">Call</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">spy</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span>fulfilled<span class="token punctuation">.</span>
+            <span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>spy<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span><span class="token function">calledWith</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">callCount</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'reporting'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'reporting'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#whether</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a description of the check'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(<span class="hljs-number">4</span>, <span class="hljs-title function_">isIdenticalTo</span>(<span class="hljs-number">7</span>)).<span class="hljs-title function_">andIfSo</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor checks whether 4 does have value identical to 7`</span>);
-        });
+        <span class="token comment">/** @test {Check.whether} */</span>
+        <span class="token comment">/** @test {Check#whether} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides a description of the check'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token function">isIdenticalTo</span><span class="token punctuation">(</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor checks whether 4 does have value identical to 7</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check.whether</span>} */</span>
-        <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">Check#whether</span>} */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a description of the check while correctly cleaning the output from new line characters'</span>, <span class="hljs-function">() =&gt;</span> {
-            <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>({ <span class="hljs-attr">person</span>: { <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span> }}, <span class="hljs-title function_">isIdenticalTo</span>({
-                <span class="hljs-attr">person</span>: {
-                    <span class="hljs-attr">name</span>: <span class="hljs-string">'Jan'</span>,
-                },
-            })).<span class="hljs-title function_">andIfSo</span>().<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor checks whether { "person": { "name": "Jan" } } does have value identical to { "person": { "name": "Jan" } }`</span>);
-        });
-    })
-});
+        <span class="token comment">/** @test {Check.whether} */</span>
+        <span class="token comment">/** @test {Check#whether} */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides a description of the check while correctly cleaning the output from new line characters'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">expect</span><span class="token punctuation">(</span>Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span><span class="token punctuation">{</span> person<span class="token operator">:</span> <span class="token punctuation">{</span> name<span class="token operator">:</span> <span class="token string">'Jan'</span> <span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token function">isIdenticalTo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                person<span class="token operator">:</span> <span class="token punctuation">{</span>
+                    name<span class="token operator">:</span> <span class="token string">'Jan'</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor checks whether { "person": { "name": "Jan" } } does have value identical to { "person": { "name": "Jan" } }</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,7 +291,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Ability</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Ability<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/screenplay'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">interface</span>
   
@@ -331,93 +328,93 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Interaction</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> Actor<span class="token punctuation">,</span> Interaction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">class</span> <span class="hljs-title class_">MakePhoneCalls</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Ability</span> {
-     <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">MakesPhoneCalls</span> {
-         <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">MakePhoneCalls</span>);
-     }
+ <span class="token keyword">class</span> <span class="token class-name">MakePhoneCalls</span> <span class="token keyword">implements</span> <span class="token class-name">Ability</span> <span class="token punctuation">{</span>
+     <span class="token keyword">static</span> <span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> MakesPhoneCalls <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">abilityTo</span><span class="token punctuation">(</span>MakePhoneCalls<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
 
-     <span class="hljs-keyword">static</span> <span class="hljs-title function_">using</span>(<span class="hljs-params">phone: Phone</span>) {
-         <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MakePhoneCalls</span>(phone);
-     }
+     <span class="token keyword">static</span> <span class="token function">using</span><span class="token punctuation">(</span>phone<span class="token operator">:</span> Phone<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MakePhoneCalls</span><span class="token punctuation">(</span>phone<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
 
-     <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> phone: Phone</span>) {}
+     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> phone<span class="token operator">:</span> Phone<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 
-     <span class="hljs-comment">// some method that allows us to interact with the external interface of the system under test</span>
-     <span class="hljs-title function_">dial</span>(<span class="hljs-params">phoneNumber: <span class="hljs-built_in">string</span></span>) {
-       <span class="hljs-comment">// ...</span>
-     }
- }
+     <span class="token comment">// some method that allows us to interact with the external interface of the system under test</span>
+     <span class="token function">dial</span><span class="token punctuation">(</span>phoneNumber<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token comment">// ...</span>
+     <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
 
- <span class="hljs-keyword">const</span> <span class="hljs-title class_">Connie</span> = <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(<span class="hljs-string">'Connie'</span>).<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">MakePhoneCalls</span>.<span class="hljs-title function_">using</span>(phone));
+ <span class="token keyword">const</span> Connie <span class="token operator">=</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span><span class="token string">'Connie'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>MakePhoneCalls<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>phone<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">const</span> <span class="hljs-title function_">Call</span> = (<span class="hljs-params">phoneNumber: <span class="hljs-built_in">string</span></span>) =&gt; <span class="hljs-title class_">Interaction</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor calls <span class="hljs-subst">${ phoneNumber }</span>`</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-     <span class="hljs-title class_">MakePhoneCalls</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">dial</span>(phoneNumber);
- );</code></pre>
+ <span class="token keyword">const</span> <span class="token function-variable function">Call</span> <span class="token operator">=</span> <span class="token punctuation">(</span>phoneNumber<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> Interaction<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor calls </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> phoneNumber <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span>
+     MakePhoneCalls<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">dial</span><span class="token punctuation">(</span>phoneNumber<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Ability that's automatically initialised and discarded</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> {
-     <span class="hljs-title class_">Ability</span>, actorCalled, <span class="hljs-title class_">Discardable</span>, <span class="hljs-title class_">Initialisable</span>,
-     <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span>
- } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span>
+     Ability<span class="token punctuation">,</span> actorCalled<span class="token punctuation">,</span> Discardable<span class="token punctuation">,</span> Initialisable<span class="token punctuation">,</span>
+     Question<span class="token punctuation">,</span> UsesAbilities
+ <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 
- <span class="hljs-comment">// A low-level client we want the Actor to use, i.e. a database client:</span>
- <span class="hljs-keyword">const</span> { <span class="hljs-title class_">Client</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'pg'</span>);
+ <span class="token comment">// A low-level client we want the Actor to use, i.e. a database client:</span>
+ <span class="token keyword">const</span> <span class="token punctuation">{</span> Client <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'pg'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- <span class="hljs-comment">// A custom Ability to give an Actor access to the low-level client:</span>
- <span class="hljs-keyword">class</span> <span class="hljs-title class_">QueryPostgresDB</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Initialisable</span>, <span class="hljs-title class_">Discardable</span>, <span class="hljs-title class_">Ability</span> {
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">as</span>(<span class="hljs-params">actor: UsesAbilities</span>) {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">abilityTo</span>(<span class="hljs-title class_">QueryPostgres</span>DB);
-    }
+ <span class="token comment">// A custom Ability to give an Actor access to the low-level client:</span>
+ <span class="token keyword">class</span> <span class="token class-name">QueryPostgresDB</span> <span class="token keyword">implements</span> <span class="token class-name">Initialisable</span><span class="token punctuation">,</span> Discardable<span class="token punctuation">,</span> Ability <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">abilityTo</span><span class="token punctuation">(</span>QueryPostgresDB<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> client</span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> client<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// invoked by Serenity/JS when actor.attemptsTo is first invoked</span>
-    <span class="hljs-title function_">initialise</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">client</span>.<span class="hljs-title function_">connect</span>();
-    }
+    <span class="token comment">// invoked by Serenity/JS when actor.attemptsTo is first invoked</span>
+    <span class="token function">initialise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>client<span class="token punctuation">.</span><span class="token function">connect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// Helps to ensure that the Ability is not initialised more than once</span>
-    <span class="hljs-title function_">isInitialised</span>(): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">client</span>.<span class="hljs-property">_connected</span>;
-    }
+    <span class="token comment">// Helps to ensure that the Ability is not initialised more than once</span>
+    <span class="token function">isInitialised</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>client<span class="token punctuation">.</span>_connected<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// Discards any resources the Ability uses when the Actor is dismissed</span>
-    <span class="hljs-title function_">discard</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">client</span>.<span class="hljs-title function_">end</span>();
-    }
+    <span class="token comment">// Discards any resources the Ability uses when the Actor is dismissed</span>
+    <span class="token function">discard</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>client<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// Any custom integration APIs the custom Ability</span>
-    <span class="hljs-comment">// should make available to the Actor.</span>
-    <span class="hljs-title function_">query</span>(<span class="hljs-params">query: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">client</span>.<span class="hljs-title function_">query</span>(query);
-    }
+    <span class="token comment">// Any custom integration APIs the custom Ability</span>
+    <span class="token comment">// should make available to the Actor.</span>
+    <span class="token function">query</span><span class="token punctuation">(</span>query<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>client<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span>query<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">// ... other custom integration APIs</span>
- }
+    <span class="token comment">// ... other custom integration APIs</span>
+ <span class="token punctuation">}</span>
 
- <span class="hljs-comment">// A custom Question to allow the Actor query the system</span>
- <span class="hljs-keyword">const</span> <span class="hljs-title function_">CurrentDBUser</span> = (<span class="hljs-params"></span>) =&gt;
-     <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">about</span>(<span class="hljs-string">'current db user'</span>, <span class="hljs-function"><span class="hljs-params">actor</span> =&gt;</span>
-         <span class="hljs-title class_">QueryPostgres</span>DB.<span class="hljs-title function_">as</span>(actor)
-             .<span class="hljs-title function_">query</span>(<span class="hljs-string">'SELECT current_user'</span>)
-             .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> result.<span class="hljs-property">rows</span>[<span class="hljs-number">0</span>].<span class="hljs-property">current_user</span>)
-     );
+ <span class="token comment">// A custom Question to allow the Actor query the system</span>
+ <span class="token keyword">const</span> <span class="token function-variable function">CurrentDBUser</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+     Question<span class="token punctuation">.</span><span class="token function">about</span><span class="token punctuation">(</span><span class="token string">'current db user'</span><span class="token punctuation">,</span> actor <span class="token operator">=&gt;</span>
+         QueryPostgresDB<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+             <span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token string">'SELECT current_user'</span><span class="token punctuation">)</span>
+             <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>result <span class="token operator">=&gt;</span> result<span class="token punctuation">.</span>rows<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>current_user<span class="token punctuation">)</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
- <span class="hljs-comment">// Example test scenario where the Actor uses an Ability to QueryPostgresDB</span>
- <span class="hljs-comment">// to assert on the username the connection has been established with</span>
- <span class="hljs-title function_">describe</span>(<span class="hljs-string">'Serenity/JS'</span>, <span class="hljs-function">() =&gt;</span> {
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'can initialise and discard abilities automatically'</span>, <span class="hljs-function">() =&gt;</span>
-        <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Debbie'</span>)
-            .<span class="hljs-title function_">whoCan</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">QueryPostgres</span>DB(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Client</span>()))
-            .<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">Current</span>DBUser(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'jan'</span>))
-            ));
- });</code></pre>
+ <span class="token comment">// Example test scenario where the Actor uses an Ability to QueryPostgresDB</span>
+ <span class="token comment">// to assert on the username the connection has been established with</span>
+ <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Serenity/JS'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'can initialise and discard abilities automatically'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Debbie'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">QueryPostgresDB</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Client</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span><span class="token function">CurrentDBUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'jan'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 

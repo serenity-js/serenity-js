@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -138,82 +135,82 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/questions/LastResponse.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">LogicError</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> LogicError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">LastResponse</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { actorUsingAMockedAxiosInstance } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../actors'</span>;
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../expect'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> GetRequest<span class="token punctuation">,</span> LastResponse<span class="token punctuation">,</span> Send <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorUsingAMockedAxiosInstance <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../actors'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../expect'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'LastResponse'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {LastResponse} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'LastResponse'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span> { actor, mock } = <span class="hljs-title function_">actorUsingAMockedAxiosInstance</span>();
+    <span class="token keyword">const</span> <span class="token punctuation">{</span> actor<span class="token punctuation">,</span> mock <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">actorUsingAMockedAxiosInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">afterEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">reset</span>());
+    <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>  mock<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">describe</span>(<span class="hljs-string">'when asserting on the response to the last HTTP request'</span>, <span class="hljs-function">() =&gt;</span> {
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when asserting on the response to the last HTTP request'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">interface</span> Product {
-            <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-            <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
-        }
+        <span class="token keyword">interface</span> <span class="token class-name">Product</span> <span class="token punctuation">{</span>
+            id<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+            name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">const</span>
-            url     = <span class="hljs-string">'/products/2'</span>,
-            body    = { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">name</span>: <span class="hljs-string">'apple'</span> },
-            headers = { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json;charset=utf-8'</span> };
+        <span class="token keyword">const</span>
+            url     <span class="token operator">=</span> <span class="token string">'/products/2'</span><span class="token punctuation">,</span>
+            body    <span class="token operator">=</span> <span class="token punctuation">{</span> id<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span> name<span class="token operator">:</span> <span class="token string">'apple'</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            headers <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token string">'Content-Type'</span><span class="token operator">:</span> <span class="token string">'application/json;charset=utf-8'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span>  mock.<span class="hljs-title function_">onGet</span>(url).<span class="hljs-title function_">reply</span>(<span class="hljs-number">200</span>, body, headers));
+        <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>  mock<span class="token punctuation">.</span><span class="token function">onGet</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reply</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">,</span> body<span class="token punctuation">,</span> headers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.status</span>}
+        <span class="token comment">/**
+         * @test {LastResponse}
+         * @test {LastResponse.status}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to the response status'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-        ));
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables access to the response status'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.body</span>}
+        <span class="token comment">/**
+         * @test {LastResponse}
+         * @test {LastResponse.body}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to the response body'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">Product</span>&gt;(), <span class="hljs-title function_">equals</span>(body)),
-        ));
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables access to the response body'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">body</span><span class="token generic class-name"><span class="token operator">&lt;</span>Product<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span>body<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.header</span>}
+        <span class="token comment">/**
+         * @test {LastResponse}
+         * @test {LastResponse.header}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to a specific response header'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">header</span>(<span class="hljs-string">'Content-Type'</span>), <span class="hljs-title function_">equals</span>(headers[<span class="hljs-string">'Content-Type'</span>])),
-        ));
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables access to a specific response header'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">header</span><span class="token punctuation">(</span><span class="token string">'Content-Type'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span>headers<span class="token punctuation">[</span><span class="token string">'Content-Type'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">/**
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse</span>}
-         * <span class="hljs-doctag">@test</span> {<span class="hljs-type">LastResponse.headers</span>}
+        <span class="token comment">/**
+         * @test {LastResponse}
+         * @test {LastResponse.headers}
          */</span>
-        <span class="hljs-title function_">it</span>(<span class="hljs-string">'enables access to all response headers'</span>, <span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(url)),
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">headers</span>(), <span class="hljs-title function_">equals</span>(headers)),
-        ));
-    });
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'enables access to all response headers'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">headers</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span>headers<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">CallAnApi.mapLastResponse</span>}
+    <span class="token comment">/**
+     * @test {CallAnApi.mapLastResponse}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'complains if the last response is attempted to be retrieved without making a request first'</span>, <span class="hljs-function">() =&gt;</span>
-        <span class="hljs-title function_">expect</span>(actor.<span class="hljs-title function_">attemptsTo</span>(
-            <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-        )).<span class="hljs-property">to</span>.<span class="hljs-property">be</span>.<span class="hljs-title function_">rejectedWith</span>(<span class="hljs-title class_">LogicError</span>, <span class="hljs-string">'Make sure to perform a HTTP API call before checking on the response'</span>),
-    );
-});
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the last response is attempted to be retrieved without making a request first'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span>actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>LogicError<span class="token punctuation">,</span> <span class="token string">'Make sure to perform a HTTP API call before checking on the response'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

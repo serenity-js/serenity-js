@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,18 +291,18 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/Answerable.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Question'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Question'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  A union type that provides a convenient way to represent any value
- *  that can be resolved by {<span class="hljs-doctag">@link</span> Actor#answer}.
+ *  that can be resolved by {@link Actor#answer}.
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  *
- * <span class="hljs-doctag">@typedef</span> {<span class="hljs-type">Question&lt;Promise&lt;T&gt;&gt; | Question&lt;T&gt; | Promise&lt;T&gt; | T</span>} Answerable&lt;T&gt;
+ * @typedef {Question&lt;Promise&lt;T&gt;&gt; | Question&lt;T&gt; | Promise&lt;T&gt; | T} Answerable&lt;T&gt;
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">Answerable</span>&lt;T&gt; = <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;T&gt;&gt; | <span class="hljs-title class_">Question</span>&lt;T&gt; | <span class="hljs-title class_">Promise</span>&lt;T&gt; | T;
+<span class="token keyword">export</span> <span class="token keyword">type</span> <span class="token class-name">Answerable<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span></span> <span class="token operator">=</span> Question<span class="token operator">&lt;</span><span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;&gt;</span> <span class="token operator">|</span> Question<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token constant">T</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,59 +291,59 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/io/Config.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@experimental</span>
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span>&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">object</span>&gt; { <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> transformations = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+<pre class="source-code line-number raw-source-code language-markup"><code class="linenums" data-ice="content">/**
+ * @experimental
+ */
+export class Config<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T</span> <span class="token attr-name">extends</span> <span class="token attr-name">object</span><span class="token punctuation">&gt;</span></span> { // eslint-disable-line @typescript-eslint/ban-types
+    private readonly transformations = new Map();
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> config: T</span>) {
+    constructor(private readonly config: T) {
     }
 
-    where&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">fieldName</span>: K, <span class="hljs-attr">transformation</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): <span class="hljs-variable language_">this</span> {
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">set</span>(fieldName, transformation);
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+    where<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>K</span> <span class="token attr-name">extends</span> <span class="token attr-name">keyof</span> <span class="token attr-name">T</span><span class="token punctuation">&gt;</span></span>(fieldName: K, transformation: (value: T[K]) =&gt; T[K]): this {
+        this.transformations.set(fieldName, transformation);
+        return this;
     }
 
-    whereIf&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">condition</span>: <span class="hljs-built_in">boolean</span>, <span class="hljs-attr">fieldName</span>: K, <span class="hljs-attr">transformation</span>: <span class="hljs-function">(<span class="hljs-params">value: T[K]</span>) =&gt;</span> T[K]): <span class="hljs-variable language_">this</span> {
-        <span class="hljs-keyword">if</span> (condition === <span class="hljs-literal">true</span>) {
-            <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">set</span>(fieldName, transformation);
+    whereIf<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>K</span> <span class="token attr-name">extends</span> <span class="token attr-name">keyof</span> <span class="token attr-name">T</span><span class="token punctuation">&gt;</span></span>(condition: boolean, fieldName: K, transformation: (value: T[K]) =&gt; T[K]): this {
+        if (condition === true) {
+            this.transformations.set(fieldName, transformation);
         }
 
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+        return this;
     }
 
-    <span class="hljs-title function_">keys</span>(): <span class="hljs-built_in">string</span>[] {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>);
+    keys(): string[] {
+        return Object.keys(this.config);
     }
 
-    has&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">key</span>: K): <span class="hljs-built_in">boolean</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">hasOwnProperty</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>, key);
+    has<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>K</span> <span class="token attr-name">extends</span> <span class="token attr-name">keyof</span> <span class="token attr-name">T</span><span class="token punctuation">&gt;</span></span>(key: K): boolean {
+        return Object.prototype.hasOwnProperty.call(this.config, key);
     }
 
-    get&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">key</span>: K): T[K] {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">has</span>(key)
-            ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">transformations</span>.<span class="hljs-title function_">get</span>(key)(<span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[key])
-            : <span class="hljs-variable language_">this</span>.<span class="hljs-property">config</span>[key];
+    get<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>K</span> <span class="token attr-name">extends</span> <span class="token attr-name">keyof</span> <span class="token attr-name">T</span><span class="token punctuation">&gt;</span></span>(key: K): T[K] {
+        return this.transformations.has(key)
+            ? this.transformations.get(key)(this.config[key])
+            : this.config[key];
     }
 
-    getAsList&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">keyof</span> T&gt;(<span class="hljs-attr">key</span>: K): <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">ItemOf</span>&lt;T[K]&gt;&gt; {
-        <span class="hljs-keyword">const</span> value = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">get</span>(key);
+    getAsList<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>K</span> <span class="token attr-name">extends</span> <span class="token attr-name">keyof</span> <span class="token attr-name">T</span><span class="token punctuation">&gt;</span></span>(key: K): Array&lt;ItemOf<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>T[K]</span><span class="token punctuation">&gt;</span></span>&gt; {
+        const value = this.get(key);
 
-        <span class="hljs-keyword">return</span> value !== <span class="hljs-literal">null</span> &amp;&amp; value !== <span class="hljs-literal">undefined</span>
-            ? [].<span class="hljs-title function_">concat</span>(value)
+        return value !== null &amp;&amp; value !== undefined
+            ? [].concat(value)
             : [];
     }
 
-    <span class="hljs-title function_">object</span>(): T {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">keys</span>().<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, key</span>) =&gt;</span> {
-            acc[key] = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">get</span>(key <span class="hljs-keyword">as</span> keyof T);
-            <span class="hljs-keyword">return</span> acc;
-        }, {}) <span class="hljs-keyword">as</span> T;
+    object(): T {
+        return this.keys().reduce((acc, key) =&gt; {
+            acc[key] = this.get(key as keyof T);
+            return acc;
+        }, {}) as T;
     }
 }
 
-<span class="hljs-keyword">type</span> <span class="hljs-title class_">ItemOf</span>&lt;A&gt; = A <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Array</span>&lt;infer E&gt; ? E : A;
+type ItemOf<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>A</span><span class="token punctuation">&gt;</span></span> = A extends Array<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>infer</span> <span class="token attr-name">E</span><span class="token punctuation">&gt;</span></span> ? E : A;
 </code></pre>
 
 </article>

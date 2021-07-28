@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,30 +291,30 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/crew/artifact-archiver/ArtifactArchiver.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isGreaterThan, property } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ensure<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> property <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>,
-    <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>,
-    <span class="hljs-title class_">ArtifactArchived</span>,
-    <span class="hljs-title class_">ArtifactGenerated</span>,
-    <span class="hljs-title class_">AsyncOperationAttempted</span>,
-    <span class="hljs-title class_">AsyncOperationCompleted</span>,
-    <span class="hljs-title class_">AsyncOperationFailed</span>,
-    <span class="hljs-title class_">DomainEvent</span>,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FileSystem</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Artifact</span>, <span class="hljs-title class_">ArtifactType</span>, <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">Photo</span>, <span class="hljs-title class_">TestReport</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../model'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../Stage'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageCrewMember</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../StageCrewMember'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Hash</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Hash'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    ActivityRelatedArtifactArchived<span class="token punctuation">,</span>
+    ActivityRelatedArtifactGenerated<span class="token punctuation">,</span>
+    ArtifactArchived<span class="token punctuation">,</span>
+    ArtifactGenerated<span class="token punctuation">,</span>
+    AsyncOperationAttempted<span class="token punctuation">,</span>
+    AsyncOperationCompleted<span class="token punctuation">,</span>
+    AsyncOperationFailed<span class="token punctuation">,</span>
+    DomainEvent<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> FileSystem<span class="token punctuation">,</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Artifact<span class="token punctuation">,</span> ArtifactType<span class="token punctuation">,</span> CorrelationId<span class="token punctuation">,</span> Description<span class="token punctuation">,</span> Name<span class="token punctuation">,</span> Photo<span class="token punctuation">,</span> TestReport <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Stage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../Stage'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StageCrewMember <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../StageCrewMember'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Hash <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Hash'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Stores any {<span class="hljs-doctag">@link</span> Artifact}s emitted via {<span class="hljs-doctag">@link</span> ArtifactGenerated} events on the {<span class="hljs-doctag">@link</span> FileSystem}
+<span class="token comment">/**
+ * @desc
+ *  Stores any {@link Artifact}s emitted via {@link ArtifactGenerated} events on the {@link FileSystem}
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering ArtifactArchiver programmatically&lt;/caption&gt;
- *  import { configure, StreamReporter } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * @example &lt;caption&gt;Registering ArtifactArchiver programmatically&lt;/caption&gt;
+ *  import { configure, StreamReporter } from '@serenity-js/core';
  *
  *  configure({
  *      crew: [
@@ -325,13 +322,13 @@
  *      ],
  *  });
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Registering ArtifactArchiver using Protractor configuration&lt;/caption&gt;
+ * @example &lt;caption&gt;Registering ArtifactArchiver using Protractor configuration&lt;/caption&gt;
  *  // protractor.conf.js
- *  const { ArtifactArchiver } = require('<span class="hljs-doctag">@serenity</span>-js/core');
+ *  const { ArtifactArchiver } = require('@serenity-js/core');
  *
  *  exports.config = {
  *    framework:     'custom',
- *    frameworkPath: require.resolve('<span class="hljs-doctag">@serenity</span>-js/protractor/adapter'),
+ *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),
  *
  *    serenity: {
  *      crew: [
@@ -343,158 +340,158 @@
  *    // other Protractor config
  *  };
  *
- * <span class="hljs-doctag">@public</span>
- * <span class="hljs-doctag">@implements</span> {<span class="hljs-type">StageCrewMember</span>}
+ * @public
+ * @implements {StageCrewMember}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ArtifactArchiver</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">StageCrewMember</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ArtifactArchiver</span> <span class="token keyword">implements</span> <span class="token class-name">StageCrewMember</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.
      *  The `destination` directory will be created automatically and recursively if it doesn't exist.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string[]</span>} <span class="hljs-variable">destination</span>
+     * @param {string[]} destination
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">StageCrewMember</span>}
+     * @returns {StageCrewMember}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">storingArtifactsAt</span>(...<span class="hljs-attr">destination</span>: <span class="hljs-built_in">string</span>[]): <span class="hljs-title class_">StageCrewMember</span> {
-        <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'Path to destination directory'</span>, destination, <span class="hljs-title function_">property</span>(<span class="hljs-string">'length'</span>, <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">0</span>)));
+    <span class="token keyword">static</span> <span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token operator">...</span>destination<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMember <span class="token punctuation">{</span>
+        <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'Path to destination directory'</span><span class="token punctuation">,</span> destination<span class="token punctuation">,</span> <span class="token function">property</span><span class="token punctuation">(</span><span class="token string">'length'</span><span class="token punctuation">,</span> <span class="token function">isGreaterThan</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> pathToDestination = destination.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">segment</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Path</span>(segment)).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, current</span>) =&gt;</span> acc.<span class="hljs-title function_">join</span>(current));
+        <span class="token keyword">const</span> pathToDestination <span class="token operator">=</span> destination<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>segment <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">Path</span><span class="token punctuation">(</span>segment<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> current<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> acc<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>current<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactArchiver</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystem</span>(pathToDestination));
-    }
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArtifactArchiver</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">FileSystem</span><span class="token punctuation">(</span>pathToDestination<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">FileSystem</span>} <span class="hljs-variable">fileSystem</span>
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Stage</span>} [stage]
-     *  The stage this {<span class="hljs-doctag">@link</span> StageCrewMember} should be assigned to
+    <span class="token comment">/**
+     * @param {FileSystem} fileSystem
+     * @param {Stage} [stage]
+     *  The stage this {@link StageCrewMember} should be assigned to
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> fileSystem: FileSystem,
-        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> stage?: Stage,
-    </span>) {
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> fileSystem<span class="token operator">:</span> FileSystem<span class="token punctuation">,</span>
+        <span class="token keyword">private</span> <span class="token keyword">readonly</span> stage<span class="token operator">?</span><span class="token operator">:</span> Stage<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Creates a new instance of this {<span class="hljs-doctag">@link</span> StageCrewMember} and assigns it to a given {<span class="hljs-doctag">@link</span> Stage}.
+    <span class="token comment">/**
+     * @desc
+     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMember</span>}
+     * @see {@link StageCrewMember}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Stage</span>} <span class="hljs-variable">stage</span> - An instance of a {<span class="hljs-doctag">@link</span> Stage} this {<span class="hljs-doctag">@link</span> StageCrewMember} will be assigned to
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">StageCrewMember</span>} - A new instance of this {<span class="hljs-doctag">@link</span> StageCrewMember}
+     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to
+     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}
      */</span>
-    <span class="hljs-title function_">assignedTo</span>(<span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>): <span class="hljs-title class_">StageCrewMember</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactArchiver</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>, stage);
-    }
+    <span class="token function">assignedTo</span><span class="token punctuation">(</span>stage<span class="token operator">:</span> Stage<span class="token punctuation">)</span><span class="token operator">:</span> StageCrewMember <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ArtifactArchiver</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>fileSystem<span class="token punctuation">,</span> stage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Handles {<span class="hljs-doctag">@link</span> DomainEvent} objects emitted by the {<span class="hljs-doctag">@link</span> StageManager}.
+    <span class="token comment">/**
+     * @desc
+     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link StageCrewMember</span>}
+     * @see {@link StageCrewMember}
      *
-     * <span class="hljs-doctag">@listens</span> {<span class="hljs-type">ArtifactGenerated</span>}
-     * <span class="hljs-doctag">@emits</span> {<span class="hljs-type">ArtifactArchived</span>}
+     * @listens {ArtifactGenerated}
+     * @emits {ArtifactArchived}
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">DomainEvent</span>} <span class="hljs-variable">event</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">void</span>}
+     * @param {DomainEvent} event
+     * @returns {void}
      */</span>
-    <span class="hljs-title function_">notifyOf</span>(<span class="hljs-attr">event</span>: <span class="hljs-title class_">DomainEvent</span>): <span class="hljs-built_in">void</span> {
+    <span class="token function">notifyOf</span><span class="token punctuation">(</span>event<span class="token operator">:</span> DomainEvent<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-keyword">if</span> (!(event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArtifactGenerated</span>)) {
-            <span class="hljs-comment">// ignore any other events</span>
-            <span class="hljs-keyword">return</span> <span class="hljs-built_in">void</span> <span class="hljs-number">0</span>;
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">ArtifactGenerated</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// ignore any other events</span>
+            <span class="token keyword">return</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">if</span> (event.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Photo</span>) {
-            <span class="hljs-keyword">const</span> filename = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fileNameFor</span>(<span class="hljs-string">'photo'</span>, event.<span class="hljs-property">name</span>, event.<span class="hljs-property">artifact</span>, <span class="hljs-string">'png'</span>);
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>artifact <span class="token keyword">instanceof</span> <span class="token class-name">Photo</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> filename <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fileNameFor</span><span class="token punctuation">(</span><span class="token string">'photo'</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>name<span class="token punctuation">,</span> event<span class="token punctuation">.</span>artifact<span class="token punctuation">,</span> <span class="token string">'png'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">archive</span>(
-                filename,
-                event.<span class="hljs-property">artifact</span>.<span class="hljs-property">base64EncodedValue</span>,
-                <span class="hljs-string">'base64'</span>,
-                <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">archivisationAnnouncement</span>(event, filename),
-            );
-        }
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">archive</span><span class="token punctuation">(</span>
+                filename<span class="token punctuation">,</span>
+                event<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span>base64EncodedValue<span class="token punctuation">,</span>
+                <span class="token string">'base64'</span><span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">archivisationAnnouncement</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">if</span> (event.<span class="hljs-property">artifact</span> <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">TestReport</span>) {
-            <span class="hljs-keyword">const</span> filename = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">fileNameFor</span>(<span class="hljs-string">'scenario'</span>, event.<span class="hljs-property">name</span>, event.<span class="hljs-property">artifact</span>, <span class="hljs-string">'json'</span>);
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>artifact <span class="token keyword">instanceof</span> <span class="token class-name">TestReport</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> filename <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">fileNameFor</span><span class="token punctuation">(</span><span class="token string">'scenario'</span><span class="token punctuation">,</span> event<span class="token punctuation">.</span>name<span class="token punctuation">,</span> event<span class="token punctuation">.</span>artifact<span class="token punctuation">,</span> <span class="token string">'json'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">archive</span>(
-                filename,
-                event.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-variable constant_">JSON</span>.<span class="hljs-property">stringify</span>),
-                <span class="hljs-string">'utf8'</span>,
-                <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">archivisationAnnouncement</span>(event, filename),
-            );
-        }
-    }
+            <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">archive</span><span class="token punctuation">(</span>
+                filename<span class="token punctuation">,</span>
+                event<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token constant">JSON</span><span class="token punctuation">.</span>stringify<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token string">'utf8'</span><span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">archivisationAnnouncement</span><span class="token punctuation">(</span>event<span class="token punctuation">,</span> filename<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">fileNameFor</span>(<span class="hljs-attr">prefix</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">artifactName</span>: <span class="hljs-title class_">Name</span>, <span class="hljs-attr">artifact</span>: <span class="hljs-title class_">Artifact</span>, <span class="hljs-attr">extension</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Path</span> {
-        <span class="hljs-keyword">const</span> hash = <span class="hljs-title class_">Hash</span>.<span class="hljs-title function_">of</span>(artifact.<span class="hljs-property">base64EncodedValue</span>).<span class="hljs-title function_">short</span>();
+    <span class="token keyword">private</span> <span class="token function">fileNameFor</span><span class="token punctuation">(</span>prefix<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> artifactName<span class="token operator">:</span> Name<span class="token punctuation">,</span> artifact<span class="token operator">:</span> Artifact<span class="token punctuation">,</span> extension<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Path <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> hash <span class="token operator">=</span> Hash<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>artifact<span class="token punctuation">.</span>base64EncodedValue<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">short</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Path</span>.<span class="hljs-title function_">fromSanitisedString</span>(
-            <span class="hljs-comment">// Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems</span>
-            <span class="hljs-comment">// note: we can't do that in the Path constructor as the Path can be used to join other paths,</span>
-            <span class="hljs-comment">// so restricting the length of the _path_ itself would not be correct.</span>
-            <span class="hljs-string">`<span class="hljs-subst">${ prefix.slice(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>) }</span>-<span class="hljs-subst">${ urlFriendly(artifactName.value).slice(<span class="hljs-number">0</span>, <span class="hljs-number">64</span>) }</span>-<span class="hljs-subst">${ hash }</span>.<span class="hljs-subst">${ extension }</span>`</span>.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/-+/g</span>, <span class="hljs-string">'-'</span>),
-            <span class="hljs-comment">// characters:     10    1         64                                      1    10   1    4                                 &lt; 100</span>
-        );
-    }
+        <span class="token keyword">return</span> Path<span class="token punctuation">.</span><span class="token function">fromSanitisedString</span><span class="token punctuation">(</span>
+            <span class="token comment">// Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems</span>
+            <span class="token comment">// note: we can't do that in the Path constructor as the Path can be used to join other paths,</span>
+            <span class="token comment">// so restricting the length of the _path_ itself would not be correct.</span>
+            <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> prefix<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token function">urlFriendly</span><span class="token punctuation">(</span>artifactName<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">64</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> hash <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> extension <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">-+</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token comment">// characters:     10    1         64                                      1    10   1    4                                 &lt; 100</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">archive</span>(<span class="hljs-attr">relativePath</span>: <span class="hljs-title class_">Path</span>, <span class="hljs-attr">contents</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">encoding</span>: <span class="hljs-built_in">string</span>, <span class="hljs-attr">announce</span>: <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> <span class="hljs-built_in">void</span>): <span class="hljs-built_in">void</span> {
-        <span class="hljs-keyword">const</span> id = <span class="hljs-title class_">CorrelationId</span>.<span class="hljs-title function_">create</span>();
+    <span class="token keyword">private</span> <span class="token function">archive</span><span class="token punctuation">(</span>relativePath<span class="token operator">:</span> Path<span class="token punctuation">,</span> contents<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> encoding<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token function-variable function">announce</span><span class="token operator">:</span> <span class="token punctuation">(</span>absolutePath<span class="token operator">:</span> Path<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> id <span class="token operator">=</span> CorrelationId<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationAttempted</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Saving '<span class="hljs-subst">${ relativePath.value }</span>'...`</span>),
-            id,
-        ));
+        <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncOperationAttempted</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] Saving '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> relativePath<span class="token punctuation">.</span>value <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'...</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            id<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-variable language_">this</span>.<span class="hljs-property">fileSystem</span>.<span class="hljs-title function_">store</span>(relativePath, contents, encoding)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">absolutePath</span> =&gt;</span> {
-                <span class="hljs-title function_">announce</span>(relativePath);
+        <span class="token keyword">this</span><span class="token punctuation">.</span>fileSystem<span class="token punctuation">.</span><span class="token function">store</span><span class="token punctuation">(</span>relativePath<span class="token punctuation">,</span> contents<span class="token punctuation">,</span> encoding<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>absolutePath <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">announce</span><span class="token punctuation">(</span>relativePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationCompleted</span>(
-                    <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">`[<span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.constructor.name }</span>] Saved '<span class="hljs-subst">${ absolutePath.value }</span>'`</span>),
-                    id,
-                ));
-            })
-            .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">AsyncOperationFailed</span>(error, id));
-            });
-    }
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncOperationCompleted</span><span class="token punctuation">(</span>
+                    <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">[</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>name <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">] Saved '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> absolutePath<span class="token punctuation">.</span>value <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    id<span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span>error <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AsyncOperationFailed</span><span class="token punctuation">(</span>error<span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">archivisationAnnouncement</span>(<span class="hljs-params">event: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path</span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">absolutePath: Path</span>) =&gt;</span> {
-            <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>) {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ActivityRelatedArtifactArchived</span>(
-                    event.<span class="hljs-property">sceneId</span>,
-                    event.<span class="hljs-property">activityId</span>,
-                    event.<span class="hljs-property">name</span>,
-                    event.<span class="hljs-property">artifact</span>.<span class="hljs-property">constructor</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ArtifactType</span>,
-                    relativePathToArtifact,
-                ));
-            } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (event <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">ArtifactGenerated</span>) {
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">stage</span>.<span class="hljs-title function_">announce</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ArtifactArchived</span>(
-                    event.<span class="hljs-property">sceneId</span>,
-                    event.<span class="hljs-property">name</span>,
-                    event.<span class="hljs-property">artifact</span>.<span class="hljs-property">constructor</span> <span class="hljs-keyword">as</span> <span class="hljs-title class_">ArtifactType</span>,
-                    relativePathToArtifact,
-                ));
-            }
-        };
-    }
-}
+    <span class="token keyword">private</span> <span class="token function">archivisationAnnouncement</span><span class="token punctuation">(</span>event<span class="token operator">:</span> ArtifactGenerated <span class="token operator">|</span> ActivityRelatedArtifactGenerated<span class="token punctuation">,</span> relativePathToArtifact<span class="token operator">:</span> Path<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>absolutePath<span class="token operator">:</span> Path<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">ActivityRelatedArtifactGenerated</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ActivityRelatedArtifactArchived</span><span class="token punctuation">(</span>
+                    event<span class="token punctuation">.</span>sceneId<span class="token punctuation">,</span>
+                    event<span class="token punctuation">.</span>activityId<span class="token punctuation">,</span>
+                    event<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                    event<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span>constructor <span class="token keyword">as</span> ArtifactType<span class="token punctuation">,</span>
+                    relativePathToArtifact<span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>event <span class="token keyword">instanceof</span> <span class="token class-name">ArtifactGenerated</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>stage<span class="token punctuation">.</span><span class="token function">announce</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">ArtifactArchived</span><span class="token punctuation">(</span>
+                    event<span class="token punctuation">.</span>sceneId<span class="token punctuation">,</span>
+                    event<span class="token punctuation">.</span>name<span class="token punctuation">,</span>
+                    event<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span>constructor <span class="token keyword">as</span> ArtifactType<span class="token punctuation">,</span>
+                    relativePathToArtifact<span class="token punctuation">,</span>
+                <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@private</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">name</span>
+<span class="token comment">/**
+ * @private
+ * @param {string} name
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">urlFriendly</span>(<span class="hljs-params">name: <span class="hljs-built_in">string</span></span>): <span class="hljs-built_in">string</span> {
-    <span class="hljs-keyword">return</span> name.<span class="hljs-title function_">toLocaleLowerCase</span>()
-        .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/[^\d.a-z-]/g</span>, <span class="hljs-string">'-'</span>);
-}
+<span class="token keyword">function</span> <span class="token function">urlFriendly</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> name<span class="token punctuation">.</span><span class="token function">toLocaleLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">[^\d.a-z-]</span><span class="token regex-delimiter">/</span><span class="token regex-flags">g</span></span><span class="token punctuation">,</span> <span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

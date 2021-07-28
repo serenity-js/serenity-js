@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,16 +291,16 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/DressingRoom.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span>, <span class="hljs-title class_">Actor</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../screenplay'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ability<span class="token punctuation">,</span> Actor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../screenplay'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Prepares the {<span class="hljs-doctag">@link</span> Actor} for the performance.
+<span class="token comment">/**
+ * @desc
+ *  Prepares the {@link Actor} for the performance.
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;A dressing room for actors interacting with a Web UI&lt;/caption&gt;
+ * @example &lt;caption&gt;A dressing room for actors interacting with a Web UI&lt;/caption&gt;
  *
- *  import { serenity, Actor, DressingRoom } from '<span class="hljs-doctag">@serenity</span>-js/core'
- *  import { BrowseTheWeb } from '<span class="hljs-doctag">@serenity</span>-js/protractor'
+ *  import { serenity, Actor, DressingRoom } from '@serenity-js/core'
+ *  import { BrowseTheWeb } from '@serenity-js/protractor'
  *  import { protractor } from 'protractor'
  *
  *  class UIActors implements DressingRoom {
@@ -314,39 +311,39 @@
  *
  *  const stage = serenity.callToStageFor(new UIActors());
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Stage</span>}
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link Cast</span>}
- * <span class="hljs-doctag">@interface</span>
+ * @see {@link Stage}
+ * @see {@link Cast}
+ * @interface
  *
- * <span class="hljs-doctag">@deprecated</span> Please use the Cast instead
+ * @deprecated Please use the Cast instead
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DressingRoom</span> {
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+<span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">DressingRoom</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @desc
      *  Creates a generic `DressingRoom` implementation, where every actor
      *  is given all the abilities specified when the method is called.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Ability[]</span>} <span class="hljs-variable">abilities</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">DressingRoom</span>}
+     * @param {Ability[]} abilities
+     * @returns {DressingRoom}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">whereEveryoneCan</span>(...<span class="hljs-attr">abilities</span>: <span class="hljs-title class_">Ability</span>[]): <span class="hljs-title class_">DressingRoom</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GenericDressingRoom</span>(abilities);
-    }
+    <span class="token keyword">static</span> <span class="token function">whereEveryoneCan</span><span class="token punctuation">(</span><span class="token operator">...</span>abilities<span class="token operator">:</span> Ability<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> DressingRoom <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">GenericDressingRoom</span><span class="token punctuation">(</span>abilities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span>;
-}
+    <span class="token keyword">abstract</span> <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">GenericDressingRoom</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">DressingRoom</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> abilities: Ability[]</span>) {
-    }
+<span class="token keyword">class</span> <span class="token class-name">GenericDressingRoom</span> <span class="token keyword">implements</span> <span class="token class-name">DressingRoom</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> abilities<span class="token operator">:</span> Ability<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(...<span class="hljs-variable language_">this</span>.<span class="hljs-property">abilities</span>);
-    }
-}
+    <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span><span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>abilities<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,31 +184,31 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/TakeScreenshot.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">EventRecorder</span>, expect, <span class="hljs-title class_">PickEvent</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { actorCalled, configure, engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ActivityRelatedArtifactGenerated</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> EventRecorder<span class="token punctuation">,</span> expect<span class="token punctuation">,</span> PickEvent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> configure<span class="token punctuation">,</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ActivityRelatedArtifactGenerated <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Navigate</span>, <span class="hljs-title class_">TakeScreenshot</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../src'</span>;
-<span class="hljs-keyword">import</span> { pageFromTemplate } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../fixtures'</span>;
-<span class="hljs-keyword">import</span> { UIActors } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../UIActors'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Navigate<span class="token punctuation">,</span> TakeScreenshot <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> pageFromTemplate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../fixtures'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> UIActors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../UIActors'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">TakeScreenshot</span>} */</span>
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'TakeScreenshot'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token comment">/** @test {TakeScreenshot} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'TakeScreenshot'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">let</span> <span class="hljs-attr">recorder</span>: <span class="hljs-title class_">EventRecorder</span>;
+    <span class="token keyword">let</span> recorder<span class="token operator">:</span> EventRecorder<span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-        recorder = <span class="hljs-keyword">new</span> <span class="hljs-title class_">EventRecorder</span>();
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        recorder <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">EventRecorder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">configure</span>({
-            <span class="hljs-attr">actors</span>: <span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>(),
-            <span class="hljs-attr">crew</span>: [ recorder ],
-        });
-    });
+        <span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            actors<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">UIActors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            crew<span class="token operator">:</span> <span class="token punctuation">[</span> recorder <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> page = <span class="hljs-title function_">pageFromTemplate</span>(<span class="hljs-string">`
+    <span class="token keyword">const</span> page <span class="token operator">=</span> <span class="token function">pageFromTemplate</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
             &lt;html&gt;
                 &lt;body&gt;
                     &lt;form&gt;
@@ -219,27 +216,27 @@
                     &lt;/form&gt;
                 &lt;/body&gt;
             &lt;/html&gt;
-        `</span>);
+        </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title function_">UIActors</span>()));
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">UIActors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">TakeScreenshot.of</span>} */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'allows the actor to take a screenshot with an arbitrary name'</span>, <span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Bernie'</span>).<span class="hljs-title function_">attemptsTo</span>(
-        <span class="hljs-title class_">Navigate</span>.<span class="hljs-title function_">to</span>(page),
-        <span class="hljs-title class_">TakeScreenshot</span>.<span class="hljs-title function_">of</span>(<span class="hljs-string">'the page'</span>),
-    ).<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title class_">PickEvent</span>.<span class="hljs-title function_">from</span>(recorder.<span class="hljs-property">events</span>)
-            .<span class="hljs-title function_">next</span>(<span class="hljs-title class_">ActivityRelatedArtifactGenerated</span>, <span class="hljs-function">(<span class="hljs-params">e: ActivityRelatedArtifactGenerated</span>) =&gt;</span> {
-                <span class="hljs-title function_">expect</span>(e.<span class="hljs-property">name</span>.<span class="hljs-property">value</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'the page'</span>);
-            });
-    }));
+    <span class="token comment">/** @test {TakeScreenshot.of} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to take a screenshot with an arbitrary name'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Bernie'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        TakeScreenshot<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token string">'the page'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        PickEvent<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>recorder<span class="token punctuation">.</span>events<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span>ActivityRelatedArtifactGenerated<span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token operator">:</span> ActivityRelatedArtifactGenerated<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token function">expect</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span>name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'the page'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">TakeScreenshot.of</span>} */</span>
-    <span class="hljs-comment">/** <span class="hljs-doctag">@test</span> {<span class="hljs-type">TakeScreenshot#toString</span>} */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'provides a sensible description of the interaction being performed'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title function_">expect</span>(<span class="hljs-title class_">TakeScreenshot</span>.<span class="hljs-title function_">of</span>(<span class="hljs-string">'the page'</span>).<span class="hljs-title function_">toString</span>()).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">`#actor takes a screenshot of 'the page'`</span>);
-    });
-});
+    <span class="token comment">/** @test {TakeScreenshot.of} */</span>
+    <span class="token comment">/** @test {TakeScreenshot#toString} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides a sensible description of the interaction being performed'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span>TakeScreenshot<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token string">'the page'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor takes a screenshot of 'the page'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

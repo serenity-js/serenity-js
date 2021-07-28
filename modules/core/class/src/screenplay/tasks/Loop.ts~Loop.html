@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,7 +291,7 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre><code data-ice="importPathCode" class="hljs ts"><span class="hljs-keyword">import</span> {<span class="hljs-title class_">Loop</span>} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/screenplay/tasks'</span></code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Loop<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/screenplay/tasks'</span></code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
@@ -338,93 +335,93 @@
     
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">Basic scenario - Iterating over a static list of items</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span>, <span class="hljs-title class_">Log</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Loop<span class="token punctuation">,</span> Log <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>).<span class="hljs-title function_">attemptsTo</span>(
-     <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>([ <span class="hljs-string">'apple'</span>, <span class="hljs-string">'banana'</span>, <span class="hljs-string">'candy'</span> ]).<span class="hljs-title function_">to</span>(
-         <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'current element'</span>, <span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-built_in">string</span>&gt;()),
-         <span class="hljs-title class_">Log</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'current index'</span>, <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">index</span>()),
-     ),
- );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+     Loop<span class="token punctuation">.</span><span class="token function">over</span><span class="token punctuation">(</span><span class="token punctuation">[</span> <span class="token string">'apple'</span><span class="token punctuation">,</span> <span class="token string">'banana'</span><span class="token punctuation">,</span> <span class="token string">'candy'</span> <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>
+         Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'current element'</span><span class="token punctuation">,</span> Loop<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">item</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">string</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Log<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'current index'</span><span class="token punctuation">,</span> Loop<span class="token punctuation">.</span><span class="token function">index</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">API scenario - Iterating over items in an API response</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts">
- <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Send</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">LastResponse</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, property, isGreaterThan } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode">
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Loop <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Send<span class="token punctuation">,</span> GetRequest<span class="token punctuation">,</span> CallAnApi<span class="token punctuation">,</span> LastResponse <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> property<span class="token punctuation">,</span> isGreaterThan <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">interface</span> TodoItem {
-     <span class="hljs-attr">userId</span>: <span class="hljs-built_in">number</span>;
-     <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
-     <span class="hljs-attr">title</span>: <span class="hljs-built_in">string</span>;
-     <span class="hljs-attr">completed</span>: <span class="hljs-built_in">boolean</span>;
- }
+ <span class="token keyword">interface</span> <span class="token class-name">TodoItem</span> <span class="token punctuation">{</span>
+     userId<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+     id<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+     title<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+     completed<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>).<span class="hljs-title function_">whoCan</span>(
-     <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'https://jsonplaceholder.typicode.com'</span>)
- ).<span class="hljs-title function_">attemptsTo</span>(
-     <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-string">'/todos'</span>)),
-     <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-property">body</span>&lt;<span class="hljs-title class_">TodoItem</span>[]&gt;()).<span class="hljs-title function_">to</span>(
-         <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
-             <span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">TodoItem</span>&gt;(),
-             <span class="hljs-title function_">property</span>(<span class="hljs-string">'userId'</span>, <span class="hljs-title function_">isGreaterThan</span>(<span class="hljs-number">0</span>)),
-         ),
-     )
- );</code></pre>
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
+     CallAnApi<span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token string">'https://jsonplaceholder.typicode.com'</span><span class="token punctuation">)</span>
+ <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+     Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/todos'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     Loop<span class="token punctuation">.</span><span class="token function">over</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">body</span><span class="token generic class-name"><span class="token operator">&lt;</span>TodoItem<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>
+         Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>
+             Loop<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">item</span><span class="token generic class-name"><span class="token operator">&lt;</span>TodoItem<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+             <span class="token function">property</span><span class="token punctuation">(</span><span class="token string">'userId'</span><span class="token punctuation">,</span> <span class="token function">isGreaterThan</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+         <span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span>
+ <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">UI scenario - Example widget</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> &lt;nav&gt;
-     <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">data-test</span>=<span class="hljs-string">"cookies"</span>&gt;</span>
-         <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"functional-cookies"</span>&gt;</span>
-             <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"functional-cookies"</span> /&gt;</span>Allow functional cookies
-         <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-         <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"performance-cookies"</span>&gt;</span>
-             <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"performance-cookies"</span> /&gt;</span>Allow performance cookies
-         <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-         <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"advertising-cookies"</span>&gt;</span>
-             <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"checkbox"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"advertising-cookies"</span> /&gt;</span>Allow advertising cookies
-         <span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
-     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
- &lt;/nav&gt;</code></pre>
+      <pre class="source-code language-markup"><code data-ice="exampleCode"> <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>nav</span><span class="token punctuation">&gt;</span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">data-test</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>cookies<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>functional-cookies<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>functional-cookies<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>Allow functional cookies
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>performance-cookies<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>performance-cookies<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>Allow performance cookies
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>label</span> <span class="token attr-name">for</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>advertising-cookies<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+             <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>checkbox<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>advertising-cookies<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>Allow advertising cookies
+         <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>label</span><span class="token punctuation">&gt;</span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>nav</span><span class="token punctuation">&gt;</span></span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">UI scenario - Lean Page Object</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { browser, by } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> browser<span class="token punctuation">,</span> by <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-keyword">class</span> <span class="hljs-title class_">Cookies</span> {
-     <span class="hljs-keyword">static</span> labels = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">'cookie options'</span>)
-         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">css</span>(<span class="hljs-string">'[data-test="cookies"]'</span>));
+ <span class="token keyword">class</span> <span class="token class-name">Cookies</span> <span class="token punctuation">{</span>
+     <span class="token keyword">static</span> labels <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">'cookie options'</span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">css</span><span class="token punctuation">(</span><span class="token string">'[data-test="cookies"]'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-     <span class="hljs-keyword">static</span> checkbox = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">the</span>(<span class="hljs-string">'checkbox'</span>)
-         .<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">tagName</span>(<span class="hljs-string">'input'</span>)),
- }</code></pre>
+     <span class="token keyword">static</span> checkbox <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'checkbox'</span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">tagName</span><span class="token punctuation">(</span><span class="token string">'input'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+ <span class="token punctuation">}</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">UI scenario - Performing the same set of activities with each element</div>
-      <pre class="source-code"><code data-ice="exampleCode" class="hljs ts"> <span class="hljs-keyword">import</span> { actorCalled, <span class="hljs-title class_">Loop</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Click</span>, <span class="hljs-title class_">Text</span>, isSelected } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/protractor'</span>;
- <span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, startsWith } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
- <span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">'protractor'</span>;
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled<span class="token punctuation">,</span> Loop <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Click<span class="token punctuation">,</span> Text<span class="token punctuation">,</span> isSelected <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> startsWith <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
- <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Joe'</span>)
-     .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-     .<span class="hljs-title function_">attemptsTo</span>(
-         <span class="hljs-title class_">Loop</span>.<span class="hljs-title function_">over</span>(<span class="hljs-title class_">Cookies</span>.<span class="hljs-property">labels</span>).<span class="hljs-title function_">to</span>(
-              <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
-                 <span class="hljs-title class_">Text</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;()),
-                 <span class="hljs-title function_">startsWith</span>(<span class="hljs-string">'Allow'</span>),
-             ),
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Loop<span class="token punctuation">.</span><span class="token function">over</span><span class="token punctuation">(</span>Cookies<span class="token punctuation">.</span>labels<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>
+              Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>
+                 Text<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Loop<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">item</span><span class="token generic class-name"><span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                 <span class="token function">startsWith</span><span class="token punctuation">(</span><span class="token string">'Allow'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+             <span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-             <span class="hljs-title class_">Click</span>.<span class="hljs-title function_">on</span>(<span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;()),
-             <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(
-                 <span class="hljs-title class_">Cookies</span>.<span class="hljs-property">checkbox</span>.<span class="hljs-title function_">of</span>(<span class="hljs-title class_">Loop</span>.<span class="hljs-property">item</span>&lt;<span class="hljs-title class_">ElementFinder</span>&gt;()),
-                 <span class="hljs-title function_">isSelected</span>(),
-             ),
-         ),
-     );</code></pre>
+             Click<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>Loop<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">item</span><span class="token generic class-name"><span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+             Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>
+                 Cookies<span class="token punctuation">.</span>checkbox<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Loop<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">item</span><span class="token generic class-name"><span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                 <span class="token function">isSelected</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+             <span class="token punctuation">)</span><span class="token punctuation">,</span>
+         <span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
     </div>
 </div>
 

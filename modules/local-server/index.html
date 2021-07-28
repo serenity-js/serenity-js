@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -144,30 +141,30 @@ and <a href="https://serenity-js.org/modules/">API docs</a>, and follow <a href=
 <a href="http://restify.com/">Restify</a>
 or raw <a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Node.js</a>.</p>
 <h3 id="installation">Installation</h3><p>To install this module, run the following command in your computer terminal:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/{core,local-server}</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span>local<span class="token operator">-</span>server<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="example-test">Example test</h3><pre><code class="hljs typescript"><span class="hljs-keyword">import</span> { actorCalled } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> {
-    <span class="hljs-title class_">Manage</span>ALocalServer, <span class="hljs-title class_">StartLocalTestServer</span>, <span class="hljs-title class_">StopLocalTestServer</span>
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span>, <span class="hljs-title class_">GetRequest</span>, <span class="hljs-title class_">Send</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ensure</span>, equals } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/assertions'</span>;
-<span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
+<h3 id="example-test">Example test</h3><pre class="language-typescript"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>
+    ManageALocalServer<span class="token punctuation">,</span> StartLocalTestServer<span class="token punctuation">,</span> StopLocalTestServer
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/local-server'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CallAnApi<span class="token punctuation">,</span> GetRequest<span class="token punctuation">,</span> Send <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> equals <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { requestListener } <span class="hljs-keyword">from</span> <span class="hljs-string">'./listener'</span>;                           (<span class="hljs-number">1</span>)
+<span class="token keyword">import</span> <span class="token punctuation">{</span> requestListener <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./listener'</span><span class="token punctuation">;</span>                           <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
 
-<span class="hljs-keyword">const</span> actor = <span class="hljs-title function_">actorCalled</span>(<span class="hljs-string">'Apisit'</span>).<span class="hljs-title function_">whoCan</span>(
-    <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">using</span>(requestListener),                          (<span class="hljs-number">2</span>)
-    <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">using</span>(axios.<span class="hljs-title function_">create</span>()),
-);
+<span class="token keyword">const</span> actor <span class="token operator">=</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Apisit'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
+    ManageALocalServer<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>requestListener<span class="token punctuation">)</span><span class="token punctuation">,</span>                          <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+    CallAnApi<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>axios<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-actor.<span class="hljs-title function_">attemptsTo</span>(
-    <span class="hljs-title class_">StartLocalTestServer</span>.<span class="hljs-title function_">onRandomPort</span>(),                                (<span class="hljs-number">3</span>)
-    <span class="hljs-title class_">Send</span>.<span class="hljs-title function_">a</span>(<span class="hljs-title class_">GetRequest</span>.<span class="hljs-title function_">to</span>(<span class="hljs-title class_">LocalServer</span>.<span class="hljs-title function_">url</span>())),                           (<span class="hljs-number">4</span>)
-    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">status</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-number">200</span>)),
-    <span class="hljs-title class_">Ensure</span>.<span class="hljs-title function_">that</span>(<span class="hljs-title class_">LastResponse</span>.<span class="hljs-title function_">body</span>(), <span class="hljs-title function_">equals</span>(<span class="hljs-string">'Hello!'</span>)),
-    <span class="hljs-title class_">StopLocalTestServer</span>.<span class="hljs-title function_">ifRunning</span>(),                                    (<span class="hljs-number">5</span>)
-);
+actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+    StartLocalTestServer<span class="token punctuation">.</span><span class="token function">onRandomPort</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                                <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+    Send<span class="token punctuation">.</span><span class="token function">a</span><span class="token punctuation">(</span>GetRequest<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>LocalServer<span class="token punctuation">.</span><span class="token function">url</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                           <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+    Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastResponse<span class="token punctuation">.</span><span class="token function">body</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token string">'Hello!'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    StopLocalTestServer<span class="token punctuation">.</span><span class="token function">ifRunning</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>                                    <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre><p>In the above example:</p>
 <ol>
 <li>A <code>requestListener</code> to be tested is imported.</li>
@@ -182,49 +179,49 @@ or <a href="https://nodejs.org/api/https.html#https_https_createserver_options_r
 would accept can be used with <code>ManageALocalServer</code>.</p>
 <p>Below are example implementations of a simple HTTP server that would
 satisfy the above test.</p>
-<h4 id="raw-node-js">Raw Node.js</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = <span class="hljs-function">(<span class="hljs-params">request, response</span>) =&gt;</span> {
-  response.<span class="hljs-title function_">setHeader</span>(<span class="hljs-string">'Connection'</span>, <span class="hljs-string">'close'</span>);
-  response.<span class="hljs-title function_">end</span>(<span class="hljs-string">'Hello World!'</span>);
-}
+<h4 id="raw-node-js">Raw Node.js</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// listener.js</span>
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span><span class="token function-variable function">requestListener</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">request<span class="token punctuation">,</span> response</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  response<span class="token punctuation">.</span><span class="token function">setHeader</span><span class="token punctuation">(</span><span class="token string">'Connection'</span><span class="token punctuation">,</span> <span class="token string">'close'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  response<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token string">'Hello World!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p><a href="https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/">Learn more about Node.js</a>.</p>
-<h4 id="express">Express</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">'express'</span>);
+<h4 id="express">Express</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// listener.js</span>
+<span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = <span class="hljs-title function_">express</span>().
-    <span class="hljs-title function_">get</span>(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req: express.Request, res: express.Response</span>) =&gt;</span> {
-        res.<span class="hljs-title function_">status</span>(<span class="hljs-number">200</span>).<span class="hljs-title function_">send</span>(<span class="hljs-string">'Hello World!'</span>);
-    });
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>requestListener <span class="token operator">=</span> <span class="token function">express</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+    <span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token operator">:</span> express<span class="token punctuation">.</span>Request<span class="token punctuation">,</span> res<span class="token operator">:</span> express<span class="token punctuation">.</span>Response</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        res<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Hello World!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><a href="https://expressjs.com/">Learn more about Express</a>.</p>
-<h4 id="hapi">HAPI</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-keyword">const</span> hapi = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@hapi/hapi'</span>);
+<h4 id="hapi">HAPI</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// listener.js</span>
+<span class="token keyword">const</span> hapi <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@hapi/hapi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> server = <span class="hljs-keyword">new</span> hapi.<span class="hljs-title class_">Server</span>();
-server.<span class="hljs-title function_">route</span>({ <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>, <span class="hljs-attr">path</span>: <span class="hljs-string">'/'</span>, <span class="hljs-attr">handler</span>: <span class="hljs-function">(<span class="hljs-params">req, h</span>) =&gt;</span> <span class="hljs-string">'Hello World!'</span> })
+<span class="token keyword">const</span> server <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">hapi<span class="token punctuation">.</span>Server</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+server<span class="token punctuation">.</span><span class="token function">route</span><span class="token punctuation">(</span><span class="token punctuation">{</span> method<span class="token operator">:</span> <span class="token string">'GET'</span><span class="token punctuation">,</span> path<span class="token operator">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token function-variable function">handler</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> h</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token string">'Hello World!'</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = server.<span class="hljs-property">listener</span>;
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>requestListener <span class="token operator">=</span> server<span class="token punctuation">.</span>listener<span class="token punctuation">;</span>
 </code></pre>
 <p><a href="https://hapijs.com/">Learn more about HAPI</a>.</p>
-<h4 id="koa">Koa</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-keyword">const</span> <span class="hljs-title class_">Koa</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'koa'</span>);
+<h4 id="koa">Koa</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// listener.js</span>
+<span class="token keyword">const</span> Koa <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'koa'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Koa</span>()
-    .<span class="hljs-title function_">use</span>(<span class="hljs-function"><span class="hljs-params">ctx</span> =&gt;</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(ctx.<span class="hljs-property">body</span> = <span class="hljs-string">'Hello World!'</span>))
-    .<span class="hljs-title function_">callback</span>();
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>requestListener <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Koa</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token parameter">ctx</span> <span class="token operator">=&gt;</span> Promise<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>ctx<span class="token punctuation">.</span>body <span class="token operator">=</span> <span class="token string">'Hello World!'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">callback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p><a href="https://koajs.com/">Learn more about Koa</a>.</p>
-<h4 id="restify">Restify</h4><pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// listener.js</span>
-<span class="hljs-keyword">const</span> restify = <span class="hljs-built_in">require</span>(<span class="hljs-string">'restify'</span>);
+<h4 id="restify">Restify</h4><pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// listener.js</span>
+<span class="token keyword">const</span> restify <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'restify'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> server = restify.<span class="hljs-title function_">createServer</span>(options);
+<span class="token keyword">const</span> server <span class="token operator">=</span> restify<span class="token punctuation">.</span><span class="token function">createServer</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-server.<span class="hljs-title function_">get</span>(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> {
-    res.<span class="hljs-title function_">send</span>(<span class="hljs-string">'Hello World!'</span>);
-});
+server<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">req<span class="token punctuation">,</span> res<span class="token punctuation">,</span> next</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    res<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span><span class="token string">'Hello World!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-variable language_">module</span>.<span class="hljs-property">exports</span>.<span class="hljs-property">requestListener</span> = server;
+module<span class="token punctuation">.</span>exports<span class="token punctuation">.</span>requestListener <span class="token operator">=</span> server<span class="token punctuation">;</span>
 </code></pre>
 <p><a href="http://restify.com/">Learn more about Restify</a>.</p>
 </div>

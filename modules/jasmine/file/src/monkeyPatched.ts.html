@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -130,80 +127,80 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/monkeyPatched.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ErrorStackParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ErrorStackParser <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">const</span> parser = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ErrorStackParser</span>();
+<span class="token keyword">const</span> parser <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ErrorStackParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */</span>
+<span class="token comment">/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Monkey-patches Jasmine domain model constructors so that they
  *  record information about the file system location of the caller function.
  *
  *  This helps to make reporting more accurate.
  *
- * <span class="hljs-doctag">@param</span> <span class="hljs-variable">jasmineConstructor</span> - A Jasmine constructor function to be patched
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">object</span>} <span class="hljs-variable">wrappers</span> - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
+ * @param jasmineConstructor - A Jasmine constructor function to be patched
+ * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">monkeyPatched</span>(<span class="hljs-params">
-    jasmineConstructor: <span class="hljs-built_in">any</span>,
-    wrappers: {[key: <span class="hljs-built_in">string</span>]: (original: (attrs: <span class="hljs-built_in">object</span>) =&gt; <span class="hljs-built_in">any</span>) =&gt; (attrs: <span class="hljs-built_in">object</span>) =&gt; <span class="hljs-built_in">any</span>} = {},
-</span>) {
-    <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">function</span> <span class="hljs-title function_">MonkeyPatched</span>(<span class="hljs-params">attrs: <span class="hljs-built_in">object</span></span>) {
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">monkeyPatched</span><span class="token punctuation">(</span>
+    jasmineConstructor<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">,</span>
+    wrappers<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">[</span>key<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token function-variable function">original</span><span class="token operator">:</span> <span class="token punctuation">(</span>attrs<span class="token operator">:</span> object<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">any</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span>attrs<span class="token operator">:</span> object<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">any</span><span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">result</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">MonkeyPatched</span><span class="token punctuation">(</span>attrs<span class="token operator">:</span> object<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
-        <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(wrappers).<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> {
-            attrs[key] = wrappers[key](attrs[key]);
-        });
+        Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>wrappers<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>key <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            attrs<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> wrappers<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">(</span>attrs<span class="token punctuation">[</span>key<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> <span class="hljs-title function_">jasmineConstructor</span>(attrs);
-        instance.<span class="hljs-property">result</span>.<span class="hljs-property">location</span> = <span class="hljs-title function_">callerLocation</span>();
+        <span class="token keyword">const</span> instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">jasmineConstructor</span><span class="token punctuation">(</span>attrs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        instance<span class="token punctuation">.</span>result<span class="token punctuation">.</span>location <span class="token operator">=</span> <span class="token function">callerLocation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">return</span> instance;
-    };
+        <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">getOwnPropertyNames</span>(jasmineConstructor)
-        .<span class="hljs-title function_">filter</span>(isAStaticProperty)
-        .<span class="hljs-title function_">forEach</span>(<span class="hljs-function"><span class="hljs-params">property</span> =&gt;</span> {
-            result[property] = jasmineConstructor[property];
-        });
+    Object<span class="token punctuation">.</span><span class="token function">getOwnPropertyNames</span><span class="token punctuation">(</span>jasmineConstructor<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>isAStaticProperty<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>property <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">[</span>property<span class="token punctuation">]</span> <span class="token operator">=</span> jasmineConstructor<span class="token punctuation">[</span>property<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">return</span> result;
-}
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">// eslint-enable</span>
+<span class="token comment">// eslint-enable</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Retrieves the file system location of the caller function.
  *
- * <span class="hljs-doctag">@package</span>
+ * @package
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">callerLocation</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">const</span> found = parser.<span class="hljs-title function_">parse</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'fake error'</span>))
-        .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> ! <span class="hljs-regexp">/(node_modules)/</span>.<span class="hljs-title function_">test</span>(frame.<span class="hljs-property">fileName</span>))
-        .<span class="hljs-title function_">find</span>(<span class="hljs-function"><span class="hljs-params">frame</span> =&gt;</span> <span class="hljs-regexp">/^(Suite|Object)/</span>.<span class="hljs-title function_">test</span>(frame.<span class="hljs-property">functionName</span>));
+<span class="token keyword">function</span> <span class="token function">callerLocation</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> found <span class="token operator">=</span> parser<span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">'fake error'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>frame <span class="token operator">=&gt;</span> <span class="token operator">!</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">(node_modules)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>frame<span class="token punctuation">.</span>fileName<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>frame <span class="token operator">=&gt;</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^(Suite|Object)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>frame<span class="token punctuation">.</span>functionName<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> caller = found || { <span class="hljs-attr">fileName</span>: <span class="hljs-string">'unknown'</span>, <span class="hljs-attr">lineNumber</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">columnNumber</span>: <span class="hljs-number">0</span> };
+    <span class="token keyword">const</span> caller <span class="token operator">=</span> found <span class="token operator">||</span> <span class="token punctuation">{</span> fileName<span class="token operator">:</span> <span class="token string">'unknown'</span><span class="token punctuation">,</span> lineNumber<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> columnNumber<span class="token operator">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">return</span> {
-        <span class="hljs-attr">path</span>: caller.<span class="hljs-property">fileName</span>,
-        <span class="hljs-attr">line</span>: caller.<span class="hljs-property">lineNumber</span>,
-        <span class="hljs-attr">column</span>: caller.<span class="hljs-property">columnNumber</span>,
-    };
-}
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        path<span class="token operator">:</span> caller<span class="token punctuation">.</span>fileName<span class="token punctuation">,</span>
+        line<span class="token operator">:</span> caller<span class="token punctuation">.</span>lineNumber<span class="token punctuation">,</span>
+        column<span class="token operator">:</span> caller<span class="token punctuation">.</span>columnNumber<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Checks if a given property is likely to be a static method or a static field on the constructor function.
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">property</span> - name of the property to be checked
+ * @param {string} property - name of the property to be checked
  *
- * <span class="hljs-doctag">@package</span>
+ * @package
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">isAStaticProperty</span>(<span class="hljs-params">property: <span class="hljs-built_in">string</span></span>) {
-    <span class="hljs-keyword">return</span> ! ~[<span class="hljs-string">'length'</span>, <span class="hljs-string">'name'</span>, <span class="hljs-string">'arguments'</span>, <span class="hljs-string">'caller'</span>, <span class="hljs-string">'prototype'</span>].<span class="hljs-title function_">indexOf</span>(property);
-}
+<span class="token keyword">function</span> <span class="token function">isAStaticProperty</span><span class="token punctuation">(</span>property<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">!</span> <span class="token operator">~</span><span class="token punctuation">[</span><span class="token string">'length'</span><span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'arguments'</span><span class="token punctuation">,</span> <span class="token string">'caller'</span><span class="token punctuation">,</span> <span class="token string">'prototype'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>property<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

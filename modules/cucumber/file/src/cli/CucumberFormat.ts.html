@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -131,58 +128,58 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberFormat.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { ensure, isNotBlank,isString } <span class="hljs-keyword">from</span> <span class="hljs-string">'tiny-types'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ensure<span class="token punctuation">,</span> isNotBlank<span class="token punctuation">,</span>isString <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'tiny-types'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Represents a Cucumber.js formatter
  *
- * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#built-in-formatters
+ * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#built-in-formatters
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CucumberFormat</span> {
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">formatter</span>: <span class="hljs-built_in">string</span>;
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">output</span>: <span class="hljs-built_in">string</span>;
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CucumberFormat</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">readonly</span> formatter<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">readonly</span> output<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">value</span>
+    <span class="token comment">/**
+     * @param {string} value
      *  Cucumber format expression, like `pretty` or `json:out.json`
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> value: <span class="hljs-built_in">string</span></span>) {
-        [ <span class="hljs-variable language_">this</span>.<span class="hljs-property">formatter</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">output</span> ] = <span class="hljs-title class_">CucumberFormat</span>.<span class="hljs-title function_">split</span>(
-            <span class="hljs-title function_">ensure</span>(<span class="hljs-string">'format'</span>, value, <span class="hljs-title function_">isString</span>(), <span class="hljs-title function_">isNotBlank</span>())
-        );
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> <span class="token keyword">readonly</span> value<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">[</span> <span class="token keyword">this</span><span class="token punctuation">.</span>formatter<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>output <span class="token punctuation">]</span> <span class="token operator">=</span> CucumberFormat<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span>
+            <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'format'</span><span class="token punctuation">,</span> value<span class="token punctuation">,</span> <span class="token function">isString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">isNotBlank</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/master/src/cli/option_splitter.ts
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">format</span>
-     * <span class="hljs-doctag">@private</span> {<span class="hljs-type">string[]</span>}
+    <span class="token comment">/**
+     * @see https://github.com/cucumber/cucumber-js/blob/master/src/cli/option_splitter.ts
+     * @param {string} format
+     * @private {string[]}
      */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-title function_">split</span>(<span class="hljs-attr">format</span>: <span class="hljs-built_in">string</span>): [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>] {
-        <span class="hljs-keyword">const</span> parts = format.<span class="hljs-title function_">split</span>(<span class="hljs-regexp">/([^A-Z]):(?!\\)/</span>);
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token function">split</span><span class="token punctuation">(</span>format<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> parts <span class="token operator">=</span> format<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">([^A-Z]):(?!\\)</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> result = parts.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">memo: <span class="hljs-built_in">string</span>[], part: <span class="hljs-built_in">string</span>, i: <span class="hljs-built_in">number</span></span>) =&gt;</span> {
-            <span class="hljs-keyword">if</span> (<span class="hljs-title function_">partNeedsRecombined</span>(i)) {
-                memo.<span class="hljs-title function_">push</span>(parts.<span class="hljs-title function_">slice</span>(i, i + <span class="hljs-number">2</span>).<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>));
-            }
+        <span class="token keyword">const</span> result <span class="token operator">=</span> parts<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>memo<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> part<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> i<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">partNeedsRecombined</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                memo<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>parts<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> i <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
 
-            <span class="hljs-keyword">return</span> memo;
-        }, []);
+            <span class="token keyword">return</span> memo<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">if</span> (result.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) {
-            result.<span class="hljs-title function_">push</span>(<span class="hljs-string">''</span>);
-        }
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>result<span class="token punctuation">.</span>length <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            result<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
 
-        <span class="hljs-keyword">return</span> result <span class="hljs-keyword">as</span> [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];
-    }
-}
+        <span class="token keyword">return</span> result <span class="token keyword">as</span> <span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">string</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**]
- * <span class="hljs-doctag">@private</span>
+<span class="token comment">/**]
+ * @private
  */</span>
-<span class="hljs-keyword">function</span> <span class="hljs-title function_">partNeedsRecombined</span>(<span class="hljs-params">i: <span class="hljs-built_in">number</span></span>): <span class="hljs-built_in">boolean</span> {
-    <span class="hljs-keyword">return</span> i % <span class="hljs-number">2</span> === <span class="hljs-number">0</span>;
-}
+<span class="token keyword">function</span> <span class="token function">partNeedsRecombined</span><span class="token punctuation">(</span>i<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> i <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

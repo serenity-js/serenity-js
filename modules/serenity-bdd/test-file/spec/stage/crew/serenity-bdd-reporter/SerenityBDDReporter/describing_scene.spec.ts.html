@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -128,99 +125,99 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">spec/stage/crew/serenity-bdd-reporter/SerenityBDDReporter/describing_scene.spec.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */</span>
-<span class="hljs-keyword">import</span> <span class="hljs-string">'mocha'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* eslint-disable unicorn/filename-case, @typescript-eslint/indent */</span>
+<span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">'@integration/testing-tools'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">StageManager</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">FeatureNarrativeDetected</span>, <span class="hljs-title class_">SceneBackgroundDetected</span>, <span class="hljs-title class_">SceneDescriptionDetected</span>, <span class="hljs-title class_">SceneFinished</span>, <span class="hljs-title class_">SceneStarts</span>, <span class="hljs-title class_">TestRunFinishes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/events'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CorrelationId</span>, <span class="hljs-title class_">Description</span>, <span class="hljs-title class_">ExecutionSuccessful</span>, <span class="hljs-title class_">Name</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> sinon <span class="hljs-keyword">from</span> <span class="hljs-string">'sinon'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> StageManager <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> FeatureNarrativeDetected<span class="token punctuation">,</span> SceneBackgroundDetected<span class="token punctuation">,</span> SceneDescriptionDetected<span class="token punctuation">,</span> SceneFinished<span class="token punctuation">,</span> SceneStarts<span class="token punctuation">,</span> TestRunFinishes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/events'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CorrelationId<span class="token punctuation">,</span> Description<span class="token punctuation">,</span> ExecutionSuccessful<span class="token punctuation">,</span> Name <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> sinon <span class="token keyword">from</span> <span class="token string">'sinon'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReporter } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Serenity</span>BDDReport } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span>;
-<span class="hljs-keyword">import</span> { given } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../given'</span>;
-<span class="hljs-keyword">import</span> { defaultCardScenario } <span class="hljs-keyword">from</span> <span class="hljs-string">'../../samples'</span>;
-<span class="hljs-keyword">import</span> { create } <span class="hljs-keyword">from</span> <span class="hljs-string">'../create'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReport <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../../../src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> given <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../given'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> defaultCardScenario <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../samples'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> create <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../create'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">describe</span>(<span class="hljs-string">'SerenityBDDReporter'</span>, <span class="hljs-function">() =&gt;</span> {
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'SerenityBDDReporter'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">let</span> <span class="hljs-attr">stageManager</span>: sinon.<span class="hljs-property">SinonStubbedInstance</span>&lt;<span class="hljs-title class_">StageManager</span>&gt;,
-        <span class="hljs-attr">reporter</span>: <span class="hljs-title class_">Serenity</span>BDDReporter;
+    <span class="token keyword">let</span> stageManager<span class="token operator">:</span> sinon<span class="token punctuation">.</span>SinonStubbedInstance<span class="token operator">&lt;</span>StageManager<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+        reporter<span class="token operator">:</span> SerenityBDDReporter<span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">const</span> sceneId = <span class="hljs-keyword">new</span> <span class="hljs-title class_">CorrelationId</span>(<span class="hljs-string">'a-scene-id'</span>);
+    <span class="token keyword">const</span> sceneId <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CorrelationId</span><span class="token punctuation">(</span><span class="token string">'a-scene-id'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-title function_">beforeEach</span>(<span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-keyword">const</span> env = <span class="hljs-title function_">create</span>();
+    <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> env <span class="token operator">=</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        stageManager    = env.<span class="hljs-property">stageManager</span>;
-        reporter        = env.<span class="hljs-property">reporter</span>;
-    });
+        stageManager    <span class="token operator">=</span> env<span class="token punctuation">.</span>stageManager<span class="token punctuation">;</span>
+        reporter        <span class="token operator">=</span> env<span class="token punctuation">.</span>reporter<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneBackgroundDetected</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
+    <span class="token comment">/**
+     * @test {SerenityBDDReporter}
+     * @test {SceneStarts}
+     * @test {SceneBackgroundDetected}
+     * @test {SceneFinished}
+     * @test {ExecutionSuccessful}
+     * @test {TestRunFinishes}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'captures information about scenario background'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneBackgroundDetected</span>(sceneId, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Background title'</span>), <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Background description'</span>)),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-        );
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'captures information about scenario background'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">SceneBackgroundDetected</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Background title'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token string">'Background description'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+        <span class="token keyword">const</span> report<span class="token operator">:</span> SerenityBDDReport <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">backgroundTitle</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Background title'</span>);
-        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">backgroundDescription</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Background description'</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>backgroundTitle<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Background title'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>backgroundDescription<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Background description'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneDescriptionDetected</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
+    <span class="token comment">/**
+     * @test {SerenityBDDReporter}
+     * @test {SceneStarts}
+     * @test {SceneDescriptionDetected}
+     * @test {SceneFinished}
+     * @test {ExecutionSuccessful}
+     * @test {TestRunFinishes}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'captures the description of the scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneDescriptionDetected</span>(sceneId, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Scenario description'</span>)),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-        );
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'captures the description of the scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneDescriptionDetected</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token string">'Scenario description'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+        <span class="token keyword">const</span> report<span class="token operator">:</span> SerenityBDDReport <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">description</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Scenario description'</span>);
-    });
+        <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>description<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Scenario description'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SerenityBDDReporter</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneStarts</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">FeatureNarrativeDetected</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">SceneFinished</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">ExecutionSuccessful</span>}
-     * <span class="hljs-doctag">@test</span> {<span class="hljs-type">TestRunFinishes</span>}
+    <span class="token comment">/**
+     * @test {SerenityBDDReporter}
+     * @test {SceneStarts}
+     * @test {FeatureNarrativeDetected}
+     * @test {SceneFinished}
+     * @test {ExecutionSuccessful}
+     * @test {TestRunFinishes}
      */</span>
-    <span class="hljs-title function_">it</span>(<span class="hljs-string">'captures the narrative behind the scenario'</span>, <span class="hljs-function">() =&gt;</span> {
-        <span class="hljs-title function_">given</span>(reporter).<span class="hljs-title function_">isNotifiedOfFollowingEvents</span>(
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneStarts</span>(sceneId, defaultCardScenario),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureNarrativeDetected</span>(sceneId, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Description</span>(<span class="hljs-string">'Feature narrative'</span>)),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">SceneFinished</span>(sceneId, defaultCardScenario, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecutionSuccessful</span>()),
-            <span class="hljs-keyword">new</span> <span class="hljs-title class_">TestRunFinishes</span>(),
-        );
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'captures the narrative behind the scenario'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">given</span><span class="token punctuation">(</span>reporter<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isNotifiedOfFollowingEvents</span><span class="token punctuation">(</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneStarts</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">FeatureNarrativeDetected</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">Description</span><span class="token punctuation">(</span><span class="token string">'Feature narrative'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">SceneFinished</span><span class="token punctuation">(</span>sceneId<span class="token punctuation">,</span> defaultCardScenario<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ExecutionSuccessful</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-keyword">const</span> <span class="hljs-attr">report</span>: <span class="hljs-title class_">Serenity</span>BDDReport = stageManager.<span class="hljs-property">notifyOf</span>.<span class="hljs-property">firstCall</span>.<span class="hljs-property">lastArg</span>.<span class="hljs-property">artifact</span>.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">_</span> =&gt;</span> _);
+        <span class="token keyword">const</span> report<span class="token operator">:</span> SerenityBDDReport <span class="token operator">=</span> stageManager<span class="token punctuation">.</span>notifyOf<span class="token punctuation">.</span>firstCall<span class="token punctuation">.</span>lastArg<span class="token punctuation">.</span>artifact<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>_ <span class="token operator">=&gt;</span> _<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-title function_">expect</span>(report.<span class="hljs-property">userStory</span>.<span class="hljs-property">narrative</span>).<span class="hljs-property">to</span>.<span class="hljs-title function_">equal</span>(<span class="hljs-string">'Feature narrative'</span>);
-    });
-});
+        <span class="token function">expect</span><span class="token punctuation">(</span>report<span class="token punctuation">.</span>userStory<span class="token punctuation">.</span>narrative<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token string">'Feature narrative'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

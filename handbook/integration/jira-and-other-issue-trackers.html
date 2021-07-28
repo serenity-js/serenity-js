@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -161,51 +158,51 @@ and is meant to make it easier for you and your team to understand and document 
 If your issue tracker of choice identifies tickets using unique ticket IDs (i.e. <code>MSP-1</code>, <code>MSP-2</code>, etc.), and allows you to access them at unique URLs (i.e. <code>https://jira.my-company.com/browse/MSP-1</code>), you can link to the issue tickets from your Serenity BDD reports.</p>
 <p>To do that, tag either <code>Feature</code> or <code>Scenario</code> nodes of your Cucumber <code>.feature</code> files with <code>@issue:&lt;issueId&gt;</code> or <code>@issues:&lt;issueIds&gt;</code> tags to create the links automatically when the report is generated.</p>
 <p>The below <code>.feature</code> file demonstrates usage of both <code>@issue</code> and <code>@issues</code> tags:</p>
-<pre><code class="lang-gherkin hljs gherkin"><span class="hljs-meta">@issue:MSP-1</span>
-<span class="hljs-keyword">Feature</span>: Basic arithmetic operations
-
+<pre class="language-gherkin"><code class="lang-gherkin"><span class="token tag">@issue:MSP-1</span>
+<span class="token feature"><span class="token keyword">Feature:</span><span class="token important"> Basic arithmetic operations</span>
+</span>
   The feature itself, as well as all the scenarios in this file will be linked
-  to the <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-1<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> ticket in your issue tracker. 
-  Linking to a ticket <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>does not<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> affect the status of ticket.
+  to the **MSP-1** ticket in your issue tracker. 
+  Linking to a ticket **does not** affect the status of ticket.
 
   Please note that you can use the feature's description section to capture the acceptance criteria
   and use the [Markdown syntax](https://daringfireball.net/projects/markdown/syntax)
-  to link to any <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>external documents<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>, wikis, etc.
+  to link to any **external documents**, wikis, etc.
 
-  <span class="hljs-keyword">Background</span>:
-    <span class="hljs-keyword">Given</span> Dominique has requested a new calculation
+  <span class="token scenario"><span class="token keyword">Background:</span><span class="token important"></span></span>
+    <span class="token atrule">Given</span> Dominique has requested a new calculation
 
-  <span class="hljs-meta">@issue:MSP-2</span>
-  <span class="hljs-keyword">Scenario</span>: Addition
+  <span class="token tag">@issue:MSP-2</span>
+  <span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"> Addition</span></span>
 
-    This scenario will be linked to both the <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-1<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> issue, inherited from the `<span class="hljs-keyword">Feature</span>`,
-    and the <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-2<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> issue, because of the `<span class="hljs-meta">@issue`</span> tag used at the `<span class="hljs-keyword">Scenario</span>` level
+    This scenario will be linked to both the **MSP-1** issue, inherited from the `Feature`,
+    and the **MSP-2** issue, because of the `@issue` tag used at the `Scenario` level
 
-    <span class="hljs-keyword">When</span> Dominique enters 2
-     <span class="hljs-keyword">And</span> she uses the + operator
-     <span class="hljs-keyword">And</span> she enters 3
-    <span class="hljs-keyword">Then</span> she should get a result of 5
+    <span class="token atrule">When</span> Dominique enters 2
+     <span class="token atrule">And</span> she uses the + operator
+     <span class="token atrule">And</span> she enters 3
+    <span class="token atrule">Then</span> she should get a result of 5
 
-  <span class="hljs-meta">@issue:MSP-2</span>
-  <span class="hljs-meta">@issue:MSP-3</span>
-  <span class="hljs-keyword">Scenario</span>: Subtraction
+  <span class="token tag">@issue:MSP-2</span>
+  <span class="token tag">@issue:MSP-3</span>
+  <span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"> Subtraction</span></span>
 
-    This scenario will be linked to <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-1<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>, as well as <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-2<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> and <span class="hljs-symbol">*</span><span class="hljs-symbol">*</span>MSP-3<span class="hljs-symbol">*</span><span class="hljs-symbol">*</span> issues.
+    This scenario will be linked to **MSP-1**, as well as **MSP-2** and **MSP-3** issues.
 
-    <span class="hljs-keyword">When</span> Dominique enters 4
-     <span class="hljs-keyword">And</span> she uses the - operator
-     <span class="hljs-keyword">And</span> she enters 3
-    <span class="hljs-keyword">Then</span> she should get a result of 1
+    <span class="token atrule">When</span> Dominique enters 4
+     <span class="token atrule">And</span> she uses the - operator
+     <span class="token atrule">And</span> she enters 3
+    <span class="token atrule">Then</span> she should get a result of 1
 
-  <span class="hljs-meta">@issues:MSP-2,MSP-4</span>
-  <span class="hljs-keyword">Scenario</span>: Multiplication
+  <span class="token tag">@issues:MSP-2,MSP-4</span>
+  <span class="token scenario"><span class="token keyword">Scenario:</span><span class="token important"> Multiplication</span></span>
 
-    Instead of using multiple `<span class="hljs-meta">@issue`</span> tags we use a single `<span class="hljs-meta">@issues`</span> tag to link the scenario to several tickets.
+    Instead of using multiple `@issue` tags we use a single `@issues` tag to link the scenario to several tickets.
 
-    <span class="hljs-keyword">When</span> Dominique enters 2
-     <span class="hljs-keyword">And</span> she uses the <span class="hljs-symbol">*</span> operator
-     <span class="hljs-keyword">And</span> she enters 8
-    <span class="hljs-keyword">Then</span> she should get a result of 16
+    <span class="token atrule">When</span> Dominique enters 2
+     <span class="token atrule">And</span> she uses the * operator
+     <span class="token atrule">And</span> she enters 8
+    <span class="token atrule">Then</span> she should get a result of 16
 </code></pre>
 <h2 id="step-3-tell-serenity-bdd-where-your-issue-tracker-is">Step 3 - Tell Serenity BDD where your issue tracker is</h2>
 <p>To make Serenity BDD generate links to tickets in your issue tracker, you need to tell it where your issue tracker is.</p>
@@ -214,12 +211,12 @@ You can configure the location of your issue tracker using a command line parame
 <p>Since all the <a href="https://github.com/serenity-js">Serenity/JS template projects</a> have a <code>test:report</code> script invoking <code>serenity-bdd run</code> <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template/blob/518285a5578a9cb3600a44eb3d10f4413bde8428/package.json#L12">defined in their <code>package.json</code> file</a>, this is what you need to configure. </p>
 <h3 id="jira">Jira</h3>
 <p>If your Jira server can be accessed at <code>https://jira.my-company.com</code>, you can configure its location using the <code>--jiraUrl</code> parameter:</p>
-<pre><code class="lang-json hljs json"><span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run --jiraUrl 'https://jira.my-company.com'"</span><span class="hljs-punctuation">,</span>
+<pre class="language-json"><code class="lang-json"><span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run --jiraUrl 'https://jira.my-company.com'"</span><span class="token punctuation">,</span>
 </code></pre>
 <h3 id="other-issue-trackers">Other issue trackers</h3>
 <p>If you're using a different issue tracker, you can configure its location using the <code>--issueTrackerUrl</code> parameter, where the <code>{0}</code> token
 will be replaced with the <code>issueId</code>:</p>
-<pre><code class="lang-json hljs json"><span class="hljs-attr">"test:report"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd run --issueTrackerUrl 'https://trello.com/c/MyBoardId/{0}'"</span><span class="hljs-punctuation">,</span>
+<pre class="language-json"><code class="lang-json"><span class="token property">"test:report"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd run --issueTrackerUrl 'https://trello.com/c/MyBoardId/{0}'"</span><span class="token punctuation">,</span>
 </code></pre>
 <p>The above configuration will produce links such as <code>https://trello.com/c/MyBoardId/MSP-1</code></p>
 <h2 id="summary">Summary</h2>

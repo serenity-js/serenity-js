@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,38 +291,38 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/abilities/Initialisable.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  An interface to be implemented by any {<span class="hljs-doctag">@link</span> Ability} that needs to initialise
+<pre class="source-code line-number raw-source-code language-markup"><code class="linenums" data-ice="content">/**
+ * @desc
+ *  An interface to be implemented by any {@link Ability} that needs to initialise
  *  the resources it uses (i.e. establish a database connection).
  *
- *  The {<span class="hljs-doctag">@link</span> initialise} method is invoked when {<span class="hljs-doctag">@link</span> Actor#attemptsTo} is called,
- *  but only when {<span class="hljs-doctag">@link</span> isInitialised} returns false.
+ *  The {@link initialise} method is invoked when {@link Actor#attemptsTo} is called,
+ *  but only when {@link isInitialised} returns false.
  *
- * <span class="hljs-doctag">@public</span>
- */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Initialisable {
+ * @public
+ */
+export interface Initialisable {
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Initialises the ability. Invoked when {<span class="hljs-doctag">@link</span> Actor#attemptsTo} is called,
-     *  but only when {<span class="hljs-doctag">@link</span> isInitialised} returns false.
+    /**
+     * @desc
+     *  Initialises the ability. Invoked when {@link Actor#attemptsTo} is called,
+     *  but only when {@link isInitialised} returns false.
      *
-     *  Make sure to implement {<span class="hljs-doctag">@link</span> isInitialised} so that it returns `true`
+     *  Make sure to implement {@link isInitialised} so that it returns `true`
      *  when the ability has been successfully initialised.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt; | void</span>}
-     */</span>
-    <span class="hljs-title function_">initialise</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">void</span>&gt; | <span class="hljs-built_in">void</span>;
+     * @returns {Promise<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>void</span><span class="token punctuation">&gt;</span></span> | void}
+     */
+    initialise(): Promise<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>void</span><span class="token punctuation">&gt;</span></span> | void;
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    /**
+     * @desc
      *  Whether or not a given ability has been initialised already
      *  and should not be initialised again.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">boolean</span>}
-     */</span>
-    <span class="hljs-title function_">isInitialised</span>(): <span class="hljs-built_in">boolean</span>;
+     * @returns {boolean}
+     */
+    isInitialised(): boolean;
 }
 </code></pre>
 

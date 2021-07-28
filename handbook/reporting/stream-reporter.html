@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -152,7 +149,7 @@
 <p>This service is useful for debugging any custom extensions you create for Serenity/JS, or debugging the framework itself.</p>
 <h2 id="installation">Installation</h2>
 <p>To install the module, run the following command in your computer terminal:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev <span class="hljs-meta">@serenity-js/core</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span>core
 </code></pre>
 <h2 id="integration">Integration</h2>
 <p><a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a> listens to any <a href="/modules/core/identifiers.html#events"><code>DomainEvents</code></a> emitted by <a href="/handbook/design/actors.html"><code>Actors</code></a> and Serenity/JS test runner adapters. It then streams them to a <a href="https://nodejs.org/docs/latest-v14.x/api/stream.html#stream_writable_streams"><code>Writable</code></a> stream, such as <a href="https://nodejs.org/docs/latest-v14.x/api/process.html#process_process_stdout"><code>process.stdout</code></a>, or one created via <a href="https://nodejs.org/docs/latest-v14.x/api/fs.html#fs_fs_createwritestream_path_options"><code>fs.createWriteStream(filename)</code></a>.</p>
@@ -186,14 +183,14 @@ graph TB
 
 <h2 id="usage">Usage</h2>
 <p>To use <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code></a>, register it as one of the <a href="/modules/core/class/src/stage/StageCrewMember.ts~StageCrewMember.html"><code>StageCrewMembers</code></a>:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-keyword">import</span> { configure, <span class="hljs-title class_">StreamReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">'fs'</span>;
+<pre class="language-typescript"><code class="lang-typescript"><span class="token keyword">import</span> <span class="token punctuation">{</span> configure<span class="token punctuation">,</span> StreamReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> fs <span class="token keyword">from</span> <span class="token string">'fs'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-keyword">new</span> <span class="hljs-title class_">StreamReporter</span>(fs.<span class="hljs-title function_">createWriteStream</span>(<span class="hljs-string">'events.ndjson'</span>)),
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token keyword">new</span> <span class="token class-name">StreamReporter</span><span class="token punctuation">(</span>fs<span class="token punctuation">.</span><span class="token function">createWriteStream</span><span class="token punctuation">(</span><span class="token string">'events.ndjson'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>To learn more about the available configuration options, consult the <a href="/modules/core/class/src/stage/crew/stream-reporter/StreamReporter.ts~StreamReporter.html"><code>StreamReporter</code> API docs</a> and its <a href="/modules/core/test-file/spec/stage/crew/stream-reporter/StreamReporter.spec.ts.html">test suite</a>.</p>
 <p>You might also want to explore the <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">example projects</a>.</p>

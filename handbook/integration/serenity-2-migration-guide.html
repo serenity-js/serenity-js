@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -184,74 +181,74 @@ So this documentation attempts to provide straightforward distillation of likely
 <li>serenity-cli has been replaced by <code>@serenity-js/serenity-bdd</code>. </li>
 </ul>
 <p>So remove all of these from your dependencies section:</p>
-<pre><code class="lang-javascript hljs gherkin">    <span class="hljs-string">"@types/chai"</span>
-    <span class="hljs-string">"@types/chai-as-promised"</span>
-    <span class="hljs-string">"@types/mocha"</span>
-    <span class="hljs-string">"chai"</span>
-    <span class="hljs-string">"chai-as-promised"</span>
-    <span class="hljs-string">"chai-smoothie"</span>
-    <span class="hljs-string">"mocha"</span>,
-    <span class="hljs-string">"serenity-cli"</span>
+<pre class="language-javascript"><code class="lang-javascript">    <span class="token string">"@types/chai"</span>
+    <span class="token string">"@types/chai-as-promised"</span>
+    <span class="token string">"@types/mocha"</span>
+    <span class="token string">"chai"</span>
+    <span class="token string">"chai-as-promised"</span>
+    <span class="token string">"chai-smoothie"</span>
+    <span class="token string">"mocha"</span><span class="token punctuation">,</span>
+    <span class="token string">"serenity-cli"</span>
 </code></pre>
 <p>Now that Serenity/JS 2.x is officially released, versions can be set to "^2.0.0" in order to get the latest for this release:</p>
-<pre><code class="lang-javascript hljs json">    <span class="hljs-attr">"@serenity-js/assertions"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/console-reporter"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/core"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/cucumber"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/jasmine"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/protractor"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/rest"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"@serenity-js/serenity-bdd"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"^2.0.0"</span>
+<pre class="language-javascript"><code class="lang-javascript">    <span class="token string">"@serenity-js/assertions"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/console-reporter"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/core"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/cucumber"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/jasmine"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/protractor"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/rest"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span><span class="token punctuation">,</span>
+    <span class="token string">"@serenity-js/serenity-bdd"</span><span class="token operator">:</span> <span class="token string">"^2.0.0"</span>
 </code></pre>
 <p>If you want to want to stay on a fixed version, use that instead. You can find out the latest available version by visiting the <a href="https://github.com/jan-molak/serenity-js/releases">releases page</a>.</p>
 <p>You may have other dependencies such as express, jasmine, node, sinon, in your existing project, but you won't need to have these unless you need to use them directly. 
 Adding the above Serenity/JS dependencies should bring all runtime dependencies across. If you do need them and you want to pick a compatible version, see the versions in the <a href="https://github.com/serenity-js/serenity-js-cucumber-protractor-template">Protractor</a>, <a href="https://github.com/serenity-js/serenity-js-jasmine-protractor-template">Jasmine</a> or <a href="https://github.com/serenity-js/serenity-js-mocha-protractor-template">Mocha</a> template repos.</p>
 <h3 id="updating-scripts">Updating scripts</h3>
 <p>If you have <code>--verbose</code> as an argument in your lint script, remove it as the version of tslint that you now have does not support this parameter. (verbose can now be supplied as a format but stylish is probably better):     </p>
-<pre><code class="lang-javascript hljs json"><span class="hljs-attr">"lint"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"tslint --config ./tslint.json --project ./tsconfig.json --format stylish"</span><span class="hljs-punctuation">,</span>
+<pre class="language-javascript"><code class="lang-javascript"><span class="token string">"lint"</span><span class="token operator">:</span> <span class="token string">"tslint --config ./tslint.json --project ./tsconfig.json --format stylish"</span><span class="token punctuation">,</span>
 </code></pre>
 <p>Any scripts that used to run <code>serenity update</code> or <code>webdriver-manager update</code>  should now be updated to <code>serenity-bdd update</code>. So for instance:</p>
-<pre><code class="hljs json"><span class="hljs-attr">"postinstall"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"serenity-bdd update --ignoreSSL"</span><span class="hljs-punctuation">,</span> 
+<pre class="language-typescript"><code><span class="token string">"postinstall"</span><span class="token operator">:</span> <span class="token string">"serenity-bdd update --ignoreSSL"</span><span class="token punctuation">,</span> 
 </code></pre><p>For further information, please see <a href="https://serenity-js.org/modules/serenity-bdd">the modules section of the serenity/JS website</a>           </p>
 <h2 id="protractor-configuration-protractor-conf-js-">Protractor configuration (protractor.conf.js)</h2>
 <h3 id="the-crew">The Crew</h3>
 <p>Previously you will have had a single import for crew as follows:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">const</span> crew = <span class="hljs-built_in">require</span>(<span class="hljs-string">"serenity-js/lib/stage_crew"</span>);
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> crew <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"serenity-js/lib/stage_crew"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>But a new <code>@serenity-js/console-reporter</code> module has now superseded the experimental (and now deleted) <code>ConsoleReporter</code> class that used to ship with <code>@serenity-js/core</code>.</p>
 <p>So replace your previous crew import sections with the following:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">const</span> {<span class="hljs-title class_">ConsoleReporter</span>} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>),
-  {<span class="hljs-title class_">ArtifactArchiver</span>} = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@serenity-js/core"</span>),
-  {<span class="hljs-title class_">Photographer</span>, <span class="hljs-title class_">TakePhotosOfInteractions</span>} = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/protractor'</span>),
-  {<span class="hljs-title class_">Serenity</span>BDDReporter} = <span class="hljs-built_in">require</span>(<span class="hljs-string">"@serenity-js/serenity-bdd"</span>);
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> <span class="token punctuation">{</span>ConsoleReporter<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>ArtifactArchiver<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"@serenity-js/core"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>Photographer<span class="token punctuation">,</span> TakePhotosOfInteractions<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>SerenityBDDReporter<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"@serenity-js/serenity-bdd"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Also remove whatever was in the <code>crew []</code> section in the <code>serenity</code> object as this all needs to be replaced.</p>
 <p>Make the following changes in your config object so that it looks like this:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
-    <span class="hljs-attr">chromeDriver</span>: <span class="hljs-built_in">require</span>(<span class="hljs-string">'chromedriver/lib/chromedriver'</span>).<span class="hljs-property">path</span>,
-    <span class="hljs-attr">SELENIUM_PROMISE_MANAGER</span>: <span class="hljs-literal">false</span>,
-    <span class="hljs-attr">directConnect</span>: <span class="hljs-literal">true</span>,
-    <span class="hljs-attr">allScriptsTimeout</span>: <span class="hljs-number">11000</span>,
-    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
-    <span class="hljs-attr">specs</span>: [ <span class="hljs-string">'spec/*.spec.ts'</span>, ],
-    <span class="hljs-attr">serenity</span>: {
-        <span class="hljs-attr">crew</span>: [
-          <span class="hljs-title class_">ArtifactArchiver</span>.<span class="hljs-title function_">storingArtifactsAt</span>(<span class="hljs-string">"./target/site/serenity"</span>),
-          <span class="hljs-title class_">Photographer</span>.<span class="hljs-title function_">whoWill</span>(<span class="hljs-title class_">TakePhotosOfInteractions</span>),
-          <span class="hljs-keyword">new</span> <span class="hljs-title class_">Serenity</span>BDDReporter(),
-          <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">withDefaultColourSupport</span>(),
-        ],
-    },
-    <span class="hljs-comment">// other Protractor config (see Runner specific configurations below)</span>
-    };
+<pre class="language-javascript"><code class="lang-javascript">exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
+    chromeDriver<span class="token operator">:</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'chromedriver/lib/chromedriver'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>path<span class="token punctuation">,</span>
+    <span class="token constant">SELENIUM_PROMISE_MANAGER</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    directConnect<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    allScriptsTimeout<span class="token operator">:</span> <span class="token number">11000</span><span class="token punctuation">,</span>
+    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    frameworkPath<span class="token operator">:</span>  require<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    specs<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">'spec/*.spec.ts'</span><span class="token punctuation">,</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
+        crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+          ArtifactArchiver<span class="token punctuation">.</span><span class="token function">storingArtifactsAt</span><span class="token punctuation">(</span><span class="token string">"./target/site/serenity"</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          Photographer<span class="token punctuation">.</span><span class="token function">whoWill</span><span class="token punctuation">(</span>TakePhotosOfInteractions<span class="token punctuation">)</span><span class="token punctuation">,</span>
+          <span class="token keyword">new</span> <span class="token class-name">SerenityBDDReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+          ConsoleReporter<span class="token punctuation">.</span><span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment">// other Protractor config (see Runner specific configurations below)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="the-new-consolereporter">The new ConsoleReporter</h3>
 <p>The new ConsoleReporter supports several colour themes, which you can choose by calling either of the following factory methods:</p>
-<pre><code class="lang-javascript hljs plaintext">ConsoleReporter.withDefaultColourSupport()
-ConsoleReporter.forMonochromaticTerminals()
-ConsoleReporter.forDarkTerminals()
-ConsoleReporter.forLightTerminals()
+<pre class="language-javascript"><code class="lang-javascript">ConsoleReporter<span class="token punctuation">.</span><span class="token function">withDefaultColourSupport</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ConsoleReporter<span class="token punctuation">.</span><span class="token function">forMonochromaticTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ConsoleReporter<span class="token punctuation">.</span><span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+ConsoleReporter<span class="token punctuation">.</span><span class="token function">forLightTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 </code></pre>
 <h3 id="runner-specific-configurations">Runner specific configurations</h3>
 <h4 id="mocha">Mocha</h4>
@@ -259,109 +256,109 @@ ConsoleReporter.forLightTerminals()
 Jasmine is recommended as the switch to it should be trivial. There are very few differences between how mocha and jasmine specs now look, 
 given that assertions for all runners will use the new <code>@serenity-js/assertions</code>, exposing a uniform <code>Ensure</code> API.
 So if you previously used mocha then remove your <code>mochaOpts</code> section:</p>
-<pre><code class="lang-javascript hljs gherkin"> mochaOpts: {
-    ui: <span class="hljs-string">"bdd"</span>,
-    compiler: <span class="hljs-string">"ts:ts-node/register"</span>,
-  },
+<pre class="language-javascript"><code class="lang-javascript"> mochaOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
+    ui<span class="token operator">:</span> <span class="token string">"bdd"</span><span class="token punctuation">,</span>
+    compiler<span class="token operator">:</span> <span class="token string">"ts:ts-node/register"</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <h4 id="cucumber">Cucumber</h4>
 <p>If you use Cucumber, you'll need a section similar to this: </p>
-<pre><code class="lang-javascript hljs typescript"> <span class="hljs-attr">cucumberOpts</span>: {
-        <span class="hljs-attr">require</span>: [
-            <span class="hljs-string">'features/step_definitions/**/*.ts'</span>,
-            <span class="hljs-string">'features/support/*.ts'</span>,
-        ],
-        <span class="hljs-string">'require-module'</span>: [<span class="hljs-string">'ts-node/register'</span>],
-        <span class="hljs-attr">tags</span>: [],
-    },
+<pre class="language-javascript"><code class="lang-javascript"> cucumberOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
+        require<span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token string">'features/step_definitions/**/*.ts'</span><span class="token punctuation">,</span>
+            <span class="token string">'features/support/*.ts'</span><span class="token punctuation">,</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">'require-module'</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ts-node/register'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        tags<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <p>Make sure you add a folder (e.g. support) and reference a setup.ts file this within the require array section where you can add any global configuration and setup (explained below)</p>
 <h4 id="jasmine">Jasmine</h4>
 <p>If you use Jasmine, you'll need a section similar to this:</p>
-<pre><code class="lang-javascript hljs gherkin"> jasmineNodeOpts: {
-    requires: [
-      <span class="hljs-string">"ts-node/register"</span>
-    ],
-    helpers: [
-      <span class="hljs-string">"spec/support/*.ts"</span>
-    ]
-  },
+<pre class="language-javascript"><code class="lang-javascript"> jasmineNodeOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
+    requires<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"ts-node/register"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    helpers<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"spec/support/*.ts"</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <p>Make sure you add a folder (e.g. support) and reference a setup.ts file this within the require array section where you can add any global configuration and setup (explained in next section)</p>
 <h3 id="changes-to-the-cast">Changes to the Cast</h3>
 <p>If you had a <code>Cast</code> implementation that set up the default abilities on your actors like this in your 1.x project:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">"protractor"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">TakeNotes</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"serenity-js/lib/screenplay"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"serenity-js/lib/screenplay-protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> TakeNotes <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> BrowseTheWeb<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay-protractor"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Members</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-    <span class="hljs-keyword">public</span> <span class="hljs-title function_">actor</span>(<span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Actor</span> {
-        <span class="hljs-keyword">const</span> notepad = {};
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">Actor</span>.<span class="hljs-title function_">named</span>(name)
-            .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>))
-            .<span class="hljs-title function_">whoCan</span>(<span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">using</span>(notepad));
-    }
-}
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Members</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token function">actor</span><span class="token punctuation">(</span>name<span class="token operator">:</span> string<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> notepad <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Actor<span class="token punctuation">.</span><span class="token function">named</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>TakeNotes<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>notepad<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
 </code></pre>
 <p>Then this will now need to be replaced by a version 2.x equivalent:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/protractor"</span>;
-<span class="hljs-keyword">import</span> { protractor } <span class="hljs-keyword">from</span> <span class="hljs-string">"protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-  <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-    <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
-      <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">using</span>(protractor.<span class="hljs-property">browser</span>),
-      <span class="hljs-title class_">TakeNotes</span>.<span class="hljs-title function_">usingAnEmptyNotepad</span>(),
-    );
-  }
-}
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Actors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+  <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
+      BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      TakeNotes<span class="token punctuation">.</span><span class="token function">usingAnEmptyNotepad</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Your Cast may configure different abilities, if for example you are using a local HTTP server or calling an API:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actor</span>, <span class="hljs-title class_">Cast</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Manage</span>ALocalServer } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/local-server'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">CallAnApi</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/rest'</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Actor<span class="token punctuation">,</span> Cast <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ManageALocalServer <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/local-server'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> CallAnApi <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/rest'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { requestHandler } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js-examples/calculator-app'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> requestHandler <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js-examples/calculator-app'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Actors</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Cast</span> {
-    <span class="hljs-title function_">prepare</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">Actor</span>): <span class="hljs-title class_">Actor</span> {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">whoCan</span>(
-            <span class="hljs-title class_">Manage</span>ALocalServer.<span class="hljs-title function_">runningAHttpListener</span>(requestHandler),
-            <span class="hljs-title class_">CallAnApi</span>.<span class="hljs-title function_">at</span>(<span class="hljs-string">'http://localhost'</span>),
-        );
-    }
-}
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Actors</span> <span class="token keyword">implements</span> <span class="token class-name">Cast</span> <span class="token punctuation">{</span>
+    <span class="token function">prepare</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> Actor<span class="token punctuation">)</span><span class="token operator">:</span> Actor <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>
+            ManageALocalServer<span class="token punctuation">.</span><span class="token function">runningAHttpListener</span><span class="token punctuation">(</span>requestHandler<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            CallAnApi<span class="token punctuation">.</span><span class="token function">at</span><span class="token punctuation">(</span><span class="token string">'http://localhost'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>The above file will need to be placed in the <code>support</code> location specified for your test runner. See previous test runner sections where the specifics of each are explained.</p>
 <p>If you want to perform global setup for all of your features, you can create a file e.g. called <code>configure_cast.ts</code> containing the following and place in the <code>support</code> location specified for your test runner:</p>
 <p>For Jasmine: </p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actors</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"../../screenplay/actors"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Actors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../screenplay/actors"</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">beforeEach</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-  <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>());
-});
+<span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>For Cucumber: </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { engage } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Actors</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"../../screenplay/actors"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Before</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'cucumber'</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> engage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Actors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../screenplay/actors"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Before <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'cucumber'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title class_">Before</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">engage</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Actors</span>()));
+<span class="token function">Before</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">engage</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Actors</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Alternatively, this can be added at the top of your test(s) if you don't wish to apply this configuration globally.</p>
 <h3 id="browser-synchronisation">Browser Synchronisation</h3>
 <p>If your Serenity/JS project is testing a non-angular site you may have an <code>onPrepare</code> section in your protractor.config that contains the following:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-attr">onPrepare</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    browser.<span class="hljs-property">ignoreSynchronization</span> = <span class="hljs-literal">true</span>;
-},
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function-variable function">onPrepare</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    browser<span class="token punctuation">.</span>ignoreSynchronization <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <p>If this is the case you will need to change this to the new syntax as follows:</p>
-<pre><code class="lang-javascript hljs javascript"><span class="hljs-attr">onPrepare</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
-    browser.<span class="hljs-title function_">waitForAngularEnabled</span>(<span class="hljs-literal">false</span>);
-},
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function-variable function">onPrepare</span><span class="token operator">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    browser<span class="token punctuation">.</span><span class="token function">waitForAngularEnabled</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
 </code></pre>
 <p>For more information on this topic, <a href="http://www.protractortest.org/#/api?view=ProtractorBrowser.prototype.waitForAngularEnabled">see the docs</a></p>
 <h2 id="source-file-changes">Source file changes</h2>
@@ -403,15 +400,15 @@ However, this can get tedious very quickly as you'll find yourself repeating the
 <h3 id="changes-to-target-arguments">Changes to Target arguments</h3>
 <h4 id="target-argument-types">Target argument types</h4>
 <p>It's quite likely that you'll have written some custom <code>Activity</code> classes in your project where a <code>Target</code> has been passed as an argument - for instance in the constructor:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Target</span>) {}
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> target<span class="token operator">:</span> Target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>In the task you are likely to be passing the target to a built-in task like <code>Click.on(this.target))</code>. If this is the case you will now find that there is a compilation error on <code>Click</code> as <code>Target</code> is now passed using a different type.
 So, any place that you used to pass Target as a type will now need to be changed to a union type: <code>Question&lt;ElementFinder&gt; | ElementFinder</code>. So now your constructor will look like this: </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {}
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> target<span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementFinder</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>This will need additional imports to added as follows:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Question</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Question <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 </code></pre>
 <h4 id="webelement-of-">WebElement.of()</h4>
 <p>In Serenity/JS 1.x <code>WebElement.of()</code> could be used to wrap a <code>Target</code> in order to return a <code>WebElement</code> but this is no longer valid syntax and should be replaced with <code>answeredby()</code> as explained in the next section. </p>
@@ -423,21 +420,21 @@ However this approach will no longer work because <code>locate()</code> now take
 This approach is perhaps better demonstrated by means of a simple example <code>Question</code> called <code>CheckedValue</code> which takes a <code>Target</code> as an argument and in the <code>answeredBy</code> method the Target is resolved to a WebElement
  and the <code>isSelected()</code> value is resolved from it. The code for <code>CheckedValue</code> is now shown using both Serenity/JS 1.x and Serenity/JS 2.x implementations:</p>
 <h5 id="serenity-js-1-x-implementation-of-checkedvalue-question">Serenity/JS 1.x implementation of CheckedValue Question</h5>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core/lib/screenplay"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CheckedValue</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt; {
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span> = <span class="hljs-function">(<span class="hljs-params">target: Target</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CheckedValue</span>(target);            
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckedValue</span> <span class="token keyword">implements</span> <span class="token class-name">Question</span><span class="token operator">&lt;</span>Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> <span class="token function-variable function">of</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">target<span class="token operator">:</span> Target</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">CheckedValue</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>            
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Target</span>) {                              (<span class="hljs-number">1</span>)
-  }
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> target<span class="token operator">:</span> Target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>                              <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
-    <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">locate</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>).<span class="hljs-title function_">isSelected</span>();  (<span class="hljs-number">2</span>) (<span class="hljs-number">3</span>)
-  }
+  <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">locate</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isSelected</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
 
-  toString = <span class="hljs-function">() =&gt;</span> <span class="hljs-string">`the checked value of <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.target}</span>`</span>;
-}
+  <span class="token function-variable function">toString</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">the checked value of </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
 </code></pre>
 <p>In the example above:</p>
@@ -447,22 +444,22 @@ This approach is perhaps better demonstrated by means of a simple example <code>
 <li><code>isSelected()</code> method is called on the <code>WebElement</code>. </li>
 </ol>
 <h5 id="serenity-js-2-x-implementation-of-checkedvalue-question">Serenity/JS 2.x implementation of CheckedValue Question</h5>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core/lib/screenplay"</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/protractor/lib/promiseOf"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/screenplay"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> promiseOf <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor/lib/promiseOf"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CheckedValue</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt; {
-  <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span> = <span class="hljs-function">(<span class="hljs-params">target: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">CheckedValue</span>(target);
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">CheckedValue</span> <span class="token keyword">implements</span> <span class="token class-name">Question</span><span class="token operator">&lt;</span>Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
+  <span class="token keyword">static</span> <span class="token function-variable function">of</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">target<span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementFinder</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">CheckedValue</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Question&lt;ElementFinder&gt; | ElementFinder</span>) {      (<span class="hljs-number">1</span>)
-  }
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> target<span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementFinder</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>      <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {     
-    <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>.<span class="hljs-title function_">answeredBy</span>(actor).<span class="hljs-title function_">isSelected</span>()));            (<span class="hljs-number">2</span>)(<span class="hljs-number">3</span>)(<span class="hljs-number">4</span>)
-  }
+  <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;</span> <span class="token punctuation">{</span>     
+    <span class="token keyword">return</span> <span class="token function">promiseOf</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isSelected</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>            <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
 
-  toString = <span class="hljs-function">() =&gt;</span> <span class="hljs-string">`the checked value of <span class="hljs-subst">${<span class="hljs-variable language_">this</span>.target}</span>`</span>;
-}
+  <span class="token function-variable function">toString</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">the checked value of </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In the example above:</p>
 <ol>
@@ -483,15 +480,15 @@ For instance it was common place to see <code>BrowseTheWeb.as(actor).locateAll(t
 <li>call the <code>answeredBy</code> method on the <code>TargetElements</code> using the form: <code>&lt;TargetElements&gt;.answeredBy(actor)</code>. This will return a <code>WebElement[]</code> array which you can then transform, interact with and/or return values from.</li>
 </ul>
 <p>Note that the <code>TargetElements</code>, is new to Serenity/JS 2.x. An object of this type is created by calling the <code>all()</code> method on <code>Target</code> in contrast to the historically used <code>the()</code> method. For instance:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">const</span> <span class="hljs-attr">bookTitles</span>: <span class="hljs-title class_">TargetElements</span> = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">"book titles"</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">"book-title"</span>));
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">const</span> bookTitles<span class="token operator">:</span> TargetElements <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">"book titles"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"book-title"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Here is an example <code>answeredBy()</code> method body of a <code>Question</code> showing how <code>TargetElements</code> can be resolved to a <code>WebElement[]</code> array and then filtered and mapped in order to extract the element text:  </p>
-<pre><code class="lang-javascript hljs typescript">   <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">string</span>[]&gt; {
-     <span class="hljs-keyword">const</span> <span class="hljs-attr">bookTitles</span>: <span class="hljs-title class_">TargetElements</span> = <span class="hljs-title class_">Target</span>.<span class="hljs-title function_">all</span>(<span class="hljs-string">"book titles"</span>).<span class="hljs-title function_">located</span>(by.<span class="hljs-title function_">id</span>(<span class="hljs-string">"book-title"</span>));
-     <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(bookTitles.<span class="hljs-title function_">answeredBy</span>(actor)
-       .<span class="hljs-title function_">filter</span>(<span class="hljs-function"><span class="hljs-params">option</span> =&gt;</span> option.<span class="hljs-title function_">isSelected</span>())
-       .<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">values</span> =&gt;</span> values.<span class="hljs-title function_">getText</span>())));
-   }
+<pre class="language-javascript"><code class="lang-javascript">   <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>string<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+     <span class="token keyword">const</span> bookTitles<span class="token operator">:</span> TargetElements <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token string">"book titles"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">"book-title"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> <span class="token function">promiseOf</span><span class="token punctuation">(</span>bookTitles<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token parameter">option</span> <span class="token operator">=&gt;</span> option<span class="token punctuation">.</span><span class="token function">isSelected</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+       <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">values</span> <span class="token operator">=&gt;</span> values<span class="token punctuation">.</span><span class="token function">getText</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
 
 </code></pre>
 <h3 id="migrate-promiselike-to-promise">Migrate PromiseLike to Promise</h3>
@@ -501,19 +498,19 @@ The selenium / webdriver project is now moving towards Native Promise support wi
 <p>Because controlflow promise chains do not return true promises, they return data via the <code>PromiseLike</code> interface which returns only a basic <a href="https://promisesaplus.com/#point-7">thenable</a> object containing the <code>then</code> method.</p>
 <p>However, <code>Promise</code> also implements a <code>catch</code> method enabling better structured and documented error handling to be implemented, combined with superior flow control in the event of exceptions thrown within a promise chain. 
 For example, you could use the <code>catch</code> method to implement a retry of your question in the event of a specific webdriver exception such as <code>StaleElementReferenceError</code> condition as follows:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>.<span class="hljs-title function_">answeredBy</span>(actor)
-        .<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">result, rowIndex</span>) =&gt;</span> <span class="hljs-title function_">doSomething</span>(result, rowIndex)
-        .<span class="hljs-title function_">then</span>(<span class="hljs-title function_">doSomethingElse</span>(result))
-        .<span class="hljs-title function_">then</span>(<span class="hljs-title function_">doAfinalThing</span>(result)))
-      .<span class="hljs-title function_">catch</span>(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> {
-        <span class="hljs-keyword">if</span> (error.<span class="hljs-property">name</span> === <span class="hljs-string">"StaleElementReferenceError"</span>) {
-          <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">answeredBy</span>(actor);
-        } <span class="hljs-keyword">else</span> {
-          <span class="hljs-keyword">throw</span> error;
-        }
-      });
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">result<span class="token punctuation">,</span> rowIndex</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">doSomething</span><span class="token punctuation">(</span>result<span class="token punctuation">,</span> rowIndex<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token function">doSomethingElse</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token function">doAfinalThing</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>error<span class="token punctuation">.</span>name <span class="token operator">===</span> <span class="token string">"StaleElementReferenceError"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token keyword">throw</span> error<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  }
+  <span class="token punctuation">}</span>
 
 </code></pre>
 <p>Previously error handling would have to be implemented by passing the error handling function as the second <code>onRejected</code> argument <code>then</code> which is far less obvious to someone maintaining or debugging the code. </p>
@@ -523,42 +520,42 @@ The first step of the process is to perform a global replacement of <code>Promis
 <p>Once you have done this, You may find that some of your <code>answeredBy</code> methods on your <code>Question</code> types , now fail to compile due to the following error <code>Error:(x, y) TS2739: Type 'Promise&lt;boolean&gt;' is missing the following properties from type 'Promise&lt;boolean&gt;': [Symbol.toStringTag], finally</code>:
 For example in the <code>UploadError Question</code> below <code>WalksTargets.uploadResultSummary</code> is a <code>TargetElement</code>, however this will not compile because any method on WebElement returns a 
 webdriver promise <code>wdpromise.Promise</code> which is not the same as a native <code>Promise</code>:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WalksTargets</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"../../ui/ramblers/walksTargets"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> WalksTargets <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../ui/ramblers/walksTargets"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UploadError</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt; {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">UploadError</span> <span class="token keyword">implements</span> <span class="token class-name">Question</span><span class="token operator">&lt;</span>Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
 
-  <span class="hljs-keyword">static</span> displayed = <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UploadError</span>();
+  <span class="token keyword">static</span> <span class="token function-variable function">displayed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">UploadError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"walk upload error is showing"</span>;
-  }
+  <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">"walk upload error is showing"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
-    <span class="hljs-keyword">return</span> <span class="hljs-title class_">WalksTargets</span>.<span class="hljs-property">uploadResultSummary</span>.<span class="hljs-title function_">answeredBy</span>(actor).<span class="hljs-title function_">isPresent</span>();
-  }
+  <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> WalksTargets<span class="token punctuation">.</span>uploadResultSummary<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isPresent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-}
+<span class="token punctuation">}</span>
 </code></pre>
 <p>So to get over this, you will need to wrap the returned statement in <code>promiseOf</code>. This function resolves the <code>wdpromise.Promise</code>, then returns that value in a new native Promise. 
 So, to get the code to compile it will now look like this: </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core"</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/protractor/lib/promiseOf"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WalksTargets</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"../../ui/ramblers/walksTargets"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> promiseOf <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor/lib/promiseOf"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> WalksTargets <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"../../ui/ramblers/walksTargets"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UploadError</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Question</span>&lt;<span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt;&gt; {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">UploadError</span> <span class="token keyword">implements</span> <span class="token class-name">Question</span><span class="token operator">&lt;</span>Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;&gt;</span> <span class="token punctuation">{</span>
 
-  <span class="hljs-keyword">static</span> displayed = <span class="hljs-function">() =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">UploadError</span>();
+  <span class="token keyword">static</span> <span class="token function-variable function">displayed</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">new</span> <span class="token class-name">UploadError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  <span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"walk upload error is showing"</span>;
-  }
+  <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">"walk upload error is showing"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-  <span class="hljs-title function_">answeredBy</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; {
-    <span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseOf</span>(<span class="hljs-title class_">WalksTargets</span>.<span class="hljs-property">uploadResultSummary</span>.<span class="hljs-title function_">answeredBy</span>(actor).<span class="hljs-title function_">isPresent</span>());
-  }
+  <span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> Promise<span class="token operator">&lt;</span>boolean<span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">promiseOf</span><span class="token punctuation">(</span>WalksTargets<span class="token punctuation">.</span>uploadResultSummary<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isPresent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 
-}
+<span class="token punctuation">}</span>
 </code></pre>
 <p>If you are still having compilation problems after doing the above, then you will need to provide the Typescript compiler some help that this method is fine by adding <code>as Promise&lt;boolean&gt;</code> (or whatever the return type is from your <code>Question</code>) to the end of the return statement.
 If your method returns a more complex domain type e.g. <code>Promise&lt;TradeSummary[]&gt;</code> then adding <code>as Promise&lt;TradeSummary[]&gt;</code> may still not work. If this is the case 
@@ -566,41 +563,41 @@ then try adding <code>as Promise&lt;any&gt;</code> instead to see whether your c
 <h2 id="migrating-activity-code">Migrating Activity code</h2>
 <h3 id="migrating-step-annotations">Migrating @step annotations</h3>
 <p>It's quite possible that you have classes in your 1.x project that have <code>@step</code> annotations. An example <code>Task</code> is as shown in <code>(1)</code> below which disables Angular synchronisation and then opens a supplied <code>url</code>: </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">NavigateToNonAngular</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Task</span> {
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">NavigateToNonAngular</span> <span class="token keyword">implements</span> <span class="token class-name">Task</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">url</span>(<span class="hljs-params">url: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">NavigateToNonAngular</span>(url);
-    }
+    <span class="token keyword">static</span> <span class="token function">url</span><span class="token punctuation">(</span><span class="token parameter">url<span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">NavigateToNonAngular</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-meta">@step</span>(<span class="hljs-string">"{0} actor navigates to #url"</span>)                              (<span class="hljs-number">1</span>)
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsTasks</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">attemptsTo</span>(
-                <span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">disableSynchronisation</span>(),
-                <span class="hljs-title class_">Open</span>.<span class="hljs-title function_">browserOn</span>(url),
-        );
-    }
+    @<span class="token function">step</span><span class="token punctuation">(</span><span class="token string">"{0} actor navigates to #url"</span><span class="token punctuation">)</span>                              <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsTasks<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+                UseAngular<span class="token punctuation">.</span><span class="token function">disableSynchronisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                Open<span class="token punctuation">.</span><span class="token function">browserOn</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> url: <span class="hljs-built_in">string</span></span>) {
-    }
-}
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> url<span class="token operator">:</span> string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>If you have used <code>@step</code> annotations as in the above example, you will now have to re-implement them with an equivalent <code>toString()</code> method as <code>@step</code> has been removed in version 2.x. 
 An equivalent example of the <code>toString()</code> method for the above is as follows :  </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) {
-    <span class="hljs-keyword">return</span> <span class="hljs-string">"#actor navigates to #url"</span>;
-  }
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token string">"#actor navigates to #url"</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
 </code></pre>
 <p>There isn't really a straightforward using search/replace to accomplish this task as it requires the original string passed to the annotation to be cut from its original location and appended to the return statement. 
 Be sure to replace the actor placeholder <code>{0}</code> with <code>#actor</code> in the final string. You will also have to remove the step import as well:  </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { step } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core/lib/recording"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> step <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core/lib/recording"</span><span class="token punctuation">;</span>
 </code></pre>
 <h3 id="simplifying-tasks-using-task-where">Simplifying Tasks using Task.where</h3>
 <p>Serenity/JS 2.x now has factory for creating tasks by means of <a href="https://serenity-js.org/modules/core/class/src/screenplay/Task.ts~Task.html#static-method-where">Task.where</a>. 
 For instance here is a re-written version of the <code>NavigateToNonAngular</code> example <code>Task</code> described in the previous section:</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor navigates to <span class="hljs-subst">${url}</span>`</span>,
-    <span class="hljs-title class_">UseAngular</span>.<span class="hljs-title function_">disableSynchronisation</span>(),
-    <span class="hljs-title class_">Open</span>.<span class="hljs-title function_">browserOn</span>(url),
-)}
+<pre class="language-javascript"><code class="lang-javascript">Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor navigates to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>url<span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+    UseAngular<span class="token punctuation">.</span><span class="token function">disableSynchronisation</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Open<span class="token punctuation">.</span><span class="token function">browserOn</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span><span class="token punctuation">}</span>
 </code></pre>
 <p>The benefit of <code>Task.where</code> is that it allows sequences of tasks to be defined in-line along with the task description without having to declare a concrete class. 
 Whilst this syntax was available in Serenity/JS 1.x, but it may be worth re-writing old concrete tasks to the <code>Task.where</code> syntax whilst you are replacing your step annotations as it will result in more maintainable code with less 'boilerplate.'</p>
@@ -626,23 +623,23 @@ Whilst this syntax was available in Serenity/JS 1.x, but it may be worth re-writ
 </table>
 <h4 id="alert-related-imports">Alert related imports</h4>
 <p>These can be removed</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Alert</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"serenity-js/lib/serenity-protractor/screenplay/interactions/alert"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">WaitForAlert</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"serenity-js/lib/serenity-protractor/screenplay/interactions/waitForAlert"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Alert <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor/screenplay/interactions/alert"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> WaitForAlert <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor/screenplay/interactions/waitForAlert"</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="migrating-assertions">Migrating Assertions</h2>
 <h3 id="chai">chai</h3>
 <p>If you previously had a chai configuration class in your project you can delete / deference this as this will no longer be needed. </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> chai = <span class="hljs-built_in">require</span>(<span class="hljs-string">"chai"</span>);
-<span class="hljs-keyword">import</span> chaiAsPromised = <span class="hljs-built_in">require</span>(<span class="hljs-string">"chai-as-promised"</span>);
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> chai <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"chai"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> chaiAsPromised <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"chai-as-promised"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-chai.<span class="hljs-title function_">use</span>(chaiAsPromised);
+chai<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>chaiAsPromised<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> expect = chai.<span class="hljs-property">expect</span>;
+<span class="token keyword">export</span> <span class="token keyword">const</span> expect <span class="token operator">=</span> chai<span class="token punctuation">.</span>expect<span class="token punctuation">;</span>
 </code></pre>
 <h3 id="migrating-see-if-to-ensure-that">Migrating See.if to Ensure.that</h3>
 <p>Serenity/JS 2.x now has a completely rewritten <a href="https://serenity-js.org/modules/assertions/">assertions</a> library. 
 in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, however the new assertion syntax now begins with <a href="https://serenity-js.org/modules/assertions/class/src/Ensure.ts~Ensure.html">Ensure.that</a>.<br>All assertions and expectations can be found in <code>@serenity-js/assertions</code>, so you'll typically see all imports grouped together as follows: </p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Expectation</span>, <span class="hljs-title class_">Ensure</span>, and, or, isGreaterThan, isLessThan, equals, not } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/assertions"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation<span class="token punctuation">,</span> Ensure<span class="token punctuation">,</span> and<span class="token punctuation">,</span> or<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> isLessThan<span class="token punctuation">,</span> equals<span class="token punctuation">,</span> not <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/assertions"</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Some examples of how the 1.x syntax can be migrated to the the 2.x syntax are as follows:</p>
 <table>
@@ -699,9 +696,9 @@ in Serenity/JS 1.x the entry point to an assertion was <code>See.if</code>, howe
 <h2 id="migrating-questions">Migrating Questions</h2>
 <p>The method signature for the <code>answeredBy()</code> method has changed in that the <code>PerformsTasks</code> ability has now been renamed to  <code>AnswersQuestions</code>,
 so you will need to globally replace <code>PerformsTasks</code> with <code>AnswersQuestions</code> in your entire codebase. This is pretty straightforward as the import is still from <code>@serenity-js/core/lib/screenplay</code>.</p>
-<pre><code class="lang-javascript hljs plaintext">answeredBy(actor: PerformsTasks &amp; UsesAbilities): 
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsTasks <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> 
 </code></pre>
-<pre><code class="lang-javascript hljs plaintext">answeredBy(actor: PerformsActivities &amp; AnswersQuestions &amp; UsesAbilities):
+<pre class="language-javascript"><code class="lang-javascript"><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsActivities <span class="token operator">&amp;</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span>
 </code></pre>
 <h2 id="migrating-script-execution-tasks">Migrating Script Execution Tasks</h2>
 <p>There are some cases when you may wish to perform a low level page interaction that cannot be accomplished by means of the standard protractor API. 
@@ -714,26 +711,26 @@ This might be used in cases where a floating window is overlaying another elemen
 <a href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html">flaky</a>.</p>
 <p>The code for <code>Hide</code> is now shown using both Serenity/JS 1.x and Serenity/JS 2.x implementations:</p>
 <h3 id="serenity-js-1-x-implementation-of-hide-task">Serenity/JS 1.x implementation of Hide Task</h3>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">PerformsTasks</span>, <span class="hljs-title class_">Task</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"serenity-js/lib/screenplay"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span>, <span class="hljs-title class_">Target</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"serenity-js/lib/serenity-protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> PerformsTasks<span class="token punctuation">,</span> Task<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/screenplay"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"serenity-js/lib/serenity-protractor"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Hide</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Task</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Hide</span> <span class="token keyword">implements</span> <span class="token class-name">Task</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">target</span>(<span class="hljs-attr">target</span>: <span class="hljs-title class_">Target</span>): <span class="hljs-title class_">Task</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Hide</span>(target);
-    }
+    <span class="token keyword">static</span> <span class="token function">target</span><span class="token punctuation">(</span>target<span class="token operator">:</span> Target<span class="token punctuation">)</span><span class="token operator">:</span> Task <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Hide</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> target: Target</span>) {                                                            (<span class="hljs-number">1</span>)
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter"><span class="token keyword">private</span> target<span class="token operator">:</span> Target</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>                                                            <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">PerformsTasks</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">const</span> browseTheWeb = <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor);                                                 (<span class="hljs-number">2</span>)
-        <span class="hljs-keyword">const</span> element = browseTheWeb.<span class="hljs-title function_">locate</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">target</span>);                                            (<span class="hljs-number">3</span>)
-        <span class="hljs-keyword">return</span> element.<span class="hljs-title function_">isPresent</span>()
-         .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">present</span> =&gt;</span>                                                                            (<span class="hljs-number">4</span>)
-          present &amp;&amp; browseTheWeb.<span class="hljs-title function_">executeScript</span>(<span class="hljs-string">"arguments[0].style.visibility='hidden'"</span>, element)); (<span class="hljs-number">5</span>)
-    }
-}
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> PerformsTasks <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> browseTheWeb <span class="token operator">=</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token function">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">;</span>                                                 <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">const</span> element <span class="token operator">=</span> browseTheWeb<span class="token punctuation">.</span><span class="token function">locate</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>                                            <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> element<span class="token punctuation">.</span><span class="token function">isPresent</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">present</span> <span class="token operator">=&gt;</span>                                                                            <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+          present <span class="token operator">&amp;&amp;</span> browseTheWeb<span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token string">"arguments[0].style.visibility='hidden'"</span><span class="token punctuation">,</span> element<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>In the example above:</p>
 <ol>
@@ -748,18 +745,18 @@ This might be used in cases where a floating window is overlaying another elemen
 </li>
 </ol>
 <h3 id="serenity-js-2-x-implementation-of-hide-task">Serenity/JS 2.x implementation of Hide Task</h3>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">PerformsActivities</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">Task</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/core"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ExecuteScript</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/protractor"</span>;
-<span class="hljs-keyword">import</span> { promiseOf } <span class="hljs-keyword">from</span> <span class="hljs-string">"@serenity-js/protractor/lib/promiseOf"</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ElementFinder</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">"protractor"</span>;
+<pre class="language-javascript"><code class="lang-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> AnswersQuestions<span class="token punctuation">,</span> PerformsActivities<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> Task<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/core"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ExecuteScript <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> promiseOf <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"@serenity-js/protractor/lib/promiseOf"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ElementFinder <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"protractor"</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">Hide</span> = (<span class="hljs-params">target: Question&lt;ElementFinder&gt; | ElementFinder</span>) =&gt;                              (<span class="hljs-number">1</span>)
-    <span class="hljs-title class_">Task</span>.<span class="hljs-title function_">where</span>(<span class="hljs-string">`#actor hides <span class="hljs-subst">${ target }</span>`</span>,
-        <span class="hljs-title class_">Check</span>.<span class="hljs-title function_">whether</span>(target, <span class="hljs-title function_">isPresent</span>())                                                            (<span class="hljs-number">2</span>)
-            .<span class="hljs-title function_">andIfSo</span>(                                                                                 
-                <span class="hljs-title class_">ExecuteScript</span>.<span class="hljs-title function_">sync</span>(<span class="hljs-string">`arguments[0].style.visibility='hidden'`</span>)                          (<span class="hljs-number">3</span>)
-                .<span class="hljs-title function_">withArguments</span>(target))                                                               (<span class="hljs-number">4</span>)
-    )
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">Hide</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">target<span class="token operator">:</span> Question<span class="token operator">&lt;</span>ElementFinder<span class="token operator">&gt;</span> <span class="token operator">|</span> ElementFinder</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>                              <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    Task<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor hides </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> target <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+        Check<span class="token punctuation">.</span><span class="token function">whether</span><span class="token punctuation">(</span>target<span class="token punctuation">,</span> <span class="token function">isPresent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>                                                            <span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">andIfSo</span><span class="token punctuation">(</span>                                                                                 
+                ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">arguments[0].style.visibility='hidden'</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>                          <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">)</span>                                                               <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
 </code></pre>
 <p>In the example above:</p>
 <ol>

@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -135,93 +132,93 @@ and <a href="https://serenity-js.org/modules/">API docs</a>, and follow <a href=
 <p><a href="https://www.youtube.com/watch?v=djPMf-n93Rw"><img src="https://img.youtube.com/vi/djPMf-n93Rw/0.jpg" alt="Full-Stack Acceptance Testing with Serenity/JS and the Screenplay Pattern"></a></p>
 <h2 id="serenity-js-mocha">Serenity/JS Mocha</h2><p><a href="https://serenity-js.org/modules/mocha/"><code>@serenity-js/mocha</code></a> contains an adapter you register with <a href="https://mochajs.org/">Mocha test runner</a> to enable integration between Mocha and Serenity/JS.</p>
 <h3 id="installation">Installation</h3><p>Install <a href="https://mochajs.org/">Mocha</a> version 8.x or newer:</p>
-<pre><code class="lang-console hljs gherkin">npm install --save-dev mocha<span class="hljs-meta">@8.x</span>
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev mocha<span class="token decorator"><span class="token at operator">@</span><span class="token function">8</span></span><span class="token punctuation">.</span>x
 </code></pre>
 <p>Install the <code>@serenity-js/mocha</code> adapter, as well as <code>@serenity-js/core</code> and any <a href="https://serenity-js.org/modules/console-reporter/">Serenity/JS reporting modules</a> you'd like to use, for example <a href="https://serenity-js.org/modules/console-reporter/"><code>@serenity-js/console-reporter</code></a>:</p>
-<pre><code class="lang-console hljs typescript">npm install --save-dev <span class="hljs-meta">@serenity</span>-js/{core,<span class="hljs-variable language_">console</span>-reporter,mocha}
+<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span><span class="token builtin">console</span><span class="token operator">-</span>reporter<span class="token punctuation">,</span>mocha<span class="token punctuation">}</span>
 </code></pre>
 <p>Learn more about <a href="https://serenity-js.org/handbook/integration/serenityjs-and-mocha.html">integrating Serenity/JS with Mocha</a></p>
 <h3 id="usage-with-standalone-mocha">Usage with standalone Mocha</h3><p>To use Serenity/JS with standalone Mocha, for example to run tests of <a href="https://serenity-js/modules/rest">REST APIs</a>,
 you'll need a setup file that configures Serenity/JS reporting services.</p>
 <h4 id="javascript">JavaScript</h4><p>If you're writing your tests in JavaScript, create a <code>setup.js</code> file (for example under <code>spec/support/setup.js</code>, but you can use any location you like):</p>
-<pre><code class="lang-javascript hljs typescript"><span class="hljs-comment">// spec/support/setup.js</span>
+<pre class="language-javascript"><code class="lang-javascript"><span class="token comment">// spec/support/setup.js</span>
 
-<span class="hljs-keyword">const</span> 
-    { <span class="hljs-title class_">ConsoleReporter</span> } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/console-reporter'</span>),
-    { configure } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'@serenity-js/core'</span>);
+<span class="token keyword">const</span> 
+    <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">forDarkTerminals</span>(),
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        ConsoleReporter<span class="token punctuation">.</span><span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Next, run Mocha as follows:</p>
-<pre><code class="lang-console hljs typescript">mocha --reporter=<span class="hljs-meta">@serenity</span>-js/mocha \
-      --<span class="hljs-built_in">require</span>=spec/support/setup.<span class="hljs-property">js</span> \
-      <span class="hljs-string">'spec/**/*.spec.js'</span>
+<pre class="language-typescript"><code class="lang-console">mocha <span class="token operator">--</span>reporter<span class="token operator">=</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span>mocha \
+      <span class="token operator">--</span><span class="token keyword">require</span><span class="token operator">=</span>spec<span class="token operator">/</span>support<span class="token operator">/</span>setup<span class="token punctuation">.</span>js \
+      <span class="token string">'spec/**/*.spec.js'</span>
 </code></pre>
 <h4 id="typescript">TypeScript</h4><p>If you're writing your tests in TypeScript, you might want to run them via <a href="https://www.npmjs.com/package/ts-node"><code>ts-node</code></a>, which transpiles TypeScript in memory without you having to do it before every test run.</p>
-<pre><code class="hljs plaintext">npm install --save-dev typescript ts-node
+<pre class="language-typescript"><code>npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token keyword">type</span>script ts<span class="token operator">-</span>node
 </code></pre><p>If you haven't done so already, configure your TypeScript transpiler via <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html"><code>tsconfig.json</code></a>:</p>
-<pre><code class="lang-json hljs json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"compilerOptions"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
-    <span class="hljs-attr">"target"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"es2018"</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"lib"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"es2018"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
-    <span class="hljs-attr">"module"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"commonjs"</span>
-  <span class="hljs-punctuation">}</span>
-<span class="hljs-punctuation">}</span>
+<pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
+  <span class="token property">"compilerOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"target"</span><span class="token operator">:</span> <span class="token string">"es2018"</span><span class="token punctuation">,</span>
+    <span class="token property">"lib"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"es2018"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">"module"</span><span class="token operator">:</span> <span class="token string">"commonjs"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <p>Create a <code>setup.ts</code> file (for example under <code>spec/support/setup.ts</code>, but you can use any location you like):</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// spec/support/setup.ts</span>
+<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// spec/support/setup.ts</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConsoleReporter</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/console-reporter'</span>;
-<span class="hljs-keyword">import</span> { configure } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> configure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 
-<span class="hljs-title function_">configure</span>({
-    <span class="hljs-attr">crew</span>: [
-        <span class="hljs-title class_">ConsoleReporter</span>.<span class="hljs-title function_">forDarkTerminals</span>(),
-    ],
-});
+<span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    crew<span class="token operator">:</span> <span class="token punctuation">[</span>
+        ConsoleReporter<span class="token punctuation">.</span><span class="token function">forDarkTerminals</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Next, run Mocha as follows: </p>
-<pre><code class="hljs typescript">mocha --reporter=<span class="hljs-meta">@serenity</span>-js/mocha \
-      --<span class="hljs-built_in">require</span>=ts-node/register \
-      --<span class="hljs-built_in">require</span>=spec/support/setup.<span class="hljs-property">ts</span> \
-      <span class="hljs-string">'spec/**/*.spec.ts'</span>
+<pre class="language-typescript"><code>mocha <span class="token operator">--</span>reporter<span class="token operator">=</span><span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span>mocha \
+      <span class="token operator">--</span><span class="token keyword">require</span><span class="token operator">=</span>ts<span class="token operator">-</span>node<span class="token operator">/</span>register \
+      <span class="token operator">--</span><span class="token keyword">require</span><span class="token operator">=</span>spec<span class="token operator">/</span>support<span class="token operator">/</span>setup<span class="token punctuation">.</span>ts \
+      <span class="token string">'spec/**/*.spec.ts'</span>
 </code></pre><h4 id="using-mocha-configuration-file">Using Mocha configuration file</h4><p>Please note that you can use <a href="https://mochajs.org/#configuring-mocha-nodejs">Mocha configuration file</a>
 to simplify your command line execution.</p>
 <p>For example:</p>
-<pre><code class="lang-yaml hljs bash"><span class="hljs-comment"># .mocharc.yml</span>
-reporter: <span class="hljs-string">'@serenity-js/mocha'</span>
-require:
-  - ts-node/register
-  - spec/support/setup.ts
-check-leaks: <span class="hljs-literal">false</span>
-timeout: 5000
-v8-stack-trace-limit: 100
-<span class="hljs-comment"># ...other config</span>
+<pre class="language-typescript"><code class="lang-yaml"># <span class="token punctuation">.</span>mocharc<span class="token punctuation">.</span>yml
+reporter<span class="token operator">:</span> <span class="token string">'@serenity-js/mocha'</span>
+<span class="token keyword">require</span><span class="token operator">:</span>
+  <span class="token operator">-</span> ts<span class="token operator">-</span>node<span class="token operator">/</span>register
+  <span class="token operator">-</span> spec<span class="token operator">/</span>support<span class="token operator">/</span>setup<span class="token punctuation">.</span>ts
+check<span class="token operator">-</span>leaks<span class="token operator">:</span> <span class="token boolean">false</span>
+timeout<span class="token operator">:</span> <span class="token number">5000</span>
+v8<span class="token operator">-</span>stack<span class="token operator">-</span>trace<span class="token operator">-</span>limit<span class="token operator">:</span> <span class="token number">100</span>
+# <span class="token operator">...</span>other config
 </code></pre>
 <h3 id="usage-with-protractor">Usage with Protractor</h3><p>Configure your Protractor installation as per instructions in <a href="https://serenity-js.org/modules/protractor/"><code>@serenity-js/protractor</code></a> module.</p>
 <p>Next, instruct Serenity/JS to run your tests using Mocha. You can also use your <code>protractor.conf.js</code> file to <a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">configure Mocha</a> if needed:</p>
-<pre><code class="lang-typescript hljs typescript"><span class="hljs-comment">// protractor.conf.js</span>
+<pre class="language-typescript"><code class="lang-typescript"><span class="token comment">// protractor.conf.js</span>
 
-<span class="hljs-built_in">exports</span>.<span class="hljs-property">config</span> = {
-    <span class="hljs-comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
-    <span class="hljs-attr">framework</span>:      <span class="hljs-string">'custom'</span>,
-    <span class="hljs-attr">frameworkPath</span>:  <span class="hljs-built_in">require</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">'@serenity-js/protractor/adapter'</span>),
+exports<span class="token punctuation">.</span>config <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Tell Protractor to use the Serenity/JS framework Protractor Adapter</span>
+    framework<span class="token operator">:</span>      <span class="token string">'custom'</span><span class="token punctuation">,</span>
+    frameworkPath<span class="token operator">:</span>  <span class="token keyword">require</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'@serenity-js/protractor/adapter'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-    <span class="hljs-attr">serenity</span>: {
-        <span class="hljs-attr">runner</span>: <span class="hljs-string">'mocha'</span>,        <span class="hljs-comment">// Use Mocha</span>
-        <span class="hljs-comment">// ... other Serenity/JS-specific configuration</span>
-    },
+    serenity<span class="token operator">:</span> <span class="token punctuation">{</span>
+        runner<span class="token operator">:</span> <span class="token string">'mocha'</span><span class="token punctuation">,</span>        <span class="token comment">// Use Mocha</span>
+        <span class="token comment">// ... other Serenity/JS-specific configuration</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-    <span class="hljs-attr">mochaOpts</span>: {
-        <span class="hljs-comment">// Mocha-specific configuration</span>
-    },
+    mochaOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Mocha-specific configuration</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
 
-    <span class="hljs-comment">// ... other Protractor-specific configuration   </span>
-};
+    <span class="token comment">// ... other Protractor-specific configuration   </span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Learn more about supported <a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">Mocha configuration options</a>.</p>
 <h3 id="example-projects">Example projects</h3><p>Study <a href="https://github.com/serenity-js/serenity-js/tree/master/examples">Serenity/JS example projects</a> to learn more. </p>

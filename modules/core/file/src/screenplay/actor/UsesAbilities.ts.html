@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,26 +291,26 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/actor/UsesAbilities.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Ability</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../Ability'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">AbilityType</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../AbilityType'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Ability <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../Ability'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AbilityType <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../AbilityType'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Enables the {<span class="hljs-doctag">@link</span> Actor} to use an {<span class="hljs-doctag">@link</span> Ability} to perform some {<span class="hljs-doctag">@link</span> Activity}.
+<span class="token comment">/**
+ * @desc
+ *  Enables the {@link Actor} to use an {@link Ability} to perform some {@link Activity}.
  *
- * <span class="hljs-doctag">@public</span>
+ * @public
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> UsesAbilities {
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">UsesAbilities</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Grants access to the Actor's ability
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">AbilityType&lt;T extends Ability&gt;</span>} <span class="hljs-variable">doSomething</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">T</span>}
+     * @param {AbilityType&lt;T extends Ability&gt;} doSomething
+     * @returns {T}
      */</span>
-    abilityTo&lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Ability</span>&gt;(<span class="hljs-attr">doSomething</span>: <span class="hljs-title class_">AbilityType</span>&lt;T&gt;): T;
-}
+    <span class="token generic-function"><span class="token function">abilityTo</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token constant">T</span> <span class="token keyword">extends</span> Ability<span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span>doSomething<span class="token operator">:</span> AbilityType<span class="token operator">&lt;</span><span class="token constant">T</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token constant">T</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

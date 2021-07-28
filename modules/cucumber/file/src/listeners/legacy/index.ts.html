@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -131,54 +128,54 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/listeners/legacy/index.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">ConfigurationError</span>, <span class="hljs-title class_">Serenity</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">ModuleLoader</span>, <span class="hljs-title class_">Path</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ConfigurationError<span class="token punctuation">,</span> Serenity <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader<span class="token punctuation">,</span> Path <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> <span class="hljs-title class_">Gherkin</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'gherkin'</span>);
+<span class="token keyword">import</span> Gherkin <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'gherkin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Cache</span>, <span class="hljs-title class_">FeatureFileLoader</span>, <span class="hljs-title class_">FeatureFileMap</span>, <span class="hljs-title class_">FeatureFileMapper</span>, <span class="hljs-title class_">FeatureFileParser</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./gherkin'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Notifier</span>, <span class="hljs-title class_">ResultMapper</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./notifier'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Cache<span class="token punctuation">,</span> FeatureFileLoader<span class="token punctuation">,</span> FeatureFileMap<span class="token punctuation">,</span> FeatureFileMapper<span class="token punctuation">,</span> FeatureFileParser <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./gherkin'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Notifier<span class="token punctuation">,</span> ResultMapper <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./notifier'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Creates a listener for Cucumber.js 0.x-6.x
  *
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib~Serenity</span>} <span class="hljs-variable">serenity</span>
- * <span class="hljs-doctag">@param</span> {<span class="hljs-type">@serenity-js/core/lib/io~ModuleLoader</span>} <span class="hljs-variable">moduleLoader</span>
- * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">cucumber~Formatter</span>}
+ * @param {@serenity-js/core/lib~Serenity} serenity
+ * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader
+ * @returns {cucumber~Formatter}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">createListener</span>(<span class="hljs-params">serenity: Serenity, moduleLoader: ModuleLoader</span>): <span class="hljs-built_in">any</span> {
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createListener</span><span class="token punctuation">(</span>serenity<span class="token operator">:</span> Serenity<span class="token punctuation">,</span> <span class="token keyword">module</span>Loader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-keyword">const</span> version  = moduleLoader.<span class="hljs-title function_">versionOf</span>(<span class="hljs-string">'cucumber'</span>);
+    <span class="token keyword">const</span> version  <span class="token operator">=</span> <span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token function">versionOf</span><span class="token punctuation">(</span><span class="token string">'cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-    <span class="hljs-keyword">try</span> {
-        <span class="hljs-keyword">const</span>
-            cucumber        = moduleLoader.<span class="hljs-built_in">require</span>(<span class="hljs-string">'cucumber'</span>),
-            notifier        = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Notifier</span>(serenity),
-            mapper          = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileMapper</span>(),
-            resultMapper    = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ResultMapper</span>(),
-            cache           = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Cache</span>&lt;<span class="hljs-title class_">Path</span>, <span class="hljs-title class_">FeatureFileMap</span>&gt;(),
-            loader          = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileLoader</span>(
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">FeatureFileParser</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Gherkin</span>.<span class="hljs-title class_">Parser</span>()),
-                mapper,
-                cache,
-            );
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span>
+            cucumber        <span class="token operator">=</span> <span class="token keyword">module</span>Loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'cucumber'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            notifier        <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Notifier</span><span class="token punctuation">(</span>serenity<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            mapper          <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FeatureFileMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            resultMapper    <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ResultMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            cache           <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cache<span class="token operator">&lt;</span>Path<span class="token punctuation">,</span> FeatureFileMap<span class="token operator">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            loader          <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FeatureFileLoader</span><span class="token punctuation">(</span>
+                <span class="token keyword">new</span> <span class="token class-name">FeatureFileParser</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Gherkin</span><span class="token punctuation">.</span><span class="token function">Parser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                mapper<span class="token punctuation">,</span>
+                cache<span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="hljs-comment">// eslint-disable-next-line @typescript-eslint/no-var-requires</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">`./cucumber-<span class="hljs-subst">${ version.major() }</span>`</span>)({
-            serenity,
-            notifier,
-            mapper,
-            resultMapper,
-            cache,
-            loader,
-            cucumber,
-        });
-    }
-    <span class="hljs-keyword">catch</span> (error) {
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ConfigurationError</span>(<span class="hljs-string">`Cucumber version <span class="hljs-subst">${ version.toString() }</span> is not supported yet.`</span>, error);
-    }
-}
+        <span class="token comment">// eslint-disable-next-line @typescript-eslint/no-var-requires</span>
+        <span class="token keyword">return</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">./cucumber-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> version<span class="token punctuation">.</span><span class="token function">major</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            serenity<span class="token punctuation">,</span>
+            notifier<span class="token punctuation">,</span>
+            mapper<span class="token punctuation">,</span>
+            resultMapper<span class="token punctuation">,</span>
+            cache<span class="token punctuation">,</span>
+            loader<span class="token punctuation">,</span>
+            cucumber<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">catch</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ConfigurationError</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">Cucumber version </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> version<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is not supported yet.</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span> error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

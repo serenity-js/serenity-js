@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -130,69 +127,69 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/JasmineConfig.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/**
+ * @desc
  *  Configuration object that will be passed to the JasmineRunner.
  *
- * <span class="hljs-doctag">@see</span> https://jasmine.github.io/setup/nodejs.html
+ * @see https://jasmine.github.io/setup/nodejs.html
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> JasmineConfig {
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">JasmineConfig</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  A list of paths to helper files that should be loaded and executed before the `requires` and the `specs`.
      *  Accepts relative and absolute paths as well as glob expressions.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string[] | undefined</span>}
-     * <span class="hljs-doctag">@see</span> https://jasmine.github.io/tutorials/react_with_npm
+     * @type {string[] | undefined}
+     * @see https://jasmine.github.io/tutorials/react_with_npm
      */</span>
-    helpers?: <span class="hljs-built_in">string</span>[];
+    helpers<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  A list of paths to files that should be required after the `helpers`, but before the `specs`.
-     *  The path need to be compatible with Node {<span class="hljs-doctag">@link</span> require}.
+     *  The path need to be compatible with Node {@link require}.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string[] | undefined</span>}
+     * @type {string[] | undefined}
      */</span>
-    requires?: <span class="hljs-built_in">string</span>[];
+    requires<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Whether or not the tests should be executed in a pseudo-random order.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">boolean | undefined</span>}
+     * @type {boolean | undefined}
      */</span>
-    random?: <span class="hljs-built_in">boolean</span>;
+    random<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Used to exclude any test scenarios which name doesn't match the pattern from the run.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string | RegExp | undefined</span>}
+     * @type {string | RegExp | undefined}
      */</span>
-    grep?: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">RegExp</span>;
+    grep<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> RegExp<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  The randomisation seed that will be used to determine the pseudo-random order of execution,
      *  if `random` is set to `true`
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">string | undefined</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link JasmineConfig#random</span>}
+     * @type {string | undefined}
+     * @see {@link JasmineConfig#random}
      */</span>
-    seed?: <span class="hljs-built_in">string</span>;
+    seed<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Sets the global `jasmine.DEFAULT_TIMEOUT_INTERVAL`,
      *  which defines the default number of milliseconds Jasmine will wait for an asynchronous spec to complete.
      *
-     * <span class="hljs-doctag">@type</span> {<span class="hljs-type">number | undefined</span>}
-     * <span class="hljs-doctag">@see</span> https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL
+     * @type {number | undefined}
+     * @see https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL
      */</span>
-    defaultTimeoutInterval?: <span class="hljs-built_in">number</span>;
-}
+    defaultTimeoutInterval<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

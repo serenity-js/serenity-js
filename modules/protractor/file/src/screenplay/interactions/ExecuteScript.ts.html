@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -187,39 +184,39 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/ExecuteScript.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Answerable</span>, <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-title class_">CollectsArtifacts</span>, <span class="hljs-title class_">Interaction</span>, <span class="hljs-title class_">LogicError</span>, <span class="hljs-title class_">Question</span>, <span class="hljs-title class_">UsesAbilities</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core'</span>;
-<span class="hljs-keyword">import</span> { formatted } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/io'</span>;
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">Name</span>, <span class="hljs-title class_">TextData</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'@serenity-js/core/lib/model'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable<span class="token punctuation">,</span> AnswersQuestions<span class="token punctuation">,</span> CollectsArtifacts<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span> LogicError<span class="token punctuation">,</span> Question<span class="token punctuation">,</span> UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Name<span class="token punctuation">,</span> TextData <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 
-<span class="hljs-keyword">import</span> { <span class="hljs-title class_">BrowseTheWeb</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'../abilities'</span>;
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../abilities'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
- *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+<span class="token comment">/**
+ * @desc
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
  *  execute a script within the context of the current browser window.
  *
  *  Please see the tests below for usage examples.
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link LastScriptExecution.result</span>}
+ * @see {@link LastScriptExecution.result}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecuteScript</span> {
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ExecuteScript</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Instantiates a version of this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+    <span class="token comment">/**
+     * @desc
+     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}
      *  configured to load a script from `sourceUrl`.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string</span>} <span class="hljs-variable">sourceUrl</span>
+     * @param {string} sourceUrl
      *  The URL to load the script from
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">from</span>(<span class="hljs-attr">sourceUrl</span>: <span class="hljs-built_in">string</span>): <span class="hljs-title class_">Interaction</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecuteScriptFromUrl</span>(sourceUrl);
-    }
+    <span class="token keyword">static</span> <span class="token function">from</span><span class="token punctuation">(</span>sourceUrl<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Interaction <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecuteScriptFromUrl</span><span class="token punctuation">(</span>sourceUrl<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
+    <span class="token comment">/**
+     * @desc
      *  Schedules a command to execute asynchronous JavaScript in the context of the currently selected frame or window.
      *  The script fragment will be executed as the body of an anonymous function.
      *  If the script is provided as a function object, that function will be converted to a string for injection
@@ -231,19 +228,19 @@
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {<span class="hljs-doctag">@link</span> ExecuteScript#sync},
+     *  Unlike executing synchronous JavaScript with {@link ExecuteScript#sync},
      *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      *  This callback will always be injected into the executed function as the last argument,
      *  and thus may be referenced with `arguments[arguments.length - 1]`.
      *
      *  If the script invokes the `callback` with a return value, this will be made available
-     *  via the {<span class="hljs-doctag">@link</span> LastScriptExecution.result}.
+     *  via the {@link LastScriptExecution.result}.
      *
-     *  **Please note** that in order to signal an error in the `script` you need to throw an {<span class="hljs-doctag">@link</span> Error}
+     *  **Please note** that in order to signal an error in the `script` you need to throw an {@link Error}
      *  instead of passing it to the callback function.
      *
-     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Executing an async script&lt;/caption&gt;
+     * @example &lt;caption&gt;Executing an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *    var callback = arguments[arguments.length - 1];
      *
@@ -252,7 +249,7 @@
      *    callback(result)
      *  ));
      *
-     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Passing arguments to an async script&lt;/caption&gt;
+     * @example &lt;caption&gt;Passing arguments to an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *    var name = arguments[0];
      *    var age = arguments[1];
@@ -263,7 +260,7 @@
      *    callback(result)
      *  ).withArguments('Bob', 24));
      *
-     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Passing Target arguments to an async script&lt;/caption&gt;
+     * @example &lt;caption&gt;Passing Target arguments to an async script&lt;/caption&gt;
      *  actor.attemptsTo(ExecuteScript.async(
      *     var header = arguments[0];    // Target gets converted to a WebElement
      *     var callback = arguments[arguments.length - 1];
@@ -271,28 +268,28 @@
      *     callback(header.innerText)
      *   ).withArguments(Target.the('header').located(by.css('h1'))));
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string | Function</span>} <span class="hljs-variable">script</span>
+     * @param {string | Function} script
      *  The script to be executed
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ExecuteScriptWithArguments</span>}
+     * @returns {ExecuteScriptWithArguments}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link LastScriptExecution.result</span>}
+     * @see {@link LastScriptExecution.result}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">async</span>(<span class="hljs-attr">script</span>: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Function</span>): <span class="hljs-title class_">ExecuteScriptWithArguments</span> {   <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecuteAsynchronousScript</span>(script);
-    }
+    <span class="token keyword">static</span> <span class="token keyword">async</span><span class="token punctuation">(</span>script<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token builtin">Function</span><span class="token punctuation">)</span><span class="token operator">:</span> ExecuteScriptWithArguments <span class="token punctuation">{</span>   <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecuteAsynchronousScript</span><span class="token punctuation">(</span>script<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Instructs the {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to
+    <span class="token comment">/**
+     * @desc
+     *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
      *  execute a synchronous script in the context of the currently selected frame or window.
      *
-     *  If the script returns a value, it will be made available via {<span class="hljs-doctag">@link</span> LastScriptExecution.result}.
+     *  If the script returns a value, it will be made available via {@link LastScriptExecution.result}.
      *
-     * <span class="hljs-doctag">@example</span> &lt;caption&gt;Pressing keys&lt;/caption&gt;
-     *  import { actorCalled } from '<span class="hljs-doctag">@serenity</span>-js/core';
-     *  import { BrowseTheWeb, ExecuteScript, LastScriptExecution } from '<span class="hljs-doctag">@serenity</span>-js/protractor';
-     *  import { Ensure, includes } from '<span class="hljs-doctag">@serenity</span>-js/assertions';
+     * @example &lt;caption&gt;Pressing keys&lt;/caption&gt;
+     *  import { actorCalled } from '@serenity-js/core';
+     *  import { BrowseTheWeb, ExecuteScript, LastScriptExecution } from '@serenity-js/protractor';
+     *  import { Ensure, includes } from '@serenity-js/assertions';
      *  import { protractor } from 'protractor';
      *
      *  actorCalled('Joseph')
@@ -302,155 +299,155 @@
      *          Ensure.that(LastScriptExecution.result&lt;string&gt;(), includes('Chrome')),
      *      );
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string | Function</span>} <span class="hljs-variable">script</span>
+     * @param {string | Function} script
      *  The script to be executed
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">ExecuteScriptWithArguments</span>}
+     * @returns {ExecuteScriptWithArguments}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link LastScriptExecution.result</span>}
+     * @see {@link LastScriptExecution.result}
      */</span>
-    <span class="hljs-keyword">static</span> <span class="hljs-title function_">sync</span>(<span class="hljs-attr">script</span>: <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Function</span>): <span class="hljs-title class_">ExecuteScriptWithArguments</span> {    <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecuteSynchronousScript</span>(script);
-    }
-}
+    <span class="token keyword">static</span> <span class="token function">sync</span><span class="token punctuation">(</span>script<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token builtin">Function</span><span class="token punctuation">)</span><span class="token operator">:</span> ExecuteScriptWithArguments <span class="token punctuation">{</span>    <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecuteSynchronousScript</span><span class="token punctuation">(</span>script<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span>
+<span class="token comment">/**
+ * @desc
  *  Allows for a script to be executed to be parametrised.
  *
- *  **Please note** that the arguments can be both synchronous and asynchronous {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Question}s
+ *  **Please note** that the arguments can be both synchronous and asynchronous {@link @serenity-js/core/lib/screenplay~Question}s
  *  as well as regular static values.
  *
- * <span class="hljs-doctag">@abstract</span>
+ * @abstract
  *
- * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link ExecuteScript</span>}
+ * @see {@link ExecuteScript}
  *
- * <span class="hljs-doctag">@extends</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
+ * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecuteScriptWithArguments</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
+<span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">ExecuteScriptWithArguments</span> <span class="token keyword">extends</span> <span class="token class-name">Interaction</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">string | Function</span>} <span class="hljs-variable">script</span>
+    <span class="token comment">/**
+     * @param {string | Function} script
      *  The script to be executed
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Array&lt;Answerable&lt;any&gt;&gt;</span>} <span class="hljs-variable">args</span>
+     * @param {Array&lt;Answerable&lt;any&gt;&gt;} args
      *  Arguments to parametrise the script with
      */</span>
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params">
-        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> script: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">Function</span>,           <span class="hljs-comment">// eslint-disable-line @typescript-eslint/ban-types</span>
-        <span class="hljs-keyword">protected</span> <span class="hljs-keyword">readonly</span> args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt; = [],
-    </span>) {
-        <span class="hljs-variable language_">super</span>();
-    }
+    <span class="token function">constructor</span><span class="token punctuation">(</span>
+        <span class="token keyword">protected</span> <span class="token keyword">readonly</span> script<span class="token operator">:</span> <span class="token builtin">string</span> <span class="token operator">|</span> <span class="token builtin">Function</span><span class="token punctuation">,</span>           <span class="token comment">// eslint-disable-line @typescript-eslint/ban-types</span>
+        <span class="token keyword">protected</span> <span class="token keyword">readonly</span> args<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;&gt;</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Instantiates an {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
-     *  to {<span class="hljs-doctag">@link</span> Enter}.
+    <span class="token comment">/**
+     * @desc
+     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
+     *  to {@link Enter}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">...Array&lt;Answerable&lt;any&gt;&gt;</span>} <span class="hljs-variable">args</span>
+     * @param {...Array&lt;Answerable&lt;any&gt;&gt;} args
      *  Arguments to parametrise the script with
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">@serenity-js/core/lib/screenplay~Interaction</span>}
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */</span>
-    <span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">withArguments</span>(...<span class="hljs-attr">args</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">any</span>&gt;&gt;): <span class="hljs-title class_">Interaction</span>;
+    <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Interaction<span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
-     *  An {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor} to perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">PromiseLike&lt;void&gt;</span>}
+     * @returns {PromiseLike&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">CollectsArtifacts</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">void</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">answerAll</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">args</span>).<span class="hljs-title function_">as</span>(actor)
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">args</span> =&gt;</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">executeAs</span>(actor, args))
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> actor.<span class="hljs-title function_">collect</span>(
-                <span class="hljs-title class_">TextData</span>.<span class="hljs-title function_">fromJSON</span>({
-                    <span class="hljs-attr">contentType</span>:    <span class="hljs-string">'text/javascript;charset=UTF-8'</span>,
-                    <span class="hljs-attr">data</span>:           <span class="hljs-variable language_">this</span>.<span class="hljs-property">script</span>.<span class="hljs-title function_">toString</span>(),
-                }),
-                <span class="hljs-keyword">new</span> <span class="hljs-title class_">Name</span>(<span class="hljs-string">'Script source'</span>),
-            ));
-    }
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> CollectsArtifacts <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">answerAll</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>args<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>args <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">executeAs</span><span class="token punctuation">(</span>actor<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> actor<span class="token punctuation">.</span><span class="token function">collect</span><span class="token punctuation">(</span>
+                TextData<span class="token punctuation">.</span><span class="token function">fromJSON</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                    contentType<span class="token operator">:</span>    <span class="token string">'text/javascript;charset=UTF-8'</span><span class="token punctuation">,</span>
+                    data<span class="token operator">:</span>           <span class="token keyword">this</span><span class="token punctuation">.</span>script<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token keyword">new</span> <span class="token class-name">Name</span><span class="token punctuation">(</span><span class="token string">'Script source'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-title function_">executeAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt;;
+    <span class="token keyword">protected</span> <span class="token keyword">abstract</span> <span class="token function">executeAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">,</span> args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@private</span>
+    <span class="token comment">/**
+     * @private
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">Array&lt;Answerable&lt;any&gt;&gt;</span>} <span class="hljs-variable">args</span>
+     * @param {Array&lt;Answerable&lt;any&gt;&gt;} args
      */</span>
-    <span class="hljs-keyword">private</span> <span class="hljs-title function_">answerAll</span>(<span class="hljs-params">args: <span class="hljs-built_in">Array</span>&lt;Answerable&lt;<span class="hljs-built_in">any</span>&gt;&gt;</span>) {
-        <span class="hljs-keyword">return</span> {
-            <span class="hljs-attr">as</span>: (<span class="hljs-attr">actor</span>: <span class="hljs-title class_">AnswersQuestions</span> &amp; <span class="hljs-title class_">UsesAbilities</span>): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>[]&gt; =&gt; <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">all</span>(args.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> {
-                <span class="hljs-keyword">const</span> maybeElementFinder = <span class="hljs-title class_">Question</span>.<span class="hljs-title function_">isAQuestion</span>(arg)
-                    ? arg.<span class="hljs-title function_">answeredBy</span>(actor)
-                    : arg;
+    <span class="token keyword">private</span> <span class="token function">answerAll</span><span class="token punctuation">(</span>args<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+            <span class="token keyword">as</span><span class="token operator">:</span> <span class="token punctuation">(</span>actor<span class="token operator">:</span> AnswersQuestions <span class="token operator">&amp;</span> UsesAbilities<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">&gt;</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span>args<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>arg <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">const</span> maybeElementFinder <span class="token operator">=</span> Question<span class="token punctuation">.</span><span class="token function">isAQuestion</span><span class="token punctuation">(</span>arg<span class="token punctuation">)</span>
+                    <span class="token operator">?</span> arg<span class="token punctuation">.</span><span class="token function">answeredBy</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+                    <span class="token operator">:</span> arg<span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">const</span> maybePromise = maybeElementFinder.<span class="hljs-property">getWebElement</span>
-                    ? maybeElementFinder.<span class="hljs-title function_">getWebElement</span>()
-                    : maybeElementFinder;
+                <span class="token keyword">const</span> maybePromise <span class="token operator">=</span> maybeElementFinder<span class="token punctuation">.</span>getWebElement
+                    <span class="token operator">?</span> maybeElementFinder<span class="token punctuation">.</span><span class="token function">getWebElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                    <span class="token operator">:</span> maybeElementFinder<span class="token punctuation">;</span>
 
-                <span class="hljs-keyword">return</span> actor.<span class="hljs-title function_">answer</span>(maybePromise);
-            })),
-        };
-    }
-}
+                <span class="token keyword">return</span> actor<span class="token punctuation">.</span><span class="token function">answer</span><span class="token punctuation">(</span>maybePromise<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecuteAsynchronousScript</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ExecuteScriptWithArguments</span> {
-    <span class="hljs-title function_">withArguments</span>(...<span class="hljs-attr">args</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">any</span>&gt;&gt;): <span class="hljs-title class_">Interaction</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecuteAsynchronousScript</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">script</span>, args);
-    }
+<span class="token keyword">class</span> <span class="token class-name">ExecuteAsynchronousScript</span> <span class="token keyword">extends</span> <span class="token class-name">ExecuteScriptWithArguments</span> <span class="token punctuation">{</span>
+    <span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Interaction <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecuteAsynchronousScript</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>script<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">executeAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">executeAsyncScript</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">script</span>, ...args);
-    }
+    <span class="token keyword">protected</span> <span class="token function">executeAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">,</span> args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>script<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">args</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>
-            ? formatted <span class="hljs-string">`#actor executes an asynchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.args }</span>`</span>
-            : <span class="hljs-string">`#actor executes an asynchronous script`</span>;
-    }
-}
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>args<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span>
+            <span class="token operator">?</span> formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor executes an asynchronous script with arguments: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>args <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+            <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor executes an asynchronous script</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  *
  * https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html
  * https://developer.mozilla.org/en-US/docs/Web/API/HTMLScriptElement
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecuteScriptFromUrl</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Interaction</span> {
-    <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> sourceUrl: <span class="hljs-built_in">string</span></span>) {
-        <span class="hljs-variable language_">super</span>();
-    }
+<span class="token keyword">class</span> <span class="token class-name">ExecuteScriptFromUrl</span> <span class="token keyword">extends</span> <span class="token class-name">Interaction</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> sourceUrl<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Makes the provided {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay/actor~Actor}
-     *  perform this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Interaction}.
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * <span class="hljs-doctag">@param</span> {<span class="hljs-type">UsesAbilities &amp; AnswersQuestions</span>} <span class="hljs-variable">actor</span>
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">Promise&lt;void&gt;</span>}
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     * @returns {Promise&lt;void&gt;}
      *
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~Actor</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~UsesAbilities</span>}
-     * <span class="hljs-doctag">@see</span> {<span class="hljs-type">@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions</span>}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */</span>
-    <span class="hljs-title function_">performAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>): <span class="hljs-title class_">PromiseLike</span>&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor)
-            .<span class="hljs-title function_">executeAsyncScript</span>(
-                <span class="hljs-string">`   var src = arguments[0];
+    <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> PromiseLike<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">executeAsyncScript</span><span class="token punctuation">(</span>
+                <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">   var src = arguments[0];
                     var callback = arguments[arguments.length - 1];
         
                     var alreadyLoadedScripts = Array.prototype.slice
@@ -472,46 +469,46 @@
                     script.src = src;
                     script.async = true;
                     document.head.appendChild(script);
-                `</span>,
-                <span class="hljs-variable language_">this</span>.<span class="hljs-property">sourceUrl</span>
-            )
-            .<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">errorMessage</span> =&gt;</span> {
-                <span class="hljs-keyword">if</span> (errorMessage) {
-                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LogicError</span>(errorMessage);
-                }
-            });
-    }
+                </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>sourceUrl
+            <span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>errorMessage <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>errorMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">LogicError</span><span class="token punctuation">(</span>errorMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-comment">/**
-     * <span class="hljs-doctag">@desc</span>
-     *  Generates a description to be used when reporting this {<span class="hljs-doctag">@link</span> <span class="hljs-doctag">@serenity</span>-js/core/lib/screenplay~Activity}.
+    <span class="token comment">/**
+     * @desc
+     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.
      *
-     * <span class="hljs-doctag">@returns</span> {<span class="hljs-type">string</span>}
+     * @returns {string}
      */</span>
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-string">`#actor executes a script from <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.sourceUrl }</span>`</span>;
-    }
-}
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor executes a script from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>sourceUrl <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@package</span>
+<span class="token comment">/**
+ * @package
  */</span>
-<span class="hljs-keyword">class</span> <span class="hljs-title class_">ExecuteSynchronousScript</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">ExecuteScriptWithArguments</span> {
+<span class="token keyword">class</span> <span class="token class-name">ExecuteSynchronousScript</span> <span class="token keyword">extends</span> <span class="token class-name">ExecuteScriptWithArguments</span> <span class="token punctuation">{</span>
 
-    <span class="hljs-title function_">withArguments</span>(...<span class="hljs-attr">args</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">Answerable</span>&lt;<span class="hljs-built_in">any</span>&gt;&gt;): <span class="hljs-title class_">Interaction</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ExecuteSynchronousScript</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">script</span>, args);
-    }
+    <span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token operator">:</span> <span class="token builtin">Array</span><span class="token operator">&lt;</span>Answerable<span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span><span class="token operator">:</span> Interaction <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">ExecuteSynchronousScript</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>script<span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-keyword">protected</span> <span class="hljs-title function_">executeAs</span>(<span class="hljs-attr">actor</span>: <span class="hljs-title class_">UsesAbilities</span> &amp; <span class="hljs-title class_">AnswersQuestions</span>, <span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">any</span>&gt; {
-        <span class="hljs-keyword">return</span> <span class="hljs-title class_">BrowseTheWeb</span>.<span class="hljs-title function_">as</span>(actor).<span class="hljs-title function_">executeScript</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-title function_">toString</span>(), <span class="hljs-variable language_">this</span>.<span class="hljs-property">script</span>, ...args);
-    }
+    <span class="token keyword">protected</span> <span class="token function">executeAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">,</span> args<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token builtin">any</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> BrowseTheWeb<span class="token punctuation">.</span><span class="token keyword">as</span><span class="token punctuation">(</span>actor<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">executeScript</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>script<span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 
-    <span class="hljs-title function_">toString</span>(): <span class="hljs-built_in">string</span> {
-        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">args</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>
-            ? formatted <span class="hljs-string">`#actor executes a synchronous script with arguments: <span class="hljs-subst">${ <span class="hljs-variable language_">this</span>.args }</span>`</span>
-            : <span class="hljs-string">`#actor executes a synchronous script`</span>;
-    }
-}
+    <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>args<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span>
+            <span class="token operator">?</span> formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor executes a synchronous script with arguments: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">this</span><span class="token punctuation">.</span>args <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span>
+            <span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor executes a synchronous script</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>

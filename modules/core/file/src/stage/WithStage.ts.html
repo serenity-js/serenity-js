@@ -32,12 +32,9 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="/css/charming-pro-serenity-js.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css"
-          integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0=" crossorigin="anonymous" />
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/pixeden-stroke-7-icon@1.2.3/pe-icon-7-stroke/dist/pe-icon-7-stroke.min.css"
           integrity="sha256-AJfZWudfDWpFpIZ3USExGYDGwsYz47IgfEQCiGTm4wQ=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" integrity="sha256-3YM6A3pH4QFCl9WbSU8oXF5N6W/2ylvW0o2g+Z6TmLQ=" crossorigin="anonymous" />
 </head>
 <body>
 
@@ -294,22 +291,22 @@
 
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/stage/WithStage.ts</h1>
-<pre class="source-code line-number raw-source-code"><code class="linenums hljs ts" data-ice="content"><span class="hljs-keyword">import</span> { <span class="hljs-title class_">Stage</span> } <span class="hljs-keyword">from</span> <span class="hljs-string">'./Stage'</span>;
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Stage <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./Stage'</span><span class="token punctuation">;</span>
 
-<span class="hljs-comment">/**
- * <span class="hljs-doctag">@desc</span> Makes the {<span class="hljs-doctag">@link</span> Stage} object setup in your test runner configuration visible
+<span class="token comment">/**
+ * @desc Makes the {@link Stage} object setup in your test runner configuration visible
  * to test steps or test scenarios.
  *
- * When using Cucumber, the {<span class="hljs-doctag">@link</span> Stage} is typically set up using the Cucumber World Constructor.
- * When using Jasmine, the {<span class="hljs-doctag">@link</span> Stage} is typically set up in the `beforeEach` step.
+ * When using Cucumber, the {@link Stage} is typically set up using the Cucumber World Constructor.
+ * When using Jasmine, the {@link Stage} is typically set up in the `beforeEach` step.
  *
- * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/api_reference.md
- * <span class="hljs-doctag">@see</span> https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/step_definitions.md
- * <span class="hljs-doctag">@see</span> https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
+ * @see https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/api_reference.md
+ * @see https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/step_definitions.md
+ * @see https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Cucumber.js&lt;/caption&gt;
+ * @example &lt;caption&gt;Usage with Cucumber.js&lt;/caption&gt;
  * // features/support/configure_serenity.ts
- * import { WithStage } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * import { WithStage } from '@serenity-js/core';
  * import { setWorldConstructor } from 'cucumber';
  *
  * setWorldConstructor(function (this: WithStage, { parameters }) {
@@ -317,7 +314,7 @@
  * });
  *
  * // features/step_definitions/some.steps.ts
- * import { WithStage } from '<span class="hljs-doctag">@serenity</span>-js/cucumber';
+ * import { WithStage } from '@serenity-js/cucumber';
  *
  * Given(/(.*?) is a registered customer/, function (this: WithStage, actorName: string) {
  *   return this.stage.actor(actorName).attemptsTo(
@@ -325,9 +322,9 @@
  *   );
  * });
  *
- * <span class="hljs-doctag">@example</span> &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
+ * @example &lt;caption&gt;Usage with Jasmine&lt;/caption&gt;
  * // spec/some.spec.ts
- * import { serenity, WithStage } from '<span class="hljs-doctag">@serenity</span>-js/core';
+ * import { serenity, WithStage } from '@serenity-js/core';
  *
  * describe('Using the Stage', () =&gt; {
  *   beforeEach(function (this: WithStage) {
@@ -341,11 +338,11 @@
  *   })
  * });
  *
- * <span class="hljs-doctag">@deprecated</span> Please use serenity.actor() and serenity.actorInTheSpotlight() instead
+ * @deprecated Please use serenity.actor() and serenity.actorInTheSpotlight() instead
  */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> WithStage {
-    <span class="hljs-attr">stage</span>: <span class="hljs-title class_">Stage</span>;
-}
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">WithStage</span> <span class="token punctuation">{</span>
+    stage<span class="token operator">:</span> Stage<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
 </article>
