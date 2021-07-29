@@ -1,4 +1,7 @@
 'use strict';
+
+// copy webfonts
+
 const
     { readFileSync } = require('fs'),
     { resolve }      = require('path'),
@@ -38,6 +41,8 @@ Metalsmith(__dirname)
     .use(renamePath(/\.\/node_modules\/@serenity-js\/(.*)\/target\/site\//, 'modules/$1/'))
     .use(source('../../CHANGELOG.md'))
     .use(renamePath(/\.\.\/\.\.\/(.*)/, '$1'))
+    .use(sources('../../node_modules/@fortawesome/fontawesome-free/webfonts'))
+    .use(renamePath(new RegExp('../../node_modules/@fortawesome/fontawesome-free/webfonts'), 'webfonts'))
     .destination('target/site')
     // .ignore()
     .clean(true)
