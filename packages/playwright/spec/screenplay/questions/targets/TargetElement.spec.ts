@@ -1,21 +1,16 @@
 import { Actor, actorCalled, serenity } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
-import chaiExclude from 'chai-exclude';
-import { ElementHandle, Page } from 'playwright';
-import { createSandbox, SinonStub } from 'sinon';
+import { chromium, ElementHandle, Page } from 'playwright';
+import { createSandbox, } from 'sinon';
 
 import { isPresent, isVisible } from '../../../../src/expectations';
 import { BrowseTheWeb } from '../../../../src/screenplay/abilities';
+import { Close } from '../../../../src/screenplay/interactions';
 import { TargetElement } from '../../../../src/screenplay/questions/targets/TargetElement';
 import { chai } from '../../../chai-extra';
 import {
-    browserTypeStub,
     elementHandleStub,
-    pageStub,
 } from '../../../stubs/playwright';
-
-chai.use(chaiExclude);
-chai.should();
 
 const { expect } = chai;
 
@@ -25,48 +20,42 @@ describe('TargetElement Question', () => {
     let actor: Actor;
     let page: Page;
 
-    beforeEach(() => {
-        browseTheWeb = BrowseTheWeb.using(browserTypeStub(sandbox));
+    beforeEach(async () => {
+        browseTheWeb = BrowseTheWeb.using(chromium);
         actor = actorCalled('Actor').whoCan(browseTheWeb);
-        page = pageStub(sandbox);
-        browseTheWeb.$ = sandbox.stub();
-        (browseTheWeb as any).page = sandbox.stub().resolves(page);
+        page = await (actor.abilityTo(BrowseTheWeb) as any).page();
+        page.setContent(`
+        <html>
+            <input type="text" name="example" id="example" value="random text" />
+            <div id="grandparent" name="grandparent">
+                <div id="parent" name="parent">
+                    <div id="child" name="child">
+                    </div>
+                </div>
+            </div>
+        </html>`);
     });
 
     afterEach(() => {
         sandbox.restore();
         serenity.announce(new TestRunFinishes());
-    });
-
-    it('element is selected by passed selector', async () => {
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        (browseTheWeb.$ as SinonStub).resolves(expectedElementHandle);
-
-        await actor.answer(TargetElement.at('selector'));
-
-        (browseTheWeb.$ as SinonStub).should.have.been.calledWith('selector');
+        actor.attemptsTo(Close.browser());
     });
 
     it('can be answered with element', async () => {
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        (browseTheWeb.$ as SinonStub).resolves(expectedElementHandle);
+        const expectedElementHandle: ElementHandle = await page.$('id=example');
 
         const actualElementHandle = await actor.answer(
-            TargetElement.at('selector')
+            TargetElement.at('id=example')
         );
 
         expect(actualElementHandle.isExisting()).to.be.true;
-        expect(actualElementHandle)
-      .excluding('toString')
-      .excluding('isExisting')
-      .to.be.deep.equal(expectedElementHandle);
+        expect(await actualElementHandle.getAttribute('name'))
+            .to.be.equal(await expectedElementHandle.getAttribute('name'));
     });
 
     it('overrides description for the answer', async () => {
         const expectedDescription = 'real description';
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        expectedElementHandle.toString = sandbox.stub().returns('fake string');
-        (browseTheWeb.$ as SinonStub).resolves(expectedElementHandle);
 
         const actualElementHandle = await actor.answer(
             TargetElement.at('selector').as(expectedDescription)
@@ -78,78 +67,52 @@ describe('TargetElement Question', () => {
     });
 
     it('can be a MetaQuestion to return child of a parent', async () => {
-        const expectedParent: ElementHandle = elementHandleStub(sandbox);
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        (browseTheWeb.$ as SinonStub).resolves(expectedParent);
-        (expectedParent.$ as SinonStub).resolves(expectedElementHandle);
-
+        const expectedElementHandle: ElementHandle = await (await page.$('id=parent')).$('id=child');
         const actualElementHandle = await actor.answer(
-            TargetElement.at('child selector').of(TargetElement.at('parent selector'))
+            TargetElement.at('id=child').of(TargetElement.at('id=parent'))
         );
 
         expect(actualElementHandle.isExisting()).to.be.true;
-        expect(actualElementHandle)
-      .excluding('toString')
-      .excluding('isExisting')
-      .to.be.deep.equal(expectedElementHandle);
+        expect(await actualElementHandle.getAttribute('name'))
+            .to.be.equal(await expectedElementHandle.getAttribute('name'));
     });
 
     it('adds information about parent to the description', async () => {
-        const expectedParent: ElementHandle = elementHandleStub(sandbox);
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        (browseTheWeb.$ as SinonStub).resolves(expectedParent);
-        (expectedParent.$ as SinonStub).resolves(expectedElementHandle);
-
         const actualElementHandle = await actor.answer(
-            TargetElement.at('child selector')
-        .as('child')
-        .of(TargetElement.at('parent selector').as('parent'))
+            TargetElement.at('id=child').as('child').of(TargetElement.at('id=parent').as('parent'))
         );
 
-        actualElementHandle.toString().should.be.equal('child of parent');
+        expect(actualElementHandle.toString()).to.be.equal('child of parent');
     });
 
     it('adds information about all parents in the hierarchy to the description', async () => {
-        const expectedGrandParent: ElementHandle = elementHandleStub(sandbox);
-        const expectedParent: ElementHandle = elementHandleStub(sandbox);
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        (browseTheWeb.$ as SinonStub).resolves(expectedGrandParent);
-        (expectedGrandParent.$ as SinonStub).resolves(expectedParent);
-        (expectedParent.$ as SinonStub).resolves(expectedElementHandle);
-
         const actualElementHandle = await actor.answer(
-            TargetElement.at('child selector')
-        .as('child')
-        .of(
-            TargetElement.at('parent selector')
-            .as('parent')
-            .of(TargetElement.at('grandparent selector').as('grandparent'))
-        )
+            TargetElement.at('id=child')
+                .as('child')
+                .of(
+                    TargetElement.at('id=parent')
+                    .as('parent')
+                    .of(TargetElement.at('id=grandparent').as('grandparent'))
+                )
         );
 
-        actualElementHandle
-      .toString()
-      .should.be.equal('child of parent of grandparent');
+        expect(actualElementHandle
+            .toString())
+            .to.be.equal('child of parent of grandparent');
     });
 
     it('returns non existing element with isExisting = () => false', async () => {
-        const expectedElementHandle: ElementHandle = null;
-        (browseTheWeb.$ as SinonStub).resolves(expectedElementHandle);
-
         const actualElementHandle = await actor.answer(
-            TargetElement.at('selector')
+            TargetElement.at('non existent selector')
         );
 
         expect(actualElementHandle).to.not.be.null;
         expect(actualElementHandle).to.not.be.undefined;
-        actualElementHandle.isExisting().should.be.false;
+        expect(actualElementHandle.isExisting()).to.be.false;
     });
 
     it('uses selector as description by default', async () => {
-        const selector = 'real description';
-        const expectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-        expectedElementHandle.toString = sandbox.stub().returns('fake string');
-        (browseTheWeb.$ as SinonStub).resolves(expectedElementHandle);
+        const selector = 'id=example';
 
         const actualElementHandle = await actor.answer(TargetElement.at(selector));
 
@@ -157,66 +120,57 @@ describe('TargetElement Question', () => {
     });
 
     it('checks parents for existence', async () => {
-        const expectedParent: ElementHandle = null;
-        (browseTheWeb.$ as SinonStub).resolves(expectedParent);
-
-        await actor
-      .answer(
-          TargetElement.at('child selector').of(
-              TargetElement.at('parent selector').as('parent')
-          )
-      )
-      .should.be.rejectedWith('Expected parent to be attached');
+        await expect(actor
+            .answer(
+                TargetElement.at('child selector').of(
+                    TargetElement.at('non existent parent selector').as('parent')
+                )
+            ))
+        .to.be.rejectedWith('Expected parent to be attached');
     });
 
-    // I don't remember what's this for, but its needed... Failures were in the samples
+    // // I don't remember what's this for, but its needed... Failures were in the samples
     it('responds with answer with constructor even if selected handle == null', async () => {
-        (browseTheWeb.$ as SinonStub).resolves(null);
-
         const element = await actor.answer(
             TargetElement.at('not exsting element selector')
         );
         expect(element.constructor, 'Constructor does not exist').to.exist;
     });
 
-    // I don't remember what's this for, but its needed... Failures were in the samples
+    // // I don't remember what's this for, but its needed... Failures were in the samples
     it('responds with answer with original constructor if selected handle != null', async () => {
-        (browseTheWeb.$ as SinonStub).resolves(elementHandleStub(sandbox));
-
         const element = await actor.answer(
-            TargetElement.at('not exsting element selector')
+            TargetElement.at('id=example')
         );
         expect(element.constructor, 'Constructor does not exist').to.exist;
-        expect(element.constructor.name).to.equal(
-            elementHandleStub(sandbox).constructor.name
-        );
+        expect(element.constructor.name).to.equal('ElementHandle');
     });
 
     describe('delayed until element', () => {
         it('is attached', async () => {
-            (page.waitForSelector as SinonStub).resolves(elementHandleStub(sandbox));
+            const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
             const element = await actor.answer(
                 TargetElement.at('selector').whichShouldBecome(isPresent())
             );
 
             await actor.answer(element);
 
-            page.waitForSelector.should.have.been.called;
-            page.waitForSelector.should.have.been.calledWith('selector', {
+            expect(waitForSelectorStub).to.have.been.called;
+            expect(waitForSelectorStub).to.have.been.calledWith('selector', {
                 state: 'attached',
             });
         });
 
         it('is visible', async () => {
-            (page.waitForSelector as SinonStub).resolves(elementHandleStub(sandbox));
+            const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
             const element = await actor.answer(
                 TargetElement.at('selector').whichShouldBecome(isVisible())
             );
 
             await actor.answer(element);
 
-            page.waitForSelector.should.have.been.called;
-            page.waitForSelector.should.have.been.calledWith('selector', {
+            expect(waitForSelectorStub).to.have.been.called;
+            expect(waitForSelectorStub).to.have.been.calledWith('selector', {
                 state: 'visible',
             });
         });
