@@ -1,3 +1,4 @@
+import { expect } from '@integration/testing-tools';
 import {
     Actor,
     actorCalled,
@@ -5,7 +6,6 @@ import {
     serenity,
 } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
-import chaiExclude from 'chai-exclude';
 import { Page } from 'playwright';
 import { createSandbox, SinonStub } from 'sinon';
 
@@ -15,16 +15,11 @@ import {
 } from '../../../src/expectations/ElementHandleExpectation';
 import { by, Target, Wait } from '../../../src/screenplay';
 import { BrowseTheWeb } from '../../../src/screenplay/abilities';
-import { chai } from '../../chai-extra';
 import {
     browserTypeStub,
     elementHandleStub,
     pageStub,
 } from '../../stubs/playwright';
-
-chai.use(chaiExclude);
-
-const { expect } = chai;
 
 describe("'Wait' interaction", () => {
     const sandbox = createSandbox();

@@ -1,16 +1,14 @@
+import { expect } from '@integration/testing-tools';
 import { Browser, BrowserContext, BrowserType, Page } from 'playwright';
 import { createSandbox, SinonStub } from 'sinon';
 
 import { BrowseTheWeb } from '../../../src/screenplay/abilities';
-import { chai } from '../../chai-extra';
 import {
     browserContextStub,
     browserStub,
     browserTypeStub,
     pageStub,
 } from '../../stubs/playwright';
-
-const { expect } = chai;
 
 describe('BrowseTheWeb ability', () => {
     const sandbox = createSandbox();
@@ -26,17 +24,17 @@ describe('BrowseTheWeb ability', () => {
         browser = browserStub(sandbox);
         browserType = browserTypeStub(sandbox);
         (browserType.launch as SinonStub)
-      .resolves(browserStub(sandbox))
-      .onCall(0)
-      .resolves(browser);
+            .resolves(browserStub(sandbox))
+            .onCall(0)
+            .resolves(browser);
         (browser.newContext as SinonStub)
-      .resolves(browserContextStub(sandbox))
-      .onCall(0)
-      .resolves(browserContext);
+            .resolves(browserContextStub(sandbox))
+            .onCall(0)
+            .resolves(browserContext);
         (browserContext.newPage as SinonStub)
-      .resolves(pageStub(sandbox))
-      .onCall(0)
-      .resolves(page);
+            .resolves(pageStub(sandbox))
+            .onCall(0)
+            .resolves(page);
 
         ability = BrowseTheWeb.using(browserType);
     });

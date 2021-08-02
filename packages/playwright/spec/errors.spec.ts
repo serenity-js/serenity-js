@@ -1,8 +1,7 @@
 
-import { UnsupportedOperationError } from '../src/errors';
-import { chai } from './chai-extra';
+import { expect } from '@integration/testing-tools';
 
-const { expect } = chai;
+import { UnsupportedOperationError } from '../src/errors';
 
 describe('Unsupported operation error', () => {
     it('has default message', () => {

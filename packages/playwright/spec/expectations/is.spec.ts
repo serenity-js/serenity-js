@@ -1,3 +1,4 @@
+import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { Actor, actorCalled, serenity } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
@@ -7,7 +8,6 @@ import { createSandbox, SinonStub } from 'sinon';
 import { isClickable, isEnabled, isVisible } from '../../src/expectations/is';
 import { BrowseTheWeb } from '../../src/screenplay/abilities';
 import { by, Target } from '../../src/screenplay/questions/targets';
-import { chai } from '../chai-extra';
 import {
     browserTypeStub,
     elementHandleStub,
@@ -15,8 +15,6 @@ import {
 } from '../stubs/playwright';
 
 const { the } = Target;
-
-const { expect } = chai;
 
 describe('Ensure element is', () => {
     const sandbox = createSandbox();

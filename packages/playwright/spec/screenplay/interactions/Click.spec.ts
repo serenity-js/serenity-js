@@ -1,14 +1,10 @@
 import { Ensure, not } from '@serenity-js/assertions';
 import { actorCalled, serenity } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
-import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
 import { isVisible } from '../../../src/expectations';
 import { BrowseTheWeb, by, Click, Close, Target } from '../../../src/screenplay';
-import { chai } from '../../chai-extra';
-
-chai.use(chaiExclude);
 
 describe("'Click' interaction", () => {
     const actor = actorCalled('Mike').whoCan(BrowseTheWeb.using(chromium));

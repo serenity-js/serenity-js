@@ -1,3 +1,4 @@
+import { expect } from '@integration/testing-tools';
 import { Actor, actorCalled, serenity } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
 import { chromium, ElementHandle, Page } from 'playwright';
@@ -6,9 +7,6 @@ import { createSandbox, } from 'sinon';
 import { BrowseTheWeb } from '../../../../src/screenplay/abilities';
 import { Close } from '../../../../src/screenplay/interactions';
 import { by, Target } from '../../../../src/screenplay/questions';
-import { chai } from '../../../chai-extra';
-
-const { expect } = chai;
 
 describe('TargetElement Question', () => {
     const sandbox = createSandbox();
