@@ -10,7 +10,6 @@ import {
     pageStub,
 } from '../../stubs/playwright';
 
-chai.should();
 const { expect } = chai;
 
 describe('BrowseTheWeb ability', () => {
@@ -47,7 +46,7 @@ describe('BrowseTheWeb ability', () => {
     });
 
     it('stores browser', () => {
-        (ability as any).browserType.should.be.equal(browserType);
+        expect((ability as any).browserType).to.be.equal(browserType);
     });
 
     it('opens page', async () => {
@@ -56,79 +55,79 @@ describe('BrowseTheWeb ability', () => {
 
         await ability.open(url, options);
 
-        page.goto.should.be.called;
-        page.goto.should.be.calledWith(url, options);
+        expect(page.goto).to.be.called;
+        expect(page.goto).to.be.calledWith(url, options);
     });
 
     it('returns page', async () => {
         const actualPage = await (ability as any).page();
 
-        actualPage.should.be.equal(page);
+        expect(actualPage).to.be.equal(page);
     });
 
     it('returns same page each time', async () => {
         const page1 = await (ability as any).page();
         const page2 = await (ability as any).page();
 
-        page1.should.be.equal(page2);
+        expect(page1).to.be.equal(page2);
     });
 
     it('returns context', async () => {
         const actualContext = await ability.context();
 
-        actualContext.should.be.equal(browserContext);
+        expect(actualContext).to.be.equal(browserContext);
     });
 
     it('returns same context each time', async () => {
         const context1 = await ability.context();
         const context2 = await ability.context();
 
-        context1.should.be.equal(context2);
+        expect(context1).to.be.equal(context2);
     });
 
     it('closes browser', async () => {
         await ability.closeBrowser();
-        browser.close.should.have.been.called;
+        expect(browser.close).to.have.been.called;
     });
 
     it('closes page', async () => {
         await ability.closePage();
-        page.close.should.have.been.called;
+        expect(page.close).to.have.been.called;
     });
 
     it('find specific element', async () => {
         const selector = 'selector';
         await ability.$(selector);
-        page.$.should.have.been.called;
-        page.$.should.have.been.calledWith(selector);
+        expect(page.$).to.have.been.called;
+        expect(page.$).to.have.been.calledWith(selector);
     });
 
     it('find several elements', async () => {
         const selector = 'selector';
         await ability.$$(selector);
-        page.$$.should.have.been.called;
-        page.$$.should.have.been.calledWith(selector);
+        expect(page.$$).to.have.been.called;
+        expect(page.$$).to.have.been.calledWith(selector);
     });
 
     it('clicks on selector', async () => {
         const selector = 'selector';
         await ability.click(selector);
-        page.click.should.have.been.called;
-        page.click.should.have.been.calledWith(selector);
+        expect(page.click).to.have.been.called;
+        expect(page.click).to.have.been.calledWith(selector);
     });
 
     it('double clicks on selector', async () => {
         const selector = 'selector';
         await ability.doubleClick(selector);
-        page.dblclick.should.have.been.called;
-        page.dblclick.should.have.been.calledWith(selector);
+        expect(page.dblclick).to.have.been.called;
+        expect(page.dblclick).to.have.been.calledWith(selector);
     });
 
     it('hovers on selector', async () => {
         const selector = 'selector';
         await ability.hover(selector);
-        page.hover.should.have.been.called;
-        page.hover.should.have.been.calledWith(selector);
+        expect(page.hover).to.have.been.called;
+        expect(page.hover).to.have.been.calledWith(selector);
     });
 
     it('executes function', async () => {
@@ -137,8 +136,8 @@ describe('BrowseTheWeb ability', () => {
 
         await ability.evaluate(script, args);
 
-        page.evaluate.should.have.been.called;
-        page.evaluate.should.have.been.calledWith(script, args);
+        expect(page.evaluate).to.have.been.called;
+        expect(page.evaluate).to.have.been.calledWith(script, args);
     });
 
     it('takes screenshot', async () => {
@@ -148,7 +147,7 @@ describe('BrowseTheWeb ability', () => {
         const actualBuffer = await ability.takeScreenshot();
 
         expect(actualBuffer).to.be.equal(expectedBuffer);
-        page.screenshot.should.have.been.called;
+        expect(page.screenshot).to.have.been.called;
     });
 
     it('takes screenshot with params', async () => {
@@ -156,8 +155,8 @@ describe('BrowseTheWeb ability', () => {
         const options = { fullPage: true, path: '/path/to/file' };
         await ability.takeScreenshot(options);
 
-        page.screenshot.should.have.been.called;
-        page.screenshot.should.have.been.calledWith(options);
+        expect(page.screenshot).to.have.been.called;
+        expect(page.screenshot).to.have.been.calledWith(options);
     });
 
     it('returns page title', async () => {
@@ -181,8 +180,8 @@ describe('BrowseTheWeb ability', () => {
     it('waits for timeout', async () => {
         await ability.waitForTimeout(1000);
 
-        page.waitForTimeout.should.have.been.called;
-        page.waitForTimeout.should.have.been.calledWith(1000);
+        expect(page.waitForTimeout).to.have.been.called;
+        expect(page.waitForTimeout).to.have.been.calledWith(1000);
     });
 
     it('waits for Event'); // not implemented

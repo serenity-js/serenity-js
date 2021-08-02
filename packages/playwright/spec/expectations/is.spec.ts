@@ -14,9 +14,9 @@ import {
     pageStub,
 } from '../stubs/playwright';
 
-chai.should();
-
 const { the } = Target;
+
+const { expect } = chai;
 
 describe('Ensure element is', () => {
     const sandbox = createSandbox();
@@ -43,18 +43,18 @@ describe('Ensure element is', () => {
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor.attemptsTo(
             Ensure.that(the('visible element').located(by.id('selector')), isVisible())
-        ); //.should.be.fulfilled;
+        );
     });
 
     it('not visible', async () => {
         const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
         (selectedElementHandle.isVisible as SinonStub).resolves(false);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor
-      .attemptsTo(
-          Ensure.that(the('hidden element').located(by.id('selector')), isVisible())
-      )
-      .should.be.rejectedWith('Expected the hidden element to be visible');
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(the('hidden element').located(by.id('selector')), isVisible())
+            ))
+            .to.be.rejectedWith('Expected the hidden element to be visible');
     });
 
     it('enabled', async () => {
@@ -62,9 +62,9 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isVisible as SinonStub).resolves(true);
         (selectedElementHandle.isEnabled as SinonStub).resolves(true);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor.attemptsTo(
+        await expect(actor.attemptsTo(
             Ensure.that(the('enabled element').located(by.id('selector')), isEnabled())
-        ).should.be.fulfilled;
+        )).to.be.fulfilled;
     });
 
     it('not enabled', async () => {
@@ -72,11 +72,11 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isVisible as SinonStub).resolves(true);
         (selectedElementHandle.isEnabled as SinonStub).resolves(false);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor
-      .attemptsTo(
-          Ensure.that(the('disabled element').located(by.id('selector')), isEnabled())
-      )
-      .should.be.rejectedWith('Expected the disabled element to be enabled');
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(the('disabled element').located(by.id('selector')), isEnabled())
+            ))
+            .to.be.rejectedWith('Expected the disabled element to be enabled');
     });
 
     it('enabled, but invisible', async () => {
@@ -84,152 +84,24 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isVisible as SinonStub).resolves(false);
         (selectedElementHandle.isEnabled as SinonStub).resolves(true);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor
-      .attemptsTo(
-          Ensure.that(the('disabled element').located(by.id('selector')), isEnabled())
-      )
-      .should.be.rejectedWith('Expected the disabled element to be visible');
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(the('disabled element').located(by.id('selector')), isEnabled())
+            ))
+            .to.be.rejectedWith('Expected the disabled element to be visible');
     });
-
-    // it("disabled", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(true);
-    //   (selectedElementHandle.isDisabled as SinonStub).resolves(true);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor.attemptsTo(
-    //     Ensure.that(the("enabled element").located(by.id("selector")), is.disabled)
-    //   ).should.be.fulfilled;
-    // });
-
-    // it("not disabled", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(true);
-    //   (selectedElementHandle.isDisabled as SinonStub).resolves(false);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(the("enabled element").located(by.id("selector")), is.disabled)
-    //     )
-    //     .should.be.rejectedWith("Expected the enabled element to be disabled");
-    // });
-
-    // it("disabled, but invisible", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(false);
-    //   (selectedElementHandle.isDisabled as SinonStub).resolves(false);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(the("enabled element").located(by.id("selector")), is.disabled)
-    //     )
-    //     .should.be.rejectedWith("Expected the enabled element to be visible");
-    // });
-
-    // it("editable", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(true);
-    //   (selectedElementHandle.isEditable as SinonStub).resolves(true);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor.attemptsTo(
-    //     Ensure.that(
-    //       the("not editable element").located(by.id("selector")),
-    //       is.editable
-    //     )
-    //   ).should.be.fulfilled;
-    // });
-
-    // it("not editable", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(true);
-    //   (selectedElementHandle.isEditable as SinonStub).resolves(false);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("not editable element").located(by.id("selector")),
-    //         is.editable
-    //       )
-    //     )
-    //     .should.be.rejectedWith(
-    //       "Expected the not editable element to be editable"
-    //     );
-    // });
-
-    // it("editable, but invisible", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(false);
-    //   (selectedElementHandle.isEditable as SinonStub).resolves(false);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("not editable element").located(by.id("selector")),
-    //         is.editable
-    //       )
-    //     )
-    //     .should.be.rejectedWith(
-    //       "Expected the not editable element to be visible"
-    //     );
-    // });
-
-    // it("checked", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(true);
-    //   (selectedElementHandle.isChecked as SinonStub).resolves(true);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor.attemptsTo(
-    //     Ensure.that(
-    //       the("not editable element").located(by.id("selector")),
-    //       is.checked
-    //     )
-    //   ).should.be.fulfilled;
-    // });
-
-    // it("not checked", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(true);
-    //   (selectedElementHandle.isChecked as SinonStub).resolves(false);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("not editable element").located(by.id("selector")),
-    //         is.checked
-    //       )
-    //     )
-    //     .should.be.rejectedWith(
-    //       "Expected the not editable element to be checked"
-    //     );
-    // });
-
-    // it("checked, but invisible", async () => {
-    //   const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
-    //   (selectedElementHandle.isVisible as SinonStub).resolves(false);
-    //   (selectedElementHandle.isChecked as SinonStub).resolves(true);
-    //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("not editable element").located(by.id("selector")),
-    //         is.checked
-    //       )
-    //     )
-    //     .should.be.rejectedWith(
-    //       "Expected the not editable element to be visible"
-    //     );
-    // });
 
     it('clickable', async () => {
         const selectedElementHandle: ElementHandle = elementHandleStub(sandbox);
         (selectedElementHandle.isEnabled as SinonStub).resolves(true);
         (selectedElementHandle.isVisible as SinonStub).resolves(true);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor.attemptsTo(
+        await expect(actor.attemptsTo(
             Ensure.that(
                 the('not clickable element').located(by.id('selector')),
                 isClickable()
             )
-        ).should.be.fulfilled;
+        )).to.be.fulfilled;
     });
 
     it('not clickable, because not enabled', async () => {
@@ -237,16 +109,16 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isEnabled as SinonStub).resolves(false);
         (selectedElementHandle.isVisible as SinonStub).resolves(true);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor
-      .attemptsTo(
-          Ensure.that(
-              the('not clickable element').located(by.id('selector')),
-              isClickable()
-          )
-      )
-      .should.be.rejectedWith(
-          'Expected the not clickable element to be enabled'
-      );
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(
+                    the('not clickable element').located(by.id('selector')),
+                    isClickable()
+                )
+            ))
+            .to.be.rejectedWith(
+                'Expected the not clickable element to be enabled'
+            );
     });
 
     it('not clickable, because not visible', async () => {
@@ -254,16 +126,16 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isEnabled as SinonStub).resolves(true);
         (selectedElementHandle.isVisible as SinonStub).resolves(false);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
-        await actor
-      .attemptsTo(
-          Ensure.that(
-              the('not clickable element').located(by.id('selector')),
-              isClickable()
-          )
-      )
-      .should.be.rejectedWith(
-          'Expected the not clickable element to be visible'
-      );
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(
+                    the('not clickable element').located(by.id('selector')),
+                    isClickable()
+                )
+            ))
+            .to.be.rejectedWith(
+                'Expected the not clickable element to be visible'
+            );
     });
 });
 
@@ -289,68 +161,35 @@ describe('Non existing element', () => {
     });
 
     it('is not visible', async () => {
-        await actor
-      .attemptsTo(
-          Ensure.that(
-              the('non exsting element').located(by.id('selector')),
-              isVisible()
-          )
-      )
-      .should.be.rejectedWith('Expected the non exsting element to be visible');
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(
+                    the('non exsting element').located(by.id('selector')),
+                    isVisible()
+                )
+            ))
+            .to.be.rejectedWith('Expected the non exsting element to be visible');
     });
 
     it('is not enabled', async () => {
-        await actor
-      .attemptsTo(
-          Ensure.that(
-              the('non exsting element').located(by.id('selector')),
-              isEnabled()
-          )
-      )
-      .should.be.rejectedWith('Expected the non exsting element to be visible');
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(
+                    the('non exsting element').located(by.id('selector')),
+                    isEnabled()
+                )
+            ))
+            .to.be.rejectedWith('Expected the non exsting element to be visible');
     });
 
-    // it("is not disabled", async () => {
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("non exsting element").located(by.id("selector")),
-    //         is.disabled
-    //       )
-    //     )
-    //     .should.be.rejectedWith("Expected the non exsting element to be visible");
-    // });
-
-    // it("is not editable", async () => {
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("non exsting element").located(by.id("selector")),
-    //         is.editable
-    //       )
-    //     )
-    //     .should.be.rejectedWith("Expected the non exsting element to be visible");
-    // });
-
-    // it("is not checked", async () => {
-    //   await actor
-    //     .attemptsTo(
-    //       Ensure.that(
-    //         the("non exsting element").located(by.id("selector")),
-    //         is.checked
-    //       )
-    //     )
-    //     .should.be.rejectedWith("Expected the non exsting element to be visible");
-    // });
-
     it('is not clickable', async () => {
-        await actor
-      .attemptsTo(
-          Ensure.that(
-              the('non exsting element').located(by.id('selector')),
-              isClickable()
-          )
-      )
-      .should.be.rejectedWith('Expected the non exsting element to be visible');
+        await expect(actor
+            .attemptsTo(
+                Ensure.that(
+                    the('non exsting element').located(by.id('selector')),
+                    isClickable()
+                )
+            ))
+            .to.be.rejectedWith('Expected the non exsting element to be visible');
     });
 });

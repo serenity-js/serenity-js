@@ -9,7 +9,6 @@ import { by, Target } from '../../../src/screenplay/questions/targets';
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
-chai.should();
 
 const { $ } = Target;
 

@@ -9,7 +9,6 @@ import { BrowseTheWeb, by, Click, Close, Target } from '../../../src/screenplay'
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
-chai.should();
 
 describe("'Click' interaction", () => {
     const actor = actorCalled('Mike').whoCan(BrowseTheWeb.using(chromium));

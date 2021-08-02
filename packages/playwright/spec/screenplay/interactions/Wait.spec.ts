@@ -23,7 +23,8 @@ import {
 } from '../../stubs/playwright';
 
 chai.use(chaiExclude);
-chai.should();
+
+const { expect } = chai;
 
 describe("'Wait' interaction", () => {
     const sandbox = createSandbox();
@@ -49,8 +50,8 @@ describe("'Wait' interaction", () => {
             const action = Wait.for(Duration.ofSeconds(5));
             action.performAs(actor);
 
-            (browseTheWeb.waitForTimeout as SinonStub).should.have.been.called;
-            (browseTheWeb.waitForTimeout as SinonStub).should.have.been.calledWith(
+            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.called;
+            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.calledWith(
                 5000
             );
         });
@@ -59,8 +60,8 @@ describe("'Wait' interaction", () => {
             const action = Wait.for(Duration.ofMilliseconds(5000));
             action.performAs(actor);
 
-            (browseTheWeb.waitForTimeout as SinonStub).should.have.been.called;
-            (browseTheWeb.waitForTimeout as SinonStub).should.have.been.calledWith(
+            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.called;
+            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.calledWith(
                 5000
             );
         });
@@ -69,8 +70,8 @@ describe("'Wait' interaction", () => {
             const action = Wait.for(Duration.ofMinutes(1));
             action.performAs(actor);
 
-            (browseTheWeb.waitForTimeout as SinonStub).should.have.been.called;
-            (browseTheWeb.waitForTimeout as SinonStub).should.have.been.calledWith(
+            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.called;
+            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.calledWith(
                 60000
             );
         });
@@ -80,9 +81,9 @@ describe("'Wait' interaction", () => {
         it('attached', async () => {
             (page.waitForSelector as SinonStub).resolves(null);
 
-            await actor
-        .attemptsTo(Wait.until(Target.$(by.id('example')), isPresent()))
-        .should.be.rejectedWith('Expected id=example to be attached');
+            await expect(actor
+                    .attemptsTo(Wait.until(Target.$(by.id('example')), isPresent())))
+                .to.be.rejectedWith('Expected id=example to be attached');
         });
 
         it('visible', async () => {
@@ -90,9 +91,9 @@ describe("'Wait' interaction", () => {
             (elementHandle.isVisible as SinonStub).resolves(false);
             (page.waitForSelector as SinonStub).resolves(elementHandle);
 
-            await actor
-        .attemptsTo(Wait.until(Target.$(by.id('example')), isVisible()))
-        .should.be.rejectedWith('Expected id=example to be visible');
+            await expect(actor
+                    .attemptsTo(Wait.until(Target.$(by.id('example')), isVisible())))
+                .to.be.rejectedWith('Expected id=example to be visible');
         });
 
         [
@@ -115,11 +116,11 @@ describe("'Wait' interaction", () => {
                     async () => expectationResult
                 );
 
-                await actor.attemptsTo(Wait.until(target, isReady)).should.be[
+                await expect(actor.attemptsTo(Wait.until(target, isReady))).to.be[
             promiseResult
                 ];
-                target.whichShouldBecome.should.have.been.called;
-                target.whichShouldBecome.should.have.been.calledWith(isReady);
+                expect(target.whichShouldBecome).to.have.been.called;
+                expect(target.whichShouldBecome).to.have.been.calledWith(isReady);
             });
         });
     });
