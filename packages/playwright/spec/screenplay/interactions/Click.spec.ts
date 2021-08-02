@@ -5,7 +5,7 @@ import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
 import { isVisible } from '../../../src/expectations';
-import { BrowseTheWeb, Click, Close, Target } from '../../../src/screenplay';
+import { BrowseTheWeb, by, Click, Close, Target } from '../../../src/screenplay';
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
@@ -34,7 +34,7 @@ describe("'Click' interaction", () => {
     });
 
     it('clicks element', async () => {
-        const theButton = Target.$('id=to-hide');
+        const theButton = Target.$(by.id('to-hide'));
         await actor.attemptsTo(
             Ensure.that(theButton, isVisible()),
             Click.on(theButton),

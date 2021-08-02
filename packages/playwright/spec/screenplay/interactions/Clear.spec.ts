@@ -5,7 +5,7 @@ import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
 import { BrowseTheWeb, Clear, Close, Value } from '../../../src/screenplay';
-import { Target } from '../../../src/screenplay/questions/targets';
+import { by, Target } from '../../../src/screenplay/questions/targets';
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
@@ -31,9 +31,9 @@ describe("'Clear' interaction", () => {
 
     it('clears value in input', async () => {
         await actor.attemptsTo(
-            Ensure.that(Value.of($("[id='example']")), equals('random text')),
-            Clear.theValueOf($("[id='example']")),
-            Ensure.that(Value.of($("[id='example']")), equals(''))
+            Ensure.that(Value.of($(by.id('example'))), equals('random text')),
+            Clear.theValueOf($(by.id('example'))),
+            Ensure.that(Value.of($(by.id('example'))), equals(''))
         );
     })
 });

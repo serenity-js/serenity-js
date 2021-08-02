@@ -5,7 +5,7 @@ import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
 import { BrowseTheWeb, Close, Enter, Value } from '../../../src/screenplay';
-import { Target } from '../../../src/screenplay/questions/targets';
+import { by, Target } from '../../../src/screenplay/questions/targets';
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
@@ -30,9 +30,9 @@ describe("'Enter' interaction", () => {
     });
 
     it('enters value', async () => {
-        const theInput = $("[id='example']");
+        const theInput = $(by.id('example'));
         await actor.attemptsTo(
-            Ensure.that(Value.of($("[id='example']")), equals('random text')),
+            Ensure.that(Value.of($(by.id('example'))), equals('random text')),
             Enter.theValue('Hi!').into(theInput),
             Ensure.that(Value.of(theInput), equals('Hi!')),
             Enter.theValue('').into(theInput),

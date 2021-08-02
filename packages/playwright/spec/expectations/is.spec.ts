@@ -6,7 +6,7 @@ import { createSandbox, SinonStub } from 'sinon';
 
 import { isClickable, isEnabled, isVisible } from '../../src/expectations/is';
 import { BrowseTheWeb } from '../../src/screenplay/abilities';
-import { Target } from '../../src/screenplay/questions/targets';
+import { by, Target } from '../../src/screenplay/questions/targets';
 import { chai } from '../chai-extra';
 import {
     browserTypeStub,
@@ -42,7 +42,7 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isVisible as SinonStub).resolves(true);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor.attemptsTo(
-            Ensure.that(the('visible element').selectedBy('selector'), isVisible())
+            Ensure.that(the('visible element').located(by.id('selector')), isVisible())
         ); //.should.be.fulfilled;
     });
 
@@ -52,7 +52,7 @@ describe('Ensure element is', () => {
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor
       .attemptsTo(
-          Ensure.that(the('hidden element').selectedBy('selector'), isVisible())
+          Ensure.that(the('hidden element').located(by.id('selector')), isVisible())
       )
       .should.be.rejectedWith('Expected the hidden element to be visible');
     });
@@ -63,7 +63,7 @@ describe('Ensure element is', () => {
         (selectedElementHandle.isEnabled as SinonStub).resolves(true);
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor.attemptsTo(
-            Ensure.that(the('enabled element').selectedBy('selector'), isEnabled())
+            Ensure.that(the('enabled element').located(by.id('selector')), isEnabled())
         ).should.be.fulfilled;
     });
 
@@ -74,7 +74,7 @@ describe('Ensure element is', () => {
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor
       .attemptsTo(
-          Ensure.that(the('disabled element').selectedBy('selector'), isEnabled())
+          Ensure.that(the('disabled element').located(by.id('selector')), isEnabled())
       )
       .should.be.rejectedWith('Expected the disabled element to be enabled');
     });
@@ -86,7 +86,7 @@ describe('Ensure element is', () => {
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor
       .attemptsTo(
-          Ensure.that(the('disabled element').selectedBy('selector'), isEnabled())
+          Ensure.that(the('disabled element').located(by.id('selector')), isEnabled())
       )
       .should.be.rejectedWith('Expected the disabled element to be visible');
     });
@@ -97,7 +97,7 @@ describe('Ensure element is', () => {
     //   (selectedElementHandle.isDisabled as SinonStub).resolves(true);
     //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
     //   await actor.attemptsTo(
-    //     Ensure.that(the("enabled element").selectedBy("selector"), is.disabled)
+    //     Ensure.that(the("enabled element").located(by.id("selector")), is.disabled)
     //   ).should.be.fulfilled;
     // });
 
@@ -108,7 +108,7 @@ describe('Ensure element is', () => {
     //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
     //   await actor
     //     .attemptsTo(
-    //       Ensure.that(the("enabled element").selectedBy("selector"), is.disabled)
+    //       Ensure.that(the("enabled element").located(by.id("selector")), is.disabled)
     //     )
     //     .should.be.rejectedWith("Expected the enabled element to be disabled");
     // });
@@ -120,7 +120,7 @@ describe('Ensure element is', () => {
     //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
     //   await actor
     //     .attemptsTo(
-    //       Ensure.that(the("enabled element").selectedBy("selector"), is.disabled)
+    //       Ensure.that(the("enabled element").located(by.id("selector")), is.disabled)
     //     )
     //     .should.be.rejectedWith("Expected the enabled element to be visible");
     // });
@@ -132,7 +132,7 @@ describe('Ensure element is', () => {
     //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
     //   await actor.attemptsTo(
     //     Ensure.that(
-    //       the("not editable element").selectedBy("selector"),
+    //       the("not editable element").located(by.id("selector")),
     //       is.editable
     //     )
     //   ).should.be.fulfilled;
@@ -146,7 +146,7 @@ describe('Ensure element is', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("not editable element").selectedBy("selector"),
+    //         the("not editable element").located(by.id("selector")),
     //         is.editable
     //       )
     //     )
@@ -163,7 +163,7 @@ describe('Ensure element is', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("not editable element").selectedBy("selector"),
+    //         the("not editable element").located(by.id("selector")),
     //         is.editable
     //       )
     //     )
@@ -179,7 +179,7 @@ describe('Ensure element is', () => {
     //   (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
     //   await actor.attemptsTo(
     //     Ensure.that(
-    //       the("not editable element").selectedBy("selector"),
+    //       the("not editable element").located(by.id("selector")),
     //       is.checked
     //     )
     //   ).should.be.fulfilled;
@@ -193,7 +193,7 @@ describe('Ensure element is', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("not editable element").selectedBy("selector"),
+    //         the("not editable element").located(by.id("selector")),
     //         is.checked
     //       )
     //     )
@@ -210,7 +210,7 @@ describe('Ensure element is', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("not editable element").selectedBy("selector"),
+    //         the("not editable element").located(by.id("selector")),
     //         is.checked
     //       )
     //     )
@@ -226,7 +226,7 @@ describe('Ensure element is', () => {
         (browseTheWeb.$ as SinonStub).resolves(selectedElementHandle);
         await actor.attemptsTo(
             Ensure.that(
-                the('not clickable element').selectedBy('selector'),
+                the('not clickable element').located(by.id('selector')),
                 isClickable()
             )
         ).should.be.fulfilled;
@@ -240,7 +240,7 @@ describe('Ensure element is', () => {
         await actor
       .attemptsTo(
           Ensure.that(
-              the('not clickable element').selectedBy('selector'),
+              the('not clickable element').located(by.id('selector')),
               isClickable()
           )
       )
@@ -257,7 +257,7 @@ describe('Ensure element is', () => {
         await actor
       .attemptsTo(
           Ensure.that(
-              the('not clickable element').selectedBy('selector'),
+              the('not clickable element').located(by.id('selector')),
               isClickable()
           )
       )
@@ -292,7 +292,7 @@ describe('Non existing element', () => {
         await actor
       .attemptsTo(
           Ensure.that(
-              the('non exsting element').selectedBy('selector'),
+              the('non exsting element').located(by.id('selector')),
               isVisible()
           )
       )
@@ -303,7 +303,7 @@ describe('Non existing element', () => {
         await actor
       .attemptsTo(
           Ensure.that(
-              the('non exsting element').selectedBy('selector'),
+              the('non exsting element').located(by.id('selector')),
               isEnabled()
           )
       )
@@ -314,7 +314,7 @@ describe('Non existing element', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("non exsting element").selectedBy("selector"),
+    //         the("non exsting element").located(by.id("selector")),
     //         is.disabled
     //       )
     //     )
@@ -325,7 +325,7 @@ describe('Non existing element', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("non exsting element").selectedBy("selector"),
+    //         the("non exsting element").located(by.id("selector")),
     //         is.editable
     //       )
     //     )
@@ -336,7 +336,7 @@ describe('Non existing element', () => {
     //   await actor
     //     .attemptsTo(
     //       Ensure.that(
-    //         the("non exsting element").selectedBy("selector"),
+    //         the("non exsting element").located(by.id("selector")),
     //         is.checked
     //       )
     //     )
@@ -347,7 +347,7 @@ describe('Non existing element', () => {
         await actor
       .attemptsTo(
           Ensure.that(
-              the('non exsting element').selectedBy('selector'),
+              the('non exsting element').located(by.id('selector')),
               isClickable()
           )
       )

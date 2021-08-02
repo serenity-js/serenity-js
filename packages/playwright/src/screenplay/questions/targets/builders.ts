@@ -1,8 +1,10 @@
 import { Answerable } from '@serenity-js/core';
 import { ElementHandle } from 'playwright';
 
+import { Locator } from './locators';
+
 export interface TargetBuilder<T> {
-    selectedBy(selector: string): T;
+    located(selector: Locator): T;
 }
 
 export interface NestedTargetBuilder<T> {

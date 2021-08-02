@@ -2,6 +2,7 @@ import { Answerable } from '@serenity-js/core';
 import { ElementHandle } from 'playwright';
 
 import { NestedTargetBuilder, TargetBuilder } from './builders';
+import { Locator } from './locators';
 import { TargetElement } from './TargetElement';
 // import { TargetElements } from "./TargetElements";
 // import { TargetNestedElements } from "./TargetNestedElements";
@@ -163,13 +164,13 @@ export class Target {
         name: string
     ): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetElement> {
         return {
-            selectedBy: (selector: string): TargetElement =>
-                TargetElement.at(selector).as(`the ${name}`),
+            located: (selector: Locator): TargetElement =>
+                TargetElement.at(selector.selector).as(`the ${name}`),
 
             of: (parent: Answerable<ElementHandle>) => {
                 return {
-                    selectedBy: (selector: string): TargetElement =>
-                        TargetElement.at(selector).as(`the ${name}`).of(parent),
+                    located: (selector: Locator): TargetElement =>
+                        TargetElement.at(selector.selector).as(`the ${name}`).of(parent),
                 };
             },
         };
@@ -182,8 +183,8 @@ export class Target {
    * @param {string} selector - selector to get the element from a page
    * @returns {TargetElement}
    */
-    static $(selector: string): TargetElement {
-        return TargetElement.at(selector);
+    static $(selector: Locator): TargetElement {
+        return TargetElement.at(selector.selector);
     }
 
     // /**

@@ -5,7 +5,7 @@ import chaiExclude from 'chai-exclude';
 import { chromium, Page } from 'playwright';
 
 import { BrowseTheWeb, Close, Press, Value } from '../../../src/screenplay';
-import { Target } from '../../../src/screenplay/questions/targets';
+import { by, Target } from '../../../src/screenplay/questions/targets';
 import { chai } from '../../chai-extra';
 
 chai.use(chaiExclude);
@@ -31,13 +31,13 @@ describe("'Press' interaction", () => {
 
     it('presses keys', async () => {
         await actor.attemptsTo(
-            Press.the('H', 'i', '!').in($("[id='example']")),
-            Ensure.that(Value.of($("[id='example']")), equals('Hi!')),
+            Press.the('H', 'i', '!').in($(by.id('example'))),
+            Ensure.that(Value.of($(by.id('example'))), equals('Hi!')),
             Press.the({
                 key: 'ArrowLeft',
                 modifiers: ['Shift']
-            }, 'Shift+ArrowLeft', 'Shift+ArrowLeft', 'Backspace').in($("[id='example']")),
-            Ensure.that(Value.of($("[id='example']")), equals(''))
+            }, 'Shift+ArrowLeft', 'Shift+ArrowLeft', 'Backspace').in($(by.id('example'))),
+            Ensure.that(Value.of($(by.id('example'))), equals(''))
         );
     })
 });

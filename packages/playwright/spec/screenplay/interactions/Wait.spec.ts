@@ -13,7 +13,7 @@ import { isPresent, isVisible } from '../../../src/expectations';
 import {
     ElementHandleExpectation,
 } from '../../../src/expectations/ElementHandleExpectation';
-import { Target, Wait } from '../../../src/screenplay';
+import { by, Target, Wait } from '../../../src/screenplay';
 import { BrowseTheWeb } from '../../../src/screenplay/abilities';
 import { chai } from '../../chai-extra';
 import {
@@ -81,8 +81,8 @@ describe("'Wait' interaction", () => {
             (page.waitForSelector as SinonStub).resolves(null);
 
             await actor
-        .attemptsTo(Wait.until(Target.$('selector'), isPresent()))
-        .should.be.rejectedWith('Expected selector to be attached');
+        .attemptsTo(Wait.until(Target.$(by.id('example')), isPresent()))
+        .should.be.rejectedWith('Expected id=example to be attached');
         });
 
         it('visible', async () => {
@@ -91,8 +91,8 @@ describe("'Wait' interaction", () => {
             (page.waitForSelector as SinonStub).resolves(elementHandle);
 
             await actor
-        .attemptsTo(Wait.until(Target.$('selector'), isVisible()))
-        .should.be.rejectedWith('Expected selector to be visible');
+        .attemptsTo(Wait.until(Target.$(by.id('example')), isVisible()))
+        .should.be.rejectedWith('Expected id=example to be visible');
         });
 
         [
@@ -107,7 +107,7 @@ describe("'Wait' interaction", () => {
         ].forEach(({ expectationResult, promiseResult }) => {
             it('in specific state', async () => {
                 const element = elementHandleStub(sandbox);
-                const target = Target.$('selector');
+                const target = Target.$(by.id('example'));
                 target.whichShouldBecome = sandbox.stub().returns(target);
                 target.answeredBy = sandbox.stub().resolves(element);
                 const isReady = ElementHandleExpectation.forElementToBe(
