@@ -16,6 +16,7 @@ import {
 import { isPresent } from '../../../expectations';
 import { ElementHandleEvent } from '../../../expectations/ElementHandleExpectation';
 import { BrowseTheWeb } from '../../abilities';
+import { Locator } from './locators';
 
 /**
  * @desc
@@ -49,8 +50,17 @@ export class TargetElement
    * @param selector
    * @returns TargetElement found by selector
    */
-    public static at(selector: string): TargetElement {
+    private static at(selector: string): TargetElement {
         return new this(selector);
+    }
+
+    /**
+   *
+   * @param selector
+   * @returns TargetElement found by selector
+   */
+    public static located(selector: Locator): TargetElement {
+        return new this(selector.selector);
     }
     /**
    * @desc

@@ -4,6 +4,7 @@ import { chromium, ElementHandle, Page } from 'playwright';
 import { createSandbox, } from 'sinon';
 
 import { isPresent, isVisible } from '../../../../src/expectations';
+import { by } from '../../../../src/screenplay';
 import { BrowseTheWeb } from '../../../../src/screenplay/abilities';
 import { Close } from '../../../../src/screenplay/interactions';
 import { TargetElement } from '../../../../src/screenplay/questions/targets/TargetElement';
@@ -46,7 +47,7 @@ describe('TargetElement Question', () => {
         const expectedElementHandle: ElementHandle = await page.$('id=example');
 
         const actualElementHandle = await actor.answer(
-            TargetElement.at('id=example')
+            TargetElement.located(by.id('example'))
         );
 
         expect(actualElementHandle.isExisting()).to.be.true;
@@ -58,7 +59,7 @@ describe('TargetElement Question', () => {
         const expectedDescription = 'real description';
 
         const actualElementHandle = await actor.answer(
-            TargetElement.at('selector').as(expectedDescription)
+            TargetElement.located(by.css('selector')).as(expectedDescription)
         );
 
         expect(actualElementHandle.toString()).to.be.equal(
@@ -69,7 +70,7 @@ describe('TargetElement Question', () => {
     it('can be a MetaQuestion to return child of a parent', async () => {
         const expectedElementHandle: ElementHandle = await (await page.$('id=parent')).$('id=child');
         const actualElementHandle = await actor.answer(
-            TargetElement.at('id=child').of(TargetElement.at('id=parent'))
+            TargetElement.located(by.id('child')).of(TargetElement.located(by.id('parent')))
         );
 
         expect(actualElementHandle.isExisting()).to.be.true;
@@ -79,7 +80,7 @@ describe('TargetElement Question', () => {
 
     it('adds information about parent to the description', async () => {
         const actualElementHandle = await actor.answer(
-            TargetElement.at('id=child').as('child').of(TargetElement.at('id=parent').as('parent'))
+            TargetElement.located(by.id('child')).as('child').of(TargetElement.located(by.id('parent')).as('parent'))
         );
 
         expect(actualElementHandle.toString()).to.be.equal('child of parent');
@@ -87,12 +88,12 @@ describe('TargetElement Question', () => {
 
     it('adds information about all parents in the hierarchy to the description', async () => {
         const actualElementHandle = await actor.answer(
-            TargetElement.at('id=child')
+            TargetElement.located(by.id('child'))
                 .as('child')
                 .of(
-                    TargetElement.at('id=parent')
+                    TargetElement.located(by.id('parent'))
                     .as('parent')
-                    .of(TargetElement.at('id=grandparent').as('grandparent'))
+                    .of(TargetElement.located(by.id('grandparent')).as('grandparent'))
                 )
         );
 
@@ -103,7 +104,7 @@ describe('TargetElement Question', () => {
 
     it('returns non existing element with isExisting = () => false', async () => {
         const actualElementHandle = await actor.answer(
-            TargetElement.at('non existent selector')
+            TargetElement.located(by.css('non existent selector'))
         );
 
         expect(actualElementHandle).to.not.be.null;
@@ -114,7 +115,7 @@ describe('TargetElement Question', () => {
     it('uses selector as description by default', async () => {
         const selector = 'id=example';
 
-        const actualElementHandle = await actor.answer(TargetElement.at(selector));
+        const actualElementHandle = await actor.answer(TargetElement.located(by.css(selector)));
 
         expect(actualElementHandle.toString()).to.be.equal(`${selector}`);
     });
@@ -122,8 +123,8 @@ describe('TargetElement Question', () => {
     it('checks parents for existence', async () => {
         await expect(actor
             .answer(
-                TargetElement.at('child selector').of(
-                    TargetElement.at('non existent parent selector').as('parent')
+                TargetElement.located(by.css('child selector')).of(
+                    TargetElement.located(by.css('non existent parent selector')).as('parent')
                 )
             ))
         .to.be.rejectedWith('Expected parent to be attached');
@@ -132,7 +133,7 @@ describe('TargetElement Question', () => {
     // // I don't remember what's this for, but its needed... Failures were in the samples
     it('responds with answer with constructor even if selected handle == null', async () => {
         const element = await actor.answer(
-            TargetElement.at('not exsting element selector')
+            TargetElement.located(by.css('not exsting element selector'))
         );
         expect(element.constructor, 'Constructor does not exist').to.exist;
     });
@@ -140,7 +141,7 @@ describe('TargetElement Question', () => {
     // // I don't remember what's this for, but its needed... Failures were in the samples
     it('responds with answer with original constructor if selected handle != null', async () => {
         const element = await actor.answer(
-            TargetElement.at('id=example')
+            TargetElement.located(by.id('example'))
         );
         expect(element.constructor, 'Constructor does not exist').to.exist;
         expect(element.constructor.name).to.equal('ElementHandle');
@@ -150,7 +151,7 @@ describe('TargetElement Question', () => {
         it('is attached', async () => {
             const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
             const element = await actor.answer(
-                TargetElement.at('selector').whichShouldBecome(isPresent())
+                TargetElement.located(by.css('selector')).whichShouldBecome(isPresent())
             );
 
             await actor.answer(element);
@@ -164,7 +165,7 @@ describe('TargetElement Question', () => {
         it('is visible', async () => {
             const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
             const element = await actor.answer(
-                TargetElement.at('selector').whichShouldBecome(isVisible())
+                TargetElement.located(by.css('selector')).whichShouldBecome(isVisible())
             );
 
             await actor.answer(element);

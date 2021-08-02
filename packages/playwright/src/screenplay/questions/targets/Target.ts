@@ -165,12 +165,12 @@ export class Target {
     ): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetElement> {
         return {
             located: (selector: Locator): TargetElement =>
-                TargetElement.at(selector.selector).as(`the ${name}`),
+                TargetElement.located(selector).as(`the ${name}`),
 
             of: (parent: Answerable<ElementHandle>) => {
                 return {
                     located: (selector: Locator): TargetElement =>
-                        TargetElement.at(selector.selector).as(`the ${name}`).of(parent),
+                        TargetElement.located(selector).as(`the ${name}`).of(parent),
                 };
             },
         };
@@ -184,7 +184,7 @@ export class Target {
    * @returns {TargetElement}
    */
     static $(selector: Locator): TargetElement {
-        return TargetElement.at(selector.selector);
+        return TargetElement.located(selector);
     }
 
     // /**
