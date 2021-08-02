@@ -41,7 +41,7 @@
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js",
-    "tdd": "mocha  --config ../../.mocharc.yml --watch-extensions ts -w --watch-files $(git status --short | sed s/^...// | grep \\\\.ts) $(git status --short | sed s/^...// | grep .spec.ts)"
+    "tdd": "mocha  --config ../../.mocharc.yml --watch-extensions ts --watch-files src/**/*,spec/**/* --watch $(git status --short | sed s/^...// | grep \\.spec\\.ts | paste -sd ',' -)"
   },
   "bugs": {
     "url": "https://github.com/serenity-js/serenity-js/issues"
