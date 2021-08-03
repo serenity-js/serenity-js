@@ -35,101 +35,81 @@ export class TargetElement
     implements MetaQuestion<Answerable<ElementHandle>, Promise<ElementHandle>>
 {
     /**
-   * @deprecated use {@link TargetElement}.at(selector).as(description)
-   *
-   * @param description
-   * @param selector
-   * @returns
-   */
-    public static whichIs(description: string, selector: string): TargetElement {
-        return this.at(selector).as(description);
-    }
-
-    /**
-   *
-   * @param selector
-   * @returns TargetElement found by selector
-   */
-    private static at(selector: string): TargetElement {
+     *
+     * @param selector
+     * @returns TargetElement found by selector
+     */
+    public static located(selector: Locator): TargetElement {
         return new this(selector);
     }
-
     /**
-   *
-   * @param selector
-   * @returns TargetElement found by selector
-   */
-    public static located(selector: Locator): TargetElement {
-        return new this(selector.selector);
-    }
-    /**
-   * @desc
-   *
-   * @param {string} description - A human-readable description to be used in the report
-   * @param {string} selector - A selector to be used when searching for the element
-   */
+     * @desc
+     *
+     * @param {string} description - A human-readable description to be used in the report
+     * @param {string} locator - A selector to be used when searching for the element
+     */
     protected constructor(
-        protected readonly selector: string,
+        protected readonly locator: Locator,
         protected readonly parent?: Answerable<ElementHandle>
     ) {
-        super(selector);
+        super(`element located by ${locator.toString()}`);
     }
 
     /**
-   * @desc
-   *  Retrieves a {@link WebElement} located by `locator`,
-   *  resolved in the context of a `parent` {@link WebElement}.
-   *
-   * @param {Question<ElementHandle> | ElementHandle} parent
-   * @returns {TargetNestedElement}
-   *
-   * @see {@link Target}
-   */
+     * @desc
+     *  Retrieves a {@link WebElement} located by `locator`,
+     *  resolved in the context of a `parent` {@link WebElement}.
+     *
+     * @param {Question<ElementHandle> | ElementHandle} parent
+     * @returns {TargetNestedElement}
+     *
+     * @see {@link Target}
+     */
     of(parent: Answerable<ElementHandle>): TargetElement {
-        return new TargetElement(this.selector, parent).as(
+        return new TargetElement(this.locator, parent).as(
             `${this.toString()} of ${parent.toString()}`
         );
     }
 
     /**
-   *
-   * @param description
-   * @returns adds description to the element. Description is prefixed by article 'the'. See examples in tests
-   */
+     *
+     * @param description
+     * @returns adds description to the element. Description is prefixed by article 'the'. See examples in tests
+     */
     as(description: string): TargetElement {
         this.describedAs(description);
         return this;
     }
 
     /**
-   * @desc
-   *  Creates {@link TargetElement} that waits for a specific state, when actor looks for the answer
-   *
-   * @param {Expectation<boolean, ElementHandleAnswer>} state Expectation to wait to fulfill
-   * @returns {TargetElement} TargetElement implementation that awaits for the state
-   */
+     * @desc
+     *  Creates {@link TargetElement} that waits for a specific state, when actor looks for the answer
+     *
+     * @param {Expectation<boolean, ElementHandleAnswer>} state Expectation to wait to fulfill
+     * @returns {TargetElement} TargetElement implementation that awaits for the state
+     */
     whichShouldBecome(state: ElementHandleEvent): TargetElement {
-        return new TargetElementInState(this.selector, this.parent, state);
+        return new TargetElementInState(this.locator, this.parent, state);
     }
 
     /**
-   * @desc
-   *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-   *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
-   *
-   * @param {AnswersQuestions & UsesAbilities} actor
-   * @returns {Promise<void>}
-   *
-   * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-   * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-   * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-   */
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
+     *
+     * @param {AnswersQuestions & UsesAbilities} actor
+     * @returns {Promise<void>}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     */
     public async answeredBy(
         actor: AnswersQuestions & UsesAbilities & PerformsActivities
     ): Promise<ElementHandleAnswer> {
         const parent = await this.getRealParent(actor);
 
-        const element = extend(await parent.$(this.selector));
+        const element = extend(await this.locator.firstMatchingAt(parent).answeredBy(actor));
 
         this.overrideToString(element, this.toString());
 
@@ -152,8 +132,8 @@ export class TargetElement
         element: ElementHandleAnswer,
         description: string
     ): void {
-    // this seems to be the only way to make Ensure errors work correctly
-    // according to formatted.spec.ts in @serenityjs/core
+        // this seems to be the only way to make Ensure errors work correctly
+        // according to formatted.spec.ts in @serenityjs/core
         element.toString = function () {
             return description;
         };
@@ -162,11 +142,11 @@ export class TargetElement
 
 class TargetElementInState extends TargetElement {
     constructor(
-        selector: string,
+        locator: Locator,
         parent: Answerable<ElementHandle>,
         private readonly state: ElementHandleEvent
     ) {
-        super(selector, parent);
+        super(locator, parent);
     }
 
     public async answeredBy(
@@ -175,7 +155,7 @@ class TargetElementInState extends TargetElement {
         const parent = await this.getRealParent(actor);
 
         const element = extend(
-            await parent.waitForSelector(this.selector, {
+            await parent.waitForSelector(this.locator.selector, {
                 state: this.state.expectedEvent(),
             })
         );

@@ -1,28 +1,29 @@
 import { Question } from '@serenity-js/core';
-import { ElementHandle, Page } from 'playwright';
-
-import { BrowseTheWeb } from '../../abilities';
+import { ElementHandle } from 'playwright';
 
 type Selector = string;
 
 export class Locator {
     constructor(
         private readonly description: string,
-        public readonly selector: Selector,
-        private readonly parent?: Page | ElementHandle,
+        public readonly selector: Selector
     ) {
     }
 
-    firstMatching(): Question<Promise<ElementHandle>> {
+    firstMatchingAt(parent: { $(selector: string): Promise<ElementHandle> }): Question<Promise<ElementHandle>> {
         return Question.about(this.description, actor =>
-            BrowseTheWeb.as(actor).$(this.selector)
+            parent.$(this.selector)
         )
     }
 
-    allMatching(): Question<Promise<ElementHandle[]>> {
+    allMatchingAt(parent: { $$(selector: string): Promise<ElementHandle[]> }): Question<Promise<ElementHandle[]>> {
         return Question.about(this.description, actor =>
-            BrowseTheWeb.as(actor).$$(this.selector)
+            parent.$$(this.selector)
         )
+    }
+
+    toString(): string {
+        return this.description;
     }
 }
 
@@ -30,42 +31,42 @@ class Locators {
 
     id(id: string): Locator {
         return new Locator(
-            `by id #${ id }`,
+            `id #${ id }`,
             `id=${id}`
         )
     }
 
     css(selector: Selector): Locator {
         return new Locator(
-            `by css ${ selector }`,
+            `css ${ selector }`,
             selector
         )
     }
 
     tagName(tagName: string): Locator {
         return new Locator(
-            `by tag name <${ tagName } />`,
+            `tag name <${ tagName } />`,
             tagName
         )
     }
 
     linkText(linkText: string): Locator {
         return new Locator(
-            `by link text ${ linkText }`,
+            `link text ${ linkText }`,
             `text="${ linkText }"`
         )
     }
 
     partialLinkText(partialLinkText: string): Locator {
         return new Locator(
-            `by partial link text ${ partialLinkText }`,
+            `partial link text ${ partialLinkText }`,
             `text=${ partialLinkText }`
         )
     }
 
     xpath(xpath: string): Locator {
         return new Locator(
-            `by xpath ${ xpath }`,
+            `xpath ${ xpath }`,
             `xpath=${xpath}`
         )
     }
