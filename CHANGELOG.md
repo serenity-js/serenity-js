@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.29.9](https://github.com/serenity-js/serenity-js/compare/v2.29.8...v2.29.9) (2021-08-03)
+
+
+### Bug Fixes
+
+* **core:** actor ensures any async activities are synchronised before moving on to next interaction ([ccc83c8](https://github.com/serenity-js/serenity-js/commit/ccc83c8b8360898f10b71e6c2a378e9c8fc1f340))
+
+
+
+
+
 ## [2.29.8](https://github.com/serenity-js/serenity-js/compare/v2.29.7...v2.29.8) (2021-07-24)
 
 
