@@ -78,7 +78,7 @@ describe("'Wait' interaction", () => {
 
             await expect(actor
                     .attemptsTo(Wait.until(Target.$(by.id('example')), isPresent())))
-                .to.be.rejectedWith('Expected id=example to be attached');
+                .to.be.rejectedWith(`Expected ${by.id('example').toString()} to be attached`);
         });
 
         it('visible', async () => {
@@ -88,7 +88,7 @@ describe("'Wait' interaction", () => {
 
             await expect(actor
                     .attemptsTo(Wait.until(Target.$(by.id('example')), isVisible())))
-                .to.be.rejectedWith('Expected id=example to be visible');
+                .to.be.rejectedWith(`Expected ${by.id('example').toString()} to be visible`);
         });
 
         [
@@ -102,20 +102,21 @@ describe("'Wait' interaction", () => {
             },
         ].forEach(({ expectationResult, promiseResult }) => {
             it('in specific state', async () => {
-                const element = elementHandleStub(sandbox);
-                const target = Target.$(by.id('example'));
-                target.whichShouldBecome = sandbox.stub().returns(target);
-                target.answeredBy = sandbox.stub().resolves(element);
+                // const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
+                const elementHandle = elementHandleStub(sandbox);
+                (elementHandle.isVisible as SinonStub).resolves(false);
+                (page.waitForSelector as SinonStub).resolves(elementHandle);
                 const isReady = ElementHandleExpectation.forElementToBe(
                     'attached',
                     async () => expectationResult
                 );
-
-                await expect(actor.attemptsTo(Wait.until(target, isReady))).to.be[
-            promiseResult
-                ];
-                expect(target.whichShouldBecome).to.have.been.called;
-                expect(target.whichShouldBecome).to.have.been.calledWith(isReady);
+    
+                await expect(actor.attemptsTo(Wait.until(Target.$(by.id('example')), isReady))).to.be[promiseResult];
+                expect(page).to.be.equal(await (browseTheWeb as any).workingContext());
+                expect(page.waitForSelector as SinonStub).to.have.been.called;
+                expect(page.waitForSelector as SinonStub).to.have.been.calledWith(by.id('example').selector, {
+                    state: 'attached',
+                });
             });
         });
     });

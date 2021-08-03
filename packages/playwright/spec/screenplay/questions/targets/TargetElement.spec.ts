@@ -4,14 +4,10 @@ import { TestRunFinishes } from '@serenity-js/core/lib/events';
 import { chromium, ElementHandle, Page } from 'playwright';
 import { createSandbox, } from 'sinon';
 
-import { isPresent, isVisible } from '../../../../src/expectations';
 import { by } from '../../../../src/screenplay';
 import { BrowseTheWeb } from '../../../../src/screenplay/abilities';
 import { Close } from '../../../../src/screenplay/interactions';
 import { TargetElement } from '../../../../src/screenplay/questions/targets/TargetElement';
-import {
-    elementHandleStub,
-} from '../../../stubs/playwright';
 
 describe('TargetElement Question', () => {
     const sandbox = createSandbox();
@@ -115,7 +111,7 @@ describe('TargetElement Question', () => {
 
         const actualElementHandle = await actor.answer(TargetElement.located(by.css(selector)));
 
-        expect(actualElementHandle.toString()).to.be.equal(`${selector}`);
+        expect(actualElementHandle.toString()).to.be.equal(by.css(selector).toString());
     });
 
     it('checks parents for existence', async () => {
@@ -143,35 +139,5 @@ describe('TargetElement Question', () => {
         );
         expect(element.constructor, 'Constructor does not exist').to.exist;
         expect(element.constructor.name).to.equal('ElementHandle');
-    });
-
-    describe('delayed until element', () => {
-        it('is attached', async () => {
-            const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
-            const element = await actor.answer(
-                TargetElement.located(by.css('selector')).whichShouldBecome(isPresent())
-            );
-
-            await actor.answer(element);
-
-            expect(waitForSelectorStub).to.have.been.called;
-            expect(waitForSelectorStub).to.have.been.calledWith('selector', {
-                state: 'attached',
-            });
-        });
-
-        it('is visible', async () => {
-            const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
-            const element = await actor.answer(
-                TargetElement.located(by.css('selector')).whichShouldBecome(isVisible())
-            );
-
-            await actor.answer(element);
-
-            expect(waitForSelectorStub).to.have.been.called;
-            expect(waitForSelectorStub).to.have.been.calledWith('selector', {
-                state: 'visible',
-            });
-        });
     });
 });

@@ -14,7 +14,6 @@ import {
     extend,
 } from '../../../answerTypes/ElementHandleAnswer';
 import { isPresent } from '../../../expectations';
-import { ElementHandleEvent } from '../../../expectations/ElementHandleExpectation';
 import { BrowseTheWeb } from '../../abilities';
 import { Locator } from './locators';
 
@@ -52,7 +51,7 @@ export class TargetElement
         protected readonly locator: Locator,
         protected readonly parent?: Answerable<ElementHandle>
     ) {
-        super(`element located by ${locator.toString()}`);
+        super(locator.toString());
     }
 
     /**
@@ -79,17 +78,6 @@ export class TargetElement
     as(description: string): TargetElement {
         this.describedAs(description);
         return this;
-    }
-
-    /**
-     * @desc
-     *  Creates {@link TargetElement} that waits for a specific state, when actor looks for the answer
-     *
-     * @param {Expectation<boolean, ElementHandleAnswer>} state Expectation to wait to fulfill
-     * @returns {TargetElement} TargetElement implementation that awaits for the state
-     */
-    whichShouldBecome(state: ElementHandleEvent): TargetElement {
-        return new TargetElementInState(this.locator, this.parent, state);
     }
 
     /**
@@ -137,31 +125,5 @@ export class TargetElement
         element.toString = function () {
             return description;
         };
-    }
-}
-
-class TargetElementInState extends TargetElement {
-    constructor(
-        locator: Locator,
-        parent: Answerable<ElementHandle>,
-        private readonly state: ElementHandleEvent
-    ) {
-        super(locator, parent);
-    }
-
-    public async answeredBy(
-        actor: AnswersQuestions & UsesAbilities & PerformsActivities
-    ): Promise<ElementHandleAnswer> {
-        const parent = await this.getRealParent(actor);
-
-        const element = extend(
-            await parent.waitForSelector(this.locator.selector, {
-                state: this.state.expectedEvent(),
-            })
-        );
-
-        this.overrideToString(element, this.toString());
-
-        return element;
     }
 }

@@ -8,9 +8,10 @@ import {
     UsesAbilities,
 } from '@serenity-js/core';
 
-import { ElementHandleAnswer } from '../../answerTypes/ElementHandleAnswer';
+import { ElementHandleAnswer, extend } from '../../answerTypes/ElementHandleAnswer';
 import { ElementHandleEvent } from '../../expectations/ElementHandleExpectation';
 import { BrowseTheWeb } from '../abilities';
+import { by } from '../questions/targets/locators';
 import { TargetElement } from '../questions/targets/TargetElement';
 
 enum TimeMeasures {
@@ -28,7 +29,7 @@ export class Wait {
             performAs: async (
                 actor: UsesAbilities & AnswersQuestions & PerformsActivities
             ): Promise<void> => {
-                const targetInState = await target.whichShouldBecome(state);
+                const targetInState = new TargetElementInState(target, state);
                 const answeredTarget = await actor.answer(targetInState);
                 await actor.attemptsTo(Ensure.that(answeredTarget, state));
             },
@@ -54,7 +55,30 @@ class Timeout extends Interaction {
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor
-      .abilityTo(BrowseTheWeb)
-      .waitForTimeout(this.timeout * this.measure);
+            .abilityTo(BrowseTheWeb)
+            .waitForTimeout(this.timeout * this.measure);
+    }
+}
+
+class TargetElementInState extends TargetElement {
+    constructor(element: TargetElement, protected readonly state: ElementHandleEvent) {
+        super(by.id(''), null);
+        Object.assign(this, element);
+    }
+
+    public async answeredBy(
+        actor: AnswersQuestions & UsesAbilities & PerformsActivities
+    ): Promise<ElementHandleAnswer> {
+        const parent = await this.getRealParent(actor);
+
+        const element = extend(
+            await parent.waitForSelector(this.locator.selector, {
+                state: this.state.expectedEvent(),
+            })
+        );
+
+        this.overrideToString(element, this.toString());
+
+        return element;
     }
 }

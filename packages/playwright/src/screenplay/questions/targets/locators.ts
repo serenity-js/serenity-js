@@ -23,7 +23,7 @@ export class Locator {
     }
 
     toString(): string {
-        return this.description;
+        return `element located by ${this.description}`;
     }
 }
 

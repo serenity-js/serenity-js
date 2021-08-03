@@ -108,7 +108,7 @@ describe('TargetElement Question', () => {
 
         const actualElementHandle = await actor.answer(Target.$(selector));
 
-        expect(actualElementHandle.toString()).to.be.equal(`element located by ${selector.toString()}`);
+        expect(actualElementHandle.toString()).to.be.equal(selector.toString());
     });
 
     it('checks parents for existence', async () => {
