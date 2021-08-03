@@ -998,13 +998,13 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/screenplay/actor.spec.ts.html#lineNumber286",
-    "Actor DomainEvent handling announces the events that activities it performs",
+    "Actor DomainEvent handling announces events about the activities it performs",
     "test"
   ],
   [
     "actor src/screenplay/actor/actor.ts~actor,actor",
     "test-file/spec/screenplay/actor.spec.ts.html#lineNumber289",
-    "Actor DomainEvent handling announces the events that activities it performs notifies when an activity begins and ends",
+    "Actor DomainEvent handling announces events about the activities it performs notifies when an activity begins and ends",
     "test"
   ],
   [
