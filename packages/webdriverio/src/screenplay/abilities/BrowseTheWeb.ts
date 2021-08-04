@@ -153,10 +153,8 @@ export class BrowseTheWeb implements Ability {
      *   return arguments[0].tagName;
      * `, Target.the('header').located(by.css(h1))
      *
-     * @see https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript
      * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
      *
-     * @param {string} description  - useful for debugging
      * @param {string | Function} script
      * @param {any[]} args
      *
@@ -220,7 +218,6 @@ export class BrowseTheWeb implements Ability {
      *   callback('some return value')
      * `).then(value => doSomethingWithThe(value))
      *
-     * @see https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeAsyncScript
      * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeAsyncScript-java.lang.String-java.lang.Object...-
      *
      * @param {string|Function} script
