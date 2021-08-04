@@ -18,7 +18,7 @@ describe('Managing a Todo List', () => {
 
         describe('actor', () => {
 
-            it('records new items', () => 
+            it('records new items', () =>
                 actorCalled('Wendy').attemptsTo(
                     Start.withAnEmptyList(),
                     RecordItem.called('Walk a dog'),

@@ -135,6 +135,6 @@ class TextOfMultipleElements
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const elements = await actor.answer(this.elements);
-        return await Promise.all(elements.map(answer => answer.getText()));
+        return Promise.all(elements.map(answer => answer.getText()));
     }
 }

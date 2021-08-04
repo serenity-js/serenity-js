@@ -12,7 +12,7 @@ import { BrowserCapabilitiesReporter } from '../../../src/adapter/reporter';
 
 describe('BrowserCapabilitiesReporter', () => {
     
-    const 
+    const
         someTestStartEvent  = {},
         now                 = new Date(0),
         frozenClock         = new Clock(() => now);
