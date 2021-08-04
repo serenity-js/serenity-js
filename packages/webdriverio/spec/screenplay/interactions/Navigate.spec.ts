@@ -42,7 +42,7 @@ describe('Navigate', () => {
     describe('back', () => {
 
         /** @test {Navigate.back} */
-        it('allows the actor to navigate back in the browser history', () => 
+        it('allows the actor to navigate back in the browser history', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/navigate/first.html'),
                 Navigate.to('/screenplay/interactions/navigate/second.html'),
@@ -63,7 +63,7 @@ describe('Navigate', () => {
     describe('forward', () => {
 
         /** @test {Navigate.forward} */
-        it('allows the actor to navigate forward in the browser history', () => 
+        it('allows the actor to navigate forward in the browser history', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/navigate/first.html'),
                 Navigate.to('/screenplay/interactions/navigate/second.html'),
@@ -85,7 +85,7 @@ describe('Navigate', () => {
     describe('reloadPage', () => {
 
         /** @test {Navigate.reloadPage} */
-        it('allows the actor to navigate to a desired destination', () => 
+        it('allows the actor to navigate to a desired destination', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/navigate/reloaded.html'),
     

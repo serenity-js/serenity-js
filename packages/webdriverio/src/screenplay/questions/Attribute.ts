@@ -107,6 +107,6 @@ export class Attribute
         const element = await actor.answer(this.element);
         const name    = await actor.answer(this.name);
 
-        return await element.getAttribute(name);
+        return element.getAttribute(name);
     }
 }
