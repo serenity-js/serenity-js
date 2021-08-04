@@ -8,30 +8,30 @@ import { FakeJasmineRunner } from './FakeJasmineRunner';
 /** @test JasmineAdapter */
 describe('JasmineAdapter', () => {
 
+    const emptySuite = { getFullTitle: () => 'Top suite' };
+    function specCalled(fullName: string) {                 // eslint-disable-line unicorn/consistent-function-scoping
+        return {
+            getFullName() {
+                return fullName;
+            }
+        }
+    }
+
     let loader: sinon.SinonStubbedInstance<ModuleLoader>;
 
     beforeEach(() => {
         loader = sinon.createStubInstance(ModuleLoader);
-        (global as any).jasmine = {
-            Suite: () => void 0,
-            Spec: () => void 0,
-            getEnv() {
-                return {
-                    beforeEach: () => void 0,
-                    afterAll: () => void 0,
-                };
-            },
-        };
 
         loader.require.withArgs('jasmine').returns(FakeJasmineRunner);
     });
 
     afterEach(() => {
-        (global as any).jasmine = void 0;
+        FakeJasmineRunner.topSuite.reset();
+        FakeJasmineRunner.instance = undefined;
     });
 
     /** @test JasmineAdapter#run */
-    it('defaults to running tests sequentially rather than in a random order', () => {
+    it('defaults to running tests sequentially rather than in a random order', async () => {
 
         const
             config = {},
@@ -39,7 +39,11 @@ describe('JasmineAdapter', () => {
 
         const adapter = new JasmineAdapter(config, loader);
 
-        const result = adapter.run(specs);
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs);
+
+        const result = adapter.run();
 
         FakeJasmineRunner.instance.complete(true);
 
@@ -51,26 +55,93 @@ describe('JasmineAdapter', () => {
     });
 
     /** @test JasmineAdapter#run */
-    it('configures the default timeout interval if required', () => {
+    it('configures the default timeout interval if required', async () => {
 
         const
             defaultTimeoutInterval = 5000,
             config = {
                 defaultTimeoutInterval,
             },
-            specs  = [],
-            globalScope = global as any;
-
-        expect(globalScope.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(undefined);
+            specs  = [];
 
         const adapter = new JasmineAdapter(config, loader);
 
-        const result = adapter.run(specs);
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs)
+        const result = adapter.run();
 
         FakeJasmineRunner.instance.complete(true);
 
-        expect(globalScope.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);
+        expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);
 
         return result;
+    });
+
+    describe('when counting the number of scenarios to be executed', () => {
+
+        /** @test JasmineAdapter#scenarioCount */
+        it('recognises when there are no scenarios', () => {
+
+            const
+                defaultTimeoutInterval = 5000,
+                config = {
+                    defaultTimeoutInterval,
+                };
+
+            const adapter = new JasmineAdapter(config, loader);
+
+            FakeJasmineRunner.topSuite.returns(emptySuite)
+
+            expect(adapter.scenarioCount()).to.equal(0);
+        });
+
+        /** @test JasmineAdapter#scenarioCount */
+        it('recognises when there is a single spec', async () => {
+
+            const
+                defaultTimeoutInterval = 5000,
+                config = {
+                    defaultTimeoutInterval,
+                },
+                specs  = [ 'fake.spec.ts' ];
+
+            const adapter = new JasmineAdapter(config, loader);
+
+            FakeJasmineRunner.topSuite.returns({ children: [ specCalled('first spec') ] })
+
+            await adapter.load(specs)
+
+            expect(adapter.scenarioCount()).to.equal(1);
+        });
+
+        /** @test JasmineAdapter#scenarioCount */
+        it('recognises when there are multiple nested specs', async () => {
+
+            const
+                defaultTimeoutInterval = 5000,
+                config = {
+                    defaultTimeoutInterval,
+                },
+                specs  = [ 'fake.spec.ts' ];
+
+            const adapter = new JasmineAdapter(config, loader);
+
+            FakeJasmineRunner.topSuite.returns({
+                children: [
+                    specCalled('first spec'),
+                    {
+                        getFullName() {
+                            return 'nested describe';
+                        },
+                        children: specCalled('nested spec')
+                    }
+                ],
+            })
+
+            await adapter.load(specs)
+
+            expect(adapter.scenarioCount()).to.equal(2);
+        });
     });
 });

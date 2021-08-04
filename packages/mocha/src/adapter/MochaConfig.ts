@@ -185,4 +185,15 @@ export interface MochaConfig {
      * @public
      */
     ui?: string;
+
+    /**
+     * @desc
+     *  When set to `true`, a skipped test is considered a failure.
+     *
+     * @see https://mochajs.org/#interfaces
+     *
+     * @type {boolean} [strict=false]
+     * @public
+     */
+    strict?: boolean;
 }

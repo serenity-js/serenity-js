@@ -12,7 +12,7 @@ import { PhotoTakingStrategy } from './PhotoTakingStrategy';
  *  This strategy works best when you are interested in the screenshots only when
  *  the a fails.
  *
- * @implements {PhotoTakingStrategy}
+ * @extends {PhotoTakingStrategy}
  */
 export class TakePhotosOfFailures extends PhotoTakingStrategy {
     protected shouldTakeAPhotoOf(event: DomainEvent): boolean {

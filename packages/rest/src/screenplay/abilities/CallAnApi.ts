@@ -201,7 +201,7 @@ export class CallAnApi implements Ability {
                         case error instanceof TypeError:
                             throw new ConfigurationError(`Looks like there was an issue with Axios configuration`, error);
                         case ! (error as AxiosError).response:
-                            throw new TestCompromisedError(`The API call has failed`, error);
+                            throw new TestCompromisedError(`The API call has failed`, error);   // todo: include request url
                         default:
                             this.lastResponse = error.response;
 

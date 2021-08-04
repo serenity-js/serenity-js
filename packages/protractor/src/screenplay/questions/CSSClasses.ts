@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ElementFinder } from 'protractor';
