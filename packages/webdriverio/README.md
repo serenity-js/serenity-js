@@ -25,7 +25,7 @@ for [WebdriverIO](https://webdriver.io/), that helps with testing Web-based and 
 
 To install this module, run the following command in your [WebdriverIO project directory](https://webdriver.io/docs/gettingstarted/):
 
-```console
+```bash
 npm install --save-dev @serenity-js/{core,webdriverio}
 ```
 
@@ -34,7 +34,7 @@ Next, install one of the below test runner adapters.
 #### Usage with Cucumber.js
 
 To use Serenity/JS WebdriverIO with Cucumber.js, install the following adapter:
-```console
+```bash
 npm install --save-dev @serenity-js/cucumber
 ```
 
@@ -43,14 +43,14 @@ npm install --save-dev @serenity-js/cucumber
 #### Usage with Jasmine
 
 To use Serenity/JS WebdriverIO with Jasmine, install the following adapter:
-```console
+```bash
 npm install --save-dev @serenity-js/jasmine
 ```
 
 #### Usage with Mocha
 
 To use Serenity/JS WebdriverIO with Mocha, install the following adapter:
-```console
+```bash
 npm install --save-dev @serenity-js/mocha
 ```
 
@@ -138,7 +138,10 @@ actorCalled('Wendy')
     )
     .attemptsTo(
         Navigate.to('https://serenity-js.org'),
-        Ensure.that(Text.of(SerenityJSWebsite.header), equals('Next generation acceptance testing')),
+        Ensure.that(
+            Text.of(SerenityJSWebsite.header), 
+            equals('Next generation acceptance testing')
+        ),
     )
 ```
 
