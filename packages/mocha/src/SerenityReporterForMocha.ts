@@ -2,7 +2,8 @@
 
 import { Serenity } from '@serenity-js/core';
 import {
-    DomainEvent, RetryableSceneDetected,
+    DomainEvent,
+    RetryableSceneDetected,
     SceneFinished,
     SceneFinishes,
     SceneStarts,
@@ -266,13 +267,15 @@ export class SerenityReporterForMocha extends reporters.Base {
             return void 0;
         }
 
+        // todo: RetryableSceneDetected(maxRetries) ?
+
         this.emit(
             new RetryableSceneDetected(
                 this.currentSceneId,
             ),
             new SceneTagged(
                 this.currentSceneId,
-                new ArbitraryTag('retried'),
+                new ArbitraryTag('retried'),        // todo: replace with a dedicated tag
                 this.serenity.currentTime(),
             ),
         );

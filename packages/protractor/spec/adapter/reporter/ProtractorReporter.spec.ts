@@ -41,7 +41,7 @@ describe('ProtractorReporter', () => {
         now = Timestamp.fromMillisecondTimestamp(0),
         later = now.plus(Duration.ofMilliseconds(1)),
 
-        execuctionSuccessful    = new ExecutionSuccessful(),
+        executionSuccessful     = new ExecutionSuccessful(),
         executionSkipped        = new ExecutionSkipped(),
         executionIgnored        = new ExecutionIgnored(thrown(new Error('Execution ignored'))),
         implementationPending   = new ImplementationPending(thrown(new ImplementationPendingError('Step missing'))),
@@ -60,7 +60,7 @@ describe('ProtractorReporter', () => {
     describe('with default threshold', () => {
 
         given([
-            execuctionSuccessful,
+            executionSuccessful,
             executionSkipped,
         ]).
         it(`considers a scenario to be successful when its outcome is better that the success threshold`, (outcome: Outcome) => {
@@ -116,7 +116,7 @@ describe('ProtractorReporter', () => {
         const successThreshold = implementationPending;
 
         given([
-            execuctionSuccessful,
+            executionSuccessful,
             executionSkipped,
             executionIgnored,
             implementationPending,

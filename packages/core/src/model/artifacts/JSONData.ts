@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { JSONValue } from 'tiny-types';
 
 import { Artifact } from '../Artifact';

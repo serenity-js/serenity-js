@@ -6,7 +6,6 @@ import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Attribute, Click, Navigate, Target } from '../../../src';
-import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
 /** @test {Click} */
@@ -19,21 +18,14 @@ describe('Click', () => {
     beforeEach(() => engage(new UIActors()));
 
     /** @test {Click.on} */
-    it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to(pageFromTemplate(`
-            <html>
-                <body>
-                    <form>
-                        <input type="checkbox" id="no-spam-please" />
-                    </form>
-                </body>
-            </html>
-        `)),
+    it('allows the actor to click on an element', () =>
+        actorCalled('Bernie').attemptsTo(
+            Navigate.to('/screenplay/interactions/click/no_spam_form.html'),
 
-        Click.on(Form.Checkbox),
+            Click.on(Form.Checkbox),
 
-        Ensure.that(Attribute.of(Form.Checkbox).called('checked'), equals('true')),
-    ));
+            Ensure.that(Attribute.of(Form.Checkbox).called('checked'), equals('true')),
+        ));
 
     /** @test {Click#toString} */
     it('provides a sensible description of the interaction being performed', () => {

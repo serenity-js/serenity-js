@@ -231,7 +231,7 @@ describe('SerenityBDDReporter', () => {
 
         expect(report.id).to.equal('reporting-results;reports-scenario-outlines;chrome-83-0-4103-106;mac-os-x');
 
-        expect(report.context).to.equal('chrome,Mac OS X');
+        expect(report.context).to.equal('chrome,mac');
 
         expect(report.tags).to.deep.equal([{
             browserName: 'chrome',
