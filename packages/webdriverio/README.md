@@ -10,9 +10,11 @@ and [API docs](https://serenity-js.org/modules/), and follow [@SerenityJS](https
 [![Twitter Follow](https://img.shields.io/twitter/follow/JanMolak?style=social)](https://twitter.com/@JanMolak)
 [![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
 
+Subscribe to [Serenity/JS YouTube channel](https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q) to get notified when new demos and video tutorials are available.
+
 ### Learning Serenity/JS
 
-To learn more about Serenity/JS, review the [examples](https://github.com/serenity-js/serenity-js/tree/master/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
+To learn more about Serenity/JS, [follow the tutorial](https://serenity-js.org/handbook/thinking-in-serenity-js/index.html), [review the examples](https://github.com/serenity-js/serenity-js/tree/master/examples), and create your own test suite with [Serenity/JS template projects](https://github.com/serenity-js).
 
 If you have any questions, join us on [Serenity/JS Community Chat](https://gitter.im/serenity-js/Lobby).
 

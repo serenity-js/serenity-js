@@ -341,5 +341,3 @@ The Page Object(s) Pattern addresses some of the problems but falls short if wha
 While adding Cucumber into the mix could help to capture the business language and slightly improve the reports our tests produce, it doesn't by itself address the code duplication or code structure issues. I'm afraid that even gold standard Cucumber scenarios can't address that because there's still something we're missing.
 
 To find out what that is, we might need to change the way we think about our tests.
-
-We need to start [thinking in Serenity/JS](/handbook/thinking-in-serenity-js/index.html).

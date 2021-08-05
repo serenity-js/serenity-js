@@ -76,7 +76,7 @@ To illustrate how questions and interactions work together, let's look at [`Targ
 
 Consider the below [HTML form](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) component, allowing readers to add a comment to an article on an imaginary website:
 
-```html
+```markup
     <form id="new-comment">
         <div>
             <label for="comment">Comment:</label>
@@ -162,7 +162,7 @@ So now you know how to retrieve information about the system under test and its 
 
 Let's say for example that we have the following widget, describing a discount a customer would get on our website:
 
-```html
+```markup
 <div id="order-summary">
     <!-- other entries of the order summary --> 
 

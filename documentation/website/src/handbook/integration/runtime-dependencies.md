@@ -15,7 +15,7 @@ The second option is more appropriate if you need to work with several versions 
 
 To check if you machine is set up correctly, execute the following command in your terminal:
 
-```console
+```bash
 $ node --version
 %process.version%
 ```
@@ -33,7 +33,7 @@ create `package.json` - a Node.js project descriptor file, which would already b
 To create a Node.js project from scratch, create a new directory, such as `example`,
 and initialise a new project accepting the default configuration suggested by the npm with these terminal commands:
 
-```console
+```bash
 $ mkdir example
 $ cd example
 $ npm init
@@ -67,7 +67,7 @@ or by using the excellent [Software Development Kit Manager (SDKMan)](https://sd
 
 To verify that you have the JRE installed, execute the below command in your terminal:
 
-```console
+```bash
 $ java -version
 java version "1.8.0_181"
 Java(TM) SE Runtime Environment (build 1.8.0_181-b13)
@@ -80,7 +80,7 @@ to the correct version.
 
 On MacOS this could be:
 
-```console
+```bash
 $ echo $JAVA_HOME
 /Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
 ```
