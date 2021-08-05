@@ -12,7 +12,7 @@ import { isVisible } from './isVisible';
  * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}
  *
  * @see {@link @serenity-js/assertions~Ensure}
- * @see {@link @serenity-js/assertions~Check}
+ * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
 export function isClickable(): Expectation<any, ElementFinder> {

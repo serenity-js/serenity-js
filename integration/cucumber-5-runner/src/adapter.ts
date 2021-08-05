@@ -2,7 +2,7 @@ import { CucumberCLIAdapter, CucumberConfig, TempFileOutput } from '@serenity-js
 import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import * as path from 'path';
 
-export = function (cucumberConfig: CucumberConfig, pathToScenario: Path) {
+export = async function (cucumberConfig: CucumberConfig, pathToScenario: Path) {
     const runnerRootDir = path.resolve(__dirname, '..');
 
     const adapter = new CucumberCLIAdapter({
@@ -16,5 +16,6 @@ export = function (cucumberConfig: CucumberConfig, pathToScenario: Path) {
         new TempFileOutput(new FileSystem(Path.from(runnerRootDir))),
     );
 
-    return adapter.run([ pathToScenario.value ]);
+    await adapter.load([ pathToScenario.value ]);
+    return adapter.run();
 }

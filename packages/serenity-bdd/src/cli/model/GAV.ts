@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { Path } from '@serenity-js/core/lib/io';
 import { ensure, isDefined, isInRange, isInteger, matches, property, TinyType } from 'tiny-types';
 

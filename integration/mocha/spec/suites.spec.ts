@@ -18,7 +18,7 @@ import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
 
-    this.timeout(15000);
+    this.timeout(30000);
 
     it('recognises nested suites', () => mocha('examples/suites.spec.js')
         .then(ifExitCodeIsOtherThan(1, logOutput))
