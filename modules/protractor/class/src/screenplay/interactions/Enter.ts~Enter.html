@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -174,7 +178,6 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer">stage/crew/photographer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html">Photographer</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer-strategies">stage/crew/photographer/strategies</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html">PhotoTakingStrategy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li>
 </ul>
@@ -190,7 +193,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber50">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber49">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -236,13 +239,12 @@
  <span class="token punctuation">}</span></code></pre>
     </div>
 <div class="example-doc" data-ice="exampleDoc">
-      <div class="example-caption" data-ice="exampleCaption">Enternig the value into a form field</div>
+      <div class="example-caption" data-ice="exampleCaption">Entering the value into a form field</div>
       <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
- <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Enter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/protractor'</span><span class="token punctuation">;</span>
- <span class="token keyword">import</span> <span class="token punctuation">{</span> protractor <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Enter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
 
  <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Esme'</span><span class="token punctuation">)</span>
-     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>protractor<span class="token punctuation">.</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
      <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
          Enter<span class="token punctuation">.</span><span class="token function">theValue</span><span class="token punctuation">(</span><span class="token string">'Hello world!'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>Form<span class="token punctuation">.</span>exampleInput<span class="token punctuation">)</span><span class="token punctuation">,</span>
      <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
@@ -253,7 +255,7 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber13">Enter</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber12">Enter</a></span></li>
 </ul>
   </div>
 
@@ -281,7 +283,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Enter.ts~Enter.html#static-method-theValue">theValue</a></span></span><span class="code" data-ice="signature">(value: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html">EnterBuilder</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Enter.ts~Enter.html#static-method-theValue">theValue</a></span></span><span class="code" data-ice="signature">(value: <span>Answerable</span>&lt;<span>string</span>|<span>number</span>&gt;): <span><a href="class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html">EnterBuilder</a></span></span>
         </p>
       </div>
       <div>
@@ -415,11 +417,11 @@
     
     
     
-    <span class="code" data-ice="name">theValue</span><span class="code" data-ice="signature">(value: <span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span>): <span><a href="class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html">EnterBuilder</a></span></span>
+    <span class="code" data-ice="name">theValue</span><span class="code" data-ice="signature">(value: <span>Answerable</span>&lt;<span>string</span>|<span>number</span>&gt;): <span><a href="class/src/screenplay/interactions/EnterBuilder.ts~EnterBuilder.html">EnterBuilder</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber75">source</a></span></span>
     </span>
   </h3>
 
@@ -441,7 +443,7 @@
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">value</td>
-      <td data-ice="type" class="code"><span>Question&lt;ElementFinder&gt; </span> | <span> ElementFinder</span></td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span>string</span>|<span>number</span>&gt;</td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>The value to be entered</p>
 </td>
@@ -479,8 +481,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber40">Enter allows the actor to enter the value into an input field</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber50">Enter allows the actor to enter the value into a number field</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber23">Enter allows the actor to enter the value into an input field</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber34">Enter allows the actor to enter the value into a number field</a></span></li>
 <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/ModalDialog.spec.ts.html#lineNumber164">ModalDialog, when working with prompt(), allows the actor to enter value into a prompt</a></span></li>
 </ul>
   </div>
@@ -503,7 +505,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber90">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber89">source</a></span></span>
     </span>
   </h3>
 
@@ -574,7 +576,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber124">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber123">source</a></span></span>
     </span>
   </h3>
 
@@ -650,7 +652,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber148">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Enter.ts.html#lineNumber147">source</a></span></span>
     </span>
   </h3>
 
@@ -693,7 +695,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber59">Enter provides a sensible description of the interaction being performed</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Enter.spec.ts.html#lineNumber44">Enter provides a sensible description of the interaction being performed</a></span></li>
 </ul>
   </div>
 

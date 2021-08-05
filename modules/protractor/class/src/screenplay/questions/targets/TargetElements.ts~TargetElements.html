@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -174,7 +178,6 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer">stage/crew/photographer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html">Photographer</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer-strategies">stage/crew/photographer/strategies</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html">PhotoTakingStrategy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li>
 </ul>
@@ -222,18 +225,18 @@
     <h4 id="tests">Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber148">Target allows the actor to locate all web elements matching the selector</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber224">Target provides a sensible description of elements that are being targeted</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber234">Target provides a sensible description of elements that have been located</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber608">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber621">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber634">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber647">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber726">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber738">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber750">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber762">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber774">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber133">Target allows the actor to locate all web elements matching the selector</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber209">Target provides a sensible description of elements that are being targeted</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber219">Target provides a sensible description of elements that have been located</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber546">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber559">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber572">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber585">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber664">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber676">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks all the items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber688">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber700">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber712">Target when filtering a list of targets and a filter is applied lets the actor filter the list of matching elements so that it picks the nth item</a></span></li>
 </ul>
   </div>
 
@@ -700,8 +703,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber596">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber663">Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber534">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it gets the number of items</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber601">Target when filtering a list of targets and no filters are applied provides a sensible description when it returns the number of items</a></span></li>
 </ul>
   </div>
 
@@ -763,8 +766,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber621">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber682">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber559">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the first item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber620">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the first item</a></span></li>
 </ul>
   </div>
 
@@ -842,7 +845,7 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber647">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber585">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the nth item</a></span></li>
 </ul>
   </div>
 
@@ -904,8 +907,8 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber634">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber692">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item</a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber572">Target when filtering a list of targets and no filters are applied lets the actor interact with the list of matching elements so that it picks the last item</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber630">Target when filtering a list of targets and no filters are applied provides a sensible description when it picks the last item</a></span></li>
 </ul>
   </div>
 
@@ -984,13 +987,13 @@
     <h4>Tests:</h4>
     <ul>
       
-    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber244">Target provides a sensible description of elements that are nested</a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber386">Target when nesting targets allows for Target<elementarrayfinder> to be nested within another Target<elementfinder></elementfinder></elementarrayfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber404">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be filtered</elementarrayfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber424">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be counted</elementarrayfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber440">Target when nesting targets and filtering them allows for the first of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber456">Target when nesting targets and filtering them allows for the last of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
-<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber472">Target when nesting targets and filtering them allows for the nth of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber229">Target provides a sensible description of elements that are nested</a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber355">Target when nesting targets allows for Target<elementarrayfinder> to be nested within another Target<elementfinder></elementfinder></elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber373">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be filtered</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber393">Target when nesting targets and filtering them allows for nested Target<elementarrayfinder> to be counted</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber409">Target when nesting targets and filtering them allows for the first of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber425">Target when nesting targets and filtering them allows for the last of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
+<li data-ice="test"><span><a href="test-file/spec/screenplay/questions/Target.spec.ts.html#lineNumber441">Target when nesting targets and filtering them allows for the nth of nested Target<elementarrayfinder> to be retrieved</elementarrayfinder></a></span></li>
 </ul>
   </div>
 

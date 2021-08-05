@@ -1176,6 +1176,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "axioserror",
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
@@ -1279,67 +1303,67 @@ window.esdocSearchIndex = [
   ],
   [
     "changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber12",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber11",
     "ChangeApiConfig",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber19",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber18",
     "ChangeApiConfig when changing the API URL",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.seturlto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.seturlto,changeapiconfig.seturlto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber34",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber33",
     "ChangeApiConfig when changing the API URL changes the base URL used by any subsequent requests",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber44",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber43",
     "ChangeApiConfig when changing the API port",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber59",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber58",
     "ChangeApiConfig when changing the API port changes the base URL used by any subsequent requests",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber73",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber72",
     "ChangeApiConfig when changing the API port complains if the url has not been set prior to attempted port change",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setportto src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setportto,changeapiconfig.setportto",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber83",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber82",
     "ChangeApiConfig when changing the API port complains if the url to be changed is invalid",
     "test"
   ],
   [
     "",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber90",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber89",
     "ChangeApiConfig when setting a request header",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber123",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber122",
     "ChangeApiConfig when setting a request header complains if the name of the header is empty",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber132",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber131",
     "ChangeApiConfig when setting a request header complains if the name of the header is undefined",
     "test"
   ],
   [
     "changeapiconfig changeapiconfig.setheader src/screenplay/interactions/changeapiconfig.ts~changeapiconfig,changeapiconfig src/screenplay/interactions/changeapiconfig.ts~changeapiconfig.setheader,changeapiconfig.setheader",
-    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber109",
+    "test-file/spec/screenplay/interactions/ChangeAPIConfig.spec.ts.html#lineNumber108",
     "ChangeApiConfig when setting a request header sets a header to be used by any subsequent requests",
     "test"
   ],

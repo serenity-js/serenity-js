@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -101,18 +104,19 @@
                                 <li class="chapter"><a href="/contributing.html">Contributing</a></li>
                                 <li class="chapter"><a href="/license.html">License</a></li>
                                 <li class="header"><a href="/handbook/thinking-in-serenity-js/index.html">Thinking in Serenity/JS</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">The Screenplay Pattern</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/full-stack-acceptance-testing.html">Full-stack acceptance testing</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/bridging-the-communication-gap.html">Bridging the communication gap</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/hello-serenity-js.html">Hello, Serenity/JS!</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/test-runners.html">Test runners</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/assertions.html">Assertions</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/testing-rest-apis.html">Testing REST APIs</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/testing-web-uis.html">Testing Web UIs</a></li>
                                 <li class="header"><a href="/handbook/design/index.html">Design Guide</a></li>
+                                <li class="chapter"><a href="/handbook/design/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
+                                <li class="chapter"><a href="/handbook/design/screenplay-pattern.html">The Screenplay Pattern</a></li>
                                 <li class="chapter"><a href="/handbook/design/actors.html">Actors</a></li>
                                 <li class="chapter"><a href="/handbook/design/abilities.html">Abilities</a></li>
                                 <li class="chapter"><a href="/handbook/design/interactions.html">Interactions</a></li>
                                 <li class="chapter"><a href="/handbook/design/tasks.html">Tasks</a></li>
                                 <li class="chapter"><a href="/handbook/design/questions.html">Questions</a></li>
-                                <li class="chapter"><a href="/handbook/design/assertions.html">Assertions</a></li>
                                 <li class="chapter"><a href="/handbook/design/errors.html">Errors</a></li>
                                 <li class="header"><a href="/handbook/integration/index.html">Integration Guide</a></li>
                                 <li class="chapter"><a href="/handbook/integration/architecture.html">Architecture</a></li>
@@ -155,10 +159,10 @@
 
 <h2 id="installation">Installation</h2>
 <p>To use the <code>SerenityBDDReporter</code>, install the <code>@serenity-js/serenity-bdd</code> module:</p>
-<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span>serenity<span class="token operator">-</span>bdd<span class="token punctuation">}</span>
+<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,serenity-bdd<span class="token punctuation">}</span>
 </code></pre>
 <p>To generate Serenity BDD HTML reports, you'll need the Serenity BDD Reporting CLI. You can download it using the <code>serenity-bdd</code> command available as part of this module:</p>
-<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd update
+<pre class="language-bash"><code class="lang-bash">npx serenity-bdd update
 </code></pre>
 <p>The best way to ensure you always have the latest version of the CLI available is to run <code>serenity-bdd update</code> whenever you run <code>npm install</code>. To automate this process, add the below entry to your <code>package.json</code>: </p>
 <pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
@@ -240,10 +244,10 @@ graph TB
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>When your test suite has finished running, generate the Serenity BDD reports by executing the following command in your terminal:</p>
-<pre class="language-typescript"><code class="lang-console">npx serenity<span class="token operator">-</span>bdd run
+<pre class="language-bash"><code class="lang-bash">npx serenity-bdd run
 </code></pre>
 <p>To automate this process, install the following additional modules:</p>
-<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev rimraf npm<span class="token operator">-</span>failsafe
+<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev rimraf npm-failsafe
 </code></pre>
 <p>Next, add the below scripts to your <code>package.json</code>:</p>
 <pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
@@ -257,7 +261,7 @@ graph TB
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Now to run your test suite, execute:</p>
-<pre class="language-typescript"><code class="lang-console">npm test
+<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token builtin class-name">test</span>
 </code></pre>
 <p>The above command invokes:</p>
 <ul>

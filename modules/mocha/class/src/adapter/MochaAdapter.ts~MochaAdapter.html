@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -130,7 +134,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber23">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber25">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -220,15 +224,74 @@
       <div>
         <p>
           
+          <span data-ice="async">async</span>
           
-          
-          <span class="code" data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-run">run</a></span></span><span class="code" data-ice="signature">(pathsToScenarios: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-load">load</a></span></span><span class="code" data-ice="signature">(pathsToScenarios: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
         </p>
       </div>
       <div>
         
         
+        <div data-ice="description"><p> Loads test scenarios.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-run">run</a></span></span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
         
+        
+        <div data-ice="description"><p> Runs loaded test scenarios.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-scenarioCount">scenarioCount</a></span></span><span class="code" data-ice="signature">(): <span>number</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Returns the number of loaded scenarios</p>
+</div>
       </div>
     </td>
     <td>
@@ -287,7 +350,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber58">source</a></span></span>
     </span>
   </h3>
 
@@ -346,25 +409,26 @@
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
 <div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-run">
+  <h3 data-ice="anchor" id="instance-method-load">
     <span class="access" data-ice="access">public</span>
     
     
     
+    <span data-ice="async">async</span>
     
-    
-    <span class="code" data-ice="name">run</span><span class="code" data-ice="signature">(pathsToScenarios: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="code" data-ice="name">load</span><span class="code" data-ice="signature">(pathsToScenarios: <span><span>string</span><span>[]</span></span>): <span>Promise</span>&lt;<span>void</span>&gt;</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber119">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p> Loads test scenarios.</p>
+</div>
 
   
 
@@ -417,6 +481,142 @@
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-run">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">run</span><span class="code" data-ice="signature">(): <span>Promise</span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber195">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Runs loaded test scenarios.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>Promise</span>&lt;<span>void</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  <div data-ice="throwWrap">
+    <h4>Throws:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="/modules/core/class/src/errors/LogicError.ts~LogicError.html">LogicError</a></span></p></td>
+        <td data-ice="throwDesc"><p>If called before <code>load</code></p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-scenarioCount">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">scenarioCount</span><span class="code" data-ice="signature">(): <span>number</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber166">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Returns the number of loaded scenarios</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>number</span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  <div data-ice="throwWrap">
+    <h4>Throws:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="/modules/core/class/src/errors/LogicError.ts~LogicError.html">LogicError</a></span></p></td>
+        <td data-ice="throwDesc"><p>If called before <code>load</code></p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-successThreshold">
     <span class="access" data-ice="access">public</span>
     
@@ -428,7 +628,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/adapter/MochaAdapter.ts.html#lineNumber81">source</a></span></span>
     </span>
   </h3>
 

@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 995,
+  "end": 1566,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 69,
+      "line": 113,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 995,
+    "end": 1566,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 69,
+        "line": 113,
         "column": 0
       }
     },
@@ -154,14 +154,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 208,
-        "end": 994,
+        "end": 1565,
         "loc": {
           "start": {
             "line": 16,
             "column": 0
           },
           "end": {
-            "line": 68,
+            "line": 112,
             "column": 1
           }
         },
@@ -205,14 +205,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 215,
-          "end": 994,
+          "end": 1565,
           "loc": {
             "start": {
               "line": 16,
               "column": 7
             },
             "end": {
-              "line": 68,
+              "line": 112,
               "column": 1
             }
           },
@@ -238,36 +238,36 @@
           "body": {
             "type": "ClassBody",
             "start": 248,
-            "end": 994,
+            "end": 1565,
             "loc": {
               "start": {
                 "line": 16,
                 "column": 40
               },
               "end": {
-                "line": 68,
+                "line": 112,
                 "column": 1
               }
             },
             "body": [
               {
                 "type": "ClassProperty",
-                "start": 546,
-                "end": 597,
+                "start": 482,
+                "end": 534,
                 "loc": {
                   "start": {
-                    "line": 36,
+                    "line": 35,
                     "column": 4
                   },
                   "end": {
-                    "line": 36,
-                    "column": 55
+                    "line": 35,
+                    "column": 56
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
                     "start": 250,
                     "end": 342,
                     "loc": {
@@ -283,16 +283,16 @@
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Runs test scenarios at pathsToScenarios using the given test runner.\n     *\n     * @abstract\n     * @type {function(pathsToScenarios: string[]): Promise<void>}\n     ",
+                    "value": "*\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @type {function(pathsToScenarios: string[]): Promise<void>}\n     ",
                     "start": 349,
-                    "end": 541,
+                    "end": 477,
                     "loc": {
                       "start": {
                         "line": 29,
                         "column": 4
                       },
                       "end": {
-                        "line": 35,
+                        "line": 34,
                         "column": 7
                       }
                     }
@@ -301,32 +301,32 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 598,
-                    "end": 690,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 535,
+                    "end": 627,
                     "loc": {
                       "start": {
-                        "line": 37,
+                        "line": 36,
                         "column": 0
                       },
                       "end": {
-                        "line": 46,
+                        "line": 45,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
-                    "start": 697,
-                    "end": 844,
+                    "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @type {function(): number}\n     ",
+                    "start": 634,
+                    "end": 813,
                     "loc": {
                       "start": {
-                        "line": 49,
+                        "line": 48,
                         "column": 4
                       },
                       "end": {
-                        "line": 55,
+                        "line": 56,
                         "column": 7
                       }
                     }
@@ -335,107 +335,107 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 546,
-                  "end": 549,
+                  "start": 482,
+                  "end": 486,
                   "loc": {
                     "start": {
-                      "line": 36,
+                      "line": 35,
                       "column": 4
                     },
                     "end": {
-                      "line": 36,
-                      "column": 7
+                      "line": 35,
+                      "column": 8
                     },
-                    "identifierName": "run"
+                    "identifierName": "load"
                   },
-                  "name": "run"
+                  "name": "load"
                 },
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 549,
-                  "end": 596,
+                  "start": 486,
+                  "end": 533,
                   "loc": {
                     "start": {
-                      "line": 36,
-                      "column": 7
+                      "line": 35,
+                      "column": 8
                     },
                     "end": {
-                      "line": 36,
-                      "column": 54
+                      "line": 35,
+                      "column": 55
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSFunctionType",
-                    "start": 551,
-                    "end": 596,
+                    "start": 488,
+                    "end": 533,
                     "loc": {
                       "start": {
-                        "line": 36,
-                        "column": 9
+                        "line": 35,
+                        "column": 10
                       },
                       "end": {
-                        "line": 36,
-                        "column": 54
+                        "line": 35,
+                        "column": 55
                       }
                     },
                     "parameters": [
                       {
                         "type": "Identifier",
-                        "start": 552,
-                        "end": 578,
+                        "start": 489,
+                        "end": 515,
                         "loc": {
                           "start": {
-                            "line": 36,
-                            "column": 10
+                            "line": 35,
+                            "column": 11
                           },
                           "end": {
-                            "line": 36,
-                            "column": 36
+                            "line": 35,
+                            "column": 37
                           },
                           "identifierName": "pathsToScenarios"
                         },
                         "name": "pathsToScenarios",
                         "typeAnnotation": {
                           "type": "TSTypeAnnotation",
-                          "start": 568,
-                          "end": 578,
+                          "start": 505,
+                          "end": 515,
                           "loc": {
                             "start": {
-                              "line": 36,
-                              "column": 26
+                              "line": 35,
+                              "column": 27
                             },
                             "end": {
-                              "line": 36,
-                              "column": 36
+                              "line": 35,
+                              "column": 37
                             }
                           },
                           "typeAnnotation": {
                             "type": "TSArrayType",
-                            "start": 570,
-                            "end": 578,
+                            "start": 507,
+                            "end": 515,
                             "loc": {
                               "start": {
-                                "line": 36,
-                                "column": 28
+                                "line": 35,
+                                "column": 29
                               },
                               "end": {
-                                "line": 36,
-                                "column": 36
+                                "line": 35,
+                                "column": 37
                               }
                             },
                             "elementType": {
                               "type": "TSStringKeyword",
-                              "start": 570,
-                              "end": 576,
+                              "start": 507,
+                              "end": 513,
                               "loc": {
                                 "start": {
-                                  "line": 36,
-                                  "column": 28
+                                  "line": 35,
+                                  "column": 29
                                 },
                                 "end": {
-                                  "line": 36,
-                                  "column": 34
+                                  "line": 35,
+                                  "column": 35
                                 }
                               }
                             }
@@ -445,44 +445,44 @@
                     ],
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 580,
-                      "end": 596,
+                      "start": 517,
+                      "end": 533,
                       "loc": {
                         "start": {
-                          "line": 36,
-                          "column": 38
+                          "line": 35,
+                          "column": 39
                         },
                         "end": {
-                          "line": 36,
-                          "column": 54
+                          "line": 35,
+                          "column": 55
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSTypeReference",
-                        "start": 583,
-                        "end": 596,
+                        "start": 520,
+                        "end": 533,
                         "loc": {
                           "start": {
-                            "line": 36,
-                            "column": 41
+                            "line": 35,
+                            "column": 42
                           },
                           "end": {
-                            "line": 36,
-                            "column": 54
+                            "line": 35,
+                            "column": 55
                           }
                         },
                         "typeName": {
                           "type": "Identifier",
-                          "start": 583,
-                          "end": 590,
+                          "start": 520,
+                          "end": 527,
                           "loc": {
                             "start": {
-                              "line": 36,
-                              "column": 41
+                              "line": 35,
+                              "column": 42
                             },
                             "end": {
-                              "line": 36,
-                              "column": 48
+                              "line": 35,
+                              "column": 49
                             },
                             "identifierName": "Promise"
                           },
@@ -490,31 +490,31 @@
                         },
                         "typeParameters": {
                           "type": "TSTypeParameterInstantiation",
-                          "start": 590,
-                          "end": 596,
+                          "start": 527,
+                          "end": 533,
                           "loc": {
                             "start": {
-                              "line": 36,
-                              "column": 48
+                              "line": 35,
+                              "column": 49
                             },
                             "end": {
-                              "line": 36,
-                              "column": 54
+                              "line": 35,
+                              "column": 55
                             }
                           },
                           "params": [
                             {
                               "type": "TSVoidKeyword",
-                              "start": 591,
-                              "end": 595,
+                              "start": 528,
+                              "end": 532,
                               "loc": {
                                 "start": {
-                                  "line": 36,
-                                  "column": 49
+                                  "line": 35,
+                                  "column": 50
                                 },
                                 "end": {
-                                  "line": 36,
-                                  "column": 53
+                                  "line": 35,
+                                  "column": 54
                                 }
                               }
                             }
@@ -528,47 +528,81 @@
               },
               {
                 "type": "ClassProperty",
-                "start": 849,
-                "end": 992,
+                "start": 818,
+                "end": 846,
                 "loc": {
                   "start": {
-                    "line": 56,
+                    "line": 57,
                     "column": 4
                   },
                   "end": {
-                    "line": 67,
-                    "column": 16
+                    "line": 57,
+                    "column": 32
                   }
                 },
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 598,
-                    "end": 690,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 535,
+                    "end": 627,
                     "loc": {
                       "start": {
-                        "line": 37,
+                        "line": 36,
                         "column": 0
                       },
                       "end": {
-                        "line": 46,
+                        "line": 45,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
-                    "start": 697,
-                    "end": 844,
+                    "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @type {function(): number}\n     ",
+                    "start": 634,
+                    "end": 813,
                     "loc": {
                       "start": {
-                        "line": 49,
+                        "line": 48,
                         "column": 4
                       },
                       "end": {
-                        "line": 55,
+                        "line": 56,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 847,
+                    "end": 939,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @abstract\n     * @type {function(): Promise<void>}\n     ",
+                    "start": 946,
+                    "end": 1138,
+                    "loc": {
+                      "start": {
+                        "line": 70,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 79,
                         "column": 7
                       }
                     }
@@ -577,15 +611,358 @@
                 "static": false,
                 "key": {
                   "type": "Identifier",
-                  "start": 849,
-                  "end": 865,
+                  "start": 818,
+                  "end": 831,
                   "loc": {
                     "start": {
-                      "line": 56,
+                      "line": 57,
                       "column": 4
                     },
                     "end": {
-                      "line": 56,
+                      "line": 57,
+                      "column": 17
+                    },
+                    "identifierName": "scenarioCount"
+                  },
+                  "name": "scenarioCount"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 831,
+                  "end": 845,
+                  "loc": {
+                    "start": {
+                      "line": 57,
+                      "column": 17
+                    },
+                    "end": {
+                      "line": 57,
+                      "column": 31
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSFunctionType",
+                    "start": 833,
+                    "end": 845,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 19
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 31
+                      }
+                    },
+                    "parameters": [],
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 836,
+                      "end": 845,
+                      "loc": {
+                        "start": {
+                          "line": 57,
+                          "column": 22
+                        },
+                        "end": {
+                          "line": 57,
+                          "column": 31
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSNumberKeyword",
+                        "start": 839,
+                        "end": 845,
+                        "loc": {
+                          "start": {
+                            "line": 57,
+                            "column": 25
+                          },
+                          "end": {
+                            "line": 57,
+                            "column": 31
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1143,
+                "end": 1168,
+                "loc": {
+                  "start": {
+                    "line": 80,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 80,
+                    "column": 29
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 847,
+                    "end": 939,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @abstract\n     * @type {function(): Promise<void>}\n     ",
+                    "start": 946,
+                    "end": 1138,
+                    "loc": {
+                      "start": {
+                        "line": 70,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 79,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 1169,
+                    "end": 1261,
+                    "loc": {
+                      "start": {
+                        "line": 81,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
+                    "start": 1268,
+                    "end": 1415,
+                    "loc": {
+                      "start": {
+                        "line": 93,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1143,
+                  "end": 1146,
+                  "loc": {
+                    "start": {
+                      "line": 80,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 80,
+                      "column": 7
+                    },
+                    "identifierName": "run"
+                  },
+                  "name": "run"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 1146,
+                  "end": 1167,
+                  "loc": {
+                    "start": {
+                      "line": 80,
+                      "column": 7
+                    },
+                    "end": {
+                      "line": 80,
+                      "column": 28
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSFunctionType",
+                    "start": 1148,
+                    "end": 1167,
+                    "loc": {
+                      "start": {
+                        "line": 80,
+                        "column": 9
+                      },
+                      "end": {
+                        "line": 80,
+                        "column": 28
+                      }
+                    },
+                    "parameters": [],
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 1151,
+                      "end": 1167,
+                      "loc": {
+                        "start": {
+                          "line": 80,
+                          "column": 12
+                        },
+                        "end": {
+                          "line": 80,
+                          "column": 28
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeReference",
+                        "start": 1154,
+                        "end": 1167,
+                        "loc": {
+                          "start": {
+                            "line": 80,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 80,
+                            "column": 28
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 1154,
+                          "end": 1161,
+                          "loc": {
+                            "start": {
+                              "line": 80,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 80,
+                              "column": 22
+                            },
+                            "identifierName": "Promise"
+                          },
+                          "name": "Promise"
+                        },
+                        "typeParameters": {
+                          "type": "TSTypeParameterInstantiation",
+                          "start": 1161,
+                          "end": 1167,
+                          "loc": {
+                            "start": {
+                              "line": 80,
+                              "column": 22
+                            },
+                            "end": {
+                              "line": 80,
+                              "column": 28
+                            }
+                          },
+                          "params": [
+                            {
+                              "type": "TSVoidKeyword",
+                              "start": 1162,
+                              "end": 1166,
+                              "loc": {
+                                "start": {
+                                  "line": 80,
+                                  "column": 23
+                                },
+                                "end": {
+                                  "line": 80,
+                                  "column": 27
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1420,
+                "end": 1563,
+                "loc": {
+                  "start": {
+                    "line": 100,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 111,
+                    "column": 16
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 1169,
+                    "end": 1261,
+                    "loc": {
+                      "start": {
+                        "line": 81,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
+                    "start": 1268,
+                    "end": 1415,
+                    "loc": {
+                      "start": {
+                        "line": 93,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 1420,
+                  "end": 1436,
+                  "loc": {
+                    "start": {
+                      "line": 100,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 100,
                       "column": 20
                     },
                     "identifierName": "successThreshold"
@@ -595,87 +972,87 @@
                 "computed": false,
                 "typeAnnotation": {
                   "type": "TSTypeAnnotation",
-                  "start": 865,
-                  "end": 991,
+                  "start": 1436,
+                  "end": 1562,
                   "loc": {
                     "start": {
-                      "line": 56,
+                      "line": 100,
                       "column": 20
                     },
                     "end": {
-                      "line": 67,
+                      "line": 111,
                       "column": 15
                     }
                   },
                   "typeAnnotation": {
                     "type": "TSFunctionType",
-                    "start": 867,
-                    "end": 991,
+                    "start": 1438,
+                    "end": 1562,
                     "loc": {
                       "start": {
-                        "line": 56,
+                        "line": 100,
                         "column": 22
                       },
                       "end": {
-                        "line": 67,
+                        "line": 111,
                         "column": 15
                       }
                     },
                     "parameters": [],
                     "typeAnnotation": {
                       "type": "TSTypeAnnotation",
-                      "start": 870,
-                      "end": 991,
+                      "start": 1441,
+                      "end": 1562,
                       "loc": {
                         "start": {
-                          "line": 56,
+                          "line": 100,
                           "column": 25
                         },
                         "end": {
-                          "line": 67,
+                          "line": 111,
                           "column": 15
                         }
                       },
                       "typeAnnotation": {
                         "type": "TSUnionType",
-                        "start": 873,
-                        "end": 991,
+                        "start": 1444,
+                        "end": 1562,
                         "loc": {
                           "start": {
-                            "line": 56,
+                            "line": 100,
                             "column": 28
                           },
                           "end": {
-                            "line": 67,
+                            "line": 111,
                             "column": 15
                           }
                         },
                         "types": [
                           {
                             "type": "TSTypeReference",
-                            "start": 873,
-                            "end": 880,
+                            "start": 1444,
+                            "end": 1451,
                             "loc": {
                               "start": {
-                                "line": 56,
+                                "line": 100,
                                 "column": 28
                               },
                               "end": {
-                                "line": 56,
+                                "line": 100,
                                 "column": 35
                               }
                             },
                             "typeName": {
                               "type": "Identifier",
-                              "start": 873,
-                              "end": 880,
+                              "start": 1444,
+                              "end": 1451,
                               "loc": {
                                 "start": {
-                                  "line": 56,
+                                  "line": 100,
                                   "column": 28
                                 },
                                 "end": {
-                                  "line": 56,
+                                  "line": 100,
                                   "column": 35
                                 },
                                 "identifierName": "Outcome"
@@ -685,46 +1062,46 @@
                           },
                           {
                             "type": "TSTypeLiteral",
-                            "start": 883,
-                            "end": 991,
+                            "start": 1454,
+                            "end": 1562,
                             "loc": {
                               "start": {
-                                "line": 56,
+                                "line": 100,
                                 "column": 38
                               },
                               "end": {
-                                "line": 67,
+                                "line": 111,
                                 "column": 15
                               }
                             },
                             "members": [
                               {
                                 "type": "TSPropertySignature",
-                                "start": 977,
-                                "end": 989,
+                                "start": 1548,
+                                "end": 1560,
                                 "loc": {
                                   "start": {
-                                    "line": 67,
+                                    "line": 111,
                                     "column": 1
                                   },
                                   "end": {
-                                    "line": 67,
+                                    "line": 111,
                                     "column": 13
                                   }
                                 },
                                 "leadingComments": [
                                   {
                                     "type": "CommentBlock",
-                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                    "start": 885,
-                                    "end": 975,
+                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                    "start": 1456,
+                                    "end": 1546,
                                     "loc": {
                                       "start": {
-                                        "line": 57,
+                                        "line": 101,
                                         "column": 0
                                       },
                                       "end": {
-                                        "line": 66,
+                                        "line": 110,
                                         "column": 3
                                       }
                                     }
@@ -732,15 +1109,15 @@
                                 ],
                                 "key": {
                                   "type": "Identifier",
-                                  "start": 977,
-                                  "end": 981,
+                                  "start": 1548,
+                                  "end": 1552,
                                   "loc": {
                                     "start": {
-                                      "line": 67,
+                                      "line": 111,
                                       "column": 1
                                     },
                                     "end": {
-                                      "line": 67,
+                                      "line": 111,
                                       "column": 5
                                     },
                                     "identifierName": "Code"
@@ -750,29 +1127,29 @@
                                 "computed": false,
                                 "typeAnnotation": {
                                   "type": "TSTypeAnnotation",
-                                  "start": 981,
-                                  "end": 989,
+                                  "start": 1552,
+                                  "end": 1560,
                                   "loc": {
                                     "start": {
-                                      "line": 67,
+                                      "line": 111,
                                       "column": 5
                                     },
                                     "end": {
-                                      "line": 67,
+                                      "line": 111,
                                       "column": 13
                                     }
                                   },
                                   "typeAnnotation": {
                                     "type": "TSNumberKeyword",
-                                    "start": 983,
-                                    "end": 989,
+                                    "start": 1554,
+                                    "end": 1560,
                                     "loc": {
                                       "start": {
-                                        "line": 67,
+                                        "line": 111,
                                         "column": 7
                                       },
                                       "end": {
-                                        "line": 67,
+                                        "line": 111,
                                         "column": 13
                                       }
                                     }
@@ -865,7 +1242,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
       "start": 250,
       "end": 342,
       "loc": {
@@ -881,32 +1258,96 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * @desc\n     *  Runs test scenarios at pathsToScenarios using the given test runner.\n     *\n     * @abstract\n     * @type {function(pathsToScenarios: string[]): Promise<void>}\n     ",
+      "value": "*\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @type {function(pathsToScenarios: string[]): Promise<void>}\n     ",
       "start": 349,
-      "end": 541,
+      "end": 477,
       "loc": {
         "start": {
           "line": 29,
           "column": 4
         },
         "end": {
-          "line": 35,
+          "line": 34,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-      "start": 598,
-      "end": 690,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "start": 535,
+      "end": 627,
       "loc": {
         "start": {
-          "line": 37,
+          "line": 36,
           "column": 0
         },
         "end": {
-          "line": 46,
+          "line": 45,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @type {function(): number}\n     ",
+      "start": 634,
+      "end": 813,
+      "loc": {
+        "start": {
+          "line": 48,
+          "column": 4
+        },
+        "end": {
+          "line": 56,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "start": 847,
+      "end": 939,
+      "loc": {
+        "start": {
+          "line": 58,
+          "column": 0
+        },
+        "end": {
+          "line": 67,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @abstract\n     * @type {function(): Promise<void>}\n     ",
+      "start": 946,
+      "end": 1138,
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 4
+        },
+        "end": {
+          "line": 79,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "start": 1169,
+      "end": 1261,
+      "loc": {
+        "start": {
+          "line": 81,
+          "column": 0
+        },
+        "end": {
+          "line": 90,
           "column": 3
         }
       }
@@ -914,31 +1355,31 @@
     {
       "type": "CommentBlock",
       "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
-      "start": 697,
-      "end": 844,
+      "start": 1268,
+      "end": 1415,
       "loc": {
         "start": {
-          "line": 49,
+          "line": 93,
           "column": 4
         },
         "end": {
-          "line": 55,
+          "line": 99,
           "column": 7
         }
       }
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-      "start": 885,
-      "end": 975,
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+      "start": 1456,
+      "end": 1546,
       "loc": {
         "start": {
-          "line": 57,
+          "line": 101,
           "column": 0
         },
         "end": {
-          "line": 66,
+          "line": 110,
           "column": 3
         }
       }

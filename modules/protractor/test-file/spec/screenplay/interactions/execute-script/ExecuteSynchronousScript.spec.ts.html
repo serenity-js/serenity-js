@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -174,7 +178,6 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer">stage/crew/photographer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html">Photographer</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer-strategies">stage/crew/photographer/strategies</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html">PhotoTakingStrategy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li>
 </ul>
@@ -195,21 +198,10 @@
 <span class="token keyword">import</span> <span class="token punctuation">{</span> by<span class="token punctuation">,</span> error <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'protractor'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Browser<span class="token punctuation">,</span> ExecuteScript<span class="token punctuation">,</span> LastScriptExecution<span class="token punctuation">,</span> Navigate<span class="token punctuation">,</span> Target<span class="token punctuation">,</span> Value <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../../src'</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> pageFromTemplate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../fixtures'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> UIActors <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../UIActors'</span><span class="token punctuation">;</span>
 
 <span class="token comment">/** @test {ExecuteScript} */</span>
 <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'ExecuteSynchronousScript'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-    <span class="token keyword">const</span> page <span class="token operator">=</span> <span class="token function">pageFromTemplate</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
-        &lt;html&gt;
-            &lt;body&gt;
-                &lt;form&gt;
-                    &lt;input type="text" id="name" /&gt;
-                &lt;/form&gt;
-            &lt;/body&gt;
-        &lt;/html&gt;
-    </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token keyword">class</span> <span class="token class-name">Sandbox</span> <span class="token punctuation">{</span>
         <span class="token keyword">static</span> Input <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'input field'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -219,15 +211,16 @@
 
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/screenplay/interactions/execute-script/input_field.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
-            document.getElementById('name').value = 'Joe';
-        </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+            ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+                document.getElementById('name').value = 'Joe';
+            </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-        Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
@@ -241,46 +234,49 @@
 
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script with a static argument'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script with a static argument'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/screenplay/interactions/execute-script/input_field.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
-            var name = arguments[0];
+            ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+                var name = arguments[0];
+    
+                document.getElementById('name').value = name;
+            </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-            document.getElementById('name').value = name;
-        </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">,</span>
-
-        Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-    <span class="token comment">/** @test {ExecuteScript.sync} */</span>
-    <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script with a promised argument'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span>
-
-        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
-            var name = arguments[0];
-
-            document.getElementById('name').value = name;
-        </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-
-        Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script with a Target argument'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script with a promised argument'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/screenplay/interactions/execute-script/input_field.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
-            var name = arguments[0];
-            var field = arguments[1];
+            ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+                var name = arguments[0];
+    
+                document.getElementById('name').value = name;
+            </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token builtin">Promise</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-            field.value = name;
-        </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span> Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/** @test {ExecuteScript.sync} */</span>
+    <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to execute a synchronous script with a Target argument'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/screenplay/interactions/execute-script/input_field.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+            ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+                var name = arguments[0];
+                var field = arguments[1];
+    
+                field.value = name;
+            </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">,</span> Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+            Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Value<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>Sandbox<span class="token punctuation">.</span>Input<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
@@ -305,13 +301,14 @@
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>
     <span class="token comment">/** @test {LastScriptExecution} */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the script has failed'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
-        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>page<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'complains if the script has failed'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span><span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Joe'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+            Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span><span class="token string">'/screenplay/interactions/execute-script/input_field.html'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
 
-        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
-                throw new Error("something's not quite right here");
-            </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>JavascriptError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">javascript error: something's not quite right here</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+                    throw new Error("something's not quite right here");
+                </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>be<span class="token punctuation">.</span><span class="token function">rejectedWith</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>JavascriptError<span class="token punctuation">,</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">javascript error: something's not quite right here</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test {ExecuteScript.sync} */</span>
     <span class="token comment">/** @test {ExecuteSynchronousScript} */</span>

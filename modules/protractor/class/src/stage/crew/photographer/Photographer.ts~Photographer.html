@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="active">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">protractor</a></li>
@@ -174,7 +178,6 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer">stage/crew/photographer</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html">Photographer</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#stage-crew-photographer-strategies">stage/crew/photographer/strategies</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html">PhotoTakingStrategy</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li>
 </ul>
@@ -190,7 +193,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber56">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber59">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -270,7 +273,10 @@ Photographer<span class="token punctuation">.</span><span class="token function"
 
   
 
-  <div data-ice="see"><h4>See also:</h4><ul><li><span><span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span></span></li></ul></div>
+  <div data-ice="see"><h4>See also:</h4><ul><li><span><span><a href="/modules/core/class/src/stage/Stage.ts~Stage.html">Stage</a></span></span></li>
+<li><span><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html">TakePhotosBeforeAndAfterInteractions</a></span></span></li>
+<li><span><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html">TakePhotosOfFailures</a></span></span></li>
+<li><span><span><a href="class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html">TakePhotosOfInteractions</a></span></span></li></ul></div>
 </div>
 
 
@@ -394,7 +400,7 @@ Photographer<span class="token punctuation">.</span><span class="token function"
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html#instance-method-notifyOf">notifyOf</a></span></span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>*</span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/stage/crew/photographer/Photographer.ts~Photographer.html#instance-method-notifyOf">notifyOf</a></span></span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
         </p>
       </div>
       <div>
@@ -431,7 +437,7 @@ Photographer<span class="token punctuation">.</span><span class="token function"
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber81">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -508,7 +514,7 @@ Photographer<span class="token punctuation">.</span><span class="token function"
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber89">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
@@ -577,7 +583,7 @@ Photographer<span class="token punctuation">.</span><span class="token function"
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber115">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber118">source</a></span></span>
     </span>
   </h3>
 
@@ -647,11 +653,11 @@ Photographer<span class="token punctuation">.</span><span class="token function"
     
     
     
-    <span class="code" data-ice="name">notifyOf</span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>*</span></span>
+    <span class="code" data-ice="name">notifyOf</span><span class="code" data-ice="signature">(event: <span><a href="/modules/core/class/src/events/DomainEvent.ts~DomainEvent.html">DomainEvent</a></span>): <span>void</span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber140">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/stage/crew/photographer/Photographer.ts.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -688,9 +694,8 @@ Photographer<span class="token punctuation">.</span><span class="token function"
     <table>
       <tbody>
         <tr>
-          <td class="return-type code" data-ice="returnType"><span>*</span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>void</p>
-</td>
+          <td class="return-type code" data-ice="returnType"><span>void</span></td>
+          
         </tr>
       </tbody>
     </table>

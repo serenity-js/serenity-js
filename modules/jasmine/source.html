@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -120,6 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -148,23 +153,71 @@
       <td class="coverage"><span data-ice="coverage">95 %</span><span data-ice="coverageCount" class="coverage-count">21/22</span></td>
       <td style="display: none;" data-ice="size">9583 byte</td>
       <td style="display: none;" data-ice="lines">285</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/adapter/JasmineAdapter.ts.html">src/adapter/JasmineAdapter.ts</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
-      <td style="display: none;" data-ice="size">2881 byte</td>
-      <td style="display: none;" data-ice="lines">86</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">13/13</span></td>
+      <td style="display: none;" data-ice="size">4648 byte</td>
+      <td style="display: none;" data-ice="lines">170</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/adapter/JasmineConfig.ts.html">src/adapter/JasmineConfig.ts</a></span></td>
       <td data-ice="identifier" class="identifiers"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></td>
-      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
-      <td style="display: none;" data-ice="size">1791 byte</td>
-      <td style="display: none;" data-ice="lines">63</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">9/9</span></td>
+      <td style="display: none;" data-ice="size">2247 byte</td>
+      <td style="display: none;" data-ice="lines">84</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/adapter/filters/AcceptingSpecFilter.ts.html">src/adapter/filters/AcceptingSpecFilter.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">191 byte</td>
+      <td style="display: none;" data-ice="lines">10</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/adapter/filters/CustomFunctionSpecFilter.ts.html#errorLines=14">src/adapter/filters/CustomFunctionSpecFilter.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">66 %</span><span data-ice="coverageCount" class="coverage-count">2/3</span></td>
+      <td style="display: none;" data-ice="size">286 byte</td>
+      <td style="display: none;" data-ice="lines">13</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/adapter/filters/GrepSpecFilter.ts.html#errorLines=25">src/adapter/filters/GrepSpecFilter.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></td>
+      <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">3/4</span></td>
+      <td style="display: none;" data-ice="size">468 byte</td>
+      <td style="display: none;" data-ice="lines">18</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/adapter/filters/InvertedGrepSpecFilter.ts.html#errorLines=27">src/adapter/filters/InvertedGrepSpecFilter.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">3/4</span></td>
+      <td style="display: none;" data-ice="size">352 byte</td>
+      <td style="display: none;" data-ice="lines">16</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/adapter/filters/SpecFilter.ts.html">src/adapter/filters/SpecFilter.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
+      <td style="display: none;" data-ice="size">92 byte</td>
+      <td style="display: none;" data-ice="lines">6</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/adapter/filters/index.ts.html">src/adapter/filters/index.ts</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">189 byte</td>
+      <td style="display: none;" data-ice="lines">5</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/adapter/index.ts.html">src/adapter/index.ts</a></span></td>
@@ -172,7 +225,7 @@
       <td class="coverage"><span data-ice="coverage">-</span></td>
       <td style="display: none;" data-ice="size">67 byte</td>
       <td style="display: none;" data-ice="lines">2</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/bootstrap.ts.html">src/bootstrap.ts</a></span></td>
@@ -180,7 +233,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">1/1</span></td>
       <td style="display: none;" data-ice="size">1607 byte</td>
       <td style="display: none;" data-ice="lines">42</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/index.ts.html">src/index.ts</a></span></td>
@@ -188,7 +241,7 @@
       <td class="coverage"><span data-ice="coverage">-</span></td>
       <td style="display: none;" data-ice="size">62 byte</td>
       <td style="display: none;" data-ice="lines">3</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/Expectation.ts.html">src/jasmine/Expectation.ts</a></span></td>
@@ -196,7 +249,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
       <td style="display: none;" data-ice="size">625 byte</td>
       <td style="display: none;" data-ice="lines">24</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/JasmineDoneInfo.ts.html">src/jasmine/JasmineDoneInfo.ts</a></span></td>
@@ -204,7 +257,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">6/6</span></td>
       <td style="display: none;" data-ice="size">830 byte</td>
       <td style="display: none;" data-ice="lines">27</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/JasmineStartedInfo.ts.html">src/jasmine/JasmineStartedInfo.ts</a></span></td>
@@ -212,7 +265,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
       <td style="display: none;" data-ice="size">442 byte</td>
       <td style="display: none;" data-ice="lines">17</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/Location.ts.html">src/jasmine/Location.ts</a></span></td>
@@ -220,7 +273,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
       <td style="display: none;" data-ice="size">241 byte</td>
       <td style="display: none;" data-ice="lines">11</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/Order.ts.html">src/jasmine/Order.ts</a></span></td>
@@ -228,7 +281,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
       <td style="display: none;" data-ice="size">248 byte</td>
       <td style="display: none;" data-ice="lines">11</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/Result.ts.html">src/jasmine/Result.ts</a></span></td>
@@ -236,7 +289,7 @@
       <td class="coverage"><span data-ice="coverage">-</span></td>
       <td style="display: none;" data-ice="size">801 byte</td>
       <td style="display: none;" data-ice="lines">25</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/SpecResult.ts.html">src/jasmine/SpecResult.ts</a></span></td>
@@ -244,7 +297,7 @@
       <td class="coverage"><span data-ice="coverage">-</span></td>
       <td style="display: none;" data-ice="size">1075 byte</td>
       <td style="display: none;" data-ice="lines">33</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/SuiteResult.ts.html">src/jasmine/SuiteResult.ts</a></span></td>
@@ -252,7 +305,7 @@
       <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">9/9</span></td>
       <td style="display: none;" data-ice="size">1016 byte</td>
       <td style="display: none;" data-ice="lines">32</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/jasmine/index.ts.html">src/jasmine/index.ts</a></span></td>
@@ -260,7 +313,7 @@
       <td class="coverage"><span data-ice="coverage">-</span></td>
       <td style="display: none;" data-ice="size">217 byte</td>
       <td style="display: none;" data-ice="lines">7</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 <tr data-ice="file">
       <td data-ice="filePath"><span><a href="file/src/monkeyPatched.ts.html#errorLines=3">src/monkeyPatched.ts</a></span></td>
@@ -268,7 +321,7 @@
       <td class="coverage"><span data-ice="coverage">75 %</span><span data-ice="coverageCount" class="coverage-count">3/4</span></td>
       <td style="display: none;" data-ice="size">2178 byte</td>
       <td style="display: none;" data-ice="lines">74</td>
-      <td style="display: none;" data-ice="updated">2021-08-05 00:26:24 (UTC)</td>
+      <td style="display: none;" data-ice="updated">2021-08-05 23:56:12 (UTC)</td>
     </tr>
 </tbody>
 </table>

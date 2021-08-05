@@ -996,6 +996,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "axioserror",
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
@@ -1272,9 +1296,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/adapter/mochaadapter.ts~mochaadapter#load",
+    "class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-load",
+    "src/adapter/MochaAdapter.ts~MochaAdapter#load",
+    "method"
+  ],
+  [
     "src/adapter/mochaadapter.ts~mochaadapter#run",
     "class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-run",
     "src/adapter/MochaAdapter.ts~MochaAdapter#run",
+    "method"
+  ],
+  [
+    "src/adapter/mochaadapter.ts~mochaadapter#scenariocount",
+    "class/src/adapter/MochaAdapter.ts~MochaAdapter.html#instance-method-scenarioCount",
+    "src/adapter/MochaAdapter.ts~MochaAdapter#scenarioCount",
     "method"
   ],
   [
@@ -1359,6 +1395,12 @@ window.esdocSearchIndex = [
     "src/adapter/mochaconfig.ts~mochaconfig#slow",
     "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-slow",
     "src/adapter/MochaConfig.ts~MochaConfig#slow",
+    "member"
+  ],
+  [
+    "src/adapter/mochaconfig.ts~mochaconfig#strict",
+    "class/src/adapter/MochaConfig.ts~MochaConfig.html#instance-member-strict",
+    "src/adapter/MochaConfig.ts~MochaConfig#strict",
     "member"
   ],
   [

@@ -1,0 +1,873 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 970,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 36,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 970,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 36,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 48,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 48
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 20,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 20,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 20,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 28,
+          "end": 47,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 28
+            },
+            "end": {
+              "line": 1,
+              "column": 47
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
+          },
+          "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 49,
+        "end": 87,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 38
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 58,
+            "end": 65,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 16
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 58,
+              "end": 65,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                },
+                "identifierName": "Element"
+              },
+              "name": "Element"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 58,
+              "end": 65,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                },
+                "identifierName": "Element"
+              },
+              "name": "Element"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 73,
+          "end": 86,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 24
+            },
+            "end": {
+              "line": 2,
+              "column": 37
+            }
+          },
+          "extra": {
+            "rawValue": "webdriverio",
+            "raw": "'webdriverio'"
+          },
+          "value": "webdriverio"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 89,
+        "end": 147,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 58
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {Expectation} \n ",
+            "start": 148,
+            "end": 223,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that an element is clickable, which means:\n *  - it exists\n *  - it is visible\n *  - it is within viewport (if not, try to scroll to it)\n *  - its center is not overlapped with another element\n *  - it is not disabled\n *  otherwise return false.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isClickable/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 226,
+            "end": 798,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 98,
+            "end": 116,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 27
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 98,
+              "end": 116,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 27
+                },
+                "identifierName": "ElementExpectation"
+              },
+              "name": "ElementExpectation"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 98,
+              "end": 116,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 27
+                },
+                "identifierName": "ElementExpectation"
+              },
+              "name": "ElementExpectation"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 124,
+          "end": 146,
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 35
+            },
+            "end": {
+              "line": 4,
+              "column": 57
+            }
+          },
+          "extra": {
+            "rawValue": "./ElementExpectation",
+            "raw": "'./ElementExpectation'"
+          },
+          "value": "./ElementExpectation"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 799,
+        "end": 968,
+        "loc": {
+          "start": {
+            "line": 32,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {Expectation} \n ",
+            "start": 148,
+            "end": 223,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that an element is clickable, which means:\n *  - it exists\n *  - it is visible\n *  - it is within viewport (if not, try to scroll to it)\n *  - its center is not overlapped with another element\n *  - it is not disabled\n *  otherwise return false.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isClickable/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 226,
+            "end": 798,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "FunctionDeclaration",
+          "start": 806,
+          "end": 968,
+          "loc": {
+            "start": {
+              "line": 32,
+              "column": 7
+            },
+            "end": {
+              "line": 34,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 815,
+            "end": 826,
+            "loc": {
+              "start": {
+                "line": 32,
+                "column": 16
+              },
+              "end": {
+                "line": 32,
+                "column": 27
+              },
+              "identifierName": "isClickable"
+            },
+            "name": "isClickable"
+          },
+          "generator": false,
+          "async": false,
+          "params": [],
+          "returnType": {
+            "type": "TSTypeAnnotation",
+            "start": 828,
+            "end": 868,
+            "loc": {
+              "start": {
+                "line": 32,
+                "column": 29
+              },
+              "end": {
+                "line": 32,
+                "column": 69
+              }
+            },
+            "typeAnnotation": {
+              "type": "TSTypeReference",
+              "start": 830,
+              "end": 868,
+              "loc": {
+                "start": {
+                  "line": 32,
+                  "column": 31
+                },
+                "end": {
+                  "line": 32,
+                  "column": 69
+                }
+              },
+              "typeName": {
+                "type": "Identifier",
+                "start": 830,
+                "end": 841,
+                "loc": {
+                  "start": {
+                    "line": 32,
+                    "column": 31
+                  },
+                  "end": {
+                    "line": 32,
+                    "column": 42
+                  },
+                  "identifierName": "Expectation"
+                },
+                "name": "Expectation"
+              },
+              "typeParameters": {
+                "type": "TSTypeParameterInstantiation",
+                "start": 841,
+                "end": 868,
+                "loc": {
+                  "start": {
+                    "line": 32,
+                    "column": 42
+                  },
+                  "end": {
+                    "line": 32,
+                    "column": 69
+                  }
+                },
+                "params": [
+                  {
+                    "type": "TSBooleanKeyword",
+                    "start": 842,
+                    "end": 849,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 43
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 50
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSTypeReference",
+                    "start": 851,
+                    "end": 867,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 52
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 68
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 851,
+                      "end": 858,
+                      "loc": {
+                        "start": {
+                          "line": 32,
+                          "column": 52
+                        },
+                        "end": {
+                          "line": 32,
+                          "column": 59
+                        },
+                        "identifierName": "Element"
+                      },
+                      "name": "Element"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 858,
+                      "end": 867,
+                      "loc": {
+                        "start": {
+                          "line": 32,
+                          "column": 59
+                        },
+                        "end": {
+                          "line": 32,
+                          "column": 68
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSLiteralType",
+                          "start": 859,
+                          "end": 866,
+                          "loc": {
+                            "start": {
+                              "line": 32,
+                              "column": 60
+                            },
+                            "end": {
+                              "line": 32,
+                              "column": 67
+                            }
+                          },
+                          "literal": {
+                            "type": "StringLiteral",
+                            "start": 859,
+                            "end": 866,
+                            "loc": {
+                              "start": {
+                                "line": 32,
+                                "column": 60
+                              },
+                              "end": {
+                                "line": 32,
+                                "column": 67
+                              }
+                            },
+                            "extra": {
+                              "rawValue": "async",
+                              "raw": "'async'"
+                            },
+                            "value": "async"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "body": {
+            "type": "BlockStatement",
+            "start": 869,
+            "end": 968,
+            "loc": {
+              "start": {
+                "line": 32,
+                "column": 70
+              },
+              "end": {
+                "line": 34,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "start": 875,
+                "end": 966,
+                "loc": {
+                  "start": {
+                    "line": 33,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 33,
+                    "column": 95
+                  }
+                },
+                "argument": {
+                  "type": "CallExpression",
+                  "start": 882,
+                  "end": 965,
+                  "loc": {
+                    "start": {
+                      "line": 33,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 33,
+                      "column": 94
+                    }
+                  },
+                  "callee": {
+                    "type": "MemberExpression",
+                    "start": 882,
+                    "end": 913,
+                    "loc": {
+                      "start": {
+                        "line": 33,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 33,
+                        "column": 42
+                      }
+                    },
+                    "object": {
+                      "type": "Identifier",
+                      "start": 882,
+                      "end": 900,
+                      "loc": {
+                        "start": {
+                          "line": 33,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 33,
+                          "column": 29
+                        },
+                        "identifierName": "ElementExpectation"
+                      },
+                      "name": "ElementExpectation"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "start": 901,
+                      "end": 913,
+                      "loc": {
+                        "start": {
+                          "line": 33,
+                          "column": 30
+                        },
+                        "end": {
+                          "line": 33,
+                          "column": 42
+                        },
+                        "identifierName": "forElementTo"
+                      },
+                      "name": "forElementTo"
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "StringLiteral",
+                      "start": 914,
+                      "end": 932,
+                      "loc": {
+                        "start": {
+                          "line": 33,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 33,
+                          "column": 61
+                        }
+                      },
+                      "extra": {
+                        "rawValue": "become clickable",
+                        "raw": "'become clickable'"
+                      },
+                      "value": "become clickable"
+                    },
+                    {
+                      "type": "ArrowFunctionExpression",
+                      "start": 934,
+                      "end": 964,
+                      "loc": {
+                        "start": {
+                          "line": 33,
+                          "column": 63
+                        },
+                        "end": {
+                          "line": 33,
+                          "column": 93
+                        }
+                      },
+                      "id": null,
+                      "generator": false,
+                      "async": false,
+                      "params": [
+                        {
+                          "type": "Identifier",
+                          "start": 934,
+                          "end": 940,
+                          "loc": {
+                            "start": {
+                              "line": 33,
+                              "column": 63
+                            },
+                            "end": {
+                              "line": 33,
+                              "column": 69
+                            },
+                            "identifierName": "actual"
+                          },
+                          "name": "actual"
+                        }
+                      ],
+                      "body": {
+                        "type": "CallExpression",
+                        "start": 944,
+                        "end": 964,
+                        "loc": {
+                          "start": {
+                            "line": 33,
+                            "column": 73
+                          },
+                          "end": {
+                            "line": 33,
+                            "column": 93
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 944,
+                          "end": 962,
+                          "loc": {
+                            "start": {
+                              "line": 33,
+                              "column": 73
+                            },
+                            "end": {
+                              "line": 33,
+                              "column": 91
+                            }
+                          },
+                          "object": {
+                            "type": "Identifier",
+                            "start": 944,
+                            "end": 950,
+                            "loc": {
+                              "start": {
+                                "line": 33,
+                                "column": 73
+                              },
+                              "end": {
+                                "line": 33,
+                                "column": 79
+                              },
+                              "identifierName": "actual"
+                            },
+                            "name": "actual"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "start": 951,
+                            "end": 962,
+                            "loc": {
+                              "start": {
+                                "line": 33,
+                                "column": 80
+                              },
+                              "end": {
+                                "line": 33,
+                                "column": 91
+                              },
+                              "identifierName": "isClickable"
+                            },
+                            "name": "isClickable"
+                          }
+                        },
+                        "arguments": []
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "directives": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {Expectation} \n ",
+              "start": 148,
+              "end": 223,
+              "loc": {
+                "start": {
+                  "line": 5,
+                  "column": 0
+                },
+                "end": {
+                  "line": 12,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Expectation that an element is clickable, which means:\n *  - it exists\n *  - it is visible\n *  - it is within viewport (if not, try to scroll to it)\n *  - its center is not overlapped with another element\n *  - it is not disabled\n *  otherwise return false.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isClickable/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+              "start": 226,
+              "end": 798,
+              "loc": {
+                "start": {
+                  "line": 15,
+                  "column": 0
+                },
+                "end": {
+                  "line": 31,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {Expectation} \n ",
+      "start": 148,
+      "end": 223,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Expectation that an element is clickable, which means:\n *  - it exists\n *  - it is visible\n *  - it is within viewport (if not, try to scroll to it)\n *  - its center is not overlapped with another element\n *  - it is not disabled\n *  otherwise return false.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isClickable/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+      "start": 226,
+      "end": 798,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 0
+        },
+        "end": {
+          "line": 31,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

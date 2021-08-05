@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~errordetails",
-    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html",
-    "<span>ErrorDetails</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter</span>",
-    "class"
-  ],
-  [
     "@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter~serenitybddreporter",
     "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDReporter.ts~SerenityBDDReporter.html",
     "<span>SerenityBDDReporter</span> <span class=\"search-result-import-path\">@serenity-js/serenity-bdd/lib/stage/crew/serenity-bdd-reporter</span>",
@@ -1188,6 +1182,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "axioserror",
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
@@ -1255,55 +1273,55 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber9",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber8",
     "GAV",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber44",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber43",
     "GAV can be converted to a file name when the identifier",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber57",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber56",
     "GAV can be converted to a file name when the identifier follows group:artifact:extension:classifier:version",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber51",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber50",
     "GAV can be converted to a file name when the identifier follows group:artifact:extension:version",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber45",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber44",
     "GAV can be converted to a file name when the identifier follows group:artifact:version",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber11",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber10",
     "GAV can be described using a string which format",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber33",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber32",
     "GAV can be described using a string which format follows group:artifact:extension:classifier:version",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber23",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber22",
     "GAV can be described using a string which format follows group:artifact:extension:version",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber13",
+    "test-file/spec/cli/model/GAV.spec.ts.html#lineNumber12",
     "GAV can be described using a string which format follows group:artifact:version",
     "test"
   ],
@@ -2272,30 +2290,6 @@ window.esdocSearchIndex = [
     "file/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts.html",
     "src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts",
     "file"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/serenitybddjsonschema.ts~errordetails#errortype",
-    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html#instance-member-errorType",
-    "src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails#errorType",
-    "member"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/serenitybddjsonschema.ts~errordetails#message",
-    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html#instance-member-message",
-    "src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails#message",
-    "member"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/serenitybddjsonschema.ts~errordetails#rootcause",
-    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html#instance-member-rootCause",
-    "src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails#rootCause",
-    "member"
-  ],
-  [
-    "src/stage/crew/serenity-bdd-reporter/serenitybddjsonschema.ts~errordetails#stacktrace",
-    "class/src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails.html#instance-member-stackTrace",
-    "src/stage/crew/serenity-bdd-reporter/SerenityBDDJsonSchema.ts~ErrorDetails#stackTrace",
-    "member"
   ],
   [
     "src/stage/crew/serenity-bdd-reporter/serenitybddreporter.ts",

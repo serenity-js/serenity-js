@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -101,18 +104,19 @@
                                 <li class="chapter"><a href="/contributing.html">Contributing</a></li>
                                 <li class="chapter"><a href="/license.html">License</a></li>
                                 <li class="header"><a href="/handbook/thinking-in-serenity-js/index.html">Thinking in Serenity/JS</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">The Screenplay Pattern</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/full-stack-acceptance-testing.html">Full-stack acceptance testing</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/bridging-the-communication-gap.html">Bridging the communication gap</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/hello-serenity-js.html">Hello, Serenity/JS!</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/test-runners.html">Test runners</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/assertions.html">Assertions</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/testing-rest-apis.html">Testing REST APIs</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/testing-web-uis.html">Testing Web UIs</a></li>
                                 <li class="header"><a href="/handbook/design/index.html">Design Guide</a></li>
+                                <li class="chapter"><a href="/handbook/design/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
+                                <li class="chapter"><a href="/handbook/design/screenplay-pattern.html">The Screenplay Pattern</a></li>
                                 <li class="chapter"><a href="/handbook/design/actors.html">Actors</a></li>
                                 <li class="chapter"><a href="/handbook/design/abilities.html">Abilities</a></li>
                                 <li class="chapter"><a href="/handbook/design/interactions.html">Interactions</a></li>
                                 <li class="chapter"><a href="/handbook/design/tasks.html">Tasks</a></li>
                                 <li class="chapter"><a href="/handbook/design/questions.html">Questions</a></li>
-                                <li class="chapter"><a href="/handbook/design/assertions.html">Assertions</a></li>
                                 <li class="chapter"><a href="/handbook/design/errors.html">Errors</a></li>
                                 <li class="header"><a href="/handbook/integration/index.html">Integration Guide</a></li>
                                 <li class="chapter"><a href="/handbook/integration/architecture.html">Architecture</a></li>
@@ -191,13 +195,13 @@ graph TB
 <li><a href="https://www.npmjs.com/package/jasmine"><code>jasmine</code></a></li>
 </ul>
 <p>To do that, run the following command in your terminal:</p>
-<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token decorator"><span class="token at operator">@</span><span class="token function">serenity</span></span><span class="token operator">-</span>js<span class="token operator">/</span><span class="token punctuation">{</span>core<span class="token punctuation">,</span>jasmine<span class="token punctuation">}</span> jasmine
+<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,jasmine<span class="token punctuation">}</span> jasmine
 </code></pre>
 <p>If you'd like to implement your test suite in TypeScript, also run:</p>
-<pre class="language-typescript"><code class="lang-console">npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev <span class="token keyword">type</span>script ts<span class="token operator">-</span>node @<span class="token keyword">type</span>s<span class="token operator">/</span><span class="token punctuation">{</span>jasmine<span class="token punctuation">,</span>node<span class="token punctuation">}</span>
+<pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript ts-node @types/<span class="token punctuation">{</span>jasmine,node<span class="token punctuation">}</span>
 </code></pre>
 <p>If you haven't done so already, initialise Jasmine configuration file at <code>spec/support/jasmine.json</code> by running the following command:</p>
-<pre class="language-typescript"><code class="lang-console">npx jasmine init
+<pre class="language-bash"><code class="lang-bash">npx jasmine init
 </code></pre>
 <p>The configuration file should look as follows:</p>
 <pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
@@ -254,7 +258,7 @@ graph TB
 </code></pre>
 <h4 id="reporting">Reporting</h4>
 <p>To register <code>@serenity-js/jasmine</code> test runner adapter with Jasmine, use the <a href="https://jasmine.github.io/setup/nodejs.html#--reporter"><code>--reporter</code></a> option when invoking the runner:</p>
-<pre class="language-typescript"><code class="lang-console">npx jasmine <span class="token operator">--</span>reporter<span class="token operator">=</span><span class="token string">'@serenity-js/jasmine'</span>
+<pre class="language-bash"><code class="lang-bash">npx jasmine --reporter<span class="token operator">=</span><span class="token string">'@serenity-js/jasmine'</span>
 </code></pre>
 <p>To install and configure Serenity/JS reporting services appropriate for your project - follow the <a href="/handbook/reporting/">Serenity/JS reporting guide</a>.</p>
 </body></html>

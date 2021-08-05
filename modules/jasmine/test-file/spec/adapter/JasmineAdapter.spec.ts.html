@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -120,6 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -137,30 +142,30 @@
 <span class="token comment">/** @test JasmineAdapter */</span>
 <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'JasmineAdapter'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
+    <span class="token keyword">const</span> emptySuite <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token function-variable function">getFullTitle</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token string">'Top suite'</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">specCalled</span><span class="token punctuation">(</span>fullName<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>                 <span class="token comment">// eslint-disable-line unicorn/consistent-function-scoping</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span>
+            <span class="token function">getFullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> fullName<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
     <span class="token keyword">let</span> loader<span class="token operator">:</span> sinon<span class="token punctuation">.</span>SinonStubbedInstance<span class="token operator">&lt;</span>ModuleLoader<span class="token operator">&gt;</span><span class="token punctuation">;</span>
 
     <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
         loader <span class="token operator">=</span> sinon<span class="token punctuation">.</span><span class="token function">createStubInstance</span><span class="token punctuation">(</span>ModuleLoader<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">(</span>global <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>jasmine <span class="token operator">=</span> <span class="token punctuation">{</span>
-            <span class="token function-variable function">Suite</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">,</span>
-            <span class="token function-variable function">Spec</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">,</span>
-            <span class="token function">getEnv</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token punctuation">{</span>
-                    <span class="token function-variable function">beforeEach</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                    <span class="token function-variable function">afterAll</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">,</span>
-                <span class="token punctuation">}</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span><span class="token punctuation">,</span>
-        <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
         loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">.</span><span class="token function">withArgs</span><span class="token punctuation">(</span><span class="token string">'jasmine'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>FakeJasmineRunner<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-        <span class="token punctuation">(</span>global <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>jasmine <span class="token operator">=</span> <span class="token keyword">void</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">reset</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        FakeJasmineRunner<span class="token punctuation">.</span>instance <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test JasmineAdapter#run */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'defaults to running tests sequentially rather than in a random order'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'defaults to running tests sequentially rather than in a random order'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
         <span class="token keyword">const</span>
             config <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
@@ -168,7 +173,11 @@
 
         <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">const</span> result <span class="token operator">=</span> adapter<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>emptySuite<span class="token punctuation">)</span>
+
+        <span class="token keyword">await</span> adapter<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">const</span> result <span class="token operator">=</span> adapter<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -180,27 +189,94 @@
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
     <span class="token comment">/** @test JasmineAdapter#run */</span>
-    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'configures the default timeout interval if required'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'configures the default timeout interval if required'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
 
         <span class="token keyword">const</span>
             defaultTimeoutInterval <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>
             config <span class="token operator">=</span> <span class="token punctuation">{</span>
                 defaultTimeoutInterval<span class="token punctuation">,</span>
             <span class="token punctuation">}</span><span class="token punctuation">,</span>
-            specs  <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-            globalScope <span class="token operator">=</span> global <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
-
-        <span class="token function">expect</span><span class="token punctuation">(</span>globalScope<span class="token punctuation">.</span>jasmine<span class="token punctuation">.</span><span class="token constant">DEFAULT_TIMEOUT_INTERVAL</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token keyword">undefined</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            specs  <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
         <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">const</span> result <span class="token operator">=</span> adapter<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>emptySuite<span class="token punctuation">)</span>
+
+        <span class="token keyword">await</span> adapter<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span>
+        <span class="token keyword">const</span> result <span class="token operator">=</span> adapter<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token function">expect</span><span class="token punctuation">(</span>globalScope<span class="token punctuation">.</span>jasmine<span class="token punctuation">.</span><span class="token constant">DEFAULT_TIMEOUT_INTERVAL</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>defaultTimeoutInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span>FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>jasmine<span class="token punctuation">.</span><span class="token constant">DEFAULT_TIMEOUT_INTERVAL</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>defaultTimeoutInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'when counting the number of scenarios to be executed'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+        <span class="token comment">/** @test JasmineAdapter#scenarioCount */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises when there are no scenarios'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">const</span>
+                defaultTimeoutInterval <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+                config <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    defaultTimeoutInterval<span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>emptySuite<span class="token punctuation">)</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span>adapter<span class="token punctuation">.</span><span class="token function">scenarioCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/** @test JasmineAdapter#scenarioCount */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises when there is a single spec'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">const</span>
+                defaultTimeoutInterval <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+                config <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    defaultTimeoutInterval<span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                specs  <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">'fake.spec.ts'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span><span class="token punctuation">{</span> children<span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token function">specCalled</span><span class="token punctuation">(</span><span class="token string">'first spec'</span><span class="token punctuation">)</span> <span class="token punctuation">]</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">await</span> adapter<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span>adapter<span class="token punctuation">.</span><span class="token function">scenarioCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment">/** @test JasmineAdapter#scenarioCount */</span>
+        <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'recognises when there are multiple nested specs'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+            <span class="token keyword">const</span>
+                defaultTimeoutInterval <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>
+                config <span class="token operator">=</span> <span class="token punctuation">{</span>
+                    defaultTimeoutInterval<span class="token punctuation">,</span>
+                <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                specs  <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token string">'fake.spec.ts'</span> <span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+            <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+                children<span class="token operator">:</span> <span class="token punctuation">[</span>
+                    <span class="token function">specCalled</span><span class="token punctuation">(</span><span class="token string">'first spec'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+                    <span class="token punctuation">{</span>
+                        <span class="token function">getFullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            <span class="token keyword">return</span> <span class="token string">'nested describe'</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+                        children<span class="token operator">:</span> <span class="token function">specCalled</span><span class="token punctuation">(</span><span class="token string">'nested spec'</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+            <span class="token keyword">await</span> adapter<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span>
+
+            <span class="token function">expect</span><span class="token punctuation">(</span>adapter<span class="token punctuation">.</span><span class="token function">scenarioCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>

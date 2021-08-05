@@ -57,6 +57,5 @@
 /** @external {@serenity-js/protractor/lib/stage/crew/photographer~Photographer} /modules/protractor/class/src/stage/crew/photographer/Photographer.ts~Photographer.html */
 /** @external {@serenity-js/protractor/lib/stage/crew/photographer/strategies~PhotoTakingStrategy} /modules/protractor/class/src/stage/crew/photographer/strategies/PhotoTakingStrategy.ts~PhotoTakingStrategy.html */
 /** @external {@serenity-js/protractor/lib/stage/crew/photographer/strategies~TakePhotosBeforeAndAfterInteractions} /modules/protractor/class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html */
-/** @external {@serenity-js/protractor/lib/stage/crew/photographer/strategies~TakePhotosOfFailures} /modules/protractor/class/src/stage/crew/photographer/strategies/TakePhotosOfFailedScenarios.ts~TakePhotosOfFailures.html */
 /** @external {@serenity-js/protractor/lib/stage/crew/photographer/strategies~TakePhotosOfFailures} /modules/protractor/class/src/stage/crew/photographer/strategies/TakePhotosOfFailures.ts~TakePhotosOfFailures.html */
 /** @external {@serenity-js/protractor/lib/stage/crew/photographer/strategies~TakePhotosOfInteractions} /modules/protractor/class/src/stage/crew/photographer/strategies/TakePhotosOfInteractions.ts~TakePhotosOfInteractions.html */

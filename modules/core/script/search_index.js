@@ -984,6 +984,30 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "",
     "test-file/spec/screenplay/actor.spec.ts.html#lineNumber15",
     "Actor",
@@ -4734,9 +4758,21 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/io/testrunneradapter.ts~testrunneradapter#load",
+    "class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html#instance-member-load",
+    "src/io/TestRunnerAdapter.ts~TestRunnerAdapter#load",
+    "member"
+  ],
+  [
     "src/io/testrunneradapter.ts~testrunneradapter#run",
     "class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html#instance-member-run",
     "src/io/TestRunnerAdapter.ts~TestRunnerAdapter#run",
+    "member"
+  ],
+  [
+    "src/io/testrunneradapter.ts~testrunneradapter#scenariocount",
+    "class/src/io/TestRunnerAdapter.ts~TestRunnerAdapter.html#instance-member-scenarioCount",
+    "src/io/TestRunnerAdapter.ts~TestRunnerAdapter#scenarioCount",
     "member"
   ],
   [

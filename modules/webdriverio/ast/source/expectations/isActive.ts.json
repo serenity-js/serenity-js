@@ -1,0 +1,873 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 855,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 31,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 855,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 31,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 48,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 48
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 20,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 20
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 20,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 20,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 20
+                },
+                "identifierName": "Expectation"
+              },
+              "name": "Expectation"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 28,
+          "end": 47,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 28
+            },
+            "end": {
+              "line": 1,
+              "column": 47
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
+          },
+          "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 49,
+        "end": 87,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 38
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 58,
+            "end": 65,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 9
+              },
+              "end": {
+                "line": 2,
+                "column": 16
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 58,
+              "end": 65,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                },
+                "identifierName": "Element"
+              },
+              "name": "Element"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 58,
+              "end": 65,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 16
+                },
+                "identifierName": "Element"
+              },
+              "name": "Element"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 73,
+          "end": 86,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 24
+            },
+            "end": {
+              "line": 2,
+              "column": 37
+            }
+          },
+          "extra": {
+            "rawValue": "webdriverio",
+            "raw": "'webdriverio'"
+          },
+          "value": "webdriverio"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 89,
+        "end": 147,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 58
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+            "start": 148,
+            "end": 223,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is active (has focus).\n *  If the selector matches multiple elements, it will return true if one of the elements has focus.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isFocused/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 226,
+            "end": 691,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 98,
+            "end": 116,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 27
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 98,
+              "end": 116,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 27
+                },
+                "identifierName": "ElementExpectation"
+              },
+              "name": "ElementExpectation"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 98,
+              "end": 116,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 27
+                },
+                "identifierName": "ElementExpectation"
+              },
+              "name": "ElementExpectation"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 124,
+          "end": 146,
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 35
+            },
+            "end": {
+              "line": 4,
+              "column": 57
+            }
+          },
+          "extra": {
+            "rawValue": "./ElementExpectation",
+            "raw": "'./ElementExpectation'"
+          },
+          "value": "./ElementExpectation"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 692,
+        "end": 853,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 29,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+            "start": 148,
+            "end": 223,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is active (has focus).\n *  If the selector matches multiple elements, it will return true if one of the elements has focus.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isFocused/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 226,
+            "end": 691,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "FunctionDeclaration",
+          "start": 699,
+          "end": 853,
+          "loc": {
+            "start": {
+              "line": 27,
+              "column": 7
+            },
+            "end": {
+              "line": 29,
+              "column": 1
+            }
+          },
+          "id": {
+            "type": "Identifier",
+            "start": 708,
+            "end": 716,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 16
+              },
+              "end": {
+                "line": 27,
+                "column": 24
+              },
+              "identifierName": "isActive"
+            },
+            "name": "isActive"
+          },
+          "generator": false,
+          "async": false,
+          "params": [],
+          "returnType": {
+            "type": "TSTypeAnnotation",
+            "start": 718,
+            "end": 758,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 26
+              },
+              "end": {
+                "line": 27,
+                "column": 66
+              }
+            },
+            "typeAnnotation": {
+              "type": "TSTypeReference",
+              "start": 720,
+              "end": 758,
+              "loc": {
+                "start": {
+                  "line": 27,
+                  "column": 28
+                },
+                "end": {
+                  "line": 27,
+                  "column": 66
+                }
+              },
+              "typeName": {
+                "type": "Identifier",
+                "start": 720,
+                "end": 731,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 28
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 39
+                  },
+                  "identifierName": "Expectation"
+                },
+                "name": "Expectation"
+              },
+              "typeParameters": {
+                "type": "TSTypeParameterInstantiation",
+                "start": 731,
+                "end": 758,
+                "loc": {
+                  "start": {
+                    "line": 27,
+                    "column": 39
+                  },
+                  "end": {
+                    "line": 27,
+                    "column": 66
+                  }
+                },
+                "params": [
+                  {
+                    "type": "TSBooleanKeyword",
+                    "start": 732,
+                    "end": 739,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 40
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 47
+                      }
+                    }
+                  },
+                  {
+                    "type": "TSTypeReference",
+                    "start": 741,
+                    "end": 757,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 49
+                      },
+                      "end": {
+                        "line": 27,
+                        "column": 65
+                      }
+                    },
+                    "typeName": {
+                      "type": "Identifier",
+                      "start": 741,
+                      "end": 748,
+                      "loc": {
+                        "start": {
+                          "line": 27,
+                          "column": 49
+                        },
+                        "end": {
+                          "line": 27,
+                          "column": 56
+                        },
+                        "identifierName": "Element"
+                      },
+                      "name": "Element"
+                    },
+                    "typeParameters": {
+                      "type": "TSTypeParameterInstantiation",
+                      "start": 748,
+                      "end": 757,
+                      "loc": {
+                        "start": {
+                          "line": 27,
+                          "column": 56
+                        },
+                        "end": {
+                          "line": 27,
+                          "column": 65
+                        }
+                      },
+                      "params": [
+                        {
+                          "type": "TSLiteralType",
+                          "start": 749,
+                          "end": 756,
+                          "loc": {
+                            "start": {
+                              "line": 27,
+                              "column": 57
+                            },
+                            "end": {
+                              "line": 27,
+                              "column": 64
+                            }
+                          },
+                          "literal": {
+                            "type": "StringLiteral",
+                            "start": 749,
+                            "end": 756,
+                            "loc": {
+                              "start": {
+                                "line": 27,
+                                "column": 57
+                              },
+                              "end": {
+                                "line": 27,
+                                "column": 64
+                              }
+                            },
+                            "extra": {
+                              "rawValue": "async",
+                              "raw": "'async'"
+                            },
+                            "value": "async"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "body": {
+            "type": "BlockStatement",
+            "start": 759,
+            "end": 853,
+            "loc": {
+              "start": {
+                "line": 27,
+                "column": 67
+              },
+              "end": {
+                "line": 29,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ReturnStatement",
+                "start": 765,
+                "end": 851,
+                "loc": {
+                  "start": {
+                    "line": 28,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 28,
+                    "column": 90
+                  }
+                },
+                "argument": {
+                  "type": "CallExpression",
+                  "start": 772,
+                  "end": 850,
+                  "loc": {
+                    "start": {
+                      "line": 28,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 28,
+                      "column": 89
+                    }
+                  },
+                  "callee": {
+                    "type": "MemberExpression",
+                    "start": 772,
+                    "end": 803,
+                    "loc": {
+                      "start": {
+                        "line": 28,
+                        "column": 11
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 42
+                      }
+                    },
+                    "object": {
+                      "type": "Identifier",
+                      "start": 772,
+                      "end": 790,
+                      "loc": {
+                        "start": {
+                          "line": 28,
+                          "column": 11
+                        },
+                        "end": {
+                          "line": 28,
+                          "column": 29
+                        },
+                        "identifierName": "ElementExpectation"
+                      },
+                      "name": "ElementExpectation"
+                    },
+                    "computed": false,
+                    "property": {
+                      "type": "Identifier",
+                      "start": 791,
+                      "end": 803,
+                      "loc": {
+                        "start": {
+                          "line": 28,
+                          "column": 30
+                        },
+                        "end": {
+                          "line": 28,
+                          "column": 42
+                        },
+                        "identifierName": "forElementTo"
+                      },
+                      "name": "forElementTo"
+                    }
+                  },
+                  "arguments": [
+                    {
+                      "type": "StringLiteral",
+                      "start": 804,
+                      "end": 819,
+                      "loc": {
+                        "start": {
+                          "line": 28,
+                          "column": 43
+                        },
+                        "end": {
+                          "line": 28,
+                          "column": 58
+                        }
+                      },
+                      "extra": {
+                        "rawValue": "become active",
+                        "raw": "'become active'"
+                      },
+                      "value": "become active"
+                    },
+                    {
+                      "type": "ArrowFunctionExpression",
+                      "start": 821,
+                      "end": 849,
+                      "loc": {
+                        "start": {
+                          "line": 28,
+                          "column": 60
+                        },
+                        "end": {
+                          "line": 28,
+                          "column": 88
+                        }
+                      },
+                      "id": null,
+                      "generator": false,
+                      "async": false,
+                      "params": [
+                        {
+                          "type": "Identifier",
+                          "start": 821,
+                          "end": 827,
+                          "loc": {
+                            "start": {
+                              "line": 28,
+                              "column": 60
+                            },
+                            "end": {
+                              "line": 28,
+                              "column": 66
+                            },
+                            "identifierName": "actual"
+                          },
+                          "name": "actual"
+                        }
+                      ],
+                      "body": {
+                        "type": "CallExpression",
+                        "start": 831,
+                        "end": 849,
+                        "loc": {
+                          "start": {
+                            "line": 28,
+                            "column": 70
+                          },
+                          "end": {
+                            "line": 28,
+                            "column": 88
+                          }
+                        },
+                        "callee": {
+                          "type": "MemberExpression",
+                          "start": 831,
+                          "end": 847,
+                          "loc": {
+                            "start": {
+                              "line": 28,
+                              "column": 70
+                            },
+                            "end": {
+                              "line": 28,
+                              "column": 86
+                            }
+                          },
+                          "object": {
+                            "type": "Identifier",
+                            "start": 831,
+                            "end": 837,
+                            "loc": {
+                              "start": {
+                                "line": 28,
+                                "column": 70
+                              },
+                              "end": {
+                                "line": 28,
+                                "column": 76
+                              },
+                              "identifierName": "actual"
+                            },
+                            "name": "actual"
+                          },
+                          "computed": false,
+                          "property": {
+                            "type": "Identifier",
+                            "start": 838,
+                            "end": 847,
+                            "loc": {
+                              "start": {
+                                "line": 28,
+                                "column": 77
+                              },
+                              "end": {
+                                "line": 28,
+                                "column": 86
+                              },
+                              "identifierName": "isFocused"
+                            },
+                            "name": "isFocused"
+                          }
+                        },
+                        "arguments": []
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "directives": []
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+              "start": 148,
+              "end": 223,
+              "loc": {
+                "start": {
+                  "line": 5,
+                  "column": 0
+                },
+                "end": {
+                  "line": 12,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Expectation that the element is active (has focus).\n *  If the selector matches multiple elements, it will return true if one of the elements has focus.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isFocused/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+              "start": 226,
+              "end": 691,
+              "loc": {
+                "start": {
+                  "line": 15,
+                  "column": 0
+                },
+                "end": {
+                  "line": 26,
+                  "column": 3
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+      "start": 148,
+      "end": 223,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Expectation that the element is active (has focus).\n *  If the selector matches multiple elements, it will return true if one of the elements has focus.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isFocused/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+      "start": 226,
+      "end": 691,
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 0
+        },
+        "end": {
+          "line": 26,
+          "column": 3
+        }
+      }
+    }
+  ]
+}

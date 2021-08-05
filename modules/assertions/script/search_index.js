@@ -1098,6 +1098,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "axioserror",
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",

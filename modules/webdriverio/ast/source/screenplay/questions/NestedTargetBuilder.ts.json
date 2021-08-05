@@ -1,0 +1,930 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 958,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 49,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 958,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 49,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 47,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 47
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 19,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 19
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 19,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                },
+                "identifierName": "Answerable"
+              },
+              "name": "Answerable"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 19,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 19
+                },
+                "identifierName": "Answerable"
+              },
+              "name": "Answerable"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 27,
+          "end": 46,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 27
+            },
+            "end": {
+              "line": 1,
+              "column": 46
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
+          },
+          "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 48,
+        "end": 91,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 43
+          }
+        },
+        "importKind": "type",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 62,
+            "end": 69,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 14
+              },
+              "end": {
+                "line": 2,
+                "column": 21
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 62,
+              "end": 69,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                },
+                "identifierName": "Element"
+              },
+              "name": "Element"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 62,
+              "end": 69,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                },
+                "identifierName": "Element"
+              },
+              "name": "Element"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 77,
+          "end": 90,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 29
+            },
+            "end": {
+              "line": 2,
+              "column": 42
+            }
+          },
+          "extra": {
+            "rawValue": "webdriverio",
+            "raw": "'webdriverio'"
+          },
+          "value": "webdriverio"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 93,
+        "end": 141,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 48
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
+            "start": 142,
+            "end": 187,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Question}\n *  about a nested {@link Target} more readable.\n *\n * @see {@link Target}\n *\n * @interface\n * @interface ",
+            "start": 190,
+            "end": 419,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 22,
+                "column": 16
+              }
+            }
+          }
+        ],
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 102,
+            "end": 115,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 9
+              },
+              "end": {
+                "line": 4,
+                "column": 22
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 102,
+              "end": 115,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 22
+                },
+                "identifierName": "TargetBuilder"
+              },
+              "name": "TargetBuilder"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 102,
+              "end": 115,
+              "loc": {
+                "start": {
+                  "line": 4,
+                  "column": 9
+                },
+                "end": {
+                  "line": 4,
+                  "column": 22
+                },
+                "identifierName": "TargetBuilder"
+              },
+              "name": "TargetBuilder"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 123,
+          "end": 140,
+          "loc": {
+            "start": {
+              "line": 4,
+              "column": 30
+            },
+            "end": {
+              "line": 4,
+              "column": 47
+            }
+          },
+          "extra": {
+            "rawValue": "./TargetBuilder",
+            "raw": "'./TargetBuilder'"
+          },
+          "value": "./TargetBuilder"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 420,
+        "end": 957,
+        "loc": {
+          "start": {
+            "line": 23,
+            "column": 0
+          },
+          "end": {
+            "line": 48,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
+            "start": 142,
+            "end": 187,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Question}\n *  about a nested {@link Target} more readable.\n *\n * @see {@link Target}\n *\n * @interface\n * @interface ",
+            "start": 190,
+            "end": 419,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 22,
+                "column": 16
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 427,
+          "end": 957,
+          "loc": {
+            "start": {
+              "line": 23,
+              "column": 7
+            },
+            "end": {
+              "line": 48,
+              "column": 1
+            }
+          },
+          "abstract": true,
+          "id": {
+            "type": "Identifier",
+            "start": 442,
+            "end": 461,
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 22
+              },
+              "end": {
+                "line": 23,
+                "column": 41
+              },
+              "identifierName": "NestedTargetBuilder"
+            },
+            "name": "NestedTargetBuilder"
+          },
+          "typeParameters": {
+            "type": "TSTypeParameterDeclaration",
+            "start": 461,
+            "end": 464,
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 41
+              },
+              "end": {
+                "line": 23,
+                "column": 44
+              }
+            },
+            "params": [
+              {
+                "type": "TSTypeParameter",
+                "start": 462,
+                "end": 463,
+                "loc": {
+                  "start": {
+                    "line": 23,
+                    "column": 42
+                  },
+                  "end": {
+                    "line": 23,
+                    "column": 43
+                  }
+                },
+                "name": "T"
+              }
+            ]
+          },
+          "superClass": null,
+          "body": {
+            "type": "ClassBody",
+            "start": 465,
+            "end": 957,
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 45
+              },
+              "end": {
+                "line": 48,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassProperty",
+                "start": 892,
+                "end": 955,
+                "loc": {
+                  "start": {
+                    "line": 47,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 47,
+                    "column": 67
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 467,
+                    "end": 559,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 33,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates a {@link @serenity-js/core/lib/screenplay~Question}\n     *  about a {@link Target}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} parent\n     * @returns {TargetBuilder}\n     *\n     * @see {@link Target}\n     * @see {@link TargetBuilder}\n     ",
+                    "start": 566,
+                    "end": 887,
+                    "loc": {
+                      "start": {
+                        "line": 36,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 46,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 892,
+                  "end": 894,
+                  "loc": {
+                    "start": {
+                      "line": 47,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 47,
+                      "column": 6
+                    },
+                    "identifierName": "of"
+                  },
+                  "name": "of"
+                },
+                "computed": false,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 894,
+                  "end": 954,
+                  "loc": {
+                    "start": {
+                      "line": 47,
+                      "column": 6
+                    },
+                    "end": {
+                      "line": 47,
+                      "column": 66
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSFunctionType",
+                    "start": 896,
+                    "end": 954,
+                    "loc": {
+                      "start": {
+                        "line": 47,
+                        "column": 8
+                      },
+                      "end": {
+                        "line": 47,
+                        "column": 66
+                      }
+                    },
+                    "parameters": [
+                      {
+                        "type": "Identifier",
+                        "start": 897,
+                        "end": 933,
+                        "loc": {
+                          "start": {
+                            "line": 47,
+                            "column": 9
+                          },
+                          "end": {
+                            "line": 47,
+                            "column": 45
+                          },
+                          "identifierName": "parent"
+                        },
+                        "name": "parent",
+                        "typeAnnotation": {
+                          "type": "TSTypeAnnotation",
+                          "start": 903,
+                          "end": 933,
+                          "loc": {
+                            "start": {
+                              "line": 47,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 47,
+                              "column": 45
+                            }
+                          },
+                          "typeAnnotation": {
+                            "type": "TSTypeReference",
+                            "start": 905,
+                            "end": 933,
+                            "loc": {
+                              "start": {
+                                "line": 47,
+                                "column": 17
+                              },
+                              "end": {
+                                "line": 47,
+                                "column": 45
+                              }
+                            },
+                            "typeName": {
+                              "type": "Identifier",
+                              "start": 905,
+                              "end": 915,
+                              "loc": {
+                                "start": {
+                                  "line": 47,
+                                  "column": 17
+                                },
+                                "end": {
+                                  "line": 47,
+                                  "column": 27
+                                },
+                                "identifierName": "Answerable"
+                              },
+                              "name": "Answerable"
+                            },
+                            "typeParameters": {
+                              "type": "TSTypeParameterInstantiation",
+                              "start": 915,
+                              "end": 933,
+                              "loc": {
+                                "start": {
+                                  "line": 47,
+                                  "column": 27
+                                },
+                                "end": {
+                                  "line": 47,
+                                  "column": 45
+                                }
+                              },
+                              "params": [
+                                {
+                                  "type": "TSTypeReference",
+                                  "start": 916,
+                                  "end": 932,
+                                  "loc": {
+                                    "start": {
+                                      "line": 47,
+                                      "column": 28
+                                    },
+                                    "end": {
+                                      "line": 47,
+                                      "column": 44
+                                    }
+                                  },
+                                  "typeName": {
+                                    "type": "Identifier",
+                                    "start": 916,
+                                    "end": 923,
+                                    "loc": {
+                                      "start": {
+                                        "line": 47,
+                                        "column": 28
+                                      },
+                                      "end": {
+                                        "line": 47,
+                                        "column": 35
+                                      },
+                                      "identifierName": "Element"
+                                    },
+                                    "name": "Element"
+                                  },
+                                  "typeParameters": {
+                                    "type": "TSTypeParameterInstantiation",
+                                    "start": 923,
+                                    "end": 932,
+                                    "loc": {
+                                      "start": {
+                                        "line": 47,
+                                        "column": 35
+                                      },
+                                      "end": {
+                                        "line": 47,
+                                        "column": 44
+                                      }
+                                    },
+                                    "params": [
+                                      {
+                                        "type": "TSLiteralType",
+                                        "start": 924,
+                                        "end": 931,
+                                        "loc": {
+                                          "start": {
+                                            "line": 47,
+                                            "column": 36
+                                          },
+                                          "end": {
+                                            "line": 47,
+                                            "column": 43
+                                          }
+                                        },
+                                        "literal": {
+                                          "type": "StringLiteral",
+                                          "start": 924,
+                                          "end": 931,
+                                          "loc": {
+                                            "start": {
+                                              "line": 47,
+                                              "column": 36
+                                            },
+                                            "end": {
+                                              "line": 47,
+                                              "column": 43
+                                            }
+                                          },
+                                          "extra": {
+                                            "rawValue": "async",
+                                            "raw": "'async'"
+                                          },
+                                          "value": "async"
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    ],
+                    "typeAnnotation": {
+                      "type": "TSTypeAnnotation",
+                      "start": 935,
+                      "end": 954,
+                      "loc": {
+                        "start": {
+                          "line": 47,
+                          "column": 47
+                        },
+                        "end": {
+                          "line": 47,
+                          "column": 66
+                        }
+                      },
+                      "typeAnnotation": {
+                        "type": "TSTypeReference",
+                        "start": 938,
+                        "end": 954,
+                        "loc": {
+                          "start": {
+                            "line": 47,
+                            "column": 50
+                          },
+                          "end": {
+                            "line": 47,
+                            "column": 66
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 938,
+                          "end": 951,
+                          "loc": {
+                            "start": {
+                              "line": 47,
+                              "column": 50
+                            },
+                            "end": {
+                              "line": 47,
+                              "column": 63
+                            },
+                            "identifierName": "TargetBuilder"
+                          },
+                          "name": "TargetBuilder"
+                        },
+                        "typeParameters": {
+                          "type": "TSTypeParameterInstantiation",
+                          "start": 951,
+                          "end": 954,
+                          "loc": {
+                            "start": {
+                              "line": 47,
+                              "column": 63
+                            },
+                            "end": {
+                              "line": 47,
+                              "column": 66
+                            }
+                          },
+                          "params": [
+                            {
+                              "type": "TSTypeReference",
+                              "start": 952,
+                              "end": 953,
+                              "loc": {
+                                "start": {
+                                  "line": 47,
+                                  "column": 64
+                                },
+                                "end": {
+                                  "line": 47,
+                                  "column": 65
+                                }
+                              },
+                              "typeName": {
+                                "type": "Identifier",
+                                "start": 952,
+                                "end": 953,
+                                "loc": {
+                                  "start": {
+                                    "line": 47,
+                                    "column": 64
+                                  },
+                                  "end": {
+                                    "line": 47,
+                                    "column": 65
+                                  },
+                                  "identifierName": "T"
+                                },
+                                "name": "T"
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": null
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
+              "start": 142,
+              "end": 187,
+              "loc": {
+                "start": {
+                  "line": 5,
+                  "column": 0
+                },
+                "end": {
+                  "line": 10,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Question}\n *  about a nested {@link Target} more readable.\n *\n * @see {@link Target}\n *\n * @interface\n * @interface ",
+              "start": 190,
+              "end": 419,
+              "loc": {
+                "start": {
+                  "line": 13,
+                  "column": 0
+                },
+                "end": {
+                  "line": 22,
+                  "column": 16
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
+      "start": 142,
+      "end": 187,
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 0
+        },
+        "end": {
+          "line": 10,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Question}\n *  about a nested {@link Target} more readable.\n *\n * @see {@link Target}\n *\n * @interface\n * @interface ",
+      "start": 190,
+      "end": 419,
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 0
+        },
+        "end": {
+          "line": 22,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+      "start": 467,
+      "end": 559,
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Instantiates a {@link @serenity-js/core/lib/screenplay~Question}\n     *  about a {@link Target}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} parent\n     * @returns {TargetBuilder}\n     *\n     * @see {@link Target}\n     * @see {@link TargetBuilder}\n     ",
+      "start": 566,
+      "end": 887,
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 4
+        },
+        "end": {
+          "line": 46,
+          "column": 7
+        }
+      }
+    }
+  ]
+}

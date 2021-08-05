@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">mocha</a></li>
@@ -125,12 +129,14 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/MochaAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* istanbul ignore file */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> LogicError <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader<span class="token punctuation">,</span> TestRunnerAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> ExecutionIgnored<span class="token punctuation">,</span> Outcome <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ExecutionIgnored<span class="token punctuation">,</span> ImplementationPending<span class="token punctuation">,</span> Outcome <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> fs <span class="token keyword">from</span> <span class="token string">'fs'</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> path <span class="token keyword">from</span> <span class="token string">'path'</span><span class="token punctuation">;</span>   <span class="token comment">// eslint-disable-line unicorn/import-style</span>
+<span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> path <span class="token keyword">from</span> <span class="token string">'path'</span><span class="token punctuation">;</span> <span class="token comment">// eslint-disable-line unicorn/import-style</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> MochaConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./MochaConfig'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token keyword">type</span> <span class="token class-name">Mocha</span> <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'mocha'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
  * @desc
@@ -140,6 +146,9 @@
  * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MochaAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">TestRunnerAdapter</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> mocha<span class="token operator">:</span> Mocha<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> totalScenarios<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
 
     <span class="token comment">/**
      * @desc
@@ -160,30 +169,80 @@
      * @returns {Outcome | { Code: number }}
      */</span>
     <span class="token function">successThreshold</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> Outcome <span class="token operator">|</span> <span class="token punctuation">{</span> Code<span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">}</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> ExecutionIgnored<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>strict
+            <span class="token operator">?</span> ExecutionIgnored
+            <span class="token operator">:</span> ImplementationPending<span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token comment">/**
+     * @desc
+     *  Loads test scenarios.
+     *
      * @param {string[]} pathsToScenarios
+     *
      * @returns {Promise&lt;void&gt;}
      */</span>
-    <span class="token function">run</span><span class="token punctuation">(</span>pathsToScenarios<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">async</span> <span class="token function">load</span><span class="token punctuation">(</span>pathsToScenarios<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> _Mocha <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'mocha'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mocha <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">_Mocha</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            <span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">,</span>
+            reporter<span class="token operator">:</span> <span class="token keyword">require</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'../index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span><span class="token function">fullTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span>files <span class="token operator">=</span> pathsToScenarios<span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span>suite<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'pre-require'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>context<span class="token operator">:</span> Mocha<span class="token punctuation">.</span>MochaGlobals<span class="token punctuation">,</span> file<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">,</span> mocha<span class="token operator">:</span> Mocha<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
             <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">requireAny</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="token keyword">const</span>
-                Mocha   <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'mocha'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                mocha   <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Mocha</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-                    <span class="token operator">...</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">,</span>
-                    reporter<span class="token operator">:</span> <span class="token keyword">require</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token string">'../index'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span><span class="token function">loadFilesAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-            mocha<span class="token punctuation">.</span>files <span class="token operator">=</span> pathsToScenarios<span class="token punctuation">;</span>
+        <span class="token keyword">const</span> mochaRunner <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">_Mocha</span><span class="token punctuation">.</span><span class="token function">Runner</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span>suite<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            mocha<span class="token punctuation">.</span><span class="token function">loadFilesAsync</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-                <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span>
-                    mocha<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>numberOfFailures <span class="token operator">=&gt;</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>grep<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            mochaRunner<span class="token punctuation">.</span><span class="token function">grep</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span>options<span class="token punctuation">.</span>grep <span class="token keyword">as</span> RegExp<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>invert<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>totalScenarios <span class="token operator">=</span> mochaRunner<span class="token punctuation">.</span>total<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * @desc
+     *  Returns the number of loaded scenarios
+     *
+     * @throws {@serenity-js/core/lib/errors~LogicError}
+     *  If called before `load`
+     *
+     * @returns {number}
+     */</span>
+    <span class="token function">scenarioCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>totalScenarios <span class="token operator">===</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">LogicError</span><span class="token punctuation">(</span><span class="token string">'Make sure to call `load` before calling `scenarioCount`'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>totalScenarios<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * @desc
+     *  Runs loaded test scenarios.
+     *
+     * @throws {LogicError}
+     *  If called before `load`
+     *
+     *
+     * @returns {Promise&lt;void&gt;}
+     */</span>
+    <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>mocha <span class="token operator">===</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">LogicError</span><span class="token punctuation">(</span><span class="token string">'Make sure to call `load` before calling `run`'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">this</span><span class="token punctuation">.</span>mocha<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span>numberOfFailures <span class="token operator">=&gt;</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 

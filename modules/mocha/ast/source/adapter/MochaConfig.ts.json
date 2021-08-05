@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 5462,
+  "end": 5787,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 405,
+      "line": 427,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 5462,
+    "end": 5787,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 405,
+        "line": 427,
         "column": 0
       }
     },
@@ -33,14 +33,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 226,
-        "end": 5461,
+        "end": 5786,
         "loc": {
           "start": {
             "line": 16,
             "column": 0
           },
           "end": {
-            "line": 404,
+            "line": 426,
             "column": 1
           }
         },
@@ -84,14 +84,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 233,
-          "end": 5461,
+          "end": 5786,
           "loc": {
             "start": {
               "line": 16,
               "column": 7
             },
             "end": {
-              "line": 404,
+              "line": 426,
               "column": 1
             }
           },
@@ -117,14 +117,14 @@
           "body": {
             "type": "ClassBody",
             "start": 260,
-            "end": 5461,
+            "end": 5786,
             "loc": {
               "start": {
                 "line": 16,
                 "column": 34
               },
               "end": {
-                "line": 404,
+                "line": 426,
                 "column": 1
               }
             },
@@ -2697,6 +2697,40 @@
                     }
                   }
                 ],
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 198 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 5460,
+                    "end": 5552,
+                    "loc": {
+                      "start": {
+                        "line": 404,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 413,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  When set to `true`, a skipped test is considered a failure.\n     *\n     * @see https://mochajs.org/#interfaces\n     *\n     * @type {boolean} [strict=false]\n     * @public\n     ",
+                    "start": 5559,
+                    "end": 5762,
+                    "loc": {
+                      "start": {
+                        "line": 416,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 424,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2743,6 +2777,106 @@
                       "end": {
                         "line": 403,
                         "column": 15
+                      }
+                    }
+                  }
+                },
+                "value": null
+              },
+              {
+                "type": "ClassProperty",
+                "start": 5767,
+                "end": 5784,
+                "loc": {
+                  "start": {
+                    "line": 425,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 425,
+                    "column": 21
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 198 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 5460,
+                    "end": 5552,
+                    "loc": {
+                      "start": {
+                        "line": 404,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 413,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  When set to `true`, a skipped test is considered a failure.\n     *\n     * @see https://mochajs.org/#interfaces\n     *\n     * @type {boolean} [strict=false]\n     * @public\n     ",
+                    "start": 5559,
+                    "end": 5762,
+                    "loc": {
+                      "start": {
+                        "line": 416,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 424,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 5767,
+                  "end": 5773,
+                  "loc": {
+                    "start": {
+                      "line": 425,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 425,
+                      "column": 10
+                    },
+                    "identifierName": "strict"
+                  },
+                  "name": "strict"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 5774,
+                  "end": 5783,
+                  "loc": {
+                    "start": {
+                      "line": 425,
+                      "column": 11
+                    },
+                    "end": {
+                      "line": 425,
+                      "column": 20
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSBooleanKeyword",
+                    "start": 5776,
+                    "end": 5783,
+                    "loc": {
+                      "start": {
+                        "line": 425,
+                        "column": 13
+                      },
+                      "end": {
+                        "line": 425,
+                        "column": 20
                       }
                     }
                   }
@@ -3428,6 +3562,38 @@
         },
         "end": {
           "line": 402,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 198 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+      "start": 5460,
+      "end": 5552,
+      "loc": {
+        "start": {
+          "line": 404,
+          "column": 0
+        },
+        "end": {
+          "line": 413,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  When set to `true`, a skipped test is considered a failure.\n     *\n     * @see https://mochajs.org/#interfaces\n     *\n     * @type {boolean} [strict=false]\n     * @public\n     ",
+      "start": 5559,
+      "end": 5762,
+      "loc": {
+        "start": {
+          "line": 416,
+          "column": 4
+        },
+        "end": {
+          "line": 424,
           "column": 7
         }
       }

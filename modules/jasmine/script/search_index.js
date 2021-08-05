@@ -1,5 +1,11 @@
 window.esdocSearchIndex = [
   [
+    "@serenity-js/jasmine/lib/adapter/filters~grepspecfilter",
+    "class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html",
+    "<span>GrepSpecFilter</span> <span class=\"search-result-import-path\">@serenity-js/jasmine/lib/adapter/filters</span>",
+    "class"
+  ],
+  [
     "@serenity-js/jasmine/lib/adapter~jasmineadapter",
     "class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html",
     "<span>JasmineAdapter</span> <span class=\"search-result-import-path\">@serenity-js/jasmine/lib/adapter</span>",
@@ -1074,6 +1080,30 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "axioserror",
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
@@ -1123,14 +1153,38 @@ window.esdocSearchIndex = [
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber63",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber76",
     "JasmineAdapter configures the default timeout interval if required",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber43",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber52",
     "JasmineAdapter defaults to running tests sequentially rather than in a random order",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber99",
+    "JasmineAdapter when counting the number of scenarios to be executed",
+    "test"
+  ],
+  [
+    "* *,*",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber137",
+    "JasmineAdapter when counting the number of scenarios to be executed recognises when there are multiple nested specs",
+    "test"
+  ],
+  [
+    "* *,*",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber102",
+    "JasmineAdapter when counting the number of scenarios to be executed recognises when there are no scenarios",
+    "test"
+  ],
+  [
+    "* *,*",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber118",
+    "JasmineAdapter when counting the number of scenarios to be executed recognises when there is a single spec",
     "test"
   ],
   [
@@ -1440,9 +1494,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/adapter/jasmineadapter.ts~jasmineadapter#load",
+    "class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html#instance-method-load",
+    "src/adapter/JasmineAdapter.ts~JasmineAdapter#load",
+    "method"
+  ],
+  [
     "src/adapter/jasmineadapter.ts~jasmineadapter#run",
     "class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html#instance-method-run",
     "src/adapter/JasmineAdapter.ts~JasmineAdapter#run",
+    "method"
+  ],
+  [
+    "src/adapter/jasmineadapter.ts~jasmineadapter#scenariocount",
+    "class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html#instance-method-scenarioCount",
+    "src/adapter/JasmineAdapter.ts~JasmineAdapter#scenarioCount",
     "method"
   ],
   [
@@ -1476,6 +1542,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/adapter/jasmineconfig.ts~jasmineconfig#invertgrep",
+    "class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-invertGrep",
+    "src/adapter/JasmineConfig.ts~JasmineConfig#invertGrep",
+    "member"
+  ],
+  [
     "src/adapter/jasmineconfig.ts~jasmineconfig#random",
     "class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-random",
     "src/adapter/JasmineConfig.ts~JasmineConfig#random",
@@ -1492,6 +1564,60 @@ window.esdocSearchIndex = [
     "class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-seed",
     "src/adapter/JasmineConfig.ts~JasmineConfig#seed",
     "member"
+  ],
+  [
+    "src/adapter/jasmineconfig.ts~jasmineconfig#specfilter",
+    "class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-specFilter",
+    "src/adapter/JasmineConfig.ts~JasmineConfig#specFilter",
+    "member"
+  ],
+  [
+    "src/adapter/filters/acceptingspecfilter.ts",
+    "file/src/adapter/filters/AcceptingSpecFilter.ts.html",
+    "src/adapter/filters/AcceptingSpecFilter.ts",
+    "file"
+  ],
+  [
+    "src/adapter/filters/customfunctionspecfilter.ts",
+    "file/src/adapter/filters/CustomFunctionSpecFilter.ts.html",
+    "src/adapter/filters/CustomFunctionSpecFilter.ts",
+    "file"
+  ],
+  [
+    "src/adapter/filters/grepspecfilter.ts",
+    "file/src/adapter/filters/GrepSpecFilter.ts.html",
+    "src/adapter/filters/GrepSpecFilter.ts",
+    "file"
+  ],
+  [
+    "src/adapter/filters/grepspecfilter.ts~grepspecfilter#constructor",
+    "class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html#instance-constructor-constructor",
+    "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#constructor",
+    "method"
+  ],
+  [
+    "src/adapter/filters/grepspecfilter.ts~grepspecfilter#matches",
+    "class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html#instance-method-matches",
+    "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#matches",
+    "method"
+  ],
+  [
+    "src/adapter/filters/invertedgrepspecfilter.ts",
+    "file/src/adapter/filters/InvertedGrepSpecFilter.ts.html",
+    "src/adapter/filters/InvertedGrepSpecFilter.ts",
+    "file"
+  ],
+  [
+    "src/adapter/filters/specfilter.ts",
+    "file/src/adapter/filters/SpecFilter.ts.html",
+    "src/adapter/filters/SpecFilter.ts",
+    "file"
+  ],
+  [
+    "src/adapter/filters/index.ts",
+    "file/src/adapter/filters/index.ts.html",
+    "src/adapter/filters/index.ts",
+    "file"
   ],
   [
     "src/adapter/index.ts",

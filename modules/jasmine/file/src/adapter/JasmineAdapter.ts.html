@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -104,6 +107,7 @@
                         <li class="chapter"><a href="/modules/protractor" title="Test your web apps with Serenity/JS" class="">@serenity-js/protractor</a></li>
                         <li class="chapter"><a href="/modules/rest" title="Test REST APIs with Serenity/JS" class="">@serenity-js/rest</a></li>
                         <li class="chapter"><a href="/modules/serenity-bdd" title="Serenity BDD reporter for Serenity/JS" class="">@serenity-js/serenity-bdd</a></li>
+                        <li class="chapter"><a href="/modules/webdriverio" title="Serenity/JS reporter and Screenplay Pattern library for WebdriverIO" class="">@serenity-js/webdriverio</a></li>
                     </ul>
                     <ul class="summary">
                         <li class="header"><a href="index.html">jasmine</a></li>
@@ -120,6 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -128,10 +133,11 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/JasmineAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader<span class="token punctuation">,</span> TestRunnerAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> reporter <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'../index'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ExecutionIgnored<span class="token punctuation">,</span> Outcome <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 
+<span class="token keyword">import</span> <span class="token punctuation">{</span> AcceptingSpecFilter<span class="token punctuation">,</span> CustomFunctionSpecFilter<span class="token punctuation">,</span> GrepSpecFilter<span class="token punctuation">,</span> InvertedGrepSpecFilter<span class="token punctuation">,</span> SpecFilter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./filters'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> JasmineConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./JasmineConfig'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> reporter <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'../index'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
  * @desc
@@ -141,6 +147,28 @@
  * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */</span>
 <span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">JasmineAdapter</span> <span class="token keyword">implements</span> <span class="token class-name">TestRunnerAdapter</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> runner<span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> totalScenarios <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> defaultConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*
+         * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled
+         */</span>
+        oneFailurePerSpec<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+
+        <span class="token comment">/*
+         * A spec should stop execution as soon as there's a hook or spec failure
+         * See https://github.com/angular/protractor/issues/3234
+         */</span>
+        stopSpecOnExpectationFailure<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+
+        <span class="token comment">/*
+         * Default to not executing tests at random.
+         * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76
+         */</span>
+        random<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 
     <span class="token comment">/**
      * @param {JasmineConfig} config
@@ -163,55 +191,116 @@
     <span class="token punctuation">}</span>
 
     <span class="token comment">/**
+     * @desc
+     *  Loads test scenarios.
+     *
      * @param {string[]} pathsToScenarios
+     *
      * @returns {Promise&lt;void&gt;}
      */</span>
-    <span class="token function">run</span><span class="token punctuation">(</span>pathsToScenarios<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span>resolve <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
-            <span class="token keyword">const</span>
-                JasmineRunner   <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'jasmine'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                runner          <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineRunner</span><span class="token punctuation">(</span><span class="token punctuation">{</span>           <span class="token comment">// instantiating the JasmineRunner has a side-effect...</span>
-                    projectBaseDir<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
-                <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-                jasmine         <span class="token operator">=</span> <span class="token punctuation">(</span>global <span class="token keyword">as</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token punctuation">.</span>jasmine<span class="token punctuation">;</span>      <span class="token comment">// ... of registering a global jasmine instance</span>
+    <span class="token keyword">async</span> <span class="token function">load</span><span class="token punctuation">(</span>pathsToScenarios<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> JasmineRunner <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>loader<span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'jasmine'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner         <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineRunner</span><span class="token punctuation">(</span><span class="token punctuation">{</span> projectBaseDir<span class="token operator">:</span> <span class="token string">''</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>defaultTimeoutInterval<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                jasmine<span class="token punctuation">.</span><span class="token constant">DEFAULT_TIMEOUT_INTERVAL</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>defaultTimeoutInterval<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>defaultTimeoutInterval<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span>jasmine<span class="token punctuation">.</span><span class="token constant">DEFAULT_TIMEOUT_INTERVAL</span> <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>defaultTimeoutInterval<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">clearReporters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">loadConfig</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
+            JasmineAdapter<span class="token punctuation">.</span>defaultConfig<span class="token punctuation">,</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">addReporter</span><span class="token punctuation">(</span><span class="token function">reporter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span>jasmine<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">configureDefaultReporter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">configureSpecFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">loadSpecs</span><span class="token punctuation">(</span>pathsToScenarios<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">countScenarios</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token function">topSuite</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">configureSpecFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        <span class="token comment">/*
+         * Configure spec filter
+         */</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span>env<span class="token punctuation">.</span><span class="token function">configure</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            <span class="token function-variable function">specFilter</span><span class="token operator">:</span> spec <span class="token operator">=&gt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">specFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>spec<span class="token punctuation">.</span><span class="token function">getFullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">async</span> <span class="token function">loadSpecs</span><span class="token punctuation">(</span>pathsToScenarios<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span>specDir     <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span>specFiles   <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">addSpecFiles</span><span class="token punctuation">(</span>pathsToScenarios<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">loadSpecs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">specFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> SpecFilter <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>specFilter<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">CustomFunctionSpecFilter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>specFilter<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>grep<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>invertGrep
+                <span class="token operator">?</span> <span class="token keyword">new</span> <span class="token class-name">InvertedGrepSpecFilter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>grep<span class="token punctuation">)</span>
+                <span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">GrepSpecFilter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>grep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">AcceptingSpecFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * @desc
+     *  Returns the number of loaded scenarios
+     *
+     * @returns {number}
+     */</span>
+    <span class="token function">scenarioCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>totalScenarios<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">countScenarios</span><span class="token punctuation">(</span>suite<span class="token operator">:</span> JasmineSuite<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        suite<span class="token punctuation">.</span>children<span class="token operator">?.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token builtin">Array</span><span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>child<span class="token punctuation">.</span>children<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">countScenarios</span><span class="token punctuation">(</span>child<span class="token punctuation">)</span>
             <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">specFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">matches</span><span class="token punctuation">(</span>child<span class="token punctuation">.</span><span class="token function">getFullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">this</span><span class="token punctuation">.</span>totalScenarios<span class="token operator">++</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
 
-            runner<span class="token punctuation">.</span><span class="token function">clearReporters</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            runner<span class="token punctuation">.</span><span class="token function">loadConfig</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>
-                <span class="token punctuation">{</span>
-                    <span class="token comment">/*
-                     * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled
-                     */</span>
-                    oneFailurePerSpec<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-
-                    <span class="token comment">/*
-                     * A spec should stop execution as soon as there's a hook or spec failure
-                     * See https://github.com/angular/protractor/issues/3234
-                     */</span>
-                    stopSpecOnExpectationFailure<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-
-                    <span class="token comment">/*
-                     * Default to not executing tests at random.
-                     * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76
-                     */</span>
-                    random<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
-                <span class="token punctuation">}</span><span class="token punctuation">,</span>
-                <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">,</span>
-            <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            runner<span class="token punctuation">.</span><span class="token function">addReporter</span><span class="token punctuation">(</span><span class="token function">reporter</span><span class="token punctuation">(</span>jasmine<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            runner<span class="token punctuation">.</span><span class="token function">onComplete</span><span class="token punctuation">(</span><span class="token punctuation">(</span>passed<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            runner<span class="token punctuation">.</span><span class="token function">configureDefaultReporter</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-            runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span>pathsToScenarios<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">.</span>grep<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * @desc
+     *  Runs loaded test scenarios.
+     *
+     * @returns {Promise&lt;void&gt;}
+     */</span>
+    <span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name"><span class="token builtin">Promise</span></span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">onComplete</span><span class="token punctuation">(</span><span class="token punctuation">(</span>passed<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>runner<span class="token punctuation">.</span><span class="token function">execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * @package
+ */</span>
+<span class="token keyword">interface</span> <span class="token class-name">JasmineSuite</span> <span class="token keyword">extends</span> <span class="token class-name">JasmineSpec</span> <span class="token punctuation">{</span>
+    children<span class="token operator">?</span><span class="token operator">:</span> JasmineSuite<span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * @package
+ */</span>
+<span class="token keyword">interface</span> <span class="token class-name">JasmineSpec</span> <span class="token punctuation">{</span>
+    <span class="token function">getFullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 

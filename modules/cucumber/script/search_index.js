@@ -1020,6 +1020,30 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
+    "@wdio/types~browser",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "@wdio/types~Browser",
+    "external"
+  ],
+  [
+    "@wdio/types~element",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "@wdio/types~Element",
+    "external"
+  ],
+  [
+    "@wdio/types~elementarray",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "@wdio/types~ElementArray",
+    "external"
+  ],
+  [
+    "@wdio/types~options.testrunner",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "@wdio/types~Options.TestRunner",
+    "external"
+  ],
+  [
     "axioserror",
     "https://github.com/axios/axios/blob/v0.21.1/index.d.ts#L85",
     "AxiosError",
@@ -1369,7 +1393,7 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber24",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber22",
     "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
@@ -1501,13 +1525,13 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber88",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber86",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and failed",
     "test"
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber26",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber24",
     "CucumberMessagesListener when working with Cucumber 7 reports scenarios that have been retried and succeeded",
     "test"
   ],
@@ -2070,9 +2094,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/cli/cucumbercliadapter.ts~cucumbercliadapter#load",
+    "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html#instance-method-load",
+    "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#load",
+    "method"
+  ],
+  [
     "src/cli/cucumbercliadapter.ts~cucumbercliadapter#run",
     "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html#instance-method-run",
     "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#run",
+    "method"
+  ],
+  [
+    "src/cli/cucumbercliadapter.ts~cucumbercliadapter#scenariocount",
+    "class/src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter.html#instance-method-scenarioCount",
+    "src/cli/CucumberCLIAdapter.ts~CucumberCLIAdapter#scenarioCount",
     "method"
   ],
   [

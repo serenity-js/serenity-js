@@ -73,10 +73,13 @@
                 <a href="/changelog.html" class="web-nav-item">Changelog</a>
                 <a href="/support.html" class="web-nav-item">Support</a>
                 <a href="/community/sponsors.html" class="web-nav-item">Sponsors</a>
-                <a href="https://twitter.com/SerenityJS" class="web-nav-item">
+                <a href="https://twitter.com/SerenityJS" class="web-nav-item" title="Serenity/JS on Twitter">
                     <span class="d-block d-lg-none">@SerenityJS on Twitter</span><span class="fab fa-twitter d-none d-lg-inline"> </span>
                 </a>
-                <a href="https://github.com/serenity-js" class="web-nav-item">
+                <a href="https://www.youtube.com/channel/UC0RdeVPyjtJopVHvlLrXd1Q" class="web-nav-item" title="Serenity/JS on YouTube">
+                    <span class="d-block d-lg-none">serenity-js on YouTube</span><span class="fab fa-youtube d-none d-lg-inline"> </span>
+                </a>
+                <a href="https://github.com/serenity-js" class="web-nav-item" title="Serenity/JS on GitHub">
                     <span class="d-block d-lg-none">Source code</span><span class="fab fa-github d-none d-lg-inline"> </span>
                 </a>
             </div>
@@ -101,18 +104,19 @@
                                 <li class="chapter"><a href="/contributing.html">Contributing</a></li>
                                 <li class="chapter"><a href="/license.html">License</a></li>
                                 <li class="header"><a href="/handbook/thinking-in-serenity-js/index.html">Thinking in Serenity/JS</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/screenplay-pattern.html">The Screenplay Pattern</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/lean-page-objects.html">Lean Page Objects</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/full-stack-acceptance-testing.html">Full-stack acceptance testing</a></li>
-                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/bridging-the-communication-gap.html">Bridging the communication gap</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/hello-serenity-js.html">Hello, Serenity/JS!</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/test-runners.html">Test runners</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/assertions.html">Assertions</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/testing-rest-apis.html">Testing REST APIs</a></li>
+                                <li class="chapter"><a href="/handbook/thinking-in-serenity-js/testing-web-uis.html">Testing Web UIs</a></li>
                                 <li class="header"><a href="/handbook/design/index.html">Design Guide</a></li>
+                                <li class="chapter"><a href="/handbook/design/the-trouble-with-test-scripts.html">The trouble with test scripts</a></li>
+                                <li class="chapter"><a href="/handbook/design/screenplay-pattern.html">The Screenplay Pattern</a></li>
                                 <li class="chapter"><a href="/handbook/design/actors.html">Actors</a></li>
                                 <li class="chapter"><a href="/handbook/design/abilities.html">Abilities</a></li>
                                 <li class="chapter"><a href="/handbook/design/interactions.html">Interactions</a></li>
                                 <li class="chapter"><a href="/handbook/design/tasks.html">Tasks</a></li>
                                 <li class="chapter"><a href="/handbook/design/questions.html">Questions</a></li>
-                                <li class="chapter"><a href="/handbook/design/assertions.html">Assertions</a></li>
                                 <li class="chapter"><a href="/handbook/design/errors.html">Errors</a></li>
                                 <li class="header"><a href="/handbook/integration/index.html">Integration Guide</a></li>
                                 <li class="chapter"><a href="/handbook/integration/architecture.html">Architecture</a></li>
@@ -152,8 +156,8 @@
 installers for all the major operating systems, or using the <a href="http://nvm.sh">Node Version Manager (nvm)</a>.
 The second option is more appropriate if you need to work with several versions of the Node.js platform simultaneously.</p>
 <p>To check if you machine is set up correctly, execute the following command in your terminal:</p>
-<pre class="language-typescript"><code class="lang-console">$ node <span class="token operator">--</span>version
-v16<span class="token punctuation">.</span><span class="token number">6.1</span>
+<pre class="language-bash"><code class="lang-bash">$ node --version
+v16.6.1
 </code></pre>
 <h2 id="a-node-js-project">A Node.js project</h2>
 <p>Serenity/JS is typically installed
@@ -164,9 +168,9 @@ so that it doesn't get accidentally bundled together with your production depend
 create <code>package.json</code> - a Node.js project descriptor file, which would already be part of your project.</p>
 <p>To create a Node.js project from scratch, create a new directory, such as <code>example</code>,
 and initialise a new project accepting the default configuration suggested by the npm with these terminal commands:</p>
-<pre class="language-typescript"><code class="lang-console">$ mkdir example
-$ cd example
-$ npm init
+<pre class="language-bash"><code class="lang-bash">$ <span class="token function">mkdir</span> example
+$ <span class="token builtin class-name">cd</span> example
+$ <span class="token function">npm</span> init
 </code></pre>
 <p>Your actions should result in a basic <a href="https://docs.npmjs.com/files/package.json"><code>package.json</code> file</a>
 appearing under <code>example</code>, with contents similar to the following:</p>
@@ -189,17 +193,17 @@ a <a href="http://www.oracle.com/technetwork/java/javase/overview/index.html">Ja
 <p>You can download the JRE from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">oracle.com</a>, <a href="https://adoptopenjdk.net/">adoptopenjdk.net</a>,
 or by using the excellent <a href="https://sdkman.io/">Software Development Kit Manager (SDKMan)</a></p>
 <p>To verify that you have the JRE installed, execute the below command in your terminal:</p>
-<pre class="language-typescript"><code class="lang-console">$ java <span class="token operator">-</span>version
+<pre class="language-bash"><code class="lang-bash">$ java -version
 java version <span class="token string">"1.8.0_181"</span>
-<span class="token function">Java</span><span class="token punctuation">(</span><span class="token constant">TM</span><span class="token punctuation">)</span> <span class="token constant">SE</span> Runtime <span class="token function">Environment</span> <span class="token punctuation">(</span>build <span class="token number">1.8</span><span class="token number">.0_181</span><span class="token operator">-</span>b13<span class="token punctuation">)</span>
-Java <span class="token function">HotSpot</span><span class="token punctuation">(</span><span class="token constant">TM</span><span class="token punctuation">)</span> <span class="token number">64</span><span class="token operator">-</span>Bit Server <span class="token constant">VM</span> <span class="token punctuation">(</span>build <span class="token number">25.181</span><span class="token operator">-</span>b13<span class="token punctuation">,</span> mixed mode<span class="token punctuation">)</span>
+Java<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> SE Runtime Environment <span class="token punctuation">(</span>build <span class="token number">1.8</span>.0_181-b13<span class="token punctuation">)</span>
+Java HotSpot<span class="token punctuation">(</span>TM<span class="token punctuation">)</span> <span class="token number">64</span>-Bit Server VM <span class="token punctuation">(</span>build <span class="token number">25.181</span>-b13, mixed mode<span class="token punctuation">)</span>
 </code></pre>
 <p>If you're working with several versions of the Java platform simultaneously, please make sure that you point
 your <code>JAVA_HOME</code> environment variable
 to the correct version.</p>
 <p>On MacOS this could be:</p>
-<pre class="language-typescript"><code class="lang-console">$ echo $<span class="token constant">JAVA_HOME</span>
-<span class="token operator">/</span>Library<span class="token operator">/</span>Java<span class="token operator">/</span>JavaVirtualMachines<span class="token operator">/</span>jdk1<span class="token punctuation">.</span><span class="token number">8.0_25</span><span class="token punctuation">.</span>jdk<span class="token operator">/</span>Contents<span class="token operator">/</span>Home
+<pre class="language-bash"><code class="lang-bash">$ <span class="token builtin class-name">echo</span> <span class="token variable">$JAVA_HOME</span>
+/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home
 </code></pre>
 <p>Please consult the <a href="https://docs.oracle.com/cd/E21454_01/html/821-2532/inst_cli_jdk_javahome_t.html">Oracle documentation</a>
 for more details.</p>

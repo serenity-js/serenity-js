@@ -1,0 +1,746 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 3608,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 149,
+      "column": 0
+    }
+  },
+  "errors": [],
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 3608,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 149,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "interpreter": null,
+    "body": [
+      {
+        "type": "ImportDeclaration",
+        "start": 0,
+        "end": 51,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 1,
+            "column": 51
+          }
+        },
+        "importKind": "value",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 9,
+            "end": 23,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 9
+              },
+              "end": {
+                "line": 1,
+                "column": 23
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 23,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 23
+                },
+                "identifierName": "SerenityConfig"
+              },
+              "name": "SerenityConfig"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 9,
+              "end": 23,
+              "loc": {
+                "start": {
+                  "line": 1,
+                  "column": 9
+                },
+                "end": {
+                  "line": 1,
+                  "column": 23
+                },
+                "identifierName": "SerenityConfig"
+              },
+              "name": "SerenityConfig"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 31,
+          "end": 50,
+          "loc": {
+            "start": {
+              "line": 1,
+              "column": 31
+            },
+            "end": {
+              "line": 1,
+              "column": 50
+            }
+          },
+          "extra": {
+            "rawValue": "@serenity-js/core",
+            "raw": "'@serenity-js/core'"
+          },
+          "value": "@serenity-js/core"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 52,
+        "end": 95,
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 0
+          },
+          "end": {
+            "line": 2,
+            "column": 43
+          }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n ",
+            "start": 96,
+            "end": 142,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)\n *  with Serenity/JS-specific additions.\n *\n * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}\n * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}\n * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}\n *\n * @see https://webdriver.io/docs/configurationfile/\n * @see {@link @wdio/types~Options.TestRunner}\n *\n * @public\n *\n * @extends {@wdio/types~Options.TestRunner}\n *\n * @example <caption>WebdriverIO with Serenity/JS and Cucumber</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'cucumber',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    cucumberOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './features/*.feature',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Mocha</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'mocha',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    mochaOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Jasmine</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'jasmine',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    jasmineOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n * @interface ",
+            "start": 145,
+            "end": 2819,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 110,
+                "column": 16
+              }
+            }
+          }
+        ],
+        "importKind": "type",
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 66,
+            "end": 73,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 14
+              },
+              "end": {
+                "line": 2,
+                "column": 21
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 66,
+              "end": 73,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                },
+                "identifierName": "Options"
+              },
+              "name": "Options"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 66,
+              "end": 73,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 14
+                },
+                "end": {
+                  "line": 2,
+                  "column": 21
+                },
+                "identifierName": "Options"
+              },
+              "name": "Options"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 81,
+          "end": 94,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 29
+            },
+            "end": {
+              "line": 2,
+              "column": 42
+            }
+          },
+          "extra": {
+            "rawValue": "@wdio/types",
+            "raw": "'@wdio/types'"
+          },
+          "value": "@wdio/types"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2820,
+        "end": 3607,
+        "loc": {
+          "start": {
+            "line": 111,
+            "column": 0
+          },
+          "end": {
+            "line": 148,
+            "column": 1
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n ",
+            "start": 96,
+            "end": 142,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)\n *  with Serenity/JS-specific additions.\n *\n * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}\n * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}\n * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}\n *\n * @see https://webdriver.io/docs/configurationfile/\n * @see {@link @wdio/types~Options.TestRunner}\n *\n * @public\n *\n * @extends {@wdio/types~Options.TestRunner}\n *\n * @example <caption>WebdriverIO with Serenity/JS and Cucumber</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'cucumber',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    cucumberOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './features/*.feature',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Mocha</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'mocha',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    mochaOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Jasmine</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'jasmine',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    jasmineOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n * @interface ",
+            "start": 145,
+            "end": 2819,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 110,
+                "column": 16
+              }
+            }
+          }
+        ],
+        "exportKind": "value",
+        "specifiers": [],
+        "source": null,
+        "declaration": {
+          "type": "ClassDeclaration",
+          "start": 2827,
+          "end": 3607,
+          "loc": {
+            "start": {
+              "line": 111,
+              "column": 7
+            },
+            "end": {
+              "line": 148,
+              "column": 1
+            }
+          },
+          "abstract": true,
+          "id": {
+            "type": "Identifier",
+            "start": 2842,
+            "end": 2859,
+            "loc": {
+              "start": {
+                "line": 111,
+                "column": 22
+              },
+              "end": {
+                "line": 111,
+                "column": 39
+              },
+              "identifierName": "WebdriverIOConfig"
+            },
+            "name": "WebdriverIOConfig"
+          },
+          "superClass": {
+            "type": "MemberExpression",
+            "start": 2868,
+            "end": 2886,
+            "loc": {
+              "start": {
+                "line": 111,
+                "column": 48
+              },
+              "end": {
+                "line": 111,
+                "column": 66
+              }
+            },
+            "object": {
+              "type": "Identifier",
+              "start": 2868,
+              "end": 2875,
+              "loc": {
+                "start": {
+                  "line": 111,
+                  "column": 48
+                },
+                "end": {
+                  "line": 111,
+                  "column": 55
+                },
+                "identifierName": "Options"
+              },
+              "name": "Options"
+            },
+            "computed": false,
+            "property": {
+              "type": "Identifier",
+              "start": 2876,
+              "end": 2886,
+              "loc": {
+                "start": {
+                  "line": 111,
+                  "column": 56
+                },
+                "end": {
+                  "line": 111,
+                  "column": 66
+                },
+                "identifierName": "Testrunner"
+              },
+              "name": "Testrunner"
+            }
+          },
+          "body": {
+            "type": "ClassBody",
+            "start": 2887,
+            "end": 3607,
+            "loc": {
+              "start": {
+                "line": 111,
+                "column": 67
+              },
+              "end": {
+                "line": 148,
+                "column": 1
+              }
+            },
+            "body": [
+              {
+                "type": "ClassProperty",
+                "start": 3464,
+                "end": 3605,
+                "loc": {
+                  "start": {
+                    "line": 136,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 147,
+                    "column": 19
+                  }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @type \n * {SerenityConfig & undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 2889,
+                    "end": 3000,
+                    "loc": {
+                      "start": {
+                        "line": 112,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 121,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Serenity/JS configuration with an additional `runner` entry\n     *  allowing to specify the test runner, such as `cucumber`, `mocha`, or `jasmine`.\n     *\n     * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}\n     * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}\n     * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}\n     *\n     * @type {@serenity-js/core~SerenityConfig}\n     * @public\n     ",
+                    "start": 3007,
+                    "end": 3459,
+                    "loc": {
+                      "start": {
+                        "line": 124,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 135,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 3464,
+                  "end": 3472,
+                  "loc": {
+                    "start": {
+                      "line": 136,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 136,
+                      "column": 12
+                    },
+                    "identifierName": "serenity"
+                  },
+                  "name": "serenity"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 3473,
+                  "end": 3604,
+                  "loc": {
+                    "start": {
+                      "line": 136,
+                      "column": 13
+                    },
+                    "end": {
+                      "line": 147,
+                      "column": 18
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSIntersectionType",
+                    "start": 3475,
+                    "end": 3604,
+                    "loc": {
+                      "start": {
+                        "line": 136,
+                        "column": 15
+                      },
+                      "end": {
+                        "line": 147,
+                        "column": 18
+                      }
+                    },
+                    "types": [
+                      {
+                        "type": "TSTypeReference",
+                        "start": 3475,
+                        "end": 3489,
+                        "loc": {
+                          "start": {
+                            "line": 136,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 136,
+                            "column": 29
+                          }
+                        },
+                        "typeName": {
+                          "type": "Identifier",
+                          "start": 3475,
+                          "end": 3489,
+                          "loc": {
+                            "start": {
+                              "line": 136,
+                              "column": 15
+                            },
+                            "end": {
+                              "line": 136,
+                              "column": 29
+                            },
+                            "identifierName": "SerenityConfig"
+                          },
+                          "name": "SerenityConfig"
+                        }
+                      },
+                      {
+                        "type": "TSTypeLiteral",
+                        "start": 3492,
+                        "end": 3604,
+                        "loc": {
+                          "start": {
+                            "line": 136,
+                            "column": 32
+                          },
+                          "end": {
+                            "line": 147,
+                            "column": 18
+                          }
+                        },
+                        "members": [
+                          {
+                            "type": "TSPropertySignature",
+                            "start": 3587,
+                            "end": 3602,
+                            "loc": {
+                              "start": {
+                                "line": 147,
+                                "column": 1
+                              },
+                              "end": {
+                                "line": 147,
+                                "column": 16
+                              }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                                "start": 3494,
+                                "end": 3585,
+                                "loc": {
+                                  "start": {
+                                    "line": 137,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 146,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ],
+                            "key": {
+                              "type": "Identifier",
+                              "start": 3587,
+                              "end": 3593,
+                              "loc": {
+                                "start": {
+                                  "line": 147,
+                                  "column": 1
+                                },
+                                "end": {
+                                  "line": 147,
+                                  "column": 7
+                                },
+                                "identifierName": "runner"
+                              },
+                              "name": "runner"
+                            },
+                            "computed": false,
+                            "optional": true,
+                            "typeAnnotation": {
+                              "type": "TSTypeAnnotation",
+                              "start": 3594,
+                              "end": 3602,
+                              "loc": {
+                                "start": {
+                                  "line": 147,
+                                  "column": 8
+                                },
+                                "end": {
+                                  "line": 147,
+                                  "column": 16
+                                }
+                              },
+                              "typeAnnotation": {
+                                "type": "TSStringKeyword",
+                                "start": 3596,
+                                "end": 3602,
+                                "loc": {
+                                  "start": {
+                                    "line": 147,
+                                    "column": 10
+                                  },
+                                  "end": {
+                                    "line": 147,
+                                    "column": 16
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "value": null
+              }
+            ]
+          },
+          "leadingComments": [
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n ",
+              "start": 96,
+              "end": 142,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 0
+                },
+                "end": {
+                  "line": 8,
+                  "column": 3
+                }
+              }
+            },
+            {
+              "type": "CommentBlock",
+              "value": "*\n * @desc\n *  [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)\n *  with Serenity/JS-specific additions.\n *\n * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}\n * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}\n * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}\n *\n * @see https://webdriver.io/docs/configurationfile/\n * @see {@link @wdio/types~Options.TestRunner}\n *\n * @public\n *\n * @extends {@wdio/types~Options.TestRunner}\n *\n * @example <caption>WebdriverIO with Serenity/JS and Cucumber</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'cucumber',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    cucumberOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './features/*.feature',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Mocha</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'mocha',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    mochaOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Jasmine</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'jasmine',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    jasmineOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n * @interface ",
+              "start": 145,
+              "end": 2819,
+              "loc": {
+                "start": {
+                  "line": 11,
+                  "column": 0
+                },
+                "end": {
+                  "line": 110,
+                  "column": 16
+                }
+              }
+            }
+          ],
+          "trailingComments": []
+        }
+      }
+    ],
+    "directives": []
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 104 \n ",
+      "start": 96,
+      "end": 142,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc\n *  [WebdriverIO configuration object](https://webdriver.io/docs/configurationfile/)\n *  with Serenity/JS-specific additions.\n *\n * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}\n * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}\n * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}\n *\n * @see https://webdriver.io/docs/configurationfile/\n * @see {@link @wdio/types~Options.TestRunner}\n *\n * @public\n *\n * @extends {@wdio/types~Options.TestRunner}\n *\n * @example <caption>WebdriverIO with Serenity/JS and Cucumber</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'cucumber',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    cucumberOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './features/*.feature',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Mocha</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'mocha',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    mochaOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n *\n * @example <caption>WebdriverIO with Serenity/JS and Jasmine</caption>\n *\n *  import { ArtifactArchiver } from '@serenity-js/core';\n *  import { ConsoleReporter } from '@serenity-js/console-reporter';\n *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';\n *\n *  export const config = {\n *\n *    framework: '@serenity-js/webdriverio',\n *\n *    serenity: {\n *        runner: 'jasmine',\n *        crew: [\n *            ConsoleReporter.forDarkTerminals(),\n *            new SerenityBDDReporter(),\n *            ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *        ]\n *    },\n *\n *    jasmineOpts: {\n *        // ...\n *    },\n *\n *    specs: [\n *        './spec/*.spec.*',\n *    ],\n * };\n * @interface ",
+      "start": 145,
+      "end": 2819,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 110,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @type \n * {SerenityConfig & undefined} \n * @public \n * \\TRUE \n ",
+      "start": 2889,
+      "end": 3000,
+      "loc": {
+        "start": {
+          "line": 112,
+          "column": 0
+        },
+        "end": {
+          "line": 121,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  Serenity/JS configuration with an additional `runner` entry\n     *  allowing to specify the test runner, such as `cucumber`, `mocha`, or `jasmine`.\n     *\n     * @see {@link @serenity-js/cucumber/lib/cli~CucumberConfig}\n     * @see {@link @serenity-js/jasmine/lib/adapter~JasmineConfig}\n     * @see {@link @serenity-js/mocha/lib/adapter~MochaConfig}\n     *\n     * @type {@serenity-js/core~SerenityConfig}\n     * @public\n     ",
+      "start": 3007,
+      "end": 3459,
+      "loc": {
+        "start": {
+          "line": 124,
+          "column": 4
+        },
+        "end": {
+          "line": 135,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+      "start": 3494,
+      "end": 3585,
+      "loc": {
+        "start": {
+          "line": 137,
+          "column": 0
+        },
+        "end": {
+          "line": 146,
+          "column": 3
+        }
+      }
+    }
+  ]
+}
