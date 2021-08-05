@@ -133,12 +133,12 @@ Assuming you already have a [Protractor project](https://github.com/angular/prot
 - [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber)
 
 To do that, run the following command in your terminal:
-```console
+```bash
 npm install --save-dev @serenity-js/{core,cucumber,protractor} @cucumber/cucumber
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```console
+```bash
 npm install --save-dev typescript ts-node
 ```
 
@@ -278,12 +278,12 @@ Assuming you already have a [Protractor project](https://github.com/angular/prot
 - [`jasmine`](https://www.npmjs.com/package/jasmine)
 
 To do that, run the following command in your terminal:
-```console
+```bash
 npm install --save-dev @serenity-js/{core,jasmine,protractor} jasmine@3
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```console
+```bash
 npm install --save-dev typescript ts-node
 ```
 
@@ -383,12 +383,12 @@ Assuming you already have a [Protractor project](https://github.com/angular/prot
 - [`mocha`](https://www.npmjs.com/package/mocha)
 
 To do that, run the following command in your terminal:
-```console
+```bash
 npm install --save-dev @serenity-js/{core,mocha,protractor} mocha
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```console
+```bash
 npm install --save-dev typescript ts-node
 ```
 
