@@ -1,0 +1,26 @@
+<html lang="en">
+<body>
+<div id="shopping-list-app">
+    <h1>Shopping list</h1>
+    <ul>
+        <li class="buy 1st">
+            <span class="item-name">oats</span>
+            <a onclick="toggle(this)">x</a>
+        </li>
+        <li class="buy 2nd">
+            <span class="item-name">coconut milk</span>
+            <a onclick="toggle(this)">x</a>
+        </li>
+        <li class="3rd">
+            <span class="item-name">coffee</span>
+            <a onclick="toggle(this)">x</a>
+        </li>
+    </ul>
+</div>
+<script>
+    function toggle(event) {
+        event.parentNode.classList.toggle('buy');
+    }
+</script>
+</body>
+</html>

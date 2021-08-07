@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';

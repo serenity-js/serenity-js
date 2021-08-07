@@ -43,6 +43,27 @@ export interface JasmineConfig {
 
     /**
      * @desc
+     *  Inverts 'grep' matches.
+     *
+     *  Defaults to `false`
+     *
+     * @type {boolean | undefined}
+     */
+    invertGrep?: boolean;
+
+    /**
+     * @desc
+     *  Receives the full name of a test scenario and returns `true`
+     *  for those that should be executed.
+     *
+     *  Takes precedence over `grep`
+     *
+     * @type {function(specName: string): boolean}
+     */
+    specFilter?: (specName: string) => boolean
+
+    /**
+     * @desc
      *  The randomisation seed that will be used to determine the pseudo-random order of execution,
      *  if `random` is set to `true`
      *

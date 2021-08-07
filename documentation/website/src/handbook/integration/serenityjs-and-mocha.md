@@ -57,12 +57,12 @@ Assuming you already have a [Node.js project ](/handbook/integration/runtime-dep
 - [`mocha`](https://www.npmjs.com/package/mocha)
 
 To do that, run the following command in your terminal:
-```console
+```bash
 npm install --save-dev @serenity-js/{core,mocha} mocha
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```console
+```bash
 npm install --save-dev typescript ts-node @types/{mocha,node}
 ```
 
@@ -102,7 +102,7 @@ To register `@serenity-js/mocha` test runner adapter with Mocha, use the [`--rep
 
 For example, when running Mocha in a JavaScript project:
 
-```console
+```bash
 npx mocha --reporter '@serenity-js/mocha' \
     --require 'spec/config.js' \
     [... any other options]
@@ -110,7 +110,7 @@ npx mocha --reporter '@serenity-js/mocha' \
 
 To make Mocha support test scenarios and configuration written in TypeScript, you'll need to add a dev dependency on [`ts-node`](https://www.npmjs.com/package/ts-node) and register it via [`--require`](https://mochajs.org/#command-line-usage):
 
-```console
+```bash
 npx mocha --reporter '@serenity-js/mocha' \
     --require 'ts-node/register' \
     --require 'spec/config.ts' \ 
