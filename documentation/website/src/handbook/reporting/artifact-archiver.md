@@ -11,7 +11,7 @@ cta: cta-share
 
 To install the module, run the following command in your computer terminal:
 
-```console
+```bash
 npm install --save-dev @serenity-js/core
 ```
 

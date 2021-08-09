@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';

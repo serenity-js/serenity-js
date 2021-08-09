@@ -1,5 +1,7 @@
 'use strict';
 
+// copy webfonts
+
 const
     { readFileSync } = require('fs'),
     { resolve }      = require('path'),
@@ -25,16 +27,13 @@ const
     sources          = require('./plugins/sources'),
     source           = require('./plugins/source'),
     pathToFile       = require('./plugins/pathToFile'),
-    highlightEsdoc   = require('./plugins/highlightEsdoc'),
+    Prism            = require('./prism'),
+    highlightPrism   = require('./plugins/highlightPrism'),
     discoverModules  = require('./plugins/discoverModules'),
     bindHandbook     = require('./plugins/bindHandbook'),
     browserSync      = require('metalsmith-browser-sync'),
-    highlight        = require('highlight.js'),
     pkg              = require('../../package'),
-    lerna            = require('../../lerna'),
-    escape           = require('querystring').escape,
-
-    highlightedLanguages = ['gherkin', 'typescript', 'javascript', 'json', 'bash', 'console', 'html'];
+    lerna            = require('../../lerna');
 
 Metalsmith(__dirname)
     .source('src')
@@ -42,6 +41,8 @@ Metalsmith(__dirname)
     .use(renamePath(/\.\/node_modules\/@serenity-js\/(.*)\/target\/site\//, 'modules/$1/'))
     .use(source('../../CHANGELOG.md'))
     .use(renamePath(/\.\.\/\.\.\/(.*)/, '$1'))
+    .use(sources('../../node_modules/@fortawesome/fontawesome-free/webfonts'))
+    .use(renamePath(new RegExp('../../node_modules/@fortawesome/fontawesome-free/webfonts'), 'webfonts'))
     .destination('target/site')
     // .ignore()
     .clean(true)
@@ -100,11 +101,20 @@ Metalsmith(__dirname)
             '**/*',
         ],
         engineOptions: {
-            highlight:  (code, language) => highlight.highlightAuto(code, language ? [language] : highlightedLanguages).value,
+            // highlights markdown files
+            // langPrefix: 'language-',
+            // highlight:  (code, language) => {
+            //     return Prism.highlight(
+            //         code,
+            //         language && Prism.languages[language]
+            //             ? Prism.languages[language]
+            //             : Prism.languages.plain)
+            // },
         }
     }))
     .use(autotoc({selector: 'h2'}))
-    .use(highlightEsdoc(highlight, highlightedLanguages))
+    // todo: Do I need this?
+    .use(highlightPrism(Prism))
     .use(pathToFile())
     .use(layouts({
         directory: 'layouts',
