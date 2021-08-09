@@ -15,6 +15,7 @@ import { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestRe
 import { Stage } from '../../Stage';
 import { StageCrewMember } from '../../StageCrewMember';
 import { Hash } from './Hash';
+import { WriteFileOptions } from 'fs';
 
 /**
  * @desc
@@ -147,7 +148,7 @@ export class ArtifactArchiver implements StageCrewMember {
         );
     }
 
-    private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {
+    private archive(relativePath: Path, contents: string, encoding: WriteFileOptions, announce: (absolutePath: Path) => void): void {
         const id = CorrelationId.create();
 
         this.stage.announce(new AsyncOperationAttempted(
