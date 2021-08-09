@@ -67,18 +67,25 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
 
                 reportIdIncluding(browserTag.name)(context);
 
-                context.report.context = appendIfNotPresent(context.report.context, browserTag.browserName);
+                // todo: simplify browser name
+                //  https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ContextIcon.java
+
+                context.report.context = appendIfNotPresent(context.report.context, simplifyBrowserName(browserTag.browserName));
                 context.report.driver = browserTag.browserName;
                 context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(browserTag));
 
                 return context;
             })
-            .when(PlatformTag, _ => {
+            .when(PlatformTag, (platformTag: PlatformTag) => {
 
                 reportIdIncluding(tag.name)(context);
 
-                context.report.context = appendIfNotPresent(context.report.context, tag.name);
-                context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(tag));
+                // todo: simplify platform name
+                //  https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ContextIcon.java
+
+                // https://github.com/serenity-bdd/serenity-core/blob/master/serenity-model/src/main/java/net/thucydides/core/model/ContextIcon.java
+                context.report.context = appendIfNotPresent(context.report.context, simplifyPlatformName(platformTag.platformName) /* todo: toLowerCase? */);
+                context.report.tags = concatIfNotPresent(context.report.tags, tagReportFor(platformTag));
 
                 return context;
             })
@@ -105,6 +112,44 @@ export function tagOf<Context extends SerenityBDDReportContext>(tag: Tag): (cont
 
                 return context;
             })
+}
+
+function simplified(aliases: Record<string, string[]>) {
+    return (actualName: string) => {
+        const lowercasePlatformName = actualName.toLowerCase();
+
+        const recognisedAlias = Object.entries(aliases)
+            .find(entry =>
+                entry[1].some(alias => lowercasePlatformName.includes(alias))
+            );
+
+        return recognisedAlias
+            ? recognisedAlias[0]
+            : actualName;
+    }
+}
+
+function simplifyPlatformName(platformName: string) {
+    return simplified({
+        linux:    ['linux'],
+        mac:      ['darwin', 'mac', 'os x'],
+        windows:  ['windows'],
+        android:  ['android'],
+        ios:      ['ios'],
+    })(platformName);
+}
+
+// https://wiki.saucelabs.com/display/DOCS/Platform+Configurator#/
+// https://www.browserstack.com/automate/capabilities
+function simplifyBrowserName(browserName: string) {
+    return simplified({
+        chrome:     ['chrome'],
+        firefox:    ['firefox'],
+        safari:     ['safari'],
+        opera:      ['opera'],
+        ie:         ['internet explorer', 'explorer', 'ie'],
+        edge:       ['microsoftedge', 'edge'],
+    })(browserName);
 }
 
 function concatIfNotPresent<T>(items: T[], item: T) {

@@ -297,6 +297,8 @@ export class CucumberMessagesParser {
 
         const Status = TestStepResultStatus;
 
+        // todo: how does it treat failed but retryable scenarios?
+
         switch (worstResult.status) {
             case Status.SKIPPED:
                 return new ExecutionSkipped();

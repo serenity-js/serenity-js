@@ -1,4 +1,7 @@
 @import "api-docs/style.scss";
+@import "../../node_modules/@fortawesome/fontawesome-free/css/all";
+@import "../../node_modules/prismjs/themes/prism";
+@import "../../node_modules/prism-themes/themes/prism-material-oceanic";
 
 $accent-1: #fdd20a !default;
 $accent-2: #454545 !default;
@@ -313,11 +316,10 @@ article.content {
 
 #handbook {
 
-  article.content section.github-markdown,
-  .pro-tip
+  article.content section.github-markdown
   {
-    a:not(.anchorjs-link),
-    a:not(.anchorjs-link):visited {
+    a:not(.anchorjs-link):not(.img-link),
+    a:not(.anchorjs-link):not(.img-link):visited {
       text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff;
       -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
       -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -3px 0 0 rgba(252, 210, 62, 0.75);
@@ -330,8 +332,8 @@ article.content {
       text-decoration: none;
       padding-bottom: 3px;
     }
-    a:not(.anchorjs-link):hover,
-    a:not(.anchorjs-link):visited:hover {
+    a:not(.anchorjs-link):not(.img-link):hover,
+    a:not(.anchorjs-link):not(.img-link):visited:hover {
       -webkit-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(255, 173, 51, 1.0);
       -moz-box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(255, 173, 51, 1.0);
       box-shadow: inset 0 -1px 0 0 #fff, inset 0 -4px 0 0 rgba(255, 173, 51, 1.0);
@@ -431,4 +433,30 @@ $serenity-gold-light: lighten($serenity-gold, 20%);
       stroke-dasharray: 5 5;
     }
   }
+}
+
+code[class*=language-],
+pre[class*=language-],
+{
+  text-shadow: none !important;
+  border-radius: 5px;
+
+  .token.operator {
+    background: none !important;
+  }
+}
+
+/* Fix Prism selection highlighting */
+code[class*='language-']::-moz-selection,
+pre[class*='language-']::-moz-selection,
+code[class*='language-'] ::-moz-selection,
+pre[class*='language-'] ::-moz-selection {
+  background: #4f5b66 !important;
+}
+
+code[class*='language-']::selection,
+pre[class*='language-']::selection,
+code[class*='language-'] ::selection,
+pre[class*='language-'] ::selection {
+  background: #4f5b66 !important;
 }

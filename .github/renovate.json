@@ -5,6 +5,10 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
+      "packagePatterns": ["^@wdio", "^webdriverio"],
+      "groupName": "WebdriverIO"
+    },
+    {
       "packagePatterns": [
         "@types/chai",
         "@types/chai-as-promised",
