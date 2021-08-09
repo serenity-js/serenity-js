@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 /* istanbul ignore file covered in integration tests */
 import { ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
@@ -14,6 +13,8 @@ import { OutputDescriptor, SerenityFormatterOutput } from './output';
  * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}
  */
 export class CucumberCLIAdapter implements TestRunnerAdapter {
+
+    private pathsToScenarios: string[] = [];
 
     private readonly options: CucumberOptions;
 
@@ -46,21 +47,54 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
 
     /**
      * @desc
-     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`
+     *  Loads feature files.
      *
      * @param {string[]} pathsToScenarios
      *  Absolute or relative paths to feature files
      *
      * @returns {Promise<void>}
      */
-    async run(pathsToScenarios: string[]): Promise<void> {
+    async load(pathsToScenarios: string[]): Promise<void> {
+        // todo: implement loading
+        this.pathsToScenarios = pathsToScenarios;
+
+        return Promise.resolve();
+    }
+
+    /**
+     * @desc
+     *  Returns the number of loaded scenarios
+     *
+     * @throws {@serenity-js/core/lib/errors~LogicError}
+     *  If called before `load`
+     *
+     * @returns {number}
+     */
+    scenarioCount(): number {
+        // todo: implement counting
+        return 1;
+
+        // if (this.totalScenarios === undefined) {
+        //     throw new LogicError('Make sure to call `load` before calling `scenarioCount`');
+        // }
+        //
+        // return this.totalScenarios;
+    }
+
+    /**
+     * @desc
+     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`
+     *
+     * @returns {Promise<void>}
+     */
+    async run(): Promise<void> {
         const version = this.loader.hasAvailable('@cucumber/cucumber')
             ? this.loader.versionOf('@cucumber/cucumber')
             : this.loader.versionOf('cucumber');
 
         const serenityListener = this.loader.resolve('@serenity-js/cucumber');
 
-        return this.runScenarios(version, serenityListener, pathsToScenarios);
+        return this.runScenarios(version, serenityListener, this.pathsToScenarios);
     }
 
     private runScenarios(version: Version, serenityListener: string, pathsToScenarios: string[]): Promise<void> {
