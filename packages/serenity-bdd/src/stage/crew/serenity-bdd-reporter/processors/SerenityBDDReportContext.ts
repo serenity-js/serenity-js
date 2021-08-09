@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { CorrelationId } from '@serenity-js/core/lib/model';
 
 import { SerenityBDDReport } from '../SerenityBDDJsonSchema';

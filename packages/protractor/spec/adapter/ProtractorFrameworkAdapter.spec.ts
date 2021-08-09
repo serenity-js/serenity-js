@@ -288,16 +288,28 @@ describe('ProtractorFrameworkAdapter', () => {
 
     class SimpleTestRunnerAdapter implements TestRunnerAdapter {
 
+        private scenarios: string[] = [];
+
         constructor(private readonly serenityInstance: Serenity) {
+        }
+
+        scenarioCount() {
+            return this.scenarios.length;
         }
 
         successThreshold(): Outcome | { Code: number } {
             return ExecutionIgnored;
         }
 
-        run(scenarios: string[]): Promise<void> {
+        load(scenarios: string[]): Promise<void> {
+            this.scenarios = scenarios;
 
-            return scenarios
+            return Promise.resolve();
+        }
+
+        run(): Promise<void> {
+
+            return this.scenarios
                 .reduce((previous, current) => previous.then(() => {
 
                     const scenario = sample(current);
