@@ -1,7 +1,8 @@
 import { StdOutReporter } from '@integration/testing-tools';
 import { Duration } from '@serenity-js/core';
+import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 
-export const config = {
+export const config: WebdriverIOConfig = {
 
     framework: '@serenity-js/webdriverio',
 
