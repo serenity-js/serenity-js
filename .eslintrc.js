@@ -89,6 +89,7 @@ module.exports = {
         'unicorn/numeric-separators-style': 'off',
         'unicorn/prefer-array-flat': 'off',     // todo: migrate to use @tsconfig/node12
 
+        'unicorn/prefer-object-from-entries': 'off',    // only false positives, ignore
         'unicorn/prefer-module': 'off',         // fixme disable when we can provide support for ESM
         'unicorn/prefer-node-protocol': 'off',  // fixme requires Node 14.13 or newer, disable until we no longer have to support Node 12
         'unicorn/prefer-spread': 'off',
