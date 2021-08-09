@@ -1,11 +1,12 @@
-import { resolve } from 'path';
-import { createWriteStream } from 'fs';
-import { ArtifactArchiver, StreamReporter } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
-import Inspector from './src/Inspector';
+import { ArtifactArchiver, StreamReporter } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { createWriteStream } from 'fs';
+import { resolve } from 'path';
+import Inspector from './src/Inspector';
 
-export const config = {
+export const config: WebdriverIOConfig = {
 
     framework: '@serenity-js/webdriverio',
     // framework: 'cucumber',
