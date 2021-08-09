@@ -1,6 +1,6 @@
 {
   "name": "@serenity-js/webdriverio",
-  "version": "2.29.9",
+  "version": "2.30.0",
   "description": "Serenity/JS reporter and Screenplay Pattern library for WebdriverIO",
   "author": {
     "name": "Jan Molak",
@@ -25,6 +25,7 @@
     "tdd",
     "test",
     "testing",
+    "webdriverio",
     "wdio",
     "wdio-reporter"
   ],
@@ -53,9 +54,9 @@
     "npm": "^6 || ^7"
   },
   "dependencies": {
-    "@serenity-js/core": "2.29.9",
-    "@wdio/types": "^7.8.0",
+    "@serenity-js/core": "2.30.0",
     "@wdio/reporter": "^7.9.0",
+    "@wdio/types": "^7.8.0",
     "deepmerge": "^4.2.2",
     "is-plain-object": "^5.0.0",
     "tiny-types": "^1.16.1"
@@ -78,27 +79,27 @@
     }
   },
   "devDependencies": {
-    "@types/mocha": "^8.2.2",
     "@documentation/esdoc-template": "2.0.0",
     "@integration/testing-tools": "2.0.0",
     "@integration/web-testing-tools": "2.0.0",
-    "@serenity-js/assertions": "2.29.9",
-    "@serenity-js/console-reporter": "2.29.9",
-    "@serenity-js/cucumber": "2.29.9",
-    "@serenity-js/mocha": "2.29.9",
-    "@serenity-js/jasmine": "2.29.9",
-    "@serenity-js/rest": "2.29.9",
+    "@serenity-js/assertions": "2.30.0",
+    "@serenity-js/console-reporter": "2.30.0",
+    "@serenity-js/cucumber": "2.30.0",
+    "@serenity-js/jasmine": "2.30.0",
+    "@serenity-js/mocha": "2.30.0",
+    "@serenity-js/rest": "2.30.0",
+    "@types/mocha": "^8.2.2",
     "@wdio/cli": "^7.9.0",
-    "@wdio/local-runner": "^7.9.0",
     "@wdio/devtools-service": "^7.9.0",
+    "@wdio/dot-reporter": "^7.9.0",
+    "@wdio/local-runner": "^7.9.0",
     "@wdio/mocha-framework": "^7.9.0",
     "@wdio/spec-reporter": "^7.9.0",
-    "@wdio/dot-reporter": "^7.9.0",
     "axios": "^0.21.1",
     "cross-env": "^7.0.3",
     "mocha": "^8.4.0",
     "mocha-testdata": "^1.2.0",
-    "start-server-and-test": "^1.12.5",
+    "start-server-and-test": "^1.13.1",
     "webdriverio": "^7.9.0"
   },
   "nyc": {
@@ -114,8 +115,7 @@
     "extension": [
       ".ts"
     ],
-    "require": [
-    ],
+    "require": [],
     "reporter": [
       "json"
     ],
