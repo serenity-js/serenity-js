@@ -1,7 +1,8 @@
-import { resolve } from 'path';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
+import { WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { resolve } from 'path';
 
-export const config = {
+export const config: WebdriverIOConfig = {
 
     framework: '@serenity-js/webdriverio',
 
