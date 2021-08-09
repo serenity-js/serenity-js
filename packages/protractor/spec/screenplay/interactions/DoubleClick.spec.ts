@@ -6,7 +6,6 @@ import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { DoubleClick, Navigate, Target, Text } from '../../../src';
-import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
 describe('DoubleClick', () => {
@@ -17,26 +16,14 @@ describe('DoubleClick', () => {
 
     /** @test {DoubleClick} */
     /** @test {DoubleClick.on} */
-    it('allows the actor to clear the value of a field', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to(pageFromTemplate(`
-            <html>
-                <body>
-                    <div id="double-click-me">double-click me!</div>
-                    <script>
-                        const el = document.getElementById('double-click-me');
+    it('allows the actor to clear the value of a field', () =>
+        actorCalled('Bernie').attemptsTo(
+            Navigate.to('/screenplay/interactions/double-click/example.html'),
 
-                        el.addEventListener('dblclick', function (e) {
-                          el.innerText = 'done!';
-                        });
-                    </script>
-                </body>
-            </html>
-        `)),
+            DoubleClick.on(Interactive_Element),
 
-        DoubleClick.on(Interactive_Element),
-
-        Ensure.that(Text.of(Interactive_Element), equals('done!')),
-    ));
+            Ensure.that(Text.of(Interactive_Element), equals('done!')),
+        ));
 
     /** @test {DoubleClick#toString} */
     it('provides a sensible description of the interaction being performed', () => {

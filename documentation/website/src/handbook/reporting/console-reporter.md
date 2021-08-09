@@ -18,7 +18,7 @@ The reporter supports colour schemes for both light and dark terminals.
 
 To install the module, run the following command in your computer terminal:
 
-```console
+```bash
 npm install --save-dev @serenity-js/{core,console-reporter}
 ```
 

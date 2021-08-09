@@ -58,12 +58,12 @@ Assuming you already have a [Node.js project ](/handbook/integration/runtime-dep
 - [`@cucumber/cucumber`](https://www.npmjs.com/package/@cucumber/cucumber)
 
 To do that, run the following command in your terminal:
-```console
+```bash
 npm install --save-dev @serenity-js/{core,cucumber} @cucumber/cucumber
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```console
+```bash
 npm install --save-dev typescript ts-node @types/node
 ```
 
@@ -103,7 +103,7 @@ To register `@serenity-js/cucumber` test runner adapter with Cucumber, use the [
 
 For example, when running Cucumber in a JavaScript project:
 
-```console
+```bash
 npx cucumber-js --format '@serenity-js/cucumber' \
     --require 'features/support/config.js' \
     [... any other options]
@@ -111,7 +111,7 @@ npx cucumber-js --format '@serenity-js/cucumber' \
 
 To make Cucumber support step definitions and configuration written in TypeScript, you'll need to add a dev dependency on [`ts-node`](https://www.npmjs.com/package/ts-node) and register it via [`--require-module`](https://github.com/cucumber/cucumber-js/blob/master/features/require_module.feature):
 
-```console
+```bash
 npx cucumber-js --format '@serenity-js/cucumber' \
     --require-module 'ts-node/register' \
     --require 'features/support/config.ts' \ 

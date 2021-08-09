@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { JSONObject } from 'tiny-types';
 
 import { JSONData } from './JSONData';
