@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import fs = require('fs');
 import path = require('upath');
 // eslint-disable-next-line @typescript-eslint/no-var-requires

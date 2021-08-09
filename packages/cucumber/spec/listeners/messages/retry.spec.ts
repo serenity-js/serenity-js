@@ -19,8 +19,6 @@ import { cucumber7 } from './bin/cucumber-7';
 
 describe('CucumberMessagesListener', function () {
 
-    this.timeout(30000);
-
     describe('when working with Cucumber 7', () => {
 
         it('reports scenarios that have been retried and succeeded', () =>

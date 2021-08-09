@@ -13,7 +13,7 @@ This service is useful for debugging any custom extensions you create for Sereni
 
 To install the module, run the following command in your computer terminal:
 
-```console
+```bash
 npm install --save-dev @serenity-js/core
 ```
 
