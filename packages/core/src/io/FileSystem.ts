@@ -5,6 +5,7 @@ import * as nodeOS from 'os';
 import { promisify } from 'util';
 
 import { Path } from './Path';
+import { WriteFileOptions } from 'fs';
 
 export class FileSystem {
 
@@ -16,7 +17,7 @@ export class FileSystem {
     ) {
     }
 
-    public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: string): Promise<Path> {
+    public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {
         return Promise.resolve()
             .then(() => this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))
             .then(() => this.write(this.root.resolve(relativeOrAbsolutePathToFile), data, encoding));
@@ -104,7 +105,7 @@ export class FileSystem {
         return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ cuid() }${ suffix }`);
     }
 
-    private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: string): Promise<Path> {
+    private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {
         return new Promise((resolve, reject) => {
             this.fs.writeFile(
                 path.value,

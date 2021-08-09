@@ -6,7 +6,6 @@ import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Enter, Navigate, Target, Value } from '../../../src';
-import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
 /** @test {Enter} */
@@ -17,43 +16,29 @@ describe('Enter', () => {
         Result: Target.the('result').located(by.id('result')),
     };
 
-    const page = pageFromTemplate(`
-            <html>
-                <body>
-                    <form>
-                        <input type="text" id="field" onkeyup="update()" />
-                        <div id="result" />
-                    </form>
-                    <script>
-                    function update() {
-                      document.getElementById("result").textContent = document.getElementById("field").value;
-                    }
-                    </script>
-                </body>
-            </html>
-        `)
-
     beforeEach(() => engage(new UIActors()));
 
     /** @test {Enter} */
     /** @test {Enter.theValue} */
-    it('allows the actor to enter the value into an input field', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to enter the value into an input field', () =>
+        actorCalled('Bernie').attemptsTo(
+            Navigate.to('/screenplay/interactions/enter/text_copier.html'),
 
-        Enter.theValue(actorCalled('Bernie').name).into(Form.Field),
+            Enter.theValue(actorCalled('Bernie').name).into(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals(actorCalled('Bernie').name)),
-    ));
+            Ensure.that(Value.of(Form.Field), equals(actorCalled('Bernie').name)),
+        ));
 
     /** @test {Enter} */
     /** @test {Enter.theValue} */
-    it('allows the actor to enter the value into a number field', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to enter the value into a number field', () =>
+        actorCalled('Bernie').attemptsTo(
+            Navigate.to('/screenplay/interactions/enter/text_copier.html'),
 
-        Enter.theValue(123).into(Form.Field),
+            Enter.theValue(123).into(Form.Field),
 
-        Ensure.that(Value.of(Form.Field), equals('123')),
-    ));
+            Ensure.that(Value.of(Form.Field), equals('123')),
+        ));
 
     /** @test {Enter#toString} */
     it('provides a sensible description of the interaction being performed', () => {

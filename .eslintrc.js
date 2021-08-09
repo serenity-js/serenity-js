@@ -65,7 +65,20 @@ module.exports = {
                 'kebabCase': true,      // packages
                 'pascalCase': true,     // classes
                 'camelCase': true,      // functions
-            }
+            },
+            'ignore': [
+                'API',
+                'AST',
+                'BDD',
+                'CLI',
+                'CSS',
+                'GAV',
+                'FS',
+                'HTTP',
+                'JSON',
+                'UI',
+                'WebdriverIO',
+            ]
         }],
 
         'unicorn/no-array-for-each': 'off',
@@ -76,6 +89,7 @@ module.exports = {
         'unicorn/numeric-separators-style': 'off',
         'unicorn/prefer-array-flat': 'off',     // todo: migrate to use @tsconfig/node12
 
+        'unicorn/prefer-object-from-entries': 'off',    // only false positives, ignore
         'unicorn/prefer-module': 'off',         // fixme disable when we can provide support for ESM
         'unicorn/prefer-node-protocol': 'off',  // fixme requires Node 14.13 or newer, disable until we no longer have to support Node 12
         'unicorn/prefer-spread': 'off',
@@ -86,6 +100,8 @@ module.exports = {
                 'arg': true,
                 'args': true,
                 'attrs': true,
+                'conf': true,
+                'devtools': true,
                 'docString': true,
                 'DocString': true,
                 'e': true,
@@ -96,6 +112,8 @@ module.exports = {
                 'params': true,
                 'pkg': true,
                 'props': true,
+                'temp': true,
+                'wdio': true,
             }
         }]
     }

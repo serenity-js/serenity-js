@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 
 import { Argv } from '../../Argv';

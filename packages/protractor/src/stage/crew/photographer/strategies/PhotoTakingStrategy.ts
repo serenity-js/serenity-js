@@ -32,7 +32,7 @@ export abstract class PhotoTakingStrategy {
      * @param {@serenity-js/core/lib/stage~Stage} stage - the Stage that holds reference to the Actor in the spotlight
      * @returns void
      *
-     * @see {@serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}
+     * @see {@link @serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}
      */
     considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): void {
         if (this.shouldTakeAPhotoOf(event)) {
