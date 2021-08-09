@@ -100,7 +100,7 @@ export class ExecuteScript {
      *
      *  If the script returns a value, it will be made available via {@link LastScriptExecution.result}.
      *
-     * @example <caption>Pressing keys</caption>
+     * @example <caption>Executing a sync script and reading the result</caption>
      *  import { actorCalled } from '@serenity-js/core';
      *  import { BrowseTheWeb, ExecuteScript, LastScriptExecution } from '@serenity-js/protractor';
      *  import { Ensure, includes } from '@serenity-js/assertions';
@@ -277,7 +277,7 @@ class ExecuteScriptFromUrl extends Interaction {
                         return callback();
                     };
                     script.onerror = function () {
-                        return callback("Couldn't load script from " + this.src);
+                        return callback("Couldn't load script from " + src);
                     };
         
                     script.src = src;
