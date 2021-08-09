@@ -19,11 +19,12 @@ import type { Options } from '@wdio/types';
  *
  * @example <caption>WebdriverIO with Serenity/JS and Cucumber</caption>
  *
- *  import { ArtifactArchiver } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
+ *  import { ArtifactArchiver } from '@serenity-js/core';
  *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+ *  import { WebdriverIOConfig } from '@serenity-js/webdriverio';
  *
- *  export const config = {
+ *  export const config: WebdriverIOConfig = {
  *
  *    framework: '@serenity-js/webdriverio',
  *
@@ -47,11 +48,12 @@ import type { Options } from '@wdio/types';
  *
  * @example <caption>WebdriverIO with Serenity/JS and Mocha</caption>
  *
- *  import { ArtifactArchiver } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
+ *  import { ArtifactArchiver } from '@serenity-js/core';
  *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+ *  import { WebdriverIOConfig } from '@serenity-js/webdriverio';
  *
- *  export const config = {
+ *  export const config: WebdriverIOConfig = {
  *
  *    framework: '@serenity-js/webdriverio',
  *
@@ -75,11 +77,12 @@ import type { Options } from '@wdio/types';
  *
  * @example <caption>WebdriverIO with Serenity/JS and Jasmine</caption>
  *
- *  import { ArtifactArchiver } from '@serenity-js/core';
  *  import { ConsoleReporter } from '@serenity-js/console-reporter';
+ *  import { ArtifactArchiver } from '@serenity-js/core';
  *  import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+ *  import { WebdriverIOConfig } from '@serenity-js/webdriverio';
  *
- *  export const config = {
+ *  export const config: WebdriverIOConfig = {
  *
  *    framework: '@serenity-js/webdriverio',
  *
