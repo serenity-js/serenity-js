@@ -70,7 +70,9 @@ export class MochaAdapter implements TestRunnerAdapter {
 
         await this.mocha.loadFilesAsync()
 
-        const mochaRunner = new _Mocha.Runner(this.mocha.suite, false);
+        const mochaRunner = new _Mocha.Runner(this.mocha.suite, {
+            delay: false,
+        });
 
         if (this.config.grep) {
             mochaRunner.grep(this.mocha.options.grep as RegExp, this.config.invert);
