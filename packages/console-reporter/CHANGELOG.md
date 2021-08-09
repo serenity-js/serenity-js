@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.30.1](https://github.com/serenity-js/serenity-js/compare/v2.30.0...v2.30.1) (2021-08-09)
+
+
+### Bug Fixes
+
+* **deps:** update dependency chalk to ^4.1.2 ([8aec8b3](https://github.com/serenity-js/serenity-js/commit/8aec8b377279ca2e9edd0b6f867f1c32d8d32011))
+
+
+
+
+
 # [2.30.0](https://github.com/serenity-js/serenity-js/compare/v2.29.9...v2.30.0) (2021-08-06)
 
 
