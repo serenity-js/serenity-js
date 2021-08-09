@@ -1,11 +1,11 @@
-import { resolve } from 'path';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { ArtifactArchiver } from '@serenity-js/core';
+import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import { Photographer, TakePhotosOfInteractions, WebdriverIOConfig } from '@serenity-js/webdriverio';
+import { resolve } from 'path';
 import { Actors } from './src';
-import { Photographer, TakePhotosOfInteractions } from '@serenity-js/webdriverio';
 
-export const config = {
+export const config: WebdriverIOConfig = {
 
     baseUrl: 'https://todo-app.serenity-js.org/',
 
