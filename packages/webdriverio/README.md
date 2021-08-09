@@ -65,9 +65,9 @@ npm install --save-dev @serenity-js/mocha
 import { ArtifactArchiver } from '@serenity-js/core';
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';
+import { Photographer, TakePhotosOfFailures, WebdriverIOConfig } from '@serenity-js/webdriverio';
 
-export const config = {
+export const config: WebdriverIOConfig = {
     // Tell WebdriverIO to use Serenity/JS framework
     framework: '@serenity-js/webdriverio',
 
