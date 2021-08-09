@@ -7,7 +7,7 @@ import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
 
-    this.timeout(15000);
+    this.timeout(30000);
 
     it('recognises a passing scenario', () => mocha('examples/passing.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))

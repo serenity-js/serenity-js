@@ -191,7 +191,7 @@ describe('Actor', () => {
             Bob = new Actor('Bob', stage as unknown as Stage);
         });
 
-        describe('announces the events that activities it performs', () => {
+        describe('announces events about the activities it performs', () => {
 
             /** @test {Actor} */
             it('notifies when an activity begins and ends', () => Bob.whoCan(PlayAGuitar.suchAs(guitar)).attemptsTo(
