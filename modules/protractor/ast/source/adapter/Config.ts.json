@@ -131,40 +131,6 @@
             "column": 56
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
-            "start": 109,
-            "end": 154,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Protractor configuration object with an additional\n *  section to configure the Serenity/JS framework.\n *\n * @public\n * @interface\n *\n * @see {@link @serenity-js/core~SerenityConfig}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/config.ts\n * @see {@link @serenity-js/core~configure}\n * @interface ",
-            "start": 157,
-            "end": 492,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 23,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'protractor'"
           },
           "value": "protractor"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 493,
-        "end": 806,
-        "loc": {
-          "start": {
-            "line": 24,
-            "column": 0
-          },
-          "end": {
-            "line": 48,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 493,
+        "end": 806,
+        "loc": {
+          "start": {
+            "line": 24,
+            "column": 0
+          },
+          "end": {
+            "line": 48,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -367,24 +333,6 @@
                     "column": 19
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {SerenityConfig & undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 549,
-                    "end": 659,
-                    "loc": {
-                      "start": {
-                        "line": 25,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -494,24 +442,6 @@
                                 "column": 16
                               }
                             },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                                "start": 694,
-                                "end": 784,
-                                "loc": {
-                                  "start": {
-                                    "line": 37,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 46,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ],
                             "key": {
                               "type": "Identifier",
                               "start": 786,
@@ -560,14 +490,50 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                                "start": 694,
+                                "end": 784,
+                                "loc": {
+                                  "start": {
+                                    "line": 37,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 46,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
                     ]
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {SerenityConfig & undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 549,
+                    "end": 659,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -606,7 +572,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
+            "start": 109,
+            "end": 154,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Protractor configuration object with an additional\n *  section to configure the Serenity/JS framework.\n *\n * @public\n * @interface\n *\n * @see {@link @serenity-js/core~SerenityConfig}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/config.ts\n * @see {@link @serenity-js/core~configure}\n * @interface ",
+            "start": 157,
+            "end": 492,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 23,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

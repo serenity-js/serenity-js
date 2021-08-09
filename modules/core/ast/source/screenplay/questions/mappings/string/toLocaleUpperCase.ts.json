@@ -44,24 +44,6 @@
             "column": 57
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable unicorn/consistent-function-scoping ",
-            "start": 0,
-            "end": 56,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 56
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -231,7 +213,25 @@
             "raw": "'tiny-types'"
           },
           "value": "tiny-types"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/consistent-function-scoping ",
+            "start": 0,
+            "end": 56,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 56
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -334,40 +334,6 @@
             "column": 65
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {undefined | undefined} locales \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 233,
-            "end": 365,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns a string where all alphabetic characters have been converted to uppercase,\n *  taking into account the host environment's current locale.\n *\n * @param {Answerable<string | string[]>} [locales]\n *  The `locale` parameter indicates the locale to be used to convert to lower case according to any\n *  locale-specific case mappings. If multiple locales are given in an `Array`,\n *  the [best available locale](https://tc39.es/ecma402/#sec-bestavailablelocale) is used.\n *  The default locale is the host environment’s current locale.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleUpperCase\n ",
-            "start": 368,
-            "end": 1098,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 32,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -439,23 +405,8 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1099,
-        "end": 1459,
-        "loc": {
-          "start": {
-            "line": 33,
-            "column": 0
-          },
-          "end": {
-            "line": 41,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {undefined | undefined} locales \n * @return \n * {AnswerMappingFunction} \n ",
@@ -488,7 +439,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1099,
+        "end": 1459,
+        "loc": {
+          "start": {
+            "line": 33,
+            "column": 0
+          },
+          "end": {
+            "line": 41,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1375,7 +1341,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {undefined | undefined} locales \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 233,
+            "end": 365,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns a string where all alphabetic characters have been converted to uppercase,\n *  taking into account the host environment's current locale.\n *\n * @param {Answerable<string | string[]>} [locales]\n *  The `locale` parameter indicates the locale to be used to convert to lower case according to any\n *  locale-specific case mappings. If multiple locales are given in an `Array`,\n *  the [best available locale](https://tc39.es/ecma402/#sec-bestavailablelocale) is used.\n *  The default locale is the host environment’s current locale.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleUpperCase\n ",
+            "start": 368,
+            "end": 1098,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 32,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

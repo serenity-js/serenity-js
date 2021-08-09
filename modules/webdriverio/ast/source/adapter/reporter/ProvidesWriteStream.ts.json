@@ -44,40 +44,6 @@
             "column": 56
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
-            "start": 57,
-            "end": 101,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n * @interface ",
-            "start": 104,
-            "end": 136,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -149,23 +115,8 @@
             "raw": "'@serenity-js/core/lib/io'"
           },
           "value": "@serenity-js/core/lib/io"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 137,
-        "end": 372,
-        "loc": {
-          "start": {
-            "line": 13,
-            "column": 0
-          },
-          "end": {
-            "line": 28,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
@@ -198,7 +149,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 137,
+        "end": 372,
+        "loc": {
+          "start": {
+            "line": 13,
+            "column": 0
+          },
+          "end": {
+            "line": 28,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -264,24 +230,6 @@
                     "column": 57
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {string} reporter \n * @return \n * {OutputStream} \n * @public \n * \\TRUE \n ",
-                    "start": 181,
-                    "end": 311,
-                    "loc": {
-                      "start": {
-                        "line": 14,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 25,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -400,7 +348,25 @@
                       "name": "OutputStream"
                     }
                   }
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {string} reporter \n * @return \n * {OutputStream} \n * @public \n * \\TRUE \n ",
+                    "start": 181,
+                    "end": 311,
+                    "loc": {
+                      "start": {
+                        "line": 14,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 25,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -439,7 +405,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 6 \n ",
+            "start": 57,
+            "end": 101,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n * @interface ",
+            "start": 104,
+            "end": 136,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

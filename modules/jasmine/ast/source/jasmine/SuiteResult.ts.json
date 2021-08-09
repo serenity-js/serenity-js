@@ -218,40 +218,6 @@
             "column": 34
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 119,
-            "end": 163,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#SuiteResult\n * @interface ",
-            "start": 166,
-            "end": 265,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'./Result'"
           },
           "value": "./Result"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 266,
-        "end": 1785,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 127,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 266,
+        "end": 1785,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 127,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -454,42 +420,6 @@
                     "column": 15
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The unique id of this suite. \n * @lineNumber \n * 11 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 317,
-                    "end": 435,
-                    "loc": {
-                      "start": {
-                        "line": 17,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 26,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The description text passed to the `describe` that made this suite. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 458,
-                    "end": 615,
-                    "loc": {
-                      "start": {
-                        "line": 30,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 39,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -539,23 +469,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 627,
-                "end": 647,
-                "loc": {
-                  "start": {
-                    "line": 43,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 43,
-                    "column": 24
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The description text passed to the `describe` that made this suite. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -573,24 +488,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The full description including all ancestors of this suite. \n * @lineNumber \n * 17 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 648,
-                    "end": 797,
+                    "value": "*\n * @desc \n * The unique id of this suite. \n * @lineNumber \n * 11 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 317,
+                    "end": 435,
                     "loc": {
                       "start": {
-                        "line": 44,
+                        "line": 17,
                         "column": 0
                       },
                       "end": {
-                        "line": 53,
+                        "line": 26,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 627,
+                "end": 647,
+                "loc": {
+                  "start": {
+                    "line": 43,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 43,
+                    "column": 24
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -640,23 +570,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 809,
-                "end": 826,
-                "loc": {
-                  "start": {
-                    "line": 57,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 57,
-                    "column": 21
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The full description including all ancestors of this suite. \n * @lineNumber \n * 17 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -674,24 +589,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The list of expectations that failed in an afterAll for this suite. \n * @lineNumber \n * 20 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 827,
-                    "end": 985,
+                    "value": "*\n * @desc \n * The description text passed to the `describe` that made this suite. \n * @lineNumber \n * 14 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 458,
+                    "end": 615,
                     "loc": {
                       "start": {
-                        "line": 58,
+                        "line": 30,
                         "column": 0
                       },
                       "end": {
-                        "line": 67,
+                        "line": 39,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 809,
+                "end": 826,
+                "loc": {
+                  "start": {
+                    "line": 57,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 57,
+                    "column": 21
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -741,23 +671,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 997,
-                "end": 1031,
-                "loc": {
-                  "start": {
-                    "line": 71,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 71,
-                    "column": 38
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The list of expectations that failed in an afterAll for this suite. \n * @lineNumber \n * 20 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -775,24 +690,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The list of deprecation warnings that occurred on this suite. \n * @lineNumber \n * 23 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 1032,
-                    "end": 1184,
+                    "value": "*\n * @desc \n * The full description including all ancestors of this suite. \n * @lineNumber \n * 17 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 648,
+                    "end": 797,
                     "loc": {
                       "start": {
-                        "line": 72,
+                        "line": 44,
                         "column": 0
                       },
                       "end": {
-                        "line": 81,
+                        "line": 53,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 997,
+                "end": 1031,
+                "loc": {
+                  "start": {
+                    "line": 71,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 71,
+                    "column": 38
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -874,23 +804,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1196,
-                "end": 1231,
-                "loc": {
-                  "start": {
-                    "line": 85,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 85,
-                    "column": 39
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The list of deprecation warnings that occurred on this suite. \n * @lineNumber \n * 23 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -908,24 +823,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n * Once the suite has completed, this string represents the pass/fail status of this suite. \n * @lineNumber \n * 26 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1232,
-                    "end": 1410,
+                    "value": "*\n * @desc \n * The list of expectations that failed in an afterAll for this suite. \n * @lineNumber \n * 20 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 827,
+                    "end": 985,
                     "loc": {
                       "start": {
-                        "line": 86,
+                        "line": 58,
                         "column": 0
                       },
                       "end": {
-                        "line": 95,
+                        "line": 67,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1196,
+                "end": 1231,
+                "loc": {
+                  "start": {
+                    "line": 85,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 85,
+                    "column": 39
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1007,23 +937,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1422,
-                "end": 1438,
-                "loc": {
-                  "start": {
-                    "line": 99,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 99,
-                    "column": 20
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * Once the suite has completed, this string represents the pass/fail status of this suite. \n * @lineNumber \n * 26 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1041,24 +956,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n * The time in ms for Suite execution, including any before/afterAll, before/afterEach. \n * @lineNumber \n * 29 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 1439,
-                    "end": 1628,
+                    "value": "*\n * @desc \n * The list of deprecation warnings that occurred on this suite. \n * @lineNumber \n * 23 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 1032,
+                    "end": 1184,
                     "loc": {
                       "start": {
-                        "line": 100,
+                        "line": 72,
                         "column": 0
                       },
                       "end": {
-                        "line": 109,
+                        "line": 81,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1422,
+                "end": 1438,
+                "loc": {
+                  "start": {
+                    "line": 99,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 99,
+                    "column": 20
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1109,23 +1039,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1640,
-                "end": 1664,
-                "loc": {
-                  "start": {
-                    "line": 113,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 113,
-                    "column": 28
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n * The time in ms for Suite execution, including any before/afterAll, before/afterEach. \n * @lineNumber \n * 29 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -1143,24 +1058,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
-                    "start": 1665,
-                    "end": 1757,
+                    "value": "*\n * @desc \n * Once the suite has completed, this string represents the pass/fail status of this suite. \n * @lineNumber \n * 26 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1232,
+                    "end": 1410,
                     "loc": {
                       "start": {
-                        "line": 114,
+                        "line": 86,
                         "column": 0
                       },
                       "end": {
-                        "line": 123,
+                        "line": 95,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1640,
+                "end": 1664,
+                "loc": {
+                  "start": {
+                    "line": 113,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 113,
+                    "column": 28
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1242,23 +1172,8 @@
                     ]
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1764,
-                "end": 1783,
-                "loc": {
-                  "start": {
-                    "line": 126,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 126,
-                    "column": 23
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
@@ -1276,6 +1191,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n * The time in ms for Suite execution, including any before/afterAll, before/afterEach. \n * @lineNumber \n * 29 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 1439,
+                    "end": 1628,
+                    "loc": {
+                      "start": {
+                        "line": 100,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 109,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1764,
+                "end": 1783,
+                "loc": {
+                  "start": {
+                    "line": 126,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 126,
+                    "column": 23
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1342,7 +1290,25 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 31 \n * @type \n * {Location} \n * @public \n * \\TRUE \n ",
+                    "start": 1665,
+                    "end": 1757,
+                    "loc": {
+                      "start": {
+                        "line": 114,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 123,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1381,7 +1347,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 119,
+            "end": 163,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#SuiteResult\n * @interface ",
+            "start": 166,
+            "end": 265,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

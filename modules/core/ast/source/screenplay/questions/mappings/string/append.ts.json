@@ -44,24 +44,6 @@
             "column": 57
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable unicorn/consistent-function-scoping ",
-            "start": 0,
-            "end": 56,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 56
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -231,7 +213,25 @@
             "raw": "'tiny-types'"
           },
           "value": "tiny-types"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/consistent-function-scoping ",
+            "start": 0,
+            "end": 56,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 56
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -421,40 +421,6 @@
             "column": 65
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {Array} values \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 283,
-            "end": 398,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Appends the values to the end of the original string and returns a new string.\n *\n * @param {...Array<Answerable<string>>} values\n *  The values to append to the end of the string.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/concat\n ",
-            "start": 401,
-            "end": 763,
-            "loc": {
-              "start": {
-                "line": 19,
-                "column": 0
-              },
-              "end": {
-                "line": 29,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -526,23 +492,8 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 764,
-        "end": 1185,
-        "loc": {
-          "start": {
-            "line": 30,
-            "column": 0
-          },
-          "end": {
-            "line": 39,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {Array} values \n * @return \n * {AnswerMappingFunction} \n ",
@@ -575,7 +526,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 764,
+        "end": 1185,
+        "loc": {
+          "start": {
+            "line": 30,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1713,7 +1679,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {Array} values \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 283,
+            "end": 398,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Appends the values to the end of the original string and returns a new string.\n *\n * @param {...Array<Answerable<string>>} values\n *  The values to append to the end of the string.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/concat\n ",
+            "start": 401,
+            "end": 763,
+            "loc": {
+              "start": {
+                "line": 19,
+                "column": 0
+              },
+              "end": {
+                "line": 29,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -44,24 +44,6 @@
             "column": 57
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable unicorn/consistent-function-scoping ",
-            "start": 0,
-            "end": 56,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 56
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -231,7 +213,25 @@
             "raw": "'tiny-types'"
           },
           "value": "tiny-types"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/consistent-function-scoping ",
+            "start": 0,
+            "end": 56,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 56
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -421,40 +421,6 @@
             "column": 65
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {Answerable} pattern \n * @param \n * {Answerable} replacement \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 283,
-            "end": 444,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns a new string with some or all matches of a pattern replaced by a replacement.\n *  The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.\n *  If pattern is a string, only the first occurrence will be replaced.\n *\n * @param {Answerable<string | RegExp>} pattern\n *\n * @param {Answerable<string|function>} replacement\n *\n * @returns {MappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace\n ",
-            "start": 447,
-            "end": 1011,
-            "loc": {
-              "start": {
-                "line": 21,
-                "column": 0
-              },
-              "end": {
-                "line": 34,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -526,23 +492,8 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1012,
-        "end": 1562,
-        "loc": {
-          "start": {
-            "line": 35,
-            "column": 0
-          },
-          "end": {
-            "line": 47,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {Answerable} pattern \n * @param \n * {Answerable} replacement \n * @return \n * {AnswerMappingFunction} \n ",
@@ -575,7 +526,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1012,
+        "end": 1562,
+        "loc": {
+          "start": {
+            "line": 35,
+            "column": 0
+          },
+          "end": {
+            "line": 47,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1525,9 +1491,6 @@
                                 "column": 13
                               }
                             },
-                            "extra": {
-                              "trailingComma": 1534
-                            },
                             "callee": {
                               "type": "MemberExpression",
                               "start": 1364,
@@ -1816,6 +1779,9 @@
                                 "name": "then"
                               }
                             },
+                            "extra": {
+                              "trailingComma": 1534
+                            },
                             "arguments": [
                               {
                                 "type": "ArrowFunctionExpression",
@@ -2066,7 +2032,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @param \n * {Answerable} pattern \n * @param \n * {Answerable} replacement \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 283,
+            "end": 444,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns a new string with some or all matches of a pattern replaced by a replacement.\n *  The pattern can be a string or a RegExp, and the replacement can be a string or a function to be called for each match.\n *  If pattern is a string, only the first occurrence will be replaced.\n *\n * @param {Answerable<string | RegExp>} pattern\n *\n * @param {Answerable<string|function>} replacement\n *\n * @returns {MappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace\n ",
+            "start": 447,
+            "end": 1011,
+            "loc": {
+              "start": {
+                "line": 21,
+                "column": 0
+              },
+              "end": {
+                "line": 34,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -452,40 +452,6 @@
             "column": 51
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n ",
-            "start": 265,
-            "end": 310,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The Photographer is a {@link @serenity-js/core/lib/stage~StageCrewMember} who takes screenshots\n *  of the web browser that the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight is using.\n *\n * @example <caption>Assigning the Photographer to the Stage</caption>\n * // wdio.conf.ts\n * import { ArtifactArchiver } from '@serenity-js/core';\n * import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';\n *\n * export const config = {\n *\n *     serenity: {\n *         crew: [\n *             ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),\n *             Photographer.whoWill(TakePhotosOfFailures),\n *         ]\n *     },\n *\n *     // ... rest of the config omitted for brevity\n * };\n *\n * @example <caption>Taking photos upon failures only</caption>\n *\n * import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';\n *\n * Photographer.whoWill(TakePhotosOfFailures)\n *\n * @example <caption>Taking photos of all the interactions</caption>\n *\n * import { Photographer, TakePhotosOfInteractions } from '@serenity-js/webdriverio';\n *\n * Photographer.whoWill(TakePhotosOfInteractions)\n *\n * @example <caption>Taking photos before and after all the interactions</caption>\n *\n * import { Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/webdriverio';\n *\n * Photographer.whoWill(TakePhotosBeforeAndAfterInteractions)\n *\n * @see {@link @serenity-js/core/lib/stage~Stage}\n * @see {@link TakePhotosBeforeAndAfterInteractions}\n * @see {@link TakePhotosOfFailures}\n * @see {@link TakePhotosOfInteractions}\n ",
-            "start": 313,
-            "end": 1930,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 58,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -557,23 +523,8 @@
             "raw": "'./strategies'"
           },
           "value": "./strategies"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1931,
-        "end": 4248,
-        "loc": {
-          "start": {
-            "line": 59,
-            "column": 0
-          },
-          "end": {
-            "line": 156,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n ",
@@ -606,7 +557,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1931,
+        "end": 4248,
+        "loc": {
+          "start": {
+            "line": 59,
+            "column": 0
+          },
+          "end": {
+            "line": 156,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -705,58 +671,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {UNKNOWN} strategy \n * @return \n * {StageCrewMember} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1986,
-                    "end": 2143,
-                    "loc": {
-                      "start": {
-                        "line": 60,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 73,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a new {@link Photographer} configured to take photos (screenshots)\n     *  as per the specified {@link PhotoTakingStrategy}.\n     *\n     * @param {Function} strategy - A no-arg constructor function that instantiates a {@link PhotoTakingStrategy}.\n     * @returns {StageCrewMember}\n     ",
-                    "start": 2150,
-                    "end": 2476,
-                    "loc": {
-                      "start": {
-                        "line": 76,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 83,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {PhotoTakingStrategy} photoTakingStrategy\n     * @param {Stage} stage\n     ",
-                    "start": 2616,
-                    "end": 2711,
-                    "loc": {
-                      "start": {
-                        "line": 88,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 91,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1024,23 +938,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2716,
-                "end": 2840,
-                "loc": {
-                  "start": {
-                    "line": 92,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 96,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {PhotoTakingStrategy} photoTakingStrategy\n     * @param {Stage} stage\n     ",
@@ -1058,40 +957,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
-                    "start": 2841,
-                    "end": 2971,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {UNKNOWN} strategy \n * @return \n * {StageCrewMember} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1986,
+                    "end": 2143,
                     "loc": {
                       "start": {
-                        "line": 97,
+                        "line": 60,
                         "column": 0
                       },
                       "end": {
-                        "line": 108,
+                        "line": 73,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
-                    "start": 2978,
-                    "end": 3306,
+                    "value": "*\n     * @desc\n     *  Instantiates a new {@link Photographer} configured to take photos (screenshots)\n     *  as per the specified {@link PhotoTakingStrategy}.\n     *\n     * @param {Function} strategy - A no-arg constructor function that instantiates a {@link PhotoTakingStrategy}.\n     * @returns {StageCrewMember}\n     ",
+                    "start": 2150,
+                    "end": 2476,
                     "loc": {
                       "start": {
-                        "line": 111,
+                        "line": 76,
                         "column": 4
                       },
                       "end": {
-                        "line": 117,
+                        "line": 83,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2716,
+                "end": 2840,
+                "loc": {
+                  "start": {
+                    "line": 92,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 96,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1295,23 +1209,8 @@
                   },
                   "body": [],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3311,
-                "end": 3426,
-                "loc": {
-                  "start": {
-                    "line": 118,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 120,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
@@ -1345,40 +1244,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 3427,
-                    "end": 3552,
+                    "value": "*\n     * @param {PhotoTakingStrategy} photoTakingStrategy\n     * @param {Stage} stage\n     ",
+                    "start": 2616,
+                    "end": 2711,
                     "loc": {
                       "start": {
-                        "line": 121,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 132,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  this {@link StageCrewMember} is assigned to.\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
-                    "start": 3559,
-                    "end": 3773,
-                    "loc": {
-                      "start": {
-                        "line": 135,
+                        "line": 88,
                         "column": 4
                       },
                       "end": {
-                        "line": 142,
+                        "line": 91,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3311,
+                "end": 3426,
+                "loc": {
+                  "start": {
+                    "line": 118,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 120,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1646,23 +1544,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3778,
-                "end": 4246,
-                "loc": {
-                  "start": {
-                    "line": 143,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 155,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -1696,6 +1579,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Stage} stage \n * @return \n * {StageCrewMember} \n * @public \n * \\TRUE \n ",
+                    "start": 2841,
+                    "end": 2971,
+                    "loc": {
+                      "start": {
+                        "line": 97,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 108,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     ",
+                    "start": 2978,
+                    "end": 3306,
+                    "loc": {
+                      "start": {
+                        "line": 111,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 117,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3778,
+                "end": 4246,
+                "loc": {
+                  "start": {
+                    "line": 143,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 155,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2546,7 +2478,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 3427,
+                    "end": 3552,
+                    "loc": {
+                      "start": {
+                        "line": 121,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 132,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  this {@link StageCrewMember} is assigned to.\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
+                    "start": 3559,
+                    "end": 3773,
+                    "loc": {
+                      "start": {
+                        "line": 135,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 142,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2585,7 +2551,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n ",
+            "start": 265,
+            "end": 310,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The Photographer is a {@link @serenity-js/core/lib/stage~StageCrewMember} who takes screenshots\n *  of the web browser that the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight is using.\n *\n * @example <caption>Assigning the Photographer to the Stage</caption>\n * // wdio.conf.ts\n * import { ArtifactArchiver } from '@serenity-js/core';\n * import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';\n *\n * export const config = {\n *\n *     serenity: {\n *         crew: [\n *             ArtifactArchiver.storingArtifactsAt(process.cwd(), 'target/site/serenity'),\n *             Photographer.whoWill(TakePhotosOfFailures),\n *         ]\n *     },\n *\n *     // ... rest of the config omitted for brevity\n * };\n *\n * @example <caption>Taking photos upon failures only</caption>\n *\n * import { Photographer, TakePhotosOfFailures } from '@serenity-js/webdriverio';\n *\n * Photographer.whoWill(TakePhotosOfFailures)\n *\n * @example <caption>Taking photos of all the interactions</caption>\n *\n * import { Photographer, TakePhotosOfInteractions } from '@serenity-js/webdriverio';\n *\n * Photographer.whoWill(TakePhotosOfInteractions)\n *\n * @example <caption>Taking photos before and after all the interactions</caption>\n *\n * import { Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/webdriverio';\n *\n * Photographer.whoWill(TakePhotosBeforeAndAfterInteractions)\n *\n * @see {@link @serenity-js/core/lib/stage~Stage}\n * @see {@link TakePhotosBeforeAndAfterInteractions}\n * @see {@link TakePhotosOfFailures}\n * @see {@link TakePhotosOfInteractions}\n ",
+            "start": 313,
+            "end": 1930,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 58,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

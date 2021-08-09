@@ -833,40 +833,6 @@
             "column": 54
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n ",
-            "start": 472,
-            "end": 517,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots)\n *  of the {@link @serenity-js/core/lib/screenplay~Activity} performed\n *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight\n *  under specific conditions.\n *\n * @abstract\n ",
-            "start": 520,
-            "end": 811,
-            "loc": {
-              "start": {
-                "line": 23,
-                "column": 0
-              },
-              "end": {
-                "line": 31,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -938,23 +904,8 @@
             "raw": "'../../../../screenplay'"
           },
           "value": "../../../../screenplay"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 812,
-        "end": 4622,
-        "loc": {
-          "start": {
-            "line": 32,
-            "column": 0
-          },
-          "end": {
-            "line": 178,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n ",
@@ -987,7 +938,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 812,
+        "end": 4622,
+        "loc": {
+          "start": {
+            "line": 32,
+            "column": 0
+          },
+          "end": {
+            "line": 178,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1053,58 +1019,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 37 \n * @param \n * {ActivityStarts | ActivityFinished} event \n * @param \n * {Stage} stage \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 856,
-                    "end": 1032,
-                    "loc": {
-                      "start": {
-                        "line": 33,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 46,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Takes a photo of the web browser held by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight.\n     *\n     * @param {@serenity-js/core/lib/events~ActivityStarts | @serenity-js/core/lib/events~ActivityFinished} event\n     * @param {@serenity-js/core/lib/stage~Stage} stage - the Stage that holds reference to the Actor in the spotlight\n     * @returns void\n     *\n     * @see {@link @serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}\n     ",
-                    "start": 1039,
-                    "end": 1532,
-                    "loc": {
-                      "start": {
-                        "line": 49,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 58,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n * @abstract \n * \\TRUE \n ",
-                    "start": 3646,
-                    "end": 3801,
-                    "loc": {
-                      "start": {
-                        "line": 111,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 124,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4889,23 +4803,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 3808,
-                "end": 3875,
-                "loc": {
-                  "start": {
-                    "line": 127,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 127,
-                    "column": 71
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n * @abstract \n * \\TRUE \n ",
@@ -4923,24 +4822,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 92 \n * @param \n * {DomainEvent} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n * @abstract \n * \\TRUE \n ",
-                    "start": 3876,
-                    "end": 4030,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 37 \n * @param \n * {ActivityStarts | ActivityFinished} event \n * @param \n * {Stage} stage \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 856,
+                    "end": 1032,
                     "loc": {
                       "start": {
-                        "line": 128,
+                        "line": 33,
                         "column": 0
                       },
                       "end": {
-                        "line": 141,
+                        "line": 46,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Takes a photo of the web browser held by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight.\n     *\n     * @param {@serenity-js/core/lib/events~ActivityStarts | @serenity-js/core/lib/events~ActivityFinished} event\n     * @param {@serenity-js/core/lib/stage~Stage} stage - the Stage that holds reference to the Actor in the spotlight\n     * @returns void\n     *\n     * @see {@link @serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}\n     ",
+                    "start": 1039,
+                    "end": 1532,
+                    "loc": {
+                      "start": {
+                        "line": 49,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 58,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 3808,
+                "end": 3875,
+                "loc": {
+                  "start": {
+                    "line": 127,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 127,
+                    "column": 71
+                  }
+                },
                 "accessibility": "protected",
                 "abstract": true,
                 "static": false,
@@ -5061,23 +4991,8 @@
                       }
                     }
                   }
-                }
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 4037,
-                "end": 4097,
-                "loc": {
-                  "start": {
-                    "line": 144,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 144,
-                    "column": 64
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 92 \n * @param \n * {DomainEvent} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n * @abstract \n * \\TRUE \n ",
@@ -5095,24 +5010,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {UNKNOWN} parts \n * @return \n * {Name} \n * @private \n * \\TRUE \n ",
-                    "start": 4098,
-                    "end": 4220,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n * @abstract \n * \\TRUE \n ",
+                    "start": 3646,
+                    "end": 3801,
                     "loc": {
                       "start": {
-                        "line": 145,
+                        "line": 111,
                         "column": 0
                       },
                       "end": {
-                        "line": 156,
+                        "line": 124,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 4037,
+                "end": 4097,
+                "loc": {
+                  "start": {
+                    "line": 144,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 144,
+                    "column": 64
+                  }
+                },
                 "accessibility": "protected",
                 "abstract": true,
                 "static": false,
@@ -5233,23 +5163,8 @@
                       }
                     }
                   }
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4227,
-                "end": 4345,
-                "loc": {
-                  "start": {
-                    "line": 159,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 161,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {UNKNOWN} parts \n * @return \n * {Name} \n * @private \n * \\TRUE \n ",
@@ -5267,24 +5182,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 98 \n * @param \n * {Error} error \n * @private \n * \\TRUE \n ",
-                    "start": 4346,
-                    "end": 4443,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 92 \n * @param \n * {DomainEvent} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n * @abstract \n * \\TRUE \n ",
+                    "start": 3876,
+                    "end": 4030,
                     "loc": {
                       "start": {
-                        "line": 162,
+                        "line": 128,
                         "column": 0
                       },
                       "end": {
-                        "line": 171,
+                        "line": 141,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4227,
+                "end": 4345,
+                "loc": {
+                  "start": {
+                    "line": 159,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 161,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -5726,23 +5656,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4450,
-                "end": 4620,
-                "loc": {
-                  "start": {
-                    "line": 174,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 177,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 98 \n * @param \n * {Error} error \n * @private \n * \\TRUE \n ",
@@ -5760,6 +5675,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 94 \n * @param \n * {UNKNOWN} parts \n * @return \n * {Name} \n * @private \n * \\TRUE \n ",
+                    "start": 4098,
+                    "end": 4220,
+                    "loc": {
+                      "start": {
+                        "line": 145,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 156,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4450,
+                "end": 4620,
+                "loc": {
+                  "start": {
+                    "line": 174,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 177,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -6064,7 +6012,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 98 \n * @param \n * {Error} error \n * @private \n * \\TRUE \n ",
+                    "start": 4346,
+                    "end": 4443,
+                    "loc": {
+                      "start": {
+                        "line": 162,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 171,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -6103,7 +6069,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n ",
+            "start": 472,
+            "end": 517,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots)\n *  of the {@link @serenity-js/core/lib/screenplay~Activity} performed\n *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight\n *  under specific conditions.\n *\n * @abstract\n ",
+            "start": 520,
+            "end": 811,
+            "loc": {
+              "start": {
+                "line": 23,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

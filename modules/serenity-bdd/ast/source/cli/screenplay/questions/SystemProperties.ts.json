@@ -131,24 +131,6 @@
             "column": 34
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 83,
-            "end": 102,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -220,23 +202,8 @@
             "raw": "'../../Argv'"
           },
           "value": "../../Argv"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 103,
-        "end": 334,
-        "loc": {
-          "start": {
-            "line": 8,
-            "column": 0
-          },
-          "end": {
-            "line": 13,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
@@ -253,7 +220,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 103,
+        "end": 334,
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -316,9 +298,6 @@
                     "line": 13,
                     "column": 1
                   }
-                },
-                "extra": {
-                  "trailingComma": 331
                 },
                 "properties": [
                   {
@@ -1022,7 +1001,10 @@
                       }
                     }
                   }
-                ]
+                ],
+                "extra": {
+                  "trailingComma": 331
+                }
               }
             }
           ],
@@ -1046,7 +1028,25 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 83,
+            "end": 102,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

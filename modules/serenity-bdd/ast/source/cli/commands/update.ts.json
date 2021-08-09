@@ -1393,24 +1393,6 @@
             "column": 31
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-line @typescript-eslint/no-var-requires",
-            "start": 590,
-            "end": 647,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 32
-              },
-              "end": {
-                "line": 14,
-                "column": 89
-              }
-            }
-          }
-        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -1499,23 +1481,8 @@
             }
           }
         ],
-        "kind": "const"
-      },
-      {
-        "type": "TSExportAssignment",
-        "start": 649,
-        "end": 3211,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 80,
-            "column": 2
-          }
-        },
-        "leadingComments": [
+        "kind": "const",
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-line @typescript-eslint/no-var-requires",
@@ -1532,7 +1499,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "TSExportAssignment",
+        "start": 649,
+        "end": 3211,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 80,
+            "column": 2
+          }
+        },
         "expression": {
           "type": "ObjectExpression",
           "start": 658,
@@ -1546,9 +1528,6 @@
               "line": 80,
               "column": 1
             }
-          },
-          "extra": {
-            "trailingComma": 3207
           },
           "properties": [
             {
@@ -1709,9 +1688,6 @@
                     "column": 5
                   }
                 },
-                "extra": {
-                  "trailingComma": 1626
-                },
                 "properties": [
                   {
                     "type": "ObjectProperty",
@@ -1760,9 +1736,6 @@
                           "line": 23,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 937
                       },
                       "properties": [
                         {
@@ -1905,7 +1878,10 @@
                             "value": "A relative path to where the Serenity BDD CLI jar file should be stored"
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 937
+                      }
                     }
                   },
                   {
@@ -1955,9 +1931,6 @@
                           "line": 28,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1081
                       },
                       "properties": [
                         {
@@ -2121,7 +2094,10 @@
                             "value": "Ignore SSL certificates"
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1081
+                      }
                     }
                   },
                   {
@@ -2171,9 +2147,6 @@
                           "line": 32,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1259
                       },
                       "properties": [
                         {
@@ -2316,7 +2289,10 @@
                             "value": "Maven repository url where we should look for the Serenity BDD CLI artifact"
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1259
+                      }
                     }
                   },
                   {
@@ -2366,9 +2342,6 @@
                           "line": 35,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1386
                       },
                       "properties": [
                         {
@@ -2444,7 +2417,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1386
+                      }
                     }
                   },
                   {
@@ -2494,9 +2470,6 @@
                           "line": 39,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1615
                       },
                       "properties": [
                         {
@@ -2657,10 +2630,16 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1615
+                      }
                     }
                   }
-                ]
+                ],
+                "extra": {
+                  "trailingComma": 1626
+                }
               }
             },
             {
@@ -3615,9 +3594,6 @@
                                 "column": 9
                               }
                             },
-                            "extra": {
-                              "trailingComma": 2336
-                            },
                             "properties": [
                               {
                                 "type": "ObjectProperty",
@@ -4266,7 +4242,10 @@
                                   ]
                                 }
                               }
-                            ]
+                            ],
+                            "extra": {
+                              "trailingComma": 2336
+                            }
                           }
                         ]
                       }
@@ -4459,9 +4438,6 @@
                                       "column": 17
                                     }
                                   },
-                                  "extra": {
-                                    "trailingComma": 3025
-                                  },
                                   "callee": {
                                     "type": "MemberExpression",
                                     "start": 2424,
@@ -4549,6 +4525,9 @@
                                       "name": "attemptsTo"
                                     }
                                   },
+                                  "extra": {
+                                    "trailingComma": 3025
+                                  },
                                   "arguments": [
                                     {
                                       "type": "CallExpression",
@@ -4591,9 +4570,6 @@
                                               "line": 66,
                                               "column": 25
                                             }
-                                          },
-                                          "extra": {
-                                            "trailingComma": 2709
                                           },
                                           "callee": {
                                             "type": "MemberExpression",
@@ -4811,6 +4787,9 @@
                                               },
                                               "name": "andIfSo"
                                             }
+                                          },
+                                          "extra": {
+                                            "trailingComma": 2709
                                           },
                                           "arguments": [
                                             {
@@ -5653,8 +5632,29 @@
                 }
               }
             }
-          ]
-        }
+          ],
+          "extra": {
+            "trailingComma": 3207
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-line @typescript-eslint/no-var-requires",
+            "start": 590,
+            "end": 647,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 32
+              },
+              "end": {
+                "line": 14,
+                "column": 89
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

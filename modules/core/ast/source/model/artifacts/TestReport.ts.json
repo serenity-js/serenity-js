@@ -131,24 +131,6 @@
             "column": 39
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
-            "start": 82,
-            "end": 126,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -220,23 +202,8 @@
             "raw": "'../Artifact'"
           },
           "value": "../Artifact"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 129,
-        "end": 768,
-        "loc": {
-          "start": {
-            "line": 12,
-            "column": 0
-          },
-          "end": {
-            "line": 49,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
@@ -253,7 +220,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 129,
+        "end": 768,
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 0
+          },
+          "end": {
+            "line": 49,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -334,42 +316,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {JSONObject} value \n * @return \n * {TestReport} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 172,
-                    "end": 323,
-                    "loc": {
-                      "start": {
-                        "line": 13,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 26,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {Function} fn \n * @return \n * {O} \n * @public \n * \\TRUE \n ",
-                    "start": 493,
-                    "end": 609,
-                    "loc": {
-                      "start": {
-                        "line": 32,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 43,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -850,23 +796,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 616,
-                "end": 766,
-                "loc": {
-                  "start": {
-                    "line": 46,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 48,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {Function} fn \n * @return \n * {O} \n * @public \n * \\TRUE \n ",
@@ -884,6 +815,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 7 \n * @param \n * {JSONObject} value \n * @return \n * {TestReport} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 172,
+                    "end": 323,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 26,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 616,
+                "end": 766,
+                "loc": {
+                  "start": {
+                    "line": 46,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 48,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1487,7 +1451,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n * @param \n * {Function} fn \n * @return \n * {O} \n * @public \n * \\TRUE \n ",
+                    "start": 493,
+                    "end": 609,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 43,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1510,7 +1492,25 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
+            "start": 82,
+            "end": 126,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

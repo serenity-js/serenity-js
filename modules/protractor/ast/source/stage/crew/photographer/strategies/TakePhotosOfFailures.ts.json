@@ -267,40 +267,6 @@
             "column": 60
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
-            "start": 212,
-            "end": 257,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when\n *  the {@link @serenity-js/core/lib/screenplay~Interaction} performed\n *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.\n *\n *  This strategy works best when you are interested in the screenshots only when\n *  the a fails.\n *\n * @extends {PhotoTakingStrategy}\n ",
-            "start": 260,
-            "end": 669,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 23,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -372,23 +338,8 @@
             "raw": "'./PhotoTakingStrategy'"
           },
           "value": "./PhotoTakingStrategy"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 670,
-        "end": 1308,
-        "loc": {
-          "start": {
-            "line": 24,
-            "column": 0
-          },
-          "end": {
-            "line": 59,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
@@ -421,7 +372,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 670,
+        "end": 1308,
+        "loc": {
+          "start": {
+            "line": 24,
+            "column": 0
+          },
+          "end": {
+            "line": 59,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -502,42 +468,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n ",
-                    "start": 734,
-                    "end": 865,
-                    "loc": {
-                      "start": {
-                        "line": 25,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 36,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
-                    "start": 1054,
-                    "end": 1192,
-                    "loc": {
-                      "start": {
-                        "line": 42,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 53,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -873,23 +803,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1199,
-                "end": 1306,
-                "loc": {
-                  "start": {
-                    "line": 56,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 58,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
@@ -907,6 +822,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n ",
+                    "start": 734,
+                    "end": 865,
+                    "loc": {
+                      "start": {
+                        "line": 25,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 36,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1199,
+                "end": 1306,
+                "loc": {
+                  "start": {
+                    "line": 56,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 58,
+                    "column": 5
+                  }
+                },
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -1175,7 +1123,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
+                    "start": 1054,
+                    "end": 1192,
+                    "loc": {
+                      "start": {
+                        "line": 42,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 53,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1214,7 +1180,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n ",
+            "start": 212,
+            "end": 257,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when\n *  the {@link @serenity-js/core/lib/screenplay~Interaction} performed\n *  by the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight results in an error.\n *\n *  This strategy works best when you are interested in the screenshots only when\n *  the a fails.\n *\n * @extends {PhotoTakingStrategy}\n ",
+            "start": 260,
+            "end": 669,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 23,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

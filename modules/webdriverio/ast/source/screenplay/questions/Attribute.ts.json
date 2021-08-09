@@ -463,40 +463,6 @@
             "column": 48
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n ",
-            "start": 206,
-            "end": 251,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns the value of the given HTML attribute of a given {@link WebElement},\n *  represented by Answerable<{@link @wdio/types~Element}>\n *\n * @example <caption>Example widget</caption>\n *  <ul id=\"shopping-list\" data-items-left=\"2\">\n *    <li data-state=\"bought\">Coffee<li>\n *    <li data-state=\"buy\">Honey<li>\n *    <li data-state=\"buy\">Chocolate<li>\n *  </ul>\n *\n * @example <caption>Retrieve a HTML attribute of a given WebElement</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { Attribute, by, BrowseTheWeb, Target } from '@serenity-js/webdriverio';\n *\n *  const shoppingList = () =>\n *      Target.the('shopping list').located(by.id('shopping-list'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(Attribute.called('data-items-left').of(shoppingList()), equals('2')),\n *      )\n *\n * @example <caption>Find WebElements with a given attribute</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, includes } from '@serenity-js/assertions';\n *  import { Attribute, BrowseTheWeb, by, Target } from '@serenity-js/webdriverio';\n *\n *  class ShoppingList {\n *      static items = () =>\n *          Target.all('items')\n *              .located(by.css('#shopping-list li'))\n *\n *      static outstandingItems = () =>\n *          ShoppingList.items\n *              .where(Attribute.called('data-state'), includes('buy'))\n *  }\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              Text.ofAll(ShoppingList.outstandingItems()),\n *              equals([ 'Honey', 'Chocolate' ])\n *          ),\n *      )\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n ",
-            "start": 254,
-            "end": 2171,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 65,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -568,23 +534,8 @@
             "raw": "'./targets'"
           },
           "value": "./targets"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2172,
-        "end": 4290,
-        "loc": {
-          "start": {
-            "line": 66,
-            "column": 0
-          },
-          "end": {
-            "line": 160,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n ",
@@ -617,7 +568,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2172,
+        "end": 4290,
+        "loc": {
+          "start": {
+            "line": 66,
+            "column": 0
+          },
+          "end": {
+            "line": 160,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1027,58 +993,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n * @param \n * {Answerable} name \n * @return \n * {Attribute} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2310,
-                    "end": 2460,
-                    "loc": {
-                      "start": {
-                        "line": 70,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 83,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Answerable<string>} name\n     * @returns {Attribute}\n     ",
-                    "start": 2466,
-                    "end": 2545,
-                    "loc": {
-                      "start": {
-                        "line": 85,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 88,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Answerable<string>} name\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} [element]\n     ",
-                    "start": 2650,
-                    "end": 2789,
-                    "loc": {
-                      "start": {
-                        "line": 93,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 96,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1330,23 +1244,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2794,
-                "end": 2992,
-                "loc": {
-                  "start": {
-                    "line": 97,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 102,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Answerable<string>} name\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} [element]\n     ",
@@ -1364,40 +1263,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 2993,
-                    "end": 3122,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n * @param \n * {Answerable} name \n * @return \n * {Attribute} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2310,
+                    "end": 2460,
                     "loc": {
                       "start": {
-                        "line": 103,
+                        "line": 70,
                         "column": 0
                       },
                       "end": {
-                        "line": 114,
+                        "line": 83,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Resolves to the value of a HTML attribute of the `target` element,\n     *  located in the context of a `parent` element.\n     *\n     * @param {Answerable<Element<'async'>>} parent\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Target.all}\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
-                    "start": 3129,
-                    "end": 3501,
+                    "value": "*\n     * @param {Answerable<string>} name\n     * @returns {Attribute}\n     ",
+                    "start": 2466,
+                    "end": 2545,
                     "loc": {
                       "start": {
-                        "line": 117,
+                        "line": 85,
                         "column": 4
                       },
                       "end": {
-                        "line": 127,
+                        "line": 88,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2794,
+                "end": 2992,
+                "loc": {
+                  "start": {
+                    "line": 97,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 102,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1896,23 +1810,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3506,
-                "end": 3759,
-                "loc": {
-                  "start": {
-                    "line": 128,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 135,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -1946,24 +1845,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 3760,
-                    "end": 3910,
+                    "value": "*\n     * @param {Answerable<string>} name\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} [element]\n     ",
+                    "start": 2650,
+                    "end": 2789,
                     "loc": {
                       "start": {
-                        "line": 136,
-                        "column": 0
+                        "line": 93,
+                        "column": 4
                       },
                       "end": {
-                        "line": 147,
-                        "column": 3
+                        "line": 96,
+                        "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3506,
+                "end": 3759,
+                "loc": {
+                  "start": {
+                    "line": 128,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 135,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2575,23 +2489,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3917,
-                "end": 4288,
-                "loc": {
-                  "start": {
-                    "line": 150,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 159,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2609,6 +2508,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 2993,
+                    "end": 3122,
+                    "loc": {
+                      "start": {
+                        "line": 103,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 114,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Resolves to the value of a HTML attribute of the `target` element,\n     *  located in the context of a `parent` element.\n     *\n     * @param {Answerable<Element<'async'>>} parent\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Target.all}\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
+                    "start": 3129,
+                    "end": 3501,
+                    "loc": {
+                      "start": {
+                        "line": 117,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 127,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3917,
+                "end": 4288,
+                "loc": {
+                  "start": {
+                    "line": 150,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 159,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2949,24 +2897,6 @@
                                 "column": 57
                               }
                             },
-                            "trailingComments": [
-                              {
-                                "type": "CommentLine",
-                                "value": " todo: better error message?",
-                                "start": 4084,
-                                "end": 4114,
-                                "loc": {
-                                  "start": {
-                                    "line": 152,
-                                    "column": 60
-                                  },
-                                  "end": {
-                                    "line": 152,
-                                    "column": 90
-                                  }
-                                }
-                              }
-                            ],
                             "argument": {
                               "type": "NewExpression",
                               "start": 4042,
@@ -3038,7 +2968,25 @@
                                   ]
                                 }
                               ]
-                            }
+                            },
+                            "trailingComments": [
+                              {
+                                "type": "CommentLine",
+                                "value": " todo: better error message?",
+                                "start": 4084,
+                                "end": 4114,
+                                "loc": {
+                                  "start": {
+                                    "line": 152,
+                                    "column": 60
+                                  },
+                                  "end": {
+                                    "line": 152,
+                                    "column": 90
+                                  }
+                                }
+                              }
+                            ]
                           }
                         ],
                         "directives": []
@@ -3506,7 +3454,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 3760,
+                    "end": 3910,
+                    "loc": {
+                      "start": {
+                        "line": 136,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 147,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3545,7 +3511,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 59 \n ",
+            "start": 206,
+            "end": 251,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns the value of the given HTML attribute of a given {@link WebElement},\n *  represented by Answerable<{@link @wdio/types~Element}>\n *\n * @example <caption>Example widget</caption>\n *  <ul id=\"shopping-list\" data-items-left=\"2\">\n *    <li data-state=\"bought\">Coffee<li>\n *    <li data-state=\"buy\">Honey<li>\n *    <li data-state=\"buy\">Chocolate<li>\n *  </ul>\n *\n * @example <caption>Retrieve a HTML attribute of a given WebElement</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { Attribute, by, BrowseTheWeb, Target } from '@serenity-js/webdriverio';\n *\n *  const shoppingList = () =>\n *      Target.the('shopping list').located(by.id('shopping-list'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(Attribute.called('data-items-left').of(shoppingList()), equals('2')),\n *      )\n *\n * @example <caption>Find WebElements with a given attribute</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, includes } from '@serenity-js/assertions';\n *  import { Attribute, BrowseTheWeb, by, Target } from '@serenity-js/webdriverio';\n *\n *  class ShoppingList {\n *      static items = () =>\n *          Target.all('items')\n *              .located(by.css('#shopping-list li'))\n *\n *      static outstandingItems = () =>\n *          ShoppingList.items\n *              .where(Attribute.called('data-state'), includes('buy'))\n *  }\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              Text.ofAll(ShoppingList.outstandingItems()),\n *              equals([ 'Honey', 'Chocolate' ])\n *          ),\n *      )\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n ",
+            "start": 254,
+            "end": 2171,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 65,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

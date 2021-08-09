@@ -44,24 +44,6 @@
             "column": 60
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable unicorn/prevent-abbreviations ",
-            "start": 0,
-            "end": 50,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 50
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -182,7 +164,25 @@
             "raw": "'@serenity-js/core/lib/io'"
           },
           "value": "@serenity-js/core/lib/io"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/prevent-abbreviations ",
+            "start": 0,
+            "end": 50,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 50
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -198,40 +198,6 @@
             "column": 54
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
-            "start": 168,
-            "end": 213,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Cucumber.js allows max 1 formatter per output\n *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/index.ts#L83-L140\n *  and doesn't allow to write to \\\\.\\NUL on Windows (equivalent of *nix /dev/null) because of the check in OptionSplitter\n *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/option_splitter.ts#L3\n *  so instead I create a dummy temp file, which is deleted when the test run is finished.\n *\n * @package\n ",
-            "start": 216,
-            "end": 759,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 22,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -303,23 +269,8 @@
             "raw": "'./OutputDescriptor'"
           },
           "value": "./OutputDescriptor"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 760,
-        "end": 1474,
-        "loc": {
-          "start": {
-            "line": 23,
-            "column": 0
-          },
-          "end": {
-            "line": 70,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
@@ -352,7 +303,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 760,
+        "end": 1474,
+        "loc": {
+          "start": {
+            "line": 23,
+            "column": 0
+          },
+          "end": {
+            "line": 70,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -451,40 +417,6 @@
                     "column": 32
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Path} \n * @private \n * \\TRUE \n ",
-                    "start": 828,
-                    "end": 917,
-                    "loc": {
-                      "start": {
-                        "line": 24,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 33,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": " eslint-disable-line unicorn/prevent-abbreviations",
-                    "start": 920,
-                    "end": 972,
-                    "loc": {
-                      "start": {
-                        "line": 34,
-                        "column": 2
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 54
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -553,7 +485,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Path} \n * @private \n * \\TRUE \n ",
+                    "start": 828,
+                    "end": 917,
+                    "loc": {
+                      "start": {
+                        "line": 24,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 33,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentLine",
+                    "value": " eslint-disable-line unicorn/prevent-abbreviations",
+                    "start": 920,
+                    "end": 972,
+                    "loc": {
+                      "start": {
+                        "line": 34,
+                        "column": 2
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 54
+                      }
+                    }
+                  }
+                ]
               },
               {
                 "type": "ClassMethod",
@@ -569,24 +535,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1135,
-                    "end": 1227,
-                    "loc": {
-                      "start": {
-                        "line": 40,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 49,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -907,23 +855,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1234,
-                "end": 1289,
-                "loc": {
-                  "start": {
-                    "line": 52,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 54,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -940,25 +873,22 @@
                       }
                     }
                   }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1290,
-                    "end": 1383,
-                    "loc": {
-                      "start": {
-                        "line": 55,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 64,
-                        "column": 3
-                      }
-                    }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1234,
+                "end": 1289,
+                "loc": {
+                  "start": {
+                    "line": 52,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 54,
+                    "column": 5
                   }
-                ],
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1126,23 +1056,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1390,
-                "end": 1472,
-                "loc": {
-                  "start": {
-                    "line": 67,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 69,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1160,6 +1075,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1135,
+                    "end": 1227,
+                    "loc": {
+                      "start": {
+                        "line": 40,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 49,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1390,
+                "end": 1472,
+                "loc": {
+                  "start": {
+                    "line": 67,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 69,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1441,7 +1389,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1290,
+                    "end": 1383,
+                    "loc": {
+                      "start": {
+                        "line": 55,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 64,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1480,7 +1446,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n ",
+            "start": 168,
+            "end": 213,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Cucumber.js allows max 1 formatter per output\n *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/index.ts#L83-L140\n *  and doesn't allow to write to \\\\.\\NUL on Windows (equivalent of *nix /dev/null) because of the check in OptionSplitter\n *      - https://github.com/cucumber/cucumber-js/blob/625fab034eea768bf74f7a46993a57182204ddf6/src/cli/option_splitter.ts#L3\n *  so instead I create a dummy temp file, which is deleted when the test run is finished.\n *\n * @package\n ",
+            "start": 216,
+            "end": 759,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 22,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

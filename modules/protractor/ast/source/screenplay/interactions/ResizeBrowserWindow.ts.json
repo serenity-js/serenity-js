@@ -180,40 +180,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
-            "start": 110,
-            "end": 155,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  resize the browser window.\n *\n *  **Please note** that another way to set the size of the browser window\n *  is to configure it in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).\n *\n * @see {@link Window}\n ",
-            "start": 158,
-            "end": 498,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -285,23 +251,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 499,
-        "end": 3202,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 115,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
@@ -334,41 +285,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
-            "start": 3203,
-            "end": 3248,
-            "loc": {
-              "start": {
-                "line": 116,
-                "column": 0
-              },
-              "end": {
-                "line": 121,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 499,
+        "end": 3202,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 3251,
-            "end": 3270,
-            "loc": {
-              "start": {
-                "line": 124,
-                "column": 0
-              },
-              "end": {
-                "line": 126,
-                "column": 3
-              }
-            }
+          "end": {
+            "line": 115,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -433,74 +365,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 534,
-                    "end": 653,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  setting the size of the browser window to maximum.\n     *\n     * @example <caption>Maximising browser window</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate, ResizeBrowserWindow, Window } from '@serenity-js/protractor';\n     *  import { Ensure, isGreaterThan } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Ventana')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/app'),\n     *          ResizeBrowserWindow.toMaximum(),\n     *          Ensure.that(Window.size(), property('width', isGreaterThan(1024))),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link Window.size}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~property}\n     * @see {@link @serenity-js/assertions/lib/expectations~isGreaterThan}\n     ",
-                    "start": 660,
-                    "end": 1831,
-                    "loc": {
-                      "start": {
-                        "line": 37,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 63,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {number} width \n * @param \n * {number} height \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1920,
-                    "end": 2100,
-                    "loc": {
-                      "start": {
-                        "line": 67,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 82,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  setting the size of the browser window to given `width` and `height`\n     *\n     * @example <caption>Setting specific window size</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate, ResizeBrowserWindow } from '@serenity-js/protractor';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Ventana')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/app'),\n     *          ResizeBrowserWindow.to(828, 1792),\n     *      );\n     *\n     * @see {@link BrowseTheWeb}\n     *\n     * @param {number} width\n     *  Desired new width of the browser window\n     *\n     * @param {number} height\n     *  Desired new height of the browser window\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 2107,
-                    "end": 3078,
-                    "loc": {
-                      "start": {
-                        "line": 85,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 111,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -637,23 +501,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3083,
-                "end": 3200,
-                "loc": {
-                  "start": {
-                    "line": 112,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 114,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {number} width \n * @param \n * {number} height \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -687,6 +536,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 534,
+                    "end": 653,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  setting the size of the browser window to maximum.\n     *\n     * @example <caption>Maximising browser window</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate, ResizeBrowserWindow, Window } from '@serenity-js/protractor';\n     *  import { Ensure, isGreaterThan } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Ventana')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/app'),\n     *          ResizeBrowserWindow.toMaximum(),\n     *          Ensure.that(Window.size(), property('width', isGreaterThan(1024))),\n     *      );\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link BrowseTheWeb}\n     * @see {@link Window.size}\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link @serenity-js/assertions/lib/expectations~property}\n     * @see {@link @serenity-js/assertions/lib/expectations~isGreaterThan}\n     ",
+                    "start": 660,
+                    "end": 1831,
+                    "loc": {
+                      "start": {
+                        "line": 37,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 63,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3083,
+                "end": 3200,
+                "loc": {
+                  "start": {
+                    "line": 112,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 114,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -953,7 +851,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {number} width \n * @param \n * {number} height \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1920,
+                    "end": 2100,
+                    "loc": {
+                      "start": {
+                        "line": 67,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 82,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates a version of this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  setting the size of the browser window to given `width` and `height`\n     *\n     * @example <caption>Setting specific window size</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Navigate, ResizeBrowserWindow } from '@serenity-js/protractor';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Ventana')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Navigate.to('/app'),\n     *          ResizeBrowserWindow.to(828, 1792),\n     *      );\n     *\n     * @see {@link BrowseTheWeb}\n     *\n     * @param {number} width\n     *  Desired new width of the browser window\n     *\n     * @param {number} height\n     *  Desired new height of the browser window\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 2107,
+                    "end": 3078,
+                    "loc": {
+                      "start": {
+                        "line": 85,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 111,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1025,23 +957,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 3271,
-        "end": 4592,
-        "loc": {
-          "start": {
-            "line": 127,
-            "column": 0
-          },
-          "end": {
-            "line": 180,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
@@ -1075,40 +992,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 117 \n ",
-            "start": 4593,
-            "end": 4639,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 110,
+            "end": 155,
             "loc": {
               "start": {
-                "line": 181,
+                "line": 4,
                 "column": 0
               },
               "end": {
-                "line": 186,
+                "line": 9,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 4642,
-            "end": 4661,
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  resize the browser window.\n *\n *  **Please note** that another way to set the size of the browser window\n *  is to configure it in [`protractor.conf.js`](https://github.com/angular/protractor/blob/master/lib/config.ts).\n *\n * @see {@link Window}\n ",
+            "start": 158,
+            "end": 498,
             "loc": {
               "start": {
-                "line": 189,
+                "line": 12,
                 "column": 0
               },
               "end": {
-                "line": 191,
+                "line": 21,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 3271,
+        "end": 4592,
+        "loc": {
+          "start": {
+            "line": 127,
+            "column": 0
+          },
+          "end": {
+            "line": 180,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 3277,
@@ -1190,74 +1122,6 @@
                   "column": 5
                 }
               },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @param \n * {UsesAbilities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                  "start": 3324,
-                  "end": 3458,
-                  "loc": {
-                    "start": {
-                      "line": 128,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 139,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 3465,
-                  "end": 4103,
-                  "loc": {
-                    "start": {
-                      "line": 142,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 155,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 4235,
-                  "end": 4328,
-                  "loc": {
-                    "start": {
-                      "line": 159,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 168,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 4335,
-                  "end": 4505,
-                  "loc": {
-                    "start": {
-                      "line": 171,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 176,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1689,23 +1553,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4510,
-              "end": 4590,
-              "loc": {
-                "start": {
-                  "line": 177,
-                  "column": 4
-                },
-                "end": {
-                  "line": 179,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1739,6 +1588,55 @@
                   }
                 }
               ],
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @param \n * {UsesAbilities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                  "start": 3324,
+                  "end": 3458,
+                  "loc": {
+                    "start": {
+                      "line": 128,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 139,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 3465,
+                  "end": 4103,
+                  "loc": {
+                    "start": {
+                      "line": 142,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 155,
+                      "column": 7
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4510,
+              "end": 4590,
+              "loc": {
+                "start": {
+                  "line": 177,
+                  "column": 4
+                },
+                "end": {
+                  "line": 179,
+                  "column": 5
+                }
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1863,26 +1761,45 @@
                   }
                 ],
                 "directives": []
-              }
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 4235,
+                  "end": 4328,
+                  "loc": {
+                    "start": {
+                      "line": 159,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 168,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 4335,
+                  "end": 4505,
+                  "loc": {
+                    "start": {
+                      "line": 171,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 176,
+                      "column": 7
+                    }
+                  }
+                }
+              ]
             }
           ]
-        }
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 4662,
-        "end": 6117,
-        "loc": {
-          "start": {
-            "line": 192,
-            "column": 0
-          },
-          "end": {
-            "line": 247,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 117 \n ",
@@ -1916,6 +1833,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n ",
+            "start": 3203,
+            "end": 3248,
+            "loc": {
+              "start": {
+                "line": 116,
+                "column": 0
+              },
+              "end": {
+                "line": 121,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 3251,
+            "end": 3270,
+            "loc": {
+              "start": {
+                "line": 124,
+                "column": 0
+              },
+              "end": {
+                "line": 126,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 4662,
+        "end": 6117,
+        "loc": {
+          "start": {
+            "line": 192,
+            "column": 0
+          },
+          "end": {
+            "line": 247,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 4668,
@@ -1997,40 +1963,6 @@
                   "column": 5
                 }
               },
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @param \n * {UsesAbilities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                  "start": 4785,
-                  "end": 4920,
-                  "loc": {
-                    "start": {
-                      "line": 195,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 206,
-                      "column": 3
-                    }
-                  }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                  "start": 4927,
-                  "end": 5565,
-                  "loc": {
-                    "start": {
-                      "line": 209,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 222,
-                      "column": 7
-                    }
-                  }
-                }
-              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2198,23 +2130,8 @@
                 },
                 "body": [],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5570,
-              "end": 5718,
-              "loc": {
-                "start": {
-                  "line": 223,
-                  "column": 4
-                },
-                "end": {
-                  "line": 225,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @param \n * {UsesAbilities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -2247,41 +2164,22 @@
                     }
                   }
                 }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 5719,
-                  "end": 5812,
-                  "loc": {
-                    "start": {
-                      "line": 226,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 235,
-                      "column": 3
-                    }
-                  }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5570,
+              "end": 5718,
+              "loc": {
+                "start": {
+                  "line": 223,
+                  "column": 4
                 },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                  "start": 5819,
-                  "end": 5989,
-                  "loc": {
-                    "start": {
-                      "line": 238,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 243,
-                      "column": 7
-                    }
-                  }
+                "end": {
+                  "line": 225,
+                  "column": 5
                 }
-              ],
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2810,23 +2708,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5994,
-              "end": 6115,
-              "loc": {
-                "start": {
-                  "line": 244,
-                  "column": 4
-                },
-                "end": {
-                  "line": 246,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2860,6 +2743,55 @@
                   }
                 }
               ],
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @param \n * {UsesAbilities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                  "start": 4785,
+                  "end": 4920,
+                  "loc": {
+                    "start": {
+                      "line": 195,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 206,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                  "start": 4927,
+                  "end": 5565,
+                  "loc": {
+                    "start": {
+                      "line": 209,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 222,
+                      "column": 7
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5994,
+              "end": 6115,
+              "loc": {
+                "start": {
+                  "line": 244,
+                  "column": 4
+                },
+                "end": {
+                  "line": 246,
+                  "column": 5
+                }
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3121,10 +3053,78 @@
                   }
                 ],
                 "directives": []
-              }
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 5719,
+                  "end": 5812,
+                  "loc": {
+                    "start": {
+                      "line": 226,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 235,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                  "start": 5819,
+                  "end": 5989,
+                  "loc": {
+                    "start": {
+                      "line": 238,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 243,
+                      "column": 7
+                    }
+                  }
+                }
+              ]
             }
           ]
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 117 \n ",
+            "start": 4593,
+            "end": 4639,
+            "loc": {
+              "start": {
+                "line": 181,
+                "column": 0
+              },
+              "end": {
+                "line": 186,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 4642,
+            "end": 4661,
+            "loc": {
+              "start": {
+                "line": 189,
+                "column": 0
+              },
+              "end": {
+                "line": 191,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -822,40 +822,6 @@
             "column": 45
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 399,
-            "end": 444,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 447,
-            "end": 466,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -927,23 +893,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 467,
-        "end": 3958,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 138,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -976,7 +927,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 467,
+        "end": 3958,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 138,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1057,24 +1023,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {Answerable} request \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 517,
-                    "end": 642,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 31,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1242,24 +1190,6 @@
                           "column": 10
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " eslint-disable-line @typescript-eslint/explicit-module-boundary-types",
-                          "start": 705,
-                          "end": 777,
-                          "loc": {
-                            "start": {
-                              "line": 34,
-                              "column": 60
-                            },
-                            "end": {
-                              "line": 34,
-                              "column": 132
-                            }
-                          }
-                        }
-                      ],
                       "argument": {
                         "type": "ObjectExpression",
                         "start": 793,
@@ -1273,9 +1203,6 @@
                             "line": 37,
                             "column": 9
                           }
-                        },
-                        "extra": {
-                          "trailingComma": 874
                         },
                         "properties": [
                           {
@@ -1465,12 +1392,51 @@
                               }
                             }
                           }
-                        ]
-                      }
+                        ],
+                        "extra": {
+                          "trailingComma": 874
+                        }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " eslint-disable-line @typescript-eslint/explicit-module-boundary-types",
+                          "start": 705,
+                          "end": 777,
+                          "loc": {
+                            "start": {
+                              "line": 34,
+                              "column": 60
+                            },
+                            "end": {
+                              "line": 34,
+                              "column": 132
+                            }
+                          }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {Answerable} request \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 517,
+                    "end": 642,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 31,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               },
               {
                 "type": "ClassMethod",
@@ -1486,40 +1452,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1052,
-                    "end": 1221,
-                    "loc": {
-                      "start": {
-                        "line": 46,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 57,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 1228,
-                    "end": 1819,
-                    "loc": {
-                      "start": {
-                        "line": 60,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1819,23 +1751,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1824,
-                "end": 3553,
-                "loc": {
-                  "start": {
-                    "line": 73,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 116,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1868,41 +1785,22 @@
                       }
                     }
                   }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 3554,
-                    "end": 3646,
-                    "loc": {
-                      "start": {
-                        "line": 117,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 126,
-                        "column": 3
-                      }
-                    }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1824,
+                "end": 3553,
+                "loc": {
+                  "start": {
+                    "line": 73,
+                    "column": 4
                   },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 3653,
-                    "end": 3823,
-                    "loc": {
-                      "start": {
-                        "line": 129,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 134,
-                        "column": 7
-                      }
-                    }
+                  "end": {
+                    "line": 116,
+                    "column": 5
                   }
-                ],
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2629,9 +2527,6 @@
                                               "column": 13
                                             }
                                           },
-                                          "extra": {
-                                            "trailingComma": 2099
-                                          },
                                           "properties": [
                                             {
                                               "type": "SpreadElement",
@@ -2720,7 +2615,10 @@
                                                 "value": "stream"
                                               }
                                             }
-                                          ]
+                                          ],
+                                          "extra": {
+                                            "trailingComma": 2099
+                                          }
                                         }
                                       ]
                                     },
@@ -4963,9 +4861,6 @@
                                                                         "column": 21
                                                                       }
                                                                     },
-                                                                    "extra": {
-                                                                      "trailingComma": 3274
-                                                                    },
                                                                     "properties": [
                                                                       {
                                                                         "type": "ObjectProperty",
@@ -4980,9 +4875,6 @@
                                                                             "line": 103,
                                                                             "column": 39
                                                                           }
-                                                                        },
-                                                                        "extra": {
-                                                                          "shorthand": true
                                                                         },
                                                                         "method": false,
                                                                         "key": {
@@ -5020,6 +4912,9 @@
                                                                             "identifierName": "downloadedBytes"
                                                                           },
                                                                           "name": "downloadedBytes"
+                                                                        },
+                                                                        "extra": {
+                                                                          "shorthand": true
                                                                         }
                                                                       },
                                                                       {
@@ -5036,9 +4931,6 @@
                                                                             "column": 44
                                                                           }
                                                                         },
-                                                                        "extra": {
-                                                                          "shorthand": true
-                                                                        },
                                                                         "method": false,
                                                                         "key": {
                                                                           "type": "Identifier",
@@ -5075,6 +4967,9 @@
                                                                             "identifierName": "totalDownloadedBytes"
                                                                           },
                                                                           "name": "totalDownloadedBytes"
+                                                                        },
+                                                                        "extra": {
+                                                                          "shorthand": true
                                                                         }
                                                                       },
                                                                       {
@@ -5091,9 +4986,6 @@
                                                                             "column": 34
                                                                           }
                                                                         },
-                                                                        "extra": {
-                                                                          "shorthand": true
-                                                                        },
                                                                         "method": false,
                                                                         "key": {
                                                                           "type": "Identifier",
@@ -5130,9 +5022,15 @@
                                                                             "identifierName": "totalBytes"
                                                                           },
                                                                           "name": "totalBytes"
+                                                                        },
+                                                                        "extra": {
+                                                                          "shorthand": true
                                                                         }
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "extra": {
+                                                                      "trailingComma": 3274
+                                                                    }
                                                                   }
                                                                 ]
                                                               }
@@ -5685,23 +5583,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3828,
-                "end": 3956,
-                "loc": {
-                  "start": {
-                    "line": 135,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 137,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -5735,6 +5618,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @param \n * {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1052,
+                    "end": 1221,
+                    "loc": {
+                      "start": {
+                        "line": 46,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 57,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & CollectsArtifacts & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 1228,
+                    "end": 1819,
+                    "loc": {
+                      "start": {
+                        "line": 60,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 72,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3828,
+                "end": 3956,
+                "loc": {
+                  "start": {
+                    "line": 135,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 137,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6061,7 +5993,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 3554,
+                    "end": 3646,
+                    "loc": {
+                      "start": {
+                        "line": 117,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 126,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 3653,
+                    "end": 3823,
+                    "loc": {
+                      "start": {
+                        "line": 129,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 134,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -6100,7 +6066,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 399,
+            "end": 444,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 447,
+            "end": 466,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

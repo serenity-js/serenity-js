@@ -615,40 +615,6 @@
             "column": 48
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
-            "start": 313,
-            "end": 358,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A control flow statement that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  either to choose whether or not to perform a series of activities,\n *  or to choose which of the two provided series of activities to perform.\n *\n * @example <caption>Choose from two alternatives</caption>\n *  import { equals } from '@serenity-js/assertions';\n *  import { Check } from '@serenity-js/core';\n *\n *  actor.attemptsTo(\n *      Check.whether(process.env.MODE, equals('prod'))\n *          .andIfSo(\n *              LogInAsProdUser(),\n *          )\n *          .otherwise(\n *              LogInAsTestUser(),\n *          )\n *  );\n *\n * @example <caption>Choose whether or not to perform an activity</caption>\n *  import { equals } from '@serenity-js/assertions';\n *  import { Check } from '@serenity-js/core';\n *  import { isDisplayed } from '@serenity-js/protractor';\n *\n *  actor.attemptsTo(\n *      Check.whether(NewsletterModal(), isDisplayed())\n *          .andIfSo(\n *              DismissModal(),\n *          )\n *  );\n *\n * @extends {@serenity-js/core/lib/screenplay~Task}\n *\n * @see https://en.wikipedia.org/wiki/Control_flow\n ",
-            "start": 361,
-            "end": 1523,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 51,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -720,23 +686,8 @@
             "raw": "'./expectations'"
           },
           "value": "./expectations"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1524,
-        "end": 4460,
-        "loc": {
-          "start": {
-            "line": 52,
-            "column": 0
-          },
-          "end": {
-            "line": 170,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
@@ -769,7 +720,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1524,
+        "end": 4460,
+        "loc": {
+          "start": {
+            "line": 52,
+            "column": 0
+          },
+          "end": {
+            "line": 170,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -883,58 +849,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {Answerable} actual \n * @param \n * {Expectation} expectation \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1566,
-                    "end": 1731,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 66,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentLine",
-                    "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
-                    "start": 1737,
-                    "end": 1814,
-                    "loc": {
-                      "start": {
-                        "line": 68,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 68,
-                        "column": 81
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     *\n     * @param actual\n     * @param expectation\n     * @param activities\n     * @param alternativeActivities\n     ",
-                    "start": 2031,
-                    "end": 2157,
-                    "loc": {
-                      "start": {
-                        "line": 75,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 81,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1277,9 +1191,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 2007
-                        },
                         "properties": [
                           {
                             "type": "ObjectProperty",
@@ -1515,28 +1426,16 @@
                               }
                             }
                           }
-                        ]
+                        ],
+                        "extra": {
+                          "trailingComma": 2007
+                        }
                       }
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2162,
-                "end": 2436,
-                "loc": {
-                  "start": {
-                    "line": 82,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 89,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     *\n     * @param actual\n     * @param expectation\n     * @param activities\n     * @param alternativeActivities\n     ",
@@ -1554,40 +1453,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {UNKNOWN} alternativeActivities \n * @return \n * {Task} \n * @public \n * \\TRUE \n ",
-                    "start": 2437,
-                    "end": 2574,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @param \n * {Answerable} actual \n * @param \n * {Expectation} expectation \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1566,
+                    "end": 1731,
                     "loc": {
                       "start": {
-                        "line": 90,
+                        "line": 53,
                         "column": 0
                       },
                       "end": {
-                        "line": 101,
+                        "line": 66,
                         "column": 3
                       }
                     }
                   },
                   {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {...@serenity-js/core/lib/screenplay~Activity[]} alternativeActivities\n     * @return {@serenity-js/core/lib/screenplay~Task}\n     ",
-                    "start": 2581,
-                    "end": 2732,
+                    "type": "CommentLine",
+                    "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
+                    "start": 1737,
+                    "end": 1814,
                     "loc": {
                       "start": {
-                        "line": 104,
+                        "line": 68,
                         "column": 4
                       },
                       "end": {
-                        "line": 107,
-                        "column": 7
+                        "line": 68,
+                        "column": 81
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2162,
+                "end": 2436,
+                "loc": {
+                  "start": {
+                    "line": 82,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 89,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2174,23 +2088,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2737,
-                "end": 2903,
-                "loc": {
-                  "start": {
-                    "line": 108,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 110,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {UNKNOWN} alternativeActivities \n * @return \n * {Task} \n * @public \n * \\TRUE \n ",
@@ -2224,40 +2123,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {AnswersQuestions & PerformsActivities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 2904,
-                    "end": 3062,
+                    "value": "*\n     *\n     * @param actual\n     * @param expectation\n     * @param activities\n     * @param alternativeActivities\n     ",
+                    "start": 2031,
+                    "end": 2157,
                     "loc": {
                       "start": {
-                        "line": 111,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 122,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.\n     *\n     * @param {AnswersQuestions & PerformsActivities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}\n     ",
-                    "start": 3069,
-                    "end": 3566,
-                    "loc": {
-                      "start": {
-                        "line": 125,
+                        "line": 75,
                         "column": 4
                       },
                       "end": {
-                        "line": 136,
+                        "line": 81,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2737,
+                "end": 2903,
+                "loc": {
+                  "start": {
+                    "line": 108,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 110,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2700,23 +2598,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3571,
-                "end": 4062,
-                "loc": {
-                  "start": {
-                    "line": 137,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 148,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {AnswersQuestions & PerformsActivities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -2750,40 +2633,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 108 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 4063,
-                    "end": 4156,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {UNKNOWN} alternativeActivities \n * @return \n * {Task} \n * @public \n * \\TRUE \n ",
+                    "start": 2437,
+                    "end": 2574,
                     "loc": {
                       "start": {
-                        "line": 149,
+                        "line": 90,
                         "column": 0
                       },
                       "end": {
-                        "line": 158,
+                        "line": 101,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 4163,
-                    "end": 4333,
+                    "value": "*\n     * @param {...@serenity-js/core/lib/screenplay~Activity[]} alternativeActivities\n     * @return {@serenity-js/core/lib/screenplay~Task}\n     ",
+                    "start": 2581,
+                    "end": 2732,
                     "loc": {
                       "start": {
-                        "line": 161,
+                        "line": 104,
                         "column": 4
                       },
                       "end": {
-                        "line": 166,
+                        "line": 107,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3571,
+                "end": 4062,
+                "loc": {
+                  "start": {
+                    "line": 137,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 148,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3043,9 +2941,6 @@
                             "line": 147,
                             "column": 9
                           }
-                        },
-                        "extra": {
-                          "trailingComma": 4044
                         },
                         "callee": {
                           "type": "MemberExpression",
@@ -3397,6 +3292,9 @@
                             "name": "then"
                           }
                         },
+                        "extra": {
+                          "trailingComma": 4044
+                        },
                         "arguments": [
                           {
                             "type": "ArrowFunctionExpression",
@@ -3482,9 +3380,6 @@
                                   "column": 13
                                 }
                               },
-                              "extra": {
-                                "trailingComma": 4029
-                              },
                               "callee": {
                                 "type": "MemberExpression",
                                 "start": 3815,
@@ -3568,6 +3463,9 @@
                                   },
                                   "name": "then"
                                 }
+                              },
+                              "extra": {
+                                "trailingComma": 4029
                               },
                               "arguments": [
                                 {
@@ -3940,23 +3838,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4338,
-                "end": 4458,
-                "loc": {
-                  "start": {
-                    "line": 167,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 169,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 108 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -3990,6 +3873,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {AnswersQuestions & PerformsActivities} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 2904,
+                    "end": 3062,
+                    "loc": {
+                      "start": {
+                        "line": 111,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 122,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Task}.\n     *\n     * @param {AnswersQuestions & PerformsActivities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~PerformsActivities}\n     ",
+                    "start": 3069,
+                    "end": 3566,
+                    "loc": {
+                      "start": {
+                        "line": 125,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 136,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4338,
+                "end": 4458,
+                "loc": {
+                  "start": {
+                    "line": 167,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 169,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4283,7 +4215,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 108 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4063,
+                    "end": 4156,
+                    "loc": {
+                      "start": {
+                        "line": 149,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 158,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 4163,
+                    "end": 4333,
+                    "loc": {
+                      "start": {
+                        "line": 161,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 166,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -4322,7 +4288,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
+            "start": 313,
+            "end": 358,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A control flow statement that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  either to choose whether or not to perform a series of activities,\n *  or to choose which of the two provided series of activities to perform.\n *\n * @example <caption>Choose from two alternatives</caption>\n *  import { equals } from '@serenity-js/assertions';\n *  import { Check } from '@serenity-js/core';\n *\n *  actor.attemptsTo(\n *      Check.whether(process.env.MODE, equals('prod'))\n *          .andIfSo(\n *              LogInAsProdUser(),\n *          )\n *          .otherwise(\n *              LogInAsTestUser(),\n *          )\n *  );\n *\n * @example <caption>Choose whether or not to perform an activity</caption>\n *  import { equals } from '@serenity-js/assertions';\n *  import { Check } from '@serenity-js/core';\n *  import { isDisplayed } from '@serenity-js/protractor';\n *\n *  actor.attemptsTo(\n *      Check.whether(NewsletterModal(), isDisplayed())\n *          .andIfSo(\n *              DismissModal(),\n *          )\n *  );\n *\n * @extends {@serenity-js/core/lib/screenplay~Task}\n *\n * @see https://en.wikipedia.org/wiki/Control_flow\n ",
+            "start": 361,
+            "end": 1523,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 51,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

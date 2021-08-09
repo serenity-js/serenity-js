@@ -664,40 +664,6 @@
             "column": 76
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
-            "start": 409,
-            "end": 454,
-            "loc": {
-              "start": {
-                "line": 9,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 457,
-            "end": 476,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -769,23 +735,8 @@
             "raw": "'./WebdriverIOFrameworkAdapter'"
           },
           "value": "./WebdriverIOFrameworkAdapter"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 477,
-        "end": 1530,
-        "loc": {
-          "start": {
-            "line": 20,
-            "column": 0
-          },
-          "end": {
-            "line": 67,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
@@ -818,7 +769,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 477,
+        "end": 1530,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 0
+          },
+          "end": {
+            "line": 67,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -883,24 +849,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {string} cid \n * @param \n * {WebdriverIOConfig} config \n * @param \n * {UNKNOWN} specs \n * @param \n * {undefined} capabilities \n * @param \n * {EventEmitter & ProvidesWriteStream & InitialisesReporters} reporter \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 686,
-                    "end": 1004,
-                    "loc": {
-                      "start": {
-                        "line": 27,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 46,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1185,23 +1133,8 @@
                   },
                   "body": [],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1011,
-                "end": 1528,
-                "loc": {
-                  "start": {
-                    "line": 49,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 66,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {string} cid \n * @param \n * {WebdriverIOConfig} config \n * @param \n * {UNKNOWN} specs \n * @param \n * {undefined} capabilities \n * @param \n * {EventEmitter & ProvidesWriteStream & InitialisesReporters} reporter \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1218,7 +1151,22 @@
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1011,
+                "end": 1528,
+                "loc": {
+                  "start": {
+                    "line": 49,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 66,
+                    "column": 5
+                  }
+                },
                 "accessibility": "public",
                 "static": false,
                 "key": {
@@ -2099,7 +2047,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {string} cid \n * @param \n * {WebdriverIOConfig} config \n * @param \n * {UNKNOWN} specs \n * @param \n * {undefined} capabilities \n * @param \n * {EventEmitter & ProvidesWriteStream & InitialisesReporters} reporter \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 686,
+                    "end": 1004,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 46,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2138,7 +2104,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 409,
+            "end": 454,
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 457,
+            "end": 476,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

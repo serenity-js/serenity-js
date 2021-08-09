@@ -255,7 +255,7 @@
     "__docId__": 27,
     "kind": "external",
     "name": "ElementArray",
-    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts",
     "longname": "@wdio/types~ElementArray",
     "memberof": "src/.imports-from-webdriverio.js",
     "static": true,
@@ -267,7 +267,7 @@
     "__docId__": 28,
     "kind": "external",
     "name": "Browser",
-    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts",
     "longname": "@wdio/types~Browser",
     "memberof": "src/.imports-from-webdriverio.js",
     "static": true,
@@ -279,7 +279,7 @@
     "__docId__": 29,
     "kind": "external",
     "name": "Element",
-    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts",
     "longname": "@wdio/types~Element",
     "memberof": "src/.imports-from-webdriverio.js",
     "static": true,
@@ -291,7 +291,7 @@
     "__docId__": 30,
     "kind": "external",
     "name": "Options.TestRunner",
-    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "externalLink": "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts",
     "longname": "@wdio/types~Options.TestRunner",
     "memberof": "src/.imports-from-webdriverio.js",
     "static": true,
@@ -4856,7 +4856,7 @@
     "__docId__": 251,
     "kind": "file",
     "name": "src/io/FileSystem.ts",
-    "content": "import * as cuid from 'cuid';\nimport * as nodeFS from 'fs';\nimport * as gracefulFS from 'graceful-fs';\nimport * as nodeOS from 'os';\nimport { promisify } from 'util';\n\nimport { Path } from './Path';\n\nexport class FileSystem {\n\n    constructor(\n        private readonly root: Path,\n        private readonly fs: typeof nodeFS = gracefulFS,\n        private readonly os: typeof nodeOS = nodeOS,\n        private readonly directoryMode = Number.parseInt('0777', 8) & (~process.umask()),\n    ) {\n    }\n\n    public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: string): Promise<Path> {\n        return Promise.resolve()\n            .then(() => this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))\n            .then(() => this.write(this.root.resolve(relativeOrAbsolutePathToFile), data, encoding));\n    }\n\n    public createReadStream(relativeOrAbsolutePathToFile: Path): nodeFS.ReadStream {\n        return this.fs.createReadStream(this.root.resolve(relativeOrAbsolutePathToFile).value);\n    }\n\n    public createWriteStreamTo(relativeOrAbsolutePathToFile: Path): nodeFS.WriteStream {\n        return this.fs.createWriteStream(this.root.resolve(relativeOrAbsolutePathToFile).value);\n    }\n\n    public stat(relativeOrAbsolutePathToFile: Path): Promise<nodeFS.Stats> {\n        const stat = promisify(this.fs.stat);\n\n        return stat(this.root.resolve(relativeOrAbsolutePathToFile).value);\n    }\n\n    public remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {\n        const\n            stat = promisify(this.fs.stat),\n            unlink = promisify(this.fs.unlink),\n            readdir = promisify(this.fs.readdir),\n            rmdir = promisify(this.fs.rmdir);\n\n        const absolutePath = this.root.resolve(relativeOrAbsolutePathToFileOrDirectory);\n\n        return stat(absolutePath.value)\n            .then(result =>\n                result.isFile()\n                    ? unlink(absolutePath.value)\n                    : readdir(absolutePath.value)\n                        .then(entries =>\n                            Promise.all(entries.map(entry =>\n                                this.remove(absolutePath.join(new Path(entry)))),\n                            ).then(() => rmdir(absolutePath.value)),\n                        ),\n            )\n            .then(() => void 0)\n            .catch(error => {\n                if (error?.code === 'ENOENT') {\n                    return void 0;\n                }\n                throw error;\n            });\n    }\n\n    public ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): Promise<Path> {\n\n        const absolutePath = this.root.resolve(relativeOrAbsolutePathToDirectory);\n\n        return absolutePath.split().reduce((promisedParent, child) => {\n            return promisedParent.then(parent => new Promise((resolve, reject) => {\n                const current = parent.resolve(new Path(child));\n\n                this.fs.mkdir(current.value, this.directoryMode, error => {\n                    if (! error || error.code === 'EEXIST') {\n                        return resolve(current);\n                    }\n\n                    // To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.\n                    if (error.code === 'ENOENT') { // Throw the original parentDir error on `current` `ENOENT` failure.\n                        throw new Error(`EACCES: permission denied, mkdir '${ parent.value }'`);\n                    }\n\n                    const caughtError = !! ~['EACCES', 'EPERM', 'EISDIR'].indexOf(error.code);\n                    if (! caughtError || (caughtError && current.equals(relativeOrAbsolutePathToDirectory))) {\n                        throw error; // Throw if it's just the last created dir.\n                    }\n\n                    return resolve(current);\n                });\n            }));\n        }, Promise.resolve(absolutePath.root()));\n    }\n\n    public rename(source: Path, destination: Path): Promise<void> {\n        const rename = promisify(this.fs.rename);\n\n        return rename(source.value, destination.value);\n    }\n\n    public tempFilePath(prefix = '', suffix = '.tmp'): Path {\n        return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ cuid() }${ suffix }`);\n    }\n\n    private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: string): Promise<Path> {\n        return new Promise((resolve, reject) => {\n            this.fs.writeFile(\n                path.value,\n                data,\n                encoding,\n                error => error\n                    ? reject(error)\n                    : resolve(path),\n            );\n        });\n    }\n}\n",
+    "content": "import * as cuid from 'cuid';\nimport * as nodeFS from 'fs';\nimport { WriteFileOptions } from 'fs';\nimport * as gracefulFS from 'graceful-fs';\nimport * as nodeOS from 'os';\nimport { promisify } from 'util';\n\nimport { Path } from './Path';\n\nexport class FileSystem {\n\n    constructor(\n        private readonly root: Path,\n        private readonly fs: typeof nodeFS = gracefulFS,\n        private readonly os: typeof nodeOS = nodeOS,\n        private readonly directoryMode = Number.parseInt('0777', 8) & (~process.umask()),\n    ) {\n    }\n\n    public store(relativeOrAbsolutePathToFile: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {\n        return Promise.resolve()\n            .then(() => this.ensureDirectoryExistsAt(relativeOrAbsolutePathToFile.directory()))\n            .then(() => this.write(this.root.resolve(relativeOrAbsolutePathToFile), data, encoding));\n    }\n\n    public createReadStream(relativeOrAbsolutePathToFile: Path): nodeFS.ReadStream {\n        return this.fs.createReadStream(this.root.resolve(relativeOrAbsolutePathToFile).value);\n    }\n\n    public createWriteStreamTo(relativeOrAbsolutePathToFile: Path): nodeFS.WriteStream {\n        return this.fs.createWriteStream(this.root.resolve(relativeOrAbsolutePathToFile).value);\n    }\n\n    public stat(relativeOrAbsolutePathToFile: Path): Promise<nodeFS.Stats> {\n        const stat = promisify(this.fs.stat);\n\n        return stat(this.root.resolve(relativeOrAbsolutePathToFile).value);\n    }\n\n    public remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {\n        const\n            stat = promisify(this.fs.stat),\n            unlink = promisify(this.fs.unlink),\n            readdir = promisify(this.fs.readdir),\n            rmdir = promisify(this.fs.rmdir);\n\n        const absolutePath = this.root.resolve(relativeOrAbsolutePathToFileOrDirectory);\n\n        return stat(absolutePath.value)\n            .then(result =>\n                result.isFile()\n                    ? unlink(absolutePath.value)\n                    : readdir(absolutePath.value)\n                        .then(entries =>\n                            Promise.all(entries.map(entry =>\n                                this.remove(absolutePath.join(new Path(entry)))),\n                            ).then(() => rmdir(absolutePath.value)),\n                        ),\n            )\n            .then(() => void 0)\n            .catch(error => {\n                if (error?.code === 'ENOENT') {\n                    return void 0;\n                }\n                throw error;\n            });\n    }\n\n    public ensureDirectoryExistsAt(relativeOrAbsolutePathToDirectory: Path): Promise<Path> {\n\n        const absolutePath = this.root.resolve(relativeOrAbsolutePathToDirectory);\n\n        return absolutePath.split().reduce((promisedParent, child) => {\n            return promisedParent.then(parent => new Promise((resolve, reject) => {\n                const current = parent.resolve(new Path(child));\n\n                this.fs.mkdir(current.value, this.directoryMode, error => {\n                    if (! error || error.code === 'EEXIST') {\n                        return resolve(current);\n                    }\n\n                    // To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.\n                    if (error.code === 'ENOENT') { // Throw the original parentDir error on `current` `ENOENT` failure.\n                        throw new Error(`EACCES: permission denied, mkdir '${ parent.value }'`);\n                    }\n\n                    const caughtError = !! ~['EACCES', 'EPERM', 'EISDIR'].indexOf(error.code);\n                    if (! caughtError || (caughtError && current.equals(relativeOrAbsolutePathToDirectory))) {\n                        throw error; // Throw if it's just the last created dir.\n                    }\n\n                    return resolve(current);\n                });\n            }));\n        }, Promise.resolve(absolutePath.root()));\n    }\n\n    public rename(source: Path, destination: Path): Promise<void> {\n        const rename = promisify(this.fs.rename);\n\n        return rename(source.value, destination.value);\n    }\n\n    public tempFilePath(prefix = '', suffix = '.tmp'): Path {\n        return Path.from(this.fs.realpathSync(this.os.tmpdir()), `${ prefix }${ cuid() }${ suffix }`);\n    }\n\n    private write(path: Path, data: string | NodeJS.ArrayBufferView, encoding?: WriteFileOptions): Promise<Path> {\n        return new Promise((resolve, reject) => {\n            this.fs.writeFile(\n                path.value,\n                data,\n                encoding,\n                error => error\n                    ? reject(error)\n                    : resolve(path),\n            );\n        });\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/core/src/io/FileSystem.ts",
     "access": "public",
@@ -4875,7 +4875,7 @@
     "importPath": "@serenity-js/core/lib/io",
     "importStyle": "{FileSystem}",
     "description": " ",
-    "lineNumber": 9,
+    "lineNumber": 10,
     "interface": false
   },
   {
@@ -4889,7 +4889,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 18,
+    "lineNumber": 19,
     "undocument": true
   },
   {
@@ -4903,7 +4903,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#store",
     "access": "public",
     "description": " ",
-    "lineNumber": 19,
+    "lineNumber": 20,
     "params": [
       {
         "nullable": null,
@@ -4929,7 +4929,7 @@
       {
         "nullable": null,
         "types": [
-          "string"
+          "WriteFileOptions"
         ],
         "spread": false,
         "optional": false,
@@ -4957,7 +4957,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#createReadStream",
     "access": "public",
     "description": " ",
-    "lineNumber": 25,
+    "lineNumber": 26,
     "params": [
       {
         "nullable": null,
@@ -4987,7 +4987,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#createWriteStreamTo",
     "access": "public",
     "description": " ",
-    "lineNumber": 29,
+    "lineNumber": 30,
     "params": [
       {
         "nullable": null,
@@ -5017,7 +5017,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#stat",
     "access": "public",
     "description": " ",
-    "lineNumber": 33,
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
@@ -5050,7 +5050,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#remove",
     "access": "public",
     "description": " ",
-    "lineNumber": 39,
+    "lineNumber": 40,
     "params": [
       {
         "nullable": null,
@@ -5083,7 +5083,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#ensureDirectoryExistsAt",
     "access": "public",
     "description": " ",
-    "lineNumber": 68,
+    "lineNumber": 69,
     "params": [
       {
         "nullable": null,
@@ -5116,7 +5116,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#rename",
     "access": "public",
     "description": " ",
-    "lineNumber": 97,
+    "lineNumber": 98,
     "params": [
       {
         "nullable": null,
@@ -5159,7 +5159,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#tempFilePath",
     "access": "public",
     "description": " ",
-    "lineNumber": 103,
+    "lineNumber": 104,
     "params": [
       {
         "nullable": null,
@@ -5202,7 +5202,7 @@
     "longname": "src/io/FileSystem.ts~FileSystem#write",
     "access": "private",
     "description": " ",
-    "lineNumber": 107,
+    "lineNumber": 108,
     "params": [
       {
         "nullable": null,
@@ -5228,7 +5228,7 @@
       {
         "nullable": null,
         "types": [
-          "string"
+          "WriteFileOptions"
         ],
         "spread": false,
         "optional": false,
@@ -19615,7 +19615,7 @@
     "__docId__": 898,
     "kind": "file",
     "name": "src/stage/crew/artifact-archiver/ArtifactArchiver.ts",
-    "content": "import { ensure, isGreaterThan, property } from 'tiny-types';\n\nimport {\n    ActivityRelatedArtifactArchived,\n    ActivityRelatedArtifactGenerated,\n    ArtifactArchived,\n    ArtifactGenerated,\n    AsyncOperationAttempted,\n    AsyncOperationCompleted,\n    AsyncOperationFailed,\n    DomainEvent,\n} from '../../../events';\nimport { FileSystem, Path } from '../../../io';\nimport { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';\nimport { Stage } from '../../Stage';\nimport { StageCrewMember } from '../../StageCrewMember';\nimport { Hash } from './Hash';\n\n/**\n * @desc\n *  Stores any {@link Artifact}s emitted via {@link ArtifactGenerated} events on the {@link FileSystem}\n *\n * @example <caption>Registering ArtifactArchiver programmatically</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *\n *  configure({\n *      crew: [\n *          ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *      ],\n *  });\n *\n * @example <caption>Registering ArtifactArchiver using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const { ArtifactArchiver } = require('@serenity-js/core');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @public\n * @implements {StageCrewMember}\n */\nexport class ArtifactArchiver implements StageCrewMember {\n\n    /**\n     * @desc\n     *  Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.\n     *  The `destination` directory will be created automatically and recursively if it doesn't exist.\n     *\n     * @param {string[]} destination\n     *\n     * @returns {StageCrewMember}\n     */\n    static storingArtifactsAt(...destination: string[]): StageCrewMember {\n        ensure('Path to destination directory', destination, property('length', isGreaterThan(0)));\n\n        const pathToDestination = destination.map(segment => new Path(segment)).reduce((acc, current) => acc.join(current));\n\n        return new ArtifactArchiver(new FileSystem(pathToDestination));\n    }\n\n    /**\n     * @param {FileSystem} fileSystem\n     * @param {Stage} [stage]\n     *  The stage this {@link StageCrewMember} should be assigned to\n     */\n    constructor(\n        private readonly fileSystem: FileSystem,\n        private readonly stage?: Stage,\n    ) {\n    }\n\n    /**\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     */\n    assignedTo(stage: Stage): StageCrewMember {\n        return new ArtifactArchiver(this.fileSystem, stage);\n    }\n\n    /**\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @listens {ArtifactGenerated}\n     * @emits {ArtifactArchived}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     */\n    notifyOf(event: DomainEvent): void {\n\n        if (!(event instanceof ArtifactGenerated)) {\n            // ignore any other events\n            return void 0;\n        }\n\n        if (event.artifact instanceof Photo) {\n            const filename = this.fileNameFor('photo', event.name, event.artifact, 'png');\n\n            this.archive(\n                filename,\n                event.artifact.base64EncodedValue,\n                'base64',\n                this.archivisationAnnouncement(event, filename),\n            );\n        }\n\n        if (event.artifact instanceof TestReport) {\n            const filename = this.fileNameFor('scenario', event.name, event.artifact, 'json');\n\n            this.archive(\n                filename,\n                event.artifact.map(JSON.stringify),\n                'utf8',\n                this.archivisationAnnouncement(event, filename),\n            );\n        }\n    }\n\n    private fileNameFor(prefix: string, artifactName: Name, artifact: Artifact, extension: string): Path {\n        const hash = Hash.of(artifact.base64EncodedValue).short();\n\n        return Path.fromSanitisedString(\n            // Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems\n            // note: we can't do that in the Path constructor as the Path can be used to join other paths,\n            // so restricting the length of the _path_ itself would not be correct.\n            `${ prefix.slice(0, 10) }-${ urlFriendly(artifactName.value).slice(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),\n            // characters:     10    1         64                                      1    10   1    4                                 < 100\n        );\n    }\n\n    private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {\n        const id = CorrelationId.create();\n\n        this.stage.announce(new AsyncOperationAttempted(\n            new Description(`[${ this.constructor.name }] Saving '${ relativePath.value }'...`),\n            id,\n        ));\n\n        this.fileSystem.store(relativePath, contents, encoding)\n            .then(absolutePath => {\n                announce(relativePath);\n\n                this.stage.announce(new AsyncOperationCompleted(\n                    new Description(`[${ this.constructor.name }] Saved '${ absolutePath.value }'`),\n                    id,\n                ));\n            })\n            .catch(error => {\n                this.stage.announce(new AsyncOperationFailed(error, id));\n            });\n    }\n\n    private archivisationAnnouncement(event: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {\n        return (absolutePath: Path) => {\n            if (event instanceof ActivityRelatedArtifactGenerated) {\n                this.stage.announce(new ActivityRelatedArtifactArchived(\n                    event.sceneId,\n                    event.activityId,\n                    event.name,\n                    event.artifact.constructor as ArtifactType,\n                    relativePathToArtifact,\n                ));\n            } else if (event instanceof ArtifactGenerated) {\n                this.stage.announce(new ArtifactArchived(\n                    event.sceneId,\n                    event.name,\n                    event.artifact.constructor as ArtifactType,\n                    relativePathToArtifact,\n                ));\n            }\n        };\n    }\n}\n\n/**\n * @private\n * @param {string} name\n */\nfunction urlFriendly(name: string): string {\n    return name.toLocaleLowerCase()\n        .replace(/[^\\d.a-z-]/g, '-');\n}\n",
+    "content": "import { WriteFileOptions } from 'fs';\nimport { ensure, isGreaterThan, property } from 'tiny-types';\n\nimport {\n    ActivityRelatedArtifactArchived,\n    ActivityRelatedArtifactGenerated,\n    ArtifactArchived,\n    ArtifactGenerated,\n    AsyncOperationAttempted,\n    AsyncOperationCompleted,\n    AsyncOperationFailed,\n    DomainEvent,\n} from '../../../events';\nimport { FileSystem, Path } from '../../../io';\nimport { Artifact, ArtifactType, CorrelationId, Description, Name, Photo, TestReport } from '../../../model';\nimport { Stage } from '../../Stage';\nimport { StageCrewMember } from '../../StageCrewMember';\nimport { Hash } from './Hash';\n\n/**\n * @desc\n *  Stores any {@link Artifact}s emitted via {@link ArtifactGenerated} events on the {@link FileSystem}\n *\n * @example <caption>Registering ArtifactArchiver programmatically</caption>\n *  import { configure, StreamReporter } from '@serenity-js/core';\n *\n *  configure({\n *      crew: [\n *          ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *      ],\n *  });\n *\n * @example <caption>Registering ArtifactArchiver using Protractor configuration</caption>\n *  // protractor.conf.js\n *  const { ArtifactArchiver } = require('@serenity-js/core');\n *\n *  exports.config = {\n *    framework:     'custom',\n *    frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n *\n *    serenity: {\n *      crew: [\n *        ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n *      ],\n *      // other Serenity/JS config\n *    },\n *\n *    // other Protractor config\n *  };\n *\n * @public\n * @implements {StageCrewMember}\n */\nexport class ArtifactArchiver implements StageCrewMember {\n\n    /**\n     * @desc\n     *  Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.\n     *  The `destination` directory will be created automatically and recursively if it doesn't exist.\n     *\n     * @param {string[]} destination\n     *\n     * @returns {StageCrewMember}\n     */\n    static storingArtifactsAt(...destination: string[]): StageCrewMember {\n        ensure('Path to destination directory', destination, property('length', isGreaterThan(0)));\n\n        const pathToDestination = destination.map(segment => new Path(segment)).reduce((acc, current) => acc.join(current));\n\n        return new ArtifactArchiver(new FileSystem(pathToDestination));\n    }\n\n    /**\n     * @param {FileSystem} fileSystem\n     * @param {Stage} [stage]\n     *  The stage this {@link StageCrewMember} should be assigned to\n     */\n    constructor(\n        private readonly fileSystem: FileSystem,\n        private readonly stage?: Stage,\n    ) {\n    }\n\n    /**\n     * @desc\n     *  Creates a new instance of this {@link StageCrewMember} and assigns it to a given {@link Stage}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @param {Stage} stage - An instance of a {@link Stage} this {@link StageCrewMember} will be assigned to\n     * @returns {StageCrewMember} - A new instance of this {@link StageCrewMember}\n     */\n    assignedTo(stage: Stage): StageCrewMember {\n        return new ArtifactArchiver(this.fileSystem, stage);\n    }\n\n    /**\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link StageManager}.\n     *\n     * @see {@link StageCrewMember}\n     *\n     * @listens {ArtifactGenerated}\n     * @emits {ArtifactArchived}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     */\n    notifyOf(event: DomainEvent): void {\n\n        if (!(event instanceof ArtifactGenerated)) {\n            // ignore any other events\n            return void 0;\n        }\n\n        if (event.artifact instanceof Photo) {\n            const filename = this.fileNameFor('photo', event.name, event.artifact, 'png');\n\n            this.archive(\n                filename,\n                event.artifact.base64EncodedValue,\n                'base64',\n                this.archivisationAnnouncement(event, filename),\n            );\n        }\n\n        if (event.artifact instanceof TestReport) {\n            const filename = this.fileNameFor('scenario', event.name, event.artifact, 'json');\n\n            this.archive(\n                filename,\n                event.artifact.map(JSON.stringify),\n                'utf8',\n                this.archivisationAnnouncement(event, filename),\n            );\n        }\n    }\n\n    private fileNameFor(prefix: string, artifactName: Name, artifact: Artifact, extension: string): Path {\n        const hash = Hash.of(artifact.base64EncodedValue).short();\n\n        return Path.fromSanitisedString(\n            // Ensure that the file name is shorter than 250 chars, which is safe with all the filesystems\n            // note: we can't do that in the Path constructor as the Path can be used to join other paths,\n            // so restricting the length of the _path_ itself would not be correct.\n            `${ prefix.slice(0, 10) }-${ urlFriendly(artifactName.value).slice(0, 64) }-${ hash }.${ extension }`.replace(/-+/g, '-'),\n            // characters:     10    1         64                                      1    10   1    4                                 < 100\n        );\n    }\n\n    private archive(relativePath: Path, contents: string, encoding: WriteFileOptions, announce: (absolutePath: Path) => void): void {\n        const id = CorrelationId.create();\n\n        this.stage.announce(new AsyncOperationAttempted(\n            new Description(`[${ this.constructor.name }] Saving '${ relativePath.value }'...`),\n            id,\n        ));\n\n        this.fileSystem.store(relativePath, contents, encoding)\n            .then(absolutePath => {\n                announce(relativePath);\n\n                this.stage.announce(new AsyncOperationCompleted(\n                    new Description(`[${ this.constructor.name }] Saved '${ absolutePath.value }'`),\n                    id,\n                ));\n            })\n            .catch(error => {\n                this.stage.announce(new AsyncOperationFailed(error, id));\n            });\n    }\n\n    private archivisationAnnouncement(event: ArtifactGenerated | ActivityRelatedArtifactGenerated, relativePathToArtifact: Path) {\n        return (absolutePath: Path) => {\n            if (event instanceof ActivityRelatedArtifactGenerated) {\n                this.stage.announce(new ActivityRelatedArtifactArchived(\n                    event.sceneId,\n                    event.activityId,\n                    event.name,\n                    event.artifact.constructor as ArtifactType,\n                    relativePathToArtifact,\n                ));\n            } else if (event instanceof ArtifactGenerated) {\n                this.stage.announce(new ArtifactArchived(\n                    event.sceneId,\n                    event.name,\n                    event.artifact.constructor as ArtifactType,\n                    relativePathToArtifact,\n                ));\n            }\n        };\n    }\n}\n\n/**\n * @private\n * @param {string} name\n */\nfunction urlFriendly(name: string): string {\n    return name.toLocaleLowerCase()\n        .replace(/[^\\d.a-z-]/g, '-');\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/core/src/stage/crew/artifact-archiver/ArtifactArchiver.ts",
     "access": "public",
@@ -19638,7 +19638,7 @@
       "<caption>Registering ArtifactArchiver programmatically</caption>\n import { configure, StreamReporter } from '@serenity-js/core';\n\n configure({\n     crew: [\n         ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n     ],\n });",
       "<caption>Registering ArtifactArchiver using Protractor configuration</caption>\n // protractor.conf.js\n const { ArtifactArchiver } = require('@serenity-js/core');\n\n exports.config = {\n   framework:     'custom',\n   frameworkPath: require.resolve('@serenity-js/protractor/adapter'),\n\n   serenity: {\n     crew: [\n       ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),\n     ],\n     // other Serenity/JS config\n   },\n\n   // other Protractor config\n };"
     ],
-    "lineNumber": 60,
+    "lineNumber": 61,
     "interface": false,
     "implements": [
       "StageCrewMember"
@@ -19655,7 +19655,7 @@
     "longname": "src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver.storingArtifactsAt",
     "access": "public",
     "description": " Instantiates an `ArtifactArchiver` storing artifacts in a given `destination`.\n The `destination` directory will be created automatically and recursively if it doesn't exist.",
-    "lineNumber": 86,
+    "lineNumber": 87,
     "unknown": [
       {
         "tagName": "@returns",
@@ -19694,7 +19694,7 @@
     "longname": "src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver#constructor",
     "access": "public",
     "description": "",
-    "lineNumber": 99,
+    "lineNumber": 100,
     "params": [
       {
         "nullable": null,
@@ -19732,7 +19732,7 @@
     "see": [
       "{@link StageCrewMember}"
     ],
-    "lineNumber": 127,
+    "lineNumber": 128,
     "unknown": [
       {
         "tagName": "@returns",
@@ -19774,7 +19774,7 @@
     "see": [
       "{@link StageCrewMember}"
     ],
-    "lineNumber": 156,
+    "lineNumber": 157,
     "unknown": [
       {
         "tagName": "@returns",
@@ -19829,7 +19829,7 @@
     "longname": "src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver#fileNameFor",
     "access": "private",
     "description": " ",
-    "lineNumber": 138,
+    "lineNumber": 139,
     "params": [
       {
         "nullable": null,
@@ -19893,7 +19893,7 @@
     "longname": "src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver#archive",
     "access": "private",
     "description": " ",
-    "lineNumber": 150,
+    "lineNumber": 151,
     "params": [
       {
         "nullable": null,
@@ -19918,7 +19918,7 @@
       {
         "nullable": null,
         "types": [
-          "string"
+          "WriteFileOptions"
         ],
         "spread": false,
         "optional": false,
@@ -19957,7 +19957,7 @@
     "longname": "src/stage/crew/artifact-archiver/ArtifactArchiver.ts~ArtifactArchiver#archivisationAnnouncement",
     "access": "private",
     "description": " ",
-    "lineNumber": 172,
+    "lineNumber": 173,
     "params": [
       {
         "nullable": null,
@@ -20002,7 +20002,7 @@
     "importPath": "@serenity-js/core/src/stage/crew/artifact-archiver/ArtifactArchiver.ts",
     "importStyle": null,
     "description": "",
-    "lineNumber": 308,
+    "lineNumber": 309,
     "params": [
       {
         "nullable": null,
@@ -20358,7 +20358,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/core\",\n  \"version\": \"2.29.9\",\n  \"description\": \"Serenity/JS Screenplay, reporting engine and core interfaces.\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"bdd\",\n    \"tdd\",\n    \"test\",\n    \"testing\",\n    \"serenity\",\n    \"screenplay\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/core mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"dependencies\": {\n    \"cuid\": \"^2.1.8\",\n    \"diff\": \"^5.0.0\",\n    \"error-stack-parser\": \"^2.0.6\",\n    \"fast-glob\": \"^3.2.7\",\n    \"filenamify\": \"^4.3.0\",\n    \"graceful-fs\": \"^4.2.6\",\n    \"moment\": \"^2.29.1\",\n    \"semver\": \"^7.3.5\",\n    \"tiny-types\": \"^1.16.1\",\n    \"upath\": \"^2.0.1\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.21\",\n    \"@types/cuid\": \"^1.3.1\",\n    \"@types/diff\": \"^5.0.1\",\n    \"@types/filenamify\": \"^2.0.2\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"@types/semver\": \"^7.3.8\",\n    \"assertion-error-formatter\": \"^3.0.0\",\n    \"memfs\": \"^3.2.2\",\n    \"mocha\": \"^9.0.2\",\n    \"ts-node\": \"^10.1.0\",\n    \"typescript\": \"^4.3.5\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"spec\",\n      \"node_modules\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/core\",\n  \"version\": \"2.30.0\",\n  \"description\": \"Serenity/JS Screenplay, reporting engine and core interfaces.\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"bdd\",\n    \"tdd\",\n    \"test\",\n    \"testing\",\n    \"serenity\",\n    \"screenplay\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/core mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"dependencies\": {\n    \"cuid\": \"^2.1.8\",\n    \"diff\": \"^5.0.0\",\n    \"error-stack-parser\": \"^2.0.6\",\n    \"fast-glob\": \"^3.2.7\",\n    \"filenamify\": \"^4.3.0\",\n    \"graceful-fs\": \"^4.2.8\",\n    \"moment\": \"^2.29.1\",\n    \"semver\": \"^7.3.5\",\n    \"tiny-types\": \"^1.16.1\",\n    \"upath\": \"^2.0.1\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.21\",\n    \"@types/cuid\": \"^1.3.1\",\n    \"@types/diff\": \"^5.0.1\",\n    \"@types/filenamify\": \"^2.0.2\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"@types/semver\": \"^7.3.8\",\n    \"assertion-error-formatter\": \"^3.0.0\",\n    \"memfs\": \"^3.2.2\",\n    \"mocha\": \"^9.0.3\",\n    \"ts-node\": \"^10.2.0\",\n    \"typescript\": \"^4.3.5\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"spec\",\n      \"node_modules\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/core/package.json",
     "name": "package.json",
     "static": true,

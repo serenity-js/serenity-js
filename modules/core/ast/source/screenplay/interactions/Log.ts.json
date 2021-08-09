@@ -664,40 +664,6 @@
             "column": 45
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n ",
-            "start": 341,
-            "end": 386,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables the {@link Actor} to log arbitrary static values and answers to {@link Question}s,\n *  so that they can be printed to the terminal by the [`ConsoleReporter`](/modules/console-reporter/)\n *  and attached to the HTML report by the [`SerenityBDDReporter`](/modules/serenity-bdd/).\n *\n * @example\n *  import { Log } from '@serenity-js/core';\n *  import { Website } from '@serenity-js/protractor';\n *\n *  actor.attemptsTo(\n *      Log.the('Current page', Website.title(), Website.url()),\n *  );\n *\n * @extends {Interaction}\n ",
-            "start": 389,
-            "end": 936,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 31,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -769,23 +735,8 @@
             "raw": "'../Interaction'"
           },
           "value": "../Interaction"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 937,
-        "end": 2917,
-        "loc": {
-          "start": {
-            "line": 32,
-            "column": 0
-          },
-          "end": {
-            "line": 127,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n ",
@@ -818,7 +769,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 937,
+        "end": 2917,
+        "loc": {
+          "start": {
+            "line": 32,
+            "column": 0
+          },
+          "end": {
+            "line": 127,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -899,58 +865,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @param \n * {Array} items \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 976,
-                    "end": 1124,
-                    "loc": {
-                      "start": {
-                        "line": 33,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 46,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a new {@link Log} {@link Interaction}.\n     *\n     * @param {...items: any[]} items\n     *  The items to be logged\n     * @returns {Interaction}\n     ",
-                    "start": 1131,
-                    "end": 1321,
-                    "loc": {
-                      "start": {
-                        "line": 49,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 56,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {...items: any[]} items\n     *  The items to be logged\n     ",
-                    "start": 1428,
-                    "end": 1508,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 64,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1266,23 +1180,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1513,
-                "end": 1612,
-                "loc": {
-                  "start": {
-                    "line": 65,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 69,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {...items: any[]} items\n     *  The items to be logged\n     ",
@@ -1300,40 +1199,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1613,
-                    "end": 1782,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n * @param \n * {Array} items \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 976,
+                    "end": 1124,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 33,
                         "column": 0
                       },
                       "end": {
-                        "line": 81,
+                        "line": 46,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     * @see {@link CollectsArtifacts}\n     ",
-                    "start": 1789,
-                    "end": 2152,
+                    "value": "*\n     * @desc\n     *  Instantiates a new {@link Log} {@link Interaction}.\n     *\n     * @param {...items: any[]} items\n     *  The items to be logged\n     * @returns {Interaction}\n     ",
+                    "start": 1131,
+                    "end": 1321,
                     "loc": {
                       "start": {
-                        "line": 84,
+                        "line": 49,
                         "column": 4
                       },
                       "end": {
-                        "line": 96,
+                        "line": 56,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1513,
+                "end": 1612,
+                "loc": {
+                  "start": {
+                    "line": 65,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 69,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1584,23 +1498,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2157,
-                "end": 2555,
-                "loc": {
-                  "start": {
-                    "line": 97,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 105,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1634,40 +1533,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 2556,
-                    "end": 2648,
+                    "value": "*\n     * @param {...items: any[]} items\n     *  The items to be logged\n     ",
+                    "start": 1428,
+                    "end": 1508,
                     "loc": {
                       "start": {
-                        "line": 106,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 115,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 2655,
-                    "end": 2792,
-                    "loc": {
-                      "start": {
-                        "line": 118,
+                        "line": 61,
                         "column": 4
                       },
                       "end": {
-                        "line": 123,
+                        "line": 64,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2157,
+                "end": 2555,
+                "loc": {
+                  "start": {
+                    "line": 97,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 105,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1959,9 +1857,6 @@
                             "line": 104,
                             "column": 13
                           }
-                        },
-                        "extra": {
-                          "trailingComma": 2533
                         },
                         "callee": {
                           "type": "MemberExpression",
@@ -2282,6 +2177,9 @@
                             "name": "then"
                           }
                         },
+                        "extra": {
+                          "trailingComma": 2533
+                        },
                         "arguments": [
                           {
                             "type": "ArrowFunctionExpression",
@@ -2333,9 +2231,6 @@
                                   "column": 17
                                 }
                               },
-                              "extra": {
-                                "trailingComma": 2514
-                              },
                               "callee": {
                                 "type": "MemberExpression",
                                 "start": 2372,
@@ -2385,6 +2280,9 @@
                                   },
                                   "name": "forEach"
                                 }
+                              },
+                              "extra": {
+                                "trailingComma": 2514
                               },
                               "arguments": [
                                 {
@@ -2835,23 +2733,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2797,
-                "end": 2915,
-                "loc": {
-                  "start": {
-                    "line": 124,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 126,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2885,6 +2768,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1613,
+                    "end": 1782,
+                    "loc": {
+                      "start": {
+                        "line": 70,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 81,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     * @see {@link CollectsArtifacts}\n     ",
+                    "start": 1789,
+                    "end": 2152,
+                    "loc": {
+                      "start": {
+                        "line": 84,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 96,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2797,
+                "end": 2915,
+                "loc": {
+                  "start": {
+                    "line": 124,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 126,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3343,7 +3275,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 78 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 2556,
+                    "end": 2648,
+                    "loc": {
+                      "start": {
+                        "line": 106,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 115,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 2655,
+                    "end": 2792,
+                    "loc": {
+                      "start": {
+                        "line": 118,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 123,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3382,7 +3348,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n ",
+            "start": 341,
+            "end": 386,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables the {@link Actor} to log arbitrary static values and answers to {@link Question}s,\n *  so that they can be printed to the terminal by the [`ConsoleReporter`](/modules/console-reporter/)\n *  and attached to the HTML report by the [`SerenityBDDReporter`](/modules/serenity-bdd/).\n *\n * @example\n *  import { Log } from '@serenity-js/core';\n *  import { Website } from '@serenity-js/protractor';\n *\n *  actor.attemptsTo(\n *      Log.the('Current page', Website.title(), Website.url()),\n *  );\n *\n * @extends {Interaction}\n ",
+            "start": 389,
+            "end": 936,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 31,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

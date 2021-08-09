@@ -365,40 +365,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 159,
-            "end": 204,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Indicates that the test runner will retry running the test scenario upon failure.\n *\n * @extends {DomainEvent}\n ",
-            "start": 207,
-            "end": 338,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -470,23 +436,8 @@
             "raw": "'./DomainEvent'"
           },
           "value": "./DomainEvent"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 339,
-        "end": 1238,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 61,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -519,7 +470,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 339,
+        "end": 1238,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 61,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -600,58 +566,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {JSONObject} o \n * @return \n * {RetryableSceneDetected} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 397,
-                    "end": 557,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 33,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Deserialises the event from a JSONObject\n     *\n     * @param {tiny-types~JSONObject} o\n     * @returns {RetryableSceneDetected}\n     ",
-                    "start": 564,
-                    "end": 725,
-                    "loc": {
-                      "start": {
-                        "line": 36,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 42,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {CorrelationId} sceneId\n     * @param {Timestamp} [timestamp]\n     ",
-                    "start": 964,
-                    "end": 1051,
-                    "loc": {
-                      "start": {
-                        "line": 50,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 53,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1148,23 +1062,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1056,
-                "end": 1236,
-                "loc": {
-                  "start": {
-                    "line": 54,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 60,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {CorrelationId} sceneId\n     * @param {Timestamp} [timestamp]\n     ",
@@ -1182,6 +1081,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @param \n * {JSONObject} o \n * @return \n * {RetryableSceneDetected} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 397,
+                    "end": 557,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 33,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Deserialises the event from a JSONObject\n     *\n     * @param {tiny-types~JSONObject} o\n     * @returns {RetryableSceneDetected}\n     ",
+                    "start": 564,
+                    "end": 725,
+                    "loc": {
+                      "start": {
+                        "line": 36,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 42,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1056,
+                "end": 1236,
+                "loc": {
+                  "start": {
+                    "line": 54,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 60,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1553,7 +1501,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {CorrelationId} sceneId\n     * @param {Timestamp} [timestamp]\n     ",
+                    "start": 964,
+                    "end": 1051,
+                    "loc": {
+                      "start": {
+                        "line": 50,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 53,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1592,7 +1558,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 159,
+            "end": 204,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Indicates that the test runner will retry running the test scenario upon failure.\n *\n * @extends {DomainEvent}\n ",
+            "start": 207,
+            "end": 338,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

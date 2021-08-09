@@ -686,40 +686,6 @@
             "column": 38
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
-            "start": 325,
-            "end": 370,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Locates a group of {@link WebElement}s located within another {@link WebElement}.\n *\n *  Instead of using this class directly, please use {@link Target.all} and {@link TargetElements#of} instead.\n *\n * @public\n * @see {@link Target}\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n ",
-            "start": 373,
-            "end": 758,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 26,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -791,23 +757,8 @@
             "raw": "'./override'"
           },
           "value": "./override"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 759,
-        "end": 6279,
-        "loc": {
-          "start": {
-            "line": 27,
-            "column": 0
-          },
-          "end": {
-            "line": 247,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
@@ -840,7 +791,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 759,
+        "end": 6279,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 247,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1183,42 +1149,6 @@
                     "column": 98
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {List} \n * @private \n * \\TRUE \n ",
-                    "start": 925,
-                    "end": 1014,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 40,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *\n     * @param {Question<ElementFinder> | ElementFinder} parent\n     * @param {Question<ElementArrayFinder> | ElementArrayFinder} children\n     ",
-                    "start": 1120,
-                    "end": 1289,
-                    "loc": {
-                      "start": {
-                        "line": 44,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 49,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -1400,23 +1330,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1294,
-                "end": 1609,
-                "loc": {
-                  "start": {
-                    "line": 50,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 56,
-                    "column": 5
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @desc\n     *\n     * @param {Question<ElementFinder> | ElementFinder} parent\n     * @param {Question<ElementArrayFinder> | ElementArrayFinder} children\n     ",
@@ -1434,40 +1349,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Question | ElementFinder} parent \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
-                    "start": 1610,
-                    "end": 1765,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {List} \n * @private \n * \\TRUE \n ",
+                    "start": 925,
+                    "end": 1014,
                     "loc": {
                       "start": {
-                        "line": 57,
+                        "line": 31,
                         "column": 0
                       },
                       "end": {
-                        "line": 68,
+                        "line": 40,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves a group of {@link WebElement}s located by `locator`,\n     *  resolved in the context of a `parent` {@link WebElement}.\n     *\n     * @param {Question<ElementFinder> | ElementFinder} parent\n     * @returns {TargetNestedElements}\n     *\n     * @see {@link Target}\n     ",
-                    "start": 1772,
-                    "end": 2076,
-                    "loc": {
-                      "start": {
-                        "line": 71,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 80,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1294,
+                "end": 1609,
+                "loc": {
+                  "start": {
+                    "line": 50,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 56,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2239,23 +2153,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2081,
-                "end": 2217,
-                "loc": {
-                  "start": {
-                    "line": 81,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 83,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Question | ElementFinder} parent \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
@@ -2289,40 +2188,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 2218,
-                    "end": 2312,
+                    "value": "*\n     * @desc\n     *\n     * @param {Question<ElementFinder> | ElementFinder} parent\n     * @param {Question<ElementArrayFinder> | ElementArrayFinder} children\n     ",
+                    "start": 1120,
+                    "end": 1289,
                     "loc": {
                       "start": {
-                        "line": 84,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 93,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the number of {@link ElementFinder}s matched by the `locator`\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<number>>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
-                    "start": 2319,
-                    "end": 2580,
-                    "loc": {
-                      "start": {
-                        "line": 96,
+                        "line": 44,
                         "column": 4
                       },
                       "end": {
-                        "line": 103,
+                        "line": 49,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2081,
+                "end": 2217,
+                "loc": {
+                  "start": {
+                    "line": 81,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 83,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2655,23 +2553,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2585,
-                "end": 2661,
-                "loc": {
-                  "start": {
-                    "line": 104,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 106,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -2705,40 +2588,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 2662,
-                    "end": 2756,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n * @param \n * {Question | ElementFinder} parent \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
+                    "start": 1610,
+                    "end": 1765,
                     "loc": {
                       "start": {
-                        "line": 107,
+                        "line": 57,
                         "column": 0
                       },
                       "end": {
-                        "line": 116,
+                        "line": 68,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the first of {@link ElementFinder}s matched by the `locator`\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
-                    "start": 2763,
-                    "end": 3021,
+                    "value": "*\n     * @desc\n     *  Retrieves a group of {@link WebElement}s located by `locator`,\n     *  resolved in the context of a `parent` {@link WebElement}.\n     *\n     * @param {Question<ElementFinder> | ElementFinder} parent\n     * @returns {TargetNestedElements}\n     *\n     * @see {@link Target}\n     ",
+                    "start": 1772,
+                    "end": 2076,
                     "loc": {
                       "start": {
-                        "line": 119,
+                        "line": 71,
                         "column": 4
                       },
                       "end": {
-                        "line": 126,
+                        "line": 80,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2585,
+                "end": 2661,
+                "loc": {
+                  "start": {
+                    "line": 104,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 106,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3020,23 +2918,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3026,
-                "end": 3099,
-                "loc": {
-                  "start": {
-                    "line": 127,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 129,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -3070,40 +2953,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 3100,
-                    "end": 3194,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 62 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 2218,
+                    "end": 2312,
                     "loc": {
                       "start": {
-                        "line": 130,
+                        "line": 84,
                         "column": 0
                       },
                       "end": {
-                        "line": 139,
+                        "line": 93,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the last of {@link ElementFinder}s matched by the `locator`\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
-                    "start": 3201,
-                    "end": 3458,
+                    "value": "*\n     * @desc\n     *  Returns the number of {@link ElementFinder}s matched by the `locator`\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<number>>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
+                    "start": 2319,
+                    "end": 2580,
                     "loc": {
                       "start": {
-                        "line": 142,
+                        "line": 96,
                         "column": 4
                       },
                       "end": {
-                        "line": 149,
+                        "line": 103,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3026,
+                "end": 3099,
+                "loc": {
+                  "start": {
+                    "line": 127,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 129,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3353,23 +3251,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3463,
-                "end": 3534,
-                "loc": {
-                  "start": {
-                    "line": 150,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 152,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -3403,40 +3286,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 3535,
-                    "end": 3660,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 2662,
+                    "end": 2756,
                     "loc": {
                       "start": {
-                        "line": 153,
+                        "line": 107,
                         "column": 0
                       },
                       "end": {
-                        "line": 164,
+                        "line": 116,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns an {@link ElementFinder} at `index` for `locator`\n     *\n     * @param {number} index\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
-                    "start": 3667,
-                    "end": 3950,
+                    "value": "*\n     * @desc\n     *  Returns the first of {@link ElementFinder}s matched by the `locator`\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
+                    "start": 2763,
+                    "end": 3021,
                     "loc": {
                       "start": {
-                        "line": 167,
+                        "line": 119,
                         "column": 4
                       },
                       "end": {
-                        "line": 176,
+                        "line": 126,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3463,
+                "end": 3534,
+                "loc": {
+                  "start": {
+                    "line": 150,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 152,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3686,23 +3584,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3955,
-                "end": 4043,
-                "loc": {
-                  "start": {
-                    "line": 177,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 179,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -3736,40 +3619,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {List} \n * @public \n * \\TRUE \n ",
-                    "start": 4044,
-                    "end": 4215,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 3100,
+                    "end": 3194,
                     "loc": {
                       "start": {
-                        "line": 180,
+                        "line": 130,
                         "column": 0
                       },
                       "end": {
-                        "line": 193,
+                        "line": 139,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Filters the list of {@link ElementFinder}s matched by `locator` to those that meet the additional {@link @serenity-js/core/lib/screenplay/questions~Expectation}s.\n     *\n     * @param {@serenity-js/core/lib/screenplay/questions~MetaQuestion<ElementFinder, Promise<Answer_Type> | Answer_Type>} question\n     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any, Answer_type>} expectation\n     *\n     * @returns {@serenity-js/core/lib/screenplay/questions~List<ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
-                    "start": 4222,
-                    "end": 4871,
+                    "value": "*\n     * @desc\n     *  Returns the last of {@link ElementFinder}s matched by the `locator`\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
+                    "start": 3201,
+                    "end": 3458,
                     "loc": {
                       "start": {
-                        "line": 196,
+                        "line": 142,
                         "column": 4
                       },
                       "end": {
-                        "line": 206,
+                        "line": 149,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3955,
+                "end": 4043,
+                "loc": {
+                  "start": {
+                    "line": 177,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 179,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4085,23 +3983,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4876,
-                "end": 5171,
-                "loc": {
-                  "start": {
-                    "line": 207,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 212,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {List} \n * @public \n * \\TRUE \n ",
@@ -4135,40 +4018,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 134 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {ElementArrayFinder} \n * @public \n * \\TRUE \n ",
-                    "start": 5172,
-                    "end": 5333,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 3535,
+                    "end": 3660,
                     "loc": {
                       "start": {
-                        "line": 213,
+                        "line": 153,
                         "column": 0
                       },
                       "end": {
-                        "line": 224,
+                        "line": 164,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
-                    "start": 5340,
-                    "end": 5830,
+                    "value": "*\n     * @desc\n     *  Returns an {@link ElementFinder} at `index` for `locator`\n     *\n     * @param {number} index\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<ElementFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
+                    "start": 3667,
+                    "end": 3950,
                     "loc": {
                       "start": {
-                        "line": 227,
+                        "line": 167,
                         "column": 4
                       },
                       "end": {
-                        "line": 238,
+                        "line": 176,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4876,
+                "end": 5171,
+                "loc": {
+                  "start": {
+                    "line": 207,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 212,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4922,23 +4820,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5835,
-                "end": 6277,
-                "loc": {
-                  "start": {
-                    "line": 239,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 246,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 134 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {ElementArrayFinder} \n * @public \n * \\TRUE \n ",
@@ -4972,6 +4855,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {List} \n * @public \n * \\TRUE \n ",
+                    "start": 4044,
+                    "end": 4215,
+                    "loc": {
+                      "start": {
+                        "line": 180,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 193,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Filters the list of {@link ElementFinder}s matched by `locator` to those that meet the additional {@link @serenity-js/core/lib/screenplay/questions~Expectation}s.\n     *\n     * @param {@serenity-js/core/lib/screenplay/questions~MetaQuestion<ElementFinder, Promise<Answer_Type> | Answer_Type>} question\n     * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any, Answer_type>} expectation\n     *\n     * @returns {@serenity-js/core/lib/screenplay/questions~List<ElementArrayFinderListAdapter, ElementFinder, ElementArrayFinder>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
+                    "start": 4222,
+                    "end": 4871,
+                    "loc": {
+                      "start": {
+                        "line": 196,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 206,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5835,
+                "end": 6277,
+                "loc": {
+                  "start": {
+                    "line": 239,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 246,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5466,9 +5398,6 @@
                                         "column": 13
                                       }
                                     },
-                                    "extra": {
-                                      "trailingComma": 6253
-                                    },
                                     "callee": {
                                       "type": "Identifier",
                                       "start": 6101,
@@ -5485,6 +5414,9 @@
                                         "identifierName": "override"
                                       },
                                       "name": "override"
+                                    },
+                                    "extra": {
+                                      "trailingComma": 6253
                                     },
                                     "arguments": [
                                       {
@@ -5961,7 +5893,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 134 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {ElementArrayFinder} \n * @public \n * \\TRUE \n ",
+                    "start": 5172,
+                    "end": 5333,
+                    "loc": {
+                      "start": {
+                        "line": 213,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 224,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
+                    "start": 5340,
+                    "end": 5830,
+                    "loc": {
+                      "start": {
+                        "line": 227,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 238,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -6000,7 +5966,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 20 \n ",
+            "start": 325,
+            "end": 370,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Locates a group of {@link WebElement}s located within another {@link WebElement}.\n *\n *  Instead of using this class directly, please use {@link Target.all} and {@link TargetElements#of} instead.\n *\n * @public\n * @see {@link Target}\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n ",
+            "start": 373,
+            "end": 758,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

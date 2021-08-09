@@ -131,40 +131,6 @@
             "column": 41
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
-            "start": 89,
-            "end": 134,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Provides access to the properties of the last {@link AxiosResponse} object,\n *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n ",
-            "start": 137,
-            "end": 1170,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 38,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1171,
-        "end": 5391,
-        "loc": {
-          "start": {
-            "line": 39,
-            "column": 0
-          },
-          "end": {
-            "line": 194,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1171,
+        "end": 5391,
+        "loc": {
+          "start": {
+            "line": 39,
+            "column": 0
+          },
+          "end": {
+            "line": 194,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -350,74 +316,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1199,
-                    "end": 1315,
-                    "loc": {
-                      "start": {
-                        "line": 40,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 51,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} status\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     ",
-                    "start": 1322,
-                    "end": 1482,
-                    "loc": {
-                      "start": {
-                        "line": 54,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 59,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1710,
-                    "end": 1827,
-                    "loc": {
-                      "start": {
-                        "line": 65,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 76,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} body\n     *\n     * @example <caption>A type-safe approach using generics</caption>\n     *  interface Book {\n     *      title: string;\n     *      author: string\n     *  }\n     *\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<Book>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>A non-type-safe approach using `any`</caption>\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<any>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>Retrieving an item at path using Property.of</caption>\n     *  import { Property } from '@serenity-js/core';\n     *\n     *  actor.attemptsTo(\n     *      Ensure.that(\n     *          Property.of(LastResponse.body<Book>()).title,\n     *          equals('Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'),\n     *      )\n     *  )\n     *\n     * @example <caption>Filtering response body using List</caption>\n     *  import { Property } from '@serenity-js/core';\n     *  import { property, startsWith } from '@serenity-js/assertions';\n     *\n     *  actor.attemptsTo(\n     *      Ensure.that(\n     *          // imagine the API returns an array of books\n     *          List.of(LastResponse.body<Book[]>())\n     *              .where(Property.at<Book>().author, equals('Robert M. Pirsig'))\n     *              .first(),\n     *          property('title', startsWith('Zen and the Art of Motorcycle Maintenance')),\n     *      )\n     *  )\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<any>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~Property}\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
-                    "start": 1834,
-                    "end": 3908,
-                    "loc": {
-                      "start": {
-                        "line": 79,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 134,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -981,23 +879,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3913,
-                "end": 4136,
-                "loc": {
-                  "start": {
-                    "line": 135,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 139,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1031,40 +914,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @param \n * {string} name \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4137,
-                    "end": 4283,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1199,
+                    "end": 1315,
                     "loc": {
                       "start": {
-                        "line": 140,
+                        "line": 40,
                         "column": 0
                       },
                       "end": {
-                        "line": 153,
+                        "line": 51,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on one of the {@link LastResponse}'s headers\n     *\n     * @param {string} name\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     ",
-                    "start": 4290,
-                    "end": 4488,
+                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} status\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<number>}\n     ",
+                    "start": 1322,
+                    "end": 1482,
                     "loc": {
                       "start": {
-                        "line": 156,
+                        "line": 54,
                         "column": 4
                       },
                       "end": {
-                        "line": 162,
+                        "line": 59,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3913,
+                "end": 4136,
+                "loc": {
+                  "start": {
+                    "line": 135,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 139,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1806,23 +1704,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4493,
-                "end": 4746,
-                "loc": {
-                  "start": {
-                    "line": 163,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 167,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @param \n * {string} name \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1856,40 +1739,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 128 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4747,
-                    "end": 4864,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1710,
+                    "end": 1827,
                     "loc": {
                       "start": {
-                        "line": 168,
+                        "line": 65,
                         "column": 0
                       },
                       "end": {
-                        "line": 179,
+                        "line": 76,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enables asserting on all of the {@link LastResponse}'s headers,\n     *  returned as an object where the keys represent header names.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Record<string, string>>}\n     ",
-                    "start": 4871,
-                    "end": 5127,
+                    "value": "*\n     * @desc\n     *  Enables asserting on the {@link LastResponse} body\n     *\n     * @example <caption>A type-safe approach using generics</caption>\n     *  interface Book {\n     *      title: string;\n     *      author: string\n     *  }\n     *\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<Book>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>A non-type-safe approach using `any`</caption>\n     *  actor.attemptsTo(\n     *      // ...\n     *      Ensure.that(LastResponse.body<any>(), equals({\n     *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n     *          author: 'Robert M. Pirsig',\n     *      })),\n     *  );\n     *\n     * @example <caption>Retrieving an item at path using Property.of</caption>\n     *  import { Property } from '@serenity-js/core';\n     *\n     *  actor.attemptsTo(\n     *      Ensure.that(\n     *          Property.of(LastResponse.body<Book>()).title,\n     *          equals('Zen and the Art of Motorcycle Maintenance: An Inquiry into Values'),\n     *      )\n     *  )\n     *\n     * @example <caption>Filtering response body using List</caption>\n     *  import { Property } from '@serenity-js/core';\n     *  import { property, startsWith } from '@serenity-js/assertions';\n     *\n     *  actor.attemptsTo(\n     *      Ensure.that(\n     *          // imagine the API returns an array of books\n     *          List.of(LastResponse.body<Book[]>())\n     *              .where(Property.at<Book>().author, equals('Robert M. Pirsig'))\n     *              .first(),\n     *          property('title', startsWith('Zen and the Art of Motorcycle Maintenance')),\n     *      )\n     *  )\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<any>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~Property}\n     * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n     ",
+                    "start": 1834,
+                    "end": 3908,
                     "loc": {
                       "start": {
-                        "line": 182,
+                        "line": 79,
                         "column": 4
                       },
                       "end": {
-                        "line": 188,
+                        "line": 134,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4493,
+                "end": 4746,
+                "loc": {
+                  "start": {
+                    "line": 163,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 167,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2572,23 +2470,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5132,
-                "end": 5389,
-                "loc": {
-                  "start": {
-                    "line": 189,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 193,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 128 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2622,6 +2505,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @param \n * {string} name \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4137,
+                    "end": 4283,
+                    "loc": {
+                      "start": {
+                        "line": 140,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 153,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables asserting on one of the {@link LastResponse}'s headers\n     *\n     * @param {string} name\n     * @returns {@serenity-js/core/lib/screenplay~Question<string>}\n     ",
+                    "start": 4290,
+                    "end": 4488,
+                    "loc": {
+                      "start": {
+                        "line": 156,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 162,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5132,
+                "end": 5389,
+                "loc": {
+                  "start": {
+                    "line": 189,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 193,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -3313,7 +3245,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 128 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4747,
+                    "end": 4864,
+                    "loc": {
+                      "start": {
+                        "line": 168,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 179,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Enables asserting on all of the {@link LastResponse}'s headers,\n     *  returned as an object where the keys represent header names.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Record<string, string>>}\n     ",
+                    "start": 4871,
+                    "end": 5127,
+                    "loc": {
+                      "start": {
+                        "line": 182,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 188,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3352,7 +3318,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n ",
+            "start": 89,
+            "end": 134,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Provides access to the properties of the last {@link AxiosResponse} object,\n *  cached on the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Content-Type'), equals('application/json')),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n ",
+            "start": 137,
+            "end": 1170,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 38,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

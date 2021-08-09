@@ -44,24 +44,6 @@
             "column": 135
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable @typescript-eslint/explicit-module-boundary-types ",
-            "start": 0,
-            "end": 70,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 70
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -476,7 +458,25 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable @typescript-eslint/explicit-module-boundary-types ",
+            "start": 0,
+            "end": 70,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 70
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -976,40 +976,6 @@
             "column": 48
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
-            "start": 519,
-            "end": 564,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A type alias representing a {@link @serenity-js/core/lib/screenplay/questions~List} of WebdriverIO Web elements.\n *\n * @public\n *\n * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n *\n * @typedef {List<ElementArrayListAdapter, Promise<Element<'async'>>, Promise<ElementArray>>} TargetList\n ",
-            "start": 567,
-            "end": 889,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 27,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -1081,23 +1047,8 @@
             "raw": "'./TargetBuilder'"
           },
           "value": "./TargetBuilder"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 890,
-        "end": 995,
-        "loc": {
-          "start": {
-            "line": 28,
-            "column": 0
-          },
-          "end": {
-            "line": 28,
-            "column": 105
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
@@ -1130,41 +1081,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n ",
-            "start": 996,
-            "end": 1042,
-            "loc": {
-              "start": {
-                "line": 29,
-                "column": 0
-              },
-              "end": {
-                "line": 34,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 890,
+        "end": 995,
+        "loc": {
+          "start": {
+            "line": 28,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Provides a convenient way to retrieve a single web element or multiple web elements,\n *  so that they can be used with Serenity/JS {@link @serenity-js/core/lib/screenplay~Interaction}s.\n *\n *  Check out the examples below, as well as the unit tests demonstrating the usage.\n *\n *  @example <caption>Imaginary website under test</caption>\n *   <body>\n *       <ul id=\"basket\">\n *           <li><a href=\"#\">Apple</a></li>\n *           <li><a href=\"#\">Banana</a></li>\n *           <li><a href=\"#\">Coconut</a></li>\n *           <li><a href=\"#\" class=\"has-discount\">Date</a></li>\n *       </ul>\n *       <div id=\"summary\">\n *           <strong class=\"out-of-stock\">Coconut</strong> is not available\n *       </div>\n *       <button type=\"submit\">Proceed to Checkout</button>\n *   </body>\n *\n *  @example <caption>Locating a single element</caption>\n *   import { by, Target, TargetElement } from '@serenity-js/webdriverio';\n *\n *   const proceedToCheckoutButton: TargetElement =\n *       Target.the('Proceed to Checkout button').located(by.css(`button[type='submit']`));\n *\n *  @example <caption>Locating multiple elements</caption>\n *   import { by, Target, TargetElements } from '@serenity-js/webdriverio';\n *\n *   const basketItems: TargetElements =\n *       Target.all('items in the basket').located(by.css('ul#basket li'));\n *\n *  @example <caption>Locating element relative to another element</caption>\n *   import { by, Target, TargetElement } from '@serenity-js/webdriverio';\n *\n *   const summary: TargetElement =\n *       Target.the('summary').located(by.id('message'));\n *\n *   const outOfStockItem: TargetElement =\n *       Target.the('out of stock item').of(summary).located(by.css('.out-of-stock'))\n *\n *  @example <caption>Filtering elements matched by a locator</caption>\n *   import { by, Target, Text } from '@serenity-js/webdriverio';\n *   import { endsWith } from '@serenity-js/assertions';\n *\n *   const basketItems =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .where(Text, endsWith('e'));    // Apple, Date\n *\n *  @example <caption>Counting items matched by a locator</caption>\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target, Text } from '@serenity-js/webdriverio';\n *\n *   const basketItemsCount: Question<Promise<number>> =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .count()    // 4\n *\n *  @example <caption>Getting first item matched by a locator</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target } from '@serenity-js/webdriverio';\n *   import { Element } from 'webdriverio';\n *\n *   const apple: Question<Promise<Element<'async'>>>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .first()\n *\n *  @example <caption>Getting last item matched by a locator</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target } from '@serenity-js/webdriverio';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { Element } from 'webdriverio';\n *\n *   const date: Question<Promise<Element<'async'>>>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .last()\n *\n *  @example <caption>Getting nth item matched by a locator</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target } from '@serenity-js/webdriverio';\n *   import { Element } from 'webdriverio';\n *\n *   const banana: Question<Promise<Element<'async'>>>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .get(1)\n *\n *  @example <caption>Using multiple filters and nested targets</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { contain, endsWith } from '@serenity-js/assertions';\n *   import { by, CSSClasses, Target, Text } from '@serenity-js/webdriverio';\n *   import { Element } from 'webdriverio';\n *\n *   class Basket {\n *       static component = Target.the('basket').located(by.id('basket'));\n *\n *       static items     = Target.all('items').located(by.css('li'))\n *          .of(Basket.component);\n *\n *       static link      = Target.the('link').located(by.css('a'));\n *   }\n *\n *   const date: Question<Promise<Element<'async'>>>  =\n *       Basket.items\n *          .where(Text, endsWith('e'))\n *          .where(CSSClasses.of(Basket.link), contain('has-discount'))\n *          .first()\n *\n *  @example <caption>Clicking on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click } from '@serenity-js/webdriverio';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(browser))\n *       .attemptsTo(\n *           Click.on(proceedToCheckoutButton),\n *       );\n *\n *  @example <caption>Retrieving text of multiple elements and performing an assertion</caption>\n *   import { Ensure, contain } from '@serenity-js/assertions';\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Text } from '@serenity-js/webdriverio';\n *\n *   const basketItemNames = Text.ofAll(basketItems);\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(browser))\n *       .attemptsTo(\n *           Ensure.that(basketItemNames, contain('Apple'))\n *       );\n *\n *  @example <caption>Waiting on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Wait, isClickable } from '@serenity-js/webdriverio';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(browser))\n *       .attemptsTo(\n *           Wait.until(proceedToCheckoutButton, isClickable()),\n *       );\n ",
-            "start": 1045,
-            "end": 6780,
-            "loc": {
-              "start": {
-                "line": 37,
-                "column": 0
-              },
-              "end": {
-                "line": 177,
-                "column": 3
-              }
-            }
+          "end": {
+            "line": 28,
+            "column": 105
           }
-        ],
+        },
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -1562,23 +1494,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 6781,
-        "end": 9709,
-        "loc": {
-          "start": {
-            "line": 178,
-            "column": 0
-          },
-          "end": {
-            "line": 333,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n ",
@@ -1612,40 +1529,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 226 \n ",
-            "start": 9710,
-            "end": 9756,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
+            "start": 519,
+            "end": 564,
             "loc": {
               "start": {
-                "line": 334,
+                "line": 10,
                 "column": 0
               },
               "end": {
-                "line": 339,
+                "line": 15,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  You probably don't want to use this class directly. See {@link Target} instead.\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n *\n * @see {@link Target}\n ",
-            "start": 9759,
-            "end": 10017,
+            "value": "*\n * @desc\n *  A type alias representing a {@link @serenity-js/core/lib/screenplay/questions~List} of WebdriverIO Web elements.\n *\n * @public\n *\n * @see {@link @serenity-js/core/lib/screenplay/questions~List}\n *\n * @typedef {List<ElementArrayListAdapter, Promise<Element<'async'>>, Promise<ElementArray>>} TargetList\n ",
+            "start": 567,
+            "end": 889,
             "loc": {
               "start": {
-                "line": 342,
+                "line": 18,
                 "column": 0
               },
               "end": {
-                "line": 350,
+                "line": 27,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 6781,
+        "end": 9709,
+        "loc": {
+          "start": {
+            "line": 178,
+            "column": 0
+          },
+          "end": {
+            "line": 333,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1710,74 +1642,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 175 \n * @param \n * {string} description \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 6803,
-                    "end": 6983,
-                    "loc": {
-                      "start": {
-                        "line": 179,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 192,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Locates a single Web element\n     *\n     * @param {string} description\n     *  A human-readable name of the element, which will be used in the report\n     *\n     * @returns {TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement>}\n     ",
-                    "start": 6990,
-                    "end": 7269,
-                    "loc": {
-                      "start": {
-                        "line": 195,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 203,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 200 \n * @param \n * {string} description \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 8249,
-                    "end": 8429,
-                    "loc": {
-                      "start": {
-                        "line": 256,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 269,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Locates a group of Web elements\n     *\n     * @param {string} description\n     *  A human-readable name of the group of elements, which will be used in the report\n     *\n     * @returns {TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements>}\n     ",
-                    "start": 8436,
-                    "end": 8730,
-                    "loc": {
-                      "start": {
-                        "line": 272,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 280,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2102,24 +1966,6 @@
                                 "column": 13
                               }
                             },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 177 \n * @param \n * {Locator} locator \n * @return \n * {TargetElement} \n * @public \n * \\TRUE \n ",
-                                "start": 7398,
-                                "end": 7531,
-                                "loc": {
-                                  "start": {
-                                    "line": 206,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 217,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ],
                             "method": true,
                             "key": {
                               "type": "Identifier",
@@ -2415,7 +2261,25 @@
                                 }
                               ],
                               "directives": []
-                            }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 177 \n * @param \n * {Locator} locator \n * @return \n * {TargetElement} \n * @public \n * \\TRUE \n ",
+                                "start": 7398,
+                                "end": 7531,
+                                "loc": {
+                                  "start": {
+                                    "line": 206,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 217,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ]
                           },
                           {
                             "type": "ObjectMethod",
@@ -2431,24 +2295,6 @@
                                 "column": 13
                               }
                             },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {Answerable} parent \n * @public \n * \\TRUE \n ",
-                                "start": 7678,
-                                "end": 7781,
-                                "loc": {
-                                  "start": {
-                                    "line": 222,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 231,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ],
                             "method": true,
                             "key": {
                               "type": "Identifier",
@@ -2697,24 +2543,6 @@
                                             "column": 21
                                           }
                                         },
-                                        "leadingComments": [
-                                          {
-                                            "type": "CommentBlock",
-                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 183 \n * @param \n * {Locator} locator \n * @return \n * {TargetNestedElement} \n * @public \n * \\TRUE \n ",
-                                            "start": 7864,
-                                            "end": 8003,
-                                            "loc": {
-                                              "start": {
-                                                "line": 236,
-                                                "column": 0
-                                              },
-                                              "end": {
-                                                "line": 247,
-                                                "column": 3
-                                              }
-                                            }
-                                          }
-                                        ],
                                         "method": true,
                                         "key": {
                                           "type": "Identifier",
@@ -3002,37 +2830,58 @@
                                             }
                                           ],
                                           "directives": []
-                                        }
+                                        },
+                                        "leadingComments": [
+                                          {
+                                            "type": "CommentBlock",
+                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 183 \n * @param \n * {Locator} locator \n * @return \n * {TargetNestedElement} \n * @public \n * \\TRUE \n ",
+                                            "start": 7864,
+                                            "end": 8003,
+                                            "loc": {
+                                              "start": {
+                                                "line": 236,
+                                                "column": 0
+                                              },
+                                              "end": {
+                                                "line": 247,
+                                                "column": 3
+                                              }
+                                            }
+                                          }
+                                        ]
                                       }
                                     ]
                                   }
                                 }
                               ],
                               "directives": []
-                            }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @param \n * {Answerable} parent \n * @public \n * \\TRUE \n ",
+                                "start": 7678,
+                                "end": 7781,
+                                "loc": {
+                                  "start": {
+                                    "line": 222,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 231,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8735,
-                "end": 9707,
-                "loc": {
-                  "start": {
-                    "line": 281,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 332,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 200 \n * @param \n * {string} description \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -3066,6 +2915,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 175 \n * @param \n * {string} description \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 6803,
+                    "end": 6983,
+                    "loc": {
+                      "start": {
+                        "line": 179,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 192,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Locates a single Web element\n     *\n     * @param {string} description\n     *  A human-readable name of the element, which will be used in the report\n     *\n     * @returns {TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement>}\n     ",
+                    "start": 6990,
+                    "end": 7269,
+                    "loc": {
+                      "start": {
+                        "line": 195,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 203,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8735,
+                "end": 9707,
+                "loc": {
+                  "start": {
+                    "line": 281,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 332,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -3390,24 +3288,6 @@
                                 "column": 13
                               }
                             },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 202 \n * @param \n * {Locator} locator \n * @return \n * {TargetElements} \n * @public \n * \\TRUE \n ",
-                                "start": 8861,
-                                "end": 8995,
-                                "loc": {
-                                  "start": {
-                                    "line": 283,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 294,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ],
                             "method": true,
                             "key": {
                               "type": "Identifier",
@@ -3644,7 +3524,25 @@
                                 }
                               ],
                               "directives": []
-                            }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 202 \n * @param \n * {Locator} locator \n * @return \n * {TargetElements} \n * @public \n * \\TRUE \n ",
+                                "start": 8861,
+                                "end": 8995,
+                                "loc": {
+                                  "start": {
+                                    "line": 283,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 294,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ]
                           },
                           {
                             "type": "ObjectMethod",
@@ -3660,24 +3558,6 @@
                                 "column": 13
                               }
                             },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 206 \n * @param \n * {Answerable} parent \n * @public \n * \\TRUE \n ",
-                                "start": 9133,
-                                "end": 9236,
-                                "loc": {
-                                  "start": {
-                                    "line": 299,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 308,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ],
                             "method": true,
                             "key": {
                               "type": "Identifier",
@@ -3926,24 +3806,6 @@
                                             "column": 21
                                           }
                                         },
-                                        "leadingComments": [
-                                          {
-                                            "type": "CommentBlock",
-                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 208 \n * @param \n * {Locator} locator \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
-                                            "start": 9319,
-                                            "end": 9459,
-                                            "loc": {
-                                              "start": {
-                                                "line": 313,
-                                                "column": 0
-                                              },
-                                              "end": {
-                                                "line": 324,
-                                                "column": 3
-                                              }
-                                            }
-                                          }
-                                        ],
                                         "method": true,
                                         "key": {
                                           "type": "Identifier",
@@ -4231,21 +4093,91 @@
                                             }
                                           ],
                                           "directives": []
-                                        }
+                                        },
+                                        "leadingComments": [
+                                          {
+                                            "type": "CommentBlock",
+                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 208 \n * @param \n * {Locator} locator \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
+                                            "start": 9319,
+                                            "end": 9459,
+                                            "loc": {
+                                              "start": {
+                                                "line": 313,
+                                                "column": 0
+                                              },
+                                              "end": {
+                                                "line": 324,
+                                                "column": 3
+                                              }
+                                            }
+                                          }
+                                        ]
                                       }
                                     ]
                                   }
                                 }
                               ],
                               "directives": []
-                            }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 206 \n * @param \n * {Answerable} parent \n * @public \n * \\TRUE \n ",
+                                "start": 9133,
+                                "end": 9236,
+                                "loc": {
+                                  "start": {
+                                    "line": 299,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 308,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 200 \n * @param \n * {string} description \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 8249,
+                    "end": 8429,
+                    "loc": {
+                      "start": {
+                        "line": 256,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 269,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Locates a group of Web elements\n     *\n     * @param {string} description\n     *  A human-readable name of the group of elements, which will be used in the report\n     *\n     * @returns {TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements>}\n     ",
+                    "start": 8436,
+                    "end": 8730,
+                    "loc": {
+                      "start": {
+                        "line": 272,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 280,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -4317,23 +4249,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 10018,
-        "end": 12420,
-        "loc": {
-          "start": {
-            "line": 351,
-            "column": 0
-          },
-          "end": {
-            "line": 495,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 226 \n ",
@@ -4367,40 +4284,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 283 \n ",
-            "start": 12421,
-            "end": 12467,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n ",
+            "start": 996,
+            "end": 1042,
             "loc": {
               "start": {
-                "line": 496,
+                "line": 29,
                 "column": 0
               },
               "end": {
-                "line": 501,
+                "line": 34,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  You probably don't want to use this class directly. See {@link Target} instead.\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n *\n * @see {@link Target}\n ",
-            "start": 12470,
-            "end": 12728,
+            "value": "*\n * @desc\n *  Provides a convenient way to retrieve a single web element or multiple web elements,\n *  so that they can be used with Serenity/JS {@link @serenity-js/core/lib/screenplay~Interaction}s.\n *\n *  Check out the examples below, as well as the unit tests demonstrating the usage.\n *\n *  @example <caption>Imaginary website under test</caption>\n *   <body>\n *       <ul id=\"basket\">\n *           <li><a href=\"#\">Apple</a></li>\n *           <li><a href=\"#\">Banana</a></li>\n *           <li><a href=\"#\">Coconut</a></li>\n *           <li><a href=\"#\" class=\"has-discount\">Date</a></li>\n *       </ul>\n *       <div id=\"summary\">\n *           <strong class=\"out-of-stock\">Coconut</strong> is not available\n *       </div>\n *       <button type=\"submit\">Proceed to Checkout</button>\n *   </body>\n *\n *  @example <caption>Locating a single element</caption>\n *   import { by, Target, TargetElement } from '@serenity-js/webdriverio';\n *\n *   const proceedToCheckoutButton: TargetElement =\n *       Target.the('Proceed to Checkout button').located(by.css(`button[type='submit']`));\n *\n *  @example <caption>Locating multiple elements</caption>\n *   import { by, Target, TargetElements } from '@serenity-js/webdriverio';\n *\n *   const basketItems: TargetElements =\n *       Target.all('items in the basket').located(by.css('ul#basket li'));\n *\n *  @example <caption>Locating element relative to another element</caption>\n *   import { by, Target, TargetElement } from '@serenity-js/webdriverio';\n *\n *   const summary: TargetElement =\n *       Target.the('summary').located(by.id('message'));\n *\n *   const outOfStockItem: TargetElement =\n *       Target.the('out of stock item').of(summary).located(by.css('.out-of-stock'))\n *\n *  @example <caption>Filtering elements matched by a locator</caption>\n *   import { by, Target, Text } from '@serenity-js/webdriverio';\n *   import { endsWith } from '@serenity-js/assertions';\n *\n *   const basketItems =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .where(Text, endsWith('e'));    // Apple, Date\n *\n *  @example <caption>Counting items matched by a locator</caption>\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target, Text } from '@serenity-js/webdriverio';\n *\n *   const basketItemsCount: Question<Promise<number>> =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .count()    // 4\n *\n *  @example <caption>Getting first item matched by a locator</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target } from '@serenity-js/webdriverio';\n *   import { Element } from 'webdriverio';\n *\n *   const apple: Question<Promise<Element<'async'>>>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .first()\n *\n *  @example <caption>Getting last item matched by a locator</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target } from '@serenity-js/webdriverio';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { Element } from 'webdriverio';\n *\n *   const date: Question<Promise<Element<'async'>>>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .last()\n *\n *  @example <caption>Getting nth item matched by a locator</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { by, Target } from '@serenity-js/webdriverio';\n *   import { Element } from 'webdriverio';\n *\n *   const banana: Question<Promise<Element<'async'>>>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .get(1)\n *\n *  @example <caption>Using multiple filters and nested targets</caption>\n *   import { Question } from '@serenity-js/core';\n *   import { contain, endsWith } from '@serenity-js/assertions';\n *   import { by, CSSClasses, Target, Text } from '@serenity-js/webdriverio';\n *   import { Element } from 'webdriverio';\n *\n *   class Basket {\n *       static component = Target.the('basket').located(by.id('basket'));\n *\n *       static items     = Target.all('items').located(by.css('li'))\n *          .of(Basket.component);\n *\n *       static link      = Target.the('link').located(by.css('a'));\n *   }\n *\n *   const date: Question<Promise<Element<'async'>>>  =\n *       Basket.items\n *          .where(Text, endsWith('e'))\n *          .where(CSSClasses.of(Basket.link), contain('has-discount'))\n *          .first()\n *\n *  @example <caption>Clicking on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click } from '@serenity-js/webdriverio';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(browser))\n *       .attemptsTo(\n *           Click.on(proceedToCheckoutButton),\n *       );\n *\n *  @example <caption>Retrieving text of multiple elements and performing an assertion</caption>\n *   import { Ensure, contain } from '@serenity-js/assertions';\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Text } from '@serenity-js/webdriverio';\n *\n *   const basketItemNames = Text.ofAll(basketItems);\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(browser))\n *       .attemptsTo(\n *           Ensure.that(basketItemNames, contain('Apple'))\n *       );\n *\n *  @example <caption>Waiting on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Wait, isClickable } from '@serenity-js/webdriverio';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(browser))\n *       .attemptsTo(\n *           Wait.until(proceedToCheckoutButton, isClickable()),\n *       );\n ",
+            "start": 1045,
+            "end": 6780,
             "loc": {
               "start": {
-                "line": 504,
+                "line": 37,
                 "column": 0
               },
               "end": {
-                "line": 512,
+                "line": 177,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 10018,
+        "end": 12420,
+        "loc": {
+          "start": {
+            "line": 351,
+            "column": 0
+          },
+          "end": {
+            "line": 495,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -4844,24 +4776,6 @@
                     "column": 107
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 230 \n * @type \n * {List} \n * @private \n * \\TRUE \n ",
-                    "start": 10173,
-                    "end": 10263,
-                    "loc": {
-                      "start": {
-                        "line": 355,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 364,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -5193,7 +5107,25 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 230 \n * @type \n * {List} \n * @private \n * \\TRUE \n ",
+                    "start": 10173,
+                    "end": 10263,
+                    "loc": {
+                      "start": {
+                        "line": 355,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 364,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               },
               {
                 "type": "ClassMethod",
@@ -5209,24 +5141,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 240 \n * @param \n * {Answerable} parent \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
-                    "start": 10570,
-                    "end": 10712,
-                    "loc": {
-                      "start": {
-                        "line": 375,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 386,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5623,23 +5537,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 10719,
-                "end": 10844,
-                "loc": {
-                  "start": {
-                    "line": 389,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 391,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 240 \n * @param \n * {Answerable} parent \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
@@ -5656,25 +5555,22 @@
                       }
                     }
                   }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 10845,
-                    "end": 10940,
-                    "loc": {
-                      "start": {
-                        "line": 392,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 401,
-                        "column": 3
-                      }
-                    }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 10719,
+                "end": 10844,
+                "loc": {
+                  "start": {
+                    "line": 389,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 391,
+                    "column": 5
                   }
-                ],
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6010,23 +5906,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 10947,
-                "end": 11023,
-                "loc": {
-                  "start": {
-                    "line": 404,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 406,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -6044,24 +5925,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 248 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 11024,
-                    "end": 11119,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 240 \n * @param \n * {Answerable} parent \n * @return \n * {TargetNestedElements} \n * @public \n * \\TRUE \n ",
+                    "start": 10570,
+                    "end": 10712,
                     "loc": {
                       "start": {
-                        "line": 407,
+                        "line": 375,
                         "column": 0
                       },
                       "end": {
-                        "line": 416,
+                        "line": 386,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 10947,
+                "end": 11023,
+                "loc": {
+                  "start": {
+                    "line": 404,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 406,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6343,23 +6239,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 11126,
-                "end": 11211,
-                "loc": {
-                  "start": {
-                    "line": 419,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 421,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 248 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -6377,24 +6258,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 252 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 11212,
-                    "end": 11307,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 10845,
+                    "end": 10940,
                     "loc": {
                       "start": {
-                        "line": 422,
+                        "line": 392,
                         "column": 0
                       },
                       "end": {
-                        "line": 431,
+                        "line": 401,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 11126,
+                "end": 11211,
+                "loc": {
+                  "start": {
+                    "line": 419,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 421,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6745,23 +6641,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 11314,
-                "end": 11397,
-                "loc": {
-                  "start": {
-                    "line": 434,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 436,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 252 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -6779,24 +6660,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 256 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 11398,
-                    "end": 11523,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 248 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 11024,
+                    "end": 11119,
                     "loc": {
                       "start": {
-                        "line": 437,
+                        "line": 407,
                         "column": 0
                       },
                       "end": {
-                        "line": 448,
+                        "line": 416,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 11314,
+                "end": 11397,
+                "loc": {
+                  "start": {
+                    "line": 434,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 436,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -7147,23 +7043,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 11530,
-                "end": 11630,
-                "loc": {
-                  "start": {
-                    "line": 451,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 453,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 256 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -7181,24 +7062,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 260 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {TargetList} \n * @public \n * \\TRUE \n ",
-                    "start": 11631,
-                    "end": 11808,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 252 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 11212,
+                    "end": 11307,
                     "loc": {
                       "start": {
-                        "line": 454,
+                        "line": 422,
                         "column": 0
                       },
                       "end": {
-                        "line": 467,
+                        "line": 431,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 11530,
+                "end": 11630,
+                "loc": {
+                  "start": {
+                    "line": 451,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 453,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -7615,23 +7511,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 11815,
-                "end": 12065,
-                "loc": {
-                  "start": {
-                    "line": 470,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 475,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 260 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {TargetList} \n * @public \n * \\TRUE \n ",
@@ -7649,24 +7530,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 267 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 12066,
-                    "end": 12216,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 256 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 11398,
+                    "end": 11523,
                     "loc": {
                       "start": {
-                        "line": 476,
+                        "line": 437,
                         "column": 0
                       },
                       "end": {
-                        "line": 487,
+                        "line": 448,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 11815,
+                "end": 12065,
+                "loc": {
+                  "start": {
+                    "line": 470,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 475,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -8408,23 +8304,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 12223,
-                "end": 12418,
-                "loc": {
-                  "start": {
-                    "line": 490,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 494,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 267 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -8442,6 +8323,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 260 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {TargetList} \n * @public \n * \\TRUE \n ",
+                    "start": 11631,
+                    "end": 11808,
+                    "loc": {
+                      "start": {
+                        "line": 454,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 467,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 12223,
+                "end": 12418,
+                "loc": {
+                  "start": {
+                    "line": 490,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 494,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -8970,7 +8884,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 267 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 12066,
+                    "end": 12216,
+                    "loc": {
+                      "start": {
+                        "line": 476,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 487,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -9042,23 +8974,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 12729,
-        "end": 15377,
-        "loc": {
-          "start": {
-            "line": 513,
-            "column": 0
-          },
-          "end": {
-            "line": 662,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 283 \n ",
@@ -9092,19 +9009,19 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 345 \n ",
-            "start": 15378,
-            "end": 15424,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 226 \n ",
+            "start": 9710,
+            "end": 9756,
             "loc": {
               "start": {
-                "line": 663,
+                "line": 334,
                 "column": 0
               },
               "end": {
-                "line": 668,
+                "line": 339,
                 "column": 3
               }
             }
@@ -9112,20 +9029,35 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  You probably don't want to use this class directly. See {@link Target} instead.\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n *\n * @see {@link Target}\n ",
-            "start": 15427,
-            "end": 15685,
+            "start": 9759,
+            "end": 10017,
             "loc": {
               "start": {
-                "line": 671,
+                "line": 342,
                 "column": 0
               },
               "end": {
-                "line": 679,
+                "line": 350,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 12729,
+        "end": 15377,
+        "loc": {
+          "start": {
+            "line": 513,
+            "column": 0
+          },
+          "end": {
+            "line": 662,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -9569,24 +9501,6 @@
                     "column": 107
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 287 \n * @type \n * {List} \n * @private \n * \\TRUE \n ",
-                    "start": 12890,
-                    "end": 12980,
-                    "loc": {
-                      "start": {
-                        "line": 517,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 526,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -9918,7 +9832,25 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 287 \n * @type \n * {List} \n * @private \n * \\TRUE \n ",
+                    "start": 12890,
+                    "end": 12980,
+                    "loc": {
+                      "start": {
+                        "line": 517,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 526,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               },
               {
                 "type": "ClassMethod",
@@ -9934,24 +9866,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 297 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 13358,
-                    "end": 13488,
-                    "loc": {
-                      "start": {
-                        "line": 537,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 548,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -10628,23 +10542,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 13495,
-                "end": 13631,
-                "loc": {
-                  "start": {
-                    "line": 551,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 553,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 297 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -10661,25 +10560,22 @@
                       }
                     }
                   }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 301 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 13632,
-                    "end": 13727,
-                    "loc": {
-                      "start": {
-                        "line": 554,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 563,
-                        "column": 3
-                      }
-                    }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 13495,
+                "end": 13631,
+                "loc": {
+                  "start": {
+                    "line": 551,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 553,
+                    "column": 5
                   }
-                ],
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -11113,23 +11009,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 13734,
-                "end": 13810,
-                "loc": {
-                  "start": {
-                    "line": 566,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 568,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 301 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -11147,24 +11028,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 305 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 13811,
-                    "end": 13906,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 297 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 13358,
+                    "end": 13488,
                     "loc": {
                       "start": {
-                        "line": 569,
+                        "line": 537,
                         "column": 0
                       },
                       "end": {
-                        "line": 578,
+                        "line": 548,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 13734,
+                "end": 13810,
+                "loc": {
+                  "start": {
+                    "line": 566,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 568,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -11446,23 +11342,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 13913,
-                "end": 13998,
-                "loc": {
-                  "start": {
-                    "line": 581,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 583,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 305 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -11480,24 +11361,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 309 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 13999,
-                    "end": 14094,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 301 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 13632,
+                    "end": 13727,
                     "loc": {
                       "start": {
-                        "line": 584,
+                        "line": 554,
                         "column": 0
                       },
                       "end": {
-                        "line": 593,
+                        "line": 563,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 13913,
+                "end": 13998,
+                "loc": {
+                  "start": {
+                    "line": 581,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 583,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -11848,23 +11744,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 14101,
-                "end": 14184,
-                "loc": {
-                  "start": {
-                    "line": 596,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 598,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 309 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -11882,24 +11763,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 313 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 14185,
-                    "end": 14310,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 305 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 13811,
+                    "end": 13906,
                     "loc": {
                       "start": {
-                        "line": 599,
+                        "line": 569,
                         "column": 0
                       },
                       "end": {
-                        "line": 610,
+                        "line": 578,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 14101,
+                "end": 14184,
+                "loc": {
+                  "start": {
+                    "line": 596,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 598,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -12250,23 +12146,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 14317,
-                "end": 14417,
-                "loc": {
-                  "start": {
-                    "line": 613,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 615,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 313 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -12284,24 +12165,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 317 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {TargetList} \n * @public \n * \\TRUE \n ",
-                    "start": 14418,
-                    "end": 14595,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 309 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 13999,
+                    "end": 14094,
                     "loc": {
                       "start": {
-                        "line": 616,
+                        "line": 584,
                         "column": 0
                       },
                       "end": {
-                        "line": 629,
+                        "line": 593,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 14317,
+                "end": 14417,
+                "loc": {
+                  "start": {
+                    "line": 613,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 615,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -12718,23 +12614,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 14602,
-                "end": 14852,
-                "loc": {
-                  "start": {
-                    "line": 632,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 637,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 317 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {TargetList} \n * @public \n * \\TRUE \n ",
@@ -12752,24 +12633,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 324 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 14853,
-                    "end": 15003,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 313 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 14185,
+                    "end": 14310,
                     "loc": {
                       "start": {
-                        "line": 638,
+                        "line": 599,
                         "column": 0
                       },
                       "end": {
-                        "line": 649,
+                        "line": 610,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 14602,
+                "end": 14852,
+                "loc": {
+                  "start": {
+                    "line": 632,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 637,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -13511,23 +13407,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 15010,
-                "end": 15375,
-                "loc": {
-                  "start": {
-                    "line": 652,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 661,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 324 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -13545,6 +13426,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 317 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {TargetList} \n * @public \n * \\TRUE \n ",
+                    "start": 14418,
+                    "end": 14595,
+                    "loc": {
+                      "start": {
+                        "line": 616,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 629,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 15010,
+                "end": 15375,
+                "loc": {
+                  "start": {
+                    "line": 652,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 661,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -14544,7 +14458,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 324 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 14853,
+                    "end": 15003,
+                    "loc": {
+                      "start": {
+                        "line": 638,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 649,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -14616,23 +14548,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 15686,
-        "end": 16616,
-        "loc": {
-          "start": {
-            "line": 680,
-            "column": 0
-          },
-          "end": {
-            "line": 726,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 345 \n ",
@@ -14666,19 +14583,19 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 376 \n ",
-            "start": 16617,
-            "end": 16663,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 283 \n ",
+            "start": 12421,
+            "end": 12467,
             "loc": {
               "start": {
-                "line": 727,
+                "line": 496,
                 "column": 0
               },
               "end": {
-                "line": 732,
+                "line": 501,
                 "column": 3
               }
             }
@@ -14686,20 +14603,35 @@
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  You probably don't want to use this class directly. See {@link Target} instead.\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n *\n * @see {@link Target}\n ",
-            "start": 16666,
-            "end": 16924,
+            "start": 12470,
+            "end": 12728,
             "loc": {
               "start": {
-                "line": 735,
+                "line": 504,
                 "column": 0
               },
               "end": {
-                "line": 743,
+                "line": 512,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 15686,
+        "end": 16616,
+        "loc": {
+          "start": {
+            "line": 680,
+            "column": 0
+          },
+          "end": {
+            "line": 726,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -15247,24 +15179,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 356 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 15979,
-                    "end": 16109,
-                    "loc": {
-                      "start": {
-                        "line": 690,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 701,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -15499,23 +15413,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 16116,
-                "end": 16255,
-                "loc": {
-                  "start": {
-                    "line": 704,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 706,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 356 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -15532,25 +15431,22 @@
                       }
                     }
                   }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 360 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 16256,
-                    "end": 16406,
-                    "loc": {
-                      "start": {
-                        "line": 707,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 718,
-                        "column": 3
-                      }
-                    }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 16116,
+                "end": 16255,
+                "loc": {
+                  "start": {
+                    "line": 704,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 706,
+                    "column": 5
                   }
-                ],
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -16036,23 +15932,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 16413,
-                "end": 16614,
-                "loc": {
-                  "start": {
-                    "line": 721,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 725,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 360 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -16070,6 +15951,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 356 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 15979,
+                    "end": 16109,
+                    "loc": {
+                      "start": {
+                        "line": 690,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 701,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 16413,
+                "end": 16614,
+                "loc": {
+                  "start": {
+                    "line": 721,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 725,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -16650,7 +16564,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 360 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 16256,
+                    "end": 16406,
+                    "loc": {
+                      "start": {
+                        "line": 707,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 718,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -16722,23 +16654,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 16925,
-        "end": 18087,
-        "loc": {
-          "start": {
-            "line": 744,
-            "column": 0
-          },
-          "end": {
-            "line": 795,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 376 \n ",
@@ -16772,6 +16689,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 345 \n ",
+            "start": 15378,
+            "end": 15424,
+            "loc": {
+              "start": {
+                "line": 663,
+                "column": 0
+              },
+              "end": {
+                "line": 668,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  You probably don't want to use this class directly. See {@link Target} instead.\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n *\n * @see {@link Target}\n ",
+            "start": 15427,
+            "end": 15685,
+            "loc": {
+              "start": {
+                "line": 671,
+                "column": 0
+              },
+              "end": {
+                "line": 679,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 16925,
+        "end": 18087,
+        "loc": {
+          "start": {
+            "line": 744,
+            "column": 0
+          },
+          "end": {
+            "line": 795,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -17319,24 +17285,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 387 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 17293,
-                    "end": 17423,
-                    "loc": {
-                      "start": {
-                        "line": 754,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 765,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -17903,23 +17851,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 17430,
-                "end": 17569,
-                "loc": {
-                  "start": {
-                    "line": 768,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 770,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 387 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -17936,25 +17869,22 @@
                       }
                     }
                   }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 391 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 17570,
-                    "end": 17720,
-                    "loc": {
-                      "start": {
-                        "line": 771,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 782,
-                        "column": 3
-                      }
-                    }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 17430,
+                "end": 17569,
+                "loc": {
+                  "start": {
+                    "line": 768,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 770,
+                    "column": 5
                   }
-                ],
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -18440,23 +18370,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 17727,
-                "end": 18085,
-                "loc": {
-                  "start": {
-                    "line": 785,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 794,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 391 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -18474,6 +18389,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 387 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 17293,
+                    "end": 17423,
+                    "loc": {
+                      "start": {
+                        "line": 754,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 765,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 17727,
+                "end": 18085,
+                "loc": {
+                  "start": {
+                    "line": 785,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 794,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -19525,7 +19473,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 391 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 17570,
+                    "end": 17720,
+                    "loc": {
+                      "start": {
+                        "line": 771,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 782,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -19564,7 +19530,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 376 \n ",
+            "start": 16617,
+            "end": 16663,
+            "loc": {
+              "start": {
+                "line": 727,
+                "column": 0
+              },
+              "end": {
+                "line": 732,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  You probably don't want to use this class directly. See {@link Target} instead.\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n *\n * @see {@link Target}\n ",
+            "start": 16666,
+            "end": 16924,
+            "loc": {
+              "start": {
+                "line": 735,
+                "column": 0
+              },
+              "end": {
+                "line": 743,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

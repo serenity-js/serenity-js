@@ -392,40 +392,6 @@
             "column": 40
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
-            "start": 253,
-            "end": 328,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is present and selected\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
-            "start": 331,
-            "end": 636,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 26,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -497,23 +463,8 @@
             "raw": "'./isPresent'"
           },
           "value": "./isPresent"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 637,
-        "end": 906,
-        "loc": {
-          "start": {
-            "line": 27,
-            "column": 0
-          },
-          "end": {
-            "line": 32,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
@@ -546,7 +497,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 637,
+        "end": 906,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 32,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -922,9 +888,6 @@
                           "column": 5
                         }
                       },
-                      "extra": {
-                        "trailingComma": 895
-                      },
                       "callee": {
                         "type": "Identifier",
                         "start": 774,
@@ -941,6 +904,9 @@
                           "identifierName": "and"
                         },
                         "name": "and"
+                      },
+                      "extra": {
+                        "trailingComma": 895
                       },
                       "arguments": [
                         {
@@ -1209,7 +1175,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+            "start": 253,
+            "end": 328,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is present and selected\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 331,
+            "end": 636,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

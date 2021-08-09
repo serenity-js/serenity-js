@@ -229,40 +229,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 60 \n ",
-            "start": 128,
-            "end": 173,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  close browser tabs or windows.\n *\n * @example <caption>Closing a browser tab or window</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Click, Close, Switch } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Caleb')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Click.on(someLinkThatOpensANewWindow),\n *\n *          Switch.toNewWindow().and(\n *              // perform activities in the context of the new window\n *              Close.currentWindow(),\n *          ),\n *      );\n *\n * @example <caption>Closing any new windows after a Jasmine test</caption>\n *  import 'jasmine';\n *\n *  import { actorInTheSpotlight } from '@serenity-js/core';\n *  import { Close } from '@serenity-js/protractor';\n *\n *  after(() =>\n *      actorInTheSpotlight().attemptsTo(\n *          Close.anyNewWindows(),\n *      ));\n *\n * @example <caption>Closing any new windows after a Mocha test</caption>\n *  import 'mocha';\n *\n *  import { actorInTheSpotlight } from '@serenity-js/core';\n *  import { Close } from '@serenity-js/protractor';\n *\n *  after(() =>\n *      actorInTheSpotlight().attemptsTo(\n *          Close.anyNewWindows(),\n *      ));\n *\n * @example <caption>Closing any new windows after a    Cucumber scenario</caption>\n *  import { actorInTheSpotlight } from '@serenity-js/core';\n *  import { Close } from '@serenity-js/protractor';\n *  import { After } from 'cucumber';\n *\n *  After(() =>\n *      actorInTheSpotlight().attemptsTo(\n *          Close.anyNewWindows(),\n *      ));\n *\n * @see {@link Switch}\n ",
-            "start": 176,
-            "end": 1901,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 66,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -334,23 +300,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1902,
-        "end": 3327,
-        "loc": {
-          "start": {
-            "line": 67,
-            "column": 0
-          },
-          "end": {
-            "line": 131,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 60 \n ",
@@ -383,41 +334,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n ",
-            "start": 3328,
-            "end": 3374,
-            "loc": {
-              "start": {
-                "line": 132,
-                "column": 0
-              },
-              "end": {
-                "line": 137,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1902,
+        "end": 3327,
+        "loc": {
+          "start": {
+            "line": 67,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 3377,
-            "end": 3396,
-            "loc": {
-              "start": {
-                "line": 140,
-                "column": 0
-              },
-              "end": {
-                "line": 142,
-                "column": 3
-              }
-            }
+          "end": {
+            "line": 131,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -482,74 +414,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1923,
-                    "end": 2042,
-                    "loc": {
-                      "start": {
-                        "line": 68,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 79,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Closes any windows other than the original one that\n     *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  has {@link Navigate}d to.\n     *\n     *  When the windows are closed, it switches the context\n     *  back to the original window.\n     *\n     * @static\n     * @returns {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Switch}\n     ",
-                    "start": 2049,
-                    "end": 2462,
-                    "loc": {
-                      "start": {
-                        "line": 82,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 95,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2645,
-                    "end": 2764,
-                    "loc": {
-                      "start": {
-                        "line": 99,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 110,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Closes the currently focused browser window.\n     *\n     *  **Please note** that this interaction should be used to close\n     *  pop-up windows or any new windows/tabs opened during the test\n     *  rather than the _main_ window, which is managed by Protractor.\n     *\n     *  See tests for usage examples.\n     *\n     * @static\n     * @returns {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Switch}\n     ",
-                    "start": 2771,
-                    "end": 3236,
-                    "loc": {
-                      "start": {
-                        "line": 113,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 127,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -895,23 +759,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3241,
-                "end": 3325,
-                "loc": {
-                  "start": {
-                    "line": 128,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 130,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -945,6 +794,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1923,
+                    "end": 2042,
+                    "loc": {
+                      "start": {
+                        "line": 68,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 79,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Closes any windows other than the original one that\n     *  the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  has {@link Navigate}d to.\n     *\n     *  When the windows are closed, it switches the context\n     *  back to the original window.\n     *\n     * @static\n     * @returns {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Switch}\n     ",
+                    "start": 2049,
+                    "end": 2462,
+                    "loc": {
+                      "start": {
+                        "line": 82,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 95,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3241,
+                "end": 3325,
+                "loc": {
+                  "start": {
+                    "line": 128,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 130,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1081,7 +979,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2645,
+                    "end": 2764,
+                    "loc": {
+                      "start": {
+                        "line": 99,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 110,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Closes the currently focused browser window.\n     *\n     *  **Please note** that this interaction should be used to close\n     *  pop-up windows or any new windows/tabs opened during the test\n     *  rather than the _main_ window, which is managed by Protractor.\n     *\n     *  See tests for usage examples.\n     *\n     * @static\n     * @returns {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Switch}\n     ",
+                    "start": 2771,
+                    "end": 3236,
+                    "loc": {
+                      "start": {
+                        "line": 113,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 127,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1153,23 +1085,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 3397,
-        "end": 6488,
-        "loc": {
-          "start": {
-            "line": 143,
-            "column": 0
-          },
-          "end": {
-            "line": 287,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n ",
@@ -1203,40 +1120,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n ",
-            "start": 6489,
-            "end": 6535,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 60 \n ",
+            "start": 128,
+            "end": 173,
             "loc": {
               "start": {
-                "line": 288,
+                "line": 4,
                 "column": 0
               },
               "end": {
-                "line": 293,
+                "line": 9,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 6538,
-            "end": 6557,
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  close browser tabs or windows.\n *\n * @example <caption>Closing a browser tab or window</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Click, Close, Switch } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Caleb')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Click.on(someLinkThatOpensANewWindow),\n *\n *          Switch.toNewWindow().and(\n *              // perform activities in the context of the new window\n *              Close.currentWindow(),\n *          ),\n *      );\n *\n * @example <caption>Closing any new windows after a Jasmine test</caption>\n *  import 'jasmine';\n *\n *  import { actorInTheSpotlight } from '@serenity-js/core';\n *  import { Close } from '@serenity-js/protractor';\n *\n *  after(() =>\n *      actorInTheSpotlight().attemptsTo(\n *          Close.anyNewWindows(),\n *      ));\n *\n * @example <caption>Closing any new windows after a Mocha test</caption>\n *  import 'mocha';\n *\n *  import { actorInTheSpotlight } from '@serenity-js/core';\n *  import { Close } from '@serenity-js/protractor';\n *\n *  after(() =>\n *      actorInTheSpotlight().attemptsTo(\n *          Close.anyNewWindows(),\n *      ));\n *\n * @example <caption>Closing any new windows after a    Cucumber scenario</caption>\n *  import { actorInTheSpotlight } from '@serenity-js/core';\n *  import { Close } from '@serenity-js/protractor';\n *  import { After } from 'cucumber';\n *\n *  After(() =>\n *      actorInTheSpotlight().attemptsTo(\n *          Close.anyNewWindows(),\n *      ));\n *\n * @see {@link Switch}\n ",
+            "start": 176,
+            "end": 1901,
             "loc": {
               "start": {
-                "line": 296,
+                "line": 12,
                 "column": 0
               },
               "end": {
-                "line": 298,
+                "line": 66,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 3397,
+        "end": 6488,
+        "loc": {
+          "start": {
+            "line": 143,
+            "column": 0
+          },
+          "end": {
+            "line": 287,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 3403,
@@ -1300,24 +1232,6 @@
                   "column": 5
                 }
               },
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                  "start": 3678,
-                  "end": 3832,
-                  "loc": {
-                    "start": {
-                      "line": 150,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 161,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -1781,23 +1695,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 3839,
-              "end": 4193,
-              "loc": {
-                "start": {
-                  "line": 164,
-                  "column": 4
-                },
-                "end": {
-                  "line": 170,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1814,25 +1713,22 @@
                     }
                   }
                 }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 4194,
-                  "end": 4287,
-                  "loc": {
-                    "start": {
-                      "line": 171,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 180,
-                      "column": 3
-                    }
-                  }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 3839,
+              "end": 4193,
+              "loc": {
+                "start": {
+                  "line": 164,
+                  "column": 4
+                },
+                "end": {
+                  "line": 170,
+                  "column": 5
                 }
-              ],
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2093,9 +1989,6 @@
                           "column": 13
                         }
                       },
-                      "extra": {
-                        "trailingComma": 4171
-                      },
                       "callee": {
                         "type": "MemberExpression",
                         "start": 3926,
@@ -2210,6 +2103,9 @@
                           },
                           "name": "then"
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 4171
                       },
                       "arguments": [
                         {
@@ -2707,23 +2603,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4294,
-              "end": 4353,
-              "loc": {
-                "start": {
-                  "line": 183,
-                  "column": 4
-                },
-                "end": {
-                  "line": 185,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2741,40 +2622,39 @@
                   }
                 }
               ],
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 128 \n * @param \n * {string} windowToKeep \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @private \n * \\TRUE \n ",
-                  "start": 4354,
-                  "end": 4516,
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                  "start": 3678,
+                  "end": 3832,
                   "loc": {
                     "start": {
-                      "line": 186,
+                      "line": 150,
                       "column": 0
                     },
                     "end": {
-                      "line": 197,
+                      "line": 161,
                       "column": 3
                     }
                   }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @param {string} windowToKeep\n     * @param {UsesAbilities & AnswersQuestions} actor\n     * @private\n     ",
-                  "start": 4523,
-                  "end": 4641,
-                  "loc": {
-                    "start": {
-                      "line": 200,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 204,
-                      "column": 7
-                    }
-                  }
                 }
-              ],
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4294,
+              "end": 4353,
+              "loc": {
+                "start": {
+                  "line": 183,
+                  "column": 4
+                },
+                "end": {
+                  "line": 185,
+                  "column": 5
+                }
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -2909,23 +2789,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4646,
-              "end": 5017,
-              "loc": {
-                "start": {
-                  "line": 205,
-                  "column": 4
-                },
-                "end": {
-                  "line": 212,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 128 \n * @param \n * {string} windowToKeep \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @private \n * \\TRUE \n ",
@@ -2959,40 +2824,39 @@
                   }
                 }
               ],
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @param \n * {UNKNOWN} windows \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @private \n * \\TRUE \n ",
-                  "start": 5018,
-                  "end": 5176,
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 4194,
+                  "end": 4287,
                   "loc": {
                     "start": {
-                      "line": 213,
+                      "line": 171,
                       "column": 0
                     },
                     "end": {
-                      "line": 224,
+                      "line": 180,
                       "column": 3
                     }
                   }
-                },
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n     * @param {string[]} windows\n     * @param {UsesAbilities & AnswersQuestions} actor\n     * @private\n     ",
-                  "start": 5183,
-                  "end": 5298,
-                  "loc": {
-                    "start": {
-                      "line": 227,
-                      "column": 4
-                    },
-                    "end": {
-                      "line": 231,
-                      "column": 7
-                    }
-                  }
                 }
-              ],
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4646,
+              "end": 5017,
+              "loc": {
+                "start": {
+                  "line": 205,
+                  "column": 4
+                },
+                "end": {
+                  "line": 212,
+                  "column": 5
+                }
+              },
               "accessibility": "private",
               "static": false,
               "key": {
@@ -3800,23 +3664,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5303,
-              "end": 5699,
-              "loc": {
-                "start": {
-                  "line": 232,
-                  "column": 4
-                },
-                "end": {
-                  "line": 241,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @param \n * {UNKNOWN} windows \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @private \n * \\TRUE \n ",
@@ -3850,40 +3699,55 @@
                   }
                 }
               ],
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 158 \n * @param \n * {string} window \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                  "start": 5700,
-                  "end": 5882,
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 128 \n * @param \n * {string} windowToKeep \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @private \n * \\TRUE \n ",
+                  "start": 4354,
+                  "end": 4516,
                   "loc": {
                     "start": {
-                      "line": 242,
+                      "line": 186,
                       "column": 0
                     },
                     "end": {
-                      "line": 255,
+                      "line": 197,
                       "column": 3
                     }
                   }
                 },
                 {
                   "type": "CommentBlock",
-                  "value": "*\n     * @param {string} window\n     * @param {UsesAbilities & AnswersQuestions} actor\n     * @private\n     ",
-                  "start": 5889,
-                  "end": 6001,
+                  "value": "*\n     * @param {string} windowToKeep\n     * @param {UsesAbilities & AnswersQuestions} actor\n     * @private\n     ",
+                  "start": 4523,
+                  "end": 4641,
                   "loc": {
                     "start": {
-                      "line": 258,
+                      "line": 200,
                       "column": 4
                     },
                     "end": {
-                      "line": 262,
+                      "line": 204,
                       "column": 7
                     }
                   }
                 }
-              ],
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5303,
+              "end": 5699,
+              "loc": {
+                "start": {
+                  "line": 232,
+                  "column": 4
+                },
+                "end": {
+                  "line": 241,
+                  "column": 5
+                }
+              },
               "accessibility": "private",
               "static": false,
               "key": {
@@ -4776,23 +4640,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 6006,
-              "end": 6233,
-              "loc": {
-                "start": {
-                  "line": 263,
-                  "column": 4
-                },
-                "end": {
-                  "line": 267,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 158 \n * @param \n * {string} window \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -4826,40 +4675,55 @@
                   }
                 }
               ],
-              "trailingComments": [
+              "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 168 \n * @param \n * {any} value \n * @private \n * \\TRUE \n ",
-                  "start": 6234,
-                  "end": 6330,
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 142 \n * @param \n * {UNKNOWN} windows \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @private \n * \\TRUE \n ",
+                  "start": 5018,
+                  "end": 5176,
                   "loc": {
                     "start": {
-                      "line": 268,
+                      "line": 213,
                       "column": 0
                     },
                     "end": {
-                      "line": 277,
+                      "line": 224,
                       "column": 3
                     }
                   }
                 },
                 {
                   "type": "CommentBlock",
-                  "value": "*\n     * @param {any} value\n     * @private\n     ",
-                  "start": 6337,
-                  "end": 6390,
+                  "value": "*\n     * @param {string[]} windows\n     * @param {UsesAbilities & AnswersQuestions} actor\n     * @private\n     ",
+                  "start": 5183,
+                  "end": 5298,
                   "loc": {
                     "start": {
-                      "line": 280,
+                      "line": 227,
                       "column": 4
                     },
                     "end": {
-                      "line": 283,
+                      "line": 231,
                       "column": 7
                     }
                   }
                 }
-              ],
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 6006,
+              "end": 6233,
+              "loc": {
+                "start": {
+                  "line": 263,
+                  "column": 4
+                },
+                "end": {
+                  "line": 267,
+                  "column": 5
+                }
+              },
               "accessibility": "private",
               "static": false,
               "key": {
@@ -5471,23 +5335,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 6395,
-              "end": 6486,
-              "loc": {
-                "start": {
-                  "line": 284,
-                  "column": 4
-                },
-                "end": {
-                  "line": 286,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 168 \n * @param \n * {any} value \n * @private \n * \\TRUE \n ",
@@ -5521,6 +5370,55 @@
                   }
                 }
               ],
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 158 \n * @param \n * {string} window \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                  "start": 5700,
+                  "end": 5882,
+                  "loc": {
+                    "start": {
+                      "line": 242,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 255,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @param {string} window\n     * @param {UsesAbilities & AnswersQuestions} actor\n     * @private\n     ",
+                  "start": 5889,
+                  "end": 6001,
+                  "loc": {
+                    "start": {
+                      "line": 258,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 262,
+                      "column": 7
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 6395,
+              "end": 6486,
+              "loc": {
+                "start": {
+                  "line": 284,
+                  "column": 4
+                },
+                "end": {
+                  "line": 286,
+                  "column": 5
+                }
+              },
               "accessibility": "private",
               "static": false,
               "key": {
@@ -5740,26 +5638,45 @@
                   }
                 ],
                 "directives": []
-              }
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 168 \n * @param \n * {any} value \n * @private \n * \\TRUE \n ",
+                  "start": 6234,
+                  "end": 6330,
+                  "loc": {
+                    "start": {
+                      "line": 268,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 277,
+                      "column": 3
+                    }
+                  }
+                },
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n     * @param {any} value\n     * @private\n     ",
+                  "start": 6337,
+                  "end": 6390,
+                  "loc": {
+                    "start": {
+                      "line": 280,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 283,
+                      "column": 7
+                    }
+                  }
+                }
+              ]
             }
           ]
-        }
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 6558,
-        "end": 7086,
-        "loc": {
-          "start": {
-            "line": 299,
-            "column": 0
-          },
-          "end": {
-            "line": 331,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n ",
@@ -5793,6 +5710,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 103 \n ",
+            "start": 3328,
+            "end": 3374,
+            "loc": {
+              "start": {
+                "line": 132,
+                "column": 0
+              },
+              "end": {
+                "line": 137,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 3377,
+            "end": 3396,
+            "loc": {
+              "start": {
+                "line": 140,
+                "column": 0
+              },
+              "end": {
+                "line": 142,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 6558,
+        "end": 7086,
+        "loc": {
+          "start": {
+            "line": 299,
+            "column": 0
+          },
+          "end": {
+            "line": 331,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 6564,
@@ -5856,42 +5822,6 @@
                   "column": 5
                 }
               },
-              "leadingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 177 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                  "start": 6605,
-                  "end": 6759,
-                  "loc": {
-                    "start": {
-                      "line": 300,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 311,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                  "start": 6903,
-                  "end": 6996,
-                  "loc": {
-                    "start": {
-                      "line": 316,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 325,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6274,23 +6204,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 7003,
-              "end": 7084,
-              "loc": {
-                "start": {
-                  "line": 328,
-                  "column": 4
-                },
-                "end": {
-                  "line": 330,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -6308,6 +6223,39 @@
                   }
                 }
               ],
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 177 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                  "start": 6605,
+                  "end": 6759,
+                  "loc": {
+                    "start": {
+                      "line": 300,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 311,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 7003,
+              "end": 7084,
+              "loc": {
+                "start": {
+                  "line": 328,
+                  "column": 4
+                },
+                "end": {
+                  "line": 330,
+                  "column": 5
+                }
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6432,10 +6380,62 @@
                   }
                 ],
                 "directives": []
-              }
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 181 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                  "start": 6903,
+                  "end": 6996,
+                  "loc": {
+                    "start": {
+                      "line": 316,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 325,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
             }
           ]
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n ",
+            "start": 6489,
+            "end": 6535,
+            "loc": {
+              "start": {
+                "line": 288,
+                "column": 0
+              },
+              "end": {
+                "line": 293,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 6538,
+            "end": 6557,
+            "loc": {
+              "start": {
+                "line": 296,
+                "column": 0
+              },
+              "end": {
+                "line": 298,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

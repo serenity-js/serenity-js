@@ -392,40 +392,6 @@
             "column": 40
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
-            "start": 223,
-            "end": 298,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is visible and enabled, and therefore clickable\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
-            "start": 301,
-            "end": 630,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 26,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -497,23 +463,8 @@
             "raw": "'./isVisible'"
           },
           "value": "./isVisible"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 631,
-        "end": 803,
-        "loc": {
-          "start": {
-            "line": 27,
-            "column": 0
-          },
-          "end": {
-            "line": 29,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
@@ -546,7 +497,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 631,
+        "end": 803,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 29,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1049,7 +1015,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+            "start": 223,
+            "end": 298,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is visible and enabled, and therefore clickable\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 301,
+            "end": 630,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

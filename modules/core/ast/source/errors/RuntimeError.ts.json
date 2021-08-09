@@ -44,40 +44,6 @@
             "column": 1
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
-            "start": 1,
-            "end": 46,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Base class for custom errors that may occur during execution of a test scenario.\n *\n * @example <caption>Custom Error definition</caption>\n * import { RuntimeError } from '@serenity-js/core';\n *\n * export class CustomError extends RuntimeError {\n *   constructor(message: string, cause?: Error) {\n *       super(CustomError, message, cause);\n *   }\n * }\n *\n * @example <caption>Sync error handling</caption>\n * try {\n *     operationThatMightThrowAnError();\n * } catch(error) {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * }\n *\n * @example <caption>Async error handling</caption>\n * operationThatMightRejectAPromise().catch(error => {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * });\n *\n * @extends {Error}\n ",
-            "start": 47,
-            "end": 912,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 36,
-                "column": 3
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -159,58 +125,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
-                    "start": 969,
-                    "end": 1239,
-                    "loc": {
-                      "start": {
-                        "line": 39,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 43,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1668,
-                    "end": 1760,
-                    "loc": {
-                      "start": {
-                        "line": 59,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 68,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Human-readable description\n     ",
-                    "start": 1767,
-                    "end": 1826,
-                    "loc": {
-                      "start": {
-                        "line": 71,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 74,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -1349,23 +1263,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1831,
-                "end": 1921,
-                "loc": {
-                  "start": {
-                    "line": 75,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 77,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1399,6 +1298,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Function} type - Constructor function used to instantiate a subclass of a RuntimeError\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+                    "start": 969,
+                    "end": 1239,
+                    "loc": {
+                      "start": {
+                        "line": 39,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 43,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1831,
+                "end": 1921,
+                "loc": {
+                  "start": {
+                    "line": 75,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 77,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1693,7 +1625,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1668,
+                    "end": 1760,
+                    "loc": {
+                      "start": {
+                        "line": 59,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 68,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Human-readable description\n     ",
+                    "start": 1767,
+                    "end": 1826,
+                    "loc": {
+                      "start": {
+                        "line": 71,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 74,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1732,7 +1698,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n ",
+            "start": 1,
+            "end": 46,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Base class for custom errors that may occur during execution of a test scenario.\n *\n * @example <caption>Custom Error definition</caption>\n * import { RuntimeError } from '@serenity-js/core';\n *\n * export class CustomError extends RuntimeError {\n *   constructor(message: string, cause?: Error) {\n *       super(CustomError, message, cause);\n *   }\n * }\n *\n * @example <caption>Sync error handling</caption>\n * try {\n *     operationThatMightThrowAnError();\n * } catch(error) {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * }\n *\n * @example <caption>Async error handling</caption>\n * operationThatMightRejectAPromise().catch(error => {\n *     // catch and re-throw\n *     throw new CustomError('operationThatMightThrowAnError has failed', error);\n * });\n *\n * @extends {Error}\n ",
+            "start": 47,
+            "end": 912,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 36,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -1027,25 +1027,25 @@ window.esdocSearchIndex = [
   ],
   [
     "@wdio/types~browser",
-    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L215",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts",
     "@wdio/types~Browser",
     "external"
   ],
   [
     "@wdio/types~element",
-    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L254",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts",
     "@wdio/types~Element",
     "external"
   ],
   [
     "@wdio/types~elementarray",
-    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts#L89",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts",
     "@wdio/types~ElementArray",
     "external"
   ],
   [
     "@wdio/types~options.testrunner",
-    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266",
+    "https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts",
     "@wdio/types~Options.TestRunner",
     "external"
   ],

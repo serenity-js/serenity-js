@@ -44,40 +44,6 @@
             "column": 1
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 1,
-            "end": 46,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to initialise\n *  the resources it uses (i.e. establish a database connection).\n *\n *  The {@link initialise} method is invoked when {@link Actor#attemptsTo} is called,\n *  but only when {@link isInitialised} returns false.\n *\n * @public\n * @interface ",
-            "start": 47,
-            "end": 383,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 16
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -143,74 +109,6 @@
                     "column": 39
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 422,
-                    "end": 527,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Initialises the ability. Invoked when {@link Actor#attemptsTo} is called,\n     *  but only when {@link isInitialised} returns false.\n     *\n     *  Make sure to implement {@link isInitialised} so that it returns `true`\n     *  when the ability has been successfully initialised.\n     *\n     * @returns {Promise<void> | void}\n     ",
-                    "start": 534,
-                    "end": 891,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 40,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 932,
-                    "end": 1025,
-                    "loc": {
-                      "start": {
-                        "line": 42,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 51,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Whether or not a given ability has been initialised already\n     *  and should not be initialised again.\n     *\n     * @returns {boolean}\n     ",
-                    "start": 1032,
-                    "end": 1202,
-                    "loc": {
-                      "start": {
-                        "line": 54,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 60,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -345,23 +243,8 @@
                       }
                     ]
                   }
-                }
-              },
-              {
-                "type": "TSDeclareMethod",
-                "start": 1207,
-                "end": 1232,
-                "loc": {
-                  "start": {
-                    "line": 61,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 61,
-                    "column": 29
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
@@ -395,6 +278,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @return \n * {Promise | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 422,
+                    "end": 527,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Initialises the ability. Invoked when {@link Actor#attemptsTo} is called,\n     *  but only when {@link isInitialised} returns false.\n     *\n     *  Make sure to implement {@link isInitialised} so that it returns `true`\n     *  when the ability has been successfully initialised.\n     *\n     * @returns {Promise<void> | void}\n     ",
+                    "start": 534,
+                    "end": 891,
+                    "loc": {
+                      "start": {
+                        "line": 31,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 40,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "TSDeclareMethod",
+                "start": 1207,
+                "end": 1232,
+                "loc": {
+                  "start": {
+                    "line": 61,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 61,
+                    "column": 29
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -448,7 +380,41 @@
                       }
                     }
                   }
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 32 \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 932,
+                    "end": 1025,
+                    "loc": {
+                      "start": {
+                        "line": 42,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 51,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Whether or not a given ability has been initialised already\n     *  and should not be initialised again.\n     *\n     * @returns {boolean}\n     ",
+                    "start": 1032,
+                    "end": 1202,
+                    "loc": {
+                      "start": {
+                        "line": 54,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 60,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -487,7 +453,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 1,
+            "end": 46,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An interface to be implemented by any {@link Ability} that needs to initialise\n *  the resources it uses (i.e. establish a database connection).\n *\n *  The {@link initialise} method is invoked when {@link Actor#attemptsTo} is called,\n *  but only when {@link isInitialised} returns false.\n *\n * @public\n * @interface ",
+            "start": 47,
+            "end": 383,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

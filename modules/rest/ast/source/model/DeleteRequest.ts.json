@@ -218,40 +218,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n ",
-            "start": 138,
-            "end": 183,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The DELETE method requests that the origin server remove the\n *  association between the target resource and its current\n *  functionality.\n *\n * @example <caption>Create and remove a resource</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals, startsWith } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      // create a new test user account\n *      Send.a(PostRequest.to('/users').with({\n *          login: 'tester',\n *          password: 'P@ssword1',\n *      }),\n *      Ensure.that(LastResponse.status(), equals(201)),\n *      Ensure.that(LastResponse.header('Location'), startsWith('/users')),\n *\n *      // delete the test user account\n *      Send.a(DeleteRequest.to(LastResponse.header('Location'))),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.5\n *\n * @extends {HTTPRequest}\n ",
-            "start": 186,
-            "end": 1378,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 44,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'./HTTPRequest'"
           },
           "value": "./HTTPRequest"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1379,
-        "end": 2974,
-        "loc": {
-          "start": {
-            "line": 45,
-            "column": 0
-          },
-          "end": {
-            "line": 106,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1379,
+        "end": 2974,
+        "loc": {
+          "start": {
+            "line": 45,
+            "column": 0
+          },
+          "end": {
+            "line": 106,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -453,74 +419,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 54 \n * @param \n * {Answerable} resourceUri \n * @return \n * {DeleteRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1428,
-                    "end": 1589,
-                    "loc": {
-                      "start": {
-                        "line": 46,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 59,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {DeleteRequest}\n     ",
-                    "start": 1596,
-                    "end": 2201,
-                    "loc": {
-                      "start": {
-                        "line": 62,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 75,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Answerable} config \n * @return \n * {DeleteRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2319,
-                    "end": 2453,
-                    "loc": {
-                      "start": {
-                        "line": 79,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 90,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {DeleteRequest}\n     ",
-                    "start": 2460,
-                    "end": 2828,
-                    "loc": {
-                      "start": {
-                        "line": 93,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 102,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -772,23 +670,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2833,
-                "end": 2972,
-                "loc": {
-                  "start": {
-                    "line": 103,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 105,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Answerable} config \n * @return \n * {DeleteRequest} \n * @public \n * \\TRUE \n ",
@@ -822,6 +705,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 54 \n * @param \n * {Answerable} resourceUri \n * @return \n * {DeleteRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1428,
+                    "end": 1589,
+                    "loc": {
+                      "start": {
+                        "line": 46,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 59,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {DeleteRequest}\n     ",
+                    "start": 1596,
+                    "end": 2201,
+                    "loc": {
+                      "start": {
+                        "line": 62,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 75,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2833,
+                "end": 2972,
+                "loc": {
+                  "start": {
+                    "line": 103,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 105,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1155,7 +1087,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 68 \n * @param \n * {Answerable} config \n * @return \n * {DeleteRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2319,
+                    "end": 2453,
+                    "loc": {
+                      "start": {
+                        "line": 79,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {DeleteRequest}\n     ",
+                    "start": 2460,
+                    "end": 2828,
+                    "loc": {
+                      "start": {
+                        "line": 93,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 102,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1194,7 +1160,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n ",
+            "start": 138,
+            "end": 183,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The DELETE method requests that the origin server remove the\n *  association between the target resource and its current\n *  functionality.\n *\n * @example <caption>Create and remove a resource</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, DeleteRequest, LastResponse, PostRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals, startsWith } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      // create a new test user account\n *      Send.a(PostRequest.to('/users').with({\n *          login: 'tester',\n *          password: 'P@ssword1',\n *      }),\n *      Ensure.that(LastResponse.status(), equals(201)),\n *      Ensure.that(LastResponse.header('Location'), startsWith('/users')),\n *\n *      // delete the test user account\n *      Send.a(DeleteRequest.to(LastResponse.header('Location'))),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/DELETE\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.5\n *\n * @extends {HTTPRequest}\n ",
+            "start": 186,
+            "end": 1378,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 44,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

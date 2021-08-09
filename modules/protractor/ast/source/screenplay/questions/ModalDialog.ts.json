@@ -354,40 +354,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n ",
-            "start": 205,
-            "end": 250,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Represents a modal dialog window created using\n *  [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),\n *  [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt) or\n *  [`Window.confirm()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm).\n *\n *  Check out the examples below, as well as the unit tests demonstrating the usage.\n *\n * @example <caption>Example widget</caption>\n *  <button\n *      data-test=\"trigger\"\n *      onclick=\"alert('Hello!')\">Trigger Alert</button>\n *\n * @example <caption>Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { browser, by } from 'protractor';\n *\n *  class Widget {\n *      static trigger = Target.the('trigger button')\n *          .located(by.css('[data-test=\"trigger\"]'));\n *  }\n *\n * @see {@link Accept}\n * @see {@link Dismiss}\n * @see {@link Enter}\n * @see {@link Wait}\n * @see {@link @serenity-js/assertions~Ensure}\n ",
-            "start": 253,
-            "end": 1251,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 42,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -459,23 +425,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1252,
-        "end": 6353,
-        "loc": {
-          "start": {
-            "line": 43,
-            "column": 0
-          },
-          "end": {
-            "line": 195,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n ",
@@ -508,7 +459,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1252,
+        "end": 6353,
+        "loc": {
+          "start": {
+            "line": 43,
+            "column": 0
+          },
+          "end": {
+            "line": 195,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -573,74 +539,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1279,
-                    "end": 1395,
-                    "loc": {
-                      "start": {
-                        "line": 44,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 55,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  A modal dialog window that could be {@link Accept}ed or {@link Dismiss}ed.\n     *\n     *  If the window was created using [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt)\n     *  you can use the {@link @serenity-js/core/lib/screenplay~Interaction} to {@link Enter} with it too.\n     *\n     * @example <caption>Accepting an alert</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Click.on(Widget.trigger),\n     *          Accept.the(ModalDialog.window()),\n     *      );\n     *\n     * @see {@link Accept}\n     * @see {@link Dismiss}\n     * @see {@link Enter}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<AlertPromise>}\n     ",
-                    "start": 1402,
-                    "end": 2402,
-                    "loc": {
-                      "start": {
-                        "line": 58,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 82,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 106 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2589,
-                    "end": 2706,
-                    "loc": {
-                      "start": {
-                        "line": 88,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 99,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Resolves to `true` if the modal dialog window is present, or `false` if it's not.\n     *\n     * @example <caption>Verifying if a modal dialog window is present</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n     *  import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Ensure.that(ModalDialog.hasPoppedUp(), isFalse()),\n     *          Click.on(Widget.trigger),\n     *          Ensure.that(ModalDialog.hasPoppedUp(), isTrue()),\n     *      );\n     *\n     * @example <caption>Waiting for a modal dialog window</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Click, Dismiss, ModalDialog, Wait } from '@serenity-js/protractor';\n     *  import { isTrue } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Click.on(Widget.trigger),\n     *          Wait.until(ModalDialog.hasPoppedUp(), isTrue()),\n     *          Dismiss.the(ModalDialog.window()),\n     *      );\n     *\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link Wait}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<boolean>>}\n     ",
-                    "start": 2713,
-                    "end": 4290,
-                    "loc": {
-                      "start": {
-                        "line": 102,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 138,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1117,23 +1015,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4295,
-                "end": 5183,
-                "loc": {
-                  "start": {
-                    "line": 139,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 153,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 106 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1167,40 +1050,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 5184,
-                    "end": 5301,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1279,
+                    "end": 1395,
                     "loc": {
                       "start": {
-                        "line": 154,
+                        "line": 44,
                         "column": 0
                       },
                       "end": {
-                        "line": 165,
+                        "line": 55,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Resolves to the message displayed in the modal dialog window.\n     *\n     * @example <caption>Verifying the message</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Click.on(Widget.trigger),\n     *          Ensure.that(ModalDialog.message(), equals('Hello!')),\n     *      );\n     *\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link Wait}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}\n     ",
-                    "start": 5308,
-                    "end": 6136,
+                    "value": "*\n     * @desc\n     *  A modal dialog window that could be {@link Accept}ed or {@link Dismiss}ed.\n     *\n     *  If the window was created using [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt)\n     *  you can use the {@link @serenity-js/core/lib/screenplay~Interaction} to {@link Enter} with it too.\n     *\n     * @example <caption>Accepting an alert</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { Accept, BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Click.on(Widget.trigger),\n     *          Accept.the(ModalDialog.window()),\n     *      );\n     *\n     * @see {@link Accept}\n     * @see {@link Dismiss}\n     * @see {@link Enter}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<AlertPromise>}\n     ",
+                    "start": 1402,
+                    "end": 2402,
                     "loc": {
                       "start": {
-                        "line": 168,
+                        "line": 58,
                         "column": 4
                       },
                       "end": {
-                        "line": 189,
+                        "line": 82,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4295,
+                "end": 5183,
+                "loc": {
+                  "start": {
+                    "line": 139,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 153,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1836,40 +1734,6 @@
                                             "column": 18
                                           }
                                         },
-                                        "leadingComments": [
-                                          {
-                                            "type": "CommentLine",
-                                            "value": " Based on:",
-                                            "start": 4535,
-                                            "end": 4547,
-                                            "loc": {
-                                              "start": {
-                                                "line": 142,
-                                                "column": 16
-                                              },
-                                              "end": {
-                                                "line": 142,
-                                                "column": 28
-                                              }
-                                            }
-                                          },
-                                          {
-                                            "type": "CommentLine",
-                                            "value": " https://github.com/SeleniumHQ/selenium/blob/941dc9c6b2e2aa4f701c1b72be8de03d4b7e996a/javascript/node/selenium-webdriver/lib/until.js#L107",
-                                            "start": 4564,
-                                            "end": 4704,
-                                            "loc": {
-                                              "start": {
-                                                "line": 143,
-                                                "column": 16
-                                              },
-                                              "end": {
-                                                "line": 143,
-                                                "column": 156
-                                              }
-                                            }
-                                          }
-                                        ],
                                         "argument": {
                                           "type": "UnaryExpression",
                                           "start": 4728,
@@ -1900,10 +1764,6 @@
                                                 "column": 76
                                               }
                                             },
-                                            "extra": {
-                                              "parenthesized": true,
-                                              "parenStart": 4730
-                                            },
                                             "left": {
                                               "type": "BinaryExpression",
                                               "start": 4731,
@@ -1918,56 +1778,6 @@
                                                   "column": 66
                                                 }
                                               },
-                                              "trailingComments": [
-                                                {
-                                                  "type": "CommentLine",
-                                                  "value": " XXX: Workaround for GeckoDriver error `TypeError: can't convert null",
-                                                  "start": 4792,
-                                                  "end": 4863,
-                                                  "loc": {
-                                                    "start": {
-                                                      "line": 145,
-                                                      "column": 20
-                                                    },
-                                                    "end": {
-                                                      "line": 145,
-                                                      "column": 91
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "type": "CommentLine",
-                                                  "value": " to object`. For more details, see",
-                                                  "start": 4884,
-                                                  "end": 4920,
-                                                  "loc": {
-                                                    "start": {
-                                                      "line": 146,
-                                                      "column": 20
-                                                    },
-                                                    "end": {
-                                                      "line": 146,
-                                                      "column": 56
-                                                    }
-                                                  }
-                                                },
-                                                {
-                                                  "type": "CommentLine",
-                                                  "value": " https://github.com/SeleniumHQ/selenium/pull/2137",
-                                                  "start": 4941,
-                                                  "end": 4992,
-                                                  "loc": {
-                                                    "start": {
-                                                      "line": 147,
-                                                      "column": 20
-                                                    },
-                                                    "end": {
-                                                      "line": 147,
-                                                      "column": 71
-                                                    }
-                                                  }
-                                                }
-                                              ],
                                               "left": {
                                                 "type": "Identifier",
                                                 "start": 4731,
@@ -2035,7 +1845,57 @@
                                                   },
                                                   "name": "NoSuchAlertError"
                                                 }
-                                              }
+                                              },
+                                              "trailingComments": [
+                                                {
+                                                  "type": "CommentLine",
+                                                  "value": " XXX: Workaround for GeckoDriver error `TypeError: can't convert null",
+                                                  "start": 4792,
+                                                  "end": 4863,
+                                                  "loc": {
+                                                    "start": {
+                                                      "line": 145,
+                                                      "column": 20
+                                                    },
+                                                    "end": {
+                                                      "line": 145,
+                                                      "column": 91
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "type": "CommentLine",
+                                                  "value": " to object`. For more details, see",
+                                                  "start": 4884,
+                                                  "end": 4920,
+                                                  "loc": {
+                                                    "start": {
+                                                      "line": 146,
+                                                      "column": 20
+                                                    },
+                                                    "end": {
+                                                      "line": 146,
+                                                      "column": 56
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "type": "CommentLine",
+                                                  "value": " https://github.com/SeleniumHQ/selenium/pull/2137",
+                                                  "start": 4941,
+                                                  "end": 4992,
+                                                  "loc": {
+                                                    "start": {
+                                                      "line": 147,
+                                                      "column": 20
+                                                    },
+                                                    "end": {
+                                                      "line": 147,
+                                                      "column": 71
+                                                    }
+                                                  }
+                                                }
+                                              ]
                                             },
                                             "operator": "||",
                                             "right": {
@@ -2051,10 +1911,6 @@
                                                   "line": 149,
                                                   "column": 75
                                                 }
-                                              },
-                                              "extra": {
-                                                "parenthesized": true,
-                                                "parenStart": 5016
                                               },
                                               "left": {
                                                 "type": "BinaryExpression",
@@ -2243,10 +2099,52 @@
                                                     }
                                                   ]
                                                 }
+                                              },
+                                              "extra": {
+                                                "parenthesized": true,
+                                                "parenStart": 5016
+                                              }
+                                            },
+                                            "extra": {
+                                              "parenthesized": true,
+                                              "parenStart": 4730
+                                            }
+                                          }
+                                        },
+                                        "leadingComments": [
+                                          {
+                                            "type": "CommentLine",
+                                            "value": " Based on:",
+                                            "start": 4535,
+                                            "end": 4547,
+                                            "loc": {
+                                              "start": {
+                                                "line": 142,
+                                                "column": 16
+                                              },
+                                              "end": {
+                                                "line": 142,
+                                                "column": 28
+                                              }
+                                            }
+                                          },
+                                          {
+                                            "type": "CommentLine",
+                                            "value": " https://github.com/SeleniumHQ/selenium/blob/941dc9c6b2e2aa4f701c1b72be8de03d4b7e996a/javascript/node/selenium-webdriver/lib/until.js#L107",
+                                            "start": 4564,
+                                            "end": 4704,
+                                            "loc": {
+                                              "start": {
+                                                "line": 143,
+                                                "column": 16
+                                              },
+                                              "end": {
+                                                "line": 143,
+                                                "column": 156
                                               }
                                             }
                                           }
-                                        }
+                                        ]
                                       }
                                     ],
                                     "directives": []
@@ -2341,23 +2239,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6141,
-                "end": 6351,
-                "loc": {
-                  "start": {
-                    "line": 190,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 194,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2391,6 +2274,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 106 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2589,
+                    "end": 2706,
+                    "loc": {
+                      "start": {
+                        "line": 88,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Resolves to `true` if the modal dialog window is present, or `false` if it's not.\n     *\n     * @example <caption>Verifying if a modal dialog window is present</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n     *  import { Ensure, isFalse, isTrue } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Ensure.that(ModalDialog.hasPoppedUp(), isFalse()),\n     *          Click.on(Widget.trigger),\n     *          Ensure.that(ModalDialog.hasPoppedUp(), isTrue()),\n     *      );\n     *\n     * @example <caption>Waiting for a modal dialog window</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Click, Dismiss, ModalDialog, Wait } from '@serenity-js/protractor';\n     *  import { isTrue } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Click.on(Widget.trigger),\n     *          Wait.until(ModalDialog.hasPoppedUp(), isTrue()),\n     *          Dismiss.the(ModalDialog.window()),\n     *      );\n     *\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link Wait}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<boolean>>}\n     ",
+                    "start": 2713,
+                    "end": 4290,
+                    "loc": {
+                      "start": {
+                        "line": 102,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 138,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6141,
+                "end": 6351,
+                "loc": {
+                  "start": {
+                    "line": 190,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 194,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -3014,7 +2946,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 5184,
+                    "end": 5301,
+                    "loc": {
+                      "start": {
+                        "line": 154,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 165,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Resolves to the message displayed in the modal dialog window.\n     *\n     * @example <caption>Verifying the message</caption>\n     *  import { actorCalled } from '@serenity-js/core';\n     *  import { BrowseTheWeb, Click, ModalDialog } from '@serenity-js/protractor';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *  import { protractor } from 'protractor';\n     *\n     *  actorCalled('Nick')\n     *      .whoCan(BrowseTheWeb.using(protractor.browser))\n     *      .attemptsTo(\n     *          Click.on(Widget.trigger),\n     *          Ensure.that(ModalDialog.message(), equals('Hello!')),\n     *      );\n     *\n     * @see {@link @serenity-js/assertions~Ensure}\n     * @see {@link Wait}\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}\n     ",
+                    "start": 5308,
+                    "end": 6136,
+                    "loc": {
+                      "start": {
+                        "line": 168,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 189,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3053,7 +3019,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n ",
+            "start": 205,
+            "end": 250,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Represents a modal dialog window created using\n *  [`Window.alert()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert),\n *  [`Window.prompt()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt) or\n *  [`Window.confirm()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm).\n *\n *  Check out the examples below, as well as the unit tests demonstrating the usage.\n *\n * @example <caption>Example widget</caption>\n *  <button\n *      data-test=\"trigger\"\n *      onclick=\"alert('Hello!')\">Trigger Alert</button>\n *\n * @example <caption>Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { browser, by } from 'protractor';\n *\n *  class Widget {\n *      static trigger = Target.the('trigger button')\n *          .located(by.css('[data-test=\"trigger\"]'));\n *  }\n *\n * @see {@link Accept}\n * @see {@link Dismiss}\n * @see {@link Enter}\n * @see {@link Wait}\n * @see {@link @serenity-js/assertions~Ensure}\n ",
+            "start": 253,
+            "end": 1251,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 42,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

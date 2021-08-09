@@ -44,24 +44,6 @@
             "column": 90
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable unicorn/prevent-abbreviations ",
-            "start": 0,
-            "end": 50,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 50
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -280,7 +262,25 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/prevent-abbreviations ",
+            "start": 0,
+            "end": 50,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 50
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -383,40 +383,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n ",
-            "start": 242,
-            "end": 287,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Returns a Protractor configuration parameter specified in `protractor.conf.js`.\n *  Note that Protractor configuration parameters can be overridden via the command line.\n *\n * @example <caption>protractor.conf.js</caption>\n *  exports.config = {\n *    params: {\n *        login: {\n *            username: 'jane@example.org'\n *            password: process.env.PASSWORD\n *        }\n *    }\n *    // ...\n * }\n *\n * @example <caption>Overriding configuration parameter via the command line</caption>\n *  protractor ./protractor.conf.js --params.login.username=\"bob@example.org\"\n *\n * @example <caption>Using in a test scenario</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Enter, ProtractorParam } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Jane')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Enter.theValue(ProtractorParam.called('login.username').into(Form.exampleInput),\n *      );\n *\n * @extends {@serenity-js/core/lib/screenplay~Question<Promise<T>>}\n *\n * @see {@link BrowseTheWeb#param}\n ",
-            "start": 290,
-            "end": 1443,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 47,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -488,23 +454,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1444,
-        "end": 3114,
-        "loc": {
-          "start": {
-            "line": 48,
-            "column": 0
-          },
-          "end": {
-            "line": 114,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n ",
@@ -537,7 +488,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1444,
+        "end": 3114,
+        "loc": {
+          "start": {
+            "line": 48,
+            "column": 0
+          },
+          "end": {
+            "line": 114,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -764,58 +730,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @param \n * {Answerable} name \n * @return \n * {ProtractorParam} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1517,
-                    "end": 1673,
-                    "loc": {
-                      "start": {
-                        "line": 51,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 64,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Name of the parameter to retrieve. This could also be a dot-delimited path,\n     *  i.e. `login.username`\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     * @returns {ProtractorParam<R>}\n     ",
-                    "start": 1679,
-                    "end": 1934,
-                    "loc": {
-                      "start": {
-                        "line": 66,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 73,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     ",
-                    "start": 2057,
-                    "end": 2141,
-                    "loc": {
-                      "start": {
-                        "line": 78,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 80,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1149,23 +1063,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2146,
-                "end": 2287,
-                "loc": {
-                  "start": {
-                    "line": 81,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 83,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     ",
@@ -1183,40 +1082,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 2288,
-                    "end": 2437,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @param \n * {Answerable} name \n * @return \n * {ProtractorParam} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1517,
+                    "end": 1673,
                     "loc": {
                       "start": {
-                        "line": 84,
+                        "line": 51,
                         "column": 0
                       },
                       "end": {
-                        "line": 95,
+                        "line": 64,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
-                    "start": 2444,
-                    "end": 2934,
+                    "value": "*\n     * @desc\n     *  Name of the parameter to retrieve. This could also be a dot-delimited path,\n     *  i.e. `login.username`\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     * @returns {ProtractorParam<R>}\n     ",
+                    "start": 1679,
+                    "end": 1934,
                     "loc": {
                       "start": {
-                        "line": 98,
+                        "line": 66,
                         "column": 4
                       },
                       "end": {
-                        "line": 109,
+                        "line": 73,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2146,
+                "end": 2287,
+                "loc": {
+                  "start": {
+                    "line": 81,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 83,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1527,23 +1441,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2939,
-                "end": 3112,
-                "loc": {
-                  "start": {
-                    "line": 110,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 113,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -1577,6 +1476,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name\n     ",
+                    "start": 2057,
+                    "end": 2141,
+                    "loc": {
+                      "start": {
+                        "line": 78,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 80,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2939,
+                "end": 3112,
+                "loc": {
+                  "start": {
+                    "line": 110,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 113,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2196,7 +2128,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 2288,
+                    "end": 2437,
+                    "loc": {
+                      "start": {
+                        "line": 84,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 95,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
+                    "start": 2444,
+                    "end": 2934,
+                    "loc": {
+                      "start": {
+                        "line": 98,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 109,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2235,7 +2201,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n ",
+            "start": 242,
+            "end": 287,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Returns a Protractor configuration parameter specified in `protractor.conf.js`.\n *  Note that Protractor configuration parameters can be overridden via the command line.\n *\n * @example <caption>protractor.conf.js</caption>\n *  exports.config = {\n *    params: {\n *        login: {\n *            username: 'jane@example.org'\n *            password: process.env.PASSWORD\n *        }\n *    }\n *    // ...\n * }\n *\n * @example <caption>Overriding configuration parameter via the command line</caption>\n *  protractor ./protractor.conf.js --params.login.username=\"bob@example.org\"\n *\n * @example <caption>Using in a test scenario</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Enter, ProtractorParam } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Jane')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Enter.theValue(ProtractorParam.called('login.username').into(Form.exampleInput),\n *      );\n *\n * @extends {@serenity-js/core/lib/screenplay~Question<Promise<T>>}\n *\n * @see {@link BrowseTheWeb#param}\n ",
+            "start": 290,
+            "end": 1443,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 47,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

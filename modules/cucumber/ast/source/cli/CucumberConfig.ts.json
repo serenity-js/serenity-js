@@ -44,40 +44,6 @@
             "column": 1
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 1,
-            "end": 45,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Configuration options to be passed to [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).\n *  You can specify the options using either camelCase (i.e. `retryTagFilter`) or kebab-case (i.e. `retry-tag-filter`)\n *  as Serenity/JS will convert them to an appropriate format for you.\n *\n * @public\n * @interface ",
-            "start": 46,
-            "end": 402,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 16
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -143,74 +109,6 @@
                     "column": 20
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 442,
-                    "end": 533,
-                    "loc": {
-                      "start": {
-                        "line": 17,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 26,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Enable/disable colors in output. Cucumber 1.x only!\n     *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`\n     *\n     *  **Please note** For Cucumber 2.x and above use the {@link CucumberConfig#formatOptions} instead.\n     *\n     * @example <caption>Disable colors in output in Cucumber 1.x</caption>\n     *  colors: false\n     *\n     * @example <caption>Disable colors in output in Cucumber 2.x and above</caption>\n     *  formatOptions: { colorsEnabled: false }\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38\n     * @version 1.x\n     ",
-                    "start": 540,
-                    "end": 1197,
-                    "loc": {
-                      "start": {
-                        "line": 29,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 45,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1219,
-                    "end": 1309,
-                    "loc": {
-                      "start": {
-                        "line": 47,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 56,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
-                    "start": 1316,
-                    "end": 1898,
-                    "loc": {
-                      "start": {
-                        "line": 59,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -261,23 +159,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1903,
-                "end": 1921,
-                "loc": {
-                  "start": {
-                    "line": 73,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 73,
-                    "column": 22
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -311,40 +194,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 1922,
-                    "end": 2027,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 442,
+                    "end": 533,
                     "loc": {
                       "start": {
-                        "line": 74,
+                        "line": 17,
                         "column": 0
                       },
                       "end": {
-                        "line": 83,
+                        "line": 26,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string[] | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
-                    "start": 2034,
-                    "end": 2277,
+                    "value": "*\n     * @desc\n     *  Enable/disable colors in output. Cucumber 1.x only!\n     *  For Cucumber 2.x and above use `formatOptions: { colorsEnabled: false }`\n     *\n     *  **Please note** For Cucumber 2.x and above use the {@link CucumberConfig#formatOptions} instead.\n     *\n     * @example <caption>Disable colors in output in Cucumber 1.x</caption>\n     *  colors: false\n     *\n     * @example <caption>Disable colors in output in Cucumber 2.x and above</caption>\n     *  formatOptions: { colorsEnabled: false }\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/lib/cucumber/cli.js#L38\n     * @version 1.x\n     ",
+                    "start": 540,
+                    "end": 1197,
                     "loc": {
                       "start": {
-                        "line": 86,
+                        "line": 29,
                         "column": 4
                       },
                       "end": {
-                        "line": 92,
+                        "line": 45,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1903,
+                "end": 1921,
+                "loc": {
+                  "start": {
+                    "line": 73,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 73,
+                    "column": 22
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -395,23 +293,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 2282,
-                "end": 2309,
-                "loc": {
-                  "start": {
-                    "line": 93,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 93,
-                    "column": 31
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -445,40 +328,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 2310,
-                    "end": 2415,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1219,
+                    "end": 1309,
                     "loc": {
                       "start": {
-                        "line": 94,
+                        "line": 47,
                         "column": 0
                       },
                       "end": {
-                        "line": 103,
+                        "line": 56,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {object|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
-                    "start": 2422,
-                    "end": 2726,
+                    "value": "*\n     * @desc\n     *  Step definitions and support files can be written in languages that transpile to JavaScript.\n     *  To do set the `compiler` option to <file_extension>:<module_name>\n     *\n     *  **Please note** For Cucumber 4.x and above use the {@link CucumberConfig#require} option instead.\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 1.x - 3.x</caption>\n     *  compiler: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/3.x/docs/cli.md#transpilers\n     * @version 1.x - 3.x\n     ",
+                    "start": 1316,
+                    "end": 1898,
                     "loc": {
                       "start": {
-                        "line": 106,
+                        "line": 59,
                         "column": 4
                       },
                       "end": {
-                        "line": 115,
+                        "line": 72,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 2282,
+                "end": 2309,
+                "loc": {
+                  "start": {
+                    "line": 93,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 93,
+                    "column": 31
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -576,23 +474,8 @@
                     ]
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 2731,
-                "end": 2763,
-                "loc": {
-                  "start": {
-                    "line": 116,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 116,
-                    "column": 36
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -626,56 +509,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 2764,
-                    "end": 2855,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 53 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 1922,
+                    "end": 2027,
                     "loc": {
                       "start": {
-                        "line": 117,
+                        "line": 74,
                         "column": 0
                       },
                       "end": {
-                        "line": 126,
+                        "line": 83,
                         "column": 3
                       }
                     }
                   },
                   {
-                    "type": "CommentLine",
-                    "value": " eslint-disable-line @typescript-eslint/ban-types",
-                    "start": 2860,
-                    "end": 2911,
-                    "loc": {
-                      "start": {
-                        "line": 127,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 127,
-                        "column": 55
-                      }
-                    }
-                  },
-                  {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Only execute the scenarios with name matching the expression.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     ",
-                    "start": 2917,
-                    "end": 3142,
+                    "value": "*\n     * @desc\n     *  Specify additional output formats, optionally supply PATH to redirect formatter output\n     *\n     * @type {string[] | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#formats\n     ",
+                    "start": 2034,
+                    "end": 2277,
                     "loc": {
                       "start": {
-                        "line": 129,
+                        "line": 86,
                         "column": 4
                       },
                       "end": {
-                        "line": 135,
+                        "line": 92,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 2731,
+                "end": 2763,
+                "loc": {
+                  "start": {
+                    "line": 116,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 116,
+                    "column": 36
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -758,23 +640,8 @@
                     ]
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 3147,
-                "end": 3163,
-                "loc": {
-                  "start": {
-                    "line": 136,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 136,
-                    "column": 20
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -824,40 +691,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 3164,
-                    "end": 3255,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 2310,
+                    "end": 2415,
                     "loc": {
                       "start": {
-                        "line": 137,
+                        "line": 94,
                         "column": 0
                       },
                       "end": {
-                        "line": 146,
+                        "line": 103,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  In order to store and reuse commonly used CLI options,\n     *  you can add a `cucumber.js` file to your project root directory.\n     *  The file should export an object where the key is the profile name\n     *  and the value is a string of CLI options.\n     *\n     *  The profile can be applied with -p <NAME> or --profile <NAME>.\n     *  This will prepend the profile's CLI options to the ones provided by the command line.\n     *  Multiple profiles can be specified at a time.\n     *\n     *  If no profile is specified and a profile named default exists,\n     *  it will be applied.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     ",
-                    "start": 3262,
-                    "end": 3993,
+                    "value": "*\n     * @desc\n     *  Provide options for formatters\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     *  formatOptions: JSON.stringify({ option: 'value' })\n     *\n     * @type {object|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#format-options\n     ",
+                    "start": 2422,
+                    "end": 2726,
                     "loc": {
                       "start": {
-                        "line": 149,
+                        "line": 106,
                         "column": 4
                       },
                       "end": {
-                        "line": 165,
+                        "line": 115,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 3147,
+                "end": 3163,
+                "loc": {
+                  "start": {
+                    "line": 136,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 136,
+                    "column": 20
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -923,23 +805,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 3998,
-                "end": 4017,
-                "loc": {
-                  "start": {
-                    "line": 166,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 166,
-                    "column": 23
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -973,40 +840,71 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 107 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                    "start": 4018,
-                    "end": 4109,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 2764,
+                    "end": 2855,
                     "loc": {
                       "start": {
-                        "line": 167,
+                        "line": 117,
                         "column": 0
                       },
                       "end": {
-                        "line": 176,
+                        "line": 126,
                         "column": 3
                       }
                     }
                   },
                   {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  The number of times to retry a failing scenario before marking it as failed.\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3\n     *\n     * @type {number}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-                    "start": 4116,
-                    "end": 4449,
+                    "type": "CommentLine",
+                    "value": " eslint-disable-line @typescript-eslint/ban-types",
+                    "start": 2860,
+                    "end": 2911,
                     "loc": {
                       "start": {
-                        "line": 179,
+                        "line": 127,
                         "column": 4
                       },
                       "end": {
-                        "line": 190,
+                        "line": 127,
+                        "column": 55
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Only execute the scenarios with name matching the expression.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#running-specific-features\n     ",
+                    "start": 2917,
+                    "end": 3142,
+                    "loc": {
+                      "start": {
+                        "line": 129,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 135,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 3998,
+                "end": 4017,
+                "loc": {
+                  "start": {
+                    "line": 166,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 166,
+                    "column": 23
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1072,23 +970,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 4454,
-                "end": 4469,
-                "loc": {
-                  "start": {
-                    "line": 191,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 191,
-                    "column": 19
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 107 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
@@ -1122,40 +1005,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 120 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 4470,
-                    "end": 4561,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 93 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 3164,
+                    "end": 3255,
                     "loc": {
                       "start": {
-                        "line": 192,
+                        "line": 137,
                         "column": 0
                       },
                       "end": {
-                        "line": 201,
+                        "line": 146,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Relative path to an output file produced by Cucumber.js [`rerun` formatter](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature).\n     *  Please note that the name of the output file *must* start with an `@` symbol.\n     *\n     * @example <caption>Saving details of failed scenarios to @rerun-output.txt</caption>\n     *  format: [ 'rerun:@rerun-output.txt' ]\n     *\n     * @example <caption>Re-running scenarios saved to @rerun-output.txt</caption>\n     *  rerun: '@rerun-output.txt'\n     ",
-                    "start": 4568,
-                    "end": 5118,
+                    "value": "*\n     * @desc\n     *  In order to store and reuse commonly used CLI options,\n     *  you can add a `cucumber.js` file to your project root directory.\n     *  The file should export an object where the key is the profile name\n     *  and the value is a string of CLI options.\n     *\n     *  The profile can be applied with -p <NAME> or --profile <NAME>.\n     *  This will prepend the profile's CLI options to the ones provided by the command line.\n     *  Multiple profiles can be specified at a time.\n     *\n     *  If no profile is specified and a profile named default exists,\n     *  it will be applied.\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#profiles\n     ",
+                    "start": 3262,
+                    "end": 3993,
                     "loc": {
                       "start": {
-                        "line": 204,
+                        "line": 149,
                         "column": 4
                       },
                       "end": {
-                        "line": 214,
+                        "line": 165,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 4454,
+                "end": 4469,
+                "loc": {
+                  "start": {
+                    "line": 191,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 191,
+                    "column": 19
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1206,23 +1104,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 5123,
-                "end": 5138,
-                "loc": {
-                  "start": {
-                    "line": 215,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 215,
-                    "column": 19
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 120 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1256,40 +1139,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 5139,
-                    "end": 5230,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 107 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                    "start": 4018,
+                    "end": 4109,
                     "loc": {
                       "start": {
-                        "line": 216,
+                        "line": 167,
                         "column": 0
                       },
                       "end": {
-                        "line": 225,
+                        "line": 176,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3,\n     *  retryTagFilter: '@flaky',\n     *\n     * @type {string}\n     * @see  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
-                    "start": 5237,
-                    "end": 5649,
+                    "value": "*\n     * @desc\n     *  The number of times to retry a failing scenario before marking it as failed.\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3\n     *\n     * @type {number}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
+                    "start": 4116,
+                    "end": 4449,
                     "loc": {
                       "start": {
-                        "line": 228,
+                        "line": 179,
                         "column": 4
                       },
                       "end": {
-                        "line": 240,
+                        "line": 190,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 5123,
+                "end": 5138,
+                "loc": {
+                  "start": {
+                    "line": 215,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 215,
+                    "column": 19
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1340,23 +1238,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 5654,
-                "end": 5677,
-                "loc": {
-                  "start": {
-                    "line": 241,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 241,
-                    "column": 27
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1390,40 +1273,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 147 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
-                    "start": 5678,
-                    "end": 5770,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 120 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4470,
+                    "end": 4561,
                     "loc": {
                       "start": {
-                        "line": 242,
+                        "line": 192,
                         "column": 0
                       },
                       "end": {
-                        "line": 251,
+                        "line": 201,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Require files or node modules before executing features\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 4.x and above</caption>\n     *  require: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     ",
-                    "start": 5777,
-                    "end": 6127,
+                    "value": "*\n     * @desc\n     *  Relative path to an output file produced by Cucumber.js [`rerun` formatter](https://github.com/cucumber/cucumber-js/blob/master/features/rerun_formatter.feature).\n     *  Please note that the name of the output file *must* start with an `@` symbol.\n     *\n     * @example <caption>Saving details of failed scenarios to @rerun-output.txt</caption>\n     *  format: [ 'rerun:@rerun-output.txt' ]\n     *\n     * @example <caption>Re-running scenarios saved to @rerun-output.txt</caption>\n     *  rerun: '@rerun-output.txt'\n     ",
+                    "start": 4568,
+                    "end": 5118,
                     "loc": {
                       "start": {
-                        "line": 254,
+                        "line": 204,
                         "column": 4
                       },
                       "end": {
-                        "line": 263,
+                        "line": 214,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 5654,
+                "end": 5677,
+                "loc": {
+                  "start": {
+                    "line": 241,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 241,
+                    "column": 27
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1474,23 +1372,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 6132,
-                "end": 6151,
-                "loc": {
-                  "start": {
-                    "line": 264,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 264,
-                    "column": 23
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 147 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
@@ -1524,40 +1407,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 169 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 6152,
-                    "end": 6258,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 135 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 5139,
+                    "end": 5230,
                     "loc": {
                       "start": {
-                        "line": 265,
+                        "line": 216,
                         "column": 0
                       },
                       "end": {
-                        "line": 274,
+                        "line": 225,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Only run scenarios that match the given tags.\n     *\n     *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,\n     *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber/tree/master/tag-expressions\n     ",
-                    "start": 6265,
-                    "end": 7202,
+                    "value": "*\n     * @desc\n     *  Only retry tests matching the given [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 7.x</caption>\n     *  retry: 3,\n     *  retryTagFilter: '@flaky',\n     *\n     * @type {string}\n     * @see  https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#retry-failing-tests\n     *\n     * @version 7.x\n     ",
+                    "start": 5237,
+                    "end": 5649,
                     "loc": {
                       "start": {
-                        "line": 277,
+                        "line": 228,
                         "column": 4
                       },
                       "end": {
-                        "line": 296,
+                        "line": 240,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 6132,
+                "end": 6151,
+                "loc": {
+                  "start": {
+                    "line": 264,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 264,
+                    "column": 23
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1623,23 +1521,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 7207,
-                "end": 7232,
-                "loc": {
-                  "start": {
-                    "line": 297,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 297,
-                    "column": 29
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 169 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -1673,40 +1556,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 178 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 7233,
-                    "end": 7325,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 147 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 5678,
+                    "end": 5770,
                     "loc": {
                       "start": {
-                        "line": 298,
+                        "line": 242,
                         "column": 0
                       },
                       "end": {
-                        "line": 307,
+                        "line": 251,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
-                    "start": 7332,
-                    "end": 7573,
+                    "value": "*\n     * @desc\n     *  Require files or node modules before executing features\n     *\n     * @example <caption>Enable TypeScript support in Cucumber 4.x and above</caption>\n     *  require: 'ts:ts-node/register'\n     *\n     * @type {string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#requiring-support-files\n     ",
+                    "start": 5777,
+                    "end": 6127,
                     "loc": {
                       "start": {
-                        "line": 310,
+                        "line": 254,
                         "column": 4
                       },
                       "end": {
-                        "line": 316,
+                        "line": 263,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 7207,
+                "end": 7232,
+                "loc": {
+                  "start": {
+                    "line": 297,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 297,
+                    "column": 29
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1804,23 +1702,8 @@
                     ]
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 7578,
-                "end": 7595,
-                "loc": {
-                  "start": {
-                    "line": 317,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 317,
-                    "column": 21
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 178 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
@@ -1854,40 +1737,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 193 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 7596,
-                    "end": 7702,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 169 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 6152,
+                    "end": 6258,
                     "loc": {
                       "start": {
-                        "line": 318,
+                        "line": 265,
                         "column": 0
                       },
                       "end": {
-                        "line": 327,
+                        "line": 274,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>worldParameters as string</caption>\n     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @example <caption>worldParameters as object</caption>\n     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }\n     *\n     * @type {object | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
-                    "start": 7709,
-                    "end": 8236,
+                    "value": "*\n     * @desc\n     *  Only run scenarios that match the given tags.\n     *\n     *  **Please note**: Cucumber 1.x requires the `tags` option to be an array of Cucumber tags,\n     *  while Cucumber 2.x and above uses a `string` with a [tag expression](https://github.com/cucumber/cucumber/tree/master/tag-expressions).\n     *\n     * @example <caption>Cucumber 1.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: [ '@smoketest', '~@wip' ]\n     *\n     * @example <caption>Cucumber >= 2.x</caption>\n     * // Run all scenarios tagged with `@smoketest`, but not with `@wip`:\n     * tag: '@smoketest and not @wip'\n     *\n     * @type {string[]|string}\n     * @see https://github.com/cucumber/cucumber-js/blob/1.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber-js/blob/2.x/docs/cli.md#tags\n     * @see https://github.com/cucumber/cucumber/tree/master/tag-expressions\n     ",
+                    "start": 6265,
+                    "end": 7202,
                     "loc": {
                       "start": {
-                        "line": 330,
+                        "line": 277,
                         "column": 4
                       },
                       "end": {
-                        "line": 342,
+                        "line": 296,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 7578,
+                "end": 7595,
+                "loc": {
+                  "start": {
+                    "line": 317,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 317,
+                    "column": 21
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1938,23 +1836,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 8241,
-                "end": 8275,
-                "loc": {
-                  "start": {
-                    "line": 343,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 343,
-                    "column": 38
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 193 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
@@ -1988,24 +1871,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
-                    "type": "CommentLine",
-                    "value": " eslint-disable-line @typescript-eslint/ban-types",
-                    "start": 8277,
-                    "end": 8328,
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 178 \n * @type \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 7233,
+                    "end": 7325,
                     "loc": {
                       "start": {
-                        "line": 343,
-                        "column": 40
+                        "line": 298,
+                        "column": 0
                       },
                       "end": {
-                        "line": 343,
-                        "column": 91
+                        "line": 307,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Fail if there are any undefined or pending steps\n     *\n     * @type {boolean}\n     * @see https://github.com/angular/protractor/blob/e5a5d59fcabe15860b30944e714bbd8e81ceaeae/docs/frameworks.md#using-cucumber\n     ",
+                    "start": 7332,
+                    "end": 7573,
+                    "loc": {
+                      "start": {
+                        "line": 310,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 316,
+                        "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 8241,
+                "end": 8275,
+                "loc": {
+                  "start": {
+                    "line": 343,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 343,
+                    "column": 38
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2088,7 +2002,59 @@
                     ]
                   }
                 },
-                "value": null
+                "value": null,
+                "trailingComments": [
+                  {
+                    "type": "CommentLine",
+                    "value": " eslint-disable-line @typescript-eslint/ban-types",
+                    "start": 8277,
+                    "end": 8328,
+                    "loc": {
+                      "start": {
+                        "line": 343,
+                        "column": 40
+                      },
+                      "end": {
+                        "line": 343,
+                        "column": 91
+                      }
+                    }
+                  }
+                ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 193 \n * @type \n * {undefined | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 7596,
+                    "end": 7702,
+                    "loc": {
+                      "start": {
+                        "line": 318,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 327,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Provide parameters that will be passed to the world constructor\n     *\n     * @example <caption>worldParameters as string</caption>\n     *  worldParameters: JSON.stringify({ isDev: process.env.NODE_ENV !== 'production' })\n     *\n     * @example <caption>worldParameters as object</caption>\n     *  worldParameters: { isDev: process.env.NODE_ENV !== 'production' }\n     *\n     * @type {object | string}\n     * @see https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md#world-parameters\n     ",
+                    "start": 7709,
+                    "end": 8236,
+                    "loc": {
+                      "start": {
+                        "line": 330,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 342,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2127,7 +2093,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 1,
+            "end": 45,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Configuration options to be passed to [Cucumber CLI](https://github.com/cucumber/cucumber-js/blob/master/docs/cli.md).\n *  You can specify the options using either camelCase (i.e. `retryTagFilter`) or kebab-case (i.e. `retry-tag-filter`)\n *  as Serenity/JS will convert them to an appropriate format for you.\n *\n * @public\n * @interface ",
+            "start": 46,
+            "end": 402,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

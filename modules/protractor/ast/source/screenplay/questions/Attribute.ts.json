@@ -539,56 +539,6 @@
             "column": 47
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 283,
-            "end": 328,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": " todo: it might be better to swap the order of arguments",
-            "start": 331,
-            "end": 389,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 58
-              }
-            }
-          },
-          {
-            "type": "CommentLine",
-            "value": "  - Attribute.called('href').of(link) to make it work with ArrayListFilter",
-            "start": 390,
-            "end": 466,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 76
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -660,23 +610,8 @@
             "raw": "'../withAnswerOf'"
           },
           "value": "../withAnswerOf"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 468,
-        "end": 3130,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
-          },
-          "end": {
-            "line": 98,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -725,25 +660,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n ",
-            "start": 3131,
-            "end": 3176,
-            "loc": {
-              "start": {
-                "line": 99,
-                "column": 0
-              },
-              "end": {
-                "line": 104,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 468,
+        "end": 3130,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 98,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -905,40 +837,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {AttributeBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 527,
-                    "end": 700,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Question<ElementFinder> | ElementFinder} target\n     * @returns {AttributeBuilder}\n     ",
-                    "start": 706,
-                    "end": 815,
-                    "loc": {
-                      "start": {
-                        "line": 34,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 37,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1216,9 +1114,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 993
-                        },
                         "properties": [
                           {
                             "type": "ObjectProperty",
@@ -1439,12 +1334,49 @@
                               }
                             }
                           }
-                        ]
+                        ],
+                        "extra": {
+                          "trailingComma": 993
+                        }
                       }
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {AttributeBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 527,
+                    "end": 700,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Question<ElementFinder> | ElementFinder} target\n     * @returns {AttributeBuilder}\n     ",
+                    "start": 706,
+                    "end": 815,
+                    "loc": {
+                      "start": {
+                        "line": 34,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 37,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               },
               {
                 "type": "ClassMethod",
@@ -1460,40 +1392,6 @@
                     "column": 5
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1248,
-                    "end": 1397,
-                    "loc": {
-                      "start": {
-                        "line": 50,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 61,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
-                    "start": 1404,
-                    "end": 1894,
-                    "loc": {
-                      "start": {
-                        "line": 64,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 75,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2020,23 +1918,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1899,
-                "end": 3128,
-                "loc": {
-                  "start": {
-                    "line": 76,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 97,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2069,7 +1952,22 @@
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1899,
+                "end": 3128,
+                "loc": {
+                  "start": {
+                    "line": 76,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 97,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2920,24 +2818,6 @@
                                                       "column": 41
                                                     }
                                                   },
-                                                  "trailingComments": [
-                                                    {
-                                                      "type": "CommentLine",
-                                                      "value": " workaround for bug in Chromium 91 - https://bugs.chromium.org/p/chromium/issues/detail?id=1205107&start=300",
-                                                      "start": 2203,
-                                                      "end": 2313,
-                                                      "loc": {
-                                                        "start": {
-                                                          "line": 80,
-                                                          "column": 56
-                                                        },
-                                                        "end": {
-                                                          "line": 80,
-                                                          "column": 166
-                                                        }
-                                                      }
-                                                    }
-                                                  ],
                                                   "left": {
                                                     "type": "Identifier",
                                                     "start": 2174,
@@ -2970,7 +2850,25 @@
                                                         "column": 41
                                                       }
                                                     }
-                                                  }
+                                                  },
+                                                  "trailingComments": [
+                                                    {
+                                                      "type": "CommentLine",
+                                                      "value": " workaround for bug in Chromium 91 - https://bugs.chromium.org/p/chromium/issues/detail?id=1205107&start=300",
+                                                      "start": 2203,
+                                                      "end": 2313,
+                                                      "loc": {
+                                                        "start": {
+                                                          "line": 80,
+                                                          "column": 56
+                                                        },
+                                                        "end": {
+                                                          "line": 80,
+                                                          "column": 166
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
                                                 },
                                                 "consequent": {
                                                   "type": "Identifier",
@@ -3135,24 +3033,6 @@
                                                           "column": 29
                                                         }
                                                       },
-                                                      "leadingComments": [
-                                                        {
-                                                          "type": "CommentBlock",
-                                                          "value": " istanbul ignore next ",
-                                                          "start": 2440,
-                                                          "end": 2466,
-                                                          "loc": {
-                                                            "start": {
-                                                              "line": 83,
-                                                              "column": 28
-                                                            },
-                                                            "end": {
-                                                              "line": 83,
-                                                              "column": 54
-                                                            }
-                                                          }
-                                                        }
-                                                      ],
                                                       "id": {
                                                         "type": "Identifier",
                                                         "start": 2504,
@@ -3267,24 +3147,6 @@
                                                                 "column": 114
                                                               }
                                                             },
-                                                            "leadingComments": [
-                                                              {
-                                                                "type": "CommentLine",
-                                                                "value": " eslint-disable-next-line no-var",
-                                                                "start": 2586,
-                                                                "end": 2620,
-                                                                "loc": {
-                                                                  "start": {
-                                                                    "line": 85,
-                                                                    "column": 32
-                                                                  },
-                                                                  "end": {
-                                                                    "line": 85,
-                                                                    "column": 66
-                                                                  }
-                                                                }
-                                                              }
-                                                            ],
                                                             "declarations": [
                                                               {
                                                                 "type": "VariableDeclarator",
@@ -3330,10 +3192,6 @@
                                                                       "line": 86,
                                                                       "column": 112
                                                                     }
-                                                                  },
-                                                                  "extra": {
-                                                                    "parenthesized": true,
-                                                                    "parenStart": 2665
                                                                   },
                                                                   "left": {
                                                                     "type": "MemberExpression",
@@ -3469,11 +3327,33 @@
                                                                         "name": "attributeName"
                                                                       }
                                                                     ]
+                                                                  },
+                                                                  "extra": {
+                                                                    "parenthesized": true,
+                                                                    "parenStart": 2665
                                                                   }
                                                                 }
                                                               }
                                                             ],
-                                                            "kind": "var"
+                                                            "kind": "var",
+                                                            "leadingComments": [
+                                                              {
+                                                                "type": "CommentLine",
+                                                                "value": " eslint-disable-next-line no-var",
+                                                                "start": 2586,
+                                                                "end": 2620,
+                                                                "loc": {
+                                                                  "start": {
+                                                                    "line": 85,
+                                                                    "column": 32
+                                                                  },
+                                                                  "end": {
+                                                                    "line": 85,
+                                                                    "column": 66
+                                                                  }
+                                                                }
+                                                              }
+                                                            ]
                                                           },
                                                           {
                                                             "type": "IfStatement",
@@ -3725,7 +3605,25 @@
                                                           }
                                                         ],
                                                         "directives": []
-                                                      }
+                                                      },
+                                                      "leadingComments": [
+                                                        {
+                                                          "type": "CommentBlock",
+                                                          "value": " istanbul ignore next ",
+                                                          "start": 2440,
+                                                          "end": 2466,
+                                                          "loc": {
+                                                            "start": {
+                                                              "line": 83,
+                                                              "column": 28
+                                                            },
+                                                            "end": {
+                                                              "line": 83,
+                                                              "column": 54
+                                                            }
+                                                          }
+                                                        }
+                                                      ]
                                                     },
                                                     {
                                                       "type": "CallExpression",
@@ -3829,7 +3727,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1248,
+                    "end": 1397,
+                    "loc": {
+                      "start": {
+                        "line": 50,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 61,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
+                    "start": 1404,
+                    "end": 1894,
+                    "loc": {
+                      "start": {
+                        "line": 64,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 75,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3901,23 +3833,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "TSInterfaceDeclaration",
-        "start": 3179,
-        "end": 3258,
-        "loc": {
-          "start": {
-            "line": 107,
-            "column": 0
-          },
-          "end": {
-            "line": 109,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n ",
@@ -3935,6 +3852,71 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 283,
+            "end": 328,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentLine",
+            "value": " todo: it might be better to swap the order of arguments",
+            "start": 331,
+            "end": 389,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 58
+              }
+            }
+          },
+          {
+            "type": "CommentLine",
+            "value": "  - Attribute.called('href').of(link) to make it work with ArrayListFilter",
+            "start": 390,
+            "end": 466,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 76
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "TSInterfaceDeclaration",
+        "start": 3179,
+        "end": 3258,
+        "loc": {
+          "start": {
+            "line": 107,
+            "column": 0
+          },
+          "end": {
+            "line": 109,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 3189,
@@ -4147,7 +4129,25 @@
               "kind": "method"
             }
           ]
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n ",
+            "start": 3131,
+            "end": 3176,
+            "loc": {
+              "start": {
+                "line": 99,
+                "column": 0
+              },
+              "end": {
+                "line": 104,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -218,40 +218,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
-            "start": 138,
-            "end": 183,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The HTTP GET method requests a representation of the specified resource.\n *  It is the most frequent type of request made by consumers of a typical HTTP API.\n *  For this reason it's important to test every known endpoint that responds to GET requests and ensure that it\n *  behaves correctly.\n *\n *  Since the GET method is used to _retrieve_ data from a server, it should be implemented\n *  as [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe)\n *  and [idempotent](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent).\n *  This means that an identical request can be made once or several times in a row with the same effect while leaving\n *  the server in the same state.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string;\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.1\n *\n * @extends {HTTPRequest}\n ",
-            "start": 186,
-            "end": 1828,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 51,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'./HTTPRequest'"
           },
           "value": "./HTTPRequest"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1829,
-        "end": 3397,
-        "loc": {
-          "start": {
-            "line": 52,
-            "column": 0
-          },
-          "end": {
-            "line": 113,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1829,
+        "end": 3397,
+        "loc": {
+          "start": {
+            "line": 52,
+            "column": 0
+          },
+          "end": {
+            "line": 113,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -453,74 +419,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Answerable} resourceUri \n * @return \n * {GetRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1875,
-                    "end": 2033,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 66,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {GetRequest}\n     ",
-                    "start": 2040,
-                    "end": 2642,
-                    "loc": {
-                      "start": {
-                        "line": 69,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 82,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {Answerable} config \n * @return \n * {GetRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 2754,
-                    "end": 2885,
-                    "loc": {
-                      "start": {
-                        "line": 86,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 97,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {GetRequest}\n     ",
-                    "start": 2892,
-                    "end": 3257,
-                    "loc": {
-                      "start": {
-                        "line": 100,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 109,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -772,23 +670,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3262,
-                "end": 3395,
-                "loc": {
-                  "start": {
-                    "line": 110,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 112,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {Answerable} config \n * @return \n * {GetRequest} \n * @public \n * \\TRUE \n ",
@@ -822,6 +705,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n * @param \n * {Answerable} resourceUri \n * @return \n * {GetRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1875,
+                    "end": 2033,
+                    "loc": {
+                      "start": {
+                        "line": 53,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 66,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {GetRequest}\n     ",
+                    "start": 2040,
+                    "end": 2642,
+                    "loc": {
+                      "start": {
+                        "line": 69,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 82,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3262,
+                "end": 3395,
+                "loc": {
+                  "start": {
+                    "line": 110,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 112,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1155,7 +1087,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n * @param \n * {Answerable} config \n * @return \n * {GetRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 2754,
+                    "end": 2885,
+                    "loc": {
+                      "start": {
+                        "line": 86,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 97,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {GetRequest}\n     ",
+                    "start": 2892,
+                    "end": 3257,
+                    "loc": {
+                      "start": {
+                        "line": 100,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 109,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1194,7 +1160,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
+            "start": 138,
+            "end": 183,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The HTTP GET method requests a representation of the specified resource.\n *  It is the most frequent type of request made by consumers of a typical HTTP API.\n *  For this reason it's important to test every known endpoint that responds to GET requests and ensure that it\n *  behaves correctly.\n *\n *  Since the GET method is used to _retrieve_ data from a server, it should be implemented\n *  as [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe)\n *  and [idempotent](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent).\n *  This means that an identical request can be made once or several times in a row with the same effect while leaving\n *  the server in the same state.\n *\n * @example <caption>Verify response to a GET request</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, GetRequest, LastResponse, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  interface Book {\n *      title: string;\n *      author: string;\n *  }\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(GetRequest.to('/books/0-688-00230-7')),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.body<Book>(), equals({\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/GET\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.1\n *\n * @extends {HTTPRequest}\n ",
+            "start": 186,
+            "end": 1828,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 51,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

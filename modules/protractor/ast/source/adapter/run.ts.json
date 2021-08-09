@@ -44,24 +44,6 @@
             "column": 45
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file ",
-            "start": 0,
-            "end": 26,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -133,7 +115,25 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -497,40 +497,6 @@
             "column": 64
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
-            "start": 348,
-            "end": 481,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
-            "start": 484,
-            "end": 715,
-            "loc": {
-              "start": {
-                "line": 24,
-                "column": 0
-              },
-              "end": {
-                "line": 30,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -651,23 +617,8 @@
             "raw": "'./runner'"
           },
           "value": "./runner"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 716,
-        "end": 1024,
-        "loc": {
-          "start": {
-            "line": 31,
-            "column": 0
-          },
-          "end": {
-            "line": 39,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
@@ -700,7 +651,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 716,
+        "end": 1024,
+        "loc": {
+          "start": {
+            "line": 31,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1515,7 +1481,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @param \n * {Runner} runner \n * @param \n * {UNKNOWN} specs \n * @return \n * {Promise} \n ",
+            "start": 348,
+            "end": 481,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @param {protractor~Runner} runner\n * @param {string[]} specs\n * @returns {Promise<ProtractorReport>}\n *\n * @see https://github.com/angular/protractor/blob/master/lib/frameworks/README.md#framework-adapters-for-protractor\n ",
+            "start": 484,
+            "end": 715,
+            "loc": {
+              "start": {
+                "line": 24,
+                "column": 0
+              },
+              "end": {
+                "line": 30,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

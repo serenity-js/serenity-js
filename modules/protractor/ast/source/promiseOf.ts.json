@@ -44,40 +44,6 @@
             "column": 1
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @param \n * {PromiseLike} promiseLike \n * @return \n * {Promise} \n ",
-            "start": 1,
-            "end": 113,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Wraps Webdriver promise into a Node-native promise to allow for correct promise chaining.\n *\n * @private\n *\n * @param promiseLike\n * @returns {Promise<T>}\n ",
-            "start": 114,
-            "end": 289,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 20,
-                "column": 3
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -648,7 +614,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @param \n * {PromiseLike} promiseLike \n * @return \n * {Promise} \n ",
+            "start": 1,
+            "end": 113,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Wraps Webdriver promise into a Node-native promise to allow for correct promise chaining.\n *\n * @private\n *\n * @param promiseLike\n * @returns {Promise<T>}\n ",
+            "start": 114,
+            "end": 289,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 20,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

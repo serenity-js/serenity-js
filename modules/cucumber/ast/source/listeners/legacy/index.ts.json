@@ -668,40 +668,6 @@
             "column": 52
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
-            "start": 329,
-            "end": 474,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Creates a listener for Cucumber.js 0.x-6.x\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n * @returns {cucumber~Formatter}\n ",
-            "start": 477,
-            "end": 691,
-            "loc": {
-              "start": {
-                "line": 22,
-                "column": 0
-              },
-              "end": {
-                "line": 29,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -822,23 +788,8 @@
             "raw": "'./notifier'"
           },
           "value": "./notifier"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 692,
-        "end": 1764,
-        "loc": {
-          "start": {
-            "line": 30,
-            "column": 0
-          },
-          "end": {
-            "line": 61,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
@@ -871,7 +822,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 692,
+        "end": 1764,
+        "loc": {
+          "start": {
+            "line": 30,
+            "column": 0
+          },
+          "end": {
+            "line": 61,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1263,24 +1229,6 @@
                           "column": 14
                         }
                       },
-                      "trailingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " eslint-disable-next-line @typescript-eslint/no-var-requires",
-                          "start": 1334,
-                          "end": 1396,
-                          "loc": {
-                            "start": {
-                              "line": 47,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 47,
-                              "column": 70
-                            }
-                          }
-                        }
-                      ],
                       "declarations": [
                         {
                           "type": "VariableDeclarator",
@@ -1961,23 +1909,8 @@
                           }
                         }
                       ],
-                      "kind": "const"
-                    },
-                    {
-                      "type": "ReturnStatement",
-                      "start": 1405,
-                      "end": 1619,
-                      "loc": {
-                        "start": {
-                          "line": 48,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 56,
-                          "column": 11
-                        }
-                      },
-                      "leadingComments": [
+                      "kind": "const",
+                      "trailingComments": [
                         {
                           "type": "CommentLine",
                           "value": " eslint-disable-next-line @typescript-eslint/no-var-requires",
@@ -1994,7 +1927,22 @@
                             }
                           }
                         }
-                      ],
+                      ]
+                    },
+                    {
+                      "type": "ReturnStatement",
+                      "start": 1405,
+                      "end": 1619,
+                      "loc": {
+                        "start": {
+                          "line": 48,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 56,
+                          "column": 11
+                        }
+                      },
                       "argument": {
                         "type": "CallExpression",
                         "start": 1412,
@@ -2183,9 +2131,6 @@
                                 "column": 9
                               }
                             },
-                            "extra": {
-                              "trailingComma": 1606
-                            },
                             "properties": [
                               {
                                 "type": "ObjectProperty",
@@ -2200,9 +2145,6 @@
                                     "line": 49,
                                     "column": 20
                                   }
-                                },
-                                "extra": {
-                                  "shorthand": true
                                 },
                                 "method": false,
                                 "key": {
@@ -2240,6 +2182,9 @@
                                     "identifierName": "serenity"
                                   },
                                   "name": "serenity"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               },
                               {
@@ -2256,9 +2201,6 @@
                                     "column": 20
                                   }
                                 },
-                                "extra": {
-                                  "shorthand": true
-                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2295,6 +2237,9 @@
                                     "identifierName": "notifier"
                                   },
                                   "name": "notifier"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               },
                               {
@@ -2311,9 +2256,6 @@
                                     "column": 18
                                   }
                                 },
-                                "extra": {
-                                  "shorthand": true
-                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2350,6 +2292,9 @@
                                     "identifierName": "mapper"
                                   },
                                   "name": "mapper"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               },
                               {
@@ -2366,9 +2311,6 @@
                                     "column": 24
                                   }
                                 },
-                                "extra": {
-                                  "shorthand": true
-                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2405,6 +2347,9 @@
                                     "identifierName": "resultMapper"
                                   },
                                   "name": "resultMapper"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               },
                               {
@@ -2421,9 +2366,6 @@
                                     "column": 17
                                   }
                                 },
-                                "extra": {
-                                  "shorthand": true
-                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2460,6 +2402,9 @@
                                     "identifierName": "cache"
                                   },
                                   "name": "cache"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               },
                               {
@@ -2476,9 +2421,6 @@
                                     "column": 18
                                   }
                                 },
-                                "extra": {
-                                  "shorthand": true
-                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2515,6 +2457,9 @@
                                     "identifierName": "loader"
                                   },
                                   "name": "loader"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               },
                               {
@@ -2531,9 +2476,6 @@
                                     "column": 20
                                   }
                                 },
-                                "extra": {
-                                  "shorthand": true
-                                },
                                 "method": false,
                                 "key": {
                                   "type": "Identifier",
@@ -2570,12 +2512,36 @@
                                     "identifierName": "cucumber"
                                   },
                                   "name": "cucumber"
+                                },
+                                "extra": {
+                                  "shorthand": true
                                 }
                               }
-                            ]
+                            ],
+                            "extra": {
+                              "trailingComma": 1606
+                            }
                           }
                         ]
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " eslint-disable-next-line @typescript-eslint/no-var-requires",
+                          "start": 1334,
+                          "end": 1396,
+                          "loc": {
+                            "start": {
+                              "line": 47,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 47,
+                              "column": 70
+                            }
+                          }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
@@ -2861,7 +2827,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
+            "start": 329,
+            "end": 474,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Creates a listener for Cucumber.js 0.x-6.x\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n * @returns {cucumber~Formatter}\n ",
+            "start": 477,
+            "end": 691,
+            "loc": {
+              "start": {
+                "line": 22,
+                "column": 0
+              },
+              "end": {
+                "line": 29,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

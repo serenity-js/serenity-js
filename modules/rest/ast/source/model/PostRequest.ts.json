@@ -218,40 +218,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n ",
-            "start": 138,
-            "end": 183,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The HTTP POST method requests that the origin server accepts\n *  the entity enclosed in the request as a new subordinate of the resource\n *  identified by the `resourceUri`.\n *\n *  This means that the POST should be used when you want to create a child resource under\n *  a collection of resources.\n *\n *  POST request is neither [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe),\n *  nor [idempotent](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent).\n *  This means that if you retry a POST request N times,\n *  a correctly implemented HTTP REST API will create N resources with N different URIs.\n *\n * @example <caption>Add new resource to a collection</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(PostRequest.to('/books').with({\n *          isbn: '0-688-00230-7',\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *      Ensure.that(LastResponse.status(), equals(201)),\n *      Ensure.that(LastResponse.header('Location'), equals('/books/0-688-00230-7')),\n *  );\n *\n * @example <caption>Submit a HTML form</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { stringify } from 'querystring';\n *\n *  const\n *      actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com')),\n *      formData = stringify({\n *          name: actor.name,\n *          email: `${ actor.name }@example.com`,\n *          text: 'Your website is great! Learnt a lot :-)'\n *      });\n *\n *  actor.attemptsTo(\n *      Send.a(PostRequest.to('/feedback').with(postData).using({\n *          headers: {\n *              'Content-Type': 'application/x-www-form-urlencoded',\n *              'Content-Length': formData.length\n *          }\n *      })),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Location'), equals('/feedback/thank-you.html')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.3\n *\n * @extends {HTTPRequest}\n ",
-            "start": 186,
-            "end": 2719,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 73,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'./HTTPRequest'"
           },
           "value": "./HTTPRequest"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2720,
-        "end": 4792,
-        "loc": {
-          "start": {
-            "line": 74,
-            "column": 0
-          },
-          "end": {
-            "line": 161,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2720,
+        "end": 4792,
+        "loc": {
+          "start": {
+            "line": 74,
+            "column": 0
+          },
+          "end": {
+            "line": 161,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -453,74 +419,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Answerable} resourceUri \n * @return \n * {PostRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2767,
-                    "end": 2926,
-                    "loc": {
-                      "start": {
-                        "line": 75,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 88,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {PostRequest}\n     ",
-                    "start": 2933,
-                    "end": 3536,
-                    "loc": {
-                      "start": {
-                        "line": 91,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 104,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 96 \n * @param \n * {Answerable} data \n * @return \n * {PostRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 3650,
-                    "end": 3780,
-                    "loc": {
-                      "start": {
-                        "line": 108,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 119,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the object with a request body.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data\n     *  Data to be sent to the `resourceUri`\n     *\n     * @returns {PostRequest}\n     ",
-                    "start": 3787,
-                    "end": 4021,
-                    "loc": {
-                      "start": {
-                        "line": 122,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 130,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -772,23 +670,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4026,
-                "end": 4143,
-                "loc": {
-                  "start": {
-                    "line": 131,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 133,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 96 \n * @param \n * {Answerable} data \n * @return \n * {PostRequest} \n * @public \n * \\TRUE \n ",
@@ -822,40 +705,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 110 \n * @param \n * {Answerable} config \n * @return \n * {PostRequest} \n * @public \n * \\TRUE \n ",
-                    "start": 4144,
-                    "end": 4277,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 83 \n * @param \n * {Answerable} resourceUri \n * @return \n * {PostRequest} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2767,
+                    "end": 2926,
                     "loc": {
                       "start": {
-                        "line": 134,
+                        "line": 75,
                         "column": 0
                       },
                       "end": {
-                        "line": 145,
+                        "line": 88,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {PostRequest}\n     ",
-                    "start": 4284,
-                    "end": 4650,
+                    "value": "*\n     * @desc\n     *  Configures the object with a destination URI.\n     *\n     *  When the `resourceUri` is not a fully qualified URL but a path, such as `/products/2`,\n     *  it gets concatenated with the URL provided to the Axios instance\n     *  when the {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} resourceUri\n     *  The URI where the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  should send the {@link HTTPRequest}.\n     *\n     * @returns {PostRequest}\n     ",
+                    "start": 2933,
+                    "end": 3536,
                     "loc": {
                       "start": {
-                        "line": 148,
+                        "line": 91,
                         "column": 4
                       },
                       "end": {
-                        "line": 157,
+                        "line": 104,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4026,
+                "end": 4143,
+                "loc": {
+                  "start": {
+                    "line": 131,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 133,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1203,23 +1101,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4655,
-                "end": 4790,
-                "loc": {
-                  "start": {
-                    "line": 158,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 160,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 110 \n * @param \n * {Answerable} config \n * @return \n * {PostRequest} \n * @public \n * \\TRUE \n ",
@@ -1253,6 +1136,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 96 \n * @param \n * {Answerable} data \n * @return \n * {PostRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 3650,
+                    "end": 3780,
+                    "loc": {
+                      "start": {
+                        "line": 108,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 119,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Configures the object with a request body.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<any>} data\n     *  Data to be sent to the `resourceUri`\n     *\n     * @returns {PostRequest}\n     ",
+                    "start": 3787,
+                    "end": 4021,
+                    "loc": {
+                      "start": {
+                        "line": 122,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 130,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4655,
+                "end": 4790,
+                "loc": {
+                  "start": {
+                    "line": 158,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 160,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1617,7 +1549,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 110 \n * @param \n * {Answerable} config \n * @return \n * {PostRequest} \n * @public \n * \\TRUE \n ",
+                    "start": 4144,
+                    "end": 4277,
+                    "loc": {
+                      "start": {
+                        "line": 134,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 145,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Overrides the default Axios request configuration provided\n     *  when {@link CallAnApi} {@link @serenity-js/core/lib/screenplay~Ability} was instantiated.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<AxiosRequestConfig>} config\n     *  Axios request configuration overrides\n     *\n     * @returns {PostRequest}\n     ",
+                    "start": 4284,
+                    "end": 4650,
+                    "loc": {
+                      "start": {
+                        "line": 148,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 157,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1656,7 +1622,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 67 \n ",
+            "start": 138,
+            "end": 183,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The HTTP POST method requests that the origin server accepts\n *  the entity enclosed in the request as a new subordinate of the resource\n *  identified by the `resourceUri`.\n *\n *  This means that the POST should be used when you want to create a child resource under\n *  a collection of resources.\n *\n *  POST request is neither [safe](https://developer.mozilla.org/en-US/docs/Glossary/Safe),\n *  nor [idempotent](https://developer.mozilla.org/en-US/docs/Glossary/Idempotent).\n *  This means that if you retry a POST request N times,\n *  a correctly implemented HTTP REST API will create N resources with N different URIs.\n *\n * @example <caption>Add new resource to a collection</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  const actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com/api'));\n *\n *  actor.attemptsTo(\n *      Send.a(PostRequest.to('/books').with({\n *          isbn: '0-688-00230-7',\n *          title: 'Zen and the Art of Motorcycle Maintenance: An Inquiry into Values',\n *          author: 'Robert M. Pirsig',\n *      })),\n *      Ensure.that(LastResponse.status(), equals(201)),\n *      Ensure.that(LastResponse.header('Location'), equals('/books/0-688-00230-7')),\n *  );\n *\n * @example <caption>Submit a HTML form</caption>\n *  import { Actor } from '@serenity-js/core';\n *  import { CallAnApi, LastResponse, PostRequest, Send } from '@serenity-js/rest'\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { stringify } from 'querystring';\n *\n *  const\n *      actor = Actor.named('Apisit').whoCan(CallAnApi.at('https://myapp.com')),\n *      formData = stringify({\n *          name: actor.name,\n *          email: `${ actor.name }@example.com`,\n *          text: 'Your website is great! Learnt a lot :-)'\n *      });\n *\n *  actor.attemptsTo(\n *      Send.a(PostRequest.to('/feedback').with(postData).using({\n *          headers: {\n *              'Content-Type': 'application/x-www-form-urlencoded',\n *              'Content-Length': formData.length\n *          }\n *      })),\n *      Ensure.that(LastResponse.status(), equals(200)),\n *      Ensure.that(LastResponse.header('Location'), equals('/feedback/thank-you.html')),\n *  );\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST\n * @see https://tools.ietf.org/html/rfc7231#section-4.3.3\n *\n * @extends {HTTPRequest}\n ",
+            "start": 186,
+            "end": 2719,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 73,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

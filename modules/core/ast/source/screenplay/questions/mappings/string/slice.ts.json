@@ -44,24 +44,6 @@
             "column": 68
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable unicorn/consistent-function-scoping ",
-            "start": 0,
-            "end": 56,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 56
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -280,7 +262,25 @@
             "raw": "'tiny-types'"
           },
           "value": "tiny-types"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable unicorn/consistent-function-scoping ",
+            "start": 0,
+            "end": 56,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 56
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -470,40 +470,6 @@
             "column": 65
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @param \n * {Answerable} startIndex \n * @param \n * {Answerable} endIndex \n * @return \n * {AnswerMappingFunction} \n ",
-            "start": 294,
-            "end": 455,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Extracts the part of the string between the `startIndex` and `endIndex` indexes, or to the end of the string if `endIndex` is `undefined`.\n *\n * @param {Answerable<number>} startIndex\n *  The zero-based index at which to begin extraction.\n *\n *  If negative, it is treated as `str.length + startIndex`. For example, if `startIndex` is `-3`, it is treated as `str.length - 3`\n *\n *  If `startIndex` is greater than or equal to `str.length`, an empty string is returned.\n *\n * @param {Answerable<number>} [endIndex]\n *  The zero-based index _before_ which to endIndex extraction.\n *  The character at this index will not be included.\n *\n *  If `endIndex` is omitted or undefined, or greater than `str.length`,\n *  `slice()` extracts to the endIndex of the string.\n *\n *  If negative, it is treated as `str.length + endIndex`.\n *  For example, if `endIndex` is `-3`, it is treated as `str.length - 3`.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring\n ",
-            "start": 458,
-            "end": 1541,
-            "loc": {
-              "start": {
-                "line": 21,
-                "column": 0
-              },
-              "end": {
-                "line": 45,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -575,23 +541,8 @@
             "raw": "'../AnswerMappingFunction'"
           },
           "value": "../AnswerMappingFunction"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1542,
-        "end": 2239,
-        "loc": {
-          "start": {
-            "line": 46,
-            "column": 0
-          },
-          "end": {
-            "line": 66,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @param \n * {Answerable} startIndex \n * @param \n * {Answerable} endIndex \n * @return \n * {AnswerMappingFunction} \n ",
@@ -624,7 +575,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1542,
+        "end": 2239,
+        "loc": {
+          "start": {
+            "line": 46,
+            "column": 0
+          },
+          "end": {
+            "line": 66,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -2219,7 +2185,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n * @param \n * {Answerable} startIndex \n * @param \n * {Answerable} endIndex \n * @return \n * {AnswerMappingFunction} \n ",
+            "start": 294,
+            "end": 455,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Extracts the part of the string between the `startIndex` and `endIndex` indexes, or to the end of the string if `endIndex` is `undefined`.\n *\n * @param {Answerable<number>} startIndex\n *  The zero-based index at which to begin extraction.\n *\n *  If negative, it is treated as `str.length + startIndex`. For example, if `startIndex` is `-3`, it is treated as `str.length - 3`\n *\n *  If `startIndex` is greater than or equal to `str.length`, an empty string is returned.\n *\n * @param {Answerable<number>} [endIndex]\n *  The zero-based index _before_ which to endIndex extraction.\n *  The character at this index will not be included.\n *\n *  If `endIndex` is omitted or undefined, or greater than `str.length`,\n *  `slice()` extracts to the endIndex of the string.\n *\n *  If negative, it is treated as `str.length + endIndex`.\n *  For example, if `endIndex` is `-3`, it is treated as `str.length - 3`.\n *\n * @returns {AnswerMappingFunction<string, string>}\n *\n * @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring\n ",
+            "start": 458,
+            "end": 1541,
+            "loc": {
+              "start": {
+                "line": 21,
+                "column": 0
+              },
+              "end": {
+                "line": 45,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

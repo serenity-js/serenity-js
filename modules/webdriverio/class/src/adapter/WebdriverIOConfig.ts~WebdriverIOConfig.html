@@ -179,7 +179,7 @@
   
   
   
-  <span data-ice="source">| <span><a href="file/src/adapter/WebdriverIOConfig.ts.html#lineNumber111">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/adapter/WebdriverIOConfig.ts.html#lineNumber114">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -193,7 +193,7 @@
 
   
   
-  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266">Options.TestRunner</a></span> → WebdriverIOConfig</div></div>
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts">Options.TestRunner</a></span> → WebdriverIOConfig</div></div>
   
   
   
@@ -211,11 +211,12 @@
   <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">WebdriverIO with Serenity/JS and Cucumber</div>
       <pre class="source-code language-typescript"><code data-ice="exampleCode">
- <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
  <span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
  <span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> WebdriverIOConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
 
- <span class="token keyword">export</span> <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+ <span class="token keyword">export</span> <span class="token keyword">const</span> config<span class="token operator">:</span> WebdriverIOConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
 
    framework<span class="token operator">:</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">,</span>
 
@@ -240,11 +241,12 @@
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">WebdriverIO with Serenity/JS and Mocha</div>
       <pre class="source-code language-typescript"><code data-ice="exampleCode">
- <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
  <span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
  <span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> WebdriverIOConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
 
- <span class="token keyword">export</span> <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+ <span class="token keyword">export</span> <span class="token keyword">const</span> config<span class="token operator">:</span> WebdriverIOConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
 
    framework<span class="token operator">:</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">,</span>
 
@@ -269,11 +271,12 @@
 <div class="example-doc" data-ice="exampleDoc">
       <div class="example-caption" data-ice="exampleCaption">WebdriverIO with Serenity/JS and Jasmine</div>
       <pre class="source-code language-typescript"><code data-ice="exampleCode">
- <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
  <span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
  <span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> WebdriverIOConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
 
- <span class="token keyword">export</span> <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+ <span class="token keyword">export</span> <span class="token keyword">const</span> config<span class="token operator">:</span> WebdriverIOConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
 
    framework<span class="token operator">:</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">,</span>
 
@@ -305,7 +308,7 @@
 <li><span><span><a href="/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
 <li><span><span><a href="/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">MochaConfig</a></span></span></li>
 <li><span><a href="https://webdriver.io/docs/configurationfile/">https://webdriver.io/docs/configurationfile/</a></span></li>
-<li><span><span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts#L266">Options.TestRunner</a></span></span></li></ul></div>
+<li><span><span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/wdio-types/src/Options.ts">Options.TestRunner</a></span></span></li></ul></div>
 </div>
 
 
@@ -369,7 +372,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/adapter/WebdriverIOConfig.ts.html#lineNumber136">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/adapter/WebdriverIOConfig.ts.html#lineNumber139">source</a></span></span>
     </span>
   </h3>
 

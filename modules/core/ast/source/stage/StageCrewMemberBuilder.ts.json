@@ -131,40 +131,6 @@
             "column": 90
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
-            "start": 156,
-            "end": 201,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Use a {@link StageCrewMemberBuilder} to configure complex {@link StageCrewMember} objects.\n *  Useful when you're interested in implementing custom reporters with multiple configuration options.\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilderDependencies}\n * @see {@link SerenityConfig#crew}\n * @interface ",
-            "start": 204,
-            "end": 554,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 19,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'./StageCrewMemberBuilderDependencies'"
           },
           "value": "./StageCrewMemberBuilderDependencies"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 555,
-        "end": 1078,
-        "loc": {
-          "start": {
-            "line": 20,
-            "column": 0
-          },
-          "end": {
-            "line": 41,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 555,
+        "end": 1078,
+        "loc": {
+          "start": {
+            "line": 20,
+            "column": 0
+          },
+          "end": {
+            "line": 41,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -448,40 +414,6 @@
                     "column": 67
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 659,
-                    "end": 751,
-                    "loc": {
-                      "start": {
-                        "line": 21,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 30,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a {@link StageCrewMember}, giving it access to shared dependencies\n     *  such as {@link Stage} or {@link OutputStream}\n     *\n     * @type {function(dependencies: StageCrewMemberBuilderDependencies): T}\n     ",
-                    "start": 758,
-                    "end": 1008,
-                    "loc": {
-                      "start": {
-                        "line": 33,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 39,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -644,7 +576,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 22 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 659,
+                    "end": 751,
+                    "loc": {
+                      "start": {
+                        "line": 21,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 30,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates a {@link StageCrewMember}, giving it access to shared dependencies\n     *  such as {@link Stage} or {@link OutputStream}\n     *\n     * @type {function(dependencies: StageCrewMemberBuilderDependencies): T}\n     ",
+                    "start": 758,
+                    "end": 1008,
+                    "loc": {
+                      "start": {
+                        "line": 33,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 39,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -683,7 +649,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n ",
+            "start": 156,
+            "end": 201,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Use a {@link StageCrewMemberBuilder} to configure complex {@link StageCrewMember} objects.\n *  Useful when you're interested in implementing custom reporters with multiple configuration options.\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilderDependencies}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+            "start": 204,
+            "end": 554,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 19,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

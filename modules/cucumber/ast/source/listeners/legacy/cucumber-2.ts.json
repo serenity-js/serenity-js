@@ -44,24 +44,6 @@
             "column": 46
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
-            "start": 48,
-            "end": 125,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 3,
-                "column": 77
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -133,23 +115,8 @@
             "raw": "'./Dependencies'"
           },
           "value": "./Dependencies"
-        }
-      },
-      {
-        "type": "TSExportAssignment",
-        "start": 126,
-        "end": 526,
-        "loc": {
-          "start": {
-            "line": 4,
-            "column": 0
-          },
-          "end": {
-            "line": 14,
-            "column": 2
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
@@ -166,7 +133,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "TSExportAssignment",
+        "start": 126,
+        "end": 526,
+        "loc": {
+          "start": {
+            "line": 4,
+            "column": 0
+          },
+          "end": {
+            "line": 14,
+            "column": 2
+          }
+        },
         "expression": {
           "type": "FunctionExpression",
           "start": 135,
@@ -214,9 +196,6 @@
                       "column": 29
                     }
                   },
-                  "extra": {
-                    "shorthand": true
-                  },
                   "method": false,
                   "key": {
                     "type": "Identifier",
@@ -253,6 +232,9 @@
                       "identifierName": "serenity"
                     },
                     "name": "serenity"
+                  },
+                  "extra": {
+                    "shorthand": true
                   }
                 },
                 {
@@ -269,9 +251,6 @@
                       "column": 39
                     }
                   },
-                  "extra": {
-                    "shorthand": true
-                  },
                   "method": false,
                   "key": {
                     "type": "Identifier",
@@ -308,6 +287,9 @@
                       "identifierName": "notifier"
                     },
                     "name": "notifier"
+                  },
+                  "extra": {
+                    "shorthand": true
                   }
                 },
                 {
@@ -324,9 +306,6 @@
                       "column": 53
                     }
                   },
-                  "extra": {
-                    "shorthand": true
-                  },
                   "method": false,
                   "key": {
                     "type": "Identifier",
@@ -363,6 +342,9 @@
                       "identifierName": "resultMapper"
                     },
                     "name": "resultMapper"
+                  },
+                  "extra": {
+                    "shorthand": true
                   }
                 },
                 {
@@ -379,9 +361,6 @@
                       "column": 61
                     }
                   },
-                  "extra": {
-                    "shorthand": true
-                  },
                   "method": false,
                   "key": {
                     "type": "Identifier",
@@ -418,6 +397,9 @@
                       "identifierName": "loader"
                     },
                     "name": "loader"
+                  },
+                  "extra": {
+                    "shorthand": true
                   }
                 },
                 {
@@ -434,9 +416,6 @@
                       "column": 71
                     }
                   },
-                  "extra": {
-                    "shorthand": true
-                  },
                   "method": false,
                   "key": {
                     "type": "Identifier",
@@ -473,6 +452,9 @@
                       "identifierName": "cucumber"
                     },
                     "name": "cucumber"
+                  },
+                  "extra": {
+                    "shorthand": true
                   }
                 },
                 {
@@ -489,9 +471,6 @@
                       "column": 78
                     }
                   },
-                  "extra": {
-                    "shorthand": true
-                  },
                   "method": false,
                   "key": {
                     "type": "Identifier",
@@ -528,6 +507,9 @@
                       "identifierName": "cache"
                     },
                     "name": "cache"
+                  },
+                  "extra": {
+                    "shorthand": true
                   }
                 }
               ],
@@ -609,24 +591,6 @@
                     "column": 44
                   }
                 },
-                "trailingComments": [
-                  {
-                    "type": "CommentLine",
-                    "value": " eslint-disable-line  @typescript-eslint/no-var-requires",
-                    "start": 272,
-                    "end": 330,
-                    "loc": {
-                      "start": {
-                        "line": 5,
-                        "column": 48
-                      },
-                      "end": {
-                        "line": 5,
-                        "column": 106
-                      }
-                    }
-                  }
-                ],
                 "declarations": [
                   {
                     "type": "VariableDeclarator",
@@ -715,23 +679,8 @@
                     }
                   }
                 ],
-                "kind": "const"
-              },
-              {
-                "type": "ExpressionStatement",
-                "start": 336,
-                "end": 473,
-                "loc": {
-                  "start": {
-                    "line": 7,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 9,
-                    "column": 6
-                  }
-                },
-                "leadingComments": [
+                "kind": "const",
+                "trailingComments": [
                   {
                     "type": "CommentLine",
                     "value": " eslint-disable-line  @typescript-eslint/no-var-requires",
@@ -748,7 +697,22 @@
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ExpressionStatement",
+                "start": 336,
+                "end": 473,
+                "loc": {
+                  "start": {
+                    "line": 7,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 9,
+                    "column": 6
+                  }
+                },
                 "expression": {
                   "type": "CallExpression",
                   "start": 336,
@@ -939,9 +903,6 @@
                                         "column": 26
                                       }
                                     },
-                                    "extra": {
-                                      "shorthand": true
-                                    },
                                     "method": false,
                                     "key": {
                                       "type": "Identifier",
@@ -978,6 +939,9 @@
                                         "identifierName": "serenity"
                                       },
                                       "name": "serenity"
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     }
                                   },
                                   {
@@ -994,9 +958,6 @@
                                         "column": 36
                                       }
                                     },
-                                    "extra": {
-                                      "shorthand": true
-                                    },
                                     "method": false,
                                     "key": {
                                       "type": "Identifier",
@@ -1033,6 +994,9 @@
                                         "identifierName": "notifier"
                                       },
                                       "name": "notifier"
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     }
                                   },
                                   {
@@ -1049,9 +1013,6 @@
                                         "column": 50
                                       }
                                     },
-                                    "extra": {
-                                      "shorthand": true
-                                    },
                                     "method": false,
                                     "key": {
                                       "type": "Identifier",
@@ -1088,6 +1049,9 @@
                                         "identifierName": "resultMapper"
                                       },
                                       "name": "resultMapper"
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     }
                                   },
                                   {
@@ -1104,9 +1068,6 @@
                                         "column": 58
                                       }
                                     },
-                                    "extra": {
-                                      "shorthand": true
-                                    },
                                     "method": false,
                                     "key": {
                                       "type": "Identifier",
@@ -1143,6 +1104,9 @@
                                         "identifierName": "loader"
                                       },
                                       "name": "loader"
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     }
                                   },
                                   {
@@ -1159,9 +1123,6 @@
                                         "column": 68
                                       }
                                     },
-                                    "extra": {
-                                      "shorthand": true
-                                    },
                                     "method": false,
                                     "key": {
                                       "type": "Identifier",
@@ -1198,6 +1159,9 @@
                                         "identifierName": "cucumber"
                                       },
                                       "name": "cucumber"
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     }
                                   },
                                   {
@@ -1214,9 +1178,6 @@
                                         "column": 75
                                       }
                                     },
-                                    "extra": {
-                                      "shorthand": true
-                                    },
                                     "method": false,
                                     "key": {
                                       "type": "Identifier",
@@ -1253,6 +1214,9 @@
                                         "identifierName": "cache"
                                       },
                                       "name": "cache"
+                                    },
+                                    "extra": {
+                                      "shorthand": true
                                     }
                                   }
                                 ]
@@ -1300,7 +1264,25 @@
                       }
                     }
                   ]
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentLine",
+                    "value": " eslint-disable-line  @typescript-eslint/no-var-requires",
+                    "start": 272,
+                    "end": 330,
+                    "loc": {
+                      "start": {
+                        "line": 5,
+                        "column": 48
+                      },
+                      "end": {
+                        "line": 5,
+                        "column": 106
+                      }
+                    }
+                  }
+                ]
               },
               {
                 "type": "ReturnStatement",
@@ -1348,6 +1330,8 @@
                         "column": 5
                       }
                     },
+                    "body": [],
+                    "directives": [],
                     "innerComments": [
                       {
                         "type": "CommentLine",
@@ -1365,16 +1349,32 @@
                           }
                         }
                       }
-                    ],
-                    "body": [],
-                    "directives": []
+                    ]
                   }
                 }
               }
             ],
             "directives": []
           }
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
+            "start": 48,
+            "end": 125,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 3,
+                "column": 77
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -131,24 +131,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
-            "start": 92,
-            "end": 136,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -220,23 +202,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 139,
-        "end": 1330,
-        "loc": {
-          "start": {
-            "line": 12,
-            "column": 0
-          },
-          "end": {
-            "line": 67,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
@@ -253,7 +220,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 139,
+        "end": 1330,
+        "loc": {
+          "start": {
+            "line": 12,
+            "column": 0
+          },
+          "end": {
+            "line": 67,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -318,74 +300,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 162,
-                    "end": 278,
-                    "loc": {
-                      "start": {
-                        "line": 13,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 24,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}\n     *\n     * @see https://webdriver.io/docs/api/webdriver/#gettitle\n     ",
-                    "start": 285,
-                    "end": 582,
-                    "loc": {
-                      "start": {
-                        "line": 27,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 775,
-                    "end": 891,
-                    "loc": {
-                      "start": {
-                        "line": 40,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 51,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the URL of the current top-level browsing context.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}\n     *\n     * @see https://webdriver.io/docs/api/webdriver/#geturl\n     ",
-                    "start": 898,
-                    "end": 1142,
-                    "loc": {
-                      "start": {
-                        "line": 54,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 61,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -581,9 +495,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 756
-                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 646,
@@ -633,6 +544,9 @@
                             },
                             "name": "about"
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 756
                         },
                         "arguments": [
                           {
@@ -881,23 +795,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1147,
-                "end": 1328,
-                "loc": {
-                  "start": {
-                    "line": 62,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 66,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -931,6 +830,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 162,
+                    "end": 278,
+                    "loc": {
+                      "start": {
+                        "line": 13,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 24,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}\n     *\n     * @see https://webdriver.io/docs/api/webdriver/#gettitle\n     ",
+                    "start": 285,
+                    "end": 582,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1147,
+                "end": 1328,
+                "loc": {
+                  "start": {
+                    "line": 62,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 66,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1126,9 +1074,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 1310
-                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 1204,
@@ -1178,6 +1123,9 @@
                             },
                             "name": "about"
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 1310
                         },
                         "arguments": [
                           {
@@ -1426,7 +1374,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 29 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 775,
+                    "end": 891,
+                    "loc": {
+                      "start": {
+                        "line": 40,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 51,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves the URL of the current top-level browsing context.\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Question<Promise<string>>}\n     *\n     * @see https://webdriver.io/docs/api/webdriver/#geturl\n     ",
+                    "start": 898,
+                    "end": 1142,
+                    "loc": {
+                      "start": {
+                        "line": 54,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 61,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1449,7 +1431,25 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 5 \n ",
+            "start": 92,
+            "end": 136,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

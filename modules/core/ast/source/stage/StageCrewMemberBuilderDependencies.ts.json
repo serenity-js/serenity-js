@@ -131,40 +131,6 @@
             "column": 32
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 71,
-            "end": 116,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Dependencies injected by {@link Serenity} into {@link StageCrewMemberBuilder#build}\n *\n * @interface\n *\n * @see {@link StageCrewMemberBuilder}\n * @interface ",
-            "start": 119,
-            "end": 295,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'./Stage'"
           },
           "value": "./Stage"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 296,
-        "end": 698,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 54,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 296,
+        "end": 698,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 54,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -351,74 +317,6 @@
                     "column": 17
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Stage} \n * @public \n * \\TRUE \n ",
-                    "start": 355,
-                    "end": 444,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 29,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @type {Stage}\n     ",
-                    "start": 451,
-                    "end": 483,
-                    "loc": {
-                      "start": {
-                        "line": 32,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {OutputStream} \n * @public \n * \\TRUE \n ",
-                    "start": 502,
-                    "end": 598,
-                    "loc": {
-                      "start": {
-                        "line": 36,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 45,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *\n     * @type {OutputStream}\n     ",
-                    "start": 605,
-                    "end": 664,
-                    "loc": {
-                      "start": {
-                        "line": 48,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 52,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -485,23 +383,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 669,
-                "end": 696,
-                "loc": {
-                  "start": {
-                    "line": 53,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 53,
-                    "column": 31
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {OutputStream} \n * @public \n * \\TRUE \n ",
@@ -535,6 +418,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Stage} \n * @public \n * \\TRUE \n ",
+                    "start": 355,
+                    "end": 444,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 29,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @type {Stage}\n     ",
+                    "start": 451,
+                    "end": 483,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 34,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 669,
+                "end": 696,
+                "loc": {
+                  "start": {
+                    "line": 53,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 53,
+                    "column": 31
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -601,7 +533,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {OutputStream} \n * @public \n * \\TRUE \n ",
+                    "start": 502,
+                    "end": 598,
+                    "loc": {
+                      "start": {
+                        "line": 36,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 45,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *\n     * @type {OutputStream}\n     ",
+                    "start": 605,
+                    "end": 664,
+                    "loc": {
+                      "start": {
+                        "line": 48,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 52,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -640,7 +606,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 71,
+            "end": 116,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Dependencies injected by {@link Serenity} into {@link StageCrewMemberBuilder#build}\n *\n * @interface\n *\n * @see {@link StageCrewMemberBuilder}\n * @interface ",
+            "start": 119,
+            "end": 295,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

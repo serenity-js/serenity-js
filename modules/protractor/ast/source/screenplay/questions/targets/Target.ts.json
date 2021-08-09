@@ -664,40 +664,6 @@
             "column": 62
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 155 \n ",
-            "start": 389,
-            "end": 435,
-            "loc": {
-              "start": {
-                "line": 9,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Provides a convenient way to retrieve a single web element or multiple web elements,\n *  so that they can be used with Serenity/JS {@link @serenity-js/core/lib/screenplay~Interaction}s.\n *\n *  Check out the examples below, as well as the unit tests demonstrating the usage.\n *\n *  @example <caption>Imaginary website under test</caption>\n *   <body>\n *       <ul id=\"basket\">\n *           <li><a href=\"#\">Apple</a></li>\n *           <li><a href=\"#\">Banana</a></li>\n *           <li><a href=\"#\">Coconut</a></li>\n *           <li><a href=\"#\" class=\"has-discount\">Date</a></li>\n *       </ul>\n *       <div id=\"summary\"><strong class=\"out-of-stock\">Coconut</strong> is not available</div>\n *       <button type=\"submit\">Proceed to Checkout</button>\n *   </body>\n *\n *  @example <caption>Locating a single element</caption>\n *   import { Target } from '@serenity-js/protractor';\n *   import { by } from 'protractor';\n *\n *   const proceedToCheckoutButton =\n *       Target.the('Proceed to Checkout button').located(by.css(`button[type='submit']`));\n *\n *  @example <caption>Locating multiple elements</caption>\n *   import { Target } from '@serenity-js/protractor';\n *   import { by } from 'protractor';\n *\n *   const basketItems =\n *       Target.all('items in the basket').located(by.css('ul#basket li'));\n *\n *  @example <caption>Locating element relative to another element</caption>\n *   import { Target } from '@serenity-js/protractor';\n *   import { by } from 'protractor';\n *\n *   const summary =\n *       Target.the('summary').located(by.id('message'));\n *\n *   const outOfStockItem =\n *       Target.the('out of stock item').of(summary).located(by.css('.out-of-stock'))\n *\n *  @example <caption>Filtering elements matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by } from 'protractor';\n *\n *   const basketItems =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .where(Text, endsWith('e'));    // Apple, Date\n *\n *  @example <caption>Counting items matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { Question } from '@serenity-js/core';\n *   import { by } from 'protractor';\n *\n *   const basketItemsCount: Question<Promise<number>> =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .count()    // 4\n *\n *  @example <caption>Getting first item matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   const apple: Question<ElementFinder>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .first()\n *\n *  @example <caption>Getting last item matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   const date: Question<ElementFinder>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .last()\n *\n *  @example <caption>Getting nth item matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   const banana: Question<ElementFinder>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .get(1)\n *\n *  @example <caption>Using multiple filters and nested targets</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { contain, endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   class Basket {\n *       static component = Target.the('basket').located(by.id('basket'));\n *\n *       static items     = Target.all('items').located(by.css('li'))\n *          .of(Basket.component);\n *\n *       static link      = Target.the('link').located(by.css('a'));\n *   }\n *\n *   const date: Question<ElementFinder>  =\n *       Basket.items\n *          .where(Text, endsWith('e'))\n *          .where(CSSClasses.of(Basket.link), contain('has-discount'))\n *          .first()\n *\n *  @example <caption>Clicking on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click } from '@serenity-js/protractor';\n *   import { protractor } from 'protractor';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(protractor.browser))\n *       .attemptsTo(\n *           Click.on(proceedToCheckoutButton),\n *       );\n *\n *  @example <caption>Retrieving text of multiple elements and performing an assertion</caption>\n *   import { Ensure, contain } from '@serenity-js/assertions';\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click, Text } from '@serenity-js/protractor';\n *   import { protractor } from 'protractor';\n *\n *   const basketItemNames = Text.ofAll(basketItems);\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(protractor.browser))\n *       .attemptsTo(\n *           Ensure.that(basketItemNames, contain('Apple'))\n *       );\n *\n *  @example <caption>Waiting on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click, Text, Wait, isClickable } from '@serenity-js/protractor';\n *   import { protractor } from 'protractor';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(protractor.browser))\n *       .attemptsTo(\n *           Wait.until(proceedToCheckoutButton, isClickable()),\n *       );\n ",
-            "start": 438,
-            "end": 6279,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 161,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -769,23 +735,8 @@
             "raw": "'./TargetNestedElements'"
           },
           "value": "./TargetNestedElements"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 6280,
-        "end": 8275,
-        "loc": {
-          "start": {
-            "line": 162,
-            "column": 0
-          },
-          "end": {
-            "line": 235,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 155 \n ",
@@ -818,7 +769,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 6280,
+        "end": 8275,
+        "loc": {
+          "start": {
+            "line": 162,
+            "column": 0
+          },
+          "end": {
+            "line": 235,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -883,74 +849,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @param \n * {string} name \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 6303,
-                    "end": 6476,
-                    "loc": {
-                      "start": {
-                        "line": 163,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 176,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Locates a single web element\n     *\n     * @param {string} name - A human-readable name of the element to be used in the report\n     * @returns {TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement>}\n     ",
-                    "start": 6483,
-                    "end": 6733,
-                    "loc": {
-                      "start": {
-                        "line": 179,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 185,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 185 \n * @param \n * {string} name \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 7282,
-                    "end": 7455,
-                    "loc": {
-                      "start": {
-                        "line": 199,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 212,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Locates a group of web elements\n     *\n     * @param {string} name - A human-readable name of the elements to be used in the report\n     * @returns {TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements>}\n     ",
-                    "start": 7462,
-                    "end": 7718,
-                    "loc": {
-                      "start": {
-                        "line": 215,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 221,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1259,9 +1157,6 @@
                             "line": 197,
                             "column": 9
                           }
-                        },
-                        "extra": {
-                          "trailingComma": 7263
                         },
                         "properties": [
                           {
@@ -1756,9 +1651,6 @@
                                           "column": 17
                                         }
                                       },
-                                      "extra": {
-                                        "trailingComma": 7229
-                                      },
                                       "properties": [
                                         {
                                           "type": "ObjectProperty",
@@ -2045,7 +1937,10 @@
                                             }
                                           }
                                         }
-                                      ]
+                                      ],
+                                      "extra": {
+                                        "trailingComma": 7229
+                                      }
                                     }
                                   }
                                 ],
@@ -2053,28 +1948,16 @@
                               }
                             }
                           }
-                        ]
+                        ],
+                        "extra": {
+                          "trailingComma": 7263
+                        }
                       }
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7723,
-                "end": 8273,
-                "loc": {
-                  "start": {
-                    "line": 222,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 234,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 185 \n * @param \n * {string} name \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2108,6 +1991,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @param \n * {string} name \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 6303,
+                    "end": 6476,
+                    "loc": {
+                      "start": {
+                        "line": 163,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 176,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Locates a single web element\n     *\n     * @param {string} name - A human-readable name of the element to be used in the report\n     * @returns {TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement>}\n     ",
+                    "start": 6483,
+                    "end": 6733,
+                    "loc": {
+                      "start": {
+                        "line": 179,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 185,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7723,
+                "end": 8273,
+                "loc": {
+                  "start": {
+                    "line": 222,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 234,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2416,9 +2348,6 @@
                             "line": 233,
                             "column": 9
                           }
-                        },
-                        "extra": {
-                          "trailingComma": 8255
                         },
                         "properties": [
                           {
@@ -2913,9 +2842,6 @@
                                           "column": 17
                                         }
                                       },
-                                      "extra": {
-                                        "trailingComma": 8221
-                                      },
                                       "properties": [
                                         {
                                           "type": "ObjectProperty",
@@ -3202,7 +3128,10 @@
                                             }
                                           }
                                         }
-                                      ]
+                                      ],
+                                      "extra": {
+                                        "trailingComma": 8221
+                                      }
                                     }
                                   }
                                 ],
@@ -3210,12 +3139,49 @@
                               }
                             }
                           }
-                        ]
+                        ],
+                        "extra": {
+                          "trailingComma": 8255
+                        }
                       }
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 185 \n * @param \n * {string} name \n * @return \n * {TargetBuilder & NestedTargetBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 7282,
+                    "end": 7455,
+                    "loc": {
+                      "start": {
+                        "line": 199,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 212,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Locates a group of web elements\n     *\n     * @param {string} name - A human-readable name of the elements to be used in the report\n     * @returns {TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements>}\n     ",
+                    "start": 7462,
+                    "end": 7718,
+                    "loc": {
+                      "start": {
+                        "line": 215,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 221,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3254,7 +3220,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 155 \n ",
+            "start": 389,
+            "end": 435,
+            "loc": {
+              "start": {
+                "line": 9,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Provides a convenient way to retrieve a single web element or multiple web elements,\n *  so that they can be used with Serenity/JS {@link @serenity-js/core/lib/screenplay~Interaction}s.\n *\n *  Check out the examples below, as well as the unit tests demonstrating the usage.\n *\n *  @example <caption>Imaginary website under test</caption>\n *   <body>\n *       <ul id=\"basket\">\n *           <li><a href=\"#\">Apple</a></li>\n *           <li><a href=\"#\">Banana</a></li>\n *           <li><a href=\"#\">Coconut</a></li>\n *           <li><a href=\"#\" class=\"has-discount\">Date</a></li>\n *       </ul>\n *       <div id=\"summary\"><strong class=\"out-of-stock\">Coconut</strong> is not available</div>\n *       <button type=\"submit\">Proceed to Checkout</button>\n *   </body>\n *\n *  @example <caption>Locating a single element</caption>\n *   import { Target } from '@serenity-js/protractor';\n *   import { by } from 'protractor';\n *\n *   const proceedToCheckoutButton =\n *       Target.the('Proceed to Checkout button').located(by.css(`button[type='submit']`));\n *\n *  @example <caption>Locating multiple elements</caption>\n *   import { Target } from '@serenity-js/protractor';\n *   import { by } from 'protractor';\n *\n *   const basketItems =\n *       Target.all('items in the basket').located(by.css('ul#basket li'));\n *\n *  @example <caption>Locating element relative to another element</caption>\n *   import { Target } from '@serenity-js/protractor';\n *   import { by } from 'protractor';\n *\n *   const summary =\n *       Target.the('summary').located(by.id('message'));\n *\n *   const outOfStockItem =\n *       Target.the('out of stock item').of(summary).located(by.css('.out-of-stock'))\n *\n *  @example <caption>Filtering elements matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by } from 'protractor';\n *\n *   const basketItems =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .where(Text, endsWith('e'));    // Apple, Date\n *\n *  @example <caption>Counting items matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { Question } from '@serenity-js/core';\n *   import { by } from 'protractor';\n *\n *   const basketItemsCount: Question<Promise<number>> =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .count()    // 4\n *\n *  @example <caption>Getting first item matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   const apple: Question<ElementFinder>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .first()\n *\n *  @example <caption>Getting last item matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   const date: Question<ElementFinder>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .last()\n *\n *  @example <caption>Getting nth item matched by a locator</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   const banana: Question<ElementFinder>  =\n *       Target.all('items in the basket').located(by.css('ul#basket li'))\n *          .get(1)\n *\n *  @example <caption>Using multiple filters and nested targets</caption>\n *   import { Target, Text } from '@serenity-js/protractor';\n *   import { contain, endsWith } from '@serenity-js/assertions';\n *   import { by, ElementFinder } from 'protractor';\n *\n *   class Basket {\n *       static component = Target.the('basket').located(by.id('basket'));\n *\n *       static items     = Target.all('items').located(by.css('li'))\n *          .of(Basket.component);\n *\n *       static link      = Target.the('link').located(by.css('a'));\n *   }\n *\n *   const date: Question<ElementFinder>  =\n *       Basket.items\n *          .where(Text, endsWith('e'))\n *          .where(CSSClasses.of(Basket.link), contain('has-discount'))\n *          .first()\n *\n *  @example <caption>Clicking on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click } from '@serenity-js/protractor';\n *   import { protractor } from 'protractor';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(protractor.browser))\n *       .attemptsTo(\n *           Click.on(proceedToCheckoutButton),\n *       );\n *\n *  @example <caption>Retrieving text of multiple elements and performing an assertion</caption>\n *   import { Ensure, contain } from '@serenity-js/assertions';\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click, Text } from '@serenity-js/protractor';\n *   import { protractor } from 'protractor';\n *\n *   const basketItemNames = Text.ofAll(basketItems);\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(protractor.browser))\n *       .attemptsTo(\n *           Ensure.that(basketItemNames, contain('Apple'))\n *       );\n *\n *  @example <caption>Waiting on an element</caption>\n *   import { actorCalled } from '@serenity-js/core';\n *   import { BrowseTheWeb, Click, Text, Wait, isClickable } from '@serenity-js/protractor';\n *   import { protractor } from 'protractor';\n *\n *   actorCalled('Jane')\n *       .whoCan(BrowseTheWeb.using(protractor.browser))\n *       .attemptsTo(\n *           Wait.until(proceedToCheckoutButton, isClickable()),\n *       );\n ",
+            "start": 438,
+            "end": 6279,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 161,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

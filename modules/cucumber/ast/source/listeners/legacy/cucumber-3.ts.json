@@ -131,24 +131,6 @@
             "column": 46
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
-            "start": 127,
-            "end": 204,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 4,
-                "column": 77
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -220,23 +202,8 @@
             "raw": "'./Dependencies'"
           },
           "value": "./Dependencies"
-        }
-      },
-      {
-        "type": "TSExportAssignment",
-        "start": 205,
-        "end": 1102,
-        "loc": {
-          "start": {
-            "line": 5,
-            "column": 0
-          },
-          "end": {
-            "line": 34,
-            "column": 2
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
@@ -253,7 +220,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "TSExportAssignment",
+        "start": 205,
+        "end": 1102,
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 2
+          }
+        },
         "expression": {
           "type": "FunctionExpression",
           "start": 214,
@@ -511,9 +493,6 @@
                                   "column": 56
                                 }
                               },
-                              "extra": {
-                                "shorthand": true
-                              },
                               "method": false,
                               "key": {
                                 "type": "Identifier",
@@ -550,6 +529,9 @@
                                   "identifierName": "BeforeAll"
                                 },
                                 "name": "BeforeAll"
+                              },
+                              "extra": {
+                                "shorthand": true
                               }
                             },
                             {
@@ -566,9 +548,6 @@
                                   "column": 63
                                 }
                               },
-                              "extra": {
-                                "shorthand": true
-                              },
                               "method": false,
                               "key": {
                                 "type": "Identifier",
@@ -605,6 +584,9 @@
                                   "identifierName": "After"
                                 },
                                 "name": "After"
+                              },
+                              "extra": {
+                                "shorthand": true
                               }
                             },
                             {
@@ -621,9 +603,6 @@
                                   "column": 73
                                 }
                               },
-                              "extra": {
-                                "shorthand": true
-                              },
                               "method": false,
                               "key": {
                                 "type": "Identifier",
@@ -660,6 +639,9 @@
                                   "identifierName": "AfterAll"
                                 },
                                 "name": "AfterAll"
+                              },
+                              "extra": {
+                                "shorthand": true
                               }
                             }
                           ]
@@ -1103,9 +1085,6 @@
                                                   "column": 17
                                                 }
                                               },
-                                              "extra": {
-                                                "trailingComma": 662
-                                              },
                                               "callee": {
                                                 "type": "MemberExpression",
                                                 "start": 541,
@@ -1188,6 +1167,9 @@
                                                   },
                                                   "name": "outcomeFor"
                                                 }
+                                              },
+                                              "extra": {
+                                                "trailingComma": 662
                                               },
                                               "arguments": [
                                                 {
@@ -2073,7 +2055,25 @@
             ],
             "directives": []
           }
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types",
+            "start": 127,
+            "end": 204,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 4,
+                "column": 77
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

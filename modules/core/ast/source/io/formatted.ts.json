@@ -131,40 +131,6 @@
             "column": 40
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} placeholders \n * @return \n * {string} \n ",
-            "start": 96,
-            "end": 250,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A tag function returning a human-readable description of a template containing one or more {@link Answerable}s.\n *\n * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals\n *\n * @param {TemplateStringsArray} templates\n * @param {Array<Answerable<any>>} placeholders\n * @returns {string}\n ",
-            "start": 253,
-            "end": 621,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 26,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'./inspected'"
           },
           "value": "./inspected"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 622,
-        "end": 972,
-        "loc": {
-          "start": {
-            "line": 27,
-            "column": 0
-          },
-          "end": {
-            "line": 34,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} placeholders \n * @return \n * {string} \n ",
@@ -285,41 +236,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @param \n * {string} multiline \n ",
-            "start": 973,
-            "end": 1052,
-            "loc": {
-              "start": {
-                "line": 35,
-                "column": 0
-              },
-              "end": {
-                "line": 42,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 622,
+        "end": 972,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "* @private ",
-            "start": 1055,
-            "end": 1070,
-            "loc": {
-              "start": {
-                "line": 45,
-                "column": 0
-              },
-              "end": {
-                "line": 45,
-                "column": 15
-              }
-            }
+          "end": {
+            "line": 34,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1376,23 +1308,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 1071,
-        "end": 1196,
-        "loc": {
-          "start": {
-            "line": 46,
-            "column": 0
-          },
-          "end": {
-            "line": 50,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @param \n * {string} multiline \n ",
@@ -1426,6 +1343,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 14 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} placeholders \n * @return \n * {string} \n ",
+            "start": 96,
+            "end": 250,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A tag function returning a human-readable description of a template containing one or more {@link Answerable}s.\n *\n * @link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals\n *\n * @param {TemplateStringsArray} templates\n * @param {Array<Answerable<any>>} placeholders\n * @returns {string}\n ",
+            "start": 253,
+            "end": 621,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 1071,
+        "end": 1196,
+        "loc": {
+          "start": {
+            "line": 46,
+            "column": 0
+          },
+          "end": {
+            "line": 50,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 1080,
@@ -1723,7 +1689,41 @@
             }
           ],
           "directives": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @param \n * {string} multiline \n ",
+            "start": 973,
+            "end": 1052,
+            "loc": {
+              "start": {
+                "line": 35,
+                "column": 0
+              },
+              "end": {
+                "line": 42,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "* @private ",
+            "start": 1055,
+            "end": 1070,
+            "loc": {
+              "start": {
+                "line": 45,
+                "column": 0
+              },
+              "end": {
+                "line": 45,
+                "column": 15
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

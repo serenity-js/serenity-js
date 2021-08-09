@@ -1143,40 +1143,6 @@
             "column": 46
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
-            "start": 506,
-            "end": 551,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The place where {@link Actor}s perform.\n *\n *  In more technical terms, the Stage is the main event bus propagating {@link DomainEvent}s\n *  to {@link Actor}s it instantiates and {@link StageCrewMember}s that have been registered with it.\n *\n * @see {@link configure}\n * @see {@link engage}\n ",
-            "start": 554,
-            "end": 865,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 27,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -1248,23 +1214,8 @@
             "raw": "'./StageManager'"
           },
           "value": "./StageManager"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 866,
-        "end": 11975,
-        "loc": {
-          "start": {
-            "line": 28,
-            "column": 0
-          },
-          "end": {
-            "line": 588,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
@@ -1297,7 +1248,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 866,
+        "end": 11975,
+        "loc": {
+          "start": {
+            "line": 28,
+            "column": 0
+          },
+          "end": {
+            "line": 588,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1362,74 +1328,6 @@
                     "column": 78
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
-                    "start": 887,
-                    "end": 975,
-                    "loc": {
-                      "start": {
-                        "line": 29,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Actors instantiated after the scene has started,\n     *  who will be dismissed when the scene finishes.\n     *\n     * @private\n     ",
-                    "start": 982,
-                    "end": 1141,
-                    "loc": {
-                      "start": {
-                        "line": 41,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 47,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
-                    "start": 1221,
-                    "end": 1309,
-                    "loc": {
-                      "start": {
-                        "line": 49,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 58,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Actors instantiated before the scene has started,\n     *  who will be dismissed when the test run finishes.\n     *\n     * @private\n     ",
-                    "start": 1316,
-                    "end": 1479,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 67,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -1657,23 +1555,8 @@
                     ]
                   },
                   "arguments": []
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1484,
-                "end": 1557,
-                "loc": {
-                  "start": {
-                    "line": 68,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 68,
-                    "column": 77
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
@@ -1707,24 +1590,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
-                    "start": 1558,
-                    "end": 1646,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
+                    "start": 887,
+                    "end": 975,
                     "loc": {
                       "start": {
-                        "line": 69,
+                        "line": 29,
                         "column": 0
                       },
                       "end": {
-                        "line": 78,
+                        "line": 38,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Actors instantiated after the scene has started,\n     *  who will be dismissed when the scene finishes.\n     *\n     * @private\n     ",
+                    "start": 982,
+                    "end": 1141,
+                    "loc": {
+                      "start": {
+                        "line": 41,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 47,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1484,
+                "end": 1557,
+                "loc": {
+                  "start": {
+                    "line": 68,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 68,
+                    "column": 77
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -1952,23 +1866,8 @@
                     ]
                   },
                   "arguments": []
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1653,
-                "end": 1720,
-                "loc": {
-                  "start": {
-                    "line": 81,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 81,
-                    "column": 71
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
@@ -1986,40 +1885,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Actor} \n * @private \n * \\TRUE \n ",
-                    "start": 1721,
-                    "end": 1811,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
+                    "start": 1221,
+                    "end": 1309,
                     "loc": {
                       "start": {
-                        "line": 82,
+                        "line": 49,
                         "column": 0
                       },
                       "end": {
-                        "line": 91,
+                        "line": 58,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  The most recent actor referenced via the {@link actor} method\n     *\n     * @private\n     ",
-                    "start": 1818,
-                    "end": 1935,
+                    "value": "*\n     * @desc\n     *  Actors instantiated before the scene has started,\n     *  who will be dismissed when the test run finishes.\n     *\n     * @private\n     ",
+                    "start": 1316,
+                    "end": 1479,
                     "loc": {
                       "start": {
-                        "line": 94,
+                        "line": 61,
                         "column": 4
                       },
                       "end": {
-                        "line": 99,
+                        "line": 67,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1653,
+                "end": 1720,
+                "loc": {
+                  "start": {
+                    "line": 81,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 81,
+                    "column": 71
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -2198,23 +2112,8 @@
                     },
                     "name": "actorsOnBackstage"
                   }
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1940,
-                "end": 1987,
-                "loc": {
-                  "start": {
-                    "line": 100,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 100,
-                    "column": 51
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Actor} \n * @private \n * \\TRUE \n ",
@@ -2248,24 +2147,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @type \n * {CorrelationId} \n * @private \n * \\TRUE \n ",
-                    "start": 1988,
-                    "end": 2086,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 41 \n * @type \n * {Map} \n * @private \n * \\TRUE \n ",
+                    "start": 1558,
+                    "end": 1646,
                     "loc": {
                       "start": {
-                        "line": 101,
+                        "line": 69,
                         "column": 0
                       },
                       "end": {
-                        "line": 110,
+                        "line": 78,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1940,
+                "end": 1987,
+                "loc": {
+                  "start": {
+                    "line": 100,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 100,
+                    "column": 51
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -2349,23 +2263,8 @@
                     "identifierName": "undefined"
                   },
                   "name": "undefined"
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 2093,
-                "end": 2144,
-                "loc": {
-                  "start": {
-                    "line": 113,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 113,
-                    "column": 55
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @type \n * {CorrelationId} \n * @private \n * \\TRUE \n ",
@@ -2383,24 +2282,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @type \n * {CorrelationId} \n * @private \n * \\TRUE \n ",
-                    "start": 2145,
-                    "end": 2243,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Actor} \n * @private \n * \\TRUE \n ",
+                    "start": 1721,
+                    "end": 1811,
                     "loc": {
                       "start": {
-                        "line": 114,
+                        "line": 82,
                         "column": 0
                       },
                       "end": {
-                        "line": 123,
+                        "line": 91,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  The most recent actor referenced via the {@link actor} method\n     *\n     * @private\n     ",
+                    "start": 1818,
+                    "end": 1935,
+                    "loc": {
+                      "start": {
+                        "line": 94,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 2093,
+                "end": 2144,
+                "loc": {
+                  "start": {
+                    "line": 113,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 113,
+                    "column": 55
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -2484,23 +2414,8 @@
                     "identifierName": "undefined"
                   },
                   "name": "undefined"
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 2249,
-                "end": 2316,
-                "loc": {
-                  "start": {
-                    "line": 125,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 125,
-                    "column": 71
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @type \n * {CorrelationId} \n * @private \n * \\TRUE \n ",
@@ -2518,24 +2433,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @param {Cast} cast\n     * @param {StageManager} manager\n     ",
-                    "start": 2322,
-                    "end": 2396,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @type \n * {CorrelationId} \n * @private \n * \\TRUE \n ",
+                    "start": 1988,
+                    "end": 2086,
                     "loc": {
                       "start": {
-                        "line": 127,
-                        "column": 4
+                        "line": 101,
+                        "column": 0
                       },
                       "end": {
-                        "line": 130,
-                        "column": 7
+                        "line": 110,
+                        "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 2249,
+                "end": 2316,
+                "loc": {
+                  "start": {
+                    "line": 125,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 125,
+                    "column": 71
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -2656,23 +2586,8 @@
                       "value": "unknown"
                     }
                   ]
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2401,
-                "end": 2600,
-                "loc": {
-                  "start": {
-                    "line": 131,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 137,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Cast} cast\n     * @param {StageManager} manager\n     ",
@@ -2690,40 +2605,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {string} name \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                    "start": 2601,
-                    "end": 2721,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 52 \n * @type \n * {CorrelationId} \n * @private \n * \\TRUE \n ",
+                    "start": 2145,
+                    "end": 2243,
                     "loc": {
                       "start": {
-                        "line": 138,
+                        "line": 114,
                         "column": 0
                       },
                       "end": {
-                        "line": 149,
+                        "line": 123,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc An alias for {@link Stage#actor}\n     * @see {@link Stage#actor}\n     * @alias {Stage#actor}\n     * @param {string} name\n     * @return {Actor}\n     ",
-                    "start": 2728,
-                    "end": 2896,
-                    "loc": {
-                      "start": {
-                        "line": 152,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 158,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2401,
+                "end": 2600,
+                "loc": {
+                  "start": {
+                    "line": 131,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 137,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3165,23 +3079,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2901,
-                "end": 2977,
-                "loc": {
-                  "start": {
-                    "line": 159,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 161,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {string} name \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
@@ -3215,40 +3114,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 84 \n * @param \n * {string} name \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                    "start": 2978,
-                    "end": 3098,
+                    "value": "*\n     * @param {Cast} cast\n     * @param {StageManager} manager\n     ",
+                    "start": 2322,
+                    "end": 2396,
                     "loc": {
                       "start": {
-                        "line": 162,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 173,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc Instantiates a new {@link Actor} or fetches an existing one\n     * by their name if they've already been instantiated.\n     *\n     * @param {string} name - case-sensitive name of the Actor\n     * @return {Actor}\n     ",
-                    "start": 3105,
-                    "end": 3341,
-                    "loc": {
-                      "start": {
-                        "line": 176,
+                        "line": 127,
                         "column": 4
                       },
                       "end": {
-                        "line": 182,
+                        "line": 130,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2901,
+                "end": 2977,
+                "loc": {
+                  "start": {
+                    "line": 159,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 161,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3482,23 +3380,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3346,
-                "end": 4317,
-                "loc": {
-                  "start": {
-                    "line": 183,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 208,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 84 \n * @param \n * {string} name \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
@@ -3532,40 +3415,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
-                    "start": 4318,
-                    "end": 4410,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {string} name \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                    "start": 2601,
+                    "end": 2721,
                     "loc": {
                       "start": {
-                        "line": 209,
+                        "line": 138,
                         "column": 0
                       },
                       "end": {
-                        "line": 218,
+                        "line": 149,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the last {@link Actor} instantiated via {@link Stage#actor}.\n     *  Useful when you don't can't or choose not to reference the actor by their name.\n     *\n     * @throws {LogicError} if no {Actor} has been activated yet\n     * @return {Actor}\n     ",
-                    "start": 4417,
-                    "end": 4701,
+                    "value": "*\n     * @desc An alias for {@link Stage#actor}\n     * @see {@link Stage#actor}\n     * @alias {Stage#actor}\n     * @param {string} name\n     * @return {Actor}\n     ",
+                    "start": 2728,
+                    "end": 2896,
                     "loc": {
                       "start": {
-                        "line": 221,
+                        "line": 152,
                         "column": 4
                       },
                       "end": {
-                        "line": 228,
+                        "line": 158,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3346,
+                "end": 4317,
+                "loc": {
+                  "start": {
+                    "line": 183,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 208,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4038,40 +3936,6 @@
                                       "column": 52
                                     }
                                   },
-                                  "trailingComments": [
-                                    {
-                                      "type": "CommentLine",
-                                      "value": " todo this.manager.notifyOf(ActorStarts)",
-                                      "start": 3595,
-                                      "end": 3637,
-                                      "loc": {
-                                        "start": {
-                                          "line": 191,
-                                          "column": 16
-                                        },
-                                        "end": {
-                                          "line": 191,
-                                          "column": 58
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "type": "CommentLine",
-                                      "value": " todo: map this in Serenity BDD Reporter so that the \"cast\" is recorded",
-                                      "start": 3654,
-                                      "end": 3727,
-                                      "loc": {
-                                        "start": {
-                                          "line": 192,
-                                          "column": 16
-                                        },
-                                        "end": {
-                                          "line": 192,
-                                          "column": 89
-                                        }
-                                      }
-                                    }
-                                  ],
                                   "expression": {
                                     "type": "AssignmentExpression",
                                     "start": 3541,
@@ -4219,7 +4083,41 @@
                                         }
                                       ]
                                     }
-                                  }
+                                  },
+                                  "trailingComments": [
+                                    {
+                                      "type": "CommentLine",
+                                      "value": " todo this.manager.notifyOf(ActorStarts)",
+                                      "start": 3595,
+                                      "end": 3637,
+                                      "loc": {
+                                        "start": {
+                                          "line": 191,
+                                          "column": 16
+                                        },
+                                        "end": {
+                                          "line": 191,
+                                          "column": 58
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "type": "CommentLine",
+                                      "value": " todo: map this in Serenity BDD Reporter so that the \"cast\" is recorded",
+                                      "start": 3654,
+                                      "end": 3727,
+                                      "loc": {
+                                        "start": {
+                                          "line": 192,
+                                          "column": 16
+                                        },
+                                        "end": {
+                                          "line": 192,
+                                          "column": 89
+                                        }
+                                      }
+                                    }
+                                  ]
                                 }
                               ],
                               "directives": []
@@ -4595,10 +4493,6 @@
                                     "column": 41
                                   }
                                 },
-                                "extra": {
-                                  "parenthesized": true,
-                                  "parenStart": 3952
-                                },
                                 "left": {
                                   "type": "Identifier",
                                   "start": 3953,
@@ -4633,6 +4527,10 @@
                                     "identifierName": "Actor"
                                   },
                                   "name": "Actor"
+                                },
+                                "extra": {
+                                  "parenthesized": true,
+                                  "parenStart": 3952
                                 }
                               }
                             },
@@ -5329,23 +5227,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4706,
-                "end": 5002,
-                "loc": {
-                  "start": {
-                    "line": 229,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 235,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
@@ -5379,40 +5262,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 5003,
-                    "end": 5097,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 84 \n * @param \n * {string} name \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                    "start": 2978,
+                    "end": 3098,
                     "loc": {
                       "start": {
-                        "line": 236,
+                        "line": 162,
                         "column": 0
                       },
                       "end": {
-                        "line": 245,
+                        "line": 173,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns {true} if there is an {@link Actor} in the spotlight, {false} otherwise.\n     *\n     * @return {boolean}\n     ",
-                    "start": 5104,
-                    "end": 5249,
+                    "value": "*\n     * @desc Instantiates a new {@link Actor} or fetches an existing one\n     * by their name if they've already been instantiated.\n     *\n     * @param {string} name - case-sensitive name of the Actor\n     * @return {Actor}\n     ",
+                    "start": 3105,
+                    "end": 3341,
                     "loc": {
                       "start": {
-                        "line": 248,
+                        "line": 176,
                         "column": 4
                       },
                       "end": {
-                        "line": 253,
+                        "line": 182,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4706,
+                "end": 5002,
+                "loc": {
+                  "start": {
+                    "line": 229,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 235,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5750,23 +5648,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5254,
-                "end": 5334,
-                "loc": {
-                  "start": {
-                    "line": 254,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 256,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
@@ -5800,40 +5683,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @param \n * {Cast} actors \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 5335,
-                    "end": 5455,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 119 \n * @return \n * {Actor} \n * @public \n * \\TRUE \n ",
+                    "start": 4318,
+                    "end": 4410,
                     "loc": {
                       "start": {
-                        "line": 257,
+                        "line": 209,
                         "column": 0
                       },
                       "end": {
-                        "line": 268,
+                        "line": 218,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Configures the Stage to prepare {@link Actor}s\n     *  instantiated via {@link Stage#actor} using the provided {@link Cast}.\n     *\n     * @param {Cast} actors\n     * @returns {void}\n     ",
-                    "start": 5462,
-                    "end": 5677,
+                    "value": "*\n     * @desc\n     *  Returns the last {@link Actor} instantiated via {@link Stage#actor}.\n     *  Useful when you don't can't or choose not to reference the actor by their name.\n     *\n     * @throws {LogicError} if no {Actor} has been activated yet\n     * @return {Actor}\n     ",
+                    "start": 4417,
+                    "end": 4701,
                     "loc": {
                       "start": {
-                        "line": 271,
+                        "line": 221,
                         "column": 4
                       },
                       "end": {
-                        "line": 278,
+                        "line": 228,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5254,
+                "end": 5334,
+                "loc": {
+                  "start": {
+                    "line": 254,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 256,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6002,23 +5900,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5682,
-                "end": 5797,
-                "loc": {
-                  "start": {
-                    "line": 279,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 283,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @param \n * {Cast} actors \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -6052,40 +5935,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {UNKNOWN} listeners \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 5798,
-                    "end": 5924,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 133 \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 5003,
+                    "end": 5097,
                     "loc": {
                       "start": {
-                        "line": 284,
+                        "line": 236,
                         "column": 0
                       },
                       "end": {
-                        "line": 295,
+                        "line": 245,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Assigns listeners to be notified of {@link DomainEvent}s\n     *  emitted via {@link Stage#announce}\n     *\n     * @param {ListensToDomainEvents[]} listeners\n     * @returns {void}\n     ",
-                    "start": 5931,
-                    "end": 6143,
+                    "value": "*\n     * @desc\n     *  Returns {true} if there is an {@link Actor} in the spotlight, {false} otherwise.\n     *\n     * @return {boolean}\n     ",
+                    "start": 5104,
+                    "end": 5249,
                     "loc": {
                       "start": {
-                        "line": 298,
+                        "line": 248,
                         "column": 4
                       },
                       "end": {
-                        "line": 305,
+                        "line": 253,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5682,
+                "end": 5797,
+                "loc": {
+                  "start": {
+                    "line": 279,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 283,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6437,23 +6335,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6148,
-                "end": 6252,
-                "loc": {
-                  "start": {
-                    "line": 306,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 308,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {UNKNOWN} listeners \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -6487,40 +6370,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 172 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 6253,
-                    "end": 6379,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 145 \n * @param \n * {Cast} actors \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 5335,
+                    "end": 5455,
                     "loc": {
                       "start": {
-                        "line": 309,
+                        "line": 257,
                         "column": 0
                       },
                       "end": {
-                        "line": 320,
+                        "line": 268,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Notifies all the assigned listeners of the event.\n     *\n     * @listens {DomainEvent}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
-                    "start": 6386,
-                    "end": 6569,
+                    "value": "*\n     * @desc\n     *  Configures the Stage to prepare {@link Actor}s\n     *  instantiated via {@link Stage#actor} using the provided {@link Cast}.\n     *\n     * @param {Cast} actors\n     * @returns {void}\n     ",
+                    "start": 5462,
+                    "end": 5677,
                     "loc": {
                       "start": {
-                        "line": 323,
+                        "line": 271,
                         "column": 4
                       },
                       "end": {
-                        "line": 331,
+                        "line": 278,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6148,
+                "end": 6252,
+                "loc": {
+                  "start": {
+                    "line": 306,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 308,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6832,23 +6730,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6574,
-                "end": 7033,
-                "loc": {
-                  "start": {
-                    "line": 332,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 348,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 172 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
@@ -6882,40 +6765,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 197 \n * @return \n * {Timestamp} \n * @public \n * \\TRUE \n ",
-                    "start": 7034,
-                    "end": 7130,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 159 \n * @param \n * {UNKNOWN} listeners \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 5798,
+                    "end": 5924,
                     "loc": {
                       "start": {
-                        "line": 349,
+                        "line": 284,
                         "column": 0
                       },
                       "end": {
-                        "line": 358,
+                        "line": 295,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns current time. This method should be used whenever\n     *  {@link DomainEvent} objects are instantiated by hand.\n     *\n     * @returns {Timestamp}\n     ",
-                    "start": 7137,
-                    "end": 7324,
+                    "value": "*\n     * @desc\n     *  Assigns listeners to be notified of {@link DomainEvent}s\n     *  emitted via {@link Stage#announce}\n     *\n     * @param {ListensToDomainEvents[]} listeners\n     * @returns {void}\n     ",
+                    "start": 5931,
+                    "end": 6143,
                     "loc": {
                       "start": {
-                        "line": 361,
+                        "line": 298,
                         "column": 4
                       },
                       "end": {
-                        "line": 367,
+                        "line": 305,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6574,
+                "end": 7033,
+                "loc": {
+                  "start": {
+                    "line": 332,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 348,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -7944,23 +7842,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7329,
-                "end": 7404,
-                "loc": {
-                  "start": {
-                    "line": 368,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 370,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 197 \n * @return \n * {Timestamp} \n * @public \n * \\TRUE \n ",
@@ -7994,40 +7877,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 213 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
-                    "start": 7405,
-                    "end": 7505,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 172 \n * @param \n * {DomainEvent} event \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 6253,
+                    "end": 6379,
                     "loc": {
                       "start": {
-                        "line": 371,
+                        "line": 309,
                         "column": 0
                       },
                       "end": {
-                        "line": 380,
+                        "line": 320,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates and remembers a {@link CorrelationId}\n     *  for the current scene.\n     *\n     *  This method should be used in custom test runner adapters\n     *  when instantiating a {@link SceneStarts} event.\n     *\n     * @see {@link Stage#currentSceneId}\n     *\n     * @returns {CorrelationId}\n     ",
-                    "start": 7512,
-                    "end": 7839,
+                    "value": "*\n     * @desc\n     *  Notifies all the assigned listeners of the event.\n     *\n     * @listens {DomainEvent}\n     *\n     * @param {DomainEvent} event\n     * @returns {void}\n     ",
+                    "start": 6386,
+                    "end": 6569,
                     "loc": {
                       "start": {
-                        "line": 383,
+                        "line": 323,
                         "column": 4
                       },
                       "end": {
-                        "line": 394,
+                        "line": 331,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7329,
+                "end": 7404,
+                "loc": {
+                  "start": {
+                    "line": 368,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 370,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -8228,23 +8126,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7844,
-                "end": 8036,
-                "loc": {
-                  "start": {
-                    "line": 395,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 400,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 213 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
@@ -8278,40 +8161,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 228 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
-                    "start": 8037,
-                    "end": 8137,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 197 \n * @return \n * {Timestamp} \n * @public \n * \\TRUE \n ",
+                    "start": 7034,
+                    "end": 7130,
                     "loc": {
                       "start": {
-                        "line": 401,
+                        "line": 349,
                         "column": 0
                       },
                       "end": {
-                        "line": 410,
+                        "line": 358,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the {@link CorrelationId} for the current scene.\n     *\n     * @see {@link Stage#assignNewSceneId}\n     *\n     * @returns {CorrelationId}\n     ",
-                    "start": 8144,
-                    "end": 8322,
+                    "value": "*\n     * @desc\n     *  Returns current time. This method should be used whenever\n     *  {@link DomainEvent} objects are instantiated by hand.\n     *\n     * @returns {Timestamp}\n     ",
+                    "start": 7137,
+                    "end": 7324,
                     "loc": {
                       "start": {
-                        "line": 413,
+                        "line": 361,
                         "column": 4
                       },
                       "end": {
-                        "line": 420,
+                        "line": 367,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7844,
+                "end": 8036,
+                "loc": {
+                  "start": {
+                    "line": 395,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 400,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -8412,24 +8310,6 @@
                           "column": 51
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " todo: inject an id factory to make it easier to test",
-                          "start": 7888,
-                          "end": 7943,
-                          "loc": {
-                            "start": {
-                              "line": 396,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 396,
-                              "column": 63
-                            }
-                          }
-                        }
-                      ],
                       "expression": {
                         "type": "AssignmentExpression",
                         "start": 7952,
@@ -8559,7 +8439,25 @@
                           },
                           "arguments": []
                         }
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " todo: inject an id factory to make it easier to test",
+                          "start": 7888,
+                          "end": 7943,
+                          "loc": {
+                            "start": {
+                              "line": 396,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 396,
+                              "column": 63
+                            }
+                          }
+                        }
+                      ]
                     },
                     {
                       "type": "ReturnStatement",
@@ -8626,23 +8524,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8327,
-                "end": 8400,
-                "loc": {
-                  "start": {
-                    "line": 421,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 423,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 228 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
@@ -8676,40 +8559,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
-                    "start": 8401,
-                    "end": 8501,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 213 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
+                    "start": 7405,
+                    "end": 7505,
                     "loc": {
                       "start": {
-                        "line": 424,
+                        "line": 371,
                         "column": 0
                       },
                       "end": {
-                        "line": 433,
+                        "line": 380,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates and remembers a {@link CorrelationId}\n     *  for the current {@link Activity}.\n     *\n     *  This method should be used in custom test runner adapters\n     *  when instantiating an {@link ActivityStarts} event.\n     *\n     * @see {@link Stage#currentActivityId}\n     *\n     * @returns {CorrelationId}\n     ",
-                    "start": 8508,
-                    "end": 8853,
+                    "value": "*\n     * @desc\n     *  Generates and remembers a {@link CorrelationId}\n     *  for the current scene.\n     *\n     *  This method should be used in custom test runner adapters\n     *  when instantiating a {@link SceneStarts} event.\n     *\n     * @see {@link Stage#currentSceneId}\n     *\n     * @returns {CorrelationId}\n     ",
+                    "start": 7512,
+                    "end": 7839,
                     "loc": {
                       "start": {
-                        "line": 436,
+                        "line": 383,
                         "column": 4
                       },
                       "end": {
-                        "line": 447,
+                        "line": 394,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8327,
+                "end": 8400,
+                "loc": {
+                  "start": {
+                    "line": 421,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 423,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -8861,23 +8759,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8858,
-                "end": 9059,
-                "loc": {
-                  "start": {
-                    "line": 448,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 453,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
@@ -8911,40 +8794,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 259 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
-                    "start": 9060,
-                    "end": 9160,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 228 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
+                    "start": 8037,
+                    "end": 8137,
                     "loc": {
                       "start": {
-                        "line": 454,
+                        "line": 401,
                         "column": 0
                       },
                       "end": {
-                        "line": 463,
+                        "line": 410,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the {@link CorrelationId} for the current {@link Activity}.\n     *\n     * @see {@link Stage#assignNewSceneId}\n     *\n     * @returns {CorrelationId}\n     ",
-                    "start": 9167,
-                    "end": 9356,
+                    "value": "*\n     * @desc\n     *  Returns the {@link CorrelationId} for the current scene.\n     *\n     * @see {@link Stage#assignNewSceneId}\n     *\n     * @returns {CorrelationId}\n     ",
+                    "start": 8144,
+                    "end": 8322,
                     "loc": {
                       "start": {
-                        "line": 466,
+                        "line": 413,
                         "column": 4
                       },
                       "end": {
-                        "line": 473,
+                        "line": 420,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8858,
+                "end": 9059,
+                "loc": {
+                  "start": {
+                    "line": 448,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 453,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -9045,24 +8943,6 @@
                           "column": 54
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " todo: inject an id factory to make it easier to test",
-                          "start": 8905,
-                          "end": 8960,
-                          "loc": {
-                            "start": {
-                              "line": 449,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 449,
-                              "column": 63
-                            }
-                          }
-                        }
-                      ],
                       "expression": {
                         "type": "AssignmentExpression",
                         "start": 8969,
@@ -9192,7 +9072,25 @@
                           },
                           "arguments": []
                         }
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " todo: inject an id factory to make it easier to test",
+                          "start": 8905,
+                          "end": 8960,
+                          "loc": {
+                            "start": {
+                              "line": 449,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 449,
+                              "column": 63
+                            }
+                          }
+                        }
+                      ]
                     },
                     {
                       "type": "ReturnStatement",
@@ -9259,23 +9157,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 9361,
-                "end": 9626,
-                "loc": {
-                  "start": {
-                    "line": 474,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 480,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 259 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
@@ -9309,40 +9192,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 274 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 9627,
-                    "end": 9721,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
+                    "start": 8401,
+                    "end": 8501,
                     "loc": {
                       "start": {
-                        "line": 481,
+                        "line": 424,
                         "column": 0
                       },
                       "end": {
-                        "line": 490,
+                        "line": 433,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns a Promise that will be resolved when any asynchronous\n     *  post-processing activities performed by Serenity/JS are completed.\n     *\n     * @returns {Promise<void>}\n     ",
-                    "start": 9728,
-                    "end": 9936,
+                    "value": "*\n     * @desc\n     *  Generates and remembers a {@link CorrelationId}\n     *  for the current {@link Activity}.\n     *\n     *  This method should be used in custom test runner adapters\n     *  when instantiating an {@link ActivityStarts} event.\n     *\n     * @see {@link Stage#currentActivityId}\n     *\n     * @returns {CorrelationId}\n     ",
+                    "start": 8508,
+                    "end": 8853,
                     "loc": {
                       "start": {
-                        "line": 493,
+                        "line": 436,
                         "column": 4
                       },
                       "end": {
-                        "line": 499,
+                        "line": 447,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 9361,
+                "end": 9626,
+                "loc": {
+                  "start": {
+                    "line": 474,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 480,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -9680,23 +9578,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 9941,
-                "end": 10026,
-                "loc": {
-                  "start": {
-                    "line": 500,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 502,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 274 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -9730,24 +9613,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 278 \n * @param \n * {string} name \n * @return \n * {Actor | undefined} \n * @private \n * \\TRUE \n ",
-                    "start": 10027,
-                    "end": 10161,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 259 \n * @return \n * {CorrelationId} \n * @public \n * \\TRUE \n ",
+                    "start": 9060,
+                    "end": 9160,
                     "loc": {
                       "start": {
-                        "line": 503,
+                        "line": 454,
                         "column": 0
                       },
                       "end": {
-                        "line": 514,
+                        "line": 463,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns the {@link CorrelationId} for the current {@link Activity}.\n     *\n     * @see {@link Stage#assignNewSceneId}\n     *\n     * @returns {CorrelationId}\n     ",
+                    "start": 9167,
+                    "end": 9356,
+                    "loc": {
+                      "start": {
+                        "line": 466,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 473,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 9941,
+                "end": 10026,
+                "loc": {
+                  "start": {
+                    "line": 500,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 502,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -9980,23 +9894,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 10168,
-                "end": 10383,
-                "loc": {
-                  "start": {
-                    "line": 517,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 521,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 278 \n * @param \n * {string} name \n * @return \n * {Actor | undefined} \n * @private \n * \\TRUE \n ",
@@ -10014,24 +9913,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 284 \n * @param \n * {Map} activeActors \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 10384,
-                    "end": 10513,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 274 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 9627,
+                    "end": 9721,
                     "loc": {
                       "start": {
-                        "line": 522,
+                        "line": 481,
                         "column": 0
                       },
                       "end": {
-                        "line": 533,
+                        "line": 490,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns a Promise that will be resolved when any asynchronous\n     *  post-processing activities performed by Serenity/JS are completed.\n     *\n     * @returns {Promise<void>}\n     ",
+                    "start": 9728,
+                    "end": 9936,
+                    "loc": {
+                      "start": {
+                        "line": 493,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 499,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 10168,
+                "end": 10383,
+                "loc": {
+                  "start": {
+                    "line": 517,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 521,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -10576,23 +10506,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 10520,
-                "end": 11633,
-                "loc": {
-                  "start": {
-                    "line": 536,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 564,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 284 \n * @param \n * {Map} activeActors \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -10610,40 +10525,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 318 \n * @param \n * {Cast} cast \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
-                    "start": 11634,
-                    "end": 11755,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 278 \n * @param \n * {string} name \n * @return \n * {Actor | undefined} \n * @private \n * \\TRUE \n ",
+                    "start": 10027,
+                    "end": 10161,
                     "loc": {
                       "start": {
-                        "line": 565,
+                        "line": 503,
                         "column": 0
                       },
                       "end": {
-                        "line": 576,
+                        "line": 514,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @private\n     * @param {Cast} cast\n     ",
-                    "start": 11762,
-                    "end": 11815,
-                    "loc": {
-                      "start": {
-                        "line": 579,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 582,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 10520,
+                "end": 11633,
+                "loc": {
+                  "start": {
+                    "line": 536,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 564,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -12062,9 +11976,6 @@
                                                 "column": 21
                                               }
                                             },
-                                            "extra": {
-                                              "trailingComma": 11505
-                                            },
                                             "callee": {
                                               "type": "MemberExpression",
                                               "start": 11104,
@@ -12593,6 +12504,9 @@
                                                 "name": "catch"
                                               }
                                             },
+                                            "extra": {
+                                              "trailingComma": 11505
+                                            },
                                             "arguments": [
                                               {
                                                 "type": "ArrowFunctionExpression",
@@ -12608,24 +12522,6 @@
                                                     "column": 74
                                                   }
                                                 },
-                                                "trailingComments": [
-                                                  {
-                                                    "type": "CommentLine",
-                                                    "value": " todo: serialise the error!",
-                                                    "start": 11511,
-                                                    "end": 11540,
-                                                    "loc": {
-                                                      "start": {
-                                                        "line": 559,
-                                                        "column": 80
-                                                      },
-                                                      "end": {
-                                                        "line": 559,
-                                                        "column": 109
-                                                      }
-                                                    }
-                                                  }
-                                                ],
                                                 "id": null,
                                                 "generator": false,
                                                 "async": false,
@@ -12780,7 +12676,25 @@
                                                       ]
                                                     }
                                                   ]
-                                                }
+                                                },
+                                                "trailingComments": [
+                                                  {
+                                                    "type": "CommentLine",
+                                                    "value": " todo: serialise the error!",
+                                                    "start": 11511,
+                                                    "end": 11540,
+                                                    "loc": {
+                                                      "start": {
+                                                        "line": 559,
+                                                        "column": 80
+                                                      },
+                                                      "end": {
+                                                        "line": 559,
+                                                        "column": 109
+                                                      }
+                                                    }
+                                                  }
+                                                ]
                                               }
                                             ]
                                           }
@@ -12903,23 +12817,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 11820,
-                "end": 11973,
-                "loc": {
-                  "start": {
-                    "line": 583,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 587,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 318 \n * @param \n * {Cast} cast \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
@@ -12953,6 +12852,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 284 \n * @param \n * {Map} activeActors \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 10384,
+                    "end": 10513,
+                    "loc": {
+                      "start": {
+                        "line": 522,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 533,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 11820,
+                "end": 11973,
+                "loc": {
+                  "start": {
+                    "line": 583,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 587,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -13368,7 +13300,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 318 \n * @param \n * {Cast} cast \n * @return \n * {string} \n * @private \n * \\TRUE \n ",
+                    "start": 11634,
+                    "end": 11755,
+                    "loc": {
+                      "start": {
+                        "line": 565,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 576,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @private\n     * @param {Cast} cast\n     ",
+                    "start": 11762,
+                    "end": 11815,
+                    "loc": {
+                      "start": {
+                        "line": 579,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 582,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -13407,7 +13373,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
+            "start": 506,
+            "end": 551,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The place where {@link Actor}s perform.\n *\n *  In more technical terms, the Stage is the main event bus propagating {@link DomainEvent}s\n *  to {@link Actor}s it instantiates and {@link StageCrewMember}s that have been registered with it.\n *\n * @see {@link configure}\n * @see {@link engage}\n ",
+            "start": 554,
+            "end": 865,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 27,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

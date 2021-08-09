@@ -588,40 +588,6 @@
             "column": 48
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n ",
-            "start": 289,
-            "end": 334,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Resolves to an array of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)\n *  of a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>.\n *\n * @example <caption>Example widget</caption>\n *  <ul id=\"shopping-list\" class=\"active favourite\">\n *    <li class=\"bought\">Coffee<li>\n *    <li class=\"buy\">Honey<li>\n *    <li class=\"buy\">Chocolate<li>\n *  </ul>\n *\n * @example <caption>Retrieve CSS classes of a given WebElement</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, CSSClasses, Target } from '@serenity-js/webdriverio';\n *\n *  const shoppingList = () =>\n *      Target.the('shopping list').located(by.id('shopping-list'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(CSSClasses.of(shoppingList()), equals([ 'active', 'favourite' ])),\n *      )\n *\n * @example <caption>Find WebElements with a given class</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, contain } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, CSSClasses, Target } from '@serenity-js/webdriverio';\n *\n *  class ShoppingList {\n *      static items = () =>\n *          Target.all('items')\n *              .located(by.css('#shopping-list li'))\n *\n *      static outstandingItems = () =>\n *          ShoppingList.items\n *              .where(CSSClasses, contain('buy'))\n *  }\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              Text.ofAll(ShoppingList.outstandingItems()),\n *              equals([ 'Honey', 'Chocolate' ])\n *          ),\n *      )\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n ",
-            "start": 337,
-            "end": 2285,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 67,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -693,23 +659,8 @@
             "raw": "'./targets'"
           },
           "value": "./targets"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2286,
-        "end": 4725,
-        "loc": {
-          "start": {
-            "line": 68,
-            "column": 0
-          },
-          "end": {
-            "line": 164,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n ",
@@ -742,7 +693,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2286,
+        "end": 4725,
+        "loc": {
+          "start": {
+            "line": 68,
+            "column": 0
+          },
+          "end": {
+            "line": 164,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1182,58 +1148,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @param \n * {Answerable} target \n * @return \n * {CSSClasses} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2429,
-                    "end": 2582,
-                    "loc": {
-                      "start": {
-                        "line": 72,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 85,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Question<Element<'async'>> | Element<'async'>} target\n     * @returns {CSSClasses}\n     ",
-                    "start": 2588,
-                    "end": 2697,
-                    "loc": {
-                      "start": {
-                        "line": 87,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 90,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Question<Element<'async'>> | Element<'async'>} target\n     ",
-                    "start": 2814,
-                    "end": 2894,
-                    "loc": {
-                      "start": {
-                        "line": 95,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 97,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1554,23 +1468,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2899,
-                "end": 3027,
-                "loc": {
-                  "start": {
-                    "line": 98,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 100,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Question<Element<'async'>> | Element<'async'>} target\n     ",
@@ -1588,40 +1487,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 3028,
-                    "end": 3157,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 69 \n * @param \n * {Answerable} target \n * @return \n * {CSSClasses} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2429,
+                    "end": 2582,
                     "loc": {
                       "start": {
-                        "line": 101,
+                        "line": 72,
                         "column": 0
                       },
                       "end": {
-                        "line": 112,
+                        "line": 85,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Resolves to an array of CSS classes of the `target` element,\n     *  located in the context of a `parent` element.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} parent\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Target.all}\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
-                    "start": 3164,
-                    "end": 3563,
+                    "value": "*\n     * @param {Question<Element<'async'>> | Element<'async'>} target\n     * @returns {CSSClasses}\n     ",
+                    "start": 2588,
+                    "end": 2697,
                     "loc": {
                       "start": {
-                        "line": 115,
+                        "line": 87,
                         "column": 4
                       },
                       "end": {
-                        "line": 125,
+                        "line": 90,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2899,
+                "end": 3027,
+                "loc": {
+                  "start": {
+                    "line": 98,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 100,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2001,23 +1915,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3568,
-                "end": 3722,
-                "loc": {
-                  "start": {
-                    "line": 126,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 128,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -2051,40 +1950,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 107 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 3723,
-                    "end": 3873,
+                    "value": "*\n     * @param {Question<Element<'async'>> | Element<'async'>} target\n     ",
+                    "start": 2814,
+                    "end": 2894,
                     "loc": {
                       "start": {
-                        "line": 129,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 140,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
-                    "start": 3880,
-                    "end": 4370,
-                    "loc": {
-                      "start": {
-                        "line": 143,
+                        "line": 95,
                         "column": 4
                       },
                       "end": {
-                        "line": 154,
+                        "line": 97,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3568,
+                "end": 3722,
+                "loc": {
+                  "start": {
+                    "line": 126,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 128,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2583,23 +2481,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4375,
-                "end": 4723,
-                "loc": {
-                  "start": {
-                    "line": 155,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 163,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 107 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2633,6 +2516,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 3028,
+                    "end": 3157,
+                    "loc": {
+                      "start": {
+                        "line": 101,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 112,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Resolves to an array of CSS classes of the `target` element,\n     *  located in the context of a `parent` element.\n     *\n     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} parent\n     * @returns {Question<Promise<string[]>>}\n     *\n     * @see {@link Target.all}\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
+                    "start": 3164,
+                    "end": 3563,
+                    "loc": {
+                      "start": {
+                        "line": 115,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 125,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4375,
+                "end": 4723,
+                "loc": {
+                  "start": {
+                    "line": 155,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 163,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2907,9 +2839,6 @@
                             "line": 162,
                             "column": 13
                           }
-                        },
-                        "extra": {
-                          "trailingComma": 4701
                         },
                         "callee": {
                           "type": "MemberExpression",
@@ -3195,6 +3124,9 @@
                             },
                             "name": "then"
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 4701
                         },
                         "arguments": [
                           {
@@ -3603,7 +3535,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 107 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 3723,
+                    "end": 3873,
+                    "loc": {
+                      "start": {
+                        "line": 129,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 140,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     ",
+                    "start": 3880,
+                    "end": 4370,
+                    "loc": {
+                      "start": {
+                        "line": 143,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 154,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3642,7 +3608,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 61 \n ",
+            "start": 289,
+            "end": 334,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Resolves to an array of [CSS classes](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes#attr-class)\n *  of a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>.\n *\n * @example <caption>Example widget</caption>\n *  <ul id=\"shopping-list\" class=\"active favourite\">\n *    <li class=\"bought\">Coffee<li>\n *    <li class=\"buy\">Honey<li>\n *    <li class=\"buy\">Chocolate<li>\n *  </ul>\n *\n * @example <caption>Retrieve CSS classes of a given WebElement</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, CSSClasses, Target } from '@serenity-js/webdriverio';\n *\n *  const shoppingList = () =>\n *      Target.the('shopping list').located(by.id('shopping-list'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(CSSClasses.of(shoppingList()), equals([ 'active', 'favourite' ])),\n *      )\n *\n * @example <caption>Find WebElements with a given class</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, contain } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, CSSClasses, Target } from '@serenity-js/webdriverio';\n *\n *  class ShoppingList {\n *      static items = () =>\n *          Target.all('items')\n *              .located(by.css('#shopping-list li'))\n *\n *      static outstandingItems = () =>\n *          ShoppingList.items\n *              .where(CSSClasses, contain('buy'))\n *  }\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              Text.ofAll(ShoppingList.outstandingItems()),\n *              equals([ 'Honey', 'Chocolate' ])\n *          ),\n *      )\n *\n * @extends {@serenity-js/core/lib/screenplay~Question}\n * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}\n ",
+            "start": 337,
+            "end": 2285,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 67,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

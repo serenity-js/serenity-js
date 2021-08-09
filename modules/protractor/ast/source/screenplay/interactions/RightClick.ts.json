@@ -637,40 +637,6 @@
             "column": 47
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n ",
-            "start": 312,
-            "end": 357,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\r\n * @desc\r\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\r\n *  perfom a right click on a given Web element.\r\n *\r\n *  This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)\r\n *  on a given Web element, since it's not possible to interact with the standard context menu offered by your browser\r\n *\r\n * @example <caption>Example widget</caption>\r\n *  <form>\r\n *    <input type=\"text\" id=\"field\"\r\n *      oncontextmenu=\"showMenu(); return false;\" />\r\n *\r\n *    <div id=\"context-menu\" style=\"display:none\">\r\n *      Custom context menu\r\n *    </div>\r\n *  </form>\r\n *\r\n *  <script>\r\n *    function showMenu() {\r\n *      document.getElementById(\"context-menu\").style.display = 'block';\r\n *    }\r\n *  </script>\r\n *\r\n * @example <caption>Lean Page Object describing the widget</caption>\r\n *  import { Target } from '@serenity-js/protractor';\r\n *  import { by } from 'protractor';\r\n *\r\n *  class Form {\r\n *      static exampleInput = Target.the('example input')\r\n *          .located(by.id('example'));\r\n *      static exampleContextMenu = Target.the('example context menu')\r\n *          .located(by.id('context-menu'));\r\n *  }\r\n *\r\n * @example <caption>Right-click on an element</caption>\r\n *  import { actorCalled } from '@serenity-js/core';\r\n *  import { BrowseTheWeb, RightClick, isVisible } from '@serenity-js/protractor';\r\n *  import { Ensure } from '@serenity-js/assertions';\r\n *  import { protractor } from 'protractor';\r\n *\r\n *  actorCalled('Chloé')\r\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\r\n *      .attemptsTo(\r\n *          RightClick.on(Form.exampleInput),\r\n *          Ensure.that(Form.exampleContextMenu, isVisible()),\r\n *      );\r\n *\r\n * @see {@link BrowseTheWeb}\r\n * @see {@link Target}\r\n * @see {@link @serenity-js/assertions~Ensure}\r\n * @see {@link isVisible}\r\n *\r\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\r\n ",
-            "start": 362,
-            "end": 2315,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 69,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -742,23 +708,8 @@
             "raw": "'../withAnswerOf'"
           },
           "value": "../withAnswerOf"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2317,
-        "end": 4714,
-        "loc": {
-          "start": {
-            "line": 70,
-            "column": 0
-          },
-          "end": {
-            "line": 160,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n ",
@@ -791,7 +742,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2317,
+        "end": 4714,
+        "loc": {
+          "start": {
+            "line": 70,
+            "column": 0
+          },
+          "end": {
+            "line": 160,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -872,58 +838,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2363,
-                    "end": 2531,
-                    "loc": {
-                      "start": {
-                        "line": 71,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 84,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\r\n     * @desc\r\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\r\n     *\r\n     * @param {Question<ElementFinder> | ElementFinder} target\r\n     *  The element to be right clicked on\r\n     *\r\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\r\n     ",
-                    "start": 2538,
-                    "end": 2833,
-                    "loc": {
-                      "start": {
-                        "line": 86,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 94,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\r\n     * @param {Question<ElementFinder> | ElementFinder} target\r\n     *  The element to be right clicked on\r\n     ",
-                    "start": 2967,
-                    "end": 3087,
-                    "loc": {
-                      "start": {
-                        "line": 99,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 102,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1241,23 +1155,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3093,
-                "end": 3197,
-                "loc": {
-                  "start": {
-                    "line": 103,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 105,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\r\n     * @param {Question<ElementFinder> | ElementFinder} target\r\n     *  The element to be right clicked on\r\n     ",
@@ -1275,40 +1174,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 3198,
-                    "end": 3351,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2363,
+                    "end": 2531,
                     "loc": {
                       "start": {
-                        "line": 106,
+                        "line": 71,
                         "column": 0
                       },
                       "end": {
-                        "line": 117,
+                        "line": 84,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\r\n     * @desc\r\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\r\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\r\n     *\r\n     * @param {UsesAbilities & AnswersQuestions} actor\r\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\r\n     *\r\n     * @returns {PromiseLike<void>}\r\n     *\r\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\r\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\r\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\r\n     ",
-                    "start": 3360,
-                    "end": 4011,
+                    "value": "*\r\n     * @desc\r\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\r\n     *\r\n     * @param {Question<ElementFinder> | ElementFinder} target\r\n     *  The element to be right clicked on\r\n     *\r\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\r\n     ",
+                    "start": 2538,
+                    "end": 2833,
                     "loc": {
                       "start": {
-                        "line": 120,
+                        "line": 86,
                         "column": 4
                       },
                       "end": {
-                        "line": 133,
+                        "line": 94,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3093,
+                "end": 3197,
+                "loc": {
+                  "start": {
+                    "line": 103,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 105,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1576,23 +1490,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4017,
-                "end": 4334,
-                "loc": {
-                  "start": {
-                    "line": 134,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 138,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1626,40 +1525,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 4335,
-                    "end": 4428,
+                    "value": "*\r\n     * @param {Question<ElementFinder> | ElementFinder} target\r\n     *  The element to be right clicked on\r\n     ",
+                    "start": 2967,
+                    "end": 3087,
                     "loc": {
                       "start": {
-                        "line": 139,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 148,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\r\n     * @desc\r\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\r\n     *\r\n     * @returns {string}\r\n     ",
-                    "start": 4437,
-                    "end": 4612,
-                    "loc": {
-                      "start": {
-                        "line": 151,
+                        "line": 99,
                         "column": 4
                       },
                       "end": {
-                        "line": 156,
+                        "line": 102,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4017,
+                "end": 4334,
+                "loc": {
+                  "start": {
+                    "line": 134,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 138,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2725,23 +2623,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4618,
-                "end": 4711,
-                "loc": {
-                  "start": {
-                    "line": 157,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 159,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2775,6 +2658,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 99 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 3198,
+                    "end": 3351,
+                    "loc": {
+                      "start": {
+                        "line": 106,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 117,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\r\n     * @desc\r\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\r\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\r\n     *\r\n     * @param {UsesAbilities & AnswersQuestions} actor\r\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\r\n     *\r\n     * @returns {PromiseLike<void>}\r\n     *\r\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\r\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\r\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\r\n     ",
+                    "start": 3360,
+                    "end": 4011,
+                    "loc": {
+                      "start": {
+                        "line": 120,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 133,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4618,
+                "end": 4711,
+                "loc": {
+                  "start": {
+                    "line": 157,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 159,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3000,7 +2932,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 111 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4335,
+                    "end": 4428,
+                    "loc": {
+                      "start": {
+                        "line": 139,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 148,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\r\n     * @desc\r\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\r\n     *\r\n     * @returns {string}\r\n     ",
+                    "start": 4437,
+                    "end": 4612,
+                    "loc": {
+                      "start": {
+                        "line": 151,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 156,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3039,7 +3005,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n ",
+            "start": 312,
+            "end": 357,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\r\n * @desc\r\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\r\n *  perfom a right click on a given Web element.\r\n *\r\n *  This is typically used to open a [custom context menu](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event)\r\n *  on a given Web element, since it's not possible to interact with the standard context menu offered by your browser\r\n *\r\n * @example <caption>Example widget</caption>\r\n *  <form>\r\n *    <input type=\"text\" id=\"field\"\r\n *      oncontextmenu=\"showMenu(); return false;\" />\r\n *\r\n *    <div id=\"context-menu\" style=\"display:none\">\r\n *      Custom context menu\r\n *    </div>\r\n *  </form>\r\n *\r\n *  <script>\r\n *    function showMenu() {\r\n *      document.getElementById(\"context-menu\").style.display = 'block';\r\n *    }\r\n *  </script>\r\n *\r\n * @example <caption>Lean Page Object describing the widget</caption>\r\n *  import { Target } from '@serenity-js/protractor';\r\n *  import { by } from 'protractor';\r\n *\r\n *  class Form {\r\n *      static exampleInput = Target.the('example input')\r\n *          .located(by.id('example'));\r\n *      static exampleContextMenu = Target.the('example context menu')\r\n *          .located(by.id('context-menu'));\r\n *  }\r\n *\r\n * @example <caption>Right-click on an element</caption>\r\n *  import { actorCalled } from '@serenity-js/core';\r\n *  import { BrowseTheWeb, RightClick, isVisible } from '@serenity-js/protractor';\r\n *  import { Ensure } from '@serenity-js/assertions';\r\n *  import { protractor } from 'protractor';\r\n *\r\n *  actorCalled('Chloé')\r\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\r\n *      .attemptsTo(\r\n *          RightClick.on(Form.exampleInput),\r\n *          Ensure.that(Form.exampleContextMenu, isVisible()),\r\n *      );\r\n *\r\n * @see {@link BrowseTheWeb}\r\n * @see {@link Target}\r\n * @see {@link @serenity-js/assertions~Ensure}\r\n * @see {@link isVisible}\r\n *\r\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\r\n ",
+            "start": 362,
+            "end": 2315,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 69,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -44,24 +44,6 @@
             "column": 84
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file covered in integration tests ",
-            "start": 0,
-            "end": 55,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 55
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -231,7 +213,25 @@
             "raw": "'@serenity-js/core/lib/io'"
           },
           "value": "@serenity-js/core/lib/io"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file covered in integration tests ",
+            "start": 0,
+            "end": 55,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 55
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -606,40 +606,6 @@
             "column": 69
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
-            "start": 412,
-            "end": 457,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Allows for programmatic execution of Cucumber test scenarios.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n ",
-            "start": 460,
-            "end": 605,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -760,23 +726,8 @@
             "raw": "'./output'"
           },
           "value": "./output"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 606,
-        "end": 7439,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 332,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
@@ -809,41 +760,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 166 \n * @param \n * {OutputDescriptor} output \n * @return \n * {Function} \n ",
-            "start": 7440,
-            "end": 7554,
-            "loc": {
-              "start": {
-                "line": 333,
-                "column": 0
-              },
-              "end": {
-                "line": 342,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 606,
+        "end": 7439,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n ",
-            "start": 7557,
-            "end": 7576,
-            "loc": {
-              "start": {
-                "line": 345,
-                "column": 0
-              },
-              "end": {
-                "line": 347,
-                "column": 3
-              }
-            }
+          "end": {
+            "line": 332,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -942,42 +874,6 @@
                     "column": 44
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
-                    "start": 669,
-                    "end": 761,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @type \n * {CucumberOptions} \n * @private \n * \\TRUE \n ",
-                    "start": 809,
-                    "end": 909,
-                    "loc": {
-                      "start": {
-                        "line": 36,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 45,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -1058,23 +954,8 @@
                     }
                   },
                   "elements": []
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 916,
-                "end": 958,
-                "loc": {
-                  "start": {
-                    "line": 48,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 48,
-                    "column": 46
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @type \n * {CucumberOptions} \n * @private \n * \\TRUE \n ",
@@ -1092,24 +973,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     * @param {SerenityFormatterOutput} output\n     *\n     * @see {@link CucumberConfig}\n     ",
-                    "start": 964,
-                    "end": 1196,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {UNKNOWN} \n * @private \n * \\TRUE \n ",
+                    "start": 669,
+                    "end": 761,
                     "loc": {
                       "start": {
-                        "line": 50,
-                        "column": 4
+                        "line": 23,
+                        "column": 0
                       },
                       "end": {
-                        "line": 56,
-                        "column": 7
+                        "line": 32,
+                        "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 916,
+                "end": 958,
+                "loc": {
+                  "start": {
+                    "line": 48,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 48,
+                    "column": 46
+                  }
+                },
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -1178,23 +1074,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1201,
-                "end": 1416,
-                "loc": {
-                  "start": {
-                    "line": 57,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 63,
-                    "column": 5
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     * @param {SerenityFormatterOutput} output\n     *\n     * @see {@link CucumberConfig}\n     ",
@@ -1212,40 +1093,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 42 \n * @return \n * {Outcome | undefined} \n * @public \n * \\TRUE \n ",
-                    "start": 1417,
-                    "end": 1522,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @type \n * {CucumberOptions} \n * @private \n * \\TRUE \n ",
+                    "start": 809,
+                    "end": 909,
                     "loc": {
                       "start": {
-                        "line": 64,
+                        "line": 36,
                         "column": 0
                       },
                       "end": {
-                        "line": 73,
+                        "line": 45,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}\n     *\n     * @returns {Outcome | { Code: number }}\n     ",
-                    "start": 1529,
-                    "end": 1705,
-                    "loc": {
-                      "start": {
-                        "line": 76,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 81,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1201,
+                "end": 1416,
+                "loc": {
+                  "start": {
+                    "line": 57,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 63,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1644,23 +1524,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1710,
-                "end": 1963,
-                "loc": {
-                  "start": {
-                    "line": 82,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 97,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 42 \n * @return \n * {Outcome | undefined} \n * @public \n * \\TRUE \n ",
@@ -1694,40 +1559,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 1964,
-                    "end": 2099,
+                    "value": "*\n     * @param {@serenity-js/core/lib/io~Config<CucumberConfig>} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     * @param {SerenityFormatterOutput} output\n     *\n     * @see {@link CucumberConfig}\n     ",
+                    "start": 964,
+                    "end": 1196,
                     "loc": {
                       "start": {
-                        "line": 98,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 109,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Loads feature files.\n     *\n     * @param {string[]} pathsToScenarios\n     *  Absolute or relative paths to feature files\n     *\n     * @returns {Promise<void>}\n     ",
-                    "start": 2106,
-                    "end": 2299,
-                    "loc": {
-                      "start": {
-                        "line": 112,
+                        "line": 50,
                         "column": 4
                       },
                       "end": {
-                        "line": 120,
+                        "line": 56,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1710,
+                "end": 1963,
+                "loc": {
+                  "start": {
+                    "line": 82,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 97,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1842,24 +1706,6 @@
                                 "column": 13
                               }
                             },
-                            "leadingComments": [
-                              {
-                                "type": "CommentBlock",
-                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 42 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                "start": 1742,
-                                "end": 1832,
-                                "loc": {
-                                  "start": {
-                                    "line": 83,
-                                    "column": 0
-                                  },
-                                  "end": {
-                                    "line": 92,
-                                    "column": 3
-                                  }
-                                }
-                              }
-                            ],
                             "key": {
                               "type": "Identifier",
                               "start": 1834,
@@ -1907,7 +1753,25 @@
                                   }
                                 }
                               }
-                            }
+                            },
+                            "leadingComments": [
+                              {
+                                "type": "CommentBlock",
+                                "value": "*\n * @desc \n *  \n * @lineNumber \n * 42 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                "start": 1742,
+                                "end": 1832,
+                                "loc": {
+                                  "start": {
+                                    "line": 83,
+                                    "column": 0
+                                  },
+                                  "end": {
+                                    "line": 92,
+                                    "column": 3
+                                  }
+                                }
+                              }
+                            ]
                           }
                         ]
                       }
@@ -2092,23 +1956,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2304,
-                "end": 2485,
-                "loc": {
-                  "start": {
-                    "line": 121,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 126,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2142,40 +1991,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @return \n * {number} \n * @public \n * \\TRUE \n ",
-                    "start": 2486,
-                    "end": 2578,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 42 \n * @return \n * {Outcome | undefined} \n * @public \n * \\TRUE \n ",
+                    "start": 1417,
+                    "end": 1522,
                     "loc": {
                       "start": {
-                        "line": 127,
+                        "line": 64,
                         "column": 0
                       },
                       "end": {
-                        "line": 136,
+                        "line": 73,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {@serenity-js/core/lib/errors~LogicError}\n     *  If called before `load`\n     *\n     * @returns {number}\n     ",
-                    "start": 2585,
-                    "end": 2784,
+                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner, calculated based on {@link CucumberConfig}\n     *\n     * @returns {Outcome | { Code: number }}\n     ",
+                    "start": 1529,
+                    "end": 1705,
                     "loc": {
                       "start": {
-                        "line": 139,
+                        "line": 76,
                         "column": 4
                       },
                       "end": {
-                        "line": 147,
+                        "line": 81,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2304,
+                "end": 2485,
+                "loc": {
+                  "start": {
+                    "line": 121,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 126,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2371,24 +2235,6 @@
                           "column": 49
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " todo: implement loading",
-                          "start": 2368,
-                          "end": 2394,
-                          "loc": {
-                            "start": {
-                              "line": 122,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 122,
-                              "column": 34
-                            }
-                          }
-                        }
-                      ],
                       "expression": {
                         "type": "AssignmentExpression",
                         "start": 2403,
@@ -2469,7 +2315,25 @@
                           },
                           "name": "pathsToScenarios"
                         }
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " todo: implement loading",
+                          "start": 2368,
+                          "end": 2394,
+                          "loc": {
+                            "start": {
+                              "line": 122,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 122,
+                              "column": 34
+                            }
+                          }
+                        }
+                      ]
                     },
                     {
                       "type": "ReturnStatement",
@@ -2554,23 +2418,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2789,
-                "end": 3086,
-                "loc": {
-                  "start": {
-                    "line": 148,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 157,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @return \n * {number} \n * @public \n * \\TRUE \n ",
@@ -2604,40 +2453,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 3087,
-                    "end": 3180,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 1964,
+                    "end": 2099,
                     "loc": {
                       "start": {
-                        "line": 158,
+                        "line": 98,
                         "column": 0
                       },
                       "end": {
-                        "line": 167,
+                        "line": 109,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`\n     *\n     * @returns {Promise<void>}\n     ",
-                    "start": 3187,
-                    "end": 3332,
+                    "value": "*\n     * @desc\n     *  Loads feature files.\n     *\n     * @param {string[]} pathsToScenarios\n     *  Absolute or relative paths to feature files\n     *\n     * @returns {Promise<void>}\n     ",
+                    "start": 2106,
+                    "end": 2299,
                     "loc": {
                       "start": {
-                        "line": 170,
+                        "line": 112,
                         "column": 4
                       },
                       "end": {
-                        "line": 175,
+                        "line": 120,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2789,
+                "end": 3086,
+                "loc": {
+                  "start": {
+                    "line": 148,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 157,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2721,24 +2585,26 @@
                           "column": 17
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " todo: implement counting",
-                          "start": 2823,
-                          "end": 2850,
-                          "loc": {
-                            "start": {
-                              "line": 149,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 149,
-                              "column": 35
-                            }
+                      "argument": {
+                        "type": "NumericLiteral",
+                        "start": 2866,
+                        "end": 2867,
+                        "loc": {
+                          "start": {
+                            "line": 150,
+                            "column": 15
+                          },
+                          "end": {
+                            "line": 150,
+                            "column": 16
                           }
-                        }
-                      ],
+                        },
+                        "extra": {
+                          "rawValue": 1,
+                          "raw": "1"
+                        },
+                        "value": 1
+                      },
                       "trailingComments": [
                         {
                           "type": "CommentLine",
@@ -2821,46 +2687,29 @@
                           }
                         }
                       ],
-                      "argument": {
-                        "type": "NumericLiteral",
-                        "start": 2866,
-                        "end": 2867,
-                        "loc": {
-                          "start": {
-                            "line": 150,
-                            "column": 15
-                          },
-                          "end": {
-                            "line": 150,
-                            "column": 16
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " todo: implement counting",
+                          "start": 2823,
+                          "end": 2850,
+                          "loc": {
+                            "start": {
+                              "line": 149,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 149,
+                              "column": 35
+                            }
                           }
-                        },
-                        "extra": {
-                          "rawValue": 1,
-                          "raw": "1"
-                        },
-                        "value": 1
-                      }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3337,
-                "end": 3714,
-                "loc": {
-                  "start": {
-                    "line": 176,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 184,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2894,24 +2743,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @param \n * {Version} version \n * @param \n * {string} serenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 3715,
-                    "end": 3926,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 73 \n * @return \n * {number} \n * @public \n * \\TRUE \n ",
+                    "start": 2486,
+                    "end": 2578,
                     "loc": {
                       "start": {
-                        "line": 185,
+                        "line": 127,
                         "column": 0
                       },
                       "end": {
-                        "line": 200,
+                        "line": 136,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {@serenity-js/core/lib/errors~LogicError}\n     *  If called before `load`\n     *\n     * @returns {number}\n     ",
+                    "start": 2585,
+                    "end": 2784,
+                    "loc": {
+                      "start": {
+                        "line": 139,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 147,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3337,
+                "end": 3714,
+                "loc": {
+                  "start": {
+                    "line": 176,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 184,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3781,23 +3661,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3933,
-                "end": 4652,
-                "loc": {
-                  "start": {
-                    "line": 203,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 219,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @param \n * {Version} version \n * @param \n * {string} serenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -3815,24 +3680,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 4653,
-                    "end": 4867,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 90 \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 3087,
+                    "end": 3180,
                     "loc": {
                       "start": {
-                        "line": 220,
+                        "line": 158,
                         "column": 0
                       },
                       "end": {
-                        "line": 235,
+                        "line": 167,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instructs Cucumber to execute feature files located at `pathsToScenarios`\n     *\n     * @returns {Promise<void>}\n     ",
+                    "start": 3187,
+                    "end": 3332,
+                    "loc": {
+                      "start": {
+                        "line": 170,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 175,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3933,
+                "end": 4652,
+                "loc": {
+                  "start": {
+                    "line": 203,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 219,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -5282,23 +5178,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4874,
-                "end": 5435,
-                "loc": {
-                  "start": {
-                    "line": 238,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 249,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -5316,24 +5197,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 131 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 5436,
-                    "end": 5650,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 100 \n * @param \n * {Version} version \n * @param \n * {string} serenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 3715,
+                    "end": 3926,
                     "loc": {
                       "start": {
-                        "line": 250,
+                        "line": 185,
                         "column": 0
                       },
                       "end": {
-                        "line": 265,
+                        "line": 200,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4874,
+                "end": 5435,
+                "loc": {
+                  "start": {
+                    "line": 238,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 249,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -6089,9 +5985,6 @@
                                         "column": 9
                                       }
                                     },
-                                    "extra": {
-                                      "trailingComma": 5329
-                                    },
                                     "properties": [
                                       {
                                         "type": "ObjectProperty",
@@ -6610,7 +6503,10 @@
                                           }
                                         }
                                       }
-                                    ]
+                                    ],
+                                    "extra": {
+                                      "trailingComma": 5329
+                                    }
                                   }
                                 ]
                               },
@@ -6762,23 +6658,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5657,
-                "end": 6211,
-                "loc": {
-                  "start": {
-                    "line": 268,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 279,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 131 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -6796,24 +6677,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 6212,
-                    "end": 6426,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 4653,
+                    "end": 4867,
                     "loc": {
                       "start": {
-                        "line": 280,
+                        "line": 220,
                         "column": 0
                       },
                       "end": {
-                        "line": 295,
+                        "line": 235,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5657,
+                "end": 6211,
+                "loc": {
+                  "start": {
+                    "line": 268,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 279,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -7569,9 +7465,6 @@
                                         "column": 9
                                       }
                                     },
-                                    "extra": {
-                                      "trailingComma": 6105
-                                    },
                                     "properties": [
                                       {
                                         "type": "ObjectProperty",
@@ -8090,7 +7983,10 @@
                                           }
                                         }
                                       }
-                                    ]
+                                    ],
+                                    "extra": {
+                                      "trailingComma": 6105
+                                    }
                                   }
                                 ]
                               },
@@ -8242,23 +8138,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6433,
-                "end": 6831,
-                "loc": {
-                  "start": {
-                    "line": 298,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 306,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -8276,24 +8157,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 154 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
-                    "start": 6832,
-                    "end": 7046,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 131 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 5436,
+                    "end": 5650,
                     "loc": {
                       "start": {
-                        "line": 307,
+                        "line": 250,
                         "column": 0
                       },
                       "end": {
-                        "line": 322,
+                        "line": 265,
                         "column": 3
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6433,
+                "end": 6831,
+                "loc": {
+                  "start": {
+                    "line": 298,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 306,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -8874,9 +8770,6 @@
                                     "column": 9
                                   }
                                 },
-                                "extra": {
-                                  "trailingComma": 6806
-                                },
                                 "properties": [
                                   {
                                     "type": "ObjectProperty",
@@ -9250,7 +9143,10 @@
                                       }
                                     }
                                   }
-                                ]
+                                ],
+                                "extra": {
+                                  "trailingComma": 6806
+                                }
                               }
                             ]
                           },
@@ -9278,23 +9174,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7053,
-                "end": 7437,
-                "loc": {
-                  "start": {
-                    "line": 325,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 331,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 154 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
@@ -9312,6 +9193,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 144 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 6212,
+                    "end": 6426,
+                    "loc": {
+                      "start": {
+                        "line": 280,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 295,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7053,
+                "end": 7437,
+                "loc": {
+                  "start": {
+                    "line": 325,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 331,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": false,
                 "key": {
@@ -10195,7 +10109,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 154 \n * @param \n * {UNKNOWN} argv \n * @param \n * {string} pathToSerenityListener \n * @param \n * {UNKNOWN} pathsToScenarios \n * @return \n * {Promise} \n * @private \n * \\TRUE \n ",
+                    "start": 6832,
+                    "end": 7046,
+                    "loc": {
+                      "start": {
+                        "line": 307,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 322,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -10267,23 +10199,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 7577,
-        "end": 7766,
-        "loc": {
-          "start": {
-            "line": 348,
-            "column": 0
-          },
-          "end": {
-            "line": 353,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 166 \n * @param \n * {OutputDescriptor} output \n * @return \n * {Function} \n ",
@@ -10317,40 +10234,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n * @param \n * {OutputDescriptor} output \n * @return \n * {Function} \n ",
-            "start": 7767,
-            "end": 7881,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 412,
+            "end": 457,
             "loc": {
               "start": {
-                "line": 354,
+                "line": 8,
                 "column": 0
               },
               "end": {
-                "line": 363,
+                "line": 13,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @private\n ",
-            "start": 7884,
-            "end": 7903,
+            "value": "*\n * @desc\n *  Allows for programmatic execution of Cucumber test scenarios.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n ",
+            "start": 460,
+            "end": 605,
             "loc": {
               "start": {
-                "line": 366,
+                "line": 16,
                 "column": 0
               },
               "end": {
-                "line": 368,
+                "line": 21,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 7577,
+        "end": 7766,
+        "loc": {
+          "start": {
+            "line": 348,
+            "column": 0
+          },
+          "end": {
+            "line": 353,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 7586,
@@ -10962,23 +10894,8 @@
             }
           ],
           "directives": []
-        }
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 7904,
-        "end": 8195,
-        "loc": {
-          "start": {
-            "line": 369,
-            "column": 0
-          },
-          "end": {
-            "line": 378,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n * @param \n * {OutputDescriptor} output \n * @return \n * {Function} \n ",
@@ -11012,6 +10929,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 166 \n * @param \n * {OutputDescriptor} output \n * @return \n * {Function} \n ",
+            "start": 7440,
+            "end": 7554,
+            "loc": {
+              "start": {
+                "line": 333,
+                "column": 0
+              },
+              "end": {
+                "line": 342,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 7557,
+            "end": 7576,
+            "loc": {
+              "start": {
+                "line": 345,
+                "column": 0
+              },
+              "end": {
+                "line": 347,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 7904,
+        "end": 8195,
+        "loc": {
+          "start": {
+            "line": 369,
+            "column": 0
+          },
+          "end": {
+            "line": 378,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 7913,
@@ -11693,7 +11659,41 @@
             }
           ],
           "directives": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n * @param \n * {OutputDescriptor} output \n * @return \n * {Function} \n ",
+            "start": 7767,
+            "end": 7881,
+            "loc": {
+              "start": {
+                "line": 354,
+                "column": 0
+              },
+              "end": {
+                "line": 363,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n ",
+            "start": 7884,
+            "end": 7903,
+            "loc": {
+              "start": {
+                "line": 366,
+                "column": 0
+              },
+              "end": {
+                "line": 368,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

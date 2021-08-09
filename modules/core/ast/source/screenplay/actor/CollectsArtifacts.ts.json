@@ -44,40 +44,6 @@
             "column": 45
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 46,
-            "end": 90,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables the {@link Actor} to collect {@link Artifact}s while the scenario is being executed\n *\n * @public\n * @interface ",
-            "start": 93,
-            "end": 232,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -198,23 +164,8 @@
             "raw": "'../../model'"
           },
           "value": "../../model"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 233,
-        "end": 813,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 40,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
@@ -247,7 +198,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 233,
+        "end": 813,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 40,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -313,40 +279,6 @@
                     "column": 51
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Artifact} artifact \n * @param \n * {Name} name \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
-                    "start": 275,
-                    "end": 427,
-                    "loc": {
-                      "start": {
-                        "line": 17,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 30,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     * Makes the {@link Actor} collect an {@link Artifact} so that it's included in the test report.\n     *\n     * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}\n     * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report\n     ",
-                    "start": 433,
-                    "end": 759,
-                    "loc": {
-                      "start": {
-                        "line": 32,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -530,7 +462,41 @@
                       }
                     }
                   }
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @param \n * {Artifact} artifact \n * @param \n * {Name} name \n * @return \n * {void} \n * @public \n * \\TRUE \n ",
+                    "start": 275,
+                    "end": 427,
+                    "loc": {
+                      "start": {
+                        "line": 17,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 30,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     * Makes the {@link Actor} collect an {@link Artifact} so that it's included in the test report.\n     *\n     * @param {Artifact} artifact - The artifact to be collected, such as {@link JSONData}\n     * @param {Name} [name] - The name of the artifact to make it easy to recognise in the test report\n     ",
+                    "start": 433,
+                    "end": 759,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 38,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -569,7 +535,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 46,
+            "end": 90,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables the {@link Actor} to collect {@link Artifact}s while the scenario is being executed\n *\n * @public\n * @interface ",
+            "start": 93,
+            "end": 232,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

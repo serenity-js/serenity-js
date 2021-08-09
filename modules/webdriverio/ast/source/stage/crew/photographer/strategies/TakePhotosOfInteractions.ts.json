@@ -180,40 +180,6 @@
             "column": 60
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
-            "start": 143,
-            "end": 188,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when\n *  the the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight\n *  performs any {@link @serenity-js/core/lib/screenplay~Interaction}.\n *\n *  This strategy works best when you want the results of your automated tests\n *  to become comprehensive living documentation of your system.\n *\n *  *Please note* that taking screenshots affects the performance of your tests.\n *\n * @extends {PhotoTakingStrategy}\n ",
-            "start": 191,
-            "end": 709,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -285,23 +251,8 @@
             "raw": "'./PhotoTakingStrategy'"
           },
           "value": "./PhotoTakingStrategy"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 710,
-        "end": 1288,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
-          },
-          "end": {
-            "line": 59,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
@@ -334,7 +285,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 710,
+        "end": 1288,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 59,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -415,42 +381,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n ",
-                    "start": 778,
-                    "end": 909,
-                    "loc": {
-                      "start": {
-                        "line": 26,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 37,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
-                    "start": 1034,
-                    "end": 1172,
-                    "loc": {
-                      "start": {
-                        "line": 42,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 53,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -653,23 +583,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1179,
-                "end": 1286,
-                "loc": {
-                  "start": {
-                    "line": 56,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 58,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
@@ -687,6 +602,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n * @param \n * {DomainEvent} event \n * @return \n * {boolean} \n * @protected \n * \\TRUE \n ",
+                    "start": 778,
+                    "end": 909,
+                    "loc": {
+                      "start": {
+                        "line": 26,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 37,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1179,
+                "end": 1286,
+                "loc": {
+                  "start": {
+                    "line": 56,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 58,
+                    "column": 5
+                  }
+                },
                 "accessibility": "protected",
                 "static": false,
                 "key": {
@@ -955,7 +903,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 23 \n * @param \n * {InteractionFinished} event \n * @return \n * {string} \n * @protected \n * \\TRUE \n ",
+                    "start": 1034,
+                    "end": 1172,
+                    "loc": {
+                      "start": {
+                        "line": 42,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 53,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -994,7 +960,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n ",
+            "start": 143,
+            "end": 188,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Configures the {@link Photographer} to take photos (a.k.a. screenshots) when\n *  the the {@link @serenity-js/core/lib/screenplay/actor~Actor} in the spotlight\n *  performs any {@link @serenity-js/core/lib/screenplay~Interaction}.\n *\n *  This strategy works best when you want the results of your automated tests\n *  to become comprehensive living documentation of your system.\n *\n *  *Please note* that taking screenshots affects the performance of your tests.\n *\n * @extends {PhotoTakingStrategy}\n ",
+            "start": 191,
+            "end": 709,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

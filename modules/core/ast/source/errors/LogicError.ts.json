@@ -44,40 +44,6 @@
             "column": 46
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 47,
-            "end": 92,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Thrown to indicate that an {@link Interaction}, a {@link Task} or a test scenario\n *  can't be executed due to a logical error.\n *  For example, it's not possible to assert on the last HTTP Response if the request\n *  hasn't been performed yet.\n *\n * @extends {RuntimeError}\n ",
-            "start": 95,
-            "end": 390,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -149,23 +115,8 @@
             "raw": "'./RuntimeError'"
           },
           "value": "./RuntimeError"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 391,
-        "end": 712,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 28,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -198,7 +149,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 391,
+        "end": 712,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 28,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -279,24 +245,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
-                    "start": 443,
-                    "end": 611,
-                    "loc": {
-                      "start": {
-                        "line": 21,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 24,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -549,7 +497,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+                    "start": 443,
+                    "end": 611,
+                    "loc": {
+                      "start": {
+                        "line": 21,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 24,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -588,7 +554,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 47,
+            "end": 92,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Thrown to indicate that an {@link Interaction}, a {@link Task} or a test scenario\n *  can't be executed due to a logical error.\n *  For example, it's not possible to assert on the last HTTP Response if the request\n *  hasn't been performed yet.\n *\n * @extends {RuntimeError}\n ",
+            "start": 95,
+            "end": 390,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

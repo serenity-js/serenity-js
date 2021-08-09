@@ -131,40 +131,6 @@
             "column": 131
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
-            "start": 176,
-            "end": 221,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables easy access to properties of the value of a given {@link Answerable}.\n *\n * @example <caption>Example API response</caption>\n *  interface EnvironmentDetails {\n *      name: string;\n *      url:  string;\n *  }\n *\n *  interface EnvironmentsResponse {\n *      environments: EnvironmentDetails[];\n *  }\n *\n *  const response: EnvironmentsResponse = {\n *     \"environments\": [\n *         {\n *             \"name\": \"dev\",\n *             \"url\":  \"https://dev.example.com\"\n *         },\n *         {\n *             \"name\": \"sit\",\n *             \"url\":  \"https://sit.example.com\"\n *         }\n *     ]\n *  }\n *\n * @example <caption>Combining Property.of and Property.at</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(response.environments)\n *                  .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n *                  .first(),\n *          ).url,\n *          equals('https://dev.example.com')\n *      )\n *  )\n *\n * @see {@link Question}\n * @see {@link List}\n ",
-            "start": 224,
-            "end": 1428,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 55,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -383,23 +349,8 @@
             "raw": "'./proxies'"
           },
           "value": "./proxies"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1429,
-        "end": 3597,
-        "loc": {
-          "start": {
-            "line": 56,
-            "column": 0
-          },
-          "end": {
-            "line": 133,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
@@ -432,7 +383,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1429,
+        "end": 3597,
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 0
+          },
+          "end": {
+            "line": 133,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -497,74 +463,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Answerable} subject \n * @return \n * {WithPropertiesAsQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1453,
-                    "end": 1622,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 70,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn the properties of the value it will resolve to into {@link Question}s.\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          Property.of(response).environments[0].name,\n     *          equals('dev')\n     *      )\n     *  )\n     *\n     * @param {Answerable<Subject>} subject\n     * @returns {Proxy<Subject>}\n     ",
-                    "start": 1629,
-                    "end": 2282,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 91,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2503,
-                    "end": 2640,
-                    "loc": {
-                      "start": {
-                        "line": 95,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 106,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
-                    "start": 2647,
-                    "end": 3402,
-                    "loc": {
-                      "start": {
-                        "line": 109,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 129,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -876,24 +774,6 @@
                           "column": 53
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " eslint-disable-line @typescript-eslint/ban-types",
-                          "start": 2391,
-                          "end": 2442,
-                          "loc": {
-                            "start": {
-                              "line": 92,
-                              "column": 108
-                            },
-                            "end": {
-                              "line": 92,
-                              "column": 159
-                            }
-                          }
-                        }
-                      ],
                       "argument": {
                         "type": "CallExpression",
                         "start": 2458,
@@ -993,27 +873,30 @@
                             }
                           ]
                         }
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " eslint-disable-line @typescript-eslint/ban-types",
+                          "start": 2391,
+                          "end": 2442,
+                          "loc": {
+                            "start": {
+                              "line": 92,
+                              "column": 108
+                            },
+                            "end": {
+                              "line": 92,
+                              "column": 159
+                            }
+                          }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3407,
-                "end": 3595,
-                "loc": {
-                  "start": {
-                    "line": 130,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 132,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1047,6 +930,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {Answerable} subject \n * @return \n * {WithPropertiesAsQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1453,
+                    "end": 1622,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 70,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn the properties of the value it will resolve to into {@link Question}s.\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          Property.of(response).environments[0].name,\n     *          equals('dev')\n     *      )\n     *  )\n     *\n     * @param {Answerable<Subject>} subject\n     * @returns {Proxy<Subject>}\n     ",
+                    "start": 1629,
+                    "end": 2282,
+                    "loc": {
+                      "start": {
+                        "line": 73,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 91,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3407,
+                "end": 3595,
+                "loc": {
+                  "start": {
+                    "line": 130,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 132,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1244,24 +1176,6 @@
                           "column": 50
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " eslint-disable-line @typescript-eslint/ban-types",
-                          "start": 3487,
-                          "end": 3538,
-                          "loc": {
-                            "start": {
-                              "line": 130,
-                              "column": 84
-                            },
-                            "end": {
-                              "line": 130,
-                              "column": 135
-                            }
-                          }
-                        }
-                      ],
                       "argument": {
                         "type": "CallExpression",
                         "start": 3554,
@@ -1343,11 +1257,63 @@
                             }
                           ]
                         }
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " eslint-disable-line @typescript-eslint/ban-types",
+                          "start": 3487,
+                          "end": 3538,
+                          "loc": {
+                            "start": {
+                              "line": 130,
+                              "column": 84
+                            },
+                            "end": {
+                              "line": 130,
+                              "column": 135
+                            }
+                          }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 95 \n * @return \n * {WithPropertiesAsMetaQuestions} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2503,
+                    "end": 2640,
+                    "loc": {
+                      "start": {
+                        "line": 95,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 106,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a {@link Proxy} around a given {@link Answerable} `subject`\n     *  to turn any of its properties into {@link MetaQuestion}s\n     *  to be used when filtering a {@link List},\n     *\n     * @example <caption>Reading a property</caption>\n     *  import { actorCalled, Property } from '@serenity-js/core';\n     *  import { Ensure, equals } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(response.environments)\n     *              .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n     *              .first(),\n     *          equals(response.environments[0])\n     *      )\n     *  )\n     *\n     * @returns {Proxy<Subject>}\n     ",
+                    "start": 2647,
+                    "end": 3402,
+                    "loc": {
+                      "start": {
+                        "line": 109,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 129,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1386,7 +1352,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n ",
+            "start": 176,
+            "end": 221,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables easy access to properties of the value of a given {@link Answerable}.\n *\n * @example <caption>Example API response</caption>\n *  interface EnvironmentDetails {\n *      name: string;\n *      url:  string;\n *  }\n *\n *  interface EnvironmentsResponse {\n *      environments: EnvironmentDetails[];\n *  }\n *\n *  const response: EnvironmentsResponse = {\n *     \"environments\": [\n *         {\n *             \"name\": \"dev\",\n *             \"url\":  \"https://dev.example.com\"\n *         },\n *         {\n *             \"name\": \"sit\",\n *             \"url\":  \"https://sit.example.com\"\n *         }\n *     ]\n *  }\n *\n * @example <caption>Combining Property.of and Property.at</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(response.environments)\n *                  .where(Property.at<EnvironmentDetails>().name, equals('dev'))\n *                  .first(),\n *          ).url,\n *          equals('https://dev.example.com')\n *      )\n *  )\n *\n * @see {@link Question}\n * @see {@link List}\n ",
+            "start": 224,
+            "end": 1428,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 55,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

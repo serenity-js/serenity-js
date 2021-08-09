@@ -204,9 +204,9 @@ for <a href="https://webdriver.io/">WebdriverIO</a>, that helps with testing Web
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ArtifactArchiver <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ConsoleReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/console-reporter'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> SerenityBDDReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/serenity-bdd'</span><span class="token punctuation">;</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> Photographer<span class="token punctuation">,</span> TakePhotosOfFailures <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Photographer<span class="token punctuation">,</span> TakePhotosOfFailures<span class="token punctuation">,</span> WebdriverIOConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">export</span> <span class="token keyword">const</span> config <span class="token operator">=</span> <span class="token punctuation">{</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> config<span class="token operator">:</span> WebdriverIOConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
     <span class="token comment">// Tell WebdriverIO to use Serenity/JS framework</span>
     framework<span class="token operator">:</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">,</span>
 

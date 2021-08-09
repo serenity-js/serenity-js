@@ -131,40 +131,6 @@
             "column": 39
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} parameters \n * @return \n * {Question} \n ",
-            "start": 84,
-            "end": 238,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A Screenplay-flavour of a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),\n *  `q` is a tag function capable of resolving any `Answerable<string | number>` you parametrise it with (i.e. a {@link Question}).\n *\n * @example <caption>Interpolating `Questions`</caption>\n *  import { q, actorCalled } from '@serenity-js/core';\n *  import { Send, DeleteRequest } from '@serenity-js/rest';\n *\n *  actorCalled('Alice').attemptsTo(\n *      Send.a(DeleteRequest.to(\n *          q `/articles/${ Text.of(Article.id()) }`\n *      ))\n *  )\n *\n * @example <caption>Using a custom description</caption>\n *  import { q, actorCalled } from '@serenity-js/core';\n *  import { Send, DeleteRequest } from '@serenity-js/rest';\n *\n *  actorCalled('Alice').attemptsTo(\n *      Send.a(DeleteRequest.to(\n *          q `/articles/${ Text.of(Article.id()) }`.describedAs('/articles/:id')\n *      ))\n *  )\n *\n * @param {TemplateStringsArray} templates\n * @param {Array<Answerable<string | number>>} parameters\n *\n * @returns {Question<Promise<string>>}\n *\n * @see {@link Question}\n ",
-            "start": 241,
-            "end": 1393,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 48,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'../Question'"
           },
           "value": "../Question"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1394,
-        "end": 2055,
-        "loc": {
-          "start": {
-            "line": 49,
-            "column": 0
-          },
-          "end": {
-            "line": 64,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} parameters \n * @return \n * {Question} \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1394,
+        "end": 2055,
+        "loc": {
+          "start": {
+            "line": 49,
+            "column": 0
+          },
+          "end": {
+            "line": 64,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1904,7 +1870,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 36 \n * @param \n * {TemplateStringsArray} templates \n * @param \n * {Array} parameters \n * @return \n * {Question} \n ",
+            "start": 84,
+            "end": 238,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A Screenplay-flavour of a [tagged template literal](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates),\n *  `q` is a tag function capable of resolving any `Answerable<string | number>` you parametrise it with (i.e. a {@link Question}).\n *\n * @example <caption>Interpolating `Questions`</caption>\n *  import { q, actorCalled } from '@serenity-js/core';\n *  import { Send, DeleteRequest } from '@serenity-js/rest';\n *\n *  actorCalled('Alice').attemptsTo(\n *      Send.a(DeleteRequest.to(\n *          q `/articles/${ Text.of(Article.id()) }`\n *      ))\n *  )\n *\n * @example <caption>Using a custom description</caption>\n *  import { q, actorCalled } from '@serenity-js/core';\n *  import { Send, DeleteRequest } from '@serenity-js/rest';\n *\n *  actorCalled('Alice').attemptsTo(\n *      Send.a(DeleteRequest.to(\n *          q `/articles/${ Text.of(Article.id()) }`.describedAs('/articles/:id')\n *      ))\n *  )\n *\n * @param {TemplateStringsArray} templates\n * @param {Array<Answerable<string | number>>} parameters\n *\n * @returns {Question<Promise<string>>}\n *\n * @see {@link Question}\n ",
+            "start": 241,
+            "end": 1393,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 48,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -44,42 +44,6 @@
             "column": 33
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-next-line @typescript-eslint/no-var-requires",
-            "start": 0,
-            "end": 62,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 62
-              }
-            }
-          }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " No type definitions available",
-            "start": 97,
-            "end": 129,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 34
-              },
-              "end": {
-                "line": 2,
-                "column": 66
-              }
-            }
-          }
-        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -168,23 +132,8 @@
             }
           }
         ],
-        "kind": "const"
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 130,
-        "end": 159,
-        "loc": {
-          "start": {
-            "line": 3,
-            "column": 0
-          },
-          "end": {
-            "line": 3,
-            "column": 29
-          }
-        },
-        "leadingComments": [
+        "kind": "const",
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " No type definitions available",
@@ -202,24 +151,39 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentLine",
-            "value": " eslint-disable-line unicorn/import-style",
-            "start": 162,
-            "end": 205,
+            "value": " eslint-disable-next-line @typescript-eslint/no-var-requires",
+            "start": 0,
+            "end": 62,
             "loc": {
               "start": {
-                "line": 3,
-                "column": 32
+                "line": 1,
+                "column": 0
               },
               "end": {
-                "line": 3,
-                "column": 75
+                "line": 1,
+                "column": 62
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 130,
+        "end": 159,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 29
+          }
+        },
         "importKind": "value",
         "specifiers": [
           {
@@ -274,23 +238,8 @@
             "raw": "'path'"
           },
           "value": "path"
-        }
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 207,
-        "end": 243,
-        "loc": {
-          "start": {
-            "line": 5,
-            "column": 0
-          },
-          "end": {
-            "line": 5,
-            "column": 36
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-line unicorn/import-style",
@@ -308,40 +257,39 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 244,
-            "end": 289,
+            "type": "CommentLine",
+            "value": " No type definitions available",
+            "start": 97,
+            "end": 129,
             "loc": {
               "start": {
-                "line": 6,
-                "column": 0
+                "line": 2,
+                "column": 34
               },
               "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Dynamically loads Node modules located relative to `cwd`.\n ",
-            "start": 292,
-            "end": 370,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 3
+                "line": 2,
+                "column": 66
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 207,
+        "end": 243,
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 5,
+            "column": 36
+          }
+        },
         "importKind": "value",
         "specifiers": [
           {
@@ -413,23 +361,8 @@
             "raw": "'./Version'"
           },
           "value": "./Version"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 371,
-        "end": 2734,
-        "loc": {
-          "start": {
-            "line": 18,
-            "column": 0
-          },
-          "end": {
-            "line": 141,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
@@ -463,6 +396,39 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-line unicorn/import-style",
+            "start": 162,
+            "end": 205,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 32
+              },
+              "end": {
+                "line": 3,
+                "column": 75
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 371,
+        "end": 2734,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 141,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -527,58 +493,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {string} cwd\n     *  Current working directory, relative to which Node modules should be resolved.\n     ",
-                    "start": 404,
-                    "end": 528,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 23,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @param \n * {string} moduleId \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
-                    "start": 582,
-                    "end": 708,
-                    "loc": {
-                      "start": {
-                        "line": 26,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 37,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns true if a given module is available to be required, false otherwise.\n     *\n     * @param {string} moduleId\n     *  NPM module id, for example 'cucumber' or '@serenity-js/core'\n     ",
-                    "start": 715,
-                    "end": 932,
-                    "loc": {
-                      "start": {
-                        "line": 40,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 46,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -684,23 +598,8 @@
                   },
                   "body": [],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 937,
-                "end": 1098,
-                "loc": {
-                  "start": {
-                    "line": 47,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 53,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @param \n * {string} moduleId \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
@@ -734,40 +633,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @param \n * {string} moduleId \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1099,
-                    "end": 1224,
+                    "value": "*\n     * @param {string} cwd\n     *  Current working directory, relative to which Node modules should be resolved.\n     ",
+                    "start": 404,
+                    "end": 528,
                     "loc": {
                       "start": {
-                        "line": 54,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 65,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Works like `require.resolve`, but relative to specified current working directory\n     *\n     * @param {string} moduleId\n     *  NPM module id, for example `cucumber` or `@serenity-js/core`\n     *\n     * @returns {string}\n     *  Path a given Node module\n     ",
-                    "start": 1231,
-                    "end": 1518,
-                    "loc": {
-                      "start": {
-                        "line": 68,
+                        "line": 20,
                         "column": 4
                       },
                       "end": {
-                        "line": 77,
+                        "line": 23,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 937,
+                "end": 1098,
+                "loc": {
+                  "start": {
+                    "line": 47,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 53,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1117,23 +1015,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1523,
-                "end": 1797,
-                "loc": {
-                  "start": {
-                    "line": 78,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 86,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @param \n * {string} moduleId \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1167,40 +1050,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {string} moduleId \n * @return \n * {any} \n * @public \n * \\TRUE \n ",
-                    "start": 1798,
-                    "end": 1920,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @param \n * {string} moduleId \n * @return \n * {boolean} \n * @public \n * \\TRUE \n ",
+                    "start": 582,
+                    "end": 708,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 26,
                         "column": 0
                       },
                       "end": {
-                        "line": 98,
+                        "line": 37,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Works like `require`, but relative to specified current working directory\n     *\n     * @param {string} moduleId\n     *\n     * @returns {any}\n     ",
-                    "start": 1927,
-                    "end": 2101,
+                    "value": "*\n     * @desc\n     *  Returns true if a given module is available to be required, false otherwise.\n     *\n     * @param {string} moduleId\n     *  NPM module id, for example 'cucumber' or '@serenity-js/core'\n     ",
+                    "start": 715,
+                    "end": 932,
                     "loc": {
                       "start": {
-                        "line": 101,
+                        "line": 40,
                         "column": 4
                       },
                       "end": {
-                        "line": 108,
+                        "line": 46,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1523,
+                "end": 1797,
+                "loc": {
+                  "start": {
+                    "line": 78,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 86,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1613,9 +1511,6 @@
                                 "column": 9
                               }
                             },
-                            "extra": {
-                              "trailingComma": 1778
-                            },
                             "properties": [
                               {
                                 "type": "ObjectProperty",
@@ -1871,30 +1766,18 @@
                                   ]
                                 }
                               }
-                            ]
+                            ],
+                            "extra": {
+                              "trailingComma": 1778
+                            }
                           }
                         ]
                       }
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2106,
-                "end": 2284,
-                "loc": {
-                  "start": {
-                    "line": 109,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 116,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {string} moduleId \n * @return \n * {any} \n * @public \n * \\TRUE \n ",
@@ -1928,40 +1811,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 79 \n * @param \n * {string} moduleId \n * @return \n * {Version} \n * @public \n * \\TRUE \n ",
-                    "start": 2285,
-                    "end": 2411,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n * @param \n * {string} moduleId \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1099,
+                    "end": 1224,
                     "loc": {
                       "start": {
-                        "line": 117,
+                        "line": 54,
                         "column": 0
                       },
                       "end": {
-                        "line": 128,
+                        "line": 65,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns {@link Version} of module specified by `moduleId`, based on its `package.json`.\n     *\n     * @param {string} moduleId\n     * @returns {Version}\n     ",
-                    "start": 2418,
-                    "end": 2603,
+                    "value": "*\n     * @desc\n     *  Works like `require.resolve`, but relative to specified current working directory\n     *\n     * @param {string} moduleId\n     *  NPM module id, for example `cucumber` or `@serenity-js/core`\n     *\n     * @returns {string}\n     *  Path a given Node module\n     ",
+                    "start": 1231,
+                    "end": 1518,
                     "loc": {
                       "start": {
-                        "line": 131,
+                        "line": 68,
                         "column": 4
                       },
                       "end": {
-                        "line": 137,
+                        "line": 77,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2106,
+                "end": 2284,
+                "loc": {
+                  "start": {
+                    "line": 109,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 116,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2346,23 +2244,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2608,
-                "end": 2732,
-                "loc": {
-                  "start": {
-                    "line": 138,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 140,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 79 \n * @param \n * {string} moduleId \n * @return \n * {Version} \n * @public \n * \\TRUE \n ",
@@ -2396,6 +2279,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 63 \n * @param \n * {string} moduleId \n * @return \n * {any} \n * @public \n * \\TRUE \n ",
+                    "start": 1798,
+                    "end": 1920,
+                    "loc": {
+                      "start": {
+                        "line": 87,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 98,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Works like `require`, but relative to specified current working directory\n     *\n     * @param {string} moduleId\n     *\n     * @returns {any}\n     ",
+                    "start": 1927,
+                    "end": 2101,
+                    "loc": {
+                      "start": {
+                        "line": 101,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 108,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2608,
+                "end": 2732,
+                "loc": {
+                  "start": {
+                    "line": 138,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 140,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2755,7 +2687,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 79 \n * @param \n * {string} moduleId \n * @return \n * {Version} \n * @public \n * \\TRUE \n ",
+                    "start": 2285,
+                    "end": 2411,
+                    "loc": {
+                      "start": {
+                        "line": 117,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 128,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns {@link Version} of module specified by `moduleId`, based on its `package.json`.\n     *\n     * @param {string} moduleId\n     * @returns {Version}\n     ",
+                    "start": 2418,
+                    "end": 2603,
+                    "loc": {
+                      "start": {
+                        "line": 131,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 137,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2794,7 +2760,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 244,
+            "end": 289,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Dynamically loads Node modules located relative to `cwd`.\n ",
+            "start": 292,
+            "end": 370,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 17,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

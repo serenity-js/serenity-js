@@ -44,24 +44,6 @@
             "column": 65
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " istanbul ignore file ",
-            "start": 0,
-            "end": 26,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 26
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -133,7 +115,25 @@
             "raw": "'@serenity-js/core/lib/io'"
           },
           "value": "@serenity-js/core/lib/io"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " istanbul ignore file ",
+            "start": 0,
+            "end": 26,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 26
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -579,24 +579,6 @@
             "column": 30
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-line unicorn/import-style",
-            "start": 377,
-            "end": 420,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 32
-              },
-              "end": {
-                "line": 14,
-                "column": 75
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -668,23 +650,8 @@
             "raw": "'chalk'"
           },
           "value": "chalk"
-        }
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 422,
-        "end": 470,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 16,
-            "column": 48
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-line unicorn/import-style",
@@ -701,41 +668,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n ",
-            "start": 471,
-            "end": 516,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 22,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 422,
+        "end": 470,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Base class for {@link TerminalTheme} implementations intended\n *  to print to terminals that support colour output.\n *\n * @extends {TerminalTheme}\n *\n * @public\n * @abstract\n ",
-            "start": 519,
-            "end": 713,
-            "loc": {
-              "start": {
-                "line": 25,
-                "column": 0
-              },
-              "end": {
-                "line": 34,
-                "column": 3
-              }
-            }
+          "end": {
+            "line": 16,
+            "column": 48
           }
-        ],
+        },
         "importKind": "value",
         "specifiers": [
           {
@@ -807,23 +755,8 @@
             "raw": "'./TerminalTheme'"
           },
           "value": "./TerminalTheme"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 714,
-        "end": 3338,
-        "loc": {
-          "start": {
-            "line": 35,
-            "column": 0
-          },
-          "end": {
-            "line": 129,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n ",
@@ -857,6 +790,39 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-line unicorn/import-style",
+            "start": 377,
+            "end": 420,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 32
+              },
+              "end": {
+                "line": 14,
+                "column": 75
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 714,
+        "end": 3338,
+        "loc": {
+          "start": {
+            "line": 35,
+            "column": 0
+          },
+          "end": {
+            "line": 129,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -938,58 +904,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {chalk~Chalk} chalk\n     *\n     * @see https://www.npmjs.com/package/chalk\n     ",
-                    "start": 789,
-                    "end": 889,
-                    "loc": {
-                      "start": {
-                        "line": 37,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 41,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 1171,
-                    "end": 1339,
-                    "loc": {
-                      "start": {
-                        "line": 49,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 62,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Joins the `parts` into a single string and decorates it\n     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.\n     *\n     * @param {@serenity-js/core/lib/model~Outcome | string} outcome\n     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}\n     *  or a string class name of one of its implementations.\n     *\n     * @param {...any[]} parts\n     *  the parts of the message to be decorated\n     *\n     * @returns {string}\n     ",
-                    "start": 1346,
-                    "end": 1853,
-                    "loc": {
-                      "start": {
-                        "line": 65,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 78,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1200,9 +1114,6 @@
                                     "line": 47,
                                     "column": 9
                                   }
-                                },
-                                "extra": {
-                                  "trailingComma": 1150
                                 },
                                 "properties": [
                                   {
@@ -1845,7 +1756,10 @@
                                       }
                                     }
                                   }
-                                ]
+                                ],
+                                "extra": {
+                                  "trailingComma": 1150
+                                }
                               }
                             ]
                           }
@@ -1854,23 +1768,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 1858,
-                "end": 2713,
-                "loc": {
-                  "start": {
-                    "line": 79,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 98,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -1904,40 +1803,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 2714,
-                    "end": 2880,
+                    "value": "*\n     * @param {chalk~Chalk} chalk\n     *\n     * @see https://www.npmjs.com/package/chalk\n     ",
+                    "start": 789,
+                    "end": 889,
                     "loc": {
                       "start": {
-                        "line": 99,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 112,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Turns the serialised `expectedValue` and `actualValue` into\n     *  a visual diff, so that it's easier for the developer to spot\n     *  the difference between the two values.\n     *\n     * @param {string} expectedValue\n     * @param {string} actualValue\n     *\n     * @returns {string}\n     ",
-                    "start": 2887,
-                    "end": 3206,
-                    "loc": {
-                      "start": {
-                        "line": 115,
+                        "line": 37,
                         "column": 4
                       },
                       "end": {
-                        "line": 125,
+                        "line": 41,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 1858,
+                "end": 2713,
+                "loc": {
+                  "start": {
+                    "line": 79,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 98,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2255,10 +2153,6 @@
                                   "column": 55
                                 }
                               },
-                              "extra": {
-                                "parenthesized": true,
-                                "parenStart": 1948
-                              },
                               "left": {
                                 "type": "Identifier",
                                 "start": 1949,
@@ -2293,6 +2187,10 @@
                                   "identifierName": "Outcome"
                                 },
                                 "name": "Outcome"
+                              },
+                              "extra": {
+                                "parenthesized": true,
+                                "parenStart": 1948
                               }
                             },
                             "consequent": {
@@ -3878,23 +3776,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3211,
-                "end": 3336,
-                "loc": {
-                  "start": {
-                    "line": 126,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 128,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -3928,6 +3811,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 57 \n * @param \n * {Outcome | undefined} outcome \n * @param \n * {UNKNOWN} parts \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 1171,
+                    "end": 1339,
+                    "loc": {
+                      "start": {
+                        "line": 49,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 62,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Joins the `parts` into a single string and decorates it\n     *  using a colour appropriate for a given {@link @serenity-js/core/lib/model~Outcome}.\n     *\n     * @param {@serenity-js/core/lib/model~Outcome | string} outcome\n     *  an instance of an {@link @serenity-js/core/lib/model~Outcome}\n     *  or a string class name of one of its implementations.\n     *\n     * @param {...any[]} parts\n     *  the parts of the message to be decorated\n     *\n     * @returns {string}\n     ",
+                    "start": 1346,
+                    "end": 1853,
+                    "loc": {
+                      "start": {
+                        "line": 65,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 78,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3211,
+                "end": 3336,
+                "loc": {
+                  "start": {
+                    "line": 126,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 128,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4241,7 +4173,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 89 \n * @param \n * {string} expectedValue \n * @param \n * {string} actualValue \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 2714,
+                    "end": 2880,
+                    "loc": {
+                      "start": {
+                        "line": 99,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 112,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Turns the serialised `expectedValue` and `actualValue` into\n     *  a visual diff, so that it's easier for the developer to spot\n     *  the difference between the two values.\n     *\n     * @param {string} expectedValue\n     * @param {string} actualValue\n     *\n     * @returns {string}\n     ",
+                    "start": 2887,
+                    "end": 3206,
+                    "loc": {
+                      "start": {
+                        "line": 115,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 125,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -4280,7 +4246,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n ",
+            "start": 471,
+            "end": 516,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 22,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Base class for {@link TerminalTheme} implementations intended\n *  to print to terminals that support colour output.\n *\n * @extends {TerminalTheme}\n *\n * @public\n * @abstract\n ",
+            "start": 519,
+            "end": 713,
+            "loc": {
+              "start": {
+                "line": 25,
+                "column": 0
+              },
+              "end": {
+                "line": 34,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

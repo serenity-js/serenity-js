@@ -267,24 +267,6 @@
             "column": 29
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-line unicorn/import-style",
-            "start": 141,
-            "end": 184,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 32
-              },
-              "end": {
-                "line": 3,
-                "column": 75
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -339,23 +321,8 @@
             "raw": "'path'"
           },
           "value": "path"
-        }
-      },
-      {
-        "type": "ImportDeclaration",
-        "start": 186,
-        "end": 217,
-        "loc": {
-          "start": {
-            "line": 5,
-            "column": 0
-          },
-          "end": {
-            "line": 5,
-            "column": 31
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-line unicorn/import-style",
@@ -372,7 +339,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 186,
+        "end": 217,
+        "loc": {
+          "start": {
+            "line": 5,
+            "column": 0
+          },
+          "end": {
+            "line": 5,
+            "column": 31
+          }
+        },
         "importKind": "value",
         "specifiers": [
           {
@@ -444,7 +426,25 @@
             "raw": "'../Argv'"
           },
           "value": "../Argv"
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-line unicorn/import-style",
+            "start": 141,
+            "end": 184,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 32
+              },
+              "end": {
+                "line": 3,
+                "column": 75
+              }
+            }
+          }
+        ]
       },
       {
         "type": "ImportDeclaration",
@@ -1178,24 +1178,6 @@
             "column": 31
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " eslint-disable-line @typescript-eslint/no-var-requires",
-            "start": 574,
-            "end": 631,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 32
-              },
-              "end": {
-                "line": 13,
-                "column": 89
-              }
-            }
-          }
-        ],
         "declarations": [
           {
             "type": "VariableDeclarator",
@@ -1284,23 +1266,8 @@
             }
           }
         ],
-        "kind": "const"
-      },
-      {
-        "type": "TSExportAssignment",
-        "start": 633,
-        "end": 3891,
-        "loc": {
-          "start": {
-            "line": 15,
-            "column": 0
-          },
-          "end": {
-            "line": 96,
-            "column": 2
-          }
-        },
-        "leadingComments": [
+        "kind": "const",
+        "trailingComments": [
           {
             "type": "CommentLine",
             "value": " eslint-disable-line @typescript-eslint/no-var-requires",
@@ -1317,7 +1284,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "TSExportAssignment",
+        "start": 633,
+        "end": 3891,
+        "loc": {
+          "start": {
+            "line": 15,
+            "column": 0
+          },
+          "end": {
+            "line": 96,
+            "column": 2
+          }
+        },
         "expression": {
           "type": "ObjectExpression",
           "start": 642,
@@ -1331,9 +1313,6 @@
               "line": 96,
               "column": 1
             }
-          },
-          "extra": {
-            "trailingComma": 3887
           },
           "properties": [
             {
@@ -1494,9 +1473,6 @@
                     "column": 5
                   }
                 },
-                "extra": {
-                  "trailingComma": 2522
-                },
                 "properties": [
                   {
                     "type": "ObjectProperty",
@@ -1545,9 +1521,6 @@
                           "line": 22,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 947
                       },
                       "properties": [
                         {
@@ -1690,7 +1663,10 @@
                             "value": "A relative path to where the Serenity BDD CLI jar file is stored"
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 947
+                      }
                     }
                   },
                   {
@@ -1740,9 +1716,6 @@
                           "line": 26,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1131
                       },
                       "properties": [
                         {
@@ -1885,7 +1858,10 @@
                             "value": "A relative path to the directory where the Serenity BDD report should be produced"
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1131
+                      }
                     }
                   },
                   {
@@ -1935,9 +1911,6 @@
                           "line": 30,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1306
                       },
                       "properties": [
                         {
@@ -2080,7 +2053,10 @@
                             "value": "A relative path to the directory containing the Cucumber.js feature files"
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1306
+                      }
                     }
                   },
                   {
@@ -2130,9 +2106,6 @@
                           "line": 34,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1535
                       },
                       "properties": [
                         {
@@ -2293,7 +2266,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1535
+                      }
                     }
                   },
                   {
@@ -2343,9 +2319,6 @@
                           "line": 38,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1705
                       },
                       "properties": [
                         {
@@ -2506,7 +2479,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1705
+                      }
                     }
                   },
                   {
@@ -2556,9 +2532,6 @@
                           "line": 41,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1812
                       },
                       "properties": [
                         {
@@ -2634,7 +2607,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1812
+                      }
                     }
                   },
                   {
@@ -2684,9 +2660,6 @@
                           "line": 44,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1895
                       },
                       "properties": [
                         {
@@ -2762,7 +2735,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1895
+                      }
                     }
                   },
                   {
@@ -2812,9 +2788,6 @@
                           "line": 47,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 1979
                       },
                       "properties": [
                         {
@@ -2890,7 +2863,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 1979
+                      }
                     }
                   },
                   {
@@ -2940,9 +2916,6 @@
                           "line": 51,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 2132
                       },
                       "properties": [
                         {
@@ -3186,7 +3159,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 2132
+                      }
                     }
                   },
                   {
@@ -3236,9 +3212,6 @@
                           "line": 56,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 2319
                       },
                       "properties": [
                         {
@@ -3420,7 +3393,10 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 2319
+                      }
                     }
                   },
                   {
@@ -3470,9 +3446,6 @@
                           "line": 61,
                           "column": 9
                         }
-                      },
-                      "extra": {
-                        "trailingComma": 2511
                       },
                       "properties": [
                         {
@@ -3745,10 +3718,16 @@
                             ]
                           }
                         }
-                      ]
+                      ],
+                      "extra": {
+                        "trailingComma": 2511
+                      }
                     }
                   }
-                ]
+                ],
+                "extra": {
+                  "trailingComma": 2522
+                }
               }
             },
             {
@@ -4723,9 +4702,6 @@
                                 "column": 9
                               }
                             },
-                            "extra": {
-                              "trailingComma": 3097
-                            },
                             "properties": [
                               {
                                 "type": "ObjectProperty",
@@ -5053,7 +5029,10 @@
                                   ]
                                 }
                               }
-                            ]
+                            ],
+                            "extra": {
+                              "trailingComma": 3097
+                            }
                           }
                         ]
                       }
@@ -5246,9 +5225,6 @@
                                       "column": 17
                                     }
                                   },
-                                  "extra": {
-                                    "trailingComma": 3705
-                                  },
                                   "callee": {
                                     "type": "MemberExpression",
                                     "start": 3185,
@@ -5335,6 +5311,9 @@
                                       },
                                       "name": "attemptsTo"
                                     }
+                                  },
+                                  "extra": {
+                                    "trailingComma": 3705
                                   },
                                   "arguments": [
                                     {
@@ -5575,9 +5554,6 @@
                                                       "line": 87,
                                                       "column": 25
                                                     }
-                                                  },
-                                                  "extra": {
-                                                    "trailingComma": 3604
                                                   },
                                                   "properties": [
                                                     {
@@ -5957,7 +5933,10 @@
                                                         ]
                                                       }
                                                     }
-                                                  ]
+                                                  ],
+                                                  "extra": {
+                                                    "trailingComma": 3604
+                                                  }
                                                 }
                                               ]
                                             }
@@ -6442,8 +6421,29 @@
                 }
               }
             }
-          ]
-        }
+          ],
+          "extra": {
+            "trailingComma": 3887
+          }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentLine",
+            "value": " eslint-disable-line @typescript-eslint/no-var-requires",
+            "start": 574,
+            "end": 631,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 32
+              },
+              "end": {
+                "line": 13,
+                "column": 89
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

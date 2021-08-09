@@ -218,40 +218,6 @@
             "column": 58
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @return \n * {Expectation} \n ",
-            "start": 148,
-            "end": 223,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is present in the DOM of the page and visible.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isDisplayed/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
-            "start": 226,
-            "end": 616,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'./ElementExpectation'"
           },
           "value": "./ElementExpectation"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 617,
-        "end": 782,
-        "loc": {
-          "start": {
-            "line": 26,
-            "column": 0
-          },
-          "end": {
-            "line": 28,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @return \n * {Expectation} \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 617,
+        "end": 782,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 28,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -831,7 +797,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @return \n * {Expectation} \n ",
+            "start": 148,
+            "end": 223,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is present in the DOM of the page and visible.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, Element<'async'>>}\n *\n * @see https://webdriver.io/docs/api/element/isDisplayed/\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 226,
+            "end": 616,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

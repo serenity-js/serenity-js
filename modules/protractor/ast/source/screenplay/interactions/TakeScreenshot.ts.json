@@ -550,40 +550,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
-            "start": 272,
-            "end": 317,
-            "loc": {
-              "start": {
-                "line": 6,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  take a screenshot and emit an {@link @serenity-js/core/lib/model~Artifact},\n *  which can then be persisted by {@link @serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver}\n *  and reported by [Serenity BDD reporter](/modules/serenity-bdd).\n *\n * @example <caption>Clicking on an element</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Navigate, TakeScreenshot } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Tania')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Navigate.to('/app'),\n *          TakeScreenshot.of('my app'),\n *      );\n *\n * @see {@link BrowseTheWeb}\n * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n * @see {@link @serenity-js/core/lib/model~Artifact}\n * @see {@link @serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
-            "start": 320,
-            "end": 1404,
-            "loc": {
-              "start": {
-                "line": 14,
-                "column": 0
-              },
-              "end": {
-                "line": 39,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -655,23 +621,8 @@
             "raw": "'../abilities'"
           },
           "value": "../abilities"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1405,
-        "end": 3730,
-        "loc": {
-          "start": {
-            "line": 40,
-            "column": 0
-          },
-          "end": {
-            "line": 135,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
@@ -704,7 +655,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1405,
+        "end": 3730,
+        "loc": {
+          "start": {
+            "line": 40,
+            "column": 0
+          },
+          "end": {
+            "line": 135,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -785,58 +751,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @param \n * {Answerable} name \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1455,
-                    "end": 1607,
-                    "loc": {
-                      "start": {
-                        "line": 41,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 54,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {Answerable<string>} name\n     *  The name to associate the screenshot with\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 1614,
-                    "end": 1885,
-                    "loc": {
-                      "start": {
-                        "line": 57,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 65,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Answerable<string>} name\n     *  The name to associate the screenshot with\n     ",
-                    "start": 1993,
-                    "end": 2094,
-                    "loc": {
-                      "start": {
-                        "line": 70,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 73,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1088,23 +1002,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2099,
-                "end": 2178,
-                "loc": {
-                  "start": {
-                    "line": 74,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 76,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Answerable<string>} name\n     *  The name to associate the screenshot with\n     ",
@@ -1122,40 +1021,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 2179,
-                    "end": 2352,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 44 \n * @param \n * {Answerable} name \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1455,
+                    "end": 1607,
                     "loc": {
                       "start": {
-                        "line": 77,
+                        "line": 41,
                         "column": 0
                       },
                       "end": {
-                        "line": 88,
+                        "line": 54,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 2359,
-                    "end": 2997,
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {Answerable<string>} name\n     *  The name to associate the screenshot with\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 1614,
+                    "end": 1885,
                     "loc": {
                       "start": {
-                        "line": 91,
+                        "line": 57,
                         "column": 4
                       },
                       "end": {
-                        "line": 104,
+                        "line": 65,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2099,
+                "end": 2178,
+                "loc": {
+                  "start": {
+                    "line": 74,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 76,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1357,23 +1271,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3002,
-                "end": 3357,
-                "loc": {
-                  "start": {
-                    "line": 105,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 113,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1407,40 +1306,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 3358,
-                    "end": 3450,
+                    "value": "*\n     * @param {Answerable<string>} name\n     *  The name to associate the screenshot with\n     ",
+                    "start": 1993,
+                    "end": 2094,
                     "loc": {
                       "start": {
-                        "line": 114,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 123,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 3457,
-                    "end": 3627,
-                    "loc": {
-                      "start": {
-                        "line": 126,
+                        "line": 70,
                         "column": 4
                       },
                       "end": {
-                        "line": 131,
+                        "line": 73,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3002,
+                "end": 3357,
+                "loc": {
+                  "start": {
+                    "line": 105,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 113,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2186,9 +2084,6 @@
                                   "column": 9
                                 }
                               },
-                              "extra": {
-                                "trailingComma": 3338
-                              },
                               "callee": {
                                 "type": "MemberExpression",
                                 "start": 3255,
@@ -2238,6 +2133,9 @@
                                   },
                                   "name": "collect"
                                 }
+                              },
+                              "extra": {
+                                "trailingComma": 3338
                               },
                               "arguments": [
                                 {
@@ -2383,23 +2281,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3632,
-                "end": 3728,
-                "loc": {
-                  "start": {
-                    "line": 132,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 134,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2433,6 +2316,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 70 \n * @param \n * {UsesAbilities & AnswersQuestions & CollectsArtifacts} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 2179,
+                    "end": 2352,
+                    "loc": {
+                      "start": {
+                        "line": 77,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 88,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 2359,
+                    "end": 2997,
+                    "loc": {
+                      "start": {
+                        "line": 91,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 104,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3632,
+                "end": 3728,
+                "loc": {
+                  "start": {
+                    "line": 132,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 134,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2658,7 +2590,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 3358,
+                    "end": 3450,
+                    "loc": {
+                      "start": {
+                        "line": 114,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 123,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 3457,
+                    "end": 3627,
+                    "loc": {
+                      "start": {
+                        "line": 126,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 131,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2697,7 +2663,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 33 \n ",
+            "start": 272,
+            "end": 317,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  take a screenshot and emit an {@link @serenity-js/core/lib/model~Artifact},\n *  which can then be persisted by {@link @serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver}\n *  and reported by [Serenity BDD reporter](/modules/serenity-bdd).\n *\n * @example <caption>Clicking on an element</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Navigate, TakeScreenshot } from '@serenity-js/protractor';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Tania')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Navigate.to('/app'),\n *          TakeScreenshot.of('my app'),\n *      );\n *\n * @see {@link BrowseTheWeb}\n * @see {@link @serenity-js/core/lib/screenplay/actor~CollectsArtifacts}\n * @see {@link @serenity-js/core/lib/model~Artifact}\n * @see {@link @serenity-js/core/lib/stage/crew/artifact-archiver~ArtifactArchiver}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
+            "start": 320,
+            "end": 1404,
+            "loc": {
+              "start": {
+                "line": 14,
+                "column": 0
+              },
+              "end": {
+                "line": 39,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

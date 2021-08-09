@@ -44,40 +44,6 @@
             "column": 40
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
-            "start": 41,
-            "end": 86,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link Serenity#configure}\n * @see {@link SerenityConfig#crew}\n * @interface ",
-            "start": 89,
-            "end": 343,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 18,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -149,23 +115,8 @@
             "raw": "'../events'"
           },
           "value": "../events"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 344,
-        "end": 747,
-        "loc": {
-          "start": {
-            "line": 19,
-            "column": 0
-          },
-          "end": {
-            "line": 40,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
@@ -198,7 +149,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 344,
+        "end": 747,
+        "loc": {
+          "start": {
+            "line": 19,
+            "column": 0
+          },
+          "end": {
+            "line": 40,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -264,40 +230,6 @@
                     "column": 43
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 390,
-                    "end": 482,
-                    "loc": {
-                      "start": {
-                        "line": 20,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 29,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  that this {@link StageCrewMember} is assigned to.\n     *\n     * @type {function(event: DomainEvent): void}\n     ",
-                    "start": 489,
-                    "end": 701,
-                    "loc": {
-                      "start": {
-                        "line": 32,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 38,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -443,7 +375,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 390,
+                    "end": 482,
+                    "loc": {
+                      "start": {
+                        "line": 20,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 29,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Handles {@link DomainEvent} objects emitted by the {@link Stage}\n     *  that this {@link StageCrewMember} is assigned to.\n     *\n     * @type {function(event: DomainEvent): void}\n     ",
+                    "start": 489,
+                    "end": 701,
+                    "loc": {
+                      "start": {
+                        "line": 32,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 38,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -482,7 +448,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 12 \n ",
+            "start": 41,
+            "end": 86,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A {@link StageCrewMember} that can listen and react to {@link DomainEvent}s\n *\n * @see {@link StageCrewMember}\n * @see {@link StageCrewMemberBuilder}\n * @see {@link Serenity#configure}\n * @see {@link SerenityConfig#crew}\n * @interface ",
+            "start": 89,
+            "end": 343,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 18,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

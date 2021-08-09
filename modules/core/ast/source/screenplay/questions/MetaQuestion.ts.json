@@ -131,40 +131,6 @@
             "column": 39
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n ",
-            "start": 84,
-            "end": 129,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A {@link Question} about another {@link Answerable}, used to retrieve a transformed version of the value it holds, or to compose {@link Question}s.\n *\n *  For example, the question [`Text.of`](/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html)\n *  returns text content of an {@link ElementFinder} returned by [`Target`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),\n *  which is a `Question<ElementFinder>`.\n *\n *  `MetaQuestion`s are typically used when filtering a {@link List}.\n *\n * @see {@link List}\n *\n * @public\n * @interface\n * @interface ",
-            "start": 132,
-            "end": 759,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'../Question'"
           },
           "value": "../Question"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 760,
-        "end": 1522,
-        "loc": {
-          "start": {
-            "line": 26,
-            "column": 0
-          },
-          "end": {
-            "line": 69,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 760,
+        "end": 1522,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 69,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -464,74 +430,6 @@
                     "column": 68
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 856,
-                    "end": 948,
-                    "loc": {
-                      "start": {
-                        "line": 27,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 36,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Transforms a given `answerable`\n     *  to another {@link Question}.\n     *\n     * @type {function<T>(another: Answerable): Question<Answer>}\n     * @public\n     *\n     * @see {@link List}\n     ",
-                    "start": 954,
-                    "end": 1175,
-                    "loc": {
-                      "start": {
-                        "line": 38,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 47,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 1245,
-                    "end": 1337,
-                    "loc": {
-                      "start": {
-                        "line": 49,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 58,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Human-readable description of a given {@link MetaQuestion},\n     *\n     * @type {function(): string}\n     * @public\n     ",
-                    "start": 1344,
-                    "end": 1492,
-                    "loc": {
-                      "start": {
-                        "line": 61,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 67,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -743,23 +641,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1497,
-                "end": 1520,
-                "loc": {
-                  "start": {
-                    "line": 68,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 68,
-                    "column": 27
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -793,6 +676,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 30 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 856,
+                    "end": 948,
+                    "loc": {
+                      "start": {
+                        "line": 27,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 36,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Transforms a given `answerable`\n     *  to another {@link Question}.\n     *\n     * @type {function<T>(another: Answerable): Question<Answer>}\n     * @public\n     *\n     * @see {@link List}\n     ",
+                    "start": 954,
+                    "end": 1175,
+                    "loc": {
+                      "start": {
+                        "line": 38,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 47,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1497,
+                "end": 1520,
+                "loc": {
+                  "start": {
+                    "line": 68,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 68,
+                    "column": 27
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -873,7 +805,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 39 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 1245,
+                    "end": 1337,
+                    "loc": {
+                      "start": {
+                        "line": 49,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 58,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Human-readable description of a given {@link MetaQuestion},\n     *\n     * @type {function(): string}\n     * @public\n     ",
+                    "start": 1344,
+                    "end": 1492,
+                    "loc": {
+                      "start": {
+                        "line": 61,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -912,7 +878,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 19 \n ",
+            "start": 84,
+            "end": 129,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A {@link Question} about another {@link Answerable}, used to retrieve a transformed version of the value it holds, or to compose {@link Question}s.\n *\n *  For example, the question [`Text.of`](/modules/protractor/class/src/screenplay/questions/text/Text.ts~Text.html)\n *  returns text content of an {@link ElementFinder} returned by [`Target`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),\n *  which is a `Question<ElementFinder>`.\n *\n *  `MetaQuestion`s are typically used when filtering a {@link List}.\n *\n * @see {@link List}\n *\n * @public\n * @interface\n * @interface ",
+            "start": 132,
+            "end": 759,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

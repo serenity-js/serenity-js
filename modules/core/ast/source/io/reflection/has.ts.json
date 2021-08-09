@@ -44,40 +44,6 @@
             "column": 1
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Record} api \n * @return \n * {Function} \n ",
-            "start": 1,
-            "end": 101,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 11,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Checks if the `candidate` value \"quacks like a duck\".\n *  In particular, it checks if the `candidate`:\n *  - is not `null`\n *  - is not `undefined`\n *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))\n *\n * @example\n *  const looksLikeADuck = has({\n *      name:   'string',\n *      quack:  'function',\n *  })\n *\n *  const daisy = {\n *      name: 'Daisy',\n *      quack: () => 'quack',\n *  }\n *\n *  looksLikeADuck(daisy) // true\n *\n * @param {object} api\n *  An object where the keys are names of member fields and methods expected on the `candidate`,\n *  and values are the names of their types, i.e. `function`, `object`, etc.\n *\n * @returns {boolean}\n ",
-            "start": 102,
-            "end": 871,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 38,
-                "column": 3
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -800,9 +766,6 @@
                           "column": 9
                         }
                       },
-                      "extra": {
-                        "trailingComma": 1232
-                      },
                       "callee": {
                         "type": "MemberExpression",
                         "start": 1091,
@@ -919,6 +882,9 @@
                           },
                           "name": "reduce"
                         }
+                      },
+                      "extra": {
+                        "trailingComma": 1232
                       },
                       "arguments": [
                         {
@@ -1068,10 +1034,6 @@
                                     "column": 48
                                   }
                                 },
-                                "extra": {
-                                  "parenthesized": true,
-                                  "parenStart": 1182
-                                },
                                 "operator": "typeof",
                                 "prefix": true,
                                 "argument": {
@@ -1123,6 +1085,10 @@
                                     },
                                     "name": "key"
                                   }
+                                },
+                                "extra": {
+                                  "parenthesized": true,
+                                  "parenStart": 1182
                                 }
                               },
                               "operator": "===",
@@ -1205,7 +1171,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @param \n * {Record} api \n * @return \n * {Function} \n ",
+            "start": 1,
+            "end": 101,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 11,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Checks if the `candidate` value \"quacks like a duck\".\n *  In particular, it checks if the `candidate`:\n *  - is not `null`\n *  - is not `undefined`\n *  - has expected methods or fields (evaluated via [`typeof`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof))\n *\n * @example\n *  const looksLikeADuck = has({\n *      name:   'string',\n *      quack:  'function',\n *  })\n *\n *  const daisy = {\n *      name: 'Daisy',\n *      quack: () => 'quack',\n *  }\n *\n *  looksLikeADuck(daisy) // true\n *\n * @param {object} api\n *  An object where the keys are names of member fields and methods expected on the `candidate`,\n *  and values are the names of their types, i.e. `function`, `object`, etc.\n *\n * @returns {boolean}\n ",
+            "start": 102,
+            "end": 871,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 38,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

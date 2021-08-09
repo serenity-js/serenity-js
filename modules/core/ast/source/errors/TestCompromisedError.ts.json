@@ -44,40 +44,6 @@
             "column": 46
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
-            "start": 47,
-            "end": 92,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Thrown to indicate that the test can't be performed due to an issue with a downstream dependency.\n *  For example, it makes no sense to run a full-stack integration test if we already know that\n *  the database server is down.\n *\n * @example <caption>Throwing a TestCompromisedError from a custom Interaction</caption>\n *  import { Interaction } from '@serenity-js/core';\n *\n *  const SetUpTestDatabase = () =>\n *      Interaction.where(`#actor sets up a test database`, actor => {\n *          return SomeCustomDatabaseSpecificAbility.as(actor).setUpTestDatabase().catch(error => {\n *              throw new TestCompromisedError('Could not set up the test database', error);\n *          });\n *      });\n *\n * @extends {RuntimeError}\n ",
-            "start": 95,
-            "end": 848,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 27,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -149,23 +115,8 @@
             "raw": "'./RuntimeError'"
           },
           "value": "./RuntimeError"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 849,
-        "end": 1190,
-        "loc": {
-          "start": {
-            "line": 28,
-            "column": 0
-          },
-          "end": {
-            "line": 37,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
@@ -198,7 +149,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 849,
+        "end": 1190,
+        "loc": {
+          "start": {
+            "line": 28,
+            "column": 0
+          },
+          "end": {
+            "line": 37,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -279,24 +245,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
-                    "start": 911,
-                    "end": 1079,
-                    "loc": {
-                      "start": {
-                        "line": 30,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 33,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -549,7 +497,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {string} message - Human-readable description of the error\n     * @param {Error} [cause] - The root cause of this {@link RuntimeError}, if any\n     ",
+                    "start": 911,
+                    "end": 1079,
+                    "loc": {
+                      "start": {
+                        "line": 30,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 33,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -588,7 +554,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 21 \n ",
+            "start": 47,
+            "end": 92,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Thrown to indicate that the test can't be performed due to an issue with a downstream dependency.\n *  For example, it makes no sense to run a full-stack integration test if we already know that\n *  the database server is down.\n *\n * @example <caption>Throwing a TestCompromisedError from a custom Interaction</caption>\n *  import { Interaction } from '@serenity-js/core';\n *\n *  const SetUpTestDatabase = () =>\n *      Interaction.where(`#actor sets up a test database`, actor => {\n *          return SomeCustomDatabaseSpecificAbility.as(actor).setUpTestDatabase().catch(error => {\n *              throw new TestCompromisedError('Could not set up the test database', error);\n *          });\n *      });\n *\n * @extends {RuntimeError}\n ",
+            "start": 95,
+            "end": 848,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 27,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

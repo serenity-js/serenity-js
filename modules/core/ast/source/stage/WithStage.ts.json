@@ -44,40 +44,6 @@
             "column": 32
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
-            "start": 33,
-            "end": 78,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc Makes the {@link Stage} object setup in your test runner configuration visible\n * to test steps or test scenarios.\n *\n * When using Cucumber, the {@link Stage} is typically set up using the Cucumber World Constructor.\n * When using Jasmine, the {@link Stage} is typically set up in the `beforeEach` step.\n *\n * @see https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/api_reference.md\n * @see https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/step_definitions.md\n * @see https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters\n *\n * @example <caption>Usage with Cucumber.js</caption>\n * // features/support/configure_serenity.ts\n * import { WithStage } from '@serenity-js/core';\n * import { setWorldConstructor } from 'cucumber';\n *\n * setWorldConstructor(function (this: WithStage, { parameters }) {\n *   this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());\n * });\n *\n * // features/step_definitions/some.steps.ts\n * import { WithStage } from '@serenity-js/cucumber';\n *\n * Given(/(.*?) is a registered customer/, function (this: WithStage, actorName: string) {\n *   return this.stage.actor(actorName).attemptsTo(\n *\n *   );\n * });\n *\n * @example <caption>Usage with Jasmine</caption>\n * // spec/some.spec.ts\n * import { serenity, WithStage } from '@serenity-js/core';\n *\n * describe('Using the Stage', () => {\n *   beforeEach(function (this: WithStage) {\n *     this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());\n *   });\n *\n *   it('makes it easy to access the Actors', function(this: WithStage) {\n *     return this.stage.theActorCalled('Barry').attemptsTo(\n *       // tasks\n *     );\n *   })\n * });\n *\n * @deprecated Please use serenity.actor() and serenity.actorInTheSpotlight() instead\n * @interface ",
-            "start": 81,
-            "end": 1924,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 56,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -149,23 +115,8 @@
             "raw": "'./Stage'"
           },
           "value": "./Stage"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1925,
-        "end": 2069,
-        "loc": {
-          "start": {
-            "line": 57,
-            "column": 0
-          },
-          "end": {
-            "line": 70,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
@@ -198,7 +149,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1925,
+        "end": 2069,
+        "loc": {
+          "start": {
+            "line": 57,
+            "column": 0
+          },
+          "end": {
+            "line": 70,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -264,24 +230,6 @@
                     "column": 17
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @type \n * {Stage} \n * @public \n * \\TRUE \n ",
-                    "start": 1959,
-                    "end": 2048,
-                    "loc": {
-                      "start": {
-                        "line": 58,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 67,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -348,7 +296,25 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @type \n * {Stage} \n * @public \n * \\TRUE \n ",
+                    "start": 1959,
+                    "end": 2048,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -387,7 +353,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 50 \n ",
+            "start": 33,
+            "end": 78,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc Makes the {@link Stage} object setup in your test runner configuration visible\n * to test steps or test scenarios.\n *\n * When using Cucumber, the {@link Stage} is typically set up using the Cucumber World Constructor.\n * When using Jasmine, the {@link Stage} is typically set up in the `beforeEach` step.\n *\n * @see https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/api_reference.md\n * @see https://github.com/cucumber/cucumber-js/blob/v5.0.1/docs/support_files/step_definitions.md\n * @see https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters\n *\n * @example <caption>Usage with Cucumber.js</caption>\n * // features/support/configure_serenity.ts\n * import { WithStage } from '@serenity-js/core';\n * import { setWorldConstructor } from 'cucumber';\n *\n * setWorldConstructor(function (this: WithStage, { parameters }) {\n *   this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());\n * });\n *\n * // features/step_definitions/some.steps.ts\n * import { WithStage } from '@serenity-js/cucumber';\n *\n * Given(/(.*?) is a registered customer/, function (this: WithStage, actorName: string) {\n *   return this.stage.actor(actorName).attemptsTo(\n *\n *   );\n * });\n *\n * @example <caption>Usage with Jasmine</caption>\n * // spec/some.spec.ts\n * import { serenity, WithStage } from '@serenity-js/core';\n *\n * describe('Using the Stage', () => {\n *   beforeEach(function (this: WithStage) {\n *     this.stage = serenity.callToStageFor(new SomeImplementationOfTheCastInterface());\n *   });\n *\n *   it('makes it easy to access the Actors', function(this: WithStage) {\n *     return this.stage.theActorCalled('Barry').attemptsTo(\n *       // tasks\n *     );\n *   })\n * });\n *\n * @deprecated Please use serenity.actor() and serenity.actorInTheSpotlight() instead\n * @interface ",
+            "start": 81,
+            "end": 1924,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 56,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -664,40 +664,6 @@
             "column": 46
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n ",
-            "start": 331,
-            "end": 376,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 13,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Filters an {@link Answerable} list of items based on the criteria provided.\n *  Instantiate via {@link List.of}\n *\n * @example <caption>Example data structure</caption>\n *  interface TestAccount {\n *      username: string;\n *      role: string;\n *      environments: string[];\n *  }\n *\n *  const testAccounts: TestAccount[] = [\n *      {\n *          \"username\": \"tester.one@example.com\",\n *          \"role\": \"test-automation\"\n *          \"environments\": [ \"dev\", \"sit\" ],\n *      },\n *      {\n *          \"username\": \"tester.two@example.com\",\n *          \"role\": \"test-automation\"\n *          \"environments\": [ \"dev\", \"sit\", \"prod\" ],\n *      },\n *      {\n *          \"username\": \"release.bot@example.com\",\n *          \"role\": \"release-automation\"\n *          \"environments\": [ \"dev\", \"sit\", \"prod\" ],\n *      }\n *  ]\n *\n * @example <caption>Using with Property</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { contain, Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(testAccounts)\n *                  .where(Property.at<TestAccount>().environments, contain('prod'))\n *                  .where(Property.at<TestAccount>().role, equals('test-automation'))\n *                  .first()\n *              ).username,\n *          equals('tester.two@example.com')\n *      )\n *  )\n *\n * @extends {Question}\n * @see {@link MetaQuestion}\n ",
-            "start": 379,
-            "end": 1879,
-            "loc": {
-              "start": {
-                "line": 16,
-                "column": 0
-              },
-              "end": {
-                "line": 64,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -769,23 +735,8 @@
             "raw": "'./MetaQuestion'"
           },
           "value": "./MetaQuestion"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1880,
-        "end": 10258,
-        "loc": {
-          "start": {
-            "line": 65,
-            "column": 0
-          },
-          "end": {
-            "line": 371,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n ",
@@ -818,7 +769,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1880,
+        "end": 10258,
+        "loc": {
+          "start": {
+            "line": 65,
+            "column": 0
+          },
+          "end": {
+            "line": 371,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1286,58 +1252,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Answerable} items \n * @return \n * {List} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2177,
-                    "end": 2323,
-                    "loc": {
-                      "start": {
-                        "line": 74,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 87,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a new {@link List} configured to support standard {@link Array}.\n     *\n     *  **Please note:** Don't use `List.of` to wrap `Question<ElementArrayFinder>` returned by\n     *  [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all).\n     *  Instead, use [`Target.all(...).located(...).where(...)`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),\n     *  which uses a Protractor-specific {@link ListAdapter}.\n     *\n     * @param {Answerable<Item_Type[]>} items\n     *\n     * @returns {List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>>}\n     ",
-                    "start": 2330,
-                    "end": 3055,
-                    "loc": {
-                      "start": {
-                        "line": 90,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 102,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {List_Adapter_Type} collection\n     ",
-                    "start": 3398,
-                    "end": 3454,
-                    "loc": {
-                      "start": {
-                        "line": 109,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 111,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2396,23 +2310,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3459,
-                "end": 3569,
-                "loc": {
-                  "start": {
-                    "line": 112,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 114,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {List_Adapter_Type} collection\n     ",
@@ -2430,40 +2329,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 3570,
-                    "end": 3665,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 81 \n * @param \n * {Answerable} items \n * @return \n * {List} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2177,
+                    "end": 2323,
                     "loc": {
                       "start": {
-                        "line": 115,
+                        "line": 74,
                         "column": 0
                       },
                       "end": {
-                        "line": 124,
+                        "line": 87,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the number of items left after applying any filters,\n     *\n     * @example <caption>Counting items</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).count(),\n     *          equals(3)\n     *      )\n     *  )\n     *\n     * @returns {Question<Promise<number>>}\n     *\n     * @see {@link List#where}\n     ",
-                    "start": 3672,
-                    "end": 4219,
+                    "value": "*\n     * @desc\n     *  Instantiates a new {@link List} configured to support standard {@link Array}.\n     *\n     *  **Please note:** Don't use `List.of` to wrap `Question<ElementArrayFinder>` returned by\n     *  [`Target.all`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html#static-method-all).\n     *  Instead, use [`Target.all(...).located(...).where(...)`](/modules/protractor/class/src/screenplay/questions/targets/Target.ts~Target.html),\n     *  which uses a Protractor-specific {@link ListAdapter}.\n     *\n     * @param {Answerable<Item_Type[]>} items\n     *\n     * @returns {List<ArrayListAdapter<Item_Type>, Item_Type, Item_Type[], Promise<Item_Type>, Promise<Item_Type[]>>}\n     ",
+                    "start": 2330,
+                    "end": 3055,
                     "loc": {
                       "start": {
-                        "line": 127,
+                        "line": 90,
                         "column": 4
                       },
                       "end": {
-                        "line": 145,
+                        "line": 102,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3459,
+                "end": 3569,
+                "loc": {
+                  "start": {
+                    "line": 112,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 114,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2742,23 +2656,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4224,
-                "end": 4406,
-                "loc": {
-                  "start": {
-                    "line": 146,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 150,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -2792,40 +2691,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 138 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 4407,
-                    "end": 4502,
+                    "value": "*\n     * @param {List_Adapter_Type} collection\n     ",
+                    "start": 3398,
+                    "end": 3454,
                     "loc": {
                       "start": {
-                        "line": 151,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 160,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the first of items left after applying any filters,\n     *\n     * @example <caption>Retrieving the first item</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).first(),\n     *          property('username', equals('tester.one@example.com'))\n     *      )\n     *  )\n     *\n     * @returns {Question<Item_Return_Type>}\n     *\n     * @see {@link List#where}\n     ",
-                    "start": 4509,
-                    "end": 5112,
-                    "loc": {
-                      "start": {
-                        "line": 163,
+                        "line": 109,
                         "column": 4
                       },
                       "end": {
-                        "line": 181,
+                        "line": 111,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4224,
+                "end": 4406,
+                "loc": {
+                  "start": {
+                    "line": 146,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 150,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3385,23 +3283,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5117,
-                "end": 5299,
-                "loc": {
-                  "start": {
-                    "line": 182,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 186,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 138 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -3435,40 +3318,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 163 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 5300,
-                    "end": 5395,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 3570,
+                    "end": 3665,
                     "loc": {
                       "start": {
-                        "line": 187,
+                        "line": 115,
                         "column": 0
                       },
                       "end": {
-                        "line": 196,
+                        "line": 124,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the last of items left after applying any filters,\n     *\n     * @example <caption>Retrieving the last item</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).last(),\n     *          property('username', equals('release.bot@example.com'))\n     *      )\n     *  )\n     *\n     * @returns {Question<Item_Return_Type>}\n     *\n     * @see {@link List#where}\n     ",
-                    "start": 5402,
-                    "end": 6003,
+                    "value": "*\n     * @desc\n     *  Returns the number of items left after applying any filters,\n     *\n     * @example <caption>Counting items</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).count(),\n     *          equals(3)\n     *      )\n     *  )\n     *\n     * @returns {Question<Promise<number>>}\n     *\n     * @see {@link List#where}\n     ",
+                    "start": 3672,
+                    "end": 4219,
                     "loc": {
                       "start": {
-                        "line": 199,
+                        "line": 127,
                         "column": 4
                       },
                       "end": {
-                        "line": 217,
+                        "line": 145,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5117,
+                "end": 5299,
+                "loc": {
+                  "start": {
+                    "line": 182,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 186,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3996,23 +3894,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6008,
-                "end": 6187,
-                "loc": {
-                  "start": {
-                    "line": 218,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 222,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 163 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -4046,40 +3929,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 191 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                    "start": 6188,
-                    "end": 6313,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 138 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 4407,
+                    "end": 4502,
                     "loc": {
                       "start": {
-                        "line": 223,
+                        "line": 151,
                         "column": 0
                       },
                       "end": {
-                        "line": 234,
+                        "line": 160,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the nth of the items left after applying any filters,\n     *\n     * @example <caption>Retrieving the nth item</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).get(1),\n     *          property('username', equals('tester.two@example.com'))\n     *      )\n     *  )\n     *\n     * @param {number} index\n     *  Zero-based index of the item to return\n     *\n     * @returns {Question<Item_Return_Type>}\n     *\n     * @see {@link List#where}\n     ",
-                    "start": 6320,
-                    "end": 7005,
+                    "value": "*\n     * @desc\n     *  Returns the first of items left after applying any filters,\n     *\n     * @example <caption>Retrieving the first item</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).first(),\n     *          property('username', equals('tester.one@example.com'))\n     *      )\n     *  )\n     *\n     * @returns {Question<Item_Return_Type>}\n     *\n     * @see {@link List#where}\n     ",
+                    "start": 4509,
+                    "end": 5112,
                     "loc": {
                       "start": {
-                        "line": 237,
+                        "line": 163,
                         "column": 4
                       },
                       "end": {
-                        "line": 258,
+                        "line": 181,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6008,
+                "end": 6187,
+                "loc": {
+                  "start": {
+                    "line": 218,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 222,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4607,23 +4505,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7010,
-                "end": 7228,
-                "loc": {
-                  "start": {
-                    "line": 259,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 263,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 191 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -4657,40 +4540,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 220 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {List} \n * @public \n * \\TRUE \n ",
-                    "start": 7229,
-                    "end": 7400,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 163 \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 5300,
+                    "end": 5395,
                     "loc": {
                       "start": {
-                        "line": 264,
+                        "line": 187,
                         "column": 0
                       },
                       "end": {
-                        "line": 277,
+                        "line": 196,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Filters the underlying collection so that the result contains only those elements that meet the {@link Expectation}\n     *\n     * @example <caption>Filtering a list</caption>\n     *  import { actorCalled, List, Property } from '@serenity-js/core';\n     *  import { contain, Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts)\n     *              .where(Property.at<TestAccount>().environments, contain('prod'))\n     *              .where(Property.at<TestAccount>().role, equals('test-automation'))\n     *              .first(),\n     *          property('username', equals('tester.two@example.com'))\n     *      )\n     *  )\n     *\n     * @param {MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>} question\n     * @param {Expectation<any, Answer_Type>} expectation\n     *\n     * @returns {List<List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type>}\n     ",
-                    "start": 7407,
-                    "end": 8448,
+                    "value": "*\n     * @desc\n     *  Returns the last of items left after applying any filters,\n     *\n     * @example <caption>Retrieving the last item</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).last(),\n     *          property('username', equals('release.bot@example.com'))\n     *      )\n     *  )\n     *\n     * @returns {Question<Item_Return_Type>}\n     *\n     * @see {@link List#where}\n     ",
+                    "start": 5402,
+                    "end": 6003,
                     "loc": {
                       "start": {
-                        "line": 280,
+                        "line": 199,
                         "column": 4
                       },
                       "end": {
-                        "line": 302,
+                        "line": 217,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7010,
+                "end": 7228,
+                "loc": {
+                  "start": {
+                    "line": 259,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 263,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5374,23 +5272,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8453,
-                "end": 8921,
-                "loc": {
-                  "start": {
-                    "line": 303,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 310,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 220 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {List} \n * @public \n * \\TRUE \n ",
@@ -5424,40 +5307,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 240 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Collection_Return_Type} \n * @public \n * \\TRUE \n ",
-                    "start": 8922,
-                    "end": 9087,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 191 \n * @param \n * {number} index \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                    "start": 6188,
+                    "end": 6313,
                     "loc": {
                       "start": {
-                        "line": 311,
+                        "line": 223,
                         "column": 0
                       },
                       "end": {
-                        "line": 322,
+                        "line": 234,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor} answer this {@link Question} and return the underlying collection.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Collection_Return_Type}\n     *\n     * @see {@link Actor}\n     * @see {@link AnswersQuestions}\n     * @see {@link UsesAbilities}\n     ",
-                    "start": 9094,
-                    "end": 9433,
+                    "value": "*\n     * @desc\n     *  Returns the nth of the items left after applying any filters,\n     *\n     * @example <caption>Retrieving the nth item</caption>\n     *  import { actorCalled, List } from '@serenity-js/core';\n     *  import { Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts).get(1),\n     *          property('username', equals('tester.two@example.com'))\n     *      )\n     *  )\n     *\n     * @param {number} index\n     *  Zero-based index of the item to return\n     *\n     * @returns {Question<Item_Return_Type>}\n     *\n     * @see {@link List#where}\n     ",
+                    "start": 6320,
+                    "end": 7005,
                     "loc": {
                       "start": {
-                        "line": 325,
+                        "line": 237,
                         "column": 4
                       },
                       "end": {
-                        "line": 335,
+                        "line": 258,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8453,
+                "end": 8921,
+                "loc": {
+                  "start": {
+                    "line": 303,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 310,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6533,23 +6431,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 9438,
-                "end": 9566,
-                "loc": {
-                  "start": {
-                    "line": 336,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 338,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 240 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Collection_Return_Type} \n * @public \n * \\TRUE \n ",
@@ -6583,24 +6466,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @param \n * {number} index \n * @return \n * {string} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                    "start": 9567,
-                    "end": 9713,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 220 \n * @param \n * {MetaQuestion} question \n * @param \n * {Expectation} expectation \n * @return \n * {List} \n * @public \n * \\TRUE \n ",
+                    "start": 7229,
+                    "end": 7400,
                     "loc": {
                       "start": {
-                        "line": 339,
+                        "line": 264,
                         "column": 0
                       },
                       "end": {
-                        "line": 352,
+                        "line": 277,
                         "column": 3
                       }
                     }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Filters the underlying collection so that the result contains only those elements that meet the {@link Expectation}\n     *\n     * @example <caption>Filtering a list</caption>\n     *  import { actorCalled, List, Property } from '@serenity-js/core';\n     *  import { contain, Ensure, equals, property } from '@serenity-js/assertions';\n     *\n     *  actorCalled('Lisa').attemptsTo(\n     *      Ensure.that(\n     *          List.of(testAccounts)\n     *              .where(Property.at<TestAccount>().environments, contain('prod'))\n     *              .where(Property.at<TestAccount>().role, equals('test-automation'))\n     *              .first(),\n     *          property('username', equals('tester.two@example.com'))\n     *      )\n     *  )\n     *\n     * @param {MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>} question\n     * @param {Expectation<any, Answer_Type>} expectation\n     *\n     * @returns {List<List_Adapter_Type, Item_Type, Collection_Type, Item_Return_Type, Collection_Return_Type>}\n     ",
+                    "start": 7407,
+                    "end": 8448,
+                    "loc": {
+                      "start": {
+                        "line": 280,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 302,
+                        "column": 7
+                      }
+                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 9438,
+                "end": 9566,
+                "loc": {
+                  "start": {
+                    "line": 336,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 338,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -6933,23 +6847,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 9720,
-                "end": 10256,
-                "loc": {
-                  "start": {
-                    "line": 355,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 370,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @param \n * {number} index \n * @return \n * {string} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
@@ -6967,6 +6866,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 240 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Collection_Return_Type} \n * @public \n * \\TRUE \n ",
+                    "start": 8922,
+                    "end": 9087,
+                    "loc": {
+                      "start": {
+                        "line": 311,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 322,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor} answer this {@link Question} and return the underlying collection.\n     *\n     * @param {AnswersQuestions & UsesAbilities} actor\n     * @returns {Collection_Return_Type}\n     *\n     * @see {@link Actor}\n     * @see {@link AnswersQuestions}\n     * @see {@link UsesAbilities}\n     ",
+                    "start": 9094,
+                    "end": 9433,
+                    "loc": {
+                      "start": {
+                        "line": 325,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 335,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 9720,
+                "end": 10256,
+                "loc": {
+                  "start": {
+                    "line": 355,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 370,
+                    "column": 5
+                  }
+                },
                 "accessibility": "private",
                 "static": true,
                 "key": {
@@ -7402,10 +7350,6 @@
                                 "column": 57
                               }
                             },
-                            "extra": {
-                              "parenthesized": true,
-                              "parenStart": 9909
-                            },
                             "left": {
                               "type": "BinaryExpression",
                               "start": 9910,
@@ -7512,6 +7456,10 @@
                                 },
                                 "value": 11
                               }
+                            },
+                            "extra": {
+                              "parenthesized": true,
+                              "parenStart": 9909
                             }
                           }
                         },
@@ -7612,10 +7560,6 @@
                                 "line": 363,
                                 "column": 57
                               }
-                            },
-                            "extra": {
-                              "parenthesized": true,
-                              "parenStart": 10006
                             },
                             "left": {
                               "type": "BinaryExpression",
@@ -7723,6 +7667,10 @@
                                 },
                                 "value": 12
                               }
+                            },
+                            "extra": {
+                              "parenthesized": true,
+                              "parenStart": 10006
                             }
                           }
                         },
@@ -7823,10 +7771,6 @@
                                 "line": 365,
                                 "column": 57
                               }
-                            },
-                            "extra": {
-                              "parenthesized": true,
-                              "parenStart": 10103
                             },
                             "left": {
                               "type": "BinaryExpression",
@@ -7934,6 +7878,10 @@
                                 },
                                 "value": 13
                               }
+                            },
+                            "extra": {
+                              "parenthesized": true,
+                              "parenStart": 10103
                             }
                           }
                         },
@@ -8027,7 +7975,25 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 244 \n * @param \n * {number} index \n * @return \n * {string} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                    "start": 9567,
+                    "end": 9713,
+                    "loc": {
+                      "start": {
+                        "line": 339,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 352,
+                        "column": 3
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -8066,7 +8032,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 58 \n ",
+            "start": 331,
+            "end": 376,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 0
+              },
+              "end": {
+                "line": 13,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Filters an {@link Answerable} list of items based on the criteria provided.\n *  Instantiate via {@link List.of}\n *\n * @example <caption>Example data structure</caption>\n *  interface TestAccount {\n *      username: string;\n *      role: string;\n *      environments: string[];\n *  }\n *\n *  const testAccounts: TestAccount[] = [\n *      {\n *          \"username\": \"tester.one@example.com\",\n *          \"role\": \"test-automation\"\n *          \"environments\": [ \"dev\", \"sit\" ],\n *      },\n *      {\n *          \"username\": \"tester.two@example.com\",\n *          \"role\": \"test-automation\"\n *          \"environments\": [ \"dev\", \"sit\", \"prod\" ],\n *      },\n *      {\n *          \"username\": \"release.bot@example.com\",\n *          \"role\": \"release-automation\"\n *          \"environments\": [ \"dev\", \"sit\", \"prod\" ],\n *      }\n *  ]\n *\n * @example <caption>Using with Property</caption>\n *  import { actorCalled, List, Property } from '@serenity-js/core';\n *  import { contain, Ensure, equals } from '@serenity-js/assertions';\n *\n *  actorCalled('Lisa').attemptsTo(\n *      Ensure.that(\n *          Property.of(\n *              List.of(testAccounts)\n *                  .where(Property.at<TestAccount>().environments, contain('prod'))\n *                  .where(Property.at<TestAccount>().role, equals('test-automation'))\n *                  .first()\n *              ).username,\n *          equals('tester.two@example.com')\n *      )\n *  )\n *\n * @extends {Question}\n * @see {@link MetaQuestion}\n ",
+            "start": 379,
+            "end": 1879,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 0
+              },
+              "end": {
+                "line": 64,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

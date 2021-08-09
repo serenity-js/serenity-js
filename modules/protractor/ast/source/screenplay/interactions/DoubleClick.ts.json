@@ -539,40 +539,6 @@
             "column": 47
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n ",
-            "start": 284,
-            "end": 329,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  perform a double-click on a given Web element.\n *\n * @example <caption>Example widget</caption>\n *  <!--\n *      The editor shows up when the user double-clicks\n *      on one of the properties of their profile\n *      and let's them change the value of that property.\n *  -->\n *  <div id=\"user-profile\">\n *      <ul>\n *          <li id=\"display-name\" ondblclick=\"edit(this)\">User12345</li>\n *          <li id=\"email-address\" ondblclick=\"edit(this)\">tester@example.org</li>\n *      </ul>\n *      <form id=\"editor\" class=\"hidden\">\n *          <input type=\"text\" value=\"\" />\n *      </form>\n *  </div>\n *\n * @example <caption>Lean Page Object describing the widget</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { by } from 'protractor';\n *\n *  class UserProfile {\n *      static displayName = Target.the('display name')\n *          .located(by.id('display-name'));\n *      static emailAddress = Target.the('email address')\n *          .located(by.id('email-address'));\n *      static editor = Target.the('editor')\n *          .located(by.id('editor'));\n *  }\n *\n * @example <caption>Double-clicking on an element</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, DoubleClick, isVisible, Enter, Text, Wait } from '@serenity-js/protractor';\n *  import { Ensure, equals, not } from '@serenity-js/assertions';\n *  import { protractor, Key } from 'protractor';\n *\n *  actorCalled('Dorothy')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          DoubleClick.on(UserProfile.displayName),\n *          Wait.until(UserProfile.editor, isVisible()),\n *\n *          Enter.theValue('New username').into(UserProfile.editor),\n *          Press.the(Key.ENTER).in(UserProfile.editor),\n *\n *          Ensure.that(Text.of(UserProfile.displayName), equals('New username')),\n *          Ensure.that(UserProfile.editor, not(isVisible()))\n *      );\n *\n * @see {@link Target}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
-            "start": 332,
-            "end": 2442,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 71,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -644,23 +610,8 @@
             "raw": "'../withAnswerOf'"
           },
           "value": "../withAnswerOf"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2443,
-        "end": 5109,
-        "loc": {
-          "start": {
-            "line": 72,
-            "column": 0
-          },
-          "end": {
-            "line": 170,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n ",
@@ -693,7 +644,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2443,
+        "end": 5109,
+        "loc": {
+          "start": {
+            "line": 72,
+            "column": 0
+          },
+          "end": {
+            "line": 170,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -774,58 +740,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2490,
-                    "end": 2658,
-                    "loc": {
-                      "start": {
-                        "line": 73,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 86,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  The element to be double-clicked on\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
-                    "start": 2665,
-                    "end": 2953,
-                    "loc": {
-                      "start": {
-                        "line": 89,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 97,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  The element to be double-clicked on\n     ",
-                    "start": 3083,
-                    "end": 3201,
-                    "loc": {
-                      "start": {
-                        "line": 102,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 105,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1143,23 +1057,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3206,
-                "end": 3308,
-                "loc": {
-                  "start": {
-                    "line": 106,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 108,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  The element to be double-clicked on\n     ",
@@ -1177,40 +1076,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 3309,
-                    "end": 3463,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 76 \n * @param \n * {Question | ElementFinder} target \n * @return \n * {Interaction} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2490,
+                    "end": 2658,
                     "loc": {
                       "start": {
-                        "line": 109,
+                        "line": 73,
                         "column": 0
                       },
                       "end": {
-                        "line": 120,
+                        "line": 86,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 3470,
-                    "end": 4108,
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  The element to be double-clicked on\n     *\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     ",
+                    "start": 2665,
+                    "end": 2953,
                     "loc": {
                       "start": {
-                        "line": 123,
+                        "line": 89,
                         "column": 4
                       },
                       "end": {
-                        "line": 136,
+                        "line": 97,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3206,
+                "end": 3308,
+                "loc": {
+                  "start": {
+                    "line": 106,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 108,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1478,23 +1392,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4113,
-                "end": 4736,
-                "loc": {
-                  "start": {
-                    "line": 137,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 148,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -1528,40 +1427,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 4737,
-                    "end": 4830,
+                    "value": "*\n     * @param {Question<ElementFinder> | ElementFinder} target\n     *  The element to be double-clicked on\n     ",
+                    "start": 3083,
+                    "end": 3201,
                     "loc": {
                       "start": {
-                        "line": 149,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 158,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 4837,
-                    "end": 5007,
-                    "loc": {
-                      "start": {
-                        "line": 161,
+                        "line": 102,
                         "column": 4
                       },
                       "end": {
-                        "line": 166,
+                        "line": 105,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4113,
+                "end": 4736,
+                "loc": {
+                  "start": {
+                    "line": 137,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 148,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1808,72 +1706,6 @@
                           "column": 87
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " Since the deprecation of Webdriver's ControlFlow,",
-                          "start": 4193,
-                          "end": 4245,
-                          "loc": {
-                            "start": {
-                              "line": 138,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 138,
-                              "column": 60
-                            }
-                          }
-                        },
-                        {
-                          "type": "CommentLine",
-                          "value": " Protractor's doubleClick might behave incorrectly when promises are used.",
-                          "start": 4254,
-                          "end": 4330,
-                          "loc": {
-                            "start": {
-                              "line": 139,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 139,
-                              "column": 84
-                            }
-                          }
-                        },
-                        {
-                          "type": "CommentLine",
-                          "value": " The mouseMove/doubleClick combo works around that problem.",
-                          "start": 4339,
-                          "end": 4400,
-                          "loc": {
-                            "start": {
-                              "line": 140,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 140,
-                              "column": 69
-                            }
-                          }
-                        },
-                        {
-                          "type": "CommentLine",
-                          "value": " See https://github.com/angular/protractor/issues/4578",
-                          "start": 4409,
-                          "end": 4465,
-                          "loc": {
-                            "start": {
-                              "line": 141,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 141,
-                              "column": 64
-                            }
-                          }
-                        }
-                      ],
                       "argument": {
                         "type": "CallExpression",
                         "start": 4482,
@@ -2605,27 +2437,78 @@
                             }
                           }
                         ]
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " Since the deprecation of Webdriver's ControlFlow,",
+                          "start": 4193,
+                          "end": 4245,
+                          "loc": {
+                            "start": {
+                              "line": 138,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 138,
+                              "column": 60
+                            }
+                          }
+                        },
+                        {
+                          "type": "CommentLine",
+                          "value": " Protractor's doubleClick might behave incorrectly when promises are used.",
+                          "start": 4254,
+                          "end": 4330,
+                          "loc": {
+                            "start": {
+                              "line": 139,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 139,
+                              "column": 84
+                            }
+                          }
+                        },
+                        {
+                          "type": "CommentLine",
+                          "value": " The mouseMove/doubleClick combo works around that problem.",
+                          "start": 4339,
+                          "end": 4400,
+                          "loc": {
+                            "start": {
+                              "line": 140,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 140,
+                              "column": 69
+                            }
+                          }
+                        },
+                        {
+                          "type": "CommentLine",
+                          "value": " See https://github.com/angular/protractor/issues/4578",
+                          "start": 4409,
+                          "end": 4465,
+                          "loc": {
+                            "start": {
+                              "line": 141,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 141,
+                              "column": 64
+                            }
+                          }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5012,
-                "end": 5107,
-                "loc": {
-                  "start": {
-                    "line": 167,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 169,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -2659,6 +2542,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 102 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 3309,
+                    "end": 3463,
+                    "loc": {
+                      "start": {
+                        "line": 109,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 120,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {PromiseLike<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 3470,
+                    "end": 4108,
+                    "loc": {
+                      "start": {
+                        "line": 123,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 136,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5012,
+                "end": 5107,
+                "loc": {
+                  "start": {
+                    "line": 167,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 169,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2884,7 +2816,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 4737,
+                    "end": 4830,
+                    "loc": {
+                      "start": {
+                        "line": 149,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 158,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link @serenity-js/core/lib/screenplay~Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 4837,
+                    "end": 5007,
+                    "loc": {
+                      "start": {
+                        "line": 161,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 166,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2923,7 +2889,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 65 \n ",
+            "start": 284,
+            "end": 329,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  perform a double-click on a given Web element.\n *\n * @example <caption>Example widget</caption>\n *  <!--\n *      The editor shows up when the user double-clicks\n *      on one of the properties of their profile\n *      and let's them change the value of that property.\n *  -->\n *  <div id=\"user-profile\">\n *      <ul>\n *          <li id=\"display-name\" ondblclick=\"edit(this)\">User12345</li>\n *          <li id=\"email-address\" ondblclick=\"edit(this)\">tester@example.org</li>\n *      </ul>\n *      <form id=\"editor\" class=\"hidden\">\n *          <input type=\"text\" value=\"\" />\n *      </form>\n *  </div>\n *\n * @example <caption>Lean Page Object describing the widget</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { by } from 'protractor';\n *\n *  class UserProfile {\n *      static displayName = Target.the('display name')\n *          .located(by.id('display-name'));\n *      static emailAddress = Target.the('email address')\n *          .located(by.id('email-address'));\n *      static editor = Target.the('editor')\n *          .located(by.id('editor'));\n *  }\n *\n * @example <caption>Double-clicking on an element</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, DoubleClick, isVisible, Enter, Text, Wait } from '@serenity-js/protractor';\n *  import { Ensure, equals, not } from '@serenity-js/assertions';\n *  import { protractor, Key } from 'protractor';\n *\n *  actorCalled('Dorothy')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          DoubleClick.on(UserProfile.displayName),\n *          Wait.until(UserProfile.editor, isVisible()),\n *\n *          Enter.theValue('New username').into(UserProfile.editor),\n *          Press.the(Key.ENTER).in(UserProfile.editor),\n *\n *          Ensure.that(Text.of(UserProfile.displayName), equals('New username')),\n *          Ensure.that(UserProfile.editor, not(isVisible()))\n *      );\n *\n * @see {@link Target}\n *\n * @extends {@serenity-js/core/lib/screenplay~Interaction}\n ",
+            "start": 332,
+            "end": 2442,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 71,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

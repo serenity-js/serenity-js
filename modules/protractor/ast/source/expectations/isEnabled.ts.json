@@ -218,40 +218,6 @@
             "column": 70
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
-            "start": 165,
-            "end": 240,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
-            "start": 243,
-            "end": 536,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'./ElementFinderExpectation'"
           },
           "value": "./ElementFinderExpectation"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 537,
-        "end": 703,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
-          },
-          "end": {
-            "line": 27,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 537,
+        "end": 703,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 27,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -779,7 +745,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
+            "start": 165,
+            "end": 240,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is enabled.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 243,
+            "end": 536,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

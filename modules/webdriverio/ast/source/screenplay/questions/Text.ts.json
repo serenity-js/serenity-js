@@ -463,40 +463,6 @@
             "column": 70
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n ",
-            "start": 235,
-            "end": 280,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:\n *  - a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>\n *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~ElementArray}>\n *\n *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.\n *\n * @example <caption>Example widget</caption>\n *  <h1>Shopping list</h1>\n *  <ul id=\"shopping-list\">\n *    <li>Coffee<li>\n *    <li class=\"bought\">Honey<li>\n *    <li>Chocolate<li>\n *  </ul>\n *\n * @example <caption>Retrieve text of a single element</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, Target, Text } from '@serenity-js/webdriverio';\n *\n *  const header = () =>\n *      Target.the('header').located(by.tagName('h1'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(Text.of(header()), equals('Shopping list')),\n *      )\n *\n * @example <caption>Retrieve text of a multiple elements</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, Target, Text } from '@serenity-js/webdriverio';\n *\n *  const shoppingListItems = () =>\n *      Target.the('shopping list items').located(by.css('#shopping-list li'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              Text.ofAll(shoppingListItems()),\n *              equals([ 'Coffee', 'Honey', 'Chocolate' ])\n *          ),\n *      )\n *\n * @example <caption>Find element with matching text</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { contain, Ensure } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, CSSClasses, Target, Text } from '@serenity-js/webdriverio';\n *\n *  const shoppingListItemCalled = (name: string) =>\n *      Target.the('shopping list items').located(by.css('#shopping-list li'))\n *          .where(Text, equals(name))\n *          .first()\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              CSSClasses.of(shoppingListItemCalled('Honey)),\n *              contain('bought')\n *          ),\n *      )\n *\n * @public\n * @see {@link Target}\n ",
-            "start": 283,
-            "end": 2754,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 81,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -617,23 +583,8 @@
             "raw": "'./targets'"
           },
           "value": "./targets"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 2755,
-        "end": 4326,
-        "loc": {
-          "start": {
-            "line": 82,
-            "column": 0
-          },
-          "end": {
-            "line": 141,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n ",
@@ -666,25 +617,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 106 \n ",
-            "start": 4327,
-            "end": 4373,
-            "loc": {
-              "start": {
-                "line": 142,
-                "column": 0
-              },
-              "end": {
-                "line": 147,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 2755,
+        "end": 4326,
+        "loc": {
+          "start": {
+            "line": 82,
+            "column": 0
+          },
+          "end": {
+            "line": 141,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -749,74 +697,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {Answerable} element \n * @return \n * {Question & MetaQuestion} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2775,
-                    "end": 2942,
-                    "loc": {
-                      "start": {
-                        "line": 83,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 96,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves text of a single {@link WebElement},\n     *  represented by Answerable<{@link @wdio/types~Element}>.\n     *\n     * @param {Answerable<Element<'async'>>} element\n     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string>>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
-                    "start": 2949,
-                    "end": 3341,
-                    "loc": {
-                      "start": {
-                        "line": 99,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 108,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @param \n * {Answerable} elements \n * @return \n * {Question & MetaQuestion} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3541,
-                    "end": 3710,
-                    "loc": {
-                      "start": {
-                        "line": 112,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 125,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves text of a group of {@link WebElement}s,\n     *  represented by Answerable<{@link @wdio/types~ElementArray}>\n     *\n     * @param {Answerable<ElementArray>} elements\n     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string[]>>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
-                    "start": 3717,
-                    "end": 4117,
-                    "loc": {
-                      "start": {
-                        "line": 128,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 137,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1481,23 +1361,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4122,
-                "end": 4324,
-                "loc": {
-                  "start": {
-                    "line": 138,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 140,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @param \n * {Answerable} elements \n * @return \n * {Question & MetaQuestion} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1531,6 +1396,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 87 \n * @param \n * {Answerable} element \n * @return \n * {Question & MetaQuestion} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2775,
+                    "end": 2942,
+                    "loc": {
+                      "start": {
+                        "line": 83,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 96,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves text of a single {@link WebElement},\n     *  represented by Answerable<{@link @wdio/types~Element}>.\n     *\n     * @param {Answerable<Element<'async'>>} element\n     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string>>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
+                    "start": 2949,
+                    "end": 3341,
+                    "loc": {
+                      "start": {
+                        "line": 99,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 108,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4122,
+                "end": 4324,
+                "loc": {
+                  "start": {
+                    "line": 138,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 140,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2173,7 +2087,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 101 \n * @param \n * {Answerable} elements \n * @return \n * {Question & MetaQuestion} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3541,
+                    "end": 3710,
+                    "loc": {
+                      "start": {
+                        "line": 112,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 125,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves text of a group of {@link WebElement}s,\n     *  represented by Answerable<{@link @wdio/types~ElementArray}>\n     *\n     * @param {Answerable<ElementArray>} elements\n     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string[]>>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}\n     ",
+                    "start": 3717,
+                    "end": 4117,
+                    "loc": {
+                      "start": {
+                        "line": 128,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 137,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -2229,23 +2177,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 4376,
-        "end": 5265,
-        "loc": {
-          "start": {
-            "line": 150,
-            "column": 0
-          },
-          "end": {
-            "line": 192,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 106 \n ",
@@ -2263,24 +2196,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n ",
-            "start": 5266,
-            "end": 5312,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 75 \n ",
+            "start": 235,
+            "end": 280,
             "loc": {
               "start": {
-                "line": 193,
+                "line": 5,
                 "column": 0
               },
               "end": {
-                "line": 198,
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:\n *  - a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>\n *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~ElementArray}>\n *\n *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.\n *\n * @example <caption>Example widget</caption>\n *  <h1>Shopping list</h1>\n *  <ul id=\"shopping-list\">\n *    <li>Coffee<li>\n *    <li class=\"bought\">Honey<li>\n *    <li>Chocolate<li>\n *  </ul>\n *\n * @example <caption>Retrieve text of a single element</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, Target, Text } from '@serenity-js/webdriverio';\n *\n *  const header = () =>\n *      Target.the('header').located(by.tagName('h1'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(Text.of(header()), equals('Shopping list')),\n *      )\n *\n * @example <caption>Retrieve text of a multiple elements</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { Ensure, equals } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, Target, Text } from '@serenity-js/webdriverio';\n *\n *  const shoppingListItems = () =>\n *      Target.the('shopping list items').located(by.css('#shopping-list li'))\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              Text.ofAll(shoppingListItems()),\n *              equals([ 'Coffee', 'Honey', 'Chocolate' ])\n *          ),\n *      )\n *\n * @example <caption>Find element with matching text</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { contain, Ensure } from '@serenity-js/assertions';\n *  import { BrowseTheWeb, by, CSSClasses, Target, Text } from '@serenity-js/webdriverio';\n *\n *  const shoppingListItemCalled = (name: string) =>\n *      Target.the('shopping list items').located(by.css('#shopping-list li'))\n *          .where(Text, equals(name))\n *          .first()\n *\n *  actorCalled('Lisa')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Ensure.that(\n *              CSSClasses.of(shoppingListItemCalled('Honey)),\n *              contain('bought')\n *          ),\n *      )\n *\n * @public\n * @see {@link Target}\n ",
+            "start": 283,
+            "end": 2754,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 81,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 4376,
+        "end": 5265,
+        "loc": {
+          "start": {
+            "line": 150,
+            "column": 0
+          },
+          "end": {
+            "line": 192,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 4382,
@@ -2673,24 +2637,6 @@
                   "column": 5
                 }
               },
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                  "start": 4640,
-                  "end": 4770,
-                  "loc": {
-                    "start": {
-                      "line": 157,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 168,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3038,23 +2984,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 4777,
-              "end": 4939,
-              "loc": {
-                "start": {
-                  "line": 171,
-                  "column": 4
-                },
-                "end": {
-                  "line": 173,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -3071,25 +3002,22 @@
                     }
                   }
                 }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 4940,
-                  "end": 5090,
-                  "loc": {
-                    "start": {
-                      "line": 174,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 185,
-                      "column": 3
-                    }
-                  }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 4777,
+              "end": 4939,
+              "loc": {
+                "start": {
+                  "line": 171,
+                  "column": 4
+                },
+                "end": {
+                  "line": 173,
+                  "column": 5
                 }
-              ],
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -3573,23 +3501,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5097,
-              "end": 5263,
-              "loc": {
-                "start": {
-                  "line": 188,
-                  "column": 4
-                },
-                "end": {
-                  "line": 191,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -3607,6 +3520,39 @@
                   }
                 }
               ],
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                  "start": 4640,
+                  "end": 4770,
+                  "loc": {
+                    "start": {
+                      "line": 157,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 168,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5097,
+              "end": 5263,
+              "loc": {
+                "start": {
+                  "line": 188,
+                  "column": 4
+                },
+                "end": {
+                  "line": 191,
+                  "column": 5
+                }
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4124,26 +4070,29 @@
                   }
                 ],
                 "directives": []
-              }
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 4940,
+                  "end": 5090,
+                  "loc": {
+                    "start": {
+                      "line": 174,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 185,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
             }
           ]
-        }
-      },
-      {
-        "type": "ClassDeclaration",
-        "start": 5315,
-        "end": 6264,
-        "loc": {
-          "start": {
-            "line": 201,
-            "column": 0
-          },
-          "end": {
-            "line": 243,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n ",
@@ -4161,6 +4110,39 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 106 \n ",
+            "start": 4327,
+            "end": 4373,
+            "loc": {
+              "start": {
+                "line": 142,
+                "column": 0
+              },
+              "end": {
+                "line": 147,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ClassDeclaration",
+        "start": 5315,
+        "end": 6264,
+        "loc": {
+          "start": {
+            "line": 201,
+            "column": 0
+          },
+          "end": {
+            "line": 243,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 5321,
@@ -4583,24 +4565,6 @@
                   "column": 5
                 }
               },
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 132 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
-                  "start": 5584,
-                  "end": 5714,
-                  "loc": {
-                    "start": {
-                      "line": 208,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 219,
-                      "column": 3
-                    }
-                  }
-                }
-              ],
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -4896,23 +4860,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 5721,
-              "end": 5890,
-              "loc": {
-                "start": {
-                  "line": 222,
-                  "column": 4
-                },
-                "end": {
-                  "line": 224,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 132 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
@@ -4929,25 +4878,22 @@
                     }
                   }
                 }
-              ],
-              "trailingComments": [
-                {
-                  "type": "CommentBlock",
-                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 136 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                  "start": 5891,
-                  "end": 6041,
-                  "loc": {
-                    "start": {
-                      "line": 225,
-                      "column": 0
-                    },
-                    "end": {
-                      "line": 236,
-                      "column": 3
-                    }
-                  }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 5721,
+              "end": 5890,
+              "loc": {
+                "start": {
+                  "line": 222,
+                  "column": 4
+                },
+                "end": {
+                  "line": 224,
+                  "column": 5
                 }
-              ],
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -5446,23 +5392,8 @@
                   }
                 ],
                 "directives": []
-              }
-            },
-            {
-              "type": "ClassMethod",
-              "start": 6048,
-              "end": 6262,
-              "loc": {
-                "start": {
-                  "line": 239,
-                  "column": 4
-                },
-                "end": {
-                  "line": 242,
-                  "column": 5
-                }
               },
-              "leadingComments": [
+              "trailingComments": [
                 {
                   "type": "CommentBlock",
                   "value": "*\n * @desc \n *  \n * @lineNumber \n * 136 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -5480,6 +5411,39 @@
                   }
                 }
               ],
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 132 \n * @param \n * {Answerable} parent \n * @return \n * {Question} \n * @public \n * \\TRUE \n ",
+                  "start": 5584,
+                  "end": 5714,
+                  "loc": {
+                    "start": {
+                      "line": 208,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 219,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "ClassMethod",
+              "start": 6048,
+              "end": 6262,
+              "loc": {
+                "start": {
+                  "line": 239,
+                  "column": 4
+                },
+                "end": {
+                  "line": 242,
+                  "column": 5
+                }
+              },
               "static": false,
               "key": {
                 "type": "Identifier",
@@ -6161,10 +6125,46 @@
                   }
                 ],
                 "directives": []
-              }
+              },
+              "leadingComments": [
+                {
+                  "type": "CommentBlock",
+                  "value": "*\n * @desc \n *  \n * @lineNumber \n * 136 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                  "start": 5891,
+                  "end": 6041,
+                  "loc": {
+                    "start": {
+                      "line": 225,
+                      "column": 0
+                    },
+                    "end": {
+                      "line": 236,
+                      "column": 3
+                    }
+                  }
+                }
+              ]
             }
           ]
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 124 \n ",
+            "start": 5266,
+            "end": 5312,
+            "loc": {
+              "start": {
+                "line": 193,
+                "column": 0
+              },
+              "end": {
+                "line": 198,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

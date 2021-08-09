@@ -508,40 +508,6 @@
             "column": 44
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
-            "start": 270,
-            "end": 315,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  to manage a local [Node.js](https://nodejs.org/) server.\n *\n * @example <caption>Using a raw Node.js server</caption>\n * import { Actor } from '@serenity-js/core';\n * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';\n * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'\n * import { Ensure, equals } from '@serenity-js/assertions';\n *\n * import axios from 'axios';\n * import * as http from 'http';\n *\n * const server = http.createServer(function (request, response) {\n *     response.setHeader('Connection', 'close');\n *     response.end('Hello!');\n * })\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     ManageALocalServer.using(server),\n *     CallAnApi.using(axios.create()),\n * );\n *\n * actor.attemptsTo(\n *     StartLocalTestServer.onRandomPort(),\n *     Send.a(GetRequest.to(LocalServer.url())),\n *     Ensure.that(LastResponse.status(), equals(200)),\n *     Ensure.that(LastResponse.body<string>(), equals('Hello!')),\n *     StopLocalTestServer.ifRunning(),\n * );\n *\n * @see https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/\n * @see https://nodejs.org/api/http.html#http_class_http_server\n *\n * @implements {@link @serenity-js/core/lib/screenplay~Ability}\n ",
-            "start": 318,
-            "end": 1737,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 51,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -613,23 +579,8 @@
             "raw": "'portfinder'"
           },
           "value": "portfinder"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1738,
-        "end": 6986,
-        "loc": {
-          "start": {
-            "line": 52,
-            "column": 0
-          },
-          "end": {
-            "line": 262,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
@@ -662,41 +613,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 162 \n ",
-            "start": 6987,
-            "end": 7033,
-            "loc": {
-              "start": {
-                "line": 263,
-                "column": 0
-              },
-              "end": {
-                "line": 268,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1738,
+        "end": 6986,
+        "loc": {
+          "start": {
+            "line": 52,
+            "column": 0
           },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A `requestListener` function that Node's\n *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)\n *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)\n *  would accept.\n *\n * @public\n *\n * @typedef {function(request: http.IncomingMessage, response: http.ServerResponse): void} RequestListener\n ",
-            "start": 7036,
-            "end": 7460,
-            "loc": {
-              "start": {
-                "line": 271,
-                "column": 0
-              },
-              "end": {
-                "line": 281,
-                "column": 3
-              }
-            }
+          "end": {
+            "line": 262,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -795,58 +727,6 @@
                     "column": 48
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @type \n * {ServerWithShutdown} \n * @private \n * \\TRUE \n ",
-                    "start": 1791,
-                    "end": 1894,
-                    "loc": {
-                      "start": {
-                        "line": 53,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 62,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {RequestListener | } listener \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1946,
-                    "end": 2117,
-                    "loc": {
-                      "start": {
-                        "line": 66,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 79,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.\n     *\n     * @param {RequestListener | net~Server} listener\n     * @returns {ManageALocalServer}\n     ",
-                    "start": 2124,
-                    "end": 2373,
-                    "loc": {
-                      "start": {
-                        "line": 82,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 88,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "readonly": true,
                 "static": false,
@@ -915,23 +795,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2378,
-                "end": 2666,
-                "loc": {
-                  "start": {
-                    "line": 89,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 95,
-                    "column": 5
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {RequestListener | } listener \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -965,40 +830,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @param \n * {RequestListener | } listener \n * @param \n * {undefined} options \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 2667,
-                    "end": 2873,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 47 \n * @type \n * {ServerWithShutdown} \n * @private \n * \\TRUE \n ",
+                    "start": 1791,
+                    "end": 1894,
                     "loc": {
                       "start": {
-                        "line": 96,
+                        "line": 53,
                         "column": 0
                       },
                       "end": {
-                        "line": 111,
+                        "line": 62,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.\n     *\n     * @param {RequestListener | https~Server} listener\n     * @param {https~ServerOptions} options - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.\n     * @returns {ManageALocalServer}\n     *\n     * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener\n     ",
-                    "start": 2880,
-                    "end": 3385,
-                    "loc": {
-                      "start": {
-                        "line": 114,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 123,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2378,
+                "end": 2666,
+                "loc": {
+                  "start": {
+                    "line": 89,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 95,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1585,23 +1449,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3390,
-                "end": 3727,
-                "loc": {
-                  "start": {
-                    "line": 124,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 130,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @param \n * {RequestListener | } listener \n * @param \n * {undefined} options \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1635,40 +1484,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @param \n * {UsesAbilities} actor \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 3728,
-                    "end": 3891,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {RequestListener | } listener \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1946,
+                    "end": 2117,
                     "loc": {
                       "start": {
-                        "line": 131,
+                        "line": 66,
                         "column": 0
                       },
                       "end": {
-                        "line": 144,
+                        "line": 79,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Used to access the {@link @serenity-js/core/lib/screenplay/actor~Actor}'s {@link @serenity-js/core/lib/screenplay~Ability}  to {@link ManageALocalServer}\n     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,\n     *  such as {@link StartLocalServer}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~UsesAbilities} actor\n     * @return {ManageALocalServer}\n     ",
-                    "start": 3898,
-                    "end": 4324,
+                    "value": "*\n     * @desc\n     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTP server using the provided `requestListener`.\n     *\n     * @param {RequestListener | net~Server} listener\n     * @returns {ManageALocalServer}\n     ",
+                    "start": 2124,
+                    "end": 2373,
                     "loc": {
                       "start": {
-                        "line": 147,
+                        "line": 82,
                         "column": 4
                       },
                       "end": {
-                        "line": 155,
+                        "line": 88,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3390,
+                "end": 3727,
+                "loc": {
+                  "start": {
+                    "line": 124,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 130,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2399,23 +2263,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4329,
-                "end": 4440,
-                "loc": {
-                  "start": {
-                    "line": 156,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 158,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @param \n * {UsesAbilities} actor \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2449,24 +2298,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`\n     *\n     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).\n     *\n     * @see https://www.npmjs.com/package/http-shutdown\n     ",
-                    "start": 4446,
-                    "end": 4794,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 74 \n * @param \n * {RequestListener | } listener \n * @param \n * {undefined} options \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 2667,
+                    "end": 2873,
                     "loc": {
                       "start": {
-                        "line": 160,
+                        "line": 96,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 111,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  {@link @serenity-js/core/lib/screenplay~Ability} to manage a Node.js HTTPS server using the provided server `requestListener`.\n     *\n     * @param {RequestListener | https~Server} listener\n     * @param {https~ServerOptions} options - Accepts options from `tls.createServer()`, `tls.createSecureContext()` and `http.createServer()`.\n     * @returns {ManageALocalServer}\n     *\n     * @see https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener\n     ",
+                    "start": 2880,
+                    "end": 3385,
+                    "loc": {
+                      "start": {
+                        "line": 114,
                         "column": 4
                       },
                       "end": {
-                        "line": 166,
+                        "line": 123,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4329,
+                "end": 4440,
+                "loc": {
+                  "start": {
+                    "line": 156,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 158,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2719,23 +2599,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 4799,
-                "end": 4936,
-                "loc": {
-                  "start": {
-                    "line": 167,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 169,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`\n     *\n     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).\n     *\n     * @see https://www.npmjs.com/package/http-shutdown\n     ",
@@ -2753,40 +2618,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {undefined} preferredPort \n * @param \n * {undefined} highestPort \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 4937,
-                    "end": 5111,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 91 \n * @param \n * {UsesAbilities} actor \n * @return \n * {ManageALocalServer} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 3728,
+                    "end": 3891,
                     "loc": {
                       "start": {
-                        "line": 170,
+                        "line": 131,
                         "column": 0
                       },
                       "end": {
-                        "line": 183,
+                        "line": 144,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.\n     *\n     * @param {number} [preferredPort=8000]\n     *  Lower bound of the preferred port range\n     *\n     * @param {number} [highestPort=65535] highestPort\n     *  Upper bound of the preferred port range\n     *\n     * @returns {Promise<void>}\n     ",
-                    "start": 5118,
-                    "end": 5493,
+                    "value": "*\n     * @desc\n     *  Used to access the {@link @serenity-js/core/lib/screenplay/actor~Actor}'s {@link @serenity-js/core/lib/screenplay~Ability}  to {@link ManageALocalServer}\n     *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,\n     *  such as {@link StartLocalServer}.\n     *\n     * @param {@serenity-js/core/lib/screenplay~UsesAbilities} actor\n     * @return {ManageALocalServer}\n     ",
+                    "start": 3898,
+                    "end": 4324,
                     "loc": {
                       "start": {
-                        "line": 186,
+                        "line": 147,
                         "column": 4
                       },
                       "end": {
-                        "line": 197,
+                        "line": 155,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 4799,
+                "end": 4936,
+                "loc": {
+                  "start": {
+                    "line": 167,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 169,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3136,23 +3016,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5498,
-                "end": 6517,
-                "loc": {
-                  "start": {
-                    "line": 198,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 237,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {undefined} preferredPort \n * @param \n * {undefined} highestPort \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -3186,40 +3051,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Function} fn \n * @return \n * {T} \n * @public \n * \\TRUE \n ",
-                    "start": 6518,
-                    "end": 6635,
+                    "value": "*\n     * @param {string} protocol - Protocol to be used when communicating with the running server; `http` or `https`\n     *\n     * @param {net~Server} server - A Node.js server requestListener, with support for [server shutdown](https://www.npmjs.com/package/http-shutdown).\n     *\n     * @see https://www.npmjs.com/package/http-shutdown\n     ",
+                    "start": 4446,
+                    "end": 4794,
                     "loc": {
                       "start": {
-                        "line": 238,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 249,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Provides access to the server requestListener\n     *\n     * @param {function(server: ServerWithShutdown, protocol?: SupportedProtocols): T} fn\n     * @returns {T}\n     ",
-                    "start": 6642,
-                    "end": 6837,
-                    "loc": {
-                      "start": {
-                        "line": 252,
+                        "line": 160,
                         "column": 4
                       },
                       "end": {
-                        "line": 258,
+                        "line": 166,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5498,
+                "end": 6517,
+                "loc": {
+                  "start": {
+                    "line": 198,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 237,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3842,24 +3706,6 @@
                                             "column": 17
                                           }
                                         },
-                                        "leadingComments": [
-                                          {
-                                            "type": "CommentBlock",
-                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @param \n * {Error & undefined} error \n ",
-                                            "start": 5710,
-                                            "end": 5797,
-                                            "loc": {
-                                              "start": {
-                                                "line": 201,
-                                                "column": 0
-                                              },
-                                              "end": {
-                                                "line": 208,
-                                                "column": 3
-                                              }
-                                            }
-                                          }
-                                        ],
                                         "id": {
                                           "type": "Identifier",
                                           "start": 5824,
@@ -3986,24 +3832,6 @@
                                                             "column": 12
                                                           }
                                                         },
-                                                        "leadingComments": [
-                                                          {
-                                                            "type": "CommentBlock",
-                                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
-                                                            "start": 5854,
-                                                            "end": 5945,
-                                                            "loc": {
-                                                              "start": {
-                                                                "line": 211,
-                                                                "column": 0
-                                                              },
-                                                              "end": {
-                                                                "line": 220,
-                                                                "column": 3
-                                                              }
-                                                            }
-                                                          }
-                                                        ],
                                                         "key": {
                                                           "type": "Identifier",
                                                           "start": 5946,
@@ -4051,7 +3879,25 @@
                                                               }
                                                             }
                                                           }
-                                                        }
+                                                        },
+                                                        "leadingComments": [
+                                                          {
+                                                            "type": "CommentBlock",
+                                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @type \n * {string} \n * @public \n * \\TRUE \n ",
+                                                            "start": 5854,
+                                                            "end": 5945,
+                                                            "loc": {
+                                                              "start": {
+                                                                "line": 211,
+                                                                "column": 0
+                                                              },
+                                                              "end": {
+                                                                "line": 220,
+                                                                "column": 3
+                                                              }
+                                                            }
+                                                          }
+                                                        ]
                                                       }
                                                     ]
                                                   }
@@ -4439,7 +4285,25 @@
                                             }
                                           ],
                                           "directives": []
-                                        }
+                                        },
+                                        "leadingComments": [
+                                          {
+                                            "type": "CommentBlock",
+                                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 121 \n * @param \n * {Error & undefined} error \n ",
+                                            "start": 5710,
+                                            "end": 5797,
+                                            "loc": {
+                                              "start": {
+                                                "line": 201,
+                                                "column": 0
+                                              },
+                                              "end": {
+                                                "line": 208,
+                                                "column": 3
+                                              }
+                                            }
+                                          }
+                                        ]
                                       },
                                       {
                                         "type": "ExpressionStatement",
@@ -4988,23 +4852,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6842,
-                "end": 6984,
-                "loc": {
-                  "start": {
-                    "line": 259,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 261,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Function} fn \n * @return \n * {T} \n * @public \n * \\TRUE \n ",
@@ -5038,6 +4887,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 118 \n * @param \n * {undefined} preferredPort \n * @param \n * {undefined} highestPort \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 4937,
+                    "end": 5111,
+                    "loc": {
+                      "start": {
+                        "line": 170,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 183,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Starts the server on the first free port between `preferredPort` and `highestPort`, inclusive.\n     *\n     * @param {number} [preferredPort=8000]\n     *  Lower bound of the preferred port range\n     *\n     * @param {number} [highestPort=65535] highestPort\n     *  Upper bound of the preferred port range\n     *\n     * @returns {Promise<void>}\n     ",
+                    "start": 5118,
+                    "end": 5493,
+                    "loc": {
+                      "start": {
+                        "line": 186,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 197,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6842,
+                "end": 6984,
+                "loc": {
+                  "start": {
+                    "line": 259,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 261,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5530,7 +5428,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 146 \n * @param \n * {Function} fn \n * @return \n * {T} \n * @public \n * \\TRUE \n ",
+                    "start": 6518,
+                    "end": 6635,
+                    "loc": {
+                      "start": {
+                        "line": 238,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 249,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Provides access to the server requestListener\n     *\n     * @param {function(server: ServerWithShutdown, protocol?: SupportedProtocols): T} fn\n     * @returns {T}\n     ",
+                    "start": 6642,
+                    "end": 6837,
+                    "loc": {
+                      "start": {
+                        "line": 252,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 258,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -5602,23 +5534,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 7461,
-        "end": 7562,
-        "loc": {
-          "start": {
-            "line": 282,
-            "column": 0
-          },
-          "end": {
-            "line": 282,
-            "column": 101
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 162 \n ",
@@ -5652,40 +5569,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 174 \n ",
-            "start": 7563,
-            "end": 7609,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 45 \n ",
+            "start": 270,
+            "end": 315,
             "loc": {
               "start": {
-                "line": 283,
+                "line": 7,
                 "column": 0
               },
               "end": {
-                "line": 288,
+                "line": 12,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A {@link net~Server} with an added shutdown method.\n *\n * @see https://www.npmjs.com/package/http-shutdown\n *\n * @public\n *\n * @typedef {net~Server & { shutdown: (callback: (error?: Error) => void) => void }} ServerWithShutdown\n ",
-            "start": 7612,
-            "end": 7860,
+            "value": "*\n * @desc\n *  An {@link @serenity-js/core/lib/screenplay~Ability} that enables the {@link @serenity-js/core/lib/screenplay/actor~Actor}\n *  to manage a local [Node.js](https://nodejs.org/) server.\n *\n * @example <caption>Using a raw Node.js server</caption>\n * import { Actor } from '@serenity-js/core';\n * import { CallAnApi, GetRequest, Send } from '@serenity-js/rest';\n * import { ManageALocalServer, LocalTestServer, StartLocalTestServer, StopLocalTestServer } from '@serenity-js/local-server'\n * import { Ensure, equals } from '@serenity-js/assertions';\n *\n * import axios from 'axios';\n * import * as http from 'http';\n *\n * const server = http.createServer(function (request, response) {\n *     response.setHeader('Connection', 'close');\n *     response.end('Hello!');\n * })\n *\n * const actor = Actor.named('Apisit').whoCan(\n *     ManageALocalServer.using(server),\n *     CallAnApi.using(axios.create()),\n * );\n *\n * actor.attemptsTo(\n *     StartLocalTestServer.onRandomPort(),\n *     Send.a(GetRequest.to(LocalServer.url())),\n *     Ensure.that(LastResponse.status(), equals(200)),\n *     Ensure.that(LastResponse.body<string>(), equals('Hello!')),\n *     StopLocalTestServer.ifRunning(),\n * );\n *\n * @see https://nodejs.org/en/docs/guides/anatomy-of-an-http-transaction/\n * @see https://nodejs.org/api/http.html#http_class_http_server\n *\n * @implements {@link @serenity-js/core/lib/screenplay~Ability}\n ",
+            "start": 318,
+            "end": 1737,
             "loc": {
               "start": {
-                "line": 291,
+                "line": 15,
                 "column": 0
               },
               "end": {
-                "line": 300,
+                "line": 51,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 7461,
+        "end": 7562,
+        "loc": {
+          "start": {
+            "line": 282,
+            "column": 0
+          },
+          "end": {
+            "line": 282,
+            "column": 101
+          }
+        },
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -6027,23 +5959,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 7861,
-        "end": 8224,
-        "loc": {
-          "start": {
-            "line": 301,
-            "column": 0
-          },
-          "end": {
-            "line": 326,
-            "column": 2
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 174 \n ",
@@ -6077,24 +5994,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  The protocol supported by the instance of the {@link ServerWithShutdown},\n *  wrapped by the {@link ManageALocalServer} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @see {@link ManageALocalServer#mapInstance}\n *\n * @public\n *\n * @typedef {Object} SupportedProtocols\n * @property {string} HTTP\n * @property {string} HTTPS\n ",
-            "start": 8226,
-            "end": 8578,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 162 \n ",
+            "start": 6987,
+            "end": 7033,
             "loc": {
               "start": {
-                "line": 328,
+                "line": 263,
                 "column": 0
               },
               "end": {
-                "line": 340,
+                "line": 268,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A `requestListener` function that Node's\n *  [`http.createServer`](https://nodejs.org/api/http.html#http_http_createserver_options_requestlistener)\n *  or [`https.createServer`](https://nodejs.org/api/https.html#https_https_createserver_options_requestlistener)\n *  would accept.\n *\n * @public\n *\n * @typedef {function(request: http.IncomingMessage, response: http.ServerResponse): void} RequestListener\n ",
+            "start": 7036,
+            "end": 7460,
+            "loc": {
+              "start": {
+                "line": 271,
+                "column": 0
+              },
+              "end": {
+                "line": 281,
                 "column": 3
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 7861,
+        "end": 8224,
+        "loc": {
+          "start": {
+            "line": 301,
+            "column": 0
+          },
+          "end": {
+            "line": 326,
+            "column": 2
+          }
+        },
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -6237,42 +6185,6 @@
                         "column": 58
                       }
                     },
-                    "leadingComments": [
-                      {
-                        "type": "CommentBlock",
-                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 175 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                        "start": 7909,
-                        "end": 8002,
-                        "loc": {
-                          "start": {
-                            "line": 302,
-                            "column": 0
-                          },
-                          "end": {
-                            "line": 311,
-                            "column": 3
-                          }
-                        }
-                      }
-                    ],
-                    "trailingComments": [
-                      {
-                        "type": "CommentBlock",
-                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                        "start": 8063,
-                        "end": 8156,
-                        "loc": {
-                          "start": {
-                            "line": 314,
-                            "column": 0
-                          },
-                          "end": {
-                            "line": 323,
-                            "column": 3
-                          }
-                        }
-                      }
-                    ],
                     "key": {
                       "type": "Identifier",
                       "start": 8008,
@@ -6496,23 +6408,8 @@
                           }
                         }
                       }
-                    }
-                  },
-                  {
-                    "type": "TSPropertySignature",
-                    "start": 8162,
-                    "end": 8221,
-                    "loc": {
-                      "start": {
-                        "line": 325,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 325,
-                        "column": 63
-                      }
                     },
-                    "leadingComments": [
+                    "trailingComments": [
                       {
                         "type": "CommentBlock",
                         "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -6530,6 +6427,39 @@
                         }
                       }
                     ],
+                    "leadingComments": [
+                      {
+                        "type": "CommentBlock",
+                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 175 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                        "start": 7909,
+                        "end": 8002,
+                        "loc": {
+                          "start": {
+                            "line": 302,
+                            "column": 0
+                          },
+                          "end": {
+                            "line": 311,
+                            "column": 3
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "type": "TSPropertySignature",
+                    "start": 8162,
+                    "end": 8221,
+                    "loc": {
+                      "start": {
+                        "line": 325,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 325,
+                        "column": 63
+                      }
+                    },
                     "key": {
                       "type": "Identifier",
                       "start": 8162,
@@ -6753,7 +6683,25 @@
                           }
                         }
                       }
-                    }
+                    },
+                    "leadingComments": [
+                      {
+                        "type": "CommentBlock",
+                        "value": "*\n * @desc \n *  \n * @lineNumber \n * 176 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                        "start": 8063,
+                        "end": 8156,
+                        "loc": {
+                          "start": {
+                            "line": 314,
+                            "column": 0
+                          },
+                          "end": {
+                            "line": 323,
+                            "column": 3
+                          }
+                        }
+                      }
+                    ]
                   }
                 ]
               }
@@ -6811,23 +6759,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 8579,
-        "end": 8653,
-        "loc": {
-          "start": {
-            "line": 341,
-            "column": 0
-          },
-          "end": {
-            "line": 344,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc\n *  The protocol supported by the instance of the {@link ServerWithShutdown},\n *  wrapped by the {@link ManageALocalServer} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @see {@link ManageALocalServer#mapInstance}\n *\n * @public\n *\n * @typedef {Object} SupportedProtocols\n * @property {string} HTTP\n * @property {string} HTTPS\n ",
@@ -6845,6 +6778,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 174 \n ",
+            "start": 7563,
+            "end": 7609,
+            "loc": {
+              "start": {
+                "line": 283,
+                "column": 0
+              },
+              "end": {
+                "line": 288,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A {@link net~Server} with an added shutdown method.\n *\n * @see https://www.npmjs.com/package/http-shutdown\n *\n * @public\n *\n * @typedef {net~Server & { shutdown: (callback: (error?: Error) => void) => void }} ServerWithShutdown\n ",
+            "start": 7612,
+            "end": 7860,
+            "loc": {
+              "start": {
+                "line": 291,
+                "column": 0
+              },
+              "end": {
+                "line": 300,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 8579,
+        "end": 8653,
+        "loc": {
+          "start": {
+            "line": 341,
+            "column": 0
+          },
+          "end": {
+            "line": 344,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -7004,7 +6986,25 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  The protocol supported by the instance of the {@link ServerWithShutdown},\n *  wrapped by the {@link ManageALocalServer} {@link @serenity-js/core/lib/screenplay~Ability}.\n *\n * @see {@link ManageALocalServer#mapInstance}\n *\n * @public\n *\n * @typedef {Object} SupportedProtocols\n * @property {string} HTTP\n * @property {string} HTTPS\n ",
+            "start": 8226,
+            "end": 8578,
+            "loc": {
+              "start": {
+                "line": 328,
+                "column": 0
+              },
+              "end": {
+                "line": 340,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

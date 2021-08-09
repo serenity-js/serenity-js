@@ -44,40 +44,6 @@
             "column": 35
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 36,
-            "end": 80,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Describes an adapter needed to run a given type of tests programmatically\n *\n * @interface\n * @interface ",
-            "start": 83,
-            "end": 207,
-            "loc": {
-              "start": {
-                "line": 10,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -149,23 +115,8 @@
             "raw": "'../model'"
           },
           "value": "../model"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 208,
-        "end": 1565,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 112,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
@@ -198,7 +149,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 208,
+        "end": 1565,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 112,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -264,74 +230,6 @@
                     "column": 56
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 250,
-                    "end": 342,
-                    "loc": {
-                      "start": {
-                        "line": 17,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 26,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @type {function(pathsToScenarios: string[]): Promise<void>}\n     ",
-                    "start": 349,
-                    "end": 477,
-                    "loc": {
-                      "start": {
-                        "line": 29,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 34,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 535,
-                    "end": 627,
-                    "loc": {
-                      "start": {
-                        "line": 36,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 45,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @type {function(): number}\n     ",
-                    "start": 634,
-                    "end": 813,
-                    "loc": {
-                      "start": {
-                        "line": 48,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 56,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -524,23 +422,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 818,
-                "end": 846,
-                "loc": {
-                  "start": {
-                    "line": 57,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 57,
-                    "column": 32
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -574,40 +457,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 847,
-                    "end": 939,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 17 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 250,
+                    "end": 342,
                     "loc": {
                       "start": {
-                        "line": 58,
+                        "line": 17,
                         "column": 0
                       },
                       "end": {
-                        "line": 67,
+                        "line": 26,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @abstract\n     * @type {function(): Promise<void>}\n     ",
-                    "start": 946,
-                    "end": 1138,
+                    "value": "*\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @type {function(pathsToScenarios: string[]): Promise<void>}\n     ",
+                    "start": 349,
+                    "end": 477,
                     "loc": {
                       "start": {
-                        "line": 70,
+                        "line": 29,
                         "column": 4
                       },
                       "end": {
-                        "line": 79,
+                        "line": 34,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 818,
+                "end": 846,
+                "loc": {
+                  "start": {
+                    "line": 57,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 57,
+                    "column": 32
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -688,23 +586,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1143,
-                "end": 1168,
-                "loc": {
-                  "start": {
-                    "line": 80,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 80,
-                    "column": 29
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -738,40 +621,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 1169,
-                    "end": 1261,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 28 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 535,
+                    "end": 627,
                     "loc": {
                       "start": {
-                        "line": 81,
+                        "line": 36,
                         "column": 0
                       },
                       "end": {
-                        "line": 90,
+                        "line": 45,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
-                    "start": 1268,
-                    "end": 1415,
+                    "value": "*\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @type {function(): number}\n     ",
+                    "start": 634,
+                    "end": 813,
                     "loc": {
                       "start": {
-                        "line": 93,
+                        "line": 48,
                         "column": 4
                       },
                       "end": {
-                        "line": 99,
+                        "line": 56,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1143,
+                "end": 1168,
+                "loc": {
+                  "start": {
+                    "line": 80,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 80,
+                    "column": 29
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -901,23 +799,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1420,
-                "end": 1563,
-                "loc": {
-                  "start": {
-                    "line": 100,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 111,
-                    "column": 16
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
@@ -951,6 +834,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 847,
+                    "end": 939,
+                    "loc": {
+                      "start": {
+                        "line": 58,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 67,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @throws {LogicError}\n     *  If called before `load`\n     *\n     * @abstract\n     * @type {function(): Promise<void>}\n     ",
+                    "start": 946,
+                    "end": 1138,
+                    "loc": {
+                      "start": {
+                        "line": 70,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 79,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1420,
+                "end": 1563,
+                "loc": {
+                  "start": {
+                    "line": 100,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 111,
+                    "column": 16
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1089,24 +1021,6 @@
                                     "column": 13
                                   }
                                 },
-                                "leadingComments": [
-                                  {
-                                    "type": "CommentBlock",
-                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
-                                    "start": 1456,
-                                    "end": 1546,
-                                    "loc": {
-                                      "start": {
-                                        "line": 101,
-                                        "column": 0
-                                      },
-                                      "end": {
-                                        "line": 110,
-                                        "column": 3
-                                      }
-                                    }
-                                  }
-                                ],
                                 "key": {
                                   "type": "Identifier",
                                   "start": 1548,
@@ -1154,7 +1068,25 @@
                                       }
                                     }
                                   }
-                                }
+                                },
+                                "leadingComments": [
+                                  {
+                                    "type": "CommentBlock",
+                                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {number} \n * @public \n * \\TRUE \n ",
+                                    "start": 1456,
+                                    "end": 1546,
+                                    "loc": {
+                                      "start": {
+                                        "line": 101,
+                                        "column": 0
+                                      },
+                                      "end": {
+                                        "line": 110,
+                                        "column": 3
+                                      }
+                                    }
+                                  }
+                                ]
                               }
                             ]
                           }
@@ -1163,7 +1095,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 49 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 1169,
+                    "end": 1261,
+                    "loc": {
+                      "start": {
+                        "line": 81,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 90,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @abstract\n     * @type {Outcome | { Code: number }}\n     ",
+                    "start": 1268,
+                    "end": 1415,
+                    "loc": {
+                      "start": {
+                        "line": 93,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 99,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1202,7 +1168,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 36,
+            "end": 80,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Describes an adapter needed to run a given type of tests programmatically\n *\n * @interface\n * @interface ",
+            "start": 83,
+            "end": 207,
+            "loc": {
+              "start": {
+                "line": 10,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

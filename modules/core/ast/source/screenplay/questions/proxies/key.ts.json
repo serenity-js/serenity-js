@@ -44,58 +44,6 @@
             "column": 52
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": " eslint-disable @typescript-eslint/ban-types,@typescript-eslint/explicit-module-boundary-types ",
-            "start": 0,
-            "end": 99,
-            "loc": {
-              "start": {
-                "line": 1,
-                "column": 0
-              },
-              "end": {
-                "line": 1,
-                "column": 99
-              }
-            }
-          }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {PropertyPathKey} keyName \n ",
-            "start": 153,
-            "end": 238,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 10,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n * @param {PropertyPathKey} keyName\n ",
-            "start": 241,
-            "end": 296,
-            "loc": {
-              "start": {
-                "line": 13,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -167,23 +115,8 @@
             "raw": "'./PropertyPathKey'"
           },
           "value": "./PropertyPathKey"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 297,
-        "end": 594,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
-          },
-          "end": {
-            "line": 34,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {PropertyPathKey} keyName \n ",
@@ -217,6 +150,39 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": " eslint-disable @typescript-eslint/ban-types,@typescript-eslint/explicit-module-boundary-types ",
+            "start": 0,
+            "end": 99,
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 99
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 297,
+        "end": 594,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -377,24 +343,6 @@
                           "column": 9
                         }
                       },
-                      "leadingComments": [
-                        {
-                          "type": "CommentBlock",
-                          "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @param \n * {Array} keys \n * @public \n * \\TRUE \n ",
-                          "start": 358,
-                          "end": 453,
-                          "loc": {
-                            "start": {
-                              "line": 19,
-                              "column": 0
-                            },
-                            "end": {
-                              "line": 28,
-                              "column": 3
-                            }
-                          }
-                        }
-                      ],
                       "method": true,
                       "key": {
                         "type": "Identifier",
@@ -824,7 +772,25 @@
                           }
                         ],
                         "directives": []
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentBlock",
+                          "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n * @param \n * {Array} keys \n * @public \n * \\TRUE \n ",
+                          "start": 358,
+                          "end": 453,
+                          "loc": {
+                            "start": {
+                              "line": 19,
+                              "column": 0
+                            },
+                            "end": {
+                              "line": 28,
+                              "column": 3
+                            }
+                          }
+                        }
+                      ]
                     }
                   ]
                 }
@@ -867,7 +833,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 8 \n * @param \n * {PropertyPathKey} keyName \n ",
+            "start": 153,
+            "end": 238,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 10,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n * @param {PropertyPathKey} keyName\n ",
+            "start": 241,
+            "end": 296,
+            "loc": {
+              "start": {
+                "line": 13,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

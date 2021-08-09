@@ -218,40 +218,6 @@
             "column": 72
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
-            "start": 176,
-            "end": 321,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Creates a listener for Cucumber.js v7.x and above\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n * @returns {@cucumber/cucumber~Formatter}\n ",
-            "start": 324,
-            "end": 555,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 25,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "isExport": false,
         "id": {
@@ -305,23 +271,8 @@
             },
             "value": "./CucumberMessagesListener"
           }
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 556,
-        "end": 727,
-        "loc": {
-          "start": {
-            "line": 26,
-            "column": 0
-          },
-          "end": {
-            "line": 31,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
@@ -354,7 +305,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 556,
+        "end": 727,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 31,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -594,9 +560,6 @@
                       "column": 5
                     }
                   },
-                  "extra": {
-                    "trailingComma": 717
-                  },
                   "callee": {
                     "type": "Identifier",
                     "start": 653,
@@ -613,6 +576,9 @@
                       "identifierName": "cucumberMessagesListener"
                     },
                     "name": "cucumberMessagesListener"
+                  },
+                  "extra": {
+                    "trailingComma": 717
                   },
                   "arguments": [
                     {
@@ -690,7 +656,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 13 \n * @param \n * {Serenity} serenity \n * @param \n * {ModuleLoader} moduleLoader \n * @return \n * {any} \n ",
+            "start": 176,
+            "end": 321,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Creates a listener for Cucumber.js v7.x and above\n *\n * @param {@serenity-js/core/lib~Serenity} serenity\n * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader\n * @returns {@cucumber/cucumber~Formatter}\n ",
+            "start": 324,
+            "end": 555,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 25,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

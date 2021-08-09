@@ -131,40 +131,6 @@
             "column": 40
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
-            "start": 78,
-            "end": 122,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 0
-              },
-              "end": {
-                "line": 8,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  An interface describing the static access method that every {@link Ability} class\n *  needs to provide in order to be accessible from within an {@link Interaction}.\n * @interface ",
-            "start": 125,
-            "end": 323,
-            "loc": {
-              "start": {
-                "line": 11,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -236,23 +202,8 @@
             "raw": "'./actor'"
           },
           "value": "./actor"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 324,
-        "end": 1643,
-        "loc": {
-          "start": {
-            "line": 16,
-            "column": 0
-          },
-          "end": {
-            "line": 64,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
@@ -285,7 +236,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 324,
+        "end": 1643,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 64,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -432,40 +398,6 @@
                     "column": 32
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
-                    "start": 396,
-                    "end": 520,
-                    "loc": {
-                      "start": {
-                        "line": 17,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
-                    "start": 527,
-                    "end": 1608,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 62,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -601,7 +533,41 @@
                       "name": "A"
                     }
                   }
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 43 \n * @param \n * {UsesAbilities} actor \n * @return \n * {A} \n * @public \n * \\TRUE \n ",
+                    "start": 396,
+                    "end": 520,
+                    "loc": {
+                      "start": {
+                        "line": 17,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Retrieves the Ability in question from the {@link Actor}, provided that the {@link Actor} has it.\n     *\n     * @example\n     * import { Ability, Actor, Interface } from '@serenity-js/core';\n     *\n     * class MakePhoneCalls implements Ability {\n     *     static as(actor: UsesAbilities): MakesPhoneCalls {\n     *         return actor.abilityTo(MakePhoneCalls);\n     *     }\n     *\n     *     static using(phone: Phone) {\n     *         return new MakePhoneCalls(phone);\n     *     }\n     *\n     *     constructor(private readonly phone: Phone) {}\n     *\n     *     // some method that allows us to interact with the external interface of the system under test\n     *     dial(phoneNumber: string) {\n     *       // ...\n     *     }\n     * }\n     *\n     * const Connie = Actor.named('Connie').whoCan(MakePhoneCalls.using(phone));\n     *\n     * const Call = (phoneNumber: string) => Interaction.where(`#actor calls ${ phoneNumber }`, actor =>\n     *  MakePhoneCalls.as(actor).dial(phoneNumber);\n     * );\n     *\n     * @param {UsesAbilities} actor\n     ",
+                    "start": 527,
+                    "end": 1608,
+                    "loc": {
+                      "start": {
+                        "line": 31,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 62,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -640,7 +606,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n ",
+            "start": 78,
+            "end": 122,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 0
+              },
+              "end": {
+                "line": 8,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  An interface describing the static access method that every {@link Ability} class\n *  needs to provide in order to be accessible from within an {@link Interaction}.\n * @interface ",
+            "start": 125,
+            "end": 323,
+            "loc": {
+              "start": {
+                "line": 11,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

@@ -44,40 +44,6 @@
             "column": 78
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @param \n * {Question | T} maybeQuestion \n * @param \n * {Function} fn \n * @return \n * {O} \n ",
-            "start": 79,
-            "end": 272,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 15,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @private\n * @param actor\n * @param maybeQuestion\n * @param fn\n ",
-            "start": 275,
-            "end": 347,
-            "loc": {
-              "start": {
-                "line": 18,
-                "column": 0
-              },
-              "end": {
-                "line": 23,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -247,23 +213,8 @@
             "raw": "'@serenity-js/core'"
           },
           "value": "@serenity-js/core"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 348,
-        "end": 643,
-        "loc": {
-          "start": {
-            "line": 24,
-            "column": 0
-          },
-          "end": {
-            "line": 34,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @param \n * {Question | T} maybeQuestion \n * @param \n * {Function} fn \n * @return \n * {O} \n ",
@@ -296,7 +247,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 348,
+        "end": 643,
+        "loc": {
+          "start": {
+            "line": 24,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1235,7 +1201,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 9 \n * @param \n * {AnswersQuestions & UsesAbilities} actor \n * @param \n * {Question | T} maybeQuestion \n * @param \n * {Function} fn \n * @return \n * {O} \n ",
+            "start": 79,
+            "end": 272,
+            "loc": {
+              "start": {
+                "line": 2,
+                "column": 0
+              },
+              "end": {
+                "line": 15,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @private\n * @param actor\n * @param maybeQuestion\n * @param fn\n ",
+            "start": 275,
+            "end": 347,
+            "loc": {
+              "start": {
+                "line": 18,
+                "column": 0
+              },
+              "end": {
+                "line": 23,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

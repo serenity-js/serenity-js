@@ -218,40 +218,6 @@
             "column": 38
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
-            "start": 151,
-            "end": 196,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Interaction}\n *  to {@link Press} more readable.\n *\n * @see {@link Press}\n *\n * @interface\n * @interface ",
-            "start": 199,
-            "end": 417,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 21,
-                "column": 16
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -323,23 +289,8 @@
             "raw": "'webdriverio'"
           },
           "value": "webdriverio"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 418,
-        "end": 997,
-        "loc": {
-          "start": {
-            "line": 22,
-            "column": 0
-          },
-          "end": {
-            "line": 46,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
@@ -372,7 +323,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 418,
+        "end": 997,
+        "loc": {
+          "start": {
+            "line": 22,
+            "column": 0
+          },
+          "end": {
+            "line": 46,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -438,40 +404,6 @@
                     "column": 107
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 455,
-                    "end": 547,
-                    "loc": {
-                      "start": {
-                        "line": 23,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 32,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  to {@link Press}.\n     *\n     * @param {Question<ElementFinder> | ElementFinder | Question<AlertPromise> | AlertPromise} field\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Target}\n     ",
-                    "start": 554,
-                    "end": 887,
-                    "loc": {
-                      "start": {
-                        "line": 35,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 44,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -550,24 +482,6 @@
                               "column": 44
                             }
                           },
-                          "trailingComments": [
-                            {
-                              "type": "CommentBlock",
-                              "value": " | Question<AlertPromise> | AlertPromise ",
-                              "start": 933,
-                              "end": 978,
-                              "loc": {
-                                "start": {
-                                  "line": 45,
-                                  "column": 45
-                                },
-                                "end": {
-                                  "line": 45,
-                                  "column": 90
-                                }
-                              }
-                            }
-                          ],
                           "typeAnnotation": {
                             "type": "TSTypeReference",
                             "start": 904,
@@ -700,7 +614,25 @@
                                 }
                               ]
                             }
-                          }
+                          },
+                          "trailingComments": [
+                            {
+                              "type": "CommentBlock",
+                              "value": " | Question<AlertPromise> | AlertPromise ",
+                              "start": 933,
+                              "end": 978,
+                              "loc": {
+                                "start": {
+                                  "line": 45,
+                                  "column": 45
+                                },
+                                "end": {
+                                  "line": 45,
+                                  "column": 90
+                                }
+                              }
+                            }
+                          ]
                         }
                       }
                     ],
@@ -753,7 +685,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 455,
+                    "end": 547,
+                    "loc": {
+                      "start": {
+                        "line": 23,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 32,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}\n     *  to {@link Press}.\n     *\n     * @param {Question<ElementFinder> | ElementFinder | Question<AlertPromise> | AlertPromise} field\n     * @returns {@serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @see {@link Target}\n     ",
+                    "start": 554,
+                    "end": 887,
+                    "loc": {
+                      "start": {
+                        "line": 35,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 44,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -792,7 +758,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 15 \n ",
+            "start": 151,
+            "end": 196,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Fluent interface to make the instantiation of\n *  the {@link @serenity-js/core/lib/screenplay~Interaction}\n *  to {@link Press} more readable.\n *\n * @see {@link Press}\n *\n * @interface\n * @interface ",
+            "start": 199,
+            "end": 417,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 21,
+                "column": 16
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

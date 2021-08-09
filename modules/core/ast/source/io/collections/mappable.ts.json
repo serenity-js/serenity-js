@@ -44,74 +44,6 @@
             "column": 1
           }
         },
-        "leadingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
-            "start": 1,
-            "end": 46,
-            "loc": {
-              "start": {
-                "line": 2,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Describes a collection providing\n *  a [`map`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).\n *\n * @interface\n *\n * @see {@link Question#map}\n * @see {@link ElementArrayFinder}\n * @interface ",
-            "start": 47,
-            "end": 319,
-            "loc": {
-              "start": {
-                "line": 8,
-                "column": 0
-              },
-              "end": {
-                "line": 17,
-                "column": 16
-              }
-            }
-          }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n ",
-            "start": 933,
-            "end": 978,
-            "loc": {
-              "start": {
-                "line": 44,
-                "column": 0
-              },
-              "end": {
-                "line": 49,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  A mapping function converting one type into another.\n *\n * @public\n *\n * @typedef {function(item?: V, index?: number) => Promise<O> | O} Mapping<V,O>\n ",
-            "start": 981,
-            "end": 1151,
-            "loc": {
-              "start": {
-                "line": 52,
-                "column": 0
-              },
-              "end": {
-                "line": 59,
-                "column": 3
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -210,40 +142,6 @@
                     "column": 85
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                    "start": 359,
-                    "end": 451,
-                    "loc": {
-                      "start": {
-                        "line": 19,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 28,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Applies a {@link MappingFunction} function to each element of a {@link Mappable} collection.\n     *\n     *  The callback receives an item from the collection as the first argument\n     *  and its index as the second argument.\n     *\n     * @abstract\n     *\n     * @type {function<U>(callback: (item?: Item, index?: number) => U): PromiseLike<U[]> | U[]}\n     ",
-                    "start": 458,
-                    "end": 844,
-                    "loc": {
-                      "start": {
-                        "line": 31,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 41,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -712,7 +610,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 24 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                    "start": 359,
+                    "end": 451,
+                    "loc": {
+                      "start": {
+                        "line": 19,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 28,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Applies a {@link MappingFunction} function to each element of a {@link Mappable} collection.\n     *\n     *  The callback receives an item from the collection as the first argument\n     *  and its index as the second argument.\n     *\n     * @abstract\n     *\n     * @type {function<U>(callback: (item?: Item, index?: number) => U): PromiseLike<U[]> | U[]}\n     ",
+                    "start": 458,
+                    "end": 844,
+                    "loc": {
+                      "start": {
+                        "line": 31,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 41,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -784,23 +716,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1152,
-        "end": 1224,
-        "loc": {
-          "start": {
-            "line": 60,
-            "column": 0
-          },
-          "end": {
-            "line": 61,
-            "column": 36
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n ",
@@ -834,40 +751,55 @@
             }
           }
         ],
-        "trailingComments": [
+        "leadingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Mappable | undefined} maybeCollection \n * @return \n * {UNKNOWN} \n ",
-            "start": 1225,
-            "end": 1350,
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 11 \n ",
+            "start": 1,
+            "end": 46,
             "loc": {
               "start": {
-                "line": 62,
+                "line": 2,
                 "column": 0
               },
               "end": {
-                "line": 71,
+                "line": 7,
                 "column": 3
               }
             }
           },
           {
             "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Checks if the value is a {@link Mappable} collection of items.\n *\n * @example <caption>An Array</caption>\n *  import { Mappable } from '@serenity-js/core/lib/io';\n *\n *  Mappable.isMappable([ 1, 2, 3 ]) === true\n *\n * @example <caption>Protractor's ElementArrayFinder</caption>\n *  import { Mappable } from '@serenity-js/core/lib/io';\n *  import { element } from 'protractor';\n *\n *  Mappable.isMappable(element.all(by.tagName('li')) === true\n *\n * @param {Mappable<Item> | any} maybeCollection\n * @returns {boolean}\n ",
-            "start": 1353,
-            "end": 1890,
+            "value": "*\n * @desc\n *  Describes a collection providing\n *  a [`map`-like interface](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map).\n *\n * @interface\n *\n * @see {@link Question#map}\n * @see {@link ElementArrayFinder}\n * @interface ",
+            "start": 47,
+            "end": 319,
             "loc": {
               "start": {
-                "line": 74,
+                "line": 8,
                 "column": 0
               },
               "end": {
-                "line": 91,
-                "column": 3
+                "line": 17,
+                "column": 16
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1152,
+        "end": 1224,
+        "loc": {
+          "start": {
+            "line": 60,
+            "column": 0
+          },
+          "end": {
+            "line": 61,
+            "column": 36
+          }
+        },
         "exportKind": "type",
         "specifiers": [],
         "source": null,
@@ -1196,23 +1128,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1891,
-        "end": 2119,
-        "loc": {
-          "start": {
-            "line": 92,
-            "column": 0
-          },
-          "end": {
-            "line": 96,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Mappable | undefined} maybeCollection \n * @return \n * {UNKNOWN} \n ",
@@ -1246,6 +1163,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 35 \n ",
+            "start": 933,
+            "end": 978,
+            "loc": {
+              "start": {
+                "line": 44,
+                "column": 0
+              },
+              "end": {
+                "line": 49,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  A mapping function converting one type into another.\n *\n * @public\n *\n * @typedef {function(item?: V, index?: number) => Promise<O> | O} Mapping<V,O>\n ",
+            "start": 981,
+            "end": 1151,
+            "loc": {
+              "start": {
+                "line": 52,
+                "column": 0
+              },
+              "end": {
+                "line": 59,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1891,
+        "end": 2119,
+        "loc": {
+          "start": {
+            "line": 92,
+            "column": 0
+          },
+          "end": {
+            "line": 96,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -1944,7 +1910,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 56 \n * @param \n * {Mappable | undefined} maybeCollection \n * @return \n * {UNKNOWN} \n ",
+            "start": 1225,
+            "end": 1350,
+            "loc": {
+              "start": {
+                "line": 62,
+                "column": 0
+              },
+              "end": {
+                "line": 71,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Checks if the value is a {@link Mappable} collection of items.\n *\n * @example <caption>An Array</caption>\n *  import { Mappable } from '@serenity-js/core/lib/io';\n *\n *  Mappable.isMappable([ 1, 2, 3 ]) === true\n *\n * @example <caption>Protractor's ElementArrayFinder</caption>\n *  import { Mappable } from '@serenity-js/core/lib/io';\n *  import { element } from 'protractor';\n *\n *  Mappable.isMappable(element.all(by.tagName('li')) === true\n *\n * @param {Mappable<Item> | any} maybeCollection\n * @returns {boolean}\n ",
+            "start": 1353,
+            "end": 1890,
+            "loc": {
+              "start": {
+                "line": 74,
+                "column": 0
+              },
+              "end": {
+                "line": 91,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

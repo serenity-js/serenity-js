@@ -131,24 +131,6 @@
             "column": 43
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @package\n ",
-            "start": 95,
-            "end": 114,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 7,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -220,23 +202,8 @@
             "raw": "'../../model'"
           },
           "value": "../../model"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 115,
-        "end": 333,
-        "loc": {
-          "start": {
-            "line": 8,
-            "column": 0
-          },
-          "end": {
-            "line": 13,
-            "column": 2
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @package\n ",
@@ -253,7 +220,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 115,
+        "end": 333,
+        "loc": {
+          "start": {
+            "line": 8,
+            "column": 0
+          },
+          "end": {
+            "line": 13,
+            "column": 2
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -316,9 +298,6 @@
                     "line": 13,
                     "column": 1
                   }
-                },
-                "extra": {
-                  "trailingComma": 329
                 },
                 "properties": [
                   {
@@ -482,9 +461,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 318
-                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 191,
@@ -534,6 +510,9 @@
                             },
                             "name": "where"
                           }
+                        },
+                        "extra": {
+                          "trailingComma": 318
                         },
                         "arguments": [
                           {
@@ -807,9 +786,6 @@
                                               "column": 57
                                             }
                                           },
-                                          "extra": {
-                                            "shorthand": true
-                                          },
                                           "method": false,
                                           "key": {
                                             "type": "Identifier",
@@ -846,6 +822,9 @@
                                               "identifierName": "message"
                                             },
                                             "name": "message"
+                                          },
+                                          "extra": {
+                                            "shorthand": true
                                           }
                                         }
                                       ]
@@ -859,7 +838,10 @@
                       }
                     }
                   }
-                ]
+                ],
+                "extra": {
+                  "trailingComma": 329
+                }
               }
             }
           ],
@@ -883,7 +865,25 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @package\n ",
+            "start": 95,
+            "end": 114,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 7,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

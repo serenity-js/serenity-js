@@ -116,24 +116,6 @@
             "column": 55
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentLine",
-            "value": " re-exported to avoid breaking backwards compatibility with tests using 2.24.1",
-            "start": 114,
-            "end": 194,
-            "loc": {
-              "start": {
-                "line": 3,
-                "column": 56
-              },
-              "end": {
-                "line": 3,
-                "column": 136
-              }
-            }
-          }
-        ],
         "exportKind": "value",
         "specifiers": [
           {
@@ -255,7 +237,25 @@
           },
           "value": "@serenity-js/core"
         },
-        "declaration": null
+        "declaration": null,
+        "trailingComments": [
+          {
+            "type": "CommentLine",
+            "value": " re-exported to avoid breaking backwards compatibility with tests using 2.24.1",
+            "start": 114,
+            "end": 194,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 56
+              },
+              "end": {
+                "line": 3,
+                "column": 136
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

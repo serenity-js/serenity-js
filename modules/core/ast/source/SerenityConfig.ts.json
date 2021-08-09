@@ -218,40 +218,6 @@
             "column": 72
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
-            "start": 146,
-            "end": 191,
-            "loc": {
-              "start": {
-                "line": 4,
-                "column": 0
-              },
-              "end": {
-                "line": 9,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @interface\n *\n * @see {@link configure}\n ",
-            "start": 194,
-            "end": 244,
-            "loc": {
-              "start": {
-                "line": 12,
-                "column": 0
-              },
-              "end": {
-                "line": 16,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -421,23 +387,8 @@
             "raw": "'./stage'"
           },
           "value": "./stage"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 245,
-        "end": 1904,
-        "loc": {
-          "start": {
-            "line": 17,
-            "column": 0
-          },
-          "end": {
-            "line": 100,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
@@ -470,7 +421,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 245,
+        "end": 1904,
+        "loc": {
+          "start": {
+            "line": 17,
+            "column": 0
+          },
+          "end": {
+            "line": 100,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -536,74 +502,6 @@
                     "column": 25
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {Cast} \n * @public \n * \\TRUE \n ",
-                    "start": 284,
-                    "end": 372,
-                    "loc": {
-                      "start": {
-                        "line": 18,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 27,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  A {@link Cast} of {@link Actor}s to be used when {@link actorCalled}\n     *  and {@link actorInTheSpotlight} functions are called.\n     *\n     * @type {?Cast}\n     ",
-                    "start": 378,
-                    "end": 569,
-                    "loc": {
-                      "start": {
-                        "line": 29,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 35,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Array} \n * @public \n * \\TRUE \n ",
-                    "start": 596,
-                    "end": 685,
-                    "loc": {
-                      "start": {
-                        "line": 37,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 46,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  A list of {@link StageCrewMemberBuilder}s or {@link StageCrewMember}s\n     *  to be notified of {@link DomainEvent}s that occur during the scenario execution.\n     *\n     * @type {?Array<StageCrewMember | StageCrewMemberBuilder>}\n     ",
-                    "start": 692,
-                    "end": 954,
-                    "loc": {
-                      "start": {
-                        "line": 49,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 55,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -671,23 +569,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 959,
-                "end": 1023,
-                "loc": {
-                  "start": {
-                    "line": 56,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 56,
-                    "column": 68
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Array} \n * @public \n * \\TRUE \n ",
@@ -721,40 +604,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n * @type \n * {Duration} \n * @public \n * \\TRUE \n ",
-                    "start": 1024,
-                    "end": 1116,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @type \n * {Cast} \n * @public \n * \\TRUE \n ",
+                    "start": 284,
+                    "end": 372,
                     "loc": {
                       "start": {
-                        "line": 57,
+                        "line": 18,
                         "column": 0
                       },
                       "end": {
-                        "line": 66,
+                        "line": 27,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  The maximum amount of time Serenity/JS should wait for any post-scenario\n     *  async operations to complete. Those include generating the screenshots,\n     *  saving reports to disk and so on. **Please note** that this is not\n     *  a scenario timeout, which should be configured in your test runner.\n     *\n     * @type {?Duration}\n     ",
-                    "start": 1123,
-                    "end": 1491,
+                    "value": "*\n     * @desc\n     *  A {@link Cast} of {@link Actor}s to be used when {@link actorCalled}\n     *  and {@link actorInTheSpotlight} functions are called.\n     *\n     * @type {?Cast}\n     ",
+                    "start": 378,
+                    "end": 569,
                     "loc": {
                       "start": {
-                        "line": 69,
+                        "line": 29,
                         "column": 4
                       },
                       "end": {
-                        "line": 77,
+                        "line": 35,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 959,
+                "end": 1023,
+                "loc": {
+                  "start": {
+                    "line": 56,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 56,
+                    "column": 68
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -920,23 +818,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1496,
-                "end": 1521,
-                "loc": {
-                  "start": {
-                    "line": 78,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 78,
-                    "column": 29
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n * @type \n * {Duration} \n * @public \n * \\TRUE \n ",
@@ -970,40 +853,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @type \n * {OutputStream} \n * @public \n * \\TRUE \n ",
-                    "start": 1522,
-                    "end": 1618,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 27 \n * @type \n * {Array} \n * @public \n * \\TRUE \n ",
+                    "start": 596,
+                    "end": 685,
                     "loc": {
                       "start": {
-                        "line": 79,
+                        "line": 37,
                         "column": 0
                       },
                       "end": {
-                        "line": 88,
+                        "line": 46,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  An output stream to be injected into {@link StageCrewMemberBuilder}s\n     *\n     *  Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).\n     *\n     * @type {?OutputStream}\n     ",
-                    "start": 1625,
-                    "end": 1869,
+                    "value": "*\n     * @desc\n     *  A list of {@link StageCrewMemberBuilder}s or {@link StageCrewMember}s\n     *  to be notified of {@link DomainEvent}s that occur during the scenario execution.\n     *\n     * @type {?Array<StageCrewMember | StageCrewMemberBuilder>}\n     ",
+                    "start": 692,
+                    "end": 954,
                     "loc": {
                       "start": {
-                        "line": 91,
+                        "line": 49,
                         "column": 4
                       },
                       "end": {
-                        "line": 98,
+                        "line": 55,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1496,
+                "end": 1521,
+                "loc": {
+                  "start": {
+                    "line": 78,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 78,
+                    "column": 29
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1071,23 +969,8 @@
                     }
                   }
                 },
-                "value": null
-              },
-              {
-                "type": "ClassProperty",
-                "start": 1874,
-                "end": 1902,
-                "loc": {
-                  "start": {
-                    "line": 99,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 99,
-                    "column": 32
-                  }
-                },
-                "leadingComments": [
+                "value": null,
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @type \n * {OutputStream} \n * @public \n * \\TRUE \n ",
@@ -1121,6 +1004,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 38 \n * @type \n * {Duration} \n * @public \n * \\TRUE \n ",
+                    "start": 1024,
+                    "end": 1116,
+                    "loc": {
+                      "start": {
+                        "line": 57,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 66,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  The maximum amount of time Serenity/JS should wait for any post-scenario\n     *  async operations to complete. Those include generating the screenshots,\n     *  saving reports to disk and so on. **Please note** that this is not\n     *  a scenario timeout, which should be configured in your test runner.\n     *\n     * @type {?Duration}\n     ",
+                    "start": 1123,
+                    "end": 1491,
+                    "loc": {
+                      "start": {
+                        "line": 69,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 77,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 1874,
+                "end": 1902,
+                "loc": {
+                  "start": {
+                    "line": 99,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 99,
+                    "column": 32
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1188,7 +1120,41 @@
                     }
                   }
                 },
-                "value": null
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 48 \n * @type \n * {OutputStream} \n * @public \n * \\TRUE \n ",
+                    "start": 1522,
+                    "end": 1618,
+                    "loc": {
+                      "start": {
+                        "line": 79,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 88,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  An output stream to be injected into {@link StageCrewMemberBuilder}s\n     *\n     *  Defaults to [`process.stdout`](https://nodejs.org/api/process.html#process_process_stdout).\n     *\n     * @type {?OutputStream}\n     ",
+                    "start": 1625,
+                    "end": 1869,
+                    "loc": {
+                      "start": {
+                        "line": 91,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 98,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -1227,7 +1193,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 10 \n ",
+            "start": 146,
+            "end": 191,
+            "loc": {
+              "start": {
+                "line": 4,
+                "column": 0
+              },
+              "end": {
+                "line": 9,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @interface\n *\n * @see {@link configure}\n ",
+            "start": 194,
+            "end": 244,
+            "loc": {
+              "start": {
+                "line": 12,
+                "column": 0
+              },
+              "end": {
+                "line": 16,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

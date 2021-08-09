@@ -626,40 +626,6 @@
             "column": 31
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n ",
-            "start": 285,
-            "end": 331,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Enables the {@link Actor} to iterate over a list of items produced by any {@link Answerable}.\n *\n *  You can think of `Loop` as a more sophisticated Screenplay-style equivalent of\n *  [`Array.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).\n *  `Loop` is capable of working with both synchronous data structures,\n *  such as [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)\n *  and `Question<Array<T>>`,\n *  as well as asynchronous ones, so `Promise<Array<T>>` and `Question<Promise<Array<T>>>`.\n *\n *  Use {@link Loop.item} to access the current item being processed by {@link Loop}, and {@link Loop.index}\n *  to access the index of {@link Loop.item} in the list.\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *          Log.the('current index', Loop.index()),\n *      ),\n *  );\n *\n * @example <caption>API scenario - Iterating over items in an API response</caption>\n *\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Send, GetRequest, CallAnApi, LastResponse } from '@serenity-js/rest';\n *  import { Ensure, property, isGreaterThan } from '@serenity-js/assertions';\n *\n *  interface TodoItem {\n *      userId: number;\n *      id: number;\n *      title: string;\n *      completed: boolean;\n *  }\n *\n *  actorCalled('Joe').whoCan(\n *      CallAnApi.at('https://jsonplaceholder.typicode.com')\n *  ).attemptsTo(\n *      Send.a(GetRequest.to('/todos')),\n *      Loop.over(LastResponse.body<TodoItem[]>()).to(\n *          Ensure.that(\n *              Loop.item<TodoItem>(),\n *              property('userId', isGreaterThan(0)),\n *          ),\n *      )\n *  );\n *\n * @example <caption>UI scenario - Example widget</caption>\n *  <nav>\n *      <div data-test=\"cookies\">\n *          <label for=\"functional-cookies\">\n *              <input type=\"checkbox\" id=\"functional-cookies\" />Allow functional cookies\n *          </label>\n *          <label for=\"performance-cookies\">\n *              <input type=\"checkbox\" id=\"performance-cookies\" />Allow performance cookies\n *          </label>\n *          <label for=\"advertising-cookies\">\n *              <input type=\"checkbox\" id=\"advertising-cookies\" />Allow advertising cookies\n *          </label>\n *      </div>\n *  </nav>\n *\n * @example <caption>UI scenario - Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { browser, by } from 'protractor';\n *\n *  class Cookies {\n *      static labels = Target.all('cookie options')\n *          .located(by.css('[data-test=\"cookies\"]'));\n *\n *      static checkbox = Target.the('checkbox')\n *          .located(by.tagName('input')),\n *  }\n *\n * @example <caption>UI scenario - Performing the same set of activities with each element</caption>\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Click, Text, isSelected } from '@serenity-js/protractor';\n *  import { Ensure, startsWith } from '@serenity-js/assertions';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Joe')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Loop.over(Cookies.labels).to(\n *               Ensure.that(\n *                  Text.of(Loop.item<ElementFinder>()),\n *                  startsWith('Allow'),\n *              ),\n *\n *              Click.on(Loop.item<ElementFinder>()),\n *              Ensure.that(\n *                  Cookies.checkbox.of(Loop.item<ElementFinder>()),\n *                  isSelected(),\n *              ),\n *          ),\n *      );\n *\n * @extends {Task}\n *\n * @see {@link Loop.item}\n * @see {@link Loop.index}\n * @see {@link Question}\n ",
-            "start": 334,
-            "end": 4282,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 119,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -731,23 +697,8 @@
             "raw": "'../Task'"
           },
           "value": "../Task"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 4283,
-        "end": 9015,
-        "loc": {
-          "start": {
-            "line": 120,
-            "column": 0
-          },
-          "end": {
-            "line": 330,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n ",
@@ -780,25 +731,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @typedef {Object} LoopBuilder\n * @property {function(...activities: Activity[]): Loop} to\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *      ),\n *  );\n *\n * @see {@link Loop}\n * @see {@link Loop.over}\n ",
-            "start": 9017,
-            "end": 9491,
-            "loc": {
-              "start": {
-                "line": 332,
-                "column": 0
-              },
-              "end": {
-                "line": 347,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 4283,
+        "end": 9015,
+        "loc": {
+          "start": {
+            "line": 120,
+            "column": 0
+          },
+          "end": {
+            "line": 330,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -912,42 +860,6 @@
                     "column": 52
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @type \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                    "start": 4322,
-                    "end": 4437,
-                    "loc": {
-                      "start": {
-                        "line": 121,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 132,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
-                    "start": 4492,
-                    "end": 4583,
-                    "loc": {
-                      "start": {
-                        "line": 135,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 144,
-                        "column": 3
-                      }
-                    }
-                  }
-                ],
                 "accessibility": "private",
                 "static": true,
                 "key": {
@@ -1014,23 +926,8 @@
                     "identifierName": "undefined"
                   },
                   "name": "undefined"
-                }
-              },
-              {
-                "type": "ClassProperty",
-                "start": 4589,
-                "end": 4621,
-                "loc": {
-                  "start": {
-                    "line": 146,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 146,
-                    "column": 36
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
@@ -1048,40 +945,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Answerable} items \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 4622,
-                    "end": 4772,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 114 \n * @type \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                    "start": 4322,
+                    "end": 4437,
                     "loc": {
                       "start": {
-                        "line": 147,
+                        "line": 121,
                         "column": 0
                       },
                       "end": {
-                        "line": 160,
+                        "line": 132,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates a {@link Task} to {@link Loop}\n     *  that enables the {@link Actor} to iterate over `items`\n     *  to perform some `activities`.\n     *\n     * @param {items: Answerable<ReducibleCollection>} items\n     * @returns {LoopBuilder}\n     ",
-                    "start": 4779,
-                    "end": 5054,
-                    "loc": {
-                      "start": {
-                        "line": 163,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 171,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 4589,
+                "end": 4621,
+                "loc": {
+                  "start": {
+                    "line": 146,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 146,
+                    "column": 36
+                  }
+                },
                 "accessibility": "private",
                 "static": true,
                 "key": {
@@ -1121,23 +1017,8 @@
                     "raw": "0"
                   },
                   "value": 0
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 5059,
-                "end": 5375,
-                "loc": {
-                  "start": {
-                    "line": 172,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 188,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Answerable} items \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -1171,40 +1052,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 5376,
-                    "end": 5493,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 115 \n * @static \n * \\TRUE \n * @private \n * \\TRUE \n ",
+                    "start": 4492,
+                    "end": 4583,
                     "loc": {
                       "start": {
-                        "line": 189,
+                        "line": 135,
                         "column": 0
                       },
                       "end": {
-                        "line": 200,
+                        "line": 144,
                         "column": 3
                       }
                     }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the current item being processed by {@link Loop.over}.\n     *\n     *  **Please note** that in order for the TypeScript transpiler to understand the exact `ExpectedType`\n     *  of the {@link Question} produced by this method you can optionally configure it with\n     *  a [_type variable_](https://www.typescriptlang.org/docs/handbook/generics.html).\n     *\n     *  For example, configuring the method with type variable of `string`, so `Loop.item<string>()`,\n     *  tells the transpiler that a `Question<string>` will be returned.\n     *\n     *  If the type variable is not configured, the transpiler assumes that returned type is a\n     *  `Question<any>`. This means that while your code could still work, you'd miss out\n     *  on checking provided by TypeScript.\n     *\n     * @returns {Question<ExpectedType>}\n     ",
-                    "start": 5500,
-                    "end": 6357,
-                    "loc": {
-                      "start": {
-                        "line": 203,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 219,
-                        "column": 7
-                      }
-                    }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 5059,
+                "end": 5375,
+                "loc": {
+                  "start": {
+                    "line": 172,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 188,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1419,24 +1299,6 @@
                             "column": 43
                           }
                         },
-                        "leadingComments": [
-                          {
-                            "type": "CommentBlock",
-                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
-                            "start": 5107,
-                            "end": 5200,
-                            "loc": {
-                              "start": {
-                                "line": 173,
-                                "column": 0
-                              },
-                              "end": {
-                                "line": 182,
-                                "column": 3
-                              }
-                            }
-                          }
-                        ],
                         "key": {
                           "type": "Identifier",
                           "start": 5202,
@@ -1676,7 +1538,25 @@
                               }
                             }
                           }
-                        }
+                        },
+                        "leadingComments": [
+                          {
+                            "type": "CommentBlock",
+                            "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @type \n * {Function} \n * @public \n * \\TRUE \n ",
+                            "start": 5107,
+                            "end": 5200,
+                            "loc": {
+                              "start": {
+                                "line": 173,
+                                "column": 0
+                              },
+                              "end": {
+                                "line": 182,
+                                "column": 3
+                              }
+                            }
+                          }
+                        ]
                       }
                     ]
                   }
@@ -1996,23 +1876,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6362,
-                "end": 6558,
-                "loc": {
-                  "start": {
-                    "line": 220,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 224,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2046,40 +1911,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 6559,
-                    "end": 6676,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 126 \n * @param \n * {Answerable} items \n * @return \n * {UNKNOWN} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 4622,
+                    "end": 4772,
                     "loc": {
                       "start": {
-                        "line": 225,
+                        "line": 147,
                         "column": 0
                       },
                       "end": {
-                        "line": 236,
+                        "line": 160,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Returns the index of current {@link Loop.item} in the `Answerable<Array>` given to {@link Loop.over}.\n     *\n     *  The index starts at `0`.\n     *\n     * @returns {Question<number>}\n     ",
-                    "start": 6683,
-                    "end": 6899,
+                    "value": "*\n     * @desc\n     *  Instantiates a {@link Task} to {@link Loop}\n     *  that enables the {@link Actor} to iterate over `items`\n     *  to perform some `activities`.\n     *\n     * @param {items: Answerable<ReducibleCollection>} items\n     * @returns {LoopBuilder}\n     ",
+                    "start": 4779,
+                    "end": 5054,
                     "loc": {
                       "start": {
-                        "line": 239,
+                        "line": 163,
                         "column": 4
                       },
                       "end": {
-                        "line": 246,
+                        "line": 171,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6362,
+                "end": 6558,
+                "loc": {
+                  "start": {
+                    "line": 220,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 224,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2568,23 +2448,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 6904,
-                "end": 7055,
-                "loc": {
-                  "start": {
-                    "line": 247,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 251,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
@@ -2618,24 +2483,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @param {Answerable<Reducible>} items\n     * @param {Activity[]} activities\n     ",
-                    "start": 7061,
-                    "end": 7154,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 150 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 5376,
+                    "end": 5493,
                     "loc": {
                       "start": {
-                        "line": 253,
+                        "line": 189,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 200,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Returns the current item being processed by {@link Loop.over}.\n     *\n     *  **Please note** that in order for the TypeScript transpiler to understand the exact `ExpectedType`\n     *  of the {@link Question} produced by this method you can optionally configure it with\n     *  a [_type variable_](https://www.typescriptlang.org/docs/handbook/generics.html).\n     *\n     *  For example, configuring the method with type variable of `string`, so `Loop.item<string>()`,\n     *  tells the transpiler that a `Question<string>` will be returned.\n     *\n     *  If the type variable is not configured, the transpiler assumes that returned type is a\n     *  `Question<any>`. This means that while your code could still work, you'd miss out\n     *  on checking provided by TypeScript.\n     *\n     * @returns {Question<ExpectedType>}\n     ",
+                    "start": 5500,
+                    "end": 6357,
+                    "loc": {
+                      "start": {
+                        "line": 203,
                         "column": 4
                       },
                       "end": {
-                        "line": 256,
+                        "line": 219,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 6904,
+                "end": 7055,
+                "loc": {
+                  "start": {
+                    "line": 247,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 251,
+                    "column": 5
+                  }
+                },
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -2995,23 +2891,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7159,
-                "end": 7305,
-                "loc": {
-                  "start": {
-                    "line": 257,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 262,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Answerable<Reducible>} items\n     * @param {Activity[]} activities\n     ",
@@ -3029,40 +2910,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 194 \n * @param \n * {PerformsActivities & UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike | PromiseLike} \n * @public \n * \\TRUE \n ",
-                    "start": 7306,
-                    "end": 7495,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 164 \n * @return \n * {Question} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 6559,
+                    "end": 6676,
                     "loc": {
                       "start": {
-                        "line": 263,
+                        "line": 225,
                         "column": 0
                       },
                       "end": {
-                        "line": 274,
+                        "line": 236,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Task}.\n     *\n     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link PerformsActivities}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     ",
-                    "start": 7502,
-                    "end": 7860,
+                    "value": "*\n     * @desc\n     *  Returns the index of current {@link Loop.item} in the `Answerable<Array>` given to {@link Loop.over}.\n     *\n     *  The index starts at `0`.\n     *\n     * @returns {Question<number>}\n     ",
+                    "start": 6683,
+                    "end": 6899,
                     "loc": {
                       "start": {
-                        "line": 277,
+                        "line": 239,
                         "column": 4
                       },
                       "end": {
-                        "line": 289,
+                        "line": 246,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7159,
+                "end": 7305,
+                "loc": {
+                  "start": {
+                    "line": 257,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 262,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -3377,23 +3273,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 7865,
-                "end": 8499,
-                "loc": {
-                  "start": {
-                    "line": 290,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 304,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 194 \n * @param \n * {PerformsActivities & UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike | PromiseLike} \n * @public \n * \\TRUE \n ",
@@ -3427,40 +3308,39 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 216 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
-                    "start": 8500,
-                    "end": 8593,
+                    "value": "*\n     * @param {Answerable<Reducible>} items\n     * @param {Activity[]} activities\n     ",
+                    "start": 7061,
+                    "end": 7154,
                     "loc": {
                       "start": {
-                        "line": 305,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 314,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
-                    "start": 8600,
-                    "end": 8737,
-                    "loc": {
-                      "start": {
-                        "line": 317,
+                        "line": 253,
                         "column": 4
                       },
                       "end": {
-                        "line": 322,
+                        "line": 256,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 7865,
+                "end": 8499,
+                "loc": {
+                  "start": {
+                    "line": 290,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 304,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -4901,23 +4781,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 8742,
-                "end": 9013,
-                "loc": {
-                  "start": {
-                    "line": 323,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 329,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 216 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
@@ -4951,6 +4816,55 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 194 \n * @param \n * {PerformsActivities & UsesAbilities & AnswersQuestions} actor \n * @return \n * {PromiseLike | PromiseLike} \n * @public \n * \\TRUE \n ",
+                    "start": 7306,
+                    "end": 7495,
+                    "loc": {
+                      "start": {
+                        "line": 263,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 274,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link Actor}\n     *  perform this {@link Task}.\n     *\n     * @param {PerformsActivities & UsesAbilities & AnswersQuestions} actor\n     * @returns {Promise<void>}\n     *\n     * @see {@link Actor}\n     * @see {@link PerformsActivities}\n     * @see {@link UsesAbilities}\n     * @see {@link AnswersQuestions}\n     ",
+                    "start": 7502,
+                    "end": 7860,
+                    "loc": {
+                      "start": {
+                        "line": 277,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 289,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 8742,
+                "end": 9013,
+                "loc": {
+                  "start": {
+                    "line": 323,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 329,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -5764,7 +5678,41 @@
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 216 \n * @return \n * {string} \n * @public \n * \\TRUE \n ",
+                    "start": 8500,
+                    "end": 8593,
+                    "loc": {
+                      "start": {
+                        "line": 305,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 314,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Generates a description to be used when reporting this {@link Activity}.\n     *\n     * @returns {string}\n     ",
+                    "start": 8600,
+                    "end": 8737,
+                    "loc": {
+                      "start": {
+                        "line": 317,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 322,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -5820,7 +5768,59 @@
               }
             }
           ]
-        }
+        },
+        "trailingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @typedef {Object} LoopBuilder\n * @property {function(...activities: Activity[]): Loop} to\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *      ),\n *  );\n *\n * @see {@link Loop}\n * @see {@link Loop.over}\n ",
+            "start": 9017,
+            "end": 9491,
+            "loc": {
+              "start": {
+                "line": 332,
+                "column": 0
+              },
+              "end": {
+                "line": 347,
+                "column": 3
+              }
+            }
+          }
+        ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 113 \n ",
+            "start": 285,
+            "end": 331,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Enables the {@link Actor} to iterate over a list of items produced by any {@link Answerable}.\n *\n *  You can think of `Loop` as a more sophisticated Screenplay-style equivalent of\n *  [`Array.forEach`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach).\n *  `Loop` is capable of working with both synchronous data structures,\n *  such as [`Array`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)\n *  and `Question<Array<T>>`,\n *  as well as asynchronous ones, so `Promise<Array<T>>` and `Question<Promise<Array<T>>>`.\n *\n *  Use {@link Loop.item} to access the current item being processed by {@link Loop}, and {@link Loop.index}\n *  to access the index of {@link Loop.item} in the list.\n *\n * @example <caption>Basic scenario - Iterating over a static list of items</caption>\n *  import { actorCalled, Loop, Log } from '@serenity-js/core';\n *\n *  actorCalled('Joe').attemptsTo(\n *      Loop.over([ 'apple', 'banana', 'candy' ]).to(\n *          Log.the('current element', Loop.item<string>()),\n *          Log.the('current index', Loop.index()),\n *      ),\n *  );\n *\n * @example <caption>API scenario - Iterating over items in an API response</caption>\n *\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Send, GetRequest, CallAnApi, LastResponse } from '@serenity-js/rest';\n *  import { Ensure, property, isGreaterThan } from '@serenity-js/assertions';\n *\n *  interface TodoItem {\n *      userId: number;\n *      id: number;\n *      title: string;\n *      completed: boolean;\n *  }\n *\n *  actorCalled('Joe').whoCan(\n *      CallAnApi.at('https://jsonplaceholder.typicode.com')\n *  ).attemptsTo(\n *      Send.a(GetRequest.to('/todos')),\n *      Loop.over(LastResponse.body<TodoItem[]>()).to(\n *          Ensure.that(\n *              Loop.item<TodoItem>(),\n *              property('userId', isGreaterThan(0)),\n *          ),\n *      )\n *  );\n *\n * @example <caption>UI scenario - Example widget</caption>\n *  <nav>\n *      <div data-test=\"cookies\">\n *          <label for=\"functional-cookies\">\n *              <input type=\"checkbox\" id=\"functional-cookies\" />Allow functional cookies\n *          </label>\n *          <label for=\"performance-cookies\">\n *              <input type=\"checkbox\" id=\"performance-cookies\" />Allow performance cookies\n *          </label>\n *          <label for=\"advertising-cookies\">\n *              <input type=\"checkbox\" id=\"advertising-cookies\" />Allow advertising cookies\n *          </label>\n *      </div>\n *  </nav>\n *\n * @example <caption>UI scenario - Lean Page Object</caption>\n *  import { Target } from '@serenity-js/protractor';\n *  import { browser, by } from 'protractor';\n *\n *  class Cookies {\n *      static labels = Target.all('cookie options')\n *          .located(by.css('[data-test=\"cookies\"]'));\n *\n *      static checkbox = Target.the('checkbox')\n *          .located(by.tagName('input')),\n *  }\n *\n * @example <caption>UI scenario - Performing the same set of activities with each element</caption>\n *  import { actorCalled, Loop } from '@serenity-js/core';\n *  import { Click, Text, isSelected } from '@serenity-js/protractor';\n *  import { Ensure, startsWith } from '@serenity-js/assertions';\n *  import { protractor } from 'protractor';\n *\n *  actorCalled('Joe')\n *      .whoCan(BrowseTheWeb.using(protractor.browser))\n *      .attemptsTo(\n *          Loop.over(Cookies.labels).to(\n *               Ensure.that(\n *                  Text.of(Loop.item<ElementFinder>()),\n *                  startsWith('Allow'),\n *              ),\n *\n *              Click.on(Loop.item<ElementFinder>()),\n *              Ensure.that(\n *                  Cookies.checkbox.of(Loop.item<ElementFinder>()),\n *                  isSelected(),\n *              ),\n *          ),\n *      );\n *\n * @extends {Task}\n *\n * @see {@link Loop.item}\n * @see {@link Loop.index}\n * @see {@link Question}\n ",
+            "start": 334,
+            "end": 4282,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 119,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

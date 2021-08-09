@@ -392,40 +392,6 @@
             "column": 40
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
-            "start": 253,
-            "end": 328,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 14,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is present in the DOM of the page and visible.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
-            "start": 331,
-            "end": 659,
-            "loc": {
-              "start": {
-                "line": 17,
-                "column": 0
-              },
-              "end": {
-                "line": 26,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -497,23 +463,8 @@
             "raw": "'./isPresent'"
           },
           "value": "./isPresent"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 660,
-        "end": 853,
-        "loc": {
-          "start": {
-            "line": 27,
-            "column": 0
-          },
-          "end": {
-            "line": 32,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
@@ -546,25 +497,22 @@
               }
             }
           }
-        ],
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @return \n * {Expectation} \n ",
-            "start": 854,
-            "end": 929,
-            "loc": {
-              "start": {
-                "line": 33,
-                "column": 0
-              },
-              "end": {
-                "line": 40,
-                "column": 3
-              }
-            }
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 660,
+        "end": 853,
+        "loc": {
+          "start": {
+            "line": 27,
+            "column": 0
+          },
+          "end": {
+            "line": 32,
+            "column": 1
           }
-        ],
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -940,9 +888,6 @@
                           "column": 5
                         }
                       },
-                      "extra": {
-                        "trailingComma": 842
-                      },
                       "callee": {
                         "type": "Identifier",
                         "start": 795,
@@ -959,6 +904,9 @@
                           "identifierName": "and"
                         },
                         "name": "and"
+                      },
+                      "extra": {
+                        "trailingComma": 842
                       },
                       "arguments": [
                         {
@@ -1087,23 +1035,8 @@
               }
             }
           ]
-        }
-      },
-      {
-        "type": "FunctionDeclaration",
-        "start": 932,
-        "end": 1093,
-        "loc": {
-          "start": {
-            "line": 43,
-            "column": 0
-          },
-          "end": {
-            "line": 45,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @return \n * {Expectation} \n ",
@@ -1121,6 +1054,55 @@
             }
           }
         ],
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 18 \n * @return \n * {Expectation} \n ",
+            "start": 253,
+            "end": 328,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 14,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is present in the DOM of the page and visible.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 331,
+            "end": 659,
+            "loc": {
+              "start": {
+                "line": 17,
+                "column": 0
+              },
+              "end": {
+                "line": 26,
+                "column": 3
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FunctionDeclaration",
+        "start": 932,
+        "end": 1093,
+        "loc": {
+          "start": {
+            "line": 43,
+            "column": 0
+          },
+          "end": {
+            "line": 45,
+            "column": 1
+          }
+        },
         "id": {
           "type": "Identifier",
           "start": 941,
@@ -1474,7 +1456,25 @@
             }
           ],
           "directives": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 25 \n * @return \n * {Expectation} \n ",
+            "start": 854,
+            "end": 929,
+            "loc": {
+              "start": {
+                "line": 33,
+                "column": 0
+              },
+              "end": {
+                "line": 40,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

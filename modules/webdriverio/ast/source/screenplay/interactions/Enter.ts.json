@@ -490,40 +490,6 @@
             "column": 64
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n ",
-            "start": 287,
-            "end": 332,
-            "loc": {
-              "start": {
-                "line": 7,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  enter a value into a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) field.\n *\n * @example <caption>Example widget</caption>\n *  <form>\n *    <input type=\"text\" name=\"example\" id=\"example\" />\n *  </form>\n *\n * @example <caption>Lean Page Object describing the widget</caption>\n *  import { by, Target } from '@serenity-js/webdriverio';\n *\n *  class Form {\n *      static exampleInput = Target.the('example input')\n *          .located(by.id('example'));\n *  }\n *\n * @example <caption>Entering the value into a form field</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Enter } from '@serenity-js/webdriverio';\n *\n *  actorCalled('Esme')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Enter.theValue('Hello world!').into(Form.exampleInput),\n *      );\n *\n * @see {@link Target}\n *\n * @extends {WebElementInteraction}\n ",
-            "start": 335,
-            "end": 1350,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 46,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -595,23 +561,8 @@
             "raw": "'./WebElementInteraction'"
           },
           "value": "./WebElementInteraction"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 1351,
-        "end": 3820,
-        "loc": {
-          "start": {
-            "line": 47,
-            "column": 0
-          },
-          "end": {
-            "line": 128,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n ",
@@ -644,7 +595,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 1351,
+        "end": 3820,
+        "loc": {
+          "start": {
+            "line": 47,
+            "column": 0
+          },
+          "end": {
+            "line": 128,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -725,58 +691,6 @@
                     "column": 5
                   }
                 },
-                "leadingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @param \n * {Array} value \n * @return \n * {EnterBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
-                    "start": 1402,
-                    "end": 1551,
-                    "loc": {
-                      "start": {
-                        "line": 48,
-                        "column": 0
-                      },
-                      "end": {
-                        "line": 61,
-                        "column": 3
-                      }
-                    }
-                  },
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {Array<Answerable<string | number | string[] | number[]>>} value\n     *  The value to be entered\n     *\n     * @returns {EnterBuilder}\n     ",
-                    "start": 1558,
-                    "end": 1818,
-                    "loc": {
-                      "start": {
-                        "line": 64,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 72,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
-                "trailingComments": [
-                  {
-                    "type": "CommentBlock",
-                    "value": "*\n     * @param {Array<Answerable<string | number | string[] | number[]>>} value\n     *  The value to be entered\n     *\n     * @param {Answerable<Element<'async'>>} field\n     *  The field to enter the value into\n     ",
-                    "start": 2112,
-                    "end": 2334,
-                    "loc": {
-                      "start": {
-                        "line": 80,
-                        "column": 4
-                      },
-                      "end": {
-                        "line": 86,
-                        "column": 7
-                      }
-                    }
-                  }
-                ],
                 "static": true,
                 "key": {
                   "type": "Identifier",
@@ -1144,9 +1058,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 2088
-                        },
                         "properties": [
                           {
                             "type": "ObjectProperty",
@@ -1436,28 +1347,16 @@
                               }
                             }
                           }
-                        ]
+                        ],
+                        "extra": {
+                          "trailingComma": 2088
+                        }
                       }
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 2339,
-                "end": 2648,
-                "loc": {
-                  "start": {
-                    "line": 87,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 92,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n     * @param {Array<Answerable<string | number | string[] | number[]>>} value\n     *  The value to be entered\n     *\n     * @param {Answerable<Element<'async'>>} field\n     *  The field to enter the value into\n     ",
@@ -1475,40 +1374,55 @@
                     }
                   }
                 ],
-                "trailingComments": [
+                "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
-                    "start": 2649,
-                    "end": 2798,
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 51 \n * @param \n * {Array} value \n * @return \n * {EnterBuilder} \n * @static \n * \\TRUE \n * @public \n * \\TRUE \n ",
+                    "start": 1402,
+                    "end": 1551,
                     "loc": {
                       "start": {
-                        "line": 93,
+                        "line": 48,
                         "column": 0
                       },
                       "end": {
-                        "line": 104,
+                        "line": 61,
                         "column": 3
                       }
                     }
                   },
                   {
                     "type": "CommentBlock",
-                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
-                    "start": 2805,
-                    "end": 3439,
+                    "value": "*\n     * @desc\n     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {Array<Answerable<string | number | string[] | number[]>>} value\n     *  The value to be entered\n     *\n     * @returns {EnterBuilder}\n     ",
+                    "start": 1558,
+                    "end": 1818,
                     "loc": {
                       "start": {
-                        "line": 107,
+                        "line": 64,
                         "column": 4
                       },
                       "end": {
-                        "line": 120,
+                        "line": 72,
                         "column": 7
                       }
                     }
                   }
-                ],
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 2339,
+                "end": 2648,
+                "loc": {
+                  "start": {
+                    "line": 87,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 92,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -1801,24 +1715,6 @@
                         "column": 60
                       }
                     },
-                    "trailingComments": [
-                      {
-                        "type": "CommentBlock",
-                        "value": " todo | Question<AlertPromise> | AlertPromise ",
-                        "start": 2503,
-                        "end": 2553,
-                        "loc": {
-                          "start": {
-                            "line": 89,
-                            "column": 61
-                          },
-                          "end": {
-                            "line": 89,
-                            "column": 111
-                          }
-                        }
-                      }
-                    ],
                     "accessibility": "private",
                     "readonly": true,
                     "parameter": {
@@ -1985,7 +1881,25 @@
                           }
                         }
                       }
-                    }
+                    },
+                    "trailingComments": [
+                      {
+                        "type": "CommentBlock",
+                        "value": " todo | Question<AlertPromise> | AlertPromise ",
+                        "start": 2503,
+                        "end": 2553,
+                        "loc": {
+                          "start": {
+                            "line": 89,
+                            "column": 61
+                          },
+                          "end": {
+                            "line": 89,
+                            "column": 111
+                          }
+                        }
+                      }
+                    ]
                   }
                 ],
                 "body": {
@@ -2267,23 +2181,8 @@
                     }
                   ],
                   "directives": []
-                }
-              },
-              {
-                "type": "ClassMethod",
-                "start": 3444,
-                "end": 3818,
-                "loc": {
-                  "start": {
-                    "line": 121,
-                    "column": 4
-                  },
-                  "end": {
-                    "line": 127,
-                    "column": 5
-                  }
                 },
-                "leadingComments": [
+                "trailingComments": [
                   {
                     "type": "CommentBlock",
                     "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
@@ -2317,6 +2216,39 @@
                     }
                   }
                 ],
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @param {Array<Answerable<string | number | string[] | number[]>>} value\n     *  The value to be entered\n     *\n     * @param {Answerable<Element<'async'>>} field\n     *  The field to enter the value into\n     ",
+                    "start": 2112,
+                    "end": 2334,
+                    "loc": {
+                      "start": {
+                        "line": 80,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 86,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassMethod",
+                "start": 3444,
+                "end": 3818,
+                "loc": {
+                  "start": {
+                    "line": 121,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 127,
+                    "column": 5
+                  }
+                },
                 "static": false,
                 "key": {
                   "type": "Identifier",
@@ -2914,24 +2846,6 @@
                           "column": 61
                         }
                       },
-                      "trailingComments": [
-                        {
-                          "type": "CommentLine",
-                          "value": " addValue rather than setValue so that the behaviour is consistent with Selenium sendKeys",
-                          "start": 3675,
-                          "end": 3766,
-                          "loc": {
-                            "start": {
-                              "line": 125,
-                              "column": 8
-                            },
-                            "end": {
-                              "line": 125,
-                              "column": 99
-                            }
-                          }
-                        }
-                      ],
                       "declarations": [
                         {
                           "type": "VariableDeclarator",
@@ -3111,23 +3025,8 @@
                           }
                         }
                       ],
-                      "kind": "const"
-                    },
-                    {
-                      "type": "ReturnStatement",
-                      "start": 3775,
-                      "end": 3812,
-                      "loc": {
-                        "start": {
-                          "line": 126,
-                          "column": 8
-                        },
-                        "end": {
-                          "line": 126,
-                          "column": 45
-                        }
-                      },
-                      "leadingComments": [
+                      "kind": "const",
+                      "trailingComments": [
                         {
                           "type": "CommentLine",
                           "value": " addValue rather than setValue so that the behaviour is consistent with Selenium sendKeys",
@@ -3144,7 +3043,22 @@
                             }
                           }
                         }
-                      ],
+                      ]
+                    },
+                    {
+                      "type": "ReturnStatement",
+                      "start": 3775,
+                      "end": 3812,
+                      "loc": {
+                        "start": {
+                          "line": 126,
+                          "column": 8
+                        },
+                        "end": {
+                          "line": 126,
+                          "column": 45
+                        }
+                      },
                       "argument": {
                         "type": "CallExpression",
                         "start": 3782,
@@ -3277,11 +3191,63 @@
                             "arguments": []
                           }
                         ]
-                      }
+                      },
+                      "leadingComments": [
+                        {
+                          "type": "CommentLine",
+                          "value": " addValue rather than setValue so that the behaviour is consistent with Selenium sendKeys",
+                          "start": 3675,
+                          "end": 3766,
+                          "loc": {
+                            "start": {
+                              "line": 125,
+                              "column": 8
+                            },
+                            "end": {
+                              "line": 125,
+                              "column": 99
+                            }
+                          }
+                        }
+                      ]
                     }
                   ],
                   "directives": []
-                }
+                },
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 86 \n * @param \n * {UsesAbilities & AnswersQuestions} actor \n * @return \n * {Promise} \n * @public \n * \\TRUE \n ",
+                    "start": 2649,
+                    "end": 2798,
+                    "loc": {
+                      "start": {
+                        "line": 93,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 104,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.\n     *\n     * @param {UsesAbilities & AnswersQuestions} actor\n     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}\n     *\n     * @returns {Promise<void>}\n     *\n     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}\n     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}\n     ",
+                    "start": 2805,
+                    "end": 3439,
+                    "loc": {
+                      "start": {
+                        "line": 107,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 120,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
               }
             ]
           },
@@ -3320,7 +3286,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 40 \n ",
+            "start": 287,
+            "end": 332,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to\n *  enter a value into a [form `input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) field.\n *\n * @example <caption>Example widget</caption>\n *  <form>\n *    <input type=\"text\" name=\"example\" id=\"example\" />\n *  </form>\n *\n * @example <caption>Lean Page Object describing the widget</caption>\n *  import { by, Target } from '@serenity-js/webdriverio';\n *\n *  class Form {\n *      static exampleInput = Target.the('example input')\n *          .located(by.id('example'));\n *  }\n *\n * @example <caption>Entering the value into a form field</caption>\n *  import { actorCalled } from '@serenity-js/core';\n *  import { BrowseTheWeb, Enter } from '@serenity-js/webdriverio';\n *\n *  actorCalled('Esme')\n *      .whoCan(BrowseTheWeb.using(browser))\n *      .attemptsTo(\n *          Enter.theValue('Hello world!').into(Form.exampleInput),\n *      );\n *\n * @see {@link Target}\n *\n * @extends {WebElementInteraction}\n ",
+            "start": 335,
+            "end": 1350,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 46,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []

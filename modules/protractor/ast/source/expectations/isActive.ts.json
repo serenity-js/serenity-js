@@ -267,40 +267,6 @@
             "column": 70
           }
         },
-        "trailingComments": [
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
-            "start": 177,
-            "end": 252,
-            "loc": {
-              "start": {
-                "line": 5,
-                "column": 0
-              },
-              "end": {
-                "line": 12,
-                "column": 3
-              }
-            }
-          },
-          {
-            "type": "CommentBlock",
-            "value": "*\n * @desc\n *  Expectation that the element is active.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
-            "start": 255,
-            "end": 547,
-            "loc": {
-              "start": {
-                "line": 15,
-                "column": 0
-              },
-              "end": {
-                "line": 24,
-                "column": 3
-              }
-            }
-          }
-        ],
         "importKind": "value",
         "specifiers": [
           {
@@ -372,23 +338,8 @@
             "raw": "'./ElementFinderExpectation'"
           },
           "value": "./ElementFinderExpectation"
-        }
-      },
-      {
-        "type": "ExportNamedDeclaration",
-        "start": 548,
-        "end": 915,
-        "loc": {
-          "start": {
-            "line": 25,
-            "column": 0
-          },
-          "end": {
-            "line": 33,
-            "column": 1
-          }
         },
-        "leadingComments": [
+        "trailingComments": [
           {
             "type": "CommentBlock",
             "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
@@ -421,7 +372,22 @@
               }
             }
           }
-        ],
+        ]
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 548,
+        "end": 915,
+        "loc": {
+          "start": {
+            "line": 25,
+            "column": 0
+          },
+          "end": {
+            "line": 33,
+            "column": 1
+          }
+        },
         "exportKind": "value",
         "specifiers": [],
         "source": null,
@@ -613,9 +579,6 @@
                       "column": 5
                     }
                   },
-                  "extra": {
-                    "trailingComma": 905
-                  },
                   "callee": {
                     "type": "MemberExpression",
                     "start": 625,
@@ -665,6 +628,9 @@
                       },
                       "name": "forElementTo"
                     }
+                  },
+                  "extra": {
+                    "trailingComma": 905
                   },
                   "arguments": [
                     {
@@ -784,9 +750,6 @@
                             "column": 9
                           }
                         },
-                        "extra": {
-                          "trailingComma": 894
-                        },
                         "callee": {
                           "type": "MemberExpression",
                           "start": 715,
@@ -886,6 +849,9 @@
                             "name": "then"
                           }
                         },
+                        "extra": {
+                          "trailingComma": 894
+                        },
                         "arguments": [
                           {
                             "type": "ArrowFunctionExpression",
@@ -936,9 +902,6 @@
                                   "line": 30,
                                   "column": 13
                                 }
-                              },
-                              "extra": {
-                                "trailingComma": 879
                               },
                               "callee": {
                                 "type": "MemberExpression",
@@ -1136,6 +1099,9 @@
                                   },
                                   "name": "then"
                                 }
+                              },
+                              "extra": {
+                                "trailingComma": 879
                               },
                               "arguments": [
                                 {
@@ -1353,7 +1319,41 @@
             }
           ],
           "trailingComments": []
-        }
+        },
+        "leadingComments": [
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc \n *  \n * @lineNumber \n * 16 \n * @return \n * {Expectation} \n ",
+            "start": 177,
+            "end": 252,
+            "loc": {
+              "start": {
+                "line": 5,
+                "column": 0
+              },
+              "end": {
+                "line": 12,
+                "column": 3
+              }
+            }
+          },
+          {
+            "type": "CommentBlock",
+            "value": "*\n * @desc\n *  Expectation that the element is active.\n *\n * @returns {@serenity-js/core/lib/screenplay/questions~Expectation<boolean, ElementFinder>}\n *\n * @see {@link @serenity-js/assertions~Ensure}\n * @see {@link @serenity-js/core/lib/screenplay/questions~Check}\n * @see {@link Wait}\n ",
+            "start": 255,
+            "end": 547,
+            "loc": {
+              "start": {
+                "line": 15,
+                "column": 0
+              },
+              "end": {
+                "line": 24,
+                "column": 3
+              }
+            }
+          }
+        ]
       }
     ],
     "directives": []
