@@ -65,7 +65,20 @@ module.exports = {
                 'kebabCase': true,      // packages
                 'pascalCase': true,     // classes
                 'camelCase': true,      // functions
-            }
+            },
+            'ignore': [
+                'API',
+                'AST',
+                'BDD',
+                'CLI',
+                'CSS',
+                'GAV',
+                'FS',
+                'HTTP',
+                'JSON',
+                'UI',
+                'WebdriverIO',
+            ]
         }],
 
         'unicorn/no-array-for-each': 'off',
@@ -86,6 +99,8 @@ module.exports = {
                 'arg': true,
                 'args': true,
                 'attrs': true,
+                'conf': true,
+                'devtools': true,
                 'docString': true,
                 'DocString': true,
                 'e': true,
@@ -96,6 +111,8 @@ module.exports = {
                 'params': true,
                 'pkg': true,
                 'props': true,
+                'temp': true,
+                'wdio': true,
             }
         }]
     }

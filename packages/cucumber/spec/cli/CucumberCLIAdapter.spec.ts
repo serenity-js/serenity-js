@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case,unicorn/prevent-abbreviations */
 import 'mocha';
 
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
@@ -20,6 +19,7 @@ import { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/c
 import { given } from 'mocha-testdata';
 import * as path from 'path';   // eslint-disable-line unicorn/import-style
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 import { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';
 
 const { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires
@@ -31,7 +31,7 @@ describe('CucumberCLIAdapter', function () {
 
     let recorder: EventRecorder;
 
-    const rootDir = Path.from(__dirname);
+    const rootDirectory = Path.from(__dirname);
 
     beforeEach(() => {
         recorder = new EventRecorder();
@@ -61,7 +61,7 @@ describe('CucumberCLIAdapter', function () {
             expectedOutput: 'Pattern / Text'
         } ]).
         it('runs together with native Cucumber formatters, when configured to print to a temp file', ({ config, expectedOutput }: Example) =>
-            run(config, new TempFileOutput(new FileSystem(rootDir)))
+            run(config, new TempFileOutput(new FileSystem(rootDirectory)))
                 .then(output => {
                     expect(output).to.include(expectedOutput);
 
@@ -140,18 +140,20 @@ describe('CucumberCLIAdapter', function () {
             });
     }
 
-    function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
+    async function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
         clearRequireCache('steps.ts');
 
         const adapter = new CucumberCLIAdapter({
             ...config,
             require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],
-        }, new LocalModuleLoader(rootDir.value), output);
+        }, new LocalModuleLoader(rootDirectory.value), output);
 
         const inspect = stdout.inspect();
 
+        await adapter.load([ 'features/passing_scenario.feature' ])
+
         return adapter
-            .run([ 'features/passing_scenario.feature' ])
+            .run()
             .then(() => {
                 inspect.restore();
                 return inspect.output.join('');
