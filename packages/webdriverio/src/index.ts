@@ -11,6 +11,7 @@ const adapterFactory = new WebdriverIOFrameworkAdapterFactory(
 
 export default adapterFactory;
 
+export { WebdriverIOConfig } from './adapter';
 export * from './expectations';
 export * from './input';
 export * from './screenplay';
