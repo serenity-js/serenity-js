@@ -57,18 +57,18 @@ Assuming you already have a [Node.js project ](/handbook/integration/runtime-dep
 - [`jasmine`](https://www.npmjs.com/package/jasmine)
 
 To do that, run the following command in your terminal:
-```console
+```bash
 npm install --save-dev @serenity-js/{core,jasmine} jasmine
 ```
 
 If you'd like to implement your test suite in TypeScript, also run:
-```console
+```bash
 npm install --save-dev typescript ts-node @types/{jasmine,node}
 ```
 
 If you haven't done so already, initialise Jasmine configuration file at `spec/support/jasmine.json` by running the following command:
 
-```console
+```bash
 npx jasmine init
 ```
 
@@ -144,7 +144,7 @@ configure({
 
 To register `@serenity-js/jasmine` test runner adapter with Jasmine, use the [`--reporter`](https://jasmine.github.io/setup/nodejs.html#--reporter) option when invoking the runner:
 
-```console
+```bash
 npx jasmine --reporter='@serenity-js/jasmine'
 ```
 

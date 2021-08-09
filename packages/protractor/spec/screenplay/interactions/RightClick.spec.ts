@@ -6,7 +6,6 @@ import { actorCalled, engage } from '@serenity-js/core';
 import { by } from 'protractor';
 
 import { Navigate, RightClick, Target, Text } from '../../../src';
-import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
 /** @test {RightClick} */
@@ -21,21 +20,7 @@ describe('RightClick', () => {
 
     /** @test {RightClick.on} */
     it('allows the actor to click on an element', () => actorCalled('Bernie').attemptsTo(
-        Navigate.to(pageFromTemplate(`
-          <html>
-            <body>
-              <form>
-                <input type="text" id="field" oncontextmenu="update(); return false;" value="Test for right click." />
-                <div id="result" />
-              </form>
-              <script>                
-                function update() {
-                  document.getElementById("result").textContent = document.getElementById("field").value;
-                }
-              </script>
-            </body>
-          </html>
-        `)),
+        Navigate.to('/screenplay/interactions/right-click/example.html'),
 
         Ensure.that(Text.of(Form.Result), equals('')),
         RightClick.on(Form.InputField),

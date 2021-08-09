@@ -14,8 +14,8 @@ describe('Value', () => {
 
     describe('of', () => {
 
-        /** @test {Text} */
-        /** @test {Text.of} */
+        /** @test {Value} */
+        /** @test {Value.of} */
         it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
@@ -30,8 +30,8 @@ describe('Value', () => {
             Ensure.that(Value.of(Target.the('username field').located(by.tagName('input'))), equals('jan-molak')),
         ));
 
-        /** @test {Text} */
-        /** @test {Text#of} */
+        /** @test {Value} */
+        /** @test {Value#of} */
         it('allows the actor to read the "value" attribute of a DOM element matching the locator', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>
@@ -46,8 +46,8 @@ describe('Value', () => {
             Ensure.that(Value.of(Target.the('username field').located(by.tagName('input'))), equals('jan-molak')),
         ));
 
-        /** @test {CSSClasses} */
-        /** @test {CSSClasses#of} */
+        /** @test {Value} */
+        /** @test {Value#of} */
         it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
             Navigate.to(pageFromTemplate(`
                 <html>

@@ -45,6 +45,9 @@ import { PhotoTakingStrategy } from './strategies';
  * Photographer.whoWill(TakePhotosBeforeAndAfterInteractions)
  *
  * @see {@link @serenity-js/core/lib/stage~Stage}
+ * @see {@link TakePhotosBeforeAndAfterInteractions}
+ * @see {@link TakePhotosOfFailures}
+ * @see {@link TakePhotosOfInteractions}
  */
 export class Photographer implements StageCrewMember {
 
@@ -87,7 +90,7 @@ export class Photographer implements StageCrewMember {
      *  this {@link StageCrewMember} is assigned to.
      *
      * @param {DomainEvent} event
-     * @returns void
+     * @returns {void}
      */
     notifyOf(event: DomainEvent): void {
         if (! this.stage) {
