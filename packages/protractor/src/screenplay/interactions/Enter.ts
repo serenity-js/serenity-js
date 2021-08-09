@@ -25,13 +25,12 @@ import { EnterBuilder } from './EnterBuilder';
  *          .located(by.id('example'));
  *  }
  *
- * @example <caption>Enternig the value into a form field</caption>
+ * @example <caption>Entering the value into a form field</caption>
  *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Enter } from '@serenity-js/protractor';
- *  import { protractor } from 'protractor';
+ *  import { BrowseTheWeb, Enter } from '@serenity-js/webdriverio';
  *
  *  actorCalled('Esme')
- *      .whoCan(BrowseTheWeb.using(protractor.browser))
+ *      .whoCan(BrowseTheWeb.using(browser))
  *      .attemptsTo(
  *          Enter.theValue('Hello world!').into(Form.exampleInput),
  *      );
@@ -46,7 +45,7 @@ export class Enter extends Interaction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Question<ElementFinder> | ElementFinder} value
+     * @param {Answerable<string | number>} value
      *  The value to be entered
      *
      * @returns {EnterBuilder}

@@ -8,7 +8,7 @@ import { mocha } from '../src/mocha';
 
 describe('@serenity-js/mocha', function () {
 
-    this.timeout(5000);
+    this.timeout(30000);
 
     describe('recognises a failing scenario that', () => {
 

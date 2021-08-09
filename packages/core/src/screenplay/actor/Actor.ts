@@ -64,10 +64,13 @@ export class Actor implements
         return activities
             .map(activity => new TrackedActivity(activity, this.stage))
             .reduce((previous: Promise<void>, current: Activity) => {
-                return previous.then(() => {
-                    /* todo: add an execution strategy */
-                    return current.performAs(this);
-                });
+                return previous
+                    // synchronise async operations like taking screenshots
+                    .then(() => this.stage.waitForNextCue())
+                    .then(() =>{
+                        /* todo: add an execution strategy */
+                        return current.performAs(this);
+                    });
             }, this.initialiseAbilities());
     }
 
