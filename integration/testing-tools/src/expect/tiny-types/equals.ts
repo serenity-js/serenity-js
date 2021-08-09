@@ -7,13 +7,13 @@ export function equals(chai: any, utils: any) {
         return function assertTinyTypes(another: TinyType) {
 
             const obj = this._obj;
-            if (obj && obj instanceof TinyType) {
+            if (obj && typeof obj.equals === 'function') {
                 return this.assert(
                     obj.equals(another),
                     `expected #{this} to equal #{exp} but got #{act}`,
                     `expected #{this} to not equal #{exp} but got #{act}`,
                     another.toString(),
-                    obj.toString(),
+                    `${ obj }`,
                 );
 
             } else {

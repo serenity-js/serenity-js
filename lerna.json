@@ -1,24 +1,9 @@
 {
   "lerna": "3.22.1",
   "loglevel": "verbose",
-  "hoist": true,
+  "hoist": false,
   "strict": true,
   "useWorkspaces": false,
-  "nohoist": [
-    "@types/jasmine",
-    "@types/mocha",
-    "@types/cucumber",
-    "@cucumber/create-meta",
-    "@cucumber/cucumber",
-    "@cucumber/messages",
-    "@wdio/*",
-    "webdriverio",
-    "cucumber",
-    "jasmine",
-    "mocha",
-    "protractor",
-    "selenium-webdriver"
-  ],
   "packages": [
     "documentation/**",
     "examples/**",
