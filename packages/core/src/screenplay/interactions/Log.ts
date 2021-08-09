@@ -1,3 +1,4 @@
+import { formatted } from '../../io';
 import { inspected } from '../../io/inspected';
 import { Name } from '../../model';
 import { LogEntry } from '../../model/artifacts';
@@ -75,6 +76,6 @@ export class Log extends Interaction {
      * @returns {string}
      */
     toString(): string {
-        return `#actor logs: ${ this.items.join(', ') }`;
+        return `#actor logs: ${ this.items.map(item => formatted`${ item }`).join(', ') }`;
     }
 }

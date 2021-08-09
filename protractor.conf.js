@@ -34,7 +34,7 @@ module.exports = {
         return browser.waitForAngularEnabled(false);
     },
 
-    allScriptsTimeout: 30 * 1000,
+    allScriptsTimeout: 120_000,
 
     framework: 'mocha',
 

@@ -21,8 +21,6 @@ jobs:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -41,8 +39,6 @@ jobs:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -73,8 +69,6 @@ jobs:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
       - name: Download compiled libs
@@ -124,8 +118,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
       - name: Download compiled libs
@@ -156,8 +148,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
       - name: Download compiled libs
@@ -187,8 +177,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
       - name: Download compiled libs
@@ -219,8 +207,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
       - name: Download compiled libs
@@ -244,8 +230,6 @@ jobs:
           node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
       - name: Download code coverage reports
@@ -293,8 +277,6 @@ jobs:
           node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -338,8 +320,6 @@ jobs:
           node-version: 16.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          useRollingCache: true
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 

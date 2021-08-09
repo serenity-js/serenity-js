@@ -1,0 +1,49 @@
+{
+  "name": "@integration/webdriverio-jasmine",
+  "version": "2.0.0",
+  "description": "WebdriverIO integration tests",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^12 || ^14 || ^16",
+    "npm": "^6 || ^7"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "^2.0.0",
+    "@serenity-js/core": "^2.0.0",
+    "@serenity-js/jasmine": "^2.0.0",
+    "@serenity-js/webdriverio": "^2.0.0",
+    "@wdio/cli": "^7.9.0",
+    "@wdio/local-runner": "^7.9.0",
+    "@wdio/cucumber-framework": "^7.9.0",
+    "@wdio/mocha-framework": "^7.9.0",
+    "@wdio/spec-reporter": "^7.9.0",
+    "jasmine": "^3.8.0",
+    "webdriverio": "^7.9.0"
+  },
+  "devDependencies": {
+    "@types/mocha": "^8.2.2",
+    "mocha": "^8.3.2"
+  }
+}

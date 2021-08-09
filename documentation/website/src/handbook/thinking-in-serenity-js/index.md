@@ -4,6 +4,8 @@ layout: handbook.hbs
 ---
 # Thinking in Serenity/JS
 
-This part of the Serenity/JS Handbook will help you understand the motivation behind the framework and apply the Serenity/JS Screenplay Pattern in practice to automate acceptance tests interacting with web apps, REST APIs, and more!
+This series of tutorials will help you understand the core elements of the Serenity/JS framework, get familiar with the Screenplay Pattern, and learn how to apply it all in practice to test Web apps, REST APIs, and more!
 
-Ready? Let's get started!
+Ready to start building your own test suites and test frameworks with Serenity/JS? 
+
+Let's get started! 🚀

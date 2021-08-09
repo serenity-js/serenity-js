@@ -1,5 +1,3 @@
-/* eslint-disable unicorn/filename-case */
-
 import { JSONObject } from 'tiny-types';
 
 // https://github.com/serenity-bdd/serenity-core/tree/50a3b1824001f192da2cdca6326d7525d4dd7f25/serenity-model/src/test/resources
