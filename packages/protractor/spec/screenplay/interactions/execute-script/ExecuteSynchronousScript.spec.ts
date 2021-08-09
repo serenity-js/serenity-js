@@ -9,21 +9,10 @@ import { Clock } from '@serenity-js/core/lib/stage';
 import { by, error } from 'protractor';
 
 import { Browser, ExecuteScript, LastScriptExecution, Navigate, Target, Value } from '../../../../src';
-import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScript} */
 describe('ExecuteSynchronousScript', function () {
-
-    const page = pageFromTemplate(`
-        <html>
-            <body>
-                <form>
-                    <input type="text" id="name" />
-                </form>
-            </body>
-        </html>
-    `);
 
     class Sandbox {
         static Input = Target.the('input field').located(by.id('name'));
@@ -33,15 +22,16 @@ describe('ExecuteSynchronousScript', function () {
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
-    it('allows the actor to execute a synchronous script', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to execute a synchronous script', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.sync(`
-            document.getElementById('name').value = 'Joe';
-        `),
+            ExecuteScript.sync(`
+                document.getElementById('name').value = 'Joe';
+            `),
 
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
@@ -55,46 +45,49 @@ describe('ExecuteSynchronousScript', function () {
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
-    it('allows the actor to execute a synchronous script with a static argument', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to execute a synchronous script with a static argument', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.sync(`
-            var name = arguments[0];
+            ExecuteScript.sync(`
+                var name = arguments[0];
+    
+                document.getElementById('name').value = name;
+            `).withArguments(actorCalled('Joe').name),
 
-            document.getElementById('name').value = name;
-        `).withArguments(actorCalled('Joe').name),
-
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
-
-    /** @test {ExecuteScript.sync} */
-    /** @test {ExecuteSynchronousScript} */
-    it('allows the actor to execute a synchronous script with a promised argument', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
-
-        ExecuteScript.sync(`
-            var name = arguments[0];
-
-            document.getElementById('name').value = name;
-        `).withArguments(Promise.resolve(actorCalled('Joe').name)),
-
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
-    it('allows the actor to execute a synchronous script with a Target argument', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to execute a synchronous script with a promised argument', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.sync(`
-            var name = arguments[0];
-            var field = arguments[1];
+            ExecuteScript.sync(`
+                var name = arguments[0];
+    
+                document.getElementById('name').value = name;
+            `).withArguments(Promise.resolve(actorCalled('Joe').name)),
 
-            field.value = name;
-        `).withArguments(actorCalled('Joe').name, Sandbox.Input),
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
+    /** @test {ExecuteScript.sync} */
+    /** @test {ExecuteSynchronousScript} */
+    it('allows the actor to execute a synchronous script with a Target argument', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+
+            ExecuteScript.sync(`
+                var name = arguments[0];
+                var field = arguments[1];
+    
+                field.value = name;
+            `).withArguments(actorCalled('Joe').name, Sandbox.Input),
+
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
@@ -119,13 +112,14 @@ describe('ExecuteSynchronousScript', function () {
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */
     /** @test {LastScriptExecution} */
-    it('complains if the script has failed', () => expect(actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('complains if the script has failed', () =>
+        expect(actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.sync(`
-                throw new Error("something's not quite right here");
-            `),
-    )).to.be.rejectedWith(error.JavascriptError, `javascript error: something's not quite right here`));
+            ExecuteScript.sync(`
+                    throw new Error("something's not quite right here");
+                `),
+        )).to.be.rejectedWith(error.JavascriptError, `javascript error: something's not quite right here`));
 
     /** @test {ExecuteScript.sync} */
     /** @test {ExecuteSynchronousScript} */

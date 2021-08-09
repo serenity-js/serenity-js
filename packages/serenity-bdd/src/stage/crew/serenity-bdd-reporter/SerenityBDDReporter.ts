@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { Stage, StageCrewMember } from '@serenity-js/core';
 import { ArtifactGenerated, DomainEvent, TestRunFinishes } from '@serenity-js/core/lib/events';
 import { CorrelationId } from '@serenity-js/core/lib/model';
