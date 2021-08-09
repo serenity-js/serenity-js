@@ -1,11 +1,11 @@
 import * as cuid from 'cuid';
 import * as nodeFS from 'fs';
+import { WriteFileOptions } from 'fs';
 import * as gracefulFS from 'graceful-fs';
 import * as nodeOS from 'os';
 import { promisify } from 'util';
 
 import { Path } from './Path';
-import { WriteFileOptions } from 'fs';
 
 export class FileSystem {
 
