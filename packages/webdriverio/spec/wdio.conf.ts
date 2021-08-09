@@ -1,10 +1,11 @@
 import { resolve } from 'path'; // eslint-disable-line unicorn/import-style
 
+import { WebdriverIOConfig } from '../src';
 import { Actors } from './screenplay/Actors';
 
 const port = process.env.PORT || 8080;
 
-export const config = {
+export const config: WebdriverIOConfig = {
 
     baseUrl: `http://localhost:${ port }`,
 
