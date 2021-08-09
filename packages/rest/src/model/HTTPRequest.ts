@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/filename-case */
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { AxiosRequestConfig } from 'axios';
@@ -58,6 +57,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
             ),
         ).
         then(config =>
+            // eslint-disable-next-line unicorn/prefer-object-from-entries
             Object.keys(config).reduce((acc, key) => {
                 if (config[key]) {
                     acc[key] = config[key];

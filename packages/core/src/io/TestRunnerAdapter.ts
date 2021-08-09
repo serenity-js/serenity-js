@@ -10,12 +10,34 @@ export interface TestRunnerAdapter {
 
     /**
      * @desc
-     *  Runs test scenarios at pathsToScenarios using the given test runner.
+     *  Loads test scenarios.
      *
-     * @abstract
      * @type {function(pathsToScenarios: string[]): Promise<void>}
      */
-    run: (pathsToScenarios: string[]) => Promise<void>;
+    load: (pathsToScenarios: string[]) => Promise<void>;
+
+    /**
+     * @desc
+     *  Returns the number of loaded scenarios
+     *
+     * @throws {LogicError}
+     *  If called before `load`
+     *
+     * @type {function(): number}
+     */
+    scenarioCount: () => number;
+
+    /**
+     * @desc
+     *  Runs loaded test scenarios.
+     *
+     * @throws {LogicError}
+     *  If called before `load`
+     *
+     * @abstract
+     * @type {function(): Promise<void>}
+     */
+    run: () => Promise<void>;
 
     /**
      * @desc

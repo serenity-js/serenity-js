@@ -9,21 +9,10 @@ import { Clock } from '@serenity-js/core/lib/stage';
 import { by } from 'protractor';
 
 import { ExecuteScript, Navigate, Target, Value } from '../../../../src';
-import { pageFromTemplate } from '../../../fixtures';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScript} */
 describe('ExecuteAsynchronousScript', function () {
-
-    const page = pageFromTemplate(`
-        <html>
-            <body>
-                <form>
-                    <input type="text" id="name" />
-                </form>
-            </body>
-        </html>
-    `);
 
     class Sandbox {
         static Input = Target.the('input field').located(by.id('name'));
@@ -33,75 +22,79 @@ describe('ExecuteAsynchronousScript', function () {
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
-    it('allows the actor to execute an asynchronous script', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to execute an asynchronous script', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.async(`
-            var callback = arguments[arguments.length - 1];
+            ExecuteScript.async(`
+                var callback = arguments[arguments.length - 1];
+    
+                setTimeout(function () {
+                    document.getElementById('name').value = 'Joe';
+                    callback();
+                }, 100);
+            `),
 
-            setTimeout(function () {
-                document.getElementById('name').value = 'Joe';
-                callback();
-            }, 100);
-        `),
-
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
-
-    /** @test {ExecuteScript.async} */
-    /** @test {ExecuteAsynchronousScript} */
-    it('allows the actor to execute an asynchronous script with a static argument', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
-
-        ExecuteScript.async(`
-            var name = arguments[0];
-            var callback = arguments[arguments.length - 1];
-
-            setTimeout(function () {
-                document.getElementById('name').value = name;
-                callback();
-            }, 100);
-        `).withArguments(actorCalled('Joe').name),
-
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
-    it('allows the actor to execute an asynchronous script with a promised argument', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to execute an asynchronous script with a static argument', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.async(`
-            var name = arguments[0];
-            var callback = arguments[arguments.length - 1];
+            ExecuteScript.async(`
+                var name = arguments[0];
+                var callback = arguments[arguments.length - 1];
+    
+                setTimeout(function () {
+                    document.getElementById('name').value = name;
+                    callback();
+                }, 100);
+            `).withArguments(actorCalled('Joe').name),
 
-            setTimeout(function () {
-                document.getElementById('name').value = name;
-                callback();
-            }, 100);
-        `).withArguments(Promise.resolve(actorCalled('Joe').name)),
-
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
-    it('allows the actor to execute an asynchronous script with a Target argument', () => actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('allows the actor to execute an asynchronous script with a promised argument', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.async(`
-            var name = arguments[0];
-            var field = arguments[1];
-            var callback = arguments[arguments.length - 1];
+            ExecuteScript.async(`
+                var name = arguments[0];
+                var callback = arguments[arguments.length - 1];
+    
+                setTimeout(function () {
+                    document.getElementById('name').value = name;
+                    callback();
+                }, 100);
+            `).withArguments(Promise.resolve(actorCalled('Joe').name)),
 
-            setTimeout(function () {
-                field.value = name;
-                callback();
-            }, 100);
-        `).withArguments(actorCalled('Joe').name, Sandbox.Input),
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
-        Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
-    ));
+    /** @test {ExecuteScript.async} */
+    /** @test {ExecuteAsynchronousScript} */
+    it('allows the actor to execute an asynchronous script with a Target argument', () =>
+        actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
+
+            ExecuteScript.async(`
+                var name = arguments[0];
+                var field = arguments[1];
+                var callback = arguments[arguments.length - 1];
+    
+                setTimeout(function () {
+                    field.value = name;
+                    callback();
+                }, 100);
+            `).withArguments(actorCalled('Joe').name, Sandbox.Input),
+
+            Ensure.that(Value.of(Sandbox.Input), equals(actorCalled('Joe').name)),
+        ));
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
@@ -124,15 +117,16 @@ describe('ExecuteAsynchronousScript', function () {
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */
-    it('complains if the script has failed', () => expect(actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it('complains if the script has failed', () =>
+        expect(actorCalled('Joe').attemptsTo(
+            Navigate.to('/screenplay/interactions/execute-script/input_field.html'),
 
-        ExecuteScript.async(`
-            var callback = arguments[arguments.length - 1];
-
-            throw new Error("something's not quite right here");
-        `),
-    )).to.be.rejectedWith(Error, `something's not quite right here`));
+            ExecuteScript.async(`
+                var callback = arguments[arguments.length - 1];
+    
+                throw new Error("something's not quite right here");
+            `),
+        )).to.be.rejectedWith(Error, `something's not quite right here`));
 
     /** @test {ExecuteScript.async} */
     /** @test {ExecuteAsynchronousScript} */

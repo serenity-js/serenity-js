@@ -21,13 +21,13 @@ The resulting report contains screenshots, details of HTTP traffic for any [REST
 
 To use the `SerenityBDDReporter`, install the `@serenity-js/serenity-bdd` module:
 
-```console
+```bash
 npm install --save-dev @serenity-js/{core,serenity-bdd}
 ```
 
 To generate Serenity BDD HTML reports, you'll need the Serenity BDD Reporting CLI. You can download it using the `serenity-bdd` command available as part of this module:
 
-```console
+```bash
 npx serenity-bdd update
 ```
 
@@ -125,12 +125,12 @@ configure({
 
 When your test suite has finished running, generate the Serenity BDD reports by executing the following command in your terminal:
 
-```console
+```bash
 npx serenity-bdd run
 ```
 
 To automate this process, install the following additional modules:
-```console
+```bash
 npm install --save-dev rimraf npm-failsafe
 ```
 
@@ -149,7 +149,7 @@ Next, add the below scripts to your `package.json`:
 ```
 
 Now to run your test suite, execute:
-```console
+```bash
 npm test
 ```
 The above command invokes:
