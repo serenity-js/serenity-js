@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.30.1](https://github.com/serenity-js/serenity-js/compare/v2.30.0...v2.30.1) (2021-08-09)
+
+
+### Bug Fixes
+
+* **core:** updated FileSystem APIs so that they're compatible with the latest @types/node ([ef41c07](https://github.com/serenity-js/serenity-js/commit/ef41c074a8179435da07988e26feeea68e0d3336))
+* **deps:** update dependency @babel/parser to ^7.15.2 ([8e2857f](https://github.com/serenity-js/serenity-js/commit/8e2857f0f98b9c388b169b3ae4eab62bbd9098ca))
+* **deps:** update dependency @cucumber/cucumber to ^7.3.1 ([aa72038](https://github.com/serenity-js/serenity-js/commit/aa72038b785f69ad9c2c9e3fe33daf6481f6da0d))
+* **deps:** update dependency chalk to ^4.1.2 ([8aec8b3](https://github.com/serenity-js/serenity-js/commit/8aec8b377279ca2e9edd0b6f867f1c32d8d32011))
+* **deps:** update dependency graceful-fs to ^4.2.8 ([3b57394](https://github.com/serenity-js/serenity-js/commit/3b57394f0e6c5cb0ed55e065301642090c4c286e))
+* **deps:** update dependency jasmine to ^3.8.0 ([e4fd8c1](https://github.com/serenity-js/serenity-js/commit/e4fd8c1a4c73314aa46b8ff03035c4096f3bdca3))
+* **examples:** update dependency jasmine to ^3.8.0 ([5629a90](https://github.com/serenity-js/serenity-js/commit/5629a906a2c32ccf69bd74aefcd1dabc3394d66f))
+* **webdriverio:** you can import WebdriverIOConfig from @serenity-js/webdriverio ([59703bf](https://github.com/serenity-js/serenity-js/commit/59703bf4fb13488bce2382eb411e67b4342e0e2d))
+
+
+
+
+
 # [2.30.0](https://github.com/serenity-js/serenity-js/compare/v2.29.9...v2.30.0) (2021-08-06)
 
 
