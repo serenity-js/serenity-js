@@ -57,6 +57,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
             ),
         ).
         then(config =>
+            // eslint-disable-next-line unicorn/prefer-object-from-entries
             Object.keys(config).reduce((acc, key) => {
                 if (config[key]) {
                     acc[key] = config[key];
