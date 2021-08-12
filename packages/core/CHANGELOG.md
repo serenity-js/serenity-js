@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.30.1](https://github.com/serenity-js/serenity-js/compare/v2.30.0...v2.30.1) (2021-08-09)
+
+
+### Bug Fixes
+
+* **core:** updated FileSystem APIs so that they're compatible with the latest @types/node ([ef41c07](https://github.com/serenity-js/serenity-js/commit/ef41c074a8179435da07988e26feeea68e0d3336))
+* **deps:** update dependency graceful-fs to ^4.2.8 ([3b57394](https://github.com/serenity-js/serenity-js/commit/3b57394f0e6c5cb0ed55e065301642090c4c286e))
+
+
+
+
+
 # [2.30.0](https://github.com/serenity-js/serenity-js/compare/v2.29.9...v2.30.0) (2021-08-06)
 
 

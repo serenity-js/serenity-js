@@ -1,3 +1,4 @@
+import { WriteFileOptions } from 'fs';
 import { ensure, isGreaterThan, property } from 'tiny-types';
 
 import {
@@ -147,7 +148,7 @@ export class ArtifactArchiver implements StageCrewMember {
         );
     }
 
-    private archive(relativePath: Path, contents: string, encoding: string, announce: (absolutePath: Path) => void): void {
+    private archive(relativePath: Path, contents: string, encoding: WriteFileOptions, announce: (absolutePath: Path) => void): void {
         const id = CorrelationId.create();
 
         this.stage.announce(new AsyncOperationAttempted(
