@@ -1,6 +1,7 @@
 ---
 title: Hello, Serenity/JS!
 layout: handbook.hbs
+cta: cta-feedback
 ---
 # Hello, Serenity/JS!
 
@@ -274,24 +275,4 @@ Check out the [finished project](https://github.com/serenity-js/tutorial-hello-s
 
 In this chapter, you've learnt how to write and run your first Serenity/JS scenario in both JavaScript and TypeScript.
 
-In the next chapter, I'll show you how to use Serenity/JS with a test runner.
-
-## Your feedback matters!
-
-If you've enjoyed this tutorial and would like to be notified when I publish the next part, follow us on Twitter:
-
-<a href="https://twitter.com/@SerenityJS" class="img-link">
-    <img src="https://img.shields.io/twitter/follow/SerenityJS?style=social" alt="Follow SerenityJS on Twitter" />
-</a>
-<a href="https://twitter.com/@JanMolak" class="img-link">
-    <img src="https://img.shields.io/twitter/follow/JanMolak?style=social" alt="Follow JanMolak on Twitter" />
-</a>
-
-If you have any questions or feedback about this tutorial or working with Serenity/JS in general, join our Community Chat Channel:
-
-[![Chat on Gitter](https://badges.gitter.im/serenity-js/Lobby.svg)](https://gitter.im/serenity-js/Lobby)
-
-If you'd like to say thank you, please give Serenity/JS a star on GitHub or become our GitHub Sponsor:
-
-<a class="github-button" href="https://github.com/serenity-js/serenity-js" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star jan-molak/serenity-js on GitHub">Star</a>
-<a class="github-button" href="https://github.com/sponsors/serenity-js" data-icon="octicon-heart" data-size="large" aria-label="Sponsor Serenity/JS on GitHub">Sponsor</a>
+In the next chapter, I'll show you how to use Serenity/JS with a test runner and how Serenity/JS reporting services will make it easier for you to analyse the results of your tests.
