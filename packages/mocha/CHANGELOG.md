@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.30.2](https://github.com/serenity-js/serenity-js/compare/v2.30.1...v2.30.2) (2021-08-13)
+
+
+### Bug Fixes
+
+* **mocha:** upgraded Mocha to version 9 ([446c7b9](https://github.com/serenity-js/serenity-js/commit/446c7b9f3440303a3bfaf4197ca3cb1aeb1a72e5))
+
+
+
+
+
 ## [2.30.1](https://github.com/serenity-js/serenity-js/compare/v2.30.0...v2.30.1) (2021-08-09)
 
 **Note:** Version bump only for package @serenity-js/mocha
