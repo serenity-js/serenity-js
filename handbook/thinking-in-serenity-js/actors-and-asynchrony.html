@@ -16,11 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
     <link href="https://fonts.googleapis.com/css?family=Lato:400,900,700,400italic" rel="stylesheet">
-    <title>Overview | Serenity/JS</title>
-    <meta property="og:title" content="Overview | Serenity/JS"/>
+    <title>Actors and Asynchrony | Serenity/JS</title>
+    <meta property="og:title" content="Actors and Asynchrony | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/handbook/index.html"/>
+    <meta property="og:url" content="https://serenity-js.org/handbook/thinking-in-serenity-js/actors-and-asynchrony.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -145,25 +145,41 @@
                 <div class="col-lg-9 col-md-12">
                     <article class="content">
                         <nav class="article-tools">
-                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/index.md">
+                            <a href="https://github.com/serenity-js/serenity-js/edit/master/documentation/website/src/handbook/thinking-in-serenity-js/actors-and-asynchrony.md">
                                 <i class="far fa-edit"></i> Edit on GitHub</a>
                         </nav>
                         <section class="github-markdown">
-                            <html><head></head><body><h1 id="the-serenity-js-handbook">The Serenity/JS Handbook</h1>
-<p>Serenity/JS is a next-generation acceptance testing framework that can change the way you and your team think about and design your automated acceptance tests. With Serenity/JS, you can say goodbye to unmaintainable <a href="/handbook/thinking-in-serenity-js/">test script spaghetti</a> and create high-quality, user-centred test scenarios using a scalable test DSL designed specifically for <em>your domain</em> and <em>your business</em>.</p>
-<p>The <a href="/modules/">extensible and modular design</a> of Serenity/JS enables you to create various types of automated acceptance tests interacting with any interface of your system. Out of the box, Serenity/JS provides strong support for both <a href="/modules/webdriverio">Web</a> and <a href="/modules/rest">HTTP/REST API</a> testing, management of <a href="/modules/local-server/">popular Node.js HTTP servers</a>, as well as integration with popular test and collaboration tools, such as <a href="/modules/cucumber">Cucumber.js</a>, <a href="/modules/jasmine">Jasmine</a>, <a href="/modules/jasmine">Mocha</a>, <a href="/modules/protractor">Protractor</a>, or <a href="/modules/webdriverio">WebdriverIO</a>.</p>
-<p>On top of that, Serenity/JS comes with world-class reporting capabilities to give you insight into what requirements have been verified, and not only what tests have been executed. The living documentation produced by Serenity/JS helps you demonstrate both <em>what</em> your system does and <em>why</em> it's doing it and can play a significant role in establishing trust between the business and engineering, assessing the release readiness of your system, and meeting your audit requirements.</p>
-<p>In summary, Serenity/JS can help you and your team create high-quality, reliable automated acceptance tests that are a pleasure to work with.
-This handbook will help you get started.</p>
-<p>Have fun testing!</p>
-<p><em><a href="https://janmolak.com">Jan Molak</a> and the Serenity/JS team</em></p>
+                            <html><head></head><body><h1 id="actors-and-asynchrony">Actors and Asynchrony</h1>
+<p>In this chapter, we'll talk about Actors, the cornerstone of the Screenplay Pattern.
+I'll also show you how Serenity/JS embraces the asynchronous nature of JavaScript.</p>
 </body></html>
                         </section>
 
+                            <div class="pro-tip">
+                                <div class="icon"><i class="fab fa-twitter"></i></div>
+                                <div class="text">
+                                    <p><strong>This chapter is coming soon!</strong></p>
+                                    <p>
+                                        Follow us on Twitter to get notified when it's available.
+                                    </p>
+                                    <p>
+                                        <a href="https://twitter.com/@SerenityJS" class="img-link">
+                                            <img src="https://img.shields.io/twitter/follow/SerenityJS?style=social" alt="Follow SerenityJS on Twitter" />
+                                        </a>
+                                        <a href="https://twitter.com/@JanMolak" class="img-link">
+                                            <img src="https://img.shields.io/twitter/follow/JanMolak?style=social" alt="Follow JanMolak on Twitter" />
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
 
                         <footer class="d-print-none">
-                                <a class="next" href="/handbook/why-serenityjs.html">
-                                    <span>Why Serenity/JS?</span>
+                                <a class="previous" href="/handbook/thinking-in-serenity-js/test-runners.html">
+                                    <i class="fa fa-chevron-left"></i>
+                                    <span>Test Runners and Reporting</span>
+                                </a>
+                                <a class="next" href="/handbook/thinking-in-serenity-js/assertions.html">
+                                    <span>Assertions</span>
                                     <i class="fa fa-chevron-right"></i>
                                 </a>
                         </footer>

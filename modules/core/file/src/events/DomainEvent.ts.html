@@ -299,7 +299,19 @@
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> Timestamp <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../model'</span><span class="token punctuation">;</span>
 
+<span class="token comment">/**
+ * @desc
+ *  Represents an internal domain event that occurs during test execution.
+ *
+ * @abstract
+ * @extends {tiny-types~TinyType}
+ */</span>
 <span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">DomainEvent</span> <span class="token keyword">extends</span> <span class="token class-name">TinyType</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * @param {Timestamp} timestamp
+     * @protected
+     */</span>
     <span class="token keyword">protected</span> <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> <span class="token keyword">readonly</span> timestamp<span class="token operator">:</span> Timestamp <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Timestamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
         <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">ensure</span><span class="token punctuation">(</span><span class="token string">'timestamp'</span><span class="token punctuation">,</span> timestamp<span class="token punctuation">,</span> <span class="token function">isDefined</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

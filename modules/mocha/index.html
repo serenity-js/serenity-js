@@ -193,15 +193,15 @@ you'll need a setup file that configures Serenity/JS reporting services.</p>
 </code></pre><h4 id="using-mocha-configuration-file">Using Mocha configuration file</h4><p>Please note that you can use <a href="https://mochajs.org/#configuring-mocha-nodejs">Mocha configuration file</a>
 to simplify your command line execution.</p>
 <p>For example:</p>
-<pre class="language-typescript"><code class="lang-yaml"># <span class="token punctuation">.</span>mocharc<span class="token punctuation">.</span>yml
-reporter<span class="token operator">:</span> <span class="token string">'@serenity-js/mocha'</span>
-<span class="token keyword">require</span><span class="token operator">:</span>
-  <span class="token operator">-</span> ts<span class="token operator">-</span>node<span class="token operator">/</span>register
-  <span class="token operator">-</span> spec<span class="token operator">/</span>support<span class="token operator">/</span>setup<span class="token punctuation">.</span>ts
-check<span class="token operator">-</span>leaks<span class="token operator">:</span> <span class="token boolean">false</span>
-timeout<span class="token operator">:</span> <span class="token number">5000</span>
-v8<span class="token operator">-</span>stack<span class="token operator">-</span>trace<span class="token operator">-</span>limit<span class="token operator">:</span> <span class="token number">100</span>
-# <span class="token operator">...</span>other config
+<pre class="language-yaml"><code class="lang-yaml"><span class="token comment"># .mocharc.yml</span>
+<span class="token key atrule">reporter</span><span class="token punctuation">:</span> <span class="token string">'@serenity-js/mocha'</span>
+<span class="token key atrule">require</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> ts<span class="token punctuation">-</span>node/register
+  <span class="token punctuation">-</span> spec/support/setup.ts
+<span class="token key atrule">check-leaks</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>
+<span class="token key atrule">timeout</span><span class="token punctuation">:</span> <span class="token number">5000</span>
+<span class="token key atrule">v8-stack-trace-limit</span><span class="token punctuation">:</span> <span class="token number">100</span>
+<span class="token comment"># ...other config</span>
 </code></pre>
 <h3 id="usage-with-protractor">Usage with Protractor</h3><p>Configure your Protractor installation as per instructions in <a href="https://serenity-js.org/modules/protractor/"><code>@serenity-js/protractor</code></a> module.</p>
 <p>Next, instruct Serenity/JS to run your tests using Mocha. You can also use your <code>protractor.conf.js</code> file to <a href="https://serenity-js.org/modules/mocha/class/src/adapter/MochaConfig.ts~MochaConfig.html">configure Mocha</a> if needed:</p>
