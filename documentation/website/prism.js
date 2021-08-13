@@ -5,5 +5,6 @@ require('prismjs/components/prism-javascript');
 require('prismjs/components/prism-json');
 require('prismjs/components/prism-markup');
 require('prismjs/components/prism-typescript');
+require('prismjs/components/prism-yaml');
 
 module.exports = Prism;
