@@ -82,6 +82,9 @@ export class JasmineAdapter implements TestRunnerAdapter {
         this.runner.addReporter(reporter(this.runner.jasmine));
         this.runner.configureDefaultReporter(this.config);
 
+        this.runner.loadRequires();
+        this.runner.loadHelpers();
+
         this.configureSpecFilter();
 
         await this.loadSpecs(pathsToScenarios);
