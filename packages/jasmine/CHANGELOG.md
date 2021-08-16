@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.30.3](https://github.com/serenity-js/serenity-js/compare/v2.30.2...v2.30.3) (2021-08-16)
+
+
+### Bug Fixes
+
+* **jasmine:** ensure JasmineAdapter loads configured "requires" and "helpers" ([5dfd45c](https://github.com/serenity-js/serenity-js/commit/5dfd45cd5edcc36fe98a07d5abf1f2abfe9f2624)), closes [#954](https://github.com/serenity-js/serenity-js/issues/954)
+
+
+
+
+
 ## [2.30.2](https://github.com/serenity-js/serenity-js/compare/v2.30.1...v2.30.2) (2021-08-13)
 
 **Note:** Version bump only for package @serenity-js/jasmine
