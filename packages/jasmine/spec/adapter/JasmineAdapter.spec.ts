@@ -54,6 +54,33 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
+    /** @test JasmineAdapter#load */
+    it('loads configured requires and helpers', async () => {
+
+        const
+            helpers     = ['some-helper.js'],
+            requires    = ['ts-node/register'],
+            config      = {
+                helpers,
+                requires,
+            },
+            specs       = [];
+
+        const adapter = new JasmineAdapter(config, loader);
+
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs);
+
+        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({
+            ... config,
+            random: false,
+        });
+
+        expect(FakeJasmineRunner.instance.loadRequires).to.have.been.called;
+        expect(FakeJasmineRunner.instance.loadHelpers).to.have.been.called;
+    });
+
     /** @test JasmineAdapter#run */
     it('configures the default timeout interval if required', async () => {
 
