@@ -2959,7 +2959,7 @@
     "__docId__": 221,
     "kind": "file",
     "name": "src/adapter/JasmineAdapter.ts",
-    "content": "import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';\nimport { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';\n\nimport { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';\nimport { JasmineConfig } from './JasmineConfig';\nimport reporter = require('../index');\n\n/**\n * @desc\n *  Allows for programmatic execution of Jasmine test scenarios,\n *  using {@link SerenityReporterForJasmine} to report progress.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n */\nexport class JasmineAdapter implements TestRunnerAdapter {\n\n    private runner: any;\n    private totalScenarios = 0;\n\n    private static readonly defaultConfig = {\n        /*\n         * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled\n         */\n        oneFailurePerSpec: true,\n\n        /*\n         * A spec should stop execution as soon as there's a hook or spec failure\n         * See https://github.com/angular/protractor/issues/3234\n         */\n        stopSpecOnExpectationFailure: true,\n\n        /*\n         * Default to not executing tests at random.\n         * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76\n         */\n        random: false,\n    };\n\n    /**\n     * @param {JasmineConfig} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     */\n    constructor(\n        private readonly config: JasmineConfig,\n        private readonly loader: ModuleLoader,\n    ) {\n    }\n\n    /**\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @returns {Outcome | { Code: number }}\n     */\n    successThreshold(): Outcome | { Code: number } {\n        return ExecutionIgnored;\n    }\n\n    /**\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @param {string[]} pathsToScenarios\n     *\n     * @returns {Promise<void>}\n     */\n    async load(pathsToScenarios: string[]): Promise<void> {\n        const JasmineRunner = this.loader.require('jasmine');\n        this.runner         = new JasmineRunner({ projectBaseDir: '' });\n\n        if (this.config.defaultTimeoutInterval) {\n            this.runner.jasmine.DEFAULT_TIMEOUT_INTERVAL = this.config.defaultTimeoutInterval;\n        }\n\n        this.runner.clearReporters();\n\n        this.runner.loadConfig(Object.assign(\n            JasmineAdapter.defaultConfig,\n            this.config,\n        ));\n\n        this.runner.addReporter(reporter(this.runner.jasmine));\n        this.runner.configureDefaultReporter(this.config);\n\n        this.configureSpecFilter();\n\n        await this.loadSpecs(pathsToScenarios);\n\n        this.countScenarios(this.runner.env.topSuite())\n    }\n\n    private configureSpecFilter(): void {\n        /*\n         * Configure spec filter\n         */\n        this.runner.env.configure({\n            specFilter: spec => this.specFilter().matches(spec.getFullName()),\n        })\n    }\n\n    private async loadSpecs(pathsToScenarios: string[]): Promise<void> {\n        this.runner.specDir     = '';\n        this.runner.specFiles   = [];\n        this.runner.addSpecFiles(pathsToScenarios);\n\n        await this.runner.loadSpecs();\n    }\n\n    private specFilter(): SpecFilter {\n        if (this.config.specFilter) {\n            return new CustomFunctionSpecFilter(this.config.specFilter);\n        }\n\n        if (this.config.grep) {\n            return this.config.invertGrep\n                ? new InvertedGrepSpecFilter(this.config.grep)\n                : new GrepSpecFilter(this.config.grep);\n        }\n\n        return new AcceptingSpecFilter();\n    }\n\n    /**\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @returns {number}\n     */\n    scenarioCount(): number {\n        return this.totalScenarios;\n    }\n\n    private countScenarios(suite: JasmineSuite): void {\n        suite.children?.forEach((child) => {\n            if (Array.isArray(child.children)) {\n                return this.countScenarios(child)\n            }\n            if (this.specFilter().matches(child.getFullName())) {\n                this.totalScenarios++\n            }\n        })\n    }\n\n    /**\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @returns {Promise<void>}\n     */\n    run(): Promise<void> {\n        return new Promise((resolve, reject) => {\n            this.runner.onComplete((passed: boolean) => resolve());\n            this.runner.execute();\n        });\n    }\n}\n\n/**\n * @package\n */\ninterface JasmineSuite extends JasmineSpec {\n    children?: JasmineSuite[]\n}\n\n/**\n * @package\n */\ninterface JasmineSpec {\n    getFullName(): string;\n}\n",
+    "content": "import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';\nimport { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';\n\nimport { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';\nimport { JasmineConfig } from './JasmineConfig';\nimport reporter = require('../index');\n\n/**\n * @desc\n *  Allows for programmatic execution of Jasmine test scenarios,\n *  using {@link SerenityReporterForJasmine} to report progress.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n */\nexport class JasmineAdapter implements TestRunnerAdapter {\n\n    private runner: any;\n    private totalScenarios = 0;\n\n    private static readonly defaultConfig = {\n        /*\n         * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled\n         */\n        oneFailurePerSpec: true,\n\n        /*\n         * A spec should stop execution as soon as there's a hook or spec failure\n         * See https://github.com/angular/protractor/issues/3234\n         */\n        stopSpecOnExpectationFailure: true,\n\n        /*\n         * Default to not executing tests at random.\n         * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76\n         */\n        random: false,\n    };\n\n    /**\n     * @param {JasmineConfig} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     */\n    constructor(\n        private readonly config: JasmineConfig,\n        private readonly loader: ModuleLoader,\n    ) {\n    }\n\n    /**\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @returns {Outcome | { Code: number }}\n     */\n    successThreshold(): Outcome | { Code: number } {\n        return ExecutionIgnored;\n    }\n\n    /**\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @param {string[]} pathsToScenarios\n     *\n     * @returns {Promise<void>}\n     */\n    async load(pathsToScenarios: string[]): Promise<void> {\n        const JasmineRunner = this.loader.require('jasmine');\n        this.runner         = new JasmineRunner({ projectBaseDir: '' });\n\n        if (this.config.defaultTimeoutInterval) {\n            this.runner.jasmine.DEFAULT_TIMEOUT_INTERVAL = this.config.defaultTimeoutInterval;\n        }\n\n        this.runner.clearReporters();\n\n        this.runner.loadConfig(Object.assign(\n            JasmineAdapter.defaultConfig,\n            this.config,\n        ));\n\n        this.runner.addReporter(reporter(this.runner.jasmine));\n        this.runner.configureDefaultReporter(this.config);\n\n        this.runner.loadRequires();\n        this.runner.loadHelpers();\n\n        this.configureSpecFilter();\n\n        await this.loadSpecs(pathsToScenarios);\n\n        this.countScenarios(this.runner.env.topSuite())\n    }\n\n    private configureSpecFilter(): void {\n        /*\n         * Configure spec filter\n         */\n        this.runner.env.configure({\n            specFilter: spec => this.specFilter().matches(spec.getFullName()),\n        })\n    }\n\n    private async loadSpecs(pathsToScenarios: string[]): Promise<void> {\n        this.runner.specDir     = '';\n        this.runner.specFiles   = [];\n        this.runner.addSpecFiles(pathsToScenarios);\n\n        await this.runner.loadSpecs();\n    }\n\n    private specFilter(): SpecFilter {\n        if (this.config.specFilter) {\n            return new CustomFunctionSpecFilter(this.config.specFilter);\n        }\n\n        if (this.config.grep) {\n            return this.config.invertGrep\n                ? new InvertedGrepSpecFilter(this.config.grep)\n                : new GrepSpecFilter(this.config.grep);\n        }\n\n        return new AcceptingSpecFilter();\n    }\n\n    /**\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @returns {number}\n     */\n    scenarioCount(): number {\n        return this.totalScenarios;\n    }\n\n    private countScenarios(suite: JasmineSuite): void {\n        suite.children?.forEach((child) => {\n            if (Array.isArray(child.children)) {\n                return this.countScenarios(child)\n            }\n            if (this.specFilter().matches(child.getFullName())) {\n                this.totalScenarios++\n            }\n        })\n    }\n\n    /**\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @returns {Promise<void>}\n     */\n    run(): Promise<void> {\n        return new Promise((resolve, reject) => {\n            this.runner.onComplete((passed: boolean) => resolve());\n            this.runner.execute();\n        });\n    }\n}\n\n/**\n * @package\n */\ninterface JasmineSuite extends JasmineSpec {\n    children?: JasmineSuite[]\n}\n\n/**\n * @package\n */\ninterface JasmineSpec {\n    getFullName(): string;\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/adapter/JasmineAdapter.ts",
     "access": "public",
@@ -3152,7 +3152,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#configureSpecFilter",
     "access": "private",
     "description": " ",
-    "lineNumber": 92,
+    "lineNumber": 95,
     "return": {
       "nullable": null,
       "types": [
@@ -3175,7 +3175,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#loadSpecs",
     "access": "private",
     "description": " ",
-    "lineNumber": 101,
+    "lineNumber": 104,
     "params": [
       {
         "nullable": null,
@@ -3209,7 +3209,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#specFilter",
     "access": "private",
     "description": " ",
-    "lineNumber": 109,
+    "lineNumber": 112,
     "return": {
       "nullable": null,
       "types": [
@@ -3232,7 +3232,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#scenarioCount",
     "access": "public",
     "description": " Returns the number of loaded scenarios",
-    "lineNumber": 248,
+    "lineNumber": 251,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3260,7 +3260,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#countScenarios",
     "access": "private",
     "description": " ",
-    "lineNumber": 133,
+    "lineNumber": 136,
     "params": [
       {
         "nullable": null,
@@ -3294,7 +3294,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#run",
     "access": "public",
     "description": " Runs loaded test scenarios.",
-    "lineNumber": 293,
+    "lineNumber": 296,
     "unknown": [
       {
         "tagName": "@returns",
@@ -4818,7 +4818,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/jasmine\",\n  \"version\": \"2.30.1\",\n  \"description\": \"Serenity/JS adapter for the Jasmine test runner\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"jasmine\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/jasmine mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.30.1\"\n  },\n  \"peerDependencies\": {\n    \"jasmine\": \"^3.8.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.21\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"jasmine\": \"^3.8.0\",\n    \"mocha\": \"^9.0.3\",\n    \"ts-node\": \"^10.2.0\",\n    \"typescript\": \"^4.3.5\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/jasmine\",\n  \"version\": \"2.30.2\",\n  \"description\": \"Serenity/JS adapter for the Jasmine test runner\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"jasmine\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/jasmine mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.30.2\"\n  },\n  \"peerDependencies\": {\n    \"jasmine\": \"^3.8.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.21\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"jasmine\": \"^3.8.0\",\n    \"mocha\": \"^9.0.3\",\n    \"ts-node\": \"^10.2.0\",\n    \"typescript\": \"^4.3.5\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/package.json",
     "name": "package.json",
     "static": true,
@@ -5245,7 +5245,7 @@
     "__docId__": 346,
     "kind": "testFile",
     "name": "spec/adapter/JasmineAdapter.spec.ts",
-    "content": "import { expect } from '@integration/testing-tools';\nimport { ModuleLoader } from '@serenity-js/core/lib/io';\nimport * as sinon from 'sinon';\n\nimport { JasmineAdapter } from '../../src/adapter';\nimport { FakeJasmineRunner } from './FakeJasmineRunner';\n\n/** @test JasmineAdapter */\ndescribe('JasmineAdapter', () => {\n\n    const emptySuite = { getFullTitle: () => 'Top suite' };\n    function specCalled(fullName: string) {                 // eslint-disable-line unicorn/consistent-function-scoping\n        return {\n            getFullName() {\n                return fullName;\n            }\n        }\n    }\n\n    let loader: sinon.SinonStubbedInstance<ModuleLoader>;\n\n    beforeEach(() => {\n        loader = sinon.createStubInstance(ModuleLoader);\n\n        loader.require.withArgs('jasmine').returns(FakeJasmineRunner);\n    });\n\n    afterEach(() => {\n        FakeJasmineRunner.topSuite.reset();\n        FakeJasmineRunner.instance = undefined;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('defaults to running tests sequentially rather than in a random order', async () => {\n\n        const\n            config = {},\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            random: false,\n        });\n\n        return result;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('configures the default timeout interval if required', async () => {\n\n        const\n            defaultTimeoutInterval = 5000,\n            config = {\n                defaultTimeoutInterval,\n            },\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs)\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);\n\n        return result;\n    });\n\n    describe('when counting the number of scenarios to be executed', () => {\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are no scenarios', () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                };\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns(emptySuite)\n\n            expect(adapter.scenarioCount()).to.equal(0);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there is a single spec', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({ children: [ specCalled('first spec') ] })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(1);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are multiple nested specs', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({\n                children: [\n                    specCalled('first spec'),\n                    {\n                        getFullName() {\n                            return 'nested describe';\n                        },\n                        children: specCalled('nested spec')\n                    }\n                ],\n            })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(2);\n        });\n    });\n});\n",
+    "content": "import { expect } from '@integration/testing-tools';\nimport { ModuleLoader } from '@serenity-js/core/lib/io';\nimport * as sinon from 'sinon';\n\nimport { JasmineAdapter } from '../../src/adapter';\nimport { FakeJasmineRunner } from './FakeJasmineRunner';\n\n/** @test JasmineAdapter */\ndescribe('JasmineAdapter', () => {\n\n    const emptySuite = { getFullTitle: () => 'Top suite' };\n    function specCalled(fullName: string) {                 // eslint-disable-line unicorn/consistent-function-scoping\n        return {\n            getFullName() {\n                return fullName;\n            }\n        }\n    }\n\n    let loader: sinon.SinonStubbedInstance<ModuleLoader>;\n\n    beforeEach(() => {\n        loader = sinon.createStubInstance(ModuleLoader);\n\n        loader.require.withArgs('jasmine').returns(FakeJasmineRunner);\n    });\n\n    afterEach(() => {\n        FakeJasmineRunner.topSuite.reset();\n        FakeJasmineRunner.instance = undefined;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('defaults to running tests sequentially rather than in a random order', async () => {\n\n        const\n            config = {},\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            random: false,\n        });\n\n        return result;\n    });\n\n    /** @test JasmineAdapter#load */\n    it('loads configured requires and helpers', async () => {\n\n        const\n            helpers     = ['some-helper.js'],\n            requires    = ['ts-node/register'],\n            config      = {\n                helpers,\n                requires,\n            },\n            specs       = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            ... config,\n            random: false,\n        });\n\n        expect(FakeJasmineRunner.instance.loadRequires).to.have.been.called;\n        expect(FakeJasmineRunner.instance.loadHelpers).to.have.been.called;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('configures the default timeout interval if required', async () => {\n\n        const\n            defaultTimeoutInterval = 5000,\n            config = {\n                defaultTimeoutInterval,\n            },\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs)\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);\n\n        return result;\n    });\n\n    describe('when counting the number of scenarios to be executed', () => {\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are no scenarios', () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                };\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns(emptySuite)\n\n            expect(adapter.scenarioCount()).to.equal(0);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there is a single spec', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({ children: [ specCalled('first spec') ] })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(1);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are multiple nested specs', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({\n                children: [\n                    specCalled('first spec'),\n                    {\n                        getFullName() {\n                            return 'nested describe';\n                        },\n                        children: specCalled('nested spec')\n                    }\n                ],\n            })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(2);\n        });\n    });\n});\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/spec/adapter/JasmineAdapter.spec.ts",
     "access": null,
@@ -5294,7 +5294,7 @@
     "static": true,
     "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it28",
     "access": null,
-    "description": "configures the default timeout interval if required",
+    "description": "loads configured requires and helpers",
     "lineNumber": 76,
     "testTargets": [
       "*"
@@ -5303,44 +5303,44 @@
   {
     "__docId__": 350,
     "kind": "test",
-    "name": "describe29",
+    "name": "it29",
     "testId": 29,
     "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it29",
     "access": null,
-    "description": "when counting the number of scenarios to be executed",
-    "lineNumber": 99
+    "description": "configures the default timeout interval if required",
+    "lineNumber": 103,
+    "testTargets": [
+      "*"
+    ]
   },
   {
     "__docId__": 351,
     "kind": "test",
-    "name": "it30",
+    "name": "describe30",
     "testId": 30,
-    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29",
-    "testDepth": 2,
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26",
+    "testDepth": 1,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29.it30",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
     "access": null,
-    "description": "recognises when there are no scenarios",
-    "lineNumber": 102,
-    "testTargets": [
-      "*"
-    ]
+    "description": "when counting the number of scenarios to be executed",
+    "lineNumber": 126
   },
   {
     "__docId__": 352,
     "kind": "test",
     "name": "it31",
     "testId": 31,
-    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29",
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29.it31",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30.it31",
     "access": null,
-    "description": "recognises when there is a single spec",
-    "lineNumber": 118,
+    "description": "recognises when there are no scenarios",
+    "lineNumber": 129,
     "testTargets": [
       "*"
     ]
@@ -5350,19 +5350,35 @@
     "kind": "test",
     "name": "it32",
     "testId": 32,
-    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29",
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe29.it32",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30.it32",
     "access": null,
-    "description": "recognises when there are multiple nested specs",
-    "lineNumber": 137,
+    "description": "recognises when there is a single spec",
+    "lineNumber": 145,
     "testTargets": [
       "*"
     ]
   },
   {
     "__docId__": 354,
+    "kind": "test",
+    "name": "it33",
+    "testId": 33,
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
+    "testDepth": 2,
+    "static": true,
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30.it33",
+    "access": null,
+    "description": "recognises when there are multiple nested specs",
+    "lineNumber": 164,
+    "testTargets": [
+      "*"
+    ]
+  },
+  {
+    "__docId__": 355,
     "kind": "testFile",
     "name": "spec/monkeyPatched.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { TestCompromisedError } from '@serenity-js/core';\nimport * as sinon from 'sinon';\nimport serenityReporterForJasmine = require('../src');\n\ndescribe('@serenity-js/jasmine', () => {\n\n    let jasmine: any;\n    let attrs: any;\n\n    beforeEach(() => {\n        const env = {\n            beforeEach: sinon.spy(),\n            afterAll: sinon.spy(),\n        };\n\n        attrs = {\n            expectationResultFactory(fnAttrs) {\n                return {};\n            },\n        };\n\n        jasmine = {\n            Spec: function Spec() {\n                this.result = {};\n            },\n            Suite: function Suite() {\n                this.result = {};\n            },\n            getEnv: () => env,\n        };\n    });\n\n    describe('monkey-patches Jasmine', () => {\n\n        describe('so that the Spec', () => {\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('defaults to an unknown location if the real one could not be determined', () => {\n                // detecting the real location is done in Jasmine integration tests\n                serenityReporterForJasmine(jasmine);\n\n                const spec = new jasmine.Spec(attrs);\n\n                expect(spec.result.location.path).to.equal('unknown');\n                expect(spec.result.location.line).to.equal(0);\n                expect(spec.result.location.column).to.equal(0);\n            });\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('has all the static members of the original constructor function', () => {\n\n                jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';\n\n                serenityReporterForJasmine(jasmine);\n\n                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');\n            });\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('has all the static members of the original constructor function', () => {\n\n                jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';\n\n                serenityReporterForJasmine(jasmine);\n\n                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');\n            });\n\n            it('correctly reports the stacktrace of an error', () => {\n                const error = new TestCompromisedError('DB is down', new Error('Connection error'));\n\n                serenityReporterForJasmine(jasmine);\n\n                const spec_ = new jasmine.Spec(attrs);\n\n                const result = attrs.expectationResultFactory({ passing: false, error });\n\n                const frames = result.stack.split('\\n');\n                expect(frames[0]).to.equal('TestCompromisedError: DB is down');\n                expect(frames).to.include('Caused by: Error: Connection error');\n            });\n        });\n\n        describe('so that the Suite', () => {\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('defaults to an unknown location if the real one could not be determined', () => {\n                // detecting the real location is done in Jasmine integration tests\n                serenityReporterForJasmine(jasmine);\n\n                const suite = new jasmine.Suite(attrs);\n\n                expect(suite.result.location.path).to.equal('unknown');\n                expect(suite.result.location.line).to.equal(0);\n                expect(suite.result.location.column).to.equal(0);\n            });\n\n            it('correctly reports the stacktrace of an error', () => {\n                const error = new TestCompromisedError('DB is down', new Error('Connection error'));\n\n                serenityReporterForJasmine(jasmine);\n\n                const suite_ = new jasmine.Suite(attrs);\n\n                const result = attrs.expectationResultFactory({ passing: false, error });\n\n                const frames = result.stack.split('\\n');\n                expect(frames[0]).to.equal('TestCompromisedError: DB is down');\n                expect(frames).to.include('Caused by: Error: Connection error');\n            });\n        });\n    });\n});\n",
@@ -5373,73 +5389,56 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 355,
-    "kind": "test",
-    "name": "describe33",
-    "testId": 33,
-    "memberof": "spec/monkeyPatched.spec.ts",
-    "testDepth": 0,
-    "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33",
-    "access": null,
-    "description": "@serenity-js/jasmine",
-    "lineNumber": 8
-  },
-  {
     "__docId__": 356,
     "kind": "test",
     "name": "describe34",
     "testId": 34,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33",
-    "testDepth": 1,
+    "memberof": "spec/monkeyPatched.spec.ts",
+    "testDepth": 0,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34",
+    "longname": "spec/monkeyPatched.spec.ts~describe34",
     "access": null,
-    "description": "monkey-patches Jasmine",
-    "lineNumber": 47
+    "description": "@serenity-js/jasmine",
+    "lineNumber": 8
   },
   {
     "__docId__": 357,
     "kind": "test",
     "name": "describe35",
     "testId": 35,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34",
-    "testDepth": 2,
+    "memberof": "spec/monkeyPatched.spec.ts~describe34",
+    "testDepth": 1,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35",
     "access": null,
-    "description": "so that the Spec",
-    "lineNumber": 49
+    "description": "monkey-patches Jasmine",
+    "lineNumber": 47
   },
   {
     "__docId__": 358,
     "kind": "test",
-    "name": "it36",
+    "name": "describe36",
     "testId": 36,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35",
-    "testDepth": 3,
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35",
+    "testDepth": 2,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35.it36",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
     "access": null,
-    "description": "defaults to an unknown location if the real one could not be determined",
-    "lineNumber": 55,
-    "testTargets": [
-      "bootstrap",
-      "monkeyPatched"
-    ]
+    "description": "so that the Spec",
+    "lineNumber": 49
   },
   {
     "__docId__": 359,
     "kind": "test",
     "name": "it37",
     "testId": 37,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35",
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35.it37",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it37",
     "access": null,
-    "description": "has all the static members of the original constructor function",
-    "lineNumber": 70,
+    "description": "defaults to an unknown location if the real one could not be determined",
+    "lineNumber": 55,
     "testTargets": [
       "bootstrap",
       "monkeyPatched"
@@ -5450,13 +5449,13 @@
     "kind": "test",
     "name": "it38",
     "testId": 38,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35",
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35.it38",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it38",
     "access": null,
     "description": "has all the static members of the original constructor function",
-    "lineNumber": 83,
+    "lineNumber": 70,
     "testTargets": [
       "bootstrap",
       "monkeyPatched"
@@ -5467,36 +5466,53 @@
     "kind": "test",
     "name": "it39",
     "testId": 39,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35",
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe35.it39",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it39",
+    "access": null,
+    "description": "has all the static members of the original constructor function",
+    "lineNumber": 83,
+    "testTargets": [
+      "bootstrap",
+      "monkeyPatched"
+    ]
+  },
+  {
+    "__docId__": 362,
+    "kind": "test",
+    "name": "it40",
+    "testId": 40,
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
+    "testDepth": 3,
+    "static": true,
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it40",
     "access": null,
     "description": "correctly reports the stacktrace of an error",
     "lineNumber": 92
   },
   {
-    "__docId__": 362,
+    "__docId__": 363,
     "kind": "test",
-    "name": "describe40",
-    "testId": 40,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34",
+    "name": "describe41",
+    "testId": 41,
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe40",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41",
     "access": null,
     "description": "so that the Suite",
     "lineNumber": 107
   },
   {
-    "__docId__": 363,
+    "__docId__": 364,
     "kind": "test",
-    "name": "it41",
-    "testId": 41,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34.describe40",
+    "name": "it42",
+    "testId": 42,
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe40.it41",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41.it42",
     "access": null,
     "description": "defaults to an unknown location if the real one could not be determined",
     "lineNumber": 113,
@@ -5506,14 +5522,14 @@
     ]
   },
   {
-    "__docId__": 364,
+    "__docId__": 365,
     "kind": "test",
-    "name": "it42",
-    "testId": 42,
-    "memberof": "spec/monkeyPatched.spec.ts~describe33.describe34.describe40",
+    "name": "it43",
+    "testId": 43,
+    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe33.describe34.describe40.it42",
+    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41.it43",
     "access": null,
     "description": "correctly reports the stacktrace of an error",
     "lineNumber": 124

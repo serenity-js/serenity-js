@@ -1153,7 +1153,7 @@ window.esdocSearchIndex = [
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber76",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber103",
     "JasmineAdapter configures the default timeout interval if required",
     "test"
   ],
@@ -1164,26 +1164,32 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "* *,*",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber76",
+    "JasmineAdapter loads configured requires and helpers",
+    "test"
+  ],
+  [
     "",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber99",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber126",
     "JasmineAdapter when counting the number of scenarios to be executed",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber137",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber164",
     "JasmineAdapter when counting the number of scenarios to be executed recognises when there are multiple nested specs",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber102",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber129",
     "JasmineAdapter when counting the number of scenarios to be executed recognises when there are no scenarios",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber118",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber145",
     "JasmineAdapter when counting the number of scenarios to be executed recognises when there is a single spec",
     "test"
   ],

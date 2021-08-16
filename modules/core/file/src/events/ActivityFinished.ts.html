@@ -300,6 +300,13 @@
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ActivityDetails<span class="token punctuation">,</span> CorrelationId<span class="token punctuation">,</span> Outcome<span class="token punctuation">,</span> Timestamp <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../model'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> DomainEvent <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./DomainEvent'</span><span class="token punctuation">;</span>
 
+<span class="token comment">/**
+ * @desc
+ *  Emitted when an {@link Activity} is finished.
+ *
+ * @abstract
+ * @extends {DomainEvent}
+ */</span>
 <span class="token keyword">export</span> <span class="token keyword">abstract</span> <span class="token keyword">class</span> <span class="token class-name">ActivityFinished</span> <span class="token keyword">extends</span> <span class="token class-name">DomainEvent</span> <span class="token punctuation">{</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span>
         <span class="token keyword">public</span> <span class="token keyword">readonly</span> sceneId<span class="token operator">:</span> CorrelationId<span class="token punctuation">,</span>
