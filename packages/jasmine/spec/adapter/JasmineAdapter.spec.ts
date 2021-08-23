@@ -105,6 +105,52 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
+    /** @test JasmineAdapter#run */
+    it('A reporter is added by default', async () => {
+
+        const
+            specs  = [];
+
+        const adapter = new JasmineAdapter({}, loader);
+
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs)
+        const result = adapter.run();
+
+        FakeJasmineRunner.instance.complete(true);
+
+        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledOnce
+
+        return result;
+    });
+
+    /** @test JasmineAdapter#run */
+    it('additional reporters are added when specified in config', async () => {
+
+        const
+            additionalReporter = 'anotherReporter',
+            config = {
+                reporters: [ additionalReporter ],
+            },
+            specs  = [];
+
+        const adapter = new JasmineAdapter(config, loader);
+
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs)
+        const result = adapter.run();
+
+        FakeJasmineRunner.instance.complete(true);
+
+        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledTwice
+
+        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledWith(additionalReporter)
+
+        return result;
+    });
+
     describe('when counting the number of scenarios to be executed', () => {
 
         /** @test JasmineAdapter#scenarioCount */
