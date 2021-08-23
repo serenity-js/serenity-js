@@ -4,6 +4,8 @@
  *
  * @see https://jasmine.github.io/setup/nodejs.html
  */
+import { JasmineReporter } from '../jasmine';
+
 export interface JasmineConfig {
 
     /**
@@ -81,4 +83,30 @@ export interface JasmineConfig {
      * @see https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL
      */
     defaultTimeoutInterval?: number;
+
+    /**
+     * @desc
+     *  A list of Jasmine reporters to be added to the test runner.
+     *
+     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.
+     *
+     *  Note: reporters must be instantiated before adding them to the configuration.
+     *
+     * @type {JasmineReporter[] | undefined}
+     *
+     * @example <caption>Using ReportPortal with Protractor and Jasmine</caption>
+     *  // protractor.conf.js
+     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')
+     *  const agent = new AgentJasmine(require('./reportportalConf'))
+     *  // ...
+     *  jasmineNodeOpts: {
+     *    // ...
+     *    reporters: [ agent.getJasmineReporter() ],
+     *  }
+     *
+     *  afterLaunch:() => {
+     *    return agent.getExitPromise();
+     *  },
+     */
+    reporters?: JasmineReporter[];
 }
