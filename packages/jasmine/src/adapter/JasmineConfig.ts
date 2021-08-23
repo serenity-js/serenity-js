@@ -85,13 +85,13 @@ export interface JasmineConfig {
     /**
      * @desc
      *  A list of additional reporters which will be added to the test runner.
-     * 
+     *
      *  Useful for situations like configuring ReportPortal, because you cannot do `jasmine.addReporter()` in the protractor config.
-     * 
+     *
      *  Note: reporters must be instantiated before adding them to the configuration.
      *
      * @type {string[] | undefined}
-     * 
+     *
      *  @example <caption>Using ReportPortal with Protractor and Jasmine</caption>
      *  // protractor.conf.js
      *  const AgentJasmine = require('@reportportal/agent-js-jasmine')
