@@ -32,7 +32,7 @@ import {
     TestSuiteDetails,
 } from '@serenity-js/core/lib/model';
 
-import { Expectation, JasmineDoneInfo, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
+import { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';
 
 /**
  * @desc
@@ -40,14 +40,18 @@ import { Expectation, JasmineDoneInfo, JasmineStartedInfo, SpecResult, SuiteResu
  *  to Serenity/JS events.
  *
  * @see {@link bootstrap}
+ * @implements {JasmineReporter}
  */
-export class SerenityReporterForJasmine {
+export class SerenityReporterForJasmine implements JasmineReporter {
 
     private static readonly errorMessagePattern = /^([^\s:]*Error):\s(.*)$/;
     private describes: SuiteResult[] = [];
 
     private currentSceneId: CorrelationId = undefined;
 
+    /**
+     * @param {Serenity} serenity
+     */
     constructor(private readonly serenity: Serenity) {
     }
 
@@ -130,9 +134,6 @@ export class SerenityReporterForJasmine {
             });
     }
 
-    /**
-     * @param {JasmineDoneInfo} suiteInfo
-     */
     jasmineDone(suiteInfo: JasmineDoneInfo): Promise<void> {
         this.emit(new TestRunFinishes(this.serenity.currentTime()));
 
