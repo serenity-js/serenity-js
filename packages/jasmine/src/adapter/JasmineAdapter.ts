@@ -80,6 +80,13 @@ export class JasmineAdapter implements TestRunnerAdapter {
         ));
 
         this.runner.addReporter(reporter(this.runner.jasmine));
+
+        if (this.config.reporters) {
+            this.config.reporters.forEach(reporter => {
+                this.runner.addReporter(reporter)
+            });
+        }
+
         this.runner.configureDefaultReporter(this.config);
 
         this.runner.loadRequires();
