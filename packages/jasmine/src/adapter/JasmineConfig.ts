@@ -4,6 +4,8 @@
  *
  * @see https://jasmine.github.io/setup/nodejs.html
  */
+import { JasmineReporter } from '../jasmine';
+
 export interface JasmineConfig {
 
     /**
@@ -84,33 +86,27 @@ export interface JasmineConfig {
 
     /**
      * @desc
-     *  A list of additional reporters which will be added to the test runner.
+     *  A list of Jasmine reporters to be added to the test runner.
      *
-     *  Useful for situations like configuring ReportPortal, because you cannot do `jasmine.addReporter()` in the protractor config.
+     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.
      *
      *  Note: reporters must be instantiated before adding them to the configuration.
      *
-     * @type {string[] | undefined}
+     * @type {JasmineReporter[] | undefined}
      *
-     *  @example <caption>Using ReportPortal with Protractor and Jasmine</caption>
+     * @example <caption>Using ReportPortal with Protractor and Jasmine</caption>
      *  // protractor.conf.js
      *  const AgentJasmine = require('@reportportal/agent-js-jasmine')
      *  const agent = new AgentJasmine(require('./reportportalConf'))
      *  // ...
      *  jasmineNodeOpts: {
-     *    ...
+     *    // ...
      *    reporters: [ agent.getJasmineReporter() ],
      *  }
      *
-     * @example <caption>Using ReportPortal with WebdriverIO and Jasmine</caption>
-     *  // wdio.conf.ts
-     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')
-     *  const agent = new AgentJasmine(require('./reportportalConf'))
-     *  // ...
-     *  jasmineOpts: {
-     *    ...
-     *    reporters: [ agent.getJasmineReporter() ],
-     *  }
+     *  afterLaunch:() => {
+     *    return agent.getExitPromise();
+     *  },
      */
-    reporters?: string[];
+    reporters?: JasmineReporter[];
 }

@@ -3,6 +3,7 @@ import { ModuleLoader } from '@serenity-js/core/lib/io';
 import * as sinon from 'sinon';
 
 import { JasmineAdapter } from '../../src/adapter';
+import { JasmineReporter } from '../../src/jasmine';
 import { FakeJasmineRunner } from './FakeJasmineRunner';
 
 /** @test JasmineAdapter */
@@ -106,7 +107,7 @@ describe('JasmineAdapter', () => {
     });
 
     /** @test JasmineAdapter#run */
-    it('A reporter is added by default', async () => {
+    it('registers a Serenity/JS reporter by default', async () => {
 
         const
             specs  = [];
@@ -126,10 +127,10 @@ describe('JasmineAdapter', () => {
     });
 
     /** @test JasmineAdapter#run */
-    it('additional reporters are added when specified in config', async () => {
+    it('registers configured custom reporters', async () => {
 
         const
-            additionalReporter = 'anotherReporter',
+            additionalReporter: JasmineReporter = {},
             config = {
                 reporters: [ additionalReporter ],
             },
