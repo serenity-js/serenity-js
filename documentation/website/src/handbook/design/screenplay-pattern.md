@@ -5,7 +5,7 @@ layout: handbook.hbs
 
 # The Screenplay Pattern
 
-The Screenplay Pattern is a [user-centred](https://en.wikipedia.org/wiki/User-centered_design) approach to writing high-quality automated acceptance tests. It steers you towards an effective use of layers of abstraction, helps your tests capture the business vernacular, and encourages good testing and software engineering habits.
+The Screenplay Pattern is a [user-centered](https://en.wikipedia.org/wiki/User-centered_design) approach to writing high-quality automated acceptance tests. It steers you towards an effective use of layers of abstraction, helps your tests capture the business vernacular, and encourages good testing and software engineering habits.
 
 Instead of focusing on low-level, interface-centric interactions, you describe your test scenarios in a similar way you'd describe them to a human being - an _actor_ in Screenplay-speak. You write simple, readable and highly-reusable code that instructs the _actors_ what activities to perform and what things to check. The domain-specific test language you create is used to express _screenplays_ - the activities for the actors to perform in a given test scenario.
 
