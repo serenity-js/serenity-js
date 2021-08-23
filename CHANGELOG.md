@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.31.0](https://github.com/serenity-js/serenity-js/compare/v2.30.3...v2.31.0) (2021-08-23)
+
+
+### Bug Fixes
+
+* **jasmine:** added JasmineReporter interface ([c72d03b](https://github.com/serenity-js/serenity-js/commit/c72d03bbb4976ccb980144cf99f4ea8dbc5193bc)), closes [#962](https://github.com/serenity-js/serenity-js/issues/962)
+
+
+### Features
+
+* **jasmine:** support additional reporters injected in confg (i.e. ReportPortal) ([e2b102a](https://github.com/serenity-js/serenity-js/commit/e2b102a573878596afb7f8b7424843b468961b97))
+
+
+
+
+
 ## [2.30.3](https://github.com/serenity-js/serenity-js/compare/v2.30.2...v2.30.3) (2021-08-16)
 
 
