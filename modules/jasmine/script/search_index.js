@@ -1,11 +1,5 @@
 window.esdocSearchIndex = [
   [
-    "@serenity-js/jasmine/lib/adapter/filters~grepspecfilter",
-    "class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html",
-    "<span>GrepSpecFilter</span> <span class=\"search-result-import-path\">@serenity-js/jasmine/lib/adapter/filters</span>",
-    "class"
-  ],
-  [
     "@serenity-js/jasmine/lib/adapter~jasmineadapter",
     "class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html",
     "<span>JasmineAdapter</span> <span class=\"search-result-import-path\">@serenity-js/jasmine/lib/adapter</span>",
@@ -15,6 +9,12 @@ window.esdocSearchIndex = [
     "@serenity-js/jasmine/lib/adapter~jasmineconfig",
     "class/src/adapter/JasmineConfig.ts~JasmineConfig.html",
     "<span>JasmineConfig</span> <span class=\"search-result-import-path\">@serenity-js/jasmine/lib/adapter</span>",
+    "class"
+  ],
+  [
+    "@serenity-js/jasmine/lib/jasmine~jasminereporter",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html",
+    "<span>JasmineReporter</span> <span class=\"search-result-import-path\">@serenity-js/jasmine/lib/jasmine</span>",
     "class"
   ],
   [
@@ -1147,49 +1147,61 @@ window.esdocSearchIndex = [
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber9",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber10",
     "JasmineAdapter",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber103",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber104",
     "JasmineAdapter configures the default timeout interval if required",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber52",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber53",
     "JasmineAdapter defaults to running tests sequentially rather than in a random order",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber76",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber77",
     "JasmineAdapter loads configured requires and helpers",
     "test"
   ],
   [
+    "* *,*",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber128",
+    "JasmineAdapter registers a Serenity/JS reporter by default",
+    "test"
+  ],
+  [
+    "* *,*",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber148",
+    "JasmineAdapter registers configured custom reporters",
+    "test"
+  ],
+  [
     "",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber126",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber173",
     "JasmineAdapter when counting the number of scenarios to be executed",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber164",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber211",
     "JasmineAdapter when counting the number of scenarios to be executed recognises when there are multiple nested specs",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber129",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber176",
     "JasmineAdapter when counting the number of scenarios to be executed recognises when there are no scenarios",
     "test"
   ],
   [
     "* *,*",
-    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber145",
+    "test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber192",
     "JasmineAdapter when counting the number of scenarios to be executed recognises when there is a single spec",
     "test"
   ],
@@ -1560,6 +1572,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/adapter/jasmineconfig.ts~jasmineconfig#reporters",
+    "class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-reporters",
+    "src/adapter/JasmineConfig.ts~JasmineConfig#reporters",
+    "member"
+  ],
+  [
     "src/adapter/jasmineconfig.ts~jasmineconfig#requires",
     "class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-requires",
     "src/adapter/JasmineConfig.ts~JasmineConfig#requires",
@@ -1594,18 +1612,6 @@ window.esdocSearchIndex = [
     "file/src/adapter/filters/GrepSpecFilter.ts.html",
     "src/adapter/filters/GrepSpecFilter.ts",
     "file"
-  ],
-  [
-    "src/adapter/filters/grepspecfilter.ts~grepspecfilter#constructor",
-    "class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html#instance-constructor-constructor",
-    "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#constructor",
-    "method"
-  ],
-  [
-    "src/adapter/filters/grepspecfilter.ts~grepspecfilter#matches",
-    "class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html#instance-method-matches",
-    "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#matches",
-    "method"
   ],
   [
     "src/adapter/filters/invertedgrepspecfilter.ts",
@@ -1654,6 +1660,48 @@ window.esdocSearchIndex = [
     "file/src/jasmine/JasmineDoneInfo.ts.html",
     "src/jasmine/JasmineDoneInfo.ts",
     "file"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts",
+    "file/src/jasmine/JasmineReporter.ts.html",
+    "src/jasmine/JasmineReporter.ts",
+    "file"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts~jasminereporter#jasminedone",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-jasmineDone",
+    "src/jasmine/JasmineReporter.ts~JasmineReporter#jasmineDone",
+    "member"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts~jasminereporter#jasminestarted",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-jasmineStarted",
+    "src/jasmine/JasmineReporter.ts~JasmineReporter#jasmineStarted",
+    "member"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts~jasminereporter#specdone",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-specDone",
+    "src/jasmine/JasmineReporter.ts~JasmineReporter#specDone",
+    "member"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts~jasminereporter#specstarted",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-specStarted",
+    "src/jasmine/JasmineReporter.ts~JasmineReporter#specStarted",
+    "member"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts~jasminereporter#suitedone",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-suiteDone",
+    "src/jasmine/JasmineReporter.ts~JasmineReporter#suiteDone",
+    "member"
+  ],
+  [
+    "src/jasmine/jasminereporter.ts~jasminereporter#suitestarted",
+    "class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-suiteStarted",
+    "src/jasmine/JasmineReporter.ts~JasmineReporter#suiteStarted",
+    "member"
   ],
   [
     "src/jasmine/jasminestartedinfo.ts",

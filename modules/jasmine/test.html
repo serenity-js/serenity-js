@@ -124,7 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jasmine">jasmine</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html">JasmineReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -311,49 +311,61 @@
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="0">
-  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber9"><p>JasmineAdapter</p>
+  <td data-ice="testDescription" style="padding-left: 10px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber10"><p>JasmineAdapter</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber52"><p>defaults to running tests sequentially rather than in a random order</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber53"><p>defaults to running tests sequentially rather than in a random order</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber76"><p>loads configured requires and helpers</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber77"><p>loads configured requires and helpers</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber103"><p>configures the default timeout interval if required</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber104"><p>configures the default timeout interval if required</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
-  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber126"><p>when counting the number of scenarios to be executed</p>
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber128"><p>registers a Serenity/JS reporter by default</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span>*</span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber148"><p>registers configured custom reporters</p>
+</a></span></td>
+  <td data-ice="testTarget" class="test-target"><span>*</span></td>
+</tr>
+
+<tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="1">
+  <td data-ice="testDescription" style="padding-left: 20px"><span data-ice="testInterfaceToggle" class="toggle closed"></span><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber173"><p>when counting the number of scenarios to be executed</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target">-</td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber129"><p>recognises when there are no scenarios</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber176"><p>recognises when there are no scenarios</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber145"><p>recognises when there is a single spec</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber192"><p>recognises when there is a single spec</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>
 
 <tr class="test-interface" data-ice="testInterface" style="display: none;" data-test-depth="2">
-  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber164"><p>recognises when there are multiple nested specs</p>
+  <td data-ice="testDescription" style="padding-left: 30px"><span><a href="test-file/spec/adapter/JasmineAdapter.spec.ts.html#lineNumber211"><p>recognises when there are multiple nested specs</p>
 </a></span></td>
   <td data-ice="testTarget" class="test-target"><span>*</span></td>
 </tr>

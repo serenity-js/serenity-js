@@ -124,7 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jasmine">jasmine</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html">JasmineReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -138,6 +138,8 @@
  *
  * @see https://jasmine.github.io/setup/nodejs.html
  */</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> JasmineReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../jasmine'</span><span class="token punctuation">;</span>
+
 <span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">JasmineConfig</span> <span class="token punctuation">{</span>
 
     <span class="token comment">/**
@@ -215,6 +217,32 @@
      * @see https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL
      */</span>
     defaultTimeoutInterval<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * @desc
+     *  A list of Jasmine reporters to be added to the test runner.
+     *
+     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.
+     *
+     *  Note: reporters must be instantiated before adding them to the configuration.
+     *
+     * @type {JasmineReporter[] | undefined}
+     *
+     * @example &lt;caption&gt;Using ReportPortal with Protractor and Jasmine&lt;/caption&gt;
+     *  // protractor.conf.js
+     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')
+     *  const agent = new AgentJasmine(require('./reportportalConf'))
+     *  // ...
+     *  jasmineNodeOpts: {
+     *    // ...
+     *    reporters: [ agent.getJasmineReporter() ],
+     *  }
+     *
+     *  afterLaunch:() =&gt; {
+     *    return agent.getExitPromise();
+     *  },
+     */</span>
+    reporters<span class="token operator">?</span><span class="token operator">:</span> JasmineReporter<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 

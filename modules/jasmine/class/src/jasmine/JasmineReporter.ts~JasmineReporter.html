@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/jasmine/file/src/index.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/jasmine/class/src/jasmine/JasmineReporter.ts~JasmineReporter.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -131,11 +131,509 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/index.ts</h1>
-<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> bootstrap <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./bootstrap'</span><span class="token punctuation">;</span>
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>JasmineReporter<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/jasmine/lib/jasmine'</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">interface</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber20">source</a></span></span>
+</div>
 
-<span class="token keyword">export</span> <span class="token operator">=</span> bootstrap<span class="token punctuation">;</span>
-</code></pre>
+<div class="self-detail detail">
+  <h1 data-ice="name">JasmineReporter</h1>
+
+  
+
+  <div class="description" data-ice="description"><p> An interface representing an instance of a Jasmine Reporter object</p>
+</div>
+
+  
+  
+  
+  
+  
+  
+  
+  <div class="flat-list" data-ice="directImplemented"><h4>Direct Implemented:</h4><ul><li><span><a href="class/src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine.html">SerenityReporterForJasmine</a></span></li></ul></div>
+  
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See also:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html">https://jasmine.github.io/api/edge/Reporter.html</a></span></li></ul></div>
+</div>
+
+
+
+
+<div data-ice="memberSummary"><h2>Member Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Members</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-jasmineDone">jasmineDone</a></span></span><span class="code" data-ice="signature">: <span><span>function</span><span>(suiteInfo: <span>JasmineDoneInfo</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Called when the entire suite has finished execution.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-jasmineStarted">jasmineStarted</a></span></span><span class="code" data-ice="signature">: <span><span>function</span><span>(suiteInfo: <span>JasmineStartedInfo</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Called after all of the specs have been loaded, but just before execution starts.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-specDone">specDone</a></span></span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SpecResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Invoked when an <code>it</code> and its associated <code>beforeEach</code> and <code>afterEach</code> functions have been run.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-specStarted">specStarted</a></span></span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SpecResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Invoked when an <code>it</code> starts to run (including associated <code>beforeEach</code> functions)</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-suiteDone">suiteDone</a></span></span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SuiteResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Invoked when all of the child specs and suites for a given suite have been run.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html#instance-member-suiteStarted">suiteStarted</a></span></span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SuiteResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Invoked when a <code>describe</code> starts to run.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+
+
+<div data-ice="memberDetails"><h2 data-ice="title">Public Members</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-jasmineDone">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">jasmineDone</span><span class="code" data-ice="signature">: <span><span>function</span><span>(suiteInfo: <span>JasmineDoneInfo</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber158">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Called when the entire suite has finished execution.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html#jasmineDone">https://jasmine.github.io/api/edge/Reporter.html#jasmineDone</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-jasmineStarted">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">jasmineStarted</span><span class="code" data-ice="signature">: <span><span>function</span><span>(suiteInfo: <span>JasmineStartedInfo</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber42">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Called after all of the specs have been loaded, but just before execution starts.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html#jasmineStarted">https://jasmine.github.io/api/edge/Reporter.html#jasmineStarted</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-specDone">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">specDone</span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SpecResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber89">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Invoked when an <code>it</code> and its associated <code>beforeEach</code> and <code>afterEach</code> functions have been run.</p>
+<p> While Jasmine doesn't require any specific functions, not defining a <code>specDone</code>
+ will make it impossible for a reporter to know when a spec has failed.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html#specDone">https://jasmine.github.io/api/edge/Reporter.html#specDone</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-specStarted">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">specStarted</span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SpecResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber64">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Invoked when an <code>it</code> starts to run (including associated <code>beforeEach</code> functions)</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html#specStarted">https://jasmine.github.io/api/edge/Reporter.html#specStarted</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-suiteDone">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">suiteDone</span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SuiteResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber136">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Invoked when all of the child specs and suites for a given suite have been run.</p>
+<p> While Jasmine doesn't require any specific functions, not defining a <code>suiteDone</code>
+ will make it impossible for a reporter to know when a suite has failures in an <code>afterAll</code>.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html#suiteDone">https://jasmine.github.io/api/edge/Reporter.html#suiteDone</a></span></li></ul></div>
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-suiteStarted">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">suiteStarted</span><span class="code" data-ice="signature">: <span><span>function</span><span>(result: <span>SuiteResult</span>)</span>: <span>Promise</span>&lt;<span>void</span>&gt;</span> | <span> void</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/jasmine/JasmineReporter.ts.html#lineNumber111">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Invoked when a <code>describe</code> starts to run.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="https://jasmine.github.io/api/edge/Reporter.html#suiteStarted">https://jasmine.github.io/api/edge/Reporter.html#suiteStarted</a></span></li></ul></div>
+  
+</div>
+</div>
 
 </article>
             </section>

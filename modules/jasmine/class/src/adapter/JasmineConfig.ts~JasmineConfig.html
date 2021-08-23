@@ -124,7 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jasmine">jasmine</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html">JasmineReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -317,6 +317,35 @@
         
         
         <div data-ice="description"><p> Whether or not the tests should be executed in a pseudo-random order.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html#instance-member-reporters">reporters</a></span></span><span class="code" data-ice="signature">: <span>JasmineReporter[] </span> | <span> undefined</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> A list of Jasmine reporters to be added to the test runner.</p>
 </div>
       </div>
     </td>
@@ -643,6 +672,70 @@
   
 
   
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-reporters">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">reporters</span><span class="code" data-ice="signature">: <span>JasmineReporter[] </span> | <span> undefined</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/adapter/JasmineConfig.ts.html#lineNumber215">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> A list of Jasmine reporters to be added to the test runner.</p>
+<p> Useful for situations like configuring ReportPortal, because you cannot use <code>jasmine.addReporter()</code> in the Protractor config.</p>
+<p> Note: reporters must be instantiated before adding them to the configuration.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using ReportPortal with Protractor and Jasmine</div>
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token comment">// protractor.conf.js</span>
+ <span class="token keyword">const</span> AgentJasmine <span class="token operator">=</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'@reportportal/agent-js-jasmine'</span><span class="token punctuation">)</span>
+ <span class="token keyword">const</span> agent <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AgentJasmine</span><span class="token punctuation">(</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token string">'./reportportalConf'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+ <span class="token comment">// ...</span>
+ jasmineNodeOpts<span class="token operator">:</span> <span class="token punctuation">{</span>
+   <span class="token comment">// ...</span>
+   reporters<span class="token operator">:</span> <span class="token punctuation">[</span> agent<span class="token punctuation">.</span><span class="token function">getJasmineReporter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+ <span class="token punctuation">}</span>
+
+ <span class="token function-variable function">afterLaunch</span><span class="token operator">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+   <span class="token keyword">return</span> agent<span class="token punctuation">.</span><span class="token function">getExitPromise</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span><span class="token punctuation">,</span></code></pre>
+    </div>
+</div>
 
   
 

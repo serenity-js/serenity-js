@@ -1,14 +1,14 @@
 {
   "type": "File",
   "start": 0,
-  "end": 3065,
+  "end": 4047,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 180,
+      "line": 217,
       "column": 0
     }
   },
@@ -16,14 +16,14 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 3065,
+    "end": 4047,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 180,
+        "line": 217,
         "column": 0
       }
     },
@@ -33,14 +33,14 @@
       {
         "type": "ExportNamedDeclaration",
         "start": 198,
-        "end": 3064,
+        "end": 4046,
         "loc": {
           "start": {
             "line": 14,
             "column": 0
           },
           "end": {
-            "line": 179,
+            "line": 216,
             "column": 1
           }
         },
@@ -50,14 +50,14 @@
         "declaration": {
           "type": "ClassDeclaration",
           "start": 205,
-          "end": 3064,
+          "end": 4046,
           "loc": {
             "start": {
               "line": 14,
               "column": 7
             },
             "end": {
-              "line": 179,
+              "line": 216,
               "column": 1
             }
           },
@@ -83,14 +83,14 @@
           "body": {
             "type": "ClassBody",
             "start": 234,
-            "end": 3064,
+            "end": 4046,
             "loc": {
               "start": {
                 "line": 14,
                 "column": 36
               },
               "end": {
-                "line": 179,
+                "line": 216,
                 "column": 1
               }
             },
@@ -1256,6 +1256,40 @@
                   }
                 },
                 "value": null,
+                "trailingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 3063,
+                    "end": 3155,
+                    "loc": {
+                      "start": {
+                        "line": 179,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 188,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  A list of Jasmine reporters to be added to the test runner.\n     *\n     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.\n     *\n     *  Note: reporters must be instantiated before adding them to the configuration.\n     *\n     * @type {JasmineReporter[] | undefined}\n     *\n     * @example <caption>Using ReportPortal with Protractor and Jasmine</caption>\n     *  // protractor.conf.js\n     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')\n     *  const agent = new AgentJasmine(require('./reportportalConf'))\n     *  // ...\n     *  jasmineNodeOpts: {\n     *    // ...\n     *    reporters: [ agent.getJasmineReporter() ],\n     *  }\n     *\n     *  afterLaunch:() => {\n     *    return agent.getExitPromise();\n     *  },\n     ",
+                    "start": 3162,
+                    "end": 4009,
+                    "loc": {
+                      "start": {
+                        "line": 191,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 214,
+                        "column": 7
+                      }
+                    }
+                  }
+                ],
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
@@ -1285,6 +1319,138 @@
                       },
                       "end": {
                         "line": 177,
+                        "column": 7
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "ClassProperty",
+                "start": 4014,
+                "end": 4044,
+                "loc": {
+                  "start": {
+                    "line": 215,
+                    "column": 4
+                  },
+                  "end": {
+                    "line": 215,
+                    "column": 34
+                  }
+                },
+                "static": false,
+                "key": {
+                  "type": "Identifier",
+                  "start": 4014,
+                  "end": 4023,
+                  "loc": {
+                    "start": {
+                      "line": 215,
+                      "column": 4
+                    },
+                    "end": {
+                      "line": 215,
+                      "column": 13
+                    },
+                    "identifierName": "reporters"
+                  },
+                  "name": "reporters"
+                },
+                "computed": false,
+                "optional": true,
+                "typeAnnotation": {
+                  "type": "TSTypeAnnotation",
+                  "start": 4024,
+                  "end": 4043,
+                  "loc": {
+                    "start": {
+                      "line": 215,
+                      "column": 14
+                    },
+                    "end": {
+                      "line": 215,
+                      "column": 33
+                    }
+                  },
+                  "typeAnnotation": {
+                    "type": "TSArrayType",
+                    "start": 4026,
+                    "end": 4043,
+                    "loc": {
+                      "start": {
+                        "line": 215,
+                        "column": 16
+                      },
+                      "end": {
+                        "line": 215,
+                        "column": 33
+                      }
+                    },
+                    "elementType": {
+                      "type": "TSTypeReference",
+                      "start": 4026,
+                      "end": 4041,
+                      "loc": {
+                        "start": {
+                          "line": 215,
+                          "column": 16
+                        },
+                        "end": {
+                          "line": 215,
+                          "column": 31
+                        }
+                      },
+                      "typeName": {
+                        "type": "Identifier",
+                        "start": 4026,
+                        "end": 4041,
+                        "loc": {
+                          "start": {
+                            "line": 215,
+                            "column": 16
+                          },
+                          "end": {
+                            "line": 215,
+                            "column": 31
+                          },
+                          "identifierName": "JasmineReporter"
+                        },
+                        "name": "JasmineReporter"
+                      }
+                    }
+                  }
+                },
+                "value": null,
+                "leadingComments": [
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+                    "start": 3063,
+                    "end": 3155,
+                    "loc": {
+                      "start": {
+                        "line": 179,
+                        "column": 0
+                      },
+                      "end": {
+                        "line": 188,
+                        "column": 3
+                      }
+                    }
+                  },
+                  {
+                    "type": "CommentBlock",
+                    "value": "*\n     * @desc\n     *  A list of Jasmine reporters to be added to the test runner.\n     *\n     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.\n     *\n     *  Note: reporters must be instantiated before adding them to the configuration.\n     *\n     * @type {JasmineReporter[] | undefined}\n     *\n     * @example <caption>Using ReportPortal with Protractor and Jasmine</caption>\n     *  // protractor.conf.js\n     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')\n     *  const agent = new AgentJasmine(require('./reportportalConf'))\n     *  // ...\n     *  jasmineNodeOpts: {\n     *    // ...\n     *    reporters: [ agent.getJasmineReporter() ],\n     *  }\n     *\n     *  afterLaunch:() => {\n     *    return agent.getExitPromise();\n     *  },\n     ",
+                    "start": 3162,
+                    "end": 4009,
+                    "loc": {
+                      "start": {
+                        "line": 191,
+                        "column": 4
+                      },
+                      "end": {
+                        "line": 214,
                         "column": 7
                       }
                     }
@@ -1652,6 +1818,38 @@
         },
         "end": {
           "line": 177,
+          "column": 7
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @desc \n *  \n * @lineNumber \n * 109 \n * @type \n * {UNKNOWN} \n * @public \n * \\TRUE \n ",
+      "start": 3063,
+      "end": 3155,
+      "loc": {
+        "start": {
+          "line": 179,
+          "column": 0
+        },
+        "end": {
+          "line": 188,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n     * @desc\n     *  A list of Jasmine reporters to be added to the test runner.\n     *\n     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.\n     *\n     *  Note: reporters must be instantiated before adding them to the configuration.\n     *\n     * @type {JasmineReporter[] | undefined}\n     *\n     * @example <caption>Using ReportPortal with Protractor and Jasmine</caption>\n     *  // protractor.conf.js\n     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')\n     *  const agent = new AgentJasmine(require('./reportportalConf'))\n     *  // ...\n     *  jasmineNodeOpts: {\n     *    // ...\n     *    reporters: [ agent.getJasmineReporter() ],\n     *  }\n     *\n     *  afterLaunch:() => {\n     *    return agent.getExitPromise();\n     *  },\n     ",
+      "start": 3162,
+      "end": 4009,
+      "loc": {
+        "start": {
+          "line": 191,
+          "column": 4
+        },
+        "end": {
+          "line": 214,
           "column": 7
         }
       }

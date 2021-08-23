@@ -1500,12 +1500,6 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "@serenity-js/jasmine/lib/adapter/filters~grepspecfilter",
-    "/modules/jasmine/class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html",
-    "@serenity-js/jasmine/lib/adapter/filters~GrepSpecFilter",
-    "external"
-  ],
-  [
     "@serenity-js/jasmine/lib/adapter~jasmineadapter",
     "/modules/jasmine/class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html",
     "@serenity-js/jasmine/lib/adapter~JasmineAdapter",
@@ -1515,6 +1509,12 @@ window.esdocSearchIndex = [
     "@serenity-js/jasmine/lib/adapter~jasmineconfig",
     "/modules/jasmine/class/src/adapter/JasmineConfig.ts~JasmineConfig.html",
     "@serenity-js/jasmine/lib/adapter~JasmineConfig",
+    "external"
+  ],
+  [
+    "@serenity-js/jasmine/lib/jasmine~jasminereporter",
+    "/modules/jasmine/class/src/jasmine/JasmineReporter.ts~JasmineReporter.html",
+    "@serenity-js/jasmine/lib/jasmine~JasmineReporter",
     "external"
   ],
   [

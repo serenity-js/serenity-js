@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/jasmine/class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/jasmine/file/src/jasmine/JasmineReporter.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -124,253 +124,102 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jasmine">jasmine</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html">JasmineReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>GrepSpecFilter<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/jasmine/lib/adapter/filters'</span></code></pre></div>
-  <span data-ice="access">public</span>
-  <span data-ice="kind">class</span>
-  
-  
-  
-  <span data-ice="source">| <span><a href="file/src/adapter/filters/GrepSpecFilter.ts.html#lineNumber8">source</a></span></span>
-</div>
+                <article class="content" data-ice="content"><h1 data-ice="title">src/jasmine/JasmineReporter.ts</h1>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> JasmineDoneInfo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./JasmineDoneInfo'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> JasmineStartedInfo <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./JasmineStartedInfo'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SpecResult <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./SpecResult'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> SuiteResult <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./SuiteResult'</span><span class="token punctuation">;</span>
 
-<div class="self-detail detail">
-  <h1 data-ice="name">GrepSpecFilter</h1>
+<span class="token comment">/**
+ * @desc
+ *  An interface representing an instance of a Jasmine Reporter object
+ *
+ * @see https://jasmine.github.io/api/edge/Reporter.html
+ * @interface
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">JasmineReporter</span> <span class="token punctuation">{</span>
 
-  
+    <span class="token comment">/**
+     * @desc
+     *  Called after all of the specs have been loaded, but just before execution starts.
+     *
+     * @see https://jasmine.github.io/api/edge/Reporter.html#jasmineStarted
+     *
+     * @type {function(suiteInfo: JasmineStartedInfo): Promise&lt;void&gt; | void}
+     * @public
+     */</span>
+    jasmineStarted<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>suiteInfo<span class="token operator">:</span> JasmineStartedInfo<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
 
-  <div class="description" data-ice="description"><p><a href="https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js">https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js</a> </p>
-</div>
+    <span class="token comment">/**
+     * @desc
+     *  Invoked when an `it` starts to run (including associated `beforeEach` functions)
+     *
+     * @see https://jasmine.github.io/api/edge/Reporter.html#specStarted
+     *
+     * @type {function(result: SpecResult): Promise&lt;void&gt; | void}
+     * @public
+     */</span>
+    specStarted<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>result<span class="token operator">:</span> SpecResult<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
+    <span class="token comment">/**
+     * @desc
+     *  Invoked when an `it` and its associated `beforeEach` and `afterEach` functions have been run.
+     *
+     *  While Jasmine doesn't require any specific functions, not defining a `specDone`
+     *  will make it impossible for a reporter to know when a spec has failed.
+     *
+     * @see https://jasmine.github.io/api/edge/Reporter.html#specDone
+     *
+     * @type {function(result: SpecResult): Promise&lt;void&gt; | void}
+     * @public
+     */</span>
+    specDone<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>result<span class="token operator">:</span> SpecResult<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
 
-  
-  
-  
+    <span class="token comment">/**
+     * @desc
+     *  Invoked when a `describe` starts to run.
+     *
+     * @see https://jasmine.github.io/api/edge/Reporter.html#suiteStarted
+     *
+     * @type {function(result: SuiteResult): Promise&lt;void&gt; | void}
+     * @public
+     */</span>
+    suiteStarted<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>result<span class="token operator">:</span> SuiteResult<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
 
-  
+    <span class="token comment">/**
+     * @desc
+     *  Invoked when all of the child specs and suites for a given suite have been run.
+     *
+     *  While Jasmine doesn't require any specific functions, not defining a `suiteDone`
+     *  will make it impossible for a reporter to know when a suite has failures in an `afterAll`.
+     *
+     * @see https://jasmine.github.io/api/edge/Reporter.html#suiteDone
+     *
+     * @type {function(result: SuiteResult): Promise&lt;void&gt; | void}
+     * @public
+     */</span>
+    suiteDone<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>result<span class="token operator">:</span> SuiteResult<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
 
-  
+    <span class="token comment">/**
+     * @desc
+     *  Called when the entire suite has finished execution.
+     *
+     * @see https://jasmine.github.io/api/edge/Reporter.html#jasmineDone
+     *
+     * @type {function(suiteInfo: JasmineDoneInfo): Promise&lt;void&gt; | void}
+     * @public
+     */</span>
+    jasmineDone<span class="token operator">?</span><span class="token operator">:</span> <span class="token punctuation">(</span>suiteInfo<span class="token operator">:</span> JasmineDoneInfo<span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token operator">|</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
-  
-
-  
-</div>
-
-
-
-<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">()</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html#instance-method-matches">matches</a></span></span><span class="code" data-ice="signature">(specName: <span>string</span>): <span>boolean</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-
-
-
-
-<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-constructor-constructor">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">()</span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/adapter/filters/GrepSpecFilter.ts.html#lineNumber25">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
-
-<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
-
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-method-matches">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">matches</span><span class="code" data-ice="signature">(specName: <span>string</span>): <span>boolean</span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/adapter/filters/GrepSpecFilter.ts.html#lineNumber15">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  
-
-  
-
-  <div data-ice="properties"><div data-ice="properties">
-  <h4 data-ice="title">Params:</h4>
-  <table class="params">
-    <thead>
-    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
-    </thead>
-    <tbody>
-    
-    <tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">specName</td>
-      <td data-ice="type" class="code"><span>string</span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"></td>
-    </tr>
-</tbody>
-  </table>
-</div>
-</div>
-
-  <div class="return-params" data-ice="returnParams">
-    <h4>Returns:</h4>
-    <table>
-      <tbody>
-        <tr>
-          <td class="return-type code" data-ice="returnType"><span>boolean</span></td>
-          
-        </tr>
-      </tbody>
-    </table>
-    <div data-ice="returnProperties">
-</div>
-  </div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-</div>
 </article>
             </section>
         </div>

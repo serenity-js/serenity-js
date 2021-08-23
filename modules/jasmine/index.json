@@ -2271,7 +2271,7 @@
     "__docId__": 196,
     "kind": "file",
     "name": "src/SerenityReporterForJasmine.ts",
-    "content": "import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';\nimport {\n    DomainEvent,\n    SceneFinished,\n    SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TaskFinished,\n    TaskStarts,\n    TestRunFinished,\n    TestRunFinishes,\n    TestRunnerDetected, TestRunStarts,\n    TestSuiteFinished,\n    TestSuiteStarts,\n} from '@serenity-js/core/lib/events';\nimport { ErrorSerialiser, FileSystemLocation } from '@serenity-js/core/lib/io';\nimport {\n    ActivityDetails,\n    Category,\n    CorrelationId,\n    ExecutionCompromised,\n    ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionSkipped,\n    ExecutionSuccessful,\n    FeatureTag,\n    ImplementationPending,\n    Name,\n    Outcome,\n    ProblemIndication,\n    ScenarioDetails,\n    TestSuiteDetails,\n} from '@serenity-js/core/lib/model';\n\nimport { Expectation, JasmineDoneInfo, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';\n\n/**\n * @desc\n *  [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events\n *  to Serenity/JS events.\n *\n * @see {@link bootstrap}\n */\nexport class SerenityReporterForJasmine {\n\n    private static readonly errorMessagePattern = /^([^\\s:]*Error):\\s(.*)$/;\n    private describes: SuiteResult[] = [];\n\n    private currentSceneId: CorrelationId = undefined;\n\n    constructor(private readonly serenity: Serenity) {\n    }\n\n    jasmineStarted(info: JasmineStartedInfo): void {\n        this.emit(new TestRunStarts(this.serenity.currentTime()));\n    }\n\n    suiteStarted(result: SuiteResult): void {\n        this.describes.push(result);\n\n        this.emit(new TestSuiteStarts(this.testSuiteDetailsOf(result), this.serenity.currentTime()));\n    }\n\n    suiteDone(result: SuiteResult): void {\n        this.describes = this.describes.filter(suite => suite.id !== result.id);\n\n        this.emit(new TestSuiteFinished(this.testSuiteDetailsOf(result), this.outcomeFrom(result), this.serenity.currentTime()));\n    }\n\n    specStarted(result: SpecResult): void {\n        this.currentSceneId = this.serenity.assignNewSceneId();\n\n        const details = this.scenarioDetailsOf(result);\n\n        this.emit(\n            new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),\n            new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureName()), this.serenity.currentTime()),\n            new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),\n        );\n    }\n\n    specDone(result: SpecResult): Promise<void> {\n\n        /**\n         * Serenity doesn't allow for more than one failure per activity, but Jasmine does.\n         * If there are multiple failures we wrap them up in fake activities so that they're all reported correctly.\n         */\n        if (result.failedExpectations.length > 1) {\n            result.failedExpectations.forEach(failedExpectation => {\n                const\n                    sceneId = this.serenity.currentSceneId(),\n                    activityId = this.serenity.assignNewActivityId();\n                const details = new ActivityDetails(new Name('Expectation'));\n\n                this.emit(\n                    new TaskStarts(sceneId, activityId, details, this.serenity.currentTime()),\n                    new TaskFinished(sceneId, activityId, details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),\n                );\n            });\n        }\n\n        const\n            scenarioDetails = this.scenarioDetailsOf(result),\n            outcome = this.outcomeFrom(result);\n\n        this.emit(new SceneFinishes(\n            this.currentSceneId,\n            scenarioDetails,\n            outcome,\n            this.serenity.currentTime(),\n        ));\n\n        return this.serenity.waitForNextCue()\n            .then(() => {\n                this.emit(new SceneFinished(\n                    this.currentSceneId,\n                    scenarioDetails,\n                    outcome,\n                    this.serenity.currentTime(),\n                ));\n            }, error => {\n                this.emit(new SceneFinished(\n                    this.currentSceneId,\n                    scenarioDetails,\n                    new ExecutionFailedWithError(error),\n                    this.serenity.currentTime(),\n                ));\n\n                throw error;\n            });\n    }\n\n    /**\n     * @param {JasmineDoneInfo} suiteInfo\n     */\n    jasmineDone(suiteInfo: JasmineDoneInfo): Promise<void> {\n        this.emit(new TestRunFinishes(this.serenity.currentTime()));\n\n        return this.serenity.waitForNextCue()\n            .then(() => {\n                this.emit(new TestRunFinished(this.serenity.currentTime()));\n            });\n    }\n\n    /**\n     * @private\n     * @param {DomainEvent[]} events\n     */\n    private emit(...events: DomainEvent[]): void {\n        events.forEach(event => this.serenity.announce(event));\n    }\n\n    /**\n     * @private\n     * @param {SpecResult} spec\n     * @returns {ScenarioDetails}\n     */\n    private scenarioDetailsOf(spec: SpecResult): ScenarioDetails {\n        return new ScenarioDetails(\n            new Name(this.currentScenarioNameFor(spec.description)),\n            new Category(this.currentFeatureName()),\n            FileSystemLocation.fromJSON(spec.location as any),\n        );\n    }\n\n    /**\n     * @private\n     * @param {SuiteResult} result\n     * @returns {TestSuiteDetails}\n     */\n    private testSuiteDetailsOf(result: SuiteResult): TestSuiteDetails {\n        return new TestSuiteDetails(\n            new Name(result.description),\n            FileSystemLocation.fromJSON(result.location as any),\n            new CorrelationId(result.id),\n        );\n    }\n\n    /**\n     * @private\n     * @returns {string}\n     */\n    private currentFeatureName(): string {\n        return this.describes[0]\n            ? this.describes[0].description\n            : 'Unknown feature';\n    }\n\n    /**\n     * @private\n     * @param {string} itBlockDescription\n     * @returns {string}\n     */\n    private currentScenarioNameFor(itBlockDescription: string): string {\n        const [ topSuite_, ...rest ] = this.describes;\n\n        return rest.reverse()\n            .reduce((name, current) => `${ current.description } ${ name }`, itBlockDescription);\n    }\n\n    /**\n     * @private\n     * @param {SpecResult | SuiteResult} result\n     * @returns {Outcome}\n     */\n    private outcomeFrom(result: SpecResult | SuiteResult): Outcome {\n        switch (result.status) {\n            case 'failed':\n                return this.failureOutcomeFrom(result.failedExpectations[0]);\n            case 'pending':\n                return new ImplementationPending(new ImplementationPendingError((result as any).pendingReason || ''));\n            case 'excluded':\n                return new ExecutionSkipped();\n            case 'passed':\n            default:\n                return new ExecutionSuccessful();\n        }\n    }\n\n    /**\n     * @private\n     * @param {Expectation} failure\n     * @returns {ProblemIndication}\n     */\n    private failureOutcomeFrom(failure: Expectation): ProblemIndication {\n        const error = this.errorFrom(failure);\n\n        if (error instanceof AssertionError) {\n            // sadly, Jasmine error propagation mechanism is rather basic\n            // and unable to serialise the expected/actual properties of the AssertionError object\n            return new ExecutionFailedWithAssertionError(error);\n        }\n\n        if (error instanceof TestCompromisedError) {\n            return new ExecutionCompromised(error);\n        }\n\n        if (failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error\n            return new ExecutionFailedWithAssertionError(\n                new AssertionError(failure.message, failure.expected, failure.actual, error),\n            );\n        }\n\n        return new ExecutionFailedWithError(error);\n    }\n\n    private errorFrom(failure: Expectation): Error {\n        if (this.containsCorrectlySerialisedError(failure)) {\n            return ErrorSerialiser.deserialiseFromStackTrace(failure.stack);\n        }\n\n        if (this.containsIncorrectlySerialisedError(failure)) {\n            return ErrorSerialiser.deserialiseFromStackTrace(this.repairedStackTraceOf(failure));\n        }\n\n        return new Error(failure.message);\n    }\n\n    private containsCorrectlySerialisedError(failure: Expectation): boolean {\n        return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.stack.split('\\n')[0]);\n    }\n\n    private containsIncorrectlySerialisedError(failure: Expectation): boolean {\n        return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.message);\n    }\n\n    /**\n     * It seems like Jasmine mixes up serialisation and display logic,\n     * which means that its \"failure.stack\" is not really an Error stacktrace,\n     * but rather something along the lines of:\n     * \"error properties: AssertionError: undefined\"\n     * where the error message is lost, and there's an \"error properties:\" prefix present.\n     *\n     * Probably caused by this:\n     * https://github.com/jasmine/jasmine/blob/b4cbe9850fbe192eaffeae450669f96e79a574ed/src/core/ExceptionFormatter.js#L93\n     *\n     * @param {Expectation} failure\n     */\n    private repairedStackTraceOf(failure: Expectation): string {\n        return [\n            failure.message,\n            ...failure.stack.split('\\n').slice(1),\n        ].join('\\n');\n    }\n}\n",
+    "content": "import { AssertionError, ImplementationPendingError, Serenity, TestCompromisedError } from '@serenity-js/core';\nimport {\n    DomainEvent,\n    SceneFinished,\n    SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TaskFinished,\n    TaskStarts,\n    TestRunFinished,\n    TestRunFinishes,\n    TestRunnerDetected, TestRunStarts,\n    TestSuiteFinished,\n    TestSuiteStarts,\n} from '@serenity-js/core/lib/events';\nimport { ErrorSerialiser, FileSystemLocation } from '@serenity-js/core/lib/io';\nimport {\n    ActivityDetails,\n    Category,\n    CorrelationId,\n    ExecutionCompromised,\n    ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionSkipped,\n    ExecutionSuccessful,\n    FeatureTag,\n    ImplementationPending,\n    Name,\n    Outcome,\n    ProblemIndication,\n    ScenarioDetails,\n    TestSuiteDetails,\n} from '@serenity-js/core/lib/model';\n\nimport { Expectation, JasmineDoneInfo, JasmineReporter, JasmineStartedInfo, SpecResult, SuiteResult } from './jasmine';\n\n/**\n * @desc\n *  [Jasmine reporter](https://jasmine.github.io/tutorials/custom_reporter) that translates Jasmine-specific test events\n *  to Serenity/JS events.\n *\n * @see {@link bootstrap}\n * @implements {JasmineReporter}\n */\nexport class SerenityReporterForJasmine implements JasmineReporter {\n\n    private static readonly errorMessagePattern = /^([^\\s:]*Error):\\s(.*)$/;\n    private describes: SuiteResult[] = [];\n\n    private currentSceneId: CorrelationId = undefined;\n\n    /**\n     * @param {Serenity} serenity\n     */\n    constructor(private readonly serenity: Serenity) {\n    }\n\n    jasmineStarted(info: JasmineStartedInfo): void {\n        this.emit(new TestRunStarts(this.serenity.currentTime()));\n    }\n\n    suiteStarted(result: SuiteResult): void {\n        this.describes.push(result);\n\n        this.emit(new TestSuiteStarts(this.testSuiteDetailsOf(result), this.serenity.currentTime()));\n    }\n\n    suiteDone(result: SuiteResult): void {\n        this.describes = this.describes.filter(suite => suite.id !== result.id);\n\n        this.emit(new TestSuiteFinished(this.testSuiteDetailsOf(result), this.outcomeFrom(result), this.serenity.currentTime()));\n    }\n\n    specStarted(result: SpecResult): void {\n        this.currentSceneId = this.serenity.assignNewSceneId();\n\n        const details = this.scenarioDetailsOf(result);\n\n        this.emit(\n            new SceneStarts(this.currentSceneId, details, this.serenity.currentTime()),\n            new SceneTagged(this.currentSceneId, new FeatureTag(this.currentFeatureName()), this.serenity.currentTime()),\n            new TestRunnerDetected(this.currentSceneId, new Name('Jasmine'), this.serenity.currentTime()),\n        );\n    }\n\n    specDone(result: SpecResult): Promise<void> {\n\n        /**\n         * Serenity doesn't allow for more than one failure per activity, but Jasmine does.\n         * If there are multiple failures we wrap them up in fake activities so that they're all reported correctly.\n         */\n        if (result.failedExpectations.length > 1) {\n            result.failedExpectations.forEach(failedExpectation => {\n                const\n                    sceneId = this.serenity.currentSceneId(),\n                    activityId = this.serenity.assignNewActivityId();\n                const details = new ActivityDetails(new Name('Expectation'));\n\n                this.emit(\n                    new TaskStarts(sceneId, activityId, details, this.serenity.currentTime()),\n                    new TaskFinished(sceneId, activityId, details, this.failureOutcomeFrom(failedExpectation), this.serenity.currentTime()),\n                );\n            });\n        }\n\n        const\n            scenarioDetails = this.scenarioDetailsOf(result),\n            outcome = this.outcomeFrom(result);\n\n        this.emit(new SceneFinishes(\n            this.currentSceneId,\n            scenarioDetails,\n            outcome,\n            this.serenity.currentTime(),\n        ));\n\n        return this.serenity.waitForNextCue()\n            .then(() => {\n                this.emit(new SceneFinished(\n                    this.currentSceneId,\n                    scenarioDetails,\n                    outcome,\n                    this.serenity.currentTime(),\n                ));\n            }, error => {\n                this.emit(new SceneFinished(\n                    this.currentSceneId,\n                    scenarioDetails,\n                    new ExecutionFailedWithError(error),\n                    this.serenity.currentTime(),\n                ));\n\n                throw error;\n            });\n    }\n\n    jasmineDone(suiteInfo: JasmineDoneInfo): Promise<void> {\n        this.emit(new TestRunFinishes(this.serenity.currentTime()));\n\n        return this.serenity.waitForNextCue()\n            .then(() => {\n                this.emit(new TestRunFinished(this.serenity.currentTime()));\n            });\n    }\n\n    /**\n     * @private\n     * @param {DomainEvent[]} events\n     */\n    private emit(...events: DomainEvent[]): void {\n        events.forEach(event => this.serenity.announce(event));\n    }\n\n    /**\n     * @private\n     * @param {SpecResult} spec\n     * @returns {ScenarioDetails}\n     */\n    private scenarioDetailsOf(spec: SpecResult): ScenarioDetails {\n        return new ScenarioDetails(\n            new Name(this.currentScenarioNameFor(spec.description)),\n            new Category(this.currentFeatureName()),\n            FileSystemLocation.fromJSON(spec.location as any),\n        );\n    }\n\n    /**\n     * @private\n     * @param {SuiteResult} result\n     * @returns {TestSuiteDetails}\n     */\n    private testSuiteDetailsOf(result: SuiteResult): TestSuiteDetails {\n        return new TestSuiteDetails(\n            new Name(result.description),\n            FileSystemLocation.fromJSON(result.location as any),\n            new CorrelationId(result.id),\n        );\n    }\n\n    /**\n     * @private\n     * @returns {string}\n     */\n    private currentFeatureName(): string {\n        return this.describes[0]\n            ? this.describes[0].description\n            : 'Unknown feature';\n    }\n\n    /**\n     * @private\n     * @param {string} itBlockDescription\n     * @returns {string}\n     */\n    private currentScenarioNameFor(itBlockDescription: string): string {\n        const [ topSuite_, ...rest ] = this.describes;\n\n        return rest.reverse()\n            .reduce((name, current) => `${ current.description } ${ name }`, itBlockDescription);\n    }\n\n    /**\n     * @private\n     * @param {SpecResult | SuiteResult} result\n     * @returns {Outcome}\n     */\n    private outcomeFrom(result: SpecResult | SuiteResult): Outcome {\n        switch (result.status) {\n            case 'failed':\n                return this.failureOutcomeFrom(result.failedExpectations[0]);\n            case 'pending':\n                return new ImplementationPending(new ImplementationPendingError((result as any).pendingReason || ''));\n            case 'excluded':\n                return new ExecutionSkipped();\n            case 'passed':\n            default:\n                return new ExecutionSuccessful();\n        }\n    }\n\n    /**\n     * @private\n     * @param {Expectation} failure\n     * @returns {ProblemIndication}\n     */\n    private failureOutcomeFrom(failure: Expectation): ProblemIndication {\n        const error = this.errorFrom(failure);\n\n        if (error instanceof AssertionError) {\n            // sadly, Jasmine error propagation mechanism is rather basic\n            // and unable to serialise the expected/actual properties of the AssertionError object\n            return new ExecutionFailedWithAssertionError(error);\n        }\n\n        if (error instanceof TestCompromisedError) {\n            return new ExecutionCompromised(error);\n        }\n\n        if (failure.matcherName) {                       // the presence of a non-empty matcherName property indicates a Jasmine-specific assertion error\n            return new ExecutionFailedWithAssertionError(\n                new AssertionError(failure.message, failure.expected, failure.actual, error),\n            );\n        }\n\n        return new ExecutionFailedWithError(error);\n    }\n\n    private errorFrom(failure: Expectation): Error {\n        if (this.containsCorrectlySerialisedError(failure)) {\n            return ErrorSerialiser.deserialiseFromStackTrace(failure.stack);\n        }\n\n        if (this.containsIncorrectlySerialisedError(failure)) {\n            return ErrorSerialiser.deserialiseFromStackTrace(this.repairedStackTraceOf(failure));\n        }\n\n        return new Error(failure.message);\n    }\n\n    private containsCorrectlySerialisedError(failure: Expectation): boolean {\n        return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.stack.split('\\n')[0]);\n    }\n\n    private containsIncorrectlySerialisedError(failure: Expectation): boolean {\n        return !! failure.stack && SerenityReporterForJasmine.errorMessagePattern.test(failure.message);\n    }\n\n    /**\n     * It seems like Jasmine mixes up serialisation and display logic,\n     * which means that its \"failure.stack\" is not really an Error stacktrace,\n     * but rather something along the lines of:\n     * \"error properties: AssertionError: undefined\"\n     * where the error message is lost, and there's an \"error properties:\" prefix present.\n     *\n     * Probably caused by this:\n     * https://github.com/jasmine/jasmine/blob/b4cbe9850fbe192eaffeae450669f96e79a574ed/src/core/ExceptionFormatter.js#L93\n     *\n     * @param {Expectation} failure\n     */\n    private repairedStackTraceOf(failure: Expectation): string {\n        return [\n            failure.message,\n            ...failure.stack.split('\\n').slice(1),\n        ].join('\\n');\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
     "access": "public",
@@ -2293,8 +2293,11 @@
     "see": [
       "{@link bootstrap}"
     ],
-    "lineNumber": 51,
-    "interface": false
+    "lineNumber": 52,
+    "interface": false,
+    "implements": [
+      "JasmineReporter"
+    ]
   },
   {
     "__docId__": 198,
@@ -2305,7 +2308,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine.errorMessagePattern",
     "access": "private",
     "description": " ",
-    "lineNumber": 46,
+    "lineNumber": 47,
     "ignore": true,
     "type": {
       "types": [
@@ -2322,7 +2325,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#describes",
     "access": "private",
     "description": " ",
-    "lineNumber": 47,
+    "lineNumber": 48,
     "type": {
       "nullable": null,
       "types": [
@@ -2342,7 +2345,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#currentSceneId",
     "access": "private",
     "description": " ",
-    "lineNumber": 49,
+    "lineNumber": 50,
     "type": {
       "nullable": null,
       "types": [
@@ -2363,9 +2366,20 @@
     "static": false,
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#constructor",
     "access": "public",
-    "description": null,
-    "lineNumber": 91,
-    "undocument": true
+    "description": "",
+    "lineNumber": 95,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Serenity"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "serenity",
+        "description": ""
+      }
+    ]
   },
   {
     "__docId__": 202,
@@ -2378,7 +2392,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#jasmineStarted",
     "access": "public",
     "description": " ",
-    "lineNumber": 54,
+    "lineNumber": 58,
     "params": [
       {
         "nullable": null,
@@ -2411,7 +2425,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#suiteStarted",
     "access": "public",
     "description": " ",
-    "lineNumber": 58,
+    "lineNumber": 62,
     "params": [
       {
         "nullable": null,
@@ -2444,7 +2458,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#suiteDone",
     "access": "public",
     "description": " ",
-    "lineNumber": 64,
+    "lineNumber": 68,
     "params": [
       {
         "nullable": null,
@@ -2477,7 +2491,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#specStarted",
     "access": "public",
     "description": " ",
-    "lineNumber": 70,
+    "lineNumber": 74,
     "params": [
       {
         "nullable": null,
@@ -2510,7 +2524,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#specDone",
     "access": "public",
     "description": " ",
-    "lineNumber": 82,
+    "lineNumber": 86,
     "params": [
       {
         "nullable": null,
@@ -2542,8 +2556,8 @@
     "static": false,
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#jasmineDone",
     "access": "public",
-    "description": "",
-    "lineNumber": 254,
+    "description": " ",
+    "lineNumber": 137,
     "params": [
       {
         "nullable": null,
@@ -2557,9 +2571,12 @@
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Promise"
+      ],
+      "spread": false,
+      "description": ""
     }
   },
   {
@@ -2573,7 +2590,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#emit",
     "access": "private",
     "description": "",
-    "lineNumber": 280,
+    "lineNumber": 281,
     "params": [
       {
         "nullable": null,
@@ -2600,7 +2617,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#scenarioDetailsOf",
     "access": "private",
     "description": "",
-    "lineNumber": 302,
+    "lineNumber": 303,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2640,7 +2657,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#testSuiteDetailsOf",
     "access": "private",
     "description": "",
-    "lineNumber": 328,
+    "lineNumber": 329,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2680,7 +2697,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#currentFeatureName",
     "access": "private",
     "description": "",
-    "lineNumber": 351,
+    "lineNumber": 352,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2709,7 +2726,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#currentScenarioNameFor",
     "access": "private",
     "description": "",
-    "lineNumber": 375,
+    "lineNumber": 376,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2749,7 +2766,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#outcomeFrom",
     "access": "private",
     "description": "",
-    "lineNumber": 400,
+    "lineNumber": 401,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2790,7 +2807,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#failureOutcomeFrom",
     "access": "private",
     "description": "",
-    "lineNumber": 432,
+    "lineNumber": 433,
     "unknown": [
       {
         "tagName": "@returns",
@@ -2830,7 +2847,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#errorFrom",
     "access": "private",
     "description": " ",
-    "lineNumber": 247,
+    "lineNumber": 248,
     "params": [
       {
         "nullable": null,
@@ -2864,7 +2881,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#containsCorrectlySerialisedError",
     "access": "private",
     "description": " ",
-    "lineNumber": 259,
+    "lineNumber": 260,
     "params": [
       {
         "nullable": null,
@@ -2898,7 +2915,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#containsIncorrectlySerialisedError",
     "access": "private",
     "description": " ",
-    "lineNumber": 263,
+    "lineNumber": 264,
     "params": [
       {
         "nullable": null,
@@ -2932,7 +2949,7 @@
     "longname": "src/SerenityReporterForJasmine.ts~SerenityReporterForJasmine#repairedStackTraceOf",
     "access": "private",
     "description": "It seems like Jasmine mixes up serialisation and display logic,\nwhich means that its \"failure.stack\" is not really an Error stacktrace,\nbut rather something along the lines of:\n\"error properties: AssertionError: undefined\"\nwhere the error message is lost, and there's an \"error properties:\" prefix present.\n\nProbably caused by this:\nhttps://github.com/jasmine/jasmine/blob/b4cbe9850fbe192eaffeae450669f96e79a574ed/src/core/ExceptionFormatter.js#L93 ",
-    "lineNumber": 279,
+    "lineNumber": 280,
     "params": [
       {
         "nullable": null,
@@ -2959,7 +2976,7 @@
     "__docId__": 221,
     "kind": "file",
     "name": "src/adapter/JasmineAdapter.ts",
-    "content": "import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';\nimport { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';\n\nimport { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';\nimport { JasmineConfig } from './JasmineConfig';\nimport reporter = require('../index');\n\n/**\n * @desc\n *  Allows for programmatic execution of Jasmine test scenarios,\n *  using {@link SerenityReporterForJasmine} to report progress.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n */\nexport class JasmineAdapter implements TestRunnerAdapter {\n\n    private runner: any;\n    private totalScenarios = 0;\n\n    private static readonly defaultConfig = {\n        /*\n         * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled\n         */\n        oneFailurePerSpec: true,\n\n        /*\n         * A spec should stop execution as soon as there's a hook or spec failure\n         * See https://github.com/angular/protractor/issues/3234\n         */\n        stopSpecOnExpectationFailure: true,\n\n        /*\n         * Default to not executing tests at random.\n         * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76\n         */\n        random: false,\n    };\n\n    /**\n     * @param {JasmineConfig} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     */\n    constructor(\n        private readonly config: JasmineConfig,\n        private readonly loader: ModuleLoader,\n    ) {\n    }\n\n    /**\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @returns {Outcome | { Code: number }}\n     */\n    successThreshold(): Outcome | { Code: number } {\n        return ExecutionIgnored;\n    }\n\n    /**\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @param {string[]} pathsToScenarios\n     *\n     * @returns {Promise<void>}\n     */\n    async load(pathsToScenarios: string[]): Promise<void> {\n        const JasmineRunner = this.loader.require('jasmine');\n        this.runner         = new JasmineRunner({ projectBaseDir: '' });\n\n        if (this.config.defaultTimeoutInterval) {\n            this.runner.jasmine.DEFAULT_TIMEOUT_INTERVAL = this.config.defaultTimeoutInterval;\n        }\n\n        this.runner.clearReporters();\n\n        this.runner.loadConfig(Object.assign(\n            JasmineAdapter.defaultConfig,\n            this.config,\n        ));\n\n        this.runner.addReporter(reporter(this.runner.jasmine));\n        this.runner.configureDefaultReporter(this.config);\n\n        this.runner.loadRequires();\n        this.runner.loadHelpers();\n\n        this.configureSpecFilter();\n\n        await this.loadSpecs(pathsToScenarios);\n\n        this.countScenarios(this.runner.env.topSuite())\n    }\n\n    private configureSpecFilter(): void {\n        /*\n         * Configure spec filter\n         */\n        this.runner.env.configure({\n            specFilter: spec => this.specFilter().matches(spec.getFullName()),\n        })\n    }\n\n    private async loadSpecs(pathsToScenarios: string[]): Promise<void> {\n        this.runner.specDir     = '';\n        this.runner.specFiles   = [];\n        this.runner.addSpecFiles(pathsToScenarios);\n\n        await this.runner.loadSpecs();\n    }\n\n    private specFilter(): SpecFilter {\n        if (this.config.specFilter) {\n            return new CustomFunctionSpecFilter(this.config.specFilter);\n        }\n\n        if (this.config.grep) {\n            return this.config.invertGrep\n                ? new InvertedGrepSpecFilter(this.config.grep)\n                : new GrepSpecFilter(this.config.grep);\n        }\n\n        return new AcceptingSpecFilter();\n    }\n\n    /**\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @returns {number}\n     */\n    scenarioCount(): number {\n        return this.totalScenarios;\n    }\n\n    private countScenarios(suite: JasmineSuite): void {\n        suite.children?.forEach((child) => {\n            if (Array.isArray(child.children)) {\n                return this.countScenarios(child)\n            }\n            if (this.specFilter().matches(child.getFullName())) {\n                this.totalScenarios++\n            }\n        })\n    }\n\n    /**\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @returns {Promise<void>}\n     */\n    run(): Promise<void> {\n        return new Promise((resolve, reject) => {\n            this.runner.onComplete((passed: boolean) => resolve());\n            this.runner.execute();\n        });\n    }\n}\n\n/**\n * @package\n */\ninterface JasmineSuite extends JasmineSpec {\n    children?: JasmineSuite[]\n}\n\n/**\n * @package\n */\ninterface JasmineSpec {\n    getFullName(): string;\n}\n",
+    "content": "import { ModuleLoader, TestRunnerAdapter } from '@serenity-js/core/lib/io';\nimport { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';\n\nimport { AcceptingSpecFilter, CustomFunctionSpecFilter, GrepSpecFilter, InvertedGrepSpecFilter, SpecFilter } from './filters';\nimport { JasmineConfig } from './JasmineConfig';\nimport reporter = require('../index');\n\n/**\n * @desc\n *  Allows for programmatic execution of Jasmine test scenarios,\n *  using {@link SerenityReporterForJasmine} to report progress.\n *\n * @implements {@serenity-js/core/lib/io~TestRunnerAdapter}\n */\nexport class JasmineAdapter implements TestRunnerAdapter {\n\n    private runner: any;\n    private totalScenarios = 0;\n\n    private static readonly defaultConfig = {\n        /*\n         * Serenity/JS doesn't use Jasmine's assertions, so this mechanism can be disabled\n         */\n        oneFailurePerSpec: true,\n\n        /*\n         * A spec should stop execution as soon as there's a hook or spec failure\n         * See https://github.com/angular/protractor/issues/3234\n         */\n        stopSpecOnExpectationFailure: true,\n\n        /*\n         * Default to not executing tests at random.\n         * See https://github.com/angular/protractor/blob/4f74a4ec753c97adfe955fe468a39286a0a55837/lib/frameworks/jasmine.js#L76\n         */\n        random: false,\n    };\n\n    /**\n     * @param {JasmineConfig} config\n     * @param {@serenity-js/core/lib/io~ModuleLoader} loader\n     */\n    constructor(\n        private readonly config: JasmineConfig,\n        private readonly loader: ModuleLoader,\n    ) {\n    }\n\n    /**\n     * @desc\n     *  Scenario success threshold for this test runner.\n     *\n     * @returns {Outcome | { Code: number }}\n     */\n    successThreshold(): Outcome | { Code: number } {\n        return ExecutionIgnored;\n    }\n\n    /**\n     * @desc\n     *  Loads test scenarios.\n     *\n     * @param {string[]} pathsToScenarios\n     *\n     * @returns {Promise<void>}\n     */\n    async load(pathsToScenarios: string[]): Promise<void> {\n        const JasmineRunner = this.loader.require('jasmine');\n        this.runner         = new JasmineRunner({ projectBaseDir: '' });\n\n        if (this.config.defaultTimeoutInterval) {\n            this.runner.jasmine.DEFAULT_TIMEOUT_INTERVAL = this.config.defaultTimeoutInterval;\n        }\n\n        this.runner.clearReporters();\n\n        this.runner.loadConfig(Object.assign(\n            JasmineAdapter.defaultConfig,\n            this.config,\n        ));\n\n        this.runner.addReporter(reporter(this.runner.jasmine));\n\n        if (this.config.reporters) {\n            this.config.reporters.forEach(reporter => {\n                this.runner.addReporter(reporter)\n            });\n        }\n\n        this.runner.configureDefaultReporter(this.config);\n\n        this.runner.loadRequires();\n        this.runner.loadHelpers();\n\n        this.configureSpecFilter();\n\n        await this.loadSpecs(pathsToScenarios);\n\n        this.countScenarios(this.runner.env.topSuite())\n    }\n\n    private configureSpecFilter(): void {\n        /*\n         * Configure spec filter\n         */\n        this.runner.env.configure({\n            specFilter: spec => this.specFilter().matches(spec.getFullName()),\n        })\n    }\n\n    private async loadSpecs(pathsToScenarios: string[]): Promise<void> {\n        this.runner.specDir     = '';\n        this.runner.specFiles   = [];\n        this.runner.addSpecFiles(pathsToScenarios);\n\n        await this.runner.loadSpecs();\n    }\n\n    private specFilter(): SpecFilter {\n        if (this.config.specFilter) {\n            return new CustomFunctionSpecFilter(this.config.specFilter);\n        }\n\n        if (this.config.grep) {\n            return this.config.invertGrep\n                ? new InvertedGrepSpecFilter(this.config.grep)\n                : new GrepSpecFilter(this.config.grep);\n        }\n\n        return new AcceptingSpecFilter();\n    }\n\n    /**\n     * @desc\n     *  Returns the number of loaded scenarios\n     *\n     * @returns {number}\n     */\n    scenarioCount(): number {\n        return this.totalScenarios;\n    }\n\n    private countScenarios(suite: JasmineSuite): void {\n        suite.children?.forEach((child) => {\n            if (Array.isArray(child.children)) {\n                return this.countScenarios(child)\n            }\n            if (this.specFilter().matches(child.getFullName())) {\n                this.totalScenarios++\n            }\n        })\n    }\n\n    /**\n     * @desc\n     *  Runs loaded test scenarios.\n     *\n     * @returns {Promise<void>}\n     */\n    run(): Promise<void> {\n        return new Promise((resolve, reject) => {\n            this.runner.onComplete((passed: boolean) => resolve());\n            this.runner.execute();\n        });\n    }\n}\n\n/**\n * @package\n */\ninterface JasmineSuite extends JasmineSpec {\n    children?: JasmineSuite[]\n}\n\n/**\n * @package\n */\ninterface JasmineSpec {\n    getFullName(): string;\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/adapter/JasmineAdapter.ts",
     "access": "public",
@@ -3152,7 +3169,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#configureSpecFilter",
     "access": "private",
     "description": " ",
-    "lineNumber": 95,
+    "lineNumber": 102,
     "return": {
       "nullable": null,
       "types": [
@@ -3175,7 +3192,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#loadSpecs",
     "access": "private",
     "description": " ",
-    "lineNumber": 104,
+    "lineNumber": 111,
     "params": [
       {
         "nullable": null,
@@ -3209,7 +3226,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#specFilter",
     "access": "private",
     "description": " ",
-    "lineNumber": 112,
+    "lineNumber": 119,
     "return": {
       "nullable": null,
       "types": [
@@ -3232,7 +3249,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#scenarioCount",
     "access": "public",
     "description": " Returns the number of loaded scenarios",
-    "lineNumber": 251,
+    "lineNumber": 258,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3260,7 +3277,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#countScenarios",
     "access": "private",
     "description": " ",
-    "lineNumber": 136,
+    "lineNumber": 143,
     "params": [
       {
         "nullable": null,
@@ -3294,7 +3311,7 @@
     "longname": "src/adapter/JasmineAdapter.ts~JasmineAdapter#run",
     "access": "public",
     "description": " Runs loaded test scenarios.",
-    "lineNumber": 296,
+    "lineNumber": 303,
     "unknown": [
       {
         "tagName": "@returns",
@@ -3315,7 +3332,7 @@
     "__docId__": 236,
     "kind": "file",
     "name": "src/adapter/JasmineConfig.ts",
-    "content": "/**\n * @desc\n *  Configuration object that will be passed to the JasmineRunner.\n *\n * @see https://jasmine.github.io/setup/nodejs.html\n */\nexport interface JasmineConfig {\n\n    /**\n     * @desc\n     *  A list of paths to helper files that should be loaded and executed before the `requires` and the `specs`.\n     *  Accepts relative and absolute paths as well as glob expressions.\n     *\n     * @type {string[] | undefined}\n     * @see https://jasmine.github.io/tutorials/react_with_npm\n     */\n    helpers?: string[];\n\n    /**\n     * @desc\n     *  A list of paths to files that should be required after the `helpers`, but before the `specs`.\n     *  The path need to be compatible with Node {@link require}.\n     *\n     * @type {string[] | undefined}\n     */\n    requires?: string[];\n\n    /**\n     * @desc\n     *  Whether or not the tests should be executed in a pseudo-random order.\n     *\n     * @type {boolean | undefined}\n     */\n    random?: boolean;\n\n    /**\n     * @desc\n     *  Used to exclude any test scenarios which name doesn't match the pattern from the run.\n     *\n     * @type {string | RegExp | undefined}\n     */\n    grep?: string | RegExp;\n\n    /**\n     * @desc\n     *  Inverts 'grep' matches.\n     *\n     *  Defaults to `false`\n     *\n     * @type {boolean | undefined}\n     */\n    invertGrep?: boolean;\n\n    /**\n     * @desc\n     *  Receives the full name of a test scenario and returns `true`\n     *  for those that should be executed.\n     *\n     *  Takes precedence over `grep`\n     *\n     * @type {function(specName: string): boolean}\n     */\n    specFilter?: (specName: string) => boolean\n\n    /**\n     * @desc\n     *  The randomisation seed that will be used to determine the pseudo-random order of execution,\n     *  if `random` is set to `true`\n     *\n     * @type {string | undefined}\n     * @see {@link JasmineConfig#random}\n     */\n    seed?: string;\n\n    /**\n     * @desc\n     *  Sets the global `jasmine.DEFAULT_TIMEOUT_INTERVAL`,\n     *  which defines the default number of milliseconds Jasmine will wait for an asynchronous spec to complete.\n     *\n     * @type {number | undefined}\n     * @see https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL\n     */\n    defaultTimeoutInterval?: number;\n}\n",
+    "content": "/**\n * @desc\n *  Configuration object that will be passed to the JasmineRunner.\n *\n * @see https://jasmine.github.io/setup/nodejs.html\n */\nimport { JasmineReporter } from '../jasmine';\n\nexport interface JasmineConfig {\n\n    /**\n     * @desc\n     *  A list of paths to helper files that should be loaded and executed before the `requires` and the `specs`.\n     *  Accepts relative and absolute paths as well as glob expressions.\n     *\n     * @type {string[] | undefined}\n     * @see https://jasmine.github.io/tutorials/react_with_npm\n     */\n    helpers?: string[];\n\n    /**\n     * @desc\n     *  A list of paths to files that should be required after the `helpers`, but before the `specs`.\n     *  The path need to be compatible with Node {@link require}.\n     *\n     * @type {string[] | undefined}\n     */\n    requires?: string[];\n\n    /**\n     * @desc\n     *  Whether or not the tests should be executed in a pseudo-random order.\n     *\n     * @type {boolean | undefined}\n     */\n    random?: boolean;\n\n    /**\n     * @desc\n     *  Used to exclude any test scenarios which name doesn't match the pattern from the run.\n     *\n     * @type {string | RegExp | undefined}\n     */\n    grep?: string | RegExp;\n\n    /**\n     * @desc\n     *  Inverts 'grep' matches.\n     *\n     *  Defaults to `false`\n     *\n     * @type {boolean | undefined}\n     */\n    invertGrep?: boolean;\n\n    /**\n     * @desc\n     *  Receives the full name of a test scenario and returns `true`\n     *  for those that should be executed.\n     *\n     *  Takes precedence over `grep`\n     *\n     * @type {function(specName: string): boolean}\n     */\n    specFilter?: (specName: string) => boolean\n\n    /**\n     * @desc\n     *  The randomisation seed that will be used to determine the pseudo-random order of execution,\n     *  if `random` is set to `true`\n     *\n     * @type {string | undefined}\n     * @see {@link JasmineConfig#random}\n     */\n    seed?: string;\n\n    /**\n     * @desc\n     *  Sets the global `jasmine.DEFAULT_TIMEOUT_INTERVAL`,\n     *  which defines the default number of milliseconds Jasmine will wait for an asynchronous spec to complete.\n     *\n     * @type {number | undefined}\n     * @see https://jasmine.github.io/api/edge/jasmine#.DEFAULT_TIMEOUT_INTERVAL\n     */\n    defaultTimeoutInterval?: number;\n\n    /**\n     * @desc\n     *  A list of Jasmine reporters to be added to the test runner.\n     *\n     *  Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.\n     *\n     *  Note: reporters must be instantiated before adding them to the configuration.\n     *\n     * @type {JasmineReporter[] | undefined}\n     *\n     * @example <caption>Using ReportPortal with Protractor and Jasmine</caption>\n     *  // protractor.conf.js\n     *  const AgentJasmine = require('@reportportal/agent-js-jasmine')\n     *  const agent = new AgentJasmine(require('./reportportalConf'))\n     *  // ...\n     *  jasmineNodeOpts: {\n     *    // ...\n     *    reporters: [ agent.getJasmineReporter() ],\n     *  }\n     *\n     *  afterLaunch:() => {\n     *    return agent.getExitPromise();\n     *  },\n     */\n    reporters?: JasmineReporter[];\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/adapter/JasmineConfig.ts",
     "access": "public",
@@ -3511,6 +3528,29 @@
   },
   {
     "__docId__": 246,
+    "kind": "member",
+    "name": "reporters",
+    "memberof": "src/adapter/JasmineConfig.ts~JasmineConfig",
+    "static": false,
+    "longname": "src/adapter/JasmineConfig.ts~JasmineConfig#reporters",
+    "access": "public",
+    "description": " A list of Jasmine reporters to be added to the test runner.\n\n Useful for situations like configuring ReportPortal, because you cannot use `jasmine.addReporter()` in the Protractor config.\n\n Note: reporters must be instantiated before adding them to the configuration.",
+    "examples": [
+      "<caption>Using ReportPortal with Protractor and Jasmine</caption>\n // protractor.conf.js\n const AgentJasmine = require('@reportportal/agent-js-jasmine')\n const agent = new AgentJasmine(require('./reportportalConf'))\n // ...\n jasmineNodeOpts: {\n   // ...\n   reporters: [ agent.getJasmineReporter() ],\n }\n\n afterLaunch:() => {\n   return agent.getExitPromise();\n },"
+    ],
+    "lineNumber": 215,
+    "type": {
+      "nullable": null,
+      "types": [
+        "JasmineReporter[] ",
+        " undefined"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 247,
     "kind": "file",
     "name": "src/adapter/filters/AcceptingSpecFilter.ts",
     "content": "import { SpecFilter } from './SpecFilter';\n\n/**\n * @package\n */\nexport class AcceptingSpecFilter implements SpecFilter {\n    matches(specName: string): boolean {\n        return true;\n    }\n}\n",
@@ -3521,7 +3561,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 247,
+    "__docId__": 248,
     "kind": "class",
     "name": "AcceptingSpecFilter",
     "memberof": "src/adapter/filters/AcceptingSpecFilter.ts",
@@ -3537,7 +3577,7 @@
     "ignore": true
   },
   {
-    "__docId__": 248,
+    "__docId__": 249,
     "kind": "method",
     "name": "matches",
     "memberof": "src/adapter/filters/AcceptingSpecFilter.ts~AcceptingSpecFilter",
@@ -3570,7 +3610,7 @@
     }
   },
   {
-    "__docId__": 249,
+    "__docId__": 250,
     "kind": "file",
     "name": "src/adapter/filters/CustomFunctionSpecFilter.ts",
     "content": "import { SpecFilter } from './SpecFilter';\n\n/**\n * @package\n */\nexport class CustomFunctionSpecFilter implements SpecFilter {\n    constructor(private readonly fn: (specName: string) => boolean) {\n    }\n\n    matches(specName: string): boolean {\n        return this.fn(specName);\n    }\n}\n",
@@ -3581,7 +3621,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 250,
+    "__docId__": 251,
     "kind": "class",
     "name": "CustomFunctionSpecFilter",
     "memberof": "src/adapter/filters/CustomFunctionSpecFilter.ts",
@@ -3597,7 +3637,7 @@
     "ignore": true
   },
   {
-    "__docId__": 251,
+    "__docId__": 252,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/adapter/filters/CustomFunctionSpecFilter.ts~CustomFunctionSpecFilter",
@@ -3611,7 +3651,7 @@
     "undocument": true
   },
   {
-    "__docId__": 252,
+    "__docId__": 253,
     "kind": "method",
     "name": "matches",
     "memberof": "src/adapter/filters/CustomFunctionSpecFilter.ts~CustomFunctionSpecFilter",
@@ -3644,10 +3684,10 @@
     }
   },
   {
-    "__docId__": 253,
+    "__docId__": 254,
     "kind": "file",
     "name": "src/adapter/filters/GrepSpecFilter.ts",
-    "content": "import { SpecFilter } from './SpecFilter';\n\n/**\n * https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js\n *\n * @package\n */\nexport class GrepSpecFilter implements SpecFilter {\n    private readonly pattern: RegExp;\n\n    constructor(pattern: RegExp | string) {\n        this.pattern = new RegExp(pattern)\n    }\n\n    matches(specName: string): boolean {\n        return this.pattern.test(specName);\n    }\n}\n",
+    "content": "import { SpecFilter } from './SpecFilter';\n\n/**\n * @desc\n *  https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js\n *\n * @package\n */\nexport class GrepSpecFilter implements SpecFilter {\n    private readonly pattern: RegExp;\n\n    constructor(pattern: RegExp | string) {\n        this.pattern = new RegExp(pattern)\n    }\n\n    matches(specName: string): boolean {\n        return this.pattern.test(specName);\n    }\n}\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/adapter/filters/GrepSpecFilter.ts",
     "access": "public",
@@ -3655,22 +3695,23 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 254,
+    "__docId__": 255,
     "kind": "class",
     "name": "GrepSpecFilter",
     "memberof": "src/adapter/filters/GrepSpecFilter.ts",
     "static": true,
     "longname": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter",
-    "access": "public",
+    "access": "package",
     "export": true,
-    "importPath": "@serenity-js/jasmine/lib/adapter/filters",
+    "importPath": "@serenity-js/jasmine/src/adapter/filters/GrepSpecFilter.ts",
     "importStyle": "{GrepSpecFilter}",
-    "description": "https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js ",
-    "lineNumber": 8,
-    "interface": false
+    "description": " https://github.com/jasmine/jasmine-npm/blob/641c33d4765efb0486f68980a8b7d184dd797122/lib/filters/console_spec_filter.js",
+    "lineNumber": 16,
+    "interface": false,
+    "ignore": true
   },
   {
-    "__docId__": 255,
+    "__docId__": 256,
     "kind": "member",
     "name": "pattern",
     "memberof": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter",
@@ -3678,7 +3719,7 @@
     "longname": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#pattern",
     "access": "private",
     "description": " ",
-    "lineNumber": 9,
+    "lineNumber": 10,
     "type": {
       "nullable": null,
       "types": [
@@ -3690,7 +3731,7 @@
     "ignore": true
   },
   {
-    "__docId__": 256,
+    "__docId__": 257,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter",
@@ -3700,11 +3741,11 @@
     "longname": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#constructor",
     "access": "public",
     "description": null,
-    "lineNumber": 25,
+    "lineNumber": 30,
     "undocument": true
   },
   {
-    "__docId__": 258,
+    "__docId__": 259,
     "kind": "method",
     "name": "matches",
     "memberof": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter",
@@ -3714,7 +3755,7 @@
     "longname": "src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter#matches",
     "access": "public",
     "description": " ",
-    "lineNumber": 15,
+    "lineNumber": 16,
     "params": [
       {
         "nullable": null,
@@ -3737,7 +3778,7 @@
     }
   },
   {
-    "__docId__": 259,
+    "__docId__": 260,
     "kind": "file",
     "name": "src/adapter/filters/InvertedGrepSpecFilter.ts",
     "content": "import { SpecFilter } from './SpecFilter';\n\n/**\n * @package\n */\nexport class InvertedGrepSpecFilter implements SpecFilter {\n    private readonly pattern: RegExp;\n\n    constructor(pattern: RegExp | string) {\n        this.pattern = new RegExp(pattern)\n    }\n\n    matches(specName: string): boolean {\n        return ! this.pattern.test(specName);\n    }\n}\n",
@@ -3748,7 +3789,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 260,
+    "__docId__": 261,
     "kind": "class",
     "name": "InvertedGrepSpecFilter",
     "memberof": "src/adapter/filters/InvertedGrepSpecFilter.ts",
@@ -3764,7 +3805,7 @@
     "ignore": true
   },
   {
-    "__docId__": 261,
+    "__docId__": 262,
     "kind": "member",
     "name": "pattern",
     "memberof": "src/adapter/filters/InvertedGrepSpecFilter.ts~InvertedGrepSpecFilter",
@@ -3784,7 +3825,7 @@
     "ignore": true
   },
   {
-    "__docId__": 262,
+    "__docId__": 263,
     "kind": "constructor",
     "name": "constructor",
     "memberof": "src/adapter/filters/InvertedGrepSpecFilter.ts~InvertedGrepSpecFilter",
@@ -3798,7 +3839,7 @@
     "undocument": true
   },
   {
-    "__docId__": 264,
+    "__docId__": 265,
     "kind": "method",
     "name": "matches",
     "memberof": "src/adapter/filters/InvertedGrepSpecFilter.ts~InvertedGrepSpecFilter",
@@ -3831,7 +3872,7 @@
     }
   },
   {
-    "__docId__": 265,
+    "__docId__": 266,
     "kind": "file",
     "name": "src/adapter/filters/SpecFilter.ts",
     "content": "/**\n * @package\n */\nexport interface SpecFilter {\n    matches(specName: string): boolean;\n}\n",
@@ -3842,7 +3883,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 266,
+    "__docId__": 267,
     "kind": "class",
     "name": "SpecFilter",
     "memberof": "src/adapter/filters/SpecFilter.ts",
@@ -3858,7 +3899,7 @@
     "ignore": true
   },
   {
-    "__docId__": 267,
+    "__docId__": 268,
     "kind": "file",
     "name": "src/adapter/filters/index.ts",
     "content": "export * from './AcceptingSpecFilter';\nexport * from './CustomFunctionSpecFilter';\nexport * from './GrepSpecFilter';\nexport * from './InvertedGrepSpecFilter';\nexport * from './SpecFilter';\n",
@@ -3869,7 +3910,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 268,
+    "__docId__": 269,
     "kind": "file",
     "name": "src/adapter/index.ts",
     "content": "export * from './JasmineAdapter';\nexport * from './JasmineConfig';\n",
@@ -3880,7 +3921,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 269,
+    "__docId__": 270,
     "kind": "file",
     "name": "src/bootstrap.ts",
     "content": "import { RuntimeError, serenity } from '@serenity-js/core';\n\nimport { monkeyPatched } from './monkeyPatched';\nimport { SerenityReporterForJasmine } from './SerenityReporterForJasmine';\n\n/**\n * @desc\n *  Monkey-patches Jasmine's Suite and Spec so that they provide more accurate information and\n *  returns a bootstrapped instance of the {@link SerenityReporterForJasmine} to be registered with Jasmine.\n *\n * @example <caption>Registering the reporter from the command line</caption>\n * jasmine --reporter=@serenity-js/jasmine\n *\n * @example <caption>Registering the reporter programmatically</caption>\n * import serenityReporterForJasmine = require('@serenity-js/jasmine');\n *\n * jasmine.getEnv().addReporter(serenityReporterForJasmine);\n *\n * @see {@link monkeyPatched}\n * @see {@link SerenityReporterForJasmine}\n *\n * @param {jasmine} jasmine - the global.jasmine instance\n * @returns {SerenityReporterForJasmine}\n */\nexport function bootstrap(jasmine = (global as any).jasmine): SerenityReporterForJasmine {\n    const wrappers = {\n        expectationResultFactory: originalExpectationResultFactory => ((attributes: { passed: boolean, error: Error }) => {\n            const result = originalExpectationResultFactory(attributes);\n\n            if (! attributes.passed && attributes.error instanceof RuntimeError) {\n                result.stack = attributes.error.stack;\n            }\n\n            return result;\n        }),\n    };\n\n    jasmine.Suite = monkeyPatched(jasmine.Suite, wrappers);\n    jasmine.Spec = monkeyPatched(jasmine.Spec, wrappers);\n\n    return new SerenityReporterForJasmine(serenity);\n}\n",
@@ -3891,7 +3932,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 270,
+    "__docId__": 271,
     "kind": "function",
     "name": "bootstrap",
     "memberof": "src/bootstrap.ts",
@@ -3941,7 +3982,7 @@
     }
   },
   {
-    "__docId__": 271,
+    "__docId__": 272,
     "kind": "file",
     "name": "src/index.ts",
     "content": "import { bootstrap } from './bootstrap';\n\nexport = bootstrap;\n",
@@ -3952,7 +3993,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 272,
+    "__docId__": 273,
     "kind": "file",
     "name": "src/jasmine/Expectation.ts",
     "content": "/**\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#Expectation\n */\nexport interface Expectation {\n\n    /** The name of the matcher that was executed for this expectation. */\n    matcherName: string;\n\n    /** The failure message for the expectation. */\n    message: string;\n\n    /** The stack trace for the failure if available. */\n    stack?: string;\n\n    /** Whether the expectation passed or failed. */\n    passed:\tboolean;\n\n    /** If the expectation failed, what was the expected value. */\n    expected?: any;\n\n    /** If the expectation failed, what actual value was produced. */\n    actual?: any;\n}\n",
@@ -3963,7 +4004,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 273,
+    "__docId__": 274,
     "kind": "class",
     "name": "Expectation",
     "memberof": "src/jasmine/Expectation.ts",
@@ -3982,7 +4023,7 @@
     "ignore": true
   },
   {
-    "__docId__": 274,
+    "__docId__": 275,
     "kind": "member",
     "name": "matcherName",
     "memberof": "src/jasmine/Expectation.ts~Expectation",
@@ -4001,7 +4042,7 @@
     }
   },
   {
-    "__docId__": 275,
+    "__docId__": 276,
     "kind": "member",
     "name": "message",
     "memberof": "src/jasmine/Expectation.ts~Expectation",
@@ -4020,7 +4061,7 @@
     }
   },
   {
-    "__docId__": 276,
+    "__docId__": 277,
     "kind": "member",
     "name": "stack",
     "memberof": "src/jasmine/Expectation.ts~Expectation",
@@ -4039,7 +4080,7 @@
     }
   },
   {
-    "__docId__": 277,
+    "__docId__": 278,
     "kind": "member",
     "name": "passed",
     "memberof": "src/jasmine/Expectation.ts~Expectation",
@@ -4058,7 +4099,7 @@
     }
   },
   {
-    "__docId__": 278,
+    "__docId__": 279,
     "kind": "member",
     "name": "expected",
     "memberof": "src/jasmine/Expectation.ts~Expectation",
@@ -4077,7 +4118,7 @@
     }
   },
   {
-    "__docId__": 279,
+    "__docId__": 280,
     "kind": "member",
     "name": "actual",
     "memberof": "src/jasmine/Expectation.ts~Expectation",
@@ -4096,7 +4137,7 @@
     }
   },
   {
-    "__docId__": 280,
+    "__docId__": 281,
     "kind": "file",
     "name": "src/jasmine/JasmineDoneInfo.ts",
     "content": "import { Expectation } from './Expectation';\nimport { Order } from './Order';\n\n/**\n * @desc\n *  Information passed to the Reporter#jasmineDone event.\n *\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#JasmineDoneInfo\n */\nexport interface JasmineDoneInfo {\n\n    /** The overall result of the suite: 'passed', 'failed', or 'incomplete'. */\n    overallStatus: string;\n\n    /** Explanation of why the suite was incomplete. */\n    incompleteReason: string | undefined;\n\n    /** Information about the ordering (random or not) of this execution of the suite. */\n    order: Order;\n\n    /** List of expectations that failed in an afterAll at the global level. */\n    failedExpectations:\tExpectation[];\n\n    /** List of deprecation warnings that occurred at the global level. */\n    deprecationWarnings: Expectation[];\n}\n",
@@ -4107,7 +4148,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 281,
+    "__docId__": 282,
     "kind": "class",
     "name": "JasmineDoneInfo",
     "memberof": "src/jasmine/JasmineDoneInfo.ts",
@@ -4126,7 +4167,7 @@
     "ignore": true
   },
   {
-    "__docId__": 282,
+    "__docId__": 283,
     "kind": "member",
     "name": "overallStatus",
     "memberof": "src/jasmine/JasmineDoneInfo.ts~JasmineDoneInfo",
@@ -4145,7 +4186,7 @@
     }
   },
   {
-    "__docId__": 283,
+    "__docId__": 284,
     "kind": "member",
     "name": "incompleteReason",
     "memberof": "src/jasmine/JasmineDoneInfo.ts~JasmineDoneInfo",
@@ -4165,7 +4206,7 @@
     }
   },
   {
-    "__docId__": 284,
+    "__docId__": 285,
     "kind": "member",
     "name": "order",
     "memberof": "src/jasmine/JasmineDoneInfo.ts~JasmineDoneInfo",
@@ -4184,7 +4225,7 @@
     }
   },
   {
-    "__docId__": 285,
+    "__docId__": 286,
     "kind": "member",
     "name": "failedExpectations",
     "memberof": "src/jasmine/JasmineDoneInfo.ts~JasmineDoneInfo",
@@ -4203,7 +4244,7 @@
     }
   },
   {
-    "__docId__": 286,
+    "__docId__": 287,
     "kind": "member",
     "name": "deprecationWarnings",
     "memberof": "src/jasmine/JasmineDoneInfo.ts~JasmineDoneInfo",
@@ -4222,7 +4263,174 @@
     }
   },
   {
-    "__docId__": 287,
+    "__docId__": 288,
+    "kind": "file",
+    "name": "src/jasmine/JasmineReporter.ts",
+    "content": "import { JasmineDoneInfo } from './JasmineDoneInfo';\nimport { JasmineStartedInfo } from './JasmineStartedInfo';\nimport { SpecResult } from './SpecResult';\nimport { SuiteResult } from './SuiteResult';\n\n/**\n * @desc\n *  An interface representing an instance of a Jasmine Reporter object\n *\n * @see https://jasmine.github.io/api/edge/Reporter.html\n * @interface\n */\nexport interface JasmineReporter {\n\n    /**\n     * @desc\n     *  Called after all of the specs have been loaded, but just before execution starts.\n     *\n     * @see https://jasmine.github.io/api/edge/Reporter.html#jasmineStarted\n     *\n     * @type {function(suiteInfo: JasmineStartedInfo): Promise<void> | void}\n     * @public\n     */\n    jasmineStarted?: (suiteInfo: JasmineStartedInfo) => Promise<void> | void;\n\n    /**\n     * @desc\n     *  Invoked when an `it` starts to run (including associated `beforeEach` functions)\n     *\n     * @see https://jasmine.github.io/api/edge/Reporter.html#specStarted\n     *\n     * @type {function(result: SpecResult): Promise<void> | void}\n     * @public\n     */\n    specStarted?: (result: SpecResult) => Promise<void> | void;\n\n    /**\n     * @desc\n     *  Invoked when an `it` and its associated `beforeEach` and `afterEach` functions have been run.\n     *\n     *  While Jasmine doesn't require any specific functions, not defining a `specDone`\n     *  will make it impossible for a reporter to know when a spec has failed.\n     *\n     * @see https://jasmine.github.io/api/edge/Reporter.html#specDone\n     *\n     * @type {function(result: SpecResult): Promise<void> | void}\n     * @public\n     */\n    specDone?: (result: SpecResult) => Promise<void> | void;\n\n    /**\n     * @desc\n     *  Invoked when a `describe` starts to run.\n     *\n     * @see https://jasmine.github.io/api/edge/Reporter.html#suiteStarted\n     *\n     * @type {function(result: SuiteResult): Promise<void> | void}\n     * @public\n     */\n    suiteStarted?: (result: SuiteResult) => Promise<void> | void;\n\n    /**\n     * @desc\n     *  Invoked when all of the child specs and suites for a given suite have been run.\n     *\n     *  While Jasmine doesn't require any specific functions, not defining a `suiteDone`\n     *  will make it impossible for a reporter to know when a suite has failures in an `afterAll`.\n     *\n     * @see https://jasmine.github.io/api/edge/Reporter.html#suiteDone\n     *\n     * @type {function(result: SuiteResult): Promise<void> | void}\n     * @public\n     */\n    suiteDone?: (result: SuiteResult) => Promise<void> | void;\n\n    /**\n     * @desc\n     *  Called when the entire suite has finished execution.\n     *\n     * @see https://jasmine.github.io/api/edge/Reporter.html#jasmineDone\n     *\n     * @type {function(suiteInfo: JasmineDoneInfo): Promise<void> | void}\n     * @public\n     */\n    jasmineDone?: (suiteInfo: JasmineDoneInfo) => Promise<void> | void;\n}\n",
+    "static": true,
+    "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/jasmine/JasmineReporter.ts",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 289,
+    "kind": "class",
+    "name": "JasmineReporter",
+    "memberof": "src/jasmine/JasmineReporter.ts",
+    "static": true,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "access": "public",
+    "export": true,
+    "importPath": "@serenity-js/jasmine/lib/jasmine",
+    "importStyle": "{JasmineReporter}",
+    "description": " An interface representing an instance of a Jasmine Reporter object",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html"
+    ],
+    "lineNumber": 20,
+    "interface": true
+  },
+  {
+    "__docId__": 290,
+    "kind": "member",
+    "name": "jasmineStarted",
+    "memberof": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "static": false,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter#jasmineStarted",
+    "access": "public",
+    "description": " Called after all of the specs have been loaded, but just before execution starts.",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html#jasmineStarted"
+    ],
+    "lineNumber": 42,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function(suiteInfo: JasmineStartedInfo): Promise<void> ",
+        " void"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 291,
+    "kind": "member",
+    "name": "specStarted",
+    "memberof": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "static": false,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter#specStarted",
+    "access": "public",
+    "description": " Invoked when an `it` starts to run (including associated `beforeEach` functions)",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html#specStarted"
+    ],
+    "lineNumber": 64,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function(result: SpecResult): Promise<void> ",
+        " void"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 292,
+    "kind": "member",
+    "name": "specDone",
+    "memberof": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "static": false,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter#specDone",
+    "access": "public",
+    "description": " Invoked when an `it` and its associated `beforeEach` and `afterEach` functions have been run.\n\n While Jasmine doesn't require any specific functions, not defining a `specDone`\n will make it impossible for a reporter to know when a spec has failed.",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html#specDone"
+    ],
+    "lineNumber": 89,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function(result: SpecResult): Promise<void> ",
+        " void"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 293,
+    "kind": "member",
+    "name": "suiteStarted",
+    "memberof": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "static": false,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter#suiteStarted",
+    "access": "public",
+    "description": " Invoked when a `describe` starts to run.",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html#suiteStarted"
+    ],
+    "lineNumber": 111,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function(result: SuiteResult): Promise<void> ",
+        " void"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 294,
+    "kind": "member",
+    "name": "suiteDone",
+    "memberof": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "static": false,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter#suiteDone",
+    "access": "public",
+    "description": " Invoked when all of the child specs and suites for a given suite have been run.\n\n While Jasmine doesn't require any specific functions, not defining a `suiteDone`\n will make it impossible for a reporter to know when a suite has failures in an `afterAll`.",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html#suiteDone"
+    ],
+    "lineNumber": 136,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function(result: SuiteResult): Promise<void> ",
+        " void"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 295,
+    "kind": "member",
+    "name": "jasmineDone",
+    "memberof": "src/jasmine/JasmineReporter.ts~JasmineReporter",
+    "static": false,
+    "longname": "src/jasmine/JasmineReporter.ts~JasmineReporter#jasmineDone",
+    "access": "public",
+    "description": " Called when the entire suite has finished execution.",
+    "see": [
+      "https://jasmine.github.io/api/edge/Reporter.html#jasmineDone"
+    ],
+    "lineNumber": 158,
+    "type": {
+      "nullable": null,
+      "types": [
+        "function(suiteInfo: JasmineDoneInfo): Promise<void> ",
+        " void"
+      ],
+      "spread": false,
+      "description": null
+    }
+  },
+  {
+    "__docId__": 296,
     "kind": "file",
     "name": "src/jasmine/JasmineStartedInfo.ts",
     "content": "import { Order } from './Order';\n\n/**\n * @desc\n *  Information passed to the Reporter#jasmineStarted event.\n *\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#JasmineStartedInfo\n */\nexport interface JasmineStartedInfo {\n\n    /** The total number of specs defined in this suite. */\n    totalSpecsDefined: number;\n\n    /** Information about the ordering (random or not) of this execution of the suite. */\n    order: Order;\n}\n",
@@ -4233,7 +4441,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 288,
+    "__docId__": 297,
     "kind": "class",
     "name": "JasmineStartedInfo",
     "memberof": "src/jasmine/JasmineStartedInfo.ts",
@@ -4252,7 +4460,7 @@
     "ignore": true
   },
   {
-    "__docId__": 289,
+    "__docId__": 298,
     "kind": "member",
     "name": "totalSpecsDefined",
     "memberof": "src/jasmine/JasmineStartedInfo.ts~JasmineStartedInfo",
@@ -4271,7 +4479,7 @@
     }
   },
   {
-    "__docId__": 290,
+    "__docId__": 299,
     "kind": "member",
     "name": "order",
     "memberof": "src/jasmine/JasmineStartedInfo.ts~JasmineStartedInfo",
@@ -4290,7 +4498,7 @@
     }
   },
   {
-    "__docId__": 291,
+    "__docId__": 300,
     "kind": "file",
     "name": "src/jasmine/Location.ts",
     "content": "/**\n * @desc\n *  A Serenity/JS-specific customisation - the file system location of the caller of a given `it` and `describe` function.\n *\n * @package\n */\nexport interface Location {\n    path: string;\n    column: number;\n    line: number;\n}\n",
@@ -4301,7 +4509,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 292,
+    "__docId__": 301,
     "kind": "class",
     "name": "Location",
     "memberof": "src/jasmine/Location.ts",
@@ -4317,7 +4525,7 @@
     "ignore": true
   },
   {
-    "__docId__": 293,
+    "__docId__": 302,
     "kind": "member",
     "name": "path",
     "memberof": "src/jasmine/Location.ts~Location",
@@ -4336,7 +4544,7 @@
     }
   },
   {
-    "__docId__": 294,
+    "__docId__": 303,
     "kind": "member",
     "name": "column",
     "memberof": "src/jasmine/Location.ts~Location",
@@ -4355,7 +4563,7 @@
     }
   },
   {
-    "__docId__": 295,
+    "__docId__": 304,
     "kind": "member",
     "name": "line",
     "memberof": "src/jasmine/Location.ts~Location",
@@ -4374,7 +4582,7 @@
     }
   },
   {
-    "__docId__": 296,
+    "__docId__": 305,
     "kind": "file",
     "name": "src/jasmine/Order.ts",
     "content": "/**\n * @desc\n *  Information about the ordering (random or not) of this execution of the suite.\n *\n * @package\n */\nexport interface Order {\n    random: boolean;\n    seed: string;\n    sort: (items: Array<{ id: number }>) => Array<{ id: number }>;\n}\n",
@@ -4385,7 +4593,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 297,
+    "__docId__": 306,
     "kind": "class",
     "name": "Order",
     "memberof": "src/jasmine/Order.ts",
@@ -4401,7 +4609,7 @@
     "ignore": true
   },
   {
-    "__docId__": 298,
+    "__docId__": 307,
     "kind": "member",
     "name": "random",
     "memberof": "src/jasmine/Order.ts~Order",
@@ -4420,7 +4628,7 @@
     }
   },
   {
-    "__docId__": 299,
+    "__docId__": 308,
     "kind": "member",
     "name": "seed",
     "memberof": "src/jasmine/Order.ts~Order",
@@ -4439,7 +4647,7 @@
     }
   },
   {
-    "__docId__": 300,
+    "__docId__": 309,
     "kind": "member",
     "name": "sort",
     "memberof": "src/jasmine/Order.ts~Order",
@@ -4458,7 +4666,7 @@
     }
   },
   {
-    "__docId__": 301,
+    "__docId__": 310,
     "kind": "file",
     "name": "src/jasmine/Result.ts",
     "content": "import { Expectation } from './Expectation';\n\nexport interface Result {\n\n    /** The unique id of this spec. */\n    id: string;\n\n    /** The description passed to the 'it' that created this spec. */\n    description: string;\n\n    /** The full description including all ancestors of this spec. */\n    fullName: string;\n\n    /** The list of expectations that failed during execution of this spec. */\n    failedExpectations: Expectation[];\n\n    /** The list of deprecation warnings that occurred during execution this spec. */\n    deprecationWarnings: Expectation[];\n\n    /** Once the spec has completed, this string represents the pass/fail status of this spec. */\n    status?: string;\n\n    /** The time in ms used by the spec execution, including any before/afterEach. */\n    duration: number | null;\n}\n",
@@ -4469,7 +4677,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 302,
+    "__docId__": 311,
     "kind": "file",
     "name": "src/jasmine/SpecResult.ts",
     "content": "import { Expectation } from './Expectation';\nimport { Location } from './Location';\n\nexport interface SpecResult {\n    /** The unique id of this spec. */\n    id: string;\n\n    /** The description passed to the 'it' that created this spec. */\n    description: string;\n\n    /** The full description including all ancestors of this spec. */\n    fullName: string;\n\n    /** The list of expectations that failed during execution of this spec. */\n    failedExpectations: Expectation[];\n\n    /** The list of expectations that passed during execution of this spec. */\n    passedExpectations: Expectation[];\n\n    /** The list of deprecation warnings that occurred during execution this spec. */\n    deprecationWarnings: Expectation[];\n\n    /** If the spec is pending, this will be the reason. */\n    pendingReason: string;\n\n    /** Once the spec has completed, this string represents the pass/fail status of this spec. */\n    status?: string;\n\n    /** The time in ms used by the spec execution, including any before/afterEach. */\n    duration: number | null;\n\n    location: Location;\n}\n",
@@ -4480,7 +4688,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 303,
+    "__docId__": 312,
     "kind": "file",
     "name": "src/jasmine/SuiteResult.ts",
     "content": "import { Expectation } from './Expectation';\nimport { Location } from './Location';\nimport { Result } from './Result';\n\n/**\n * @package\n * @see https://jasmine.github.io/api/edge/global.html#SuiteResult\n */\nexport interface SuiteResult extends Result {\n    /** The unique id of this suite. */\n    id: string;\n\n    /** The description text passed to the `describe` that made this suite. */\n    description: string;\n\n    /** The full description including all ancestors of this suite. */\n    fullName: string;\n\n    /** The list of expectations that failed in an afterAll for this suite. */\n    failedExpectations:\tExpectation[];\n\n    /** The list of deprecation warnings that occurred on this suite. */\n    deprecationWarnings: Expectation[];\n\n    /** Once the suite has completed, this string represents the pass/fail status of this suite. */\n    status?:\tstring;\n\n    /** The time in ms for Suite execution, including any before/afterAll, before/afterEach. */\n    duration: number | null;\n\n    location: Location;\n}\n",
@@ -4491,7 +4699,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 304,
+    "__docId__": 313,
     "kind": "class",
     "name": "SuiteResult",
     "memberof": "src/jasmine/SuiteResult.ts",
@@ -4513,7 +4721,7 @@
     "ignore": true
   },
   {
-    "__docId__": 305,
+    "__docId__": 314,
     "kind": "member",
     "name": "id",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4532,7 +4740,7 @@
     }
   },
   {
-    "__docId__": 306,
+    "__docId__": 315,
     "kind": "member",
     "name": "description",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4551,7 +4759,7 @@
     }
   },
   {
-    "__docId__": 307,
+    "__docId__": 316,
     "kind": "member",
     "name": "fullName",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4570,7 +4778,7 @@
     }
   },
   {
-    "__docId__": 308,
+    "__docId__": 317,
     "kind": "member",
     "name": "failedExpectations",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4589,7 +4797,7 @@
     }
   },
   {
-    "__docId__": 309,
+    "__docId__": 318,
     "kind": "member",
     "name": "deprecationWarnings",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4608,7 +4816,7 @@
     }
   },
   {
-    "__docId__": 310,
+    "__docId__": 319,
     "kind": "member",
     "name": "status",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4627,7 +4835,7 @@
     }
   },
   {
-    "__docId__": 311,
+    "__docId__": 320,
     "kind": "member",
     "name": "duration",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4647,7 +4855,7 @@
     }
   },
   {
-    "__docId__": 312,
+    "__docId__": 321,
     "kind": "member",
     "name": "location",
     "memberof": "src/jasmine/SuiteResult.ts~SuiteResult",
@@ -4666,10 +4874,10 @@
     }
   },
   {
-    "__docId__": 313,
+    "__docId__": 322,
     "kind": "file",
     "name": "src/jasmine/index.ts",
-    "content": "/* istanbul ignore file */\nexport * from './Expectation';\nexport * from './JasmineDoneInfo';\nexport * from './JasmineStartedInfo';\nexport * from './Order';\nexport * from './SpecResult';\nexport * from './SuiteResult';\n",
+    "content": "/* istanbul ignore file */\nexport * from './Expectation';\nexport * from './JasmineDoneInfo';\nexport * from './JasmineReporter';\nexport * from './JasmineStartedInfo';\nexport * from './Order';\nexport * from './SpecResult';\nexport * from './SuiteResult';\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/src/jasmine/index.ts",
     "access": "public",
@@ -4677,7 +4885,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 314,
+    "__docId__": 323,
     "kind": "file",
     "name": "src/monkeyPatched.ts",
     "content": "import { ErrorStackParser } from '@serenity-js/core/lib/io';\n\nconst parser = new ErrorStackParser();\n\n/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/ban-types */\n\n/**\n * @desc\n *  Monkey-patches Jasmine domain model constructors so that they\n *  record information about the file system location of the caller function.\n *\n *  This helps to make reporting more accurate.\n *\n * @param jasmineConstructor - A Jasmine constructor function to be patched\n * @param {object} wrappers - Attributes to wrap when the monkey-patched Jasmine constructor is invoked\n */\nexport function monkeyPatched(\n    jasmineConstructor: any,\n    wrappers: {[key: string]: (original: (attrs: object) => any) => (attrs: object) => any} = {},\n) {\n    const result = function MonkeyPatched(attrs: object) {\n\n        Object.keys(wrappers).forEach(key => {\n            attrs[key] = wrappers[key](attrs[key]);\n        });\n\n        const instance = new jasmineConstructor(attrs);\n        instance.result.location = callerLocation();\n\n        return instance;\n    };\n\n    Object.getOwnPropertyNames(jasmineConstructor)\n        .filter(isAStaticProperty)\n        .forEach(property => {\n            result[property] = jasmineConstructor[property];\n        });\n\n    return result;\n}\n\n// eslint-enable\n\n/**\n * @desc\n *  Retrieves the file system location of the caller function.\n *\n * @package\n */\nfunction callerLocation() {\n    const found = parser.parse(new Error('fake error'))\n        .filter(frame => ! /(node_modules)/.test(frame.fileName))\n        .find(frame => /^(Suite|Object)/.test(frame.functionName));\n\n    const caller = found || { fileName: 'unknown', lineNumber: 0, columnNumber: 0 };\n\n    return {\n        path: caller.fileName,\n        line: caller.lineNumber,\n        column: caller.columnNumber,\n    };\n}\n\n/**\n * @desc\n *  Checks if a given property is likely to be a static method or a static field on the constructor function.\n *\n * @param {string} property - name of the property to be checked\n *\n * @package\n */\nfunction isAStaticProperty(property: string) {\n    return ! ~['length', 'name', 'arguments', 'caller', 'prototype'].indexOf(property);\n}\n",
@@ -4688,7 +4896,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 315,
+    "__docId__": 324,
     "kind": "variable",
     "name": "parser",
     "memberof": "src/monkeyPatched.ts",
@@ -4709,7 +4917,7 @@
     }
   },
   {
-    "__docId__": 316,
+    "__docId__": 325,
     "kind": "function",
     "name": "monkeyPatched",
     "memberof": "src/monkeyPatched.ts",
@@ -4752,7 +4960,7 @@
     }
   },
   {
-    "__docId__": 317,
+    "__docId__": 326,
     "kind": "function",
     "name": "callerLocation",
     "memberof": "src/monkeyPatched.ts",
@@ -4775,7 +4983,7 @@
     }
   },
   {
-    "__docId__": 318,
+    "__docId__": 327,
     "kind": "function",
     "name": "isAStaticProperty",
     "memberof": "src/monkeyPatched.ts",
@@ -4818,14 +5026,14 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/jasmine\",\n  \"version\": \"2.30.2\",\n  \"description\": \"Serenity/JS adapter for the Jasmine test runner\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"jasmine\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/jasmine mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.30.2\"\n  },\n  \"peerDependencies\": {\n    \"jasmine\": \"^3.8.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.21\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"jasmine\": \"^3.8.0\",\n    \"mocha\": \"^9.0.3\",\n    \"ts-node\": \"^10.2.0\",\n    \"typescript\": \"^4.3.5\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/jasmine\",\n  \"version\": \"2.30.3\",\n  \"description\": \"Serenity/JS adapter for the Jasmine test runner\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"jasmine\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/jasmine mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@serenity-js/core\": \"2.30.3\"\n  },\n  \"peerDependencies\": {\n    \"jasmine\": \"^3.9.0\"\n  },\n  \"devDependencies\": {\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.21\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"jasmine\": \"^3.9.0\",\n    \"mocha\": \"^9.1.0\",\n    \"ts-node\": \"^10.2.1\",\n    \"typescript\": \"^4.3.5\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 319,
+    "__docId__": 328,
     "kind": "testFile",
     "name": "spec/SerenityReporterForJasmine.spec.ts",
     "content": "/* eslint-disable unicorn/no-null */\nimport 'mocha';\n\nimport { expect, PickEvent } from '@integration/testing-tools';\nimport { AssertionError, Clock, ImplementationPendingError, Serenity, Stage, StageCrewMember, TestCompromisedError } from '@serenity-js/core';\nimport {\n    DomainEvent,\n    SceneFinished,\n    SceneStarts,\n    SceneTagged, TaskFinished,\n    TaskStarts,\n    TestRunFinished,\n    TestRunnerDetected, TestRunStarts,\n    TestSuiteFinished,\n    TestSuiteStarts,\n} from '@serenity-js/core/lib/events';\nimport { FileSystemLocation } from '@serenity-js/core/lib/io';\nimport {\n    CorrelationId, ExecutionCompromised, ExecutionFailedWithAssertionError,\n    ExecutionFailedWithError,\n    ExecutionSkipped,\n    ExecutionSuccessful,\n    FeatureTag,\n    ImplementationPending,\n    Name,\n    TestSuiteDetails,\n    Timestamp,\n} from '@serenity-js/core/lib/model';\n\nimport { SerenityReporterForJasmine } from '../src/SerenityReporterForJasmine';\n\n/** @test {SerenityReporterForJasmine} */\ndescribe('SerenityReporterForJasmine', () => {\n\n    let serenity: Serenity,\n        reporter: SerenityReporterForJasmine,\n        listener: Listener;\n\n    const now = new Date('1970-01-01T00:00:00Z');\n\n    beforeEach(() => {\n        serenity = new Serenity(new Clock(() => now));\n        reporter = new SerenityReporterForJasmine(serenity);\n        listener = new Listener();\n\n        serenity.configure({ crew: [ listener ] });\n    });\n\n    describe('notifies Serenity when', () => {\n\n        describe('the test run', () => {\n            /** @test {SerenityReporterForJasmine#jasmineStarted} */\n            it('starts', async () => {\n                await reporter.jasmineStarted({\n                    totalSpecsDefined: 5,\n                    order: {\n                        random: true,\n                        seed: '14552',\n                        sort: () => void 0,\n                    },\n                });\n\n                PickEvent.from(listener.events)\n                    .next(TestRunStarts,    event => expect(event.timestamp).to.equal(new Timestamp(now)));\n            });\n\n            /** @test {SerenityReporterForJasmine#jasmineDone} */\n            it('ends', async () => {\n                await reporter.jasmineDone({\n                    overallStatus: 'passed',\n                    incompleteReason: undefined,\n                    order: {\n                        random: true,\n                        seed: '14552',\n                        sort: () => void 0,\n                    },\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                });\n\n                PickEvent.from(listener.events)\n                    .next(TestRunFinished,    event => expect(event.timestamp).to.equal(new Timestamp(now)));\n            });\n        });\n\n        describe('the test suite', () => {\n\n            /** @test {SerenityReporterForJasmine#suiteStarted} */\n            it('starts', () => {\n\n                const jasmineEvent = {\n                    id: 'suite1',\n                    description: 'Jasmine',\n                    fullName: 'Jasmine',\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                    duration: null,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 5,\n                        column: 9,\n                    },\n                };\n\n                reporter.suiteStarted(jasmineEvent);\n\n                expect(listener.events.length).to.equal(1);\n                expect(listener.events[0]).to.equal(\n                    new TestSuiteStarts(\n                        new TestSuiteDetails(\n                            new Name('Jasmine'),\n                            FileSystemLocation.fromJSON(jasmineEvent.location),\n                            CorrelationId.fromJSON(jasmineEvent.id),\n                        ),\n                        new Timestamp(now),\n                    ),\n                );\n            });\n\n            /**\n             * @test {SerenityReporterForJasmine#suiteStarted}\n             * @test {SerenityReporterForJasmine#suiteDone}\n             */\n            it('ends', () => {\n\n                reporter.suiteStarted({\n                    id: 'suite1',\n                    description: 'Jasmine',\n                    fullName: 'Jasmine',\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                    duration: null,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 1,\n                        column: 1,\n                    },\n                });\n\n                reporter.suiteDone({\n                    id: 'suite1',\n                    description: 'Jasmine',\n                    fullName: 'Jasmine',\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                    duration: 0,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 1,\n                        column: 1,\n                    },\n                    status: 'passed',\n                });\n\n                PickEvent.from(listener.events)\n                    .next(TestSuiteFinished,    event => expect(event).to.equal(\n                        new TestSuiteFinished(\n                            new TestSuiteDetails(\n                                new Name('Jasmine'),\n                                FileSystemLocation.fromJSON({\n                                    path: '/path/to/spec.js',\n                                    line: 1,\n                                    column: 1,\n                                }),\n                                CorrelationId.fromJSON('suite1'),\n                            ),\n                            new ExecutionSuccessful(),\n                            new Timestamp(now),\n                        ),\n                    ));\n            });\n\n            /**\n             * @test {SerenityReporterForJasmine#suiteStarted}\n             * @test {SerenityReporterForJasmine#suiteDone}\n             */\n            it('ends with an error, reporting the first error that has occurred', () => {\n                /*\n                 * A test suite will be marked as failing only when beforeAll or afterAll blocks are used.\n                 */\n                reporter.suiteStarted({\n                    id: 'suite1',\n                    description: 'a suite',\n                    fullName: 'a suite',\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                    duration: null,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 9,\n                        column: 1,\n                    },\n                });\n\n                reporter.suiteDone({\n                    id: 'suite1',\n                    description: 'a suite',\n                    fullName: 'a suite',\n                    failedExpectations: [\n                        {\n                            matcherName: '',\n                            message: 'Failed: suite beforeAll',\n                            stack:\n                                'Error: Failed: suite beforeAll\\n    at <Jasmine>\\n    at UserContext.<anonymous> (/path/to/spec.js:11:9)\\n    at <Jasmine>',\n                            passed: false,\n                            expected: '',\n                            actual: '',\n                        }, {\n                            matcherName: '',\n                            message: 'Failed: suite afterAll',\n                            stack:\n                                'Error: Failed: suite afterAll\\n    at <Jasmine>\\n    at UserContext.<anonymous> (/path/to/spec.js:15:9)\\n    at <Jasmine>',\n                            passed: false,\n                            expected: '',\n                            actual: '',\n                        },\n                    ],\n                    deprecationWarnings: [],\n                    duration: 0,\n                    location:\n                        {\n                            path: '/path/to/spec.js',\n                            line: 9,\n                            column: 1,\n                        },\n                    status: 'failed',\n                });\n\n                PickEvent.from(listener.events)\n                    .next(TestSuiteFinished,    event => {\n                        const outcome = event.outcome as ExecutionFailedWithError;\n\n                        expect(outcome).to.be.instanceOf(ExecutionFailedWithError);\n                        expect(outcome.error.message).to.equal('Failed: suite beforeAll');\n                    });\n            });\n\n            /**\n             * @test {SerenityReporterForJasmine#suiteStarted}\n             * @test {SerenityReporterForJasmine#suiteDone}\n             */\n            it('is pending', () => {\n                reporter.suiteStarted({\n                    id: 'suite3',\n                    description: 'pending suite',\n                    fullName: 'pending suite',\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                    duration: null,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 8,\n                        column: 5,\n                    },\n                });\n\n                reporter.suiteDone({\n                    id: 'suite3',\n                    description: 'pending suite',\n                    fullName: 'pending suite',\n                    failedExpectations: [],\n                    deprecationWarnings: [],\n                    duration: 0,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 8,\n                        column: 5,\n                    },\n                    status: 'pending',\n                });\n\n                PickEvent.from(listener.events)\n                    .next(TestSuiteFinished,    event => {\n                        const outcome = event.outcome as ImplementationPending;\n\n                        expect(outcome).to.be.instanceOf(ImplementationPending);\n                        expect(outcome.error).to.be.instanceOf(ImplementationPendingError);\n                        expect(outcome.error.message).to.equal('');\n                    });\n            });\n        });\n\n        describe('the test spec', () => {\n\n            describe('starts and', () => {\n\n                beforeEach(async () => {\n                    reporter.suiteStarted({\n                        id: 'suite1',\n                        description: 'Jasmine',\n                        fullName: 'Jasmine',\n                        failedExpectations: [],\n                        deprecationWarnings: [],\n                        duration: null,\n                        location: {\n                            path: '/path/to/spec.js',\n                            line: 1,\n                            column: 1,\n                        },\n                    });\n\n                    reporter.suiteStarted({\n                        id: 'suite2',\n                        description: 'A scenario',\n                        fullName: 'Jasmine A scenario',\n                        failedExpectations: [],\n                        deprecationWarnings: [],\n                        duration: null,\n                        location: {\n                            path: '/path/to/spec.js',\n                            line: 3,\n                            column: 5,\n                        },\n                    });\n\n                    reporter.specStarted({\n                        id: 'spec0',\n                        description: 'passes',\n                        fullName: 'Jasmine A scenario passes',\n                        failedExpectations: [],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: {\n                            path: '/path/to/spec.js',\n                            line: 5,\n                            column: 9,\n                        },\n                    });\n\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'passes',\n                        fullName: 'Jasmine A scenario passes',\n                        failedExpectations: [],\n                        passedExpectations:\n                            [{\n                                matcherName: 'toBe',\n                                message: 'Passed.',\n                                stack: '',\n                                passed: true,\n                            }],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: {\n                            path: '/path/to/spec.js',\n                            line: 5,\n                            column: 9,\n                        },\n                        status: 'passed',\n                    });\n\n                    reporter.suiteDone({\n                        id: 'suite2',\n                        description: 'A scenario',\n                        fullName: 'Jasmine A scenario',\n                        failedExpectations: [],\n                        deprecationWarnings: [],\n                        duration: 0,\n                        location: {\n                            path: '/path/to/spec.js',\n                            line: 3,\n                            column: 5,\n                        },\n                        status: 'passed',\n                    });\n\n                    reporter.suiteDone({\n                        id: 'suite1',\n                        description: 'Jasmine',\n                        fullName: 'Jasmine',\n                        failedExpectations: [],\n                        deprecationWarnings: [],\n                        duration: 0,\n                        location: {\n                            path: '/path/to/spec.js',\n                            line: 1,\n                            column: 1,\n                        },\n                        status: 'passed',\n                    });\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#suiteStarted}\n                 * @test {SerenityReporterForJasmine#suiteDone}\n                 * @test {SerenityReporterForJasmine#specStarted}\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('derives the name of the scenario from the nested `describe` blocks', () => {\n                    PickEvent.from(listener.events)\n                        .next(SceneStarts,      event => expect(event.details.name.value).to.equal('A scenario passes'))\n                        .next(SceneFinished,    event => expect(event.details.name.value).to.equal('A scenario passes'));\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#suiteStarted}\n                 * @test {SerenityReporterForJasmine#suiteDone}\n                 * @test {SerenityReporterForJasmine#specStarted}\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('derives the name of the feature from the outer-most `describe` block', () => {\n                    PickEvent.from(listener.events)\n                        .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Jasmine')));\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#suiteStarted}\n                 * @test {SerenityReporterForJasmine#suiteDone}\n                 * @test {SerenityReporterForJasmine#specStarted}\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('detects the test runner', () => {\n                    PickEvent.from(listener.events)\n                        .next(TestRunnerDetected,   event => expect(event.name).to.equal(new Name('Jasmine')));\n                });\n            });\n\n            describe('ends and', () => {\n\n                beforeEach(() => {\n                    reporter.specStarted({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations: [],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                    });\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('has been excluded', async () => {\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations: [],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'excluded',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(SceneFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()));\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('is marked as pending', async () => {\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations: [],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: 'Temporarily disabled with xit',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'pending',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(SceneFinished,    event => {\n                            const outcome = event.outcome as ImplementationPending;\n                            expect(outcome).to.be.instanceOf(ImplementationPending);\n                            expect(outcome.error.message).to.equal('Temporarily disabled with xit');\n                        });\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('has failed with an error', async () => {\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations:\n                         [ { matcherName: '',\n                             message: 'Error: Something happened',\n                             stack: 'Error: Something happened\\n    at UserContext.it (/path/to/spec.js:6:19)\\n',\n                             passed: false,\n                             expected: '',\n                             actual: '' } ],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'failed',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(SceneFinished,    event => {\n                            const outcome = event.outcome as ExecutionFailedWithError;\n                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);\n                            expect(outcome.error).to.be.instanceOf(Error);\n                            expect(outcome.error.message).to.equal('Something happened');\n                        });\n                });\n\n                it('as compromised', async () => {\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations:\n                            [ { matcherName: '',\n                                message: 'TestCompromisedError: The API call has failed',\n                                stack: 'error properties: TestCompromisedError: undefined\\n    at <Jasmine>\\n',\n                                passed: false,\n                                expected: '',\n                                actual: '' } ],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'failed',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(SceneFinished,    event => {\n                            const outcome = event.outcome as ExecutionCompromised;\n                            expect(outcome).to.be.instanceOf(ExecutionCompromised);\n                            expect(outcome.error).to.be.instanceOf(TestCompromisedError);\n                            expect(outcome.error.message).to.equal('The API call has failed');\n                        });\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('has failed with no stack trace', async () => {\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations:\n                            [ { matcherName: '',\n                                message: 'Someone throws a string just because they can...',\n                                stack: null,\n                                passed: false,\n                                expected: '',\n                                actual: '' } ],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'failed',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(SceneFinished,    event => {\n                            const outcome = event.outcome as ExecutionFailedWithError;\n                            expect(outcome).to.be.instanceOf(ExecutionFailedWithError);\n                            expect(outcome.error).to.be.instanceOf(Error);\n                            expect(outcome.error.message).to.equal('Someone throws a string just because they can...');\n                        });\n                });\n\n                /**\n                 * @test {SerenityReporterForJasmine#specDone}\n                 */\n                it('has failed with an assertion error', async () => {\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations:\n                            [ { matcherName: 'toEqual',\n                                message: 'Expected false to equal true.',\n                                stack: 'Error: Expected false to equal true.\\n    at <Jasmine>\\n    at UserContext.it (/path/to/spec.js:6:27)\\n    at <Jasmine>',\n                                passed: false,\n                                expected: true,\n                                actual: false } ],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'failed',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(SceneFinished,    event => {\n                            const outcome = event.outcome as ExecutionFailedWithAssertionError;\n                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n\n                            const error = outcome.error as AssertionError;\n                            expect(error).to.be.instanceOf(AssertionError);\n                            expect(error.message).to.equal('Expected false to equal true.');\n                            expect(error.actual).to.equal(false);\n                            expect(error.expected).to.equal(true);\n                        });\n                });\n\n                /** @test {SerenityReporterForJasmine#specDone} */\n                it('has failed with multiple errors', async () => {\n                    // The failure with multiple errors could only happen when someone has\n                    // a bare-bones protractor/jasmine setup and uses Serenity/JS just for the reporting\n                    await reporter.specDone({\n                        id: 'spec0',\n                        description: 'scenario',\n                        fullName: 'scenario',\n                        failedExpectations: [ {\n                            matcherName: 'toEqual',\n                            message: 'Expected false to equal true.',\n                            stack: 'Error: Expected false to equal true.\\n    at <Jasmine>\\n    at UserContext.it (/path/to/spec.js:6:27)\\n    at <Jasmine>',\n                            passed: false,\n                            expected: true,\n                            actual: false,\n                        },  {\n                            matcherName: 'toEqual',\n                            message: 'Expected \"hello\" to equal \"hey\".',\n                            stack: 'Error: Expected \"hello\" to equal \"hey\".\\n    at <Jasmine>\\n    at UserContext.it (/path/to/spec.js:6:27)\\n    at <Jasmine>',\n                            passed: false,\n                            expected: 'hey',\n                            actual: 'hello',\n                        }],\n                        passedExpectations: [],\n                        deprecationWarnings: [],\n                        pendingReason: '',\n                        duration: null,\n                        location: { path: '/path/to/spec.js', line: 5, column: 9 },\n                        status: 'failed',\n                    });\n\n                    PickEvent.from(listener.events)\n                        .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))\n                        .next(TaskFinished, event => {\n                            const outcome = event.outcome as ExecutionFailedWithAssertionError;\n                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n\n                            const error = outcome.error as AssertionError;\n                            expect(error).to.be.instanceOf(AssertionError);\n                            expect(error.message).to.equal('Expected false to equal true.');\n                            expect(error.actual).to.equal(false);\n                            expect(error.expected).to.equal(true);\n                        })\n                        .next(TaskStarts,   event => expect(event.details.name).to.equal(new Name('Expectation')))\n                        .next(TaskFinished, event => {\n                            const outcome = event.outcome as ExecutionFailedWithAssertionError;\n                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n\n                            const error = outcome.error as AssertionError;\n                            expect(error).to.be.instanceOf(AssertionError);\n                            expect(error.message).to.equal('Expected \"hello\" to equal \"hey\".');\n                            expect(error.actual).to.equal('hello');\n                            expect(error.expected).to.equal('hey');\n                        })\n                        .next(SceneFinished, event => {\n                            const outcome = event.outcome as ExecutionFailedWithAssertionError;\n                            expect(outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n\n                            const error = outcome.error as AssertionError;\n                            expect(error).to.be.instanceOf(AssertionError);\n                            expect(error.message).to.equal('Expected false to equal true.');\n                            expect(error.actual).to.equal(false);\n                            expect(error.expected).to.equal(true);\n                        });\n                });\n            });\n        });\n\n        describe('the `it` block is not nested within a `describe` block and', () => {\n\n            beforeEach(async () => {\n                reporter.specStarted({\n                    id: 'spec0',\n                    description: 'A scenario passes',\n                    fullName: 'A scenario passes',\n                    failedExpectations: [],\n                    passedExpectations: [],\n                    deprecationWarnings: [],\n                    pendingReason: '',\n                    duration: null,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 5,\n                        column: 9,\n                    },\n                });\n\n                await reporter.specDone({\n                    id: 'spec0',\n                    description: 'A scenario passes',\n                    fullName: 'A scenario passes',\n                    failedExpectations: [],\n                    passedExpectations:\n                        [{\n                            matcherName: 'toBe',\n                            message: 'Passed.',\n                            stack: '',\n                            passed: true,\n                        }],\n                    deprecationWarnings: [],\n                    pendingReason: '',\n                    duration: null,\n                    location: {\n                        path: '/path/to/spec.js',\n                        line: 5,\n                        column: 9,\n                    },\n                    status: 'passed',\n                });\n            });\n\n            /**\n             * @test {SerenityReporterForJasmine#specStarted}\n             * @test {SerenityReporterForJasmine#specDone}\n             */\n            it('tags the feature as \"unknown\"', () => {\n                PickEvent.from(listener.events)\n                    .next(SceneTagged,      event => expect(event.tag).to.equal(new FeatureTag('Unknown feature')));\n            });\n\n            /**\n             * @test {SerenityReporterForJasmine#specStarted}\n             * @test {SerenityReporterForJasmine#specDone}\n             */\n            it('correctly derives the name of the spec', () => {\n                PickEvent.from(listener.events)\n                    .next(SceneStarts,      event => expect(event.details.name.value).to.equal('A scenario passes'))\n                    .next(SceneFinished,    event => expect(event.details.name.value).to.equal('A scenario passes'));\n            });\n        });\n    });\n\n    class Listener implements StageCrewMember {\n        public readonly events: DomainEvent[] = [];\n\n        constructor(private stage: Stage = null) {\n        }\n\n        assignedTo(stage: Stage): StageCrewMember {\n            this.stage = stage;\n            return this;\n        }\n\n        notifyOf(event: DomainEvent): void {\n            this.events.push(event);\n        }\n    }\n});\n",
@@ -4836,7 +5044,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 320,
+    "__docId__": 329,
     "kind": "test",
     "name": "describe0",
     "testId": 0,
@@ -4852,7 +5060,7 @@
     ]
   },
   {
-    "__docId__": 321,
+    "__docId__": 330,
     "kind": "test",
     "name": "describe1",
     "testId": 1,
@@ -4865,7 +5073,7 @@
     "lineNumber": 49
   },
   {
-    "__docId__": 322,
+    "__docId__": 331,
     "kind": "test",
     "name": "describe2",
     "testId": 2,
@@ -4878,7 +5086,7 @@
     "lineNumber": 51
   },
   {
-    "__docId__": 323,
+    "__docId__": 332,
     "kind": "test",
     "name": "it3",
     "testId": 3,
@@ -4894,7 +5102,7 @@
     ]
   },
   {
-    "__docId__": 324,
+    "__docId__": 333,
     "kind": "test",
     "name": "it4",
     "testId": 4,
@@ -4910,7 +5118,7 @@
     ]
   },
   {
-    "__docId__": 325,
+    "__docId__": 334,
     "kind": "test",
     "name": "describe5",
     "testId": 5,
@@ -4923,7 +5131,7 @@
     "lineNumber": 86
   },
   {
-    "__docId__": 326,
+    "__docId__": 335,
     "kind": "test",
     "name": "it6",
     "testId": 6,
@@ -4939,7 +5147,7 @@
     ]
   },
   {
-    "__docId__": 327,
+    "__docId__": 336,
     "kind": "test",
     "name": "it7",
     "testId": 7,
@@ -4956,7 +5164,7 @@
     ]
   },
   {
-    "__docId__": 328,
+    "__docId__": 337,
     "kind": "test",
     "name": "it8",
     "testId": 8,
@@ -4973,7 +5181,7 @@
     ]
   },
   {
-    "__docId__": 329,
+    "__docId__": 338,
     "kind": "test",
     "name": "it9",
     "testId": 9,
@@ -4990,7 +5198,7 @@
     ]
   },
   {
-    "__docId__": 330,
+    "__docId__": 339,
     "kind": "test",
     "name": "describe10",
     "testId": 10,
@@ -5003,7 +5211,7 @@
     "lineNumber": 283
   },
   {
-    "__docId__": 331,
+    "__docId__": 340,
     "kind": "test",
     "name": "describe11",
     "testId": 11,
@@ -5016,7 +5224,7 @@
     "lineNumber": 285
   },
   {
-    "__docId__": 332,
+    "__docId__": 341,
     "kind": "test",
     "name": "it12",
     "testId": 12,
@@ -5035,7 +5243,7 @@
     ]
   },
   {
-    "__docId__": 333,
+    "__docId__": 342,
     "kind": "test",
     "name": "it13",
     "testId": 13,
@@ -5054,7 +5262,7 @@
     ]
   },
   {
-    "__docId__": 334,
+    "__docId__": 343,
     "kind": "test",
     "name": "it14",
     "testId": 14,
@@ -5073,7 +5281,7 @@
     ]
   },
   {
-    "__docId__": 335,
+    "__docId__": 344,
     "kind": "test",
     "name": "describe15",
     "testId": 15,
@@ -5086,7 +5294,7 @@
     "lineNumber": 421
   },
   {
-    "__docId__": 336,
+    "__docId__": 345,
     "kind": "test",
     "name": "it16",
     "testId": 16,
@@ -5102,7 +5310,7 @@
     ]
   },
   {
-    "__docId__": 337,
+    "__docId__": 346,
     "kind": "test",
     "name": "it17",
     "testId": 17,
@@ -5118,7 +5326,7 @@
     ]
   },
   {
-    "__docId__": 338,
+    "__docId__": 347,
     "kind": "test",
     "name": "it18",
     "testId": 18,
@@ -5134,7 +5342,7 @@
     ]
   },
   {
-    "__docId__": 339,
+    "__docId__": 348,
     "kind": "test",
     "name": "it19",
     "testId": 19,
@@ -5147,7 +5355,7 @@
     "lineNumber": 515
   },
   {
-    "__docId__": 340,
+    "__docId__": 349,
     "kind": "test",
     "name": "it20",
     "testId": 20,
@@ -5163,7 +5371,7 @@
     ]
   },
   {
-    "__docId__": 341,
+    "__docId__": 350,
     "kind": "test",
     "name": "it21",
     "testId": 21,
@@ -5179,7 +5387,7 @@
     ]
   },
   {
-    "__docId__": 342,
+    "__docId__": 351,
     "kind": "test",
     "name": "it22",
     "testId": 22,
@@ -5195,7 +5403,7 @@
     ]
   },
   {
-    "__docId__": 343,
+    "__docId__": 352,
     "kind": "test",
     "name": "describe23",
     "testId": 23,
@@ -5208,7 +5416,7 @@
     "lineNumber": 680
   },
   {
-    "__docId__": 344,
+    "__docId__": 353,
     "kind": "test",
     "name": "it24",
     "testId": 24,
@@ -5225,7 +5433,7 @@
     ]
   },
   {
-    "__docId__": 345,
+    "__docId__": 354,
     "kind": "test",
     "name": "it25",
     "testId": 25,
@@ -5242,10 +5450,10 @@
     ]
   },
   {
-    "__docId__": 346,
+    "__docId__": 355,
     "kind": "testFile",
     "name": "spec/adapter/JasmineAdapter.spec.ts",
-    "content": "import { expect } from '@integration/testing-tools';\nimport { ModuleLoader } from '@serenity-js/core/lib/io';\nimport * as sinon from 'sinon';\n\nimport { JasmineAdapter } from '../../src/adapter';\nimport { FakeJasmineRunner } from './FakeJasmineRunner';\n\n/** @test JasmineAdapter */\ndescribe('JasmineAdapter', () => {\n\n    const emptySuite = { getFullTitle: () => 'Top suite' };\n    function specCalled(fullName: string) {                 // eslint-disable-line unicorn/consistent-function-scoping\n        return {\n            getFullName() {\n                return fullName;\n            }\n        }\n    }\n\n    let loader: sinon.SinonStubbedInstance<ModuleLoader>;\n\n    beforeEach(() => {\n        loader = sinon.createStubInstance(ModuleLoader);\n\n        loader.require.withArgs('jasmine').returns(FakeJasmineRunner);\n    });\n\n    afterEach(() => {\n        FakeJasmineRunner.topSuite.reset();\n        FakeJasmineRunner.instance = undefined;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('defaults to running tests sequentially rather than in a random order', async () => {\n\n        const\n            config = {},\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            random: false,\n        });\n\n        return result;\n    });\n\n    /** @test JasmineAdapter#load */\n    it('loads configured requires and helpers', async () => {\n\n        const\n            helpers     = ['some-helper.js'],\n            requires    = ['ts-node/register'],\n            config      = {\n                helpers,\n                requires,\n            },\n            specs       = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            ... config,\n            random: false,\n        });\n\n        expect(FakeJasmineRunner.instance.loadRequires).to.have.been.called;\n        expect(FakeJasmineRunner.instance.loadHelpers).to.have.been.called;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('configures the default timeout interval if required', async () => {\n\n        const\n            defaultTimeoutInterval = 5000,\n            config = {\n                defaultTimeoutInterval,\n            },\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs)\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);\n\n        return result;\n    });\n\n    describe('when counting the number of scenarios to be executed', () => {\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are no scenarios', () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                };\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns(emptySuite)\n\n            expect(adapter.scenarioCount()).to.equal(0);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there is a single spec', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({ children: [ specCalled('first spec') ] })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(1);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are multiple nested specs', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({\n                children: [\n                    specCalled('first spec'),\n                    {\n                        getFullName() {\n                            return 'nested describe';\n                        },\n                        children: specCalled('nested spec')\n                    }\n                ],\n            })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(2);\n        });\n    });\n});\n",
+    "content": "import { expect } from '@integration/testing-tools';\nimport { ModuleLoader } from '@serenity-js/core/lib/io';\nimport * as sinon from 'sinon';\n\nimport { JasmineAdapter } from '../../src/adapter';\nimport { JasmineReporter } from '../../src/jasmine';\nimport { FakeJasmineRunner } from './FakeJasmineRunner';\n\n/** @test JasmineAdapter */\ndescribe('JasmineAdapter', () => {\n\n    const emptySuite = { getFullTitle: () => 'Top suite' };\n    function specCalled(fullName: string) {                 // eslint-disable-line unicorn/consistent-function-scoping\n        return {\n            getFullName() {\n                return fullName;\n            }\n        }\n    }\n\n    let loader: sinon.SinonStubbedInstance<ModuleLoader>;\n\n    beforeEach(() => {\n        loader = sinon.createStubInstance(ModuleLoader);\n\n        loader.require.withArgs('jasmine').returns(FakeJasmineRunner);\n    });\n\n    afterEach(() => {\n        FakeJasmineRunner.topSuite.reset();\n        FakeJasmineRunner.instance = undefined;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('defaults to running tests sequentially rather than in a random order', async () => {\n\n        const\n            config = {},\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            random: false,\n        });\n\n        return result;\n    });\n\n    /** @test JasmineAdapter#load */\n    it('loads configured requires and helpers', async () => {\n\n        const\n            helpers     = ['some-helper.js'],\n            requires    = ['ts-node/register'],\n            config      = {\n                helpers,\n                requires,\n            },\n            specs       = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs);\n\n        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({\n            ... config,\n            random: false,\n        });\n\n        expect(FakeJasmineRunner.instance.loadRequires).to.have.been.called;\n        expect(FakeJasmineRunner.instance.loadHelpers).to.have.been.called;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('configures the default timeout interval if required', async () => {\n\n        const\n            defaultTimeoutInterval = 5000,\n            config = {\n                defaultTimeoutInterval,\n            },\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs)\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);\n\n        return result;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('registers a Serenity/JS reporter by default', async () => {\n\n        const\n            specs  = [];\n\n        const adapter = new JasmineAdapter({}, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs)\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledOnce\n\n        return result;\n    });\n\n    /** @test JasmineAdapter#run */\n    it('registers configured custom reporters', async () => {\n\n        const\n            additionalReporter: JasmineReporter = {},\n            config = {\n                reporters: [ additionalReporter ],\n            },\n            specs  = [];\n\n        const adapter = new JasmineAdapter(config, loader);\n\n        FakeJasmineRunner.topSuite.returns(emptySuite)\n\n        await adapter.load(specs)\n        const result = adapter.run();\n\n        FakeJasmineRunner.instance.complete(true);\n\n        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledTwice\n\n        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledWith(additionalReporter)\n\n        return result;\n    });\n\n    describe('when counting the number of scenarios to be executed', () => {\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are no scenarios', () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                };\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns(emptySuite)\n\n            expect(adapter.scenarioCount()).to.equal(0);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there is a single spec', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({ children: [ specCalled('first spec') ] })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(1);\n        });\n\n        /** @test JasmineAdapter#scenarioCount */\n        it('recognises when there are multiple nested specs', async () => {\n\n            const\n                defaultTimeoutInterval = 5000,\n                config = {\n                    defaultTimeoutInterval,\n                },\n                specs  = [ 'fake.spec.ts' ];\n\n            const adapter = new JasmineAdapter(config, loader);\n\n            FakeJasmineRunner.topSuite.returns({\n                children: [\n                    specCalled('first spec'),\n                    {\n                        getFullName() {\n                            return 'nested describe';\n                        },\n                        children: specCalled('nested spec')\n                    }\n                ],\n            })\n\n            await adapter.load(specs)\n\n            expect(adapter.scenarioCount()).to.equal(2);\n        });\n    });\n});\n",
     "static": true,
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/jasmine/spec/adapter/JasmineAdapter.spec.ts",
     "access": null,
@@ -5253,7 +5461,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 347,
+    "__docId__": 356,
     "kind": "test",
     "name": "describe26",
     "testId": 26,
@@ -5263,13 +5471,13 @@
     "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26",
     "access": null,
     "description": "JasmineAdapter",
-    "lineNumber": 9,
+    "lineNumber": 10,
     "testTargets": [
       "*"
     ]
   },
   {
-    "__docId__": 348,
+    "__docId__": 357,
     "kind": "test",
     "name": "it27",
     "testId": 27,
@@ -5279,13 +5487,13 @@
     "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it27",
     "access": null,
     "description": "defaults to running tests sequentially rather than in a random order",
-    "lineNumber": 52,
+    "lineNumber": 53,
     "testTargets": [
       "*"
     ]
   },
   {
-    "__docId__": 349,
+    "__docId__": 358,
     "kind": "test",
     "name": "it28",
     "testId": 28,
@@ -5295,13 +5503,13 @@
     "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it28",
     "access": null,
     "description": "loads configured requires and helpers",
-    "lineNumber": 76,
+    "lineNumber": 77,
     "testTargets": [
       "*"
     ]
   },
   {
-    "__docId__": 350,
+    "__docId__": 359,
     "kind": "test",
     "name": "it29",
     "testId": 29,
@@ -5311,74 +5519,106 @@
     "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it29",
     "access": null,
     "description": "configures the default timeout interval if required",
-    "lineNumber": 103,
+    "lineNumber": 104,
     "testTargets": [
       "*"
     ]
   },
   {
-    "__docId__": 351,
+    "__docId__": 360,
     "kind": "test",
-    "name": "describe30",
+    "name": "it30",
     "testId": 30,
     "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it30",
     "access": null,
-    "description": "when counting the number of scenarios to be executed",
-    "lineNumber": 126
+    "description": "registers a Serenity/JS reporter by default",
+    "lineNumber": 128,
+    "testTargets": [
+      "*"
+    ]
   },
   {
-    "__docId__": 352,
+    "__docId__": 361,
     "kind": "test",
     "name": "it31",
     "testId": 31,
-    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
-    "testDepth": 2,
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26",
+    "testDepth": 1,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30.it31",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.it31",
     "access": null,
-    "description": "recognises when there are no scenarios",
-    "lineNumber": 129,
+    "description": "registers configured custom reporters",
+    "lineNumber": 148,
     "testTargets": [
       "*"
     ]
   },
   {
-    "__docId__": 353,
+    "__docId__": 362,
     "kind": "test",
-    "name": "it32",
+    "name": "describe32",
     "testId": 32,
-    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
-    "testDepth": 2,
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26",
+    "testDepth": 1,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30.it32",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32",
     "access": null,
-    "description": "recognises when there is a single spec",
-    "lineNumber": 145,
-    "testTargets": [
-      "*"
-    ]
+    "description": "when counting the number of scenarios to be executed",
+    "lineNumber": 173
   },
   {
-    "__docId__": 354,
+    "__docId__": 363,
     "kind": "test",
     "name": "it33",
     "testId": 33,
-    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30",
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe30.it33",
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32.it33",
     "access": null,
-    "description": "recognises when there are multiple nested specs",
-    "lineNumber": 164,
+    "description": "recognises when there are no scenarios",
+    "lineNumber": 176,
     "testTargets": [
       "*"
     ]
   },
   {
-    "__docId__": 355,
+    "__docId__": 364,
+    "kind": "test",
+    "name": "it34",
+    "testId": 34,
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32",
+    "testDepth": 2,
+    "static": true,
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32.it34",
+    "access": null,
+    "description": "recognises when there is a single spec",
+    "lineNumber": 192,
+    "testTargets": [
+      "*"
+    ]
+  },
+  {
+    "__docId__": 365,
+    "kind": "test",
+    "name": "it35",
+    "testId": 35,
+    "memberof": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32",
+    "testDepth": 2,
+    "static": true,
+    "longname": "spec/adapter/JasmineAdapter.spec.ts~describe26.describe32.it35",
+    "access": null,
+    "description": "recognises when there are multiple nested specs",
+    "lineNumber": 211,
+    "testTargets": [
+      "*"
+    ]
+  },
+  {
+    "__docId__": 366,
     "kind": "testFile",
     "name": "spec/monkeyPatched.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { TestCompromisedError } from '@serenity-js/core';\nimport * as sinon from 'sinon';\nimport serenityReporterForJasmine = require('../src');\n\ndescribe('@serenity-js/jasmine', () => {\n\n    let jasmine: any;\n    let attrs: any;\n\n    beforeEach(() => {\n        const env = {\n            beforeEach: sinon.spy(),\n            afterAll: sinon.spy(),\n        };\n\n        attrs = {\n            expectationResultFactory(fnAttrs) {\n                return {};\n            },\n        };\n\n        jasmine = {\n            Spec: function Spec() {\n                this.result = {};\n            },\n            Suite: function Suite() {\n                this.result = {};\n            },\n            getEnv: () => env,\n        };\n    });\n\n    describe('monkey-patches Jasmine', () => {\n\n        describe('so that the Spec', () => {\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('defaults to an unknown location if the real one could not be determined', () => {\n                // detecting the real location is done in Jasmine integration tests\n                serenityReporterForJasmine(jasmine);\n\n                const spec = new jasmine.Spec(attrs);\n\n                expect(spec.result.location.path).to.equal('unknown');\n                expect(spec.result.location.line).to.equal(0);\n                expect(spec.result.location.column).to.equal(0);\n            });\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('has all the static members of the original constructor function', () => {\n\n                jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';\n\n                serenityReporterForJasmine(jasmine);\n\n                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');\n            });\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('has all the static members of the original constructor function', () => {\n\n                jasmine.Spec.pendingSpecExceptionMessage = '=> marked Pending';\n\n                serenityReporterForJasmine(jasmine);\n\n                expect(jasmine.Spec.pendingSpecExceptionMessage).to.equal('=> marked Pending');\n            });\n\n            it('correctly reports the stacktrace of an error', () => {\n                const error = new TestCompromisedError('DB is down', new Error('Connection error'));\n\n                serenityReporterForJasmine(jasmine);\n\n                const spec_ = new jasmine.Spec(attrs);\n\n                const result = attrs.expectationResultFactory({ passing: false, error });\n\n                const frames = result.stack.split('\\n');\n                expect(frames[0]).to.equal('TestCompromisedError: DB is down');\n                expect(frames).to.include('Caused by: Error: Connection error');\n            });\n        });\n\n        describe('so that the Suite', () => {\n\n            /**\n             * @test {bootstrap}\n             * @test {monkeyPatched}\n             */\n            it('defaults to an unknown location if the real one could not be determined', () => {\n                // detecting the real location is done in Jasmine integration tests\n                serenityReporterForJasmine(jasmine);\n\n                const suite = new jasmine.Suite(attrs);\n\n                expect(suite.result.location.path).to.equal('unknown');\n                expect(suite.result.location.line).to.equal(0);\n                expect(suite.result.location.column).to.equal(0);\n            });\n\n            it('correctly reports the stacktrace of an error', () => {\n                const error = new TestCompromisedError('DB is down', new Error('Connection error'));\n\n                serenityReporterForJasmine(jasmine);\n\n                const suite_ = new jasmine.Suite(attrs);\n\n                const result = attrs.expectationResultFactory({ passing: false, error });\n\n                const frames = result.stack.split('\\n');\n                expect(frames[0]).to.equal('TestCompromisedError: DB is down');\n                expect(frames).to.include('Caused by: Error: Connection error');\n            });\n        });\n    });\n});\n",
@@ -5389,53 +5629,53 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 356,
+    "__docId__": 367,
     "kind": "test",
-    "name": "describe34",
-    "testId": 34,
+    "name": "describe36",
+    "testId": 36,
     "memberof": "spec/monkeyPatched.spec.ts",
     "testDepth": 0,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34",
+    "longname": "spec/monkeyPatched.spec.ts~describe36",
     "access": null,
     "description": "@serenity-js/jasmine",
     "lineNumber": 8
   },
   {
-    "__docId__": 357,
+    "__docId__": 368,
     "kind": "test",
-    "name": "describe35",
-    "testId": 35,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34",
+    "name": "describe37",
+    "testId": 37,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36",
     "testDepth": 1,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37",
     "access": null,
     "description": "monkey-patches Jasmine",
     "lineNumber": 47
   },
   {
-    "__docId__": 358,
+    "__docId__": 369,
     "kind": "test",
-    "name": "describe36",
-    "testId": 36,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35",
+    "name": "describe38",
+    "testId": 38,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38",
     "access": null,
     "description": "so that the Spec",
     "lineNumber": 49
   },
   {
-    "__docId__": 359,
+    "__docId__": 370,
     "kind": "test",
-    "name": "it37",
-    "testId": 37,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
+    "name": "it39",
+    "testId": 39,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it37",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38.it39",
     "access": null,
     "description": "defaults to an unknown location if the real one could not be determined",
     "lineNumber": 55,
@@ -5445,14 +5685,14 @@
     ]
   },
   {
-    "__docId__": 360,
+    "__docId__": 371,
     "kind": "test",
-    "name": "it38",
-    "testId": 38,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
+    "name": "it40",
+    "testId": 40,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it38",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38.it40",
     "access": null,
     "description": "has all the static members of the original constructor function",
     "lineNumber": 70,
@@ -5462,14 +5702,14 @@
     ]
   },
   {
-    "__docId__": 361,
+    "__docId__": 372,
     "kind": "test",
-    "name": "it39",
-    "testId": 39,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
+    "name": "it41",
+    "testId": 41,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it39",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38.it41",
     "access": null,
     "description": "has all the static members of the original constructor function",
     "lineNumber": 83,
@@ -5479,40 +5719,40 @@
     ]
   },
   {
-    "__docId__": 362,
+    "__docId__": 373,
     "kind": "test",
-    "name": "it40",
-    "testId": 40,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36",
+    "name": "it42",
+    "testId": 42,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe36.it40",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe38.it42",
     "access": null,
     "description": "correctly reports the stacktrace of an error",
     "lineNumber": 92
   },
   {
-    "__docId__": 363,
+    "__docId__": 374,
     "kind": "test",
-    "name": "describe41",
-    "testId": 41,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35",
+    "name": "describe43",
+    "testId": 43,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37",
     "testDepth": 2,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe43",
     "access": null,
     "description": "so that the Suite",
     "lineNumber": 107
   },
   {
-    "__docId__": 364,
+    "__docId__": 375,
     "kind": "test",
-    "name": "it42",
-    "testId": 42,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41",
+    "name": "it44",
+    "testId": 44,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37.describe43",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41.it42",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe43.it44",
     "access": null,
     "description": "defaults to an unknown location if the real one could not be determined",
     "lineNumber": 113,
@@ -5522,14 +5762,14 @@
     ]
   },
   {
-    "__docId__": 365,
+    "__docId__": 376,
     "kind": "test",
-    "name": "it43",
-    "testId": 43,
-    "memberof": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41",
+    "name": "it45",
+    "testId": 45,
+    "memberof": "spec/monkeyPatched.spec.ts~describe36.describe37.describe43",
     "testDepth": 3,
     "static": true,
-    "longname": "spec/monkeyPatched.spec.ts~describe34.describe35.describe41.it43",
+    "longname": "spec/monkeyPatched.spec.ts~describe36.describe37.describe43.it45",
     "access": null,
     "description": "correctly reports the stacktrace of an error",
     "lineNumber": 124

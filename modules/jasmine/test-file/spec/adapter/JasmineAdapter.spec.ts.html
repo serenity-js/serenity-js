@@ -124,7 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jasmine">jasmine</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html">JasmineReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -137,6 +137,7 @@
 <span class="token keyword">import</span> <span class="token operator">*</span> <span class="token keyword">as</span> sinon <span class="token keyword">from</span> <span class="token string">'sinon'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> JasmineAdapter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/adapter'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> JasmineReporter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../src/jasmine'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> FakeJasmineRunner <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./FakeJasmineRunner'</span><span class="token punctuation">;</span>
 
 <span class="token comment">/** @test JasmineAdapter */</span>
@@ -235,6 +236,52 @@
         FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token function">expect</span><span class="token punctuation">(</span>FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>jasmine<span class="token punctuation">.</span><span class="token constant">DEFAULT_TIMEOUT_INTERVAL</span><span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span>defaultTimeoutInterval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/** @test JasmineAdapter#run */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'registers a Serenity/JS reporter by default'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">const</span>
+            specs  <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>emptySuite<span class="token punctuation">)</span>
+
+        <span class="token keyword">await</span> adapter<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span>
+        <span class="token keyword">const</span> result <span class="token operator">=</span> adapter<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">expect</span><span class="token punctuation">(</span>FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>addReporter<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>calledOnce
+
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/** @test JasmineAdapter#run */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'registers configured custom reporters'</span><span class="token punctuation">,</span> <span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">const</span>
+            additionalReporter<span class="token operator">:</span> JasmineReporter <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+            config <span class="token operator">=</span> <span class="token punctuation">{</span>
+                reporters<span class="token operator">:</span> <span class="token punctuation">[</span> additionalReporter <span class="token punctuation">]</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            specs  <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">const</span> adapter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JasmineAdapter</span><span class="token punctuation">(</span>config<span class="token punctuation">,</span> loader<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        FakeJasmineRunner<span class="token punctuation">.</span>topSuite<span class="token punctuation">.</span><span class="token function">returns</span><span class="token punctuation">(</span>emptySuite<span class="token punctuation">)</span>
+
+        <span class="token keyword">await</span> adapter<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>specs<span class="token punctuation">)</span>
+        <span class="token keyword">const</span> result <span class="token operator">=</span> adapter<span class="token punctuation">.</span><span class="token function">run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span><span class="token function">complete</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token function">expect</span><span class="token punctuation">(</span>FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>addReporter<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span>calledTwice
+
+        <span class="token function">expect</span><span class="token punctuation">(</span>FakeJasmineRunner<span class="token punctuation">.</span>instance<span class="token punctuation">.</span>addReporter<span class="token punctuation">)</span><span class="token punctuation">.</span>to<span class="token punctuation">.</span>have<span class="token punctuation">.</span>been<span class="token punctuation">.</span><span class="token function">calledWith</span><span class="token punctuation">(</span>additionalReporter<span class="token punctuation">)</span>
 
         <span class="token keyword">return</span> result<span class="token punctuation">;</span>
     <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

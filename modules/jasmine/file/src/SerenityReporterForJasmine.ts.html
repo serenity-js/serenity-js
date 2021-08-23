@@ -124,7 +124,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-monkeyPatched">monkeyPatched</a></span></span></li>
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter">adapter</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/JasmineAdapter.ts~JasmineAdapter.html">JasmineAdapter</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/adapter/JasmineConfig.ts~JasmineConfig.html">JasmineConfig</a></span></span></li>
-<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#adapter-filters">adapter/filters</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/adapter/filters/GrepSpecFilter.ts~GrepSpecFilter.html">GrepSpecFilter</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#jasmine">jasmine</a><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/jasmine/JasmineReporter.ts~JasmineReporter.html">JasmineReporter</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -166,7 +166,7 @@
     TestSuiteDetails<span class="token punctuation">,</span>
 <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation<span class="token punctuation">,</span> JasmineDoneInfo<span class="token punctuation">,</span> JasmineStartedInfo<span class="token punctuation">,</span> SpecResult<span class="token punctuation">,</span> SuiteResult <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./jasmine'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Expectation<span class="token punctuation">,</span> JasmineDoneInfo<span class="token punctuation">,</span> JasmineReporter<span class="token punctuation">,</span> JasmineStartedInfo<span class="token punctuation">,</span> SpecResult<span class="token punctuation">,</span> SuiteResult <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./jasmine'</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
  * @desc
@@ -174,14 +174,18 @@
  *  to Serenity/JS events.
  *
  * @see {@link bootstrap}
+ * @implements {JasmineReporter}
  */</span>
-<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SerenityReporterForJasmine</span> <span class="token punctuation">{</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">SerenityReporterForJasmine</span> <span class="token keyword">implements</span> <span class="token class-name">JasmineReporter</span> <span class="token punctuation">{</span>
 
     <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">readonly</span> errorMessagePattern <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^([^\s:]*Error):\s(.*)$</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span>
     <span class="token keyword">private</span> describes<span class="token operator">:</span> SuiteResult<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
     <span class="token keyword">private</span> currentSceneId<span class="token operator">:</span> CorrelationId <span class="token operator">=</span> <span class="token keyword">undefined</span><span class="token punctuation">;</span>
 
+    <span class="token comment">/**
+     * @param {Serenity} serenity
+     */</span>
     <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> serenity<span class="token operator">:</span> Serenity<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token punctuation">}</span>
 
@@ -264,9 +268,6 @@
             <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
-    <span class="token comment">/**
-     * @param {JasmineDoneInfo} suiteInfo
-     */</span>
     <span class="token function">jasmineDone</span><span class="token punctuation">(</span>suiteInfo<span class="token operator">:</span> JasmineDoneInfo<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
         <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">emit</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">TestRunFinishes</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>serenity<span class="token punctuation">.</span><span class="token function">currentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
