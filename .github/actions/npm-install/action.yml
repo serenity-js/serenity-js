@@ -1,13 +1,11 @@
 runs:
   using: 'composite'
   steps:
-  - name:  Test OS (Windows)
+  - name:  Test OS
     shell: bash
-    if:    ${{ runner.os == 'Windows' }}
     run: |
-      env
-  - name:  Test OS (Linux)
-    shell: bash
-    if:    ${{ runner.os != 'Windows' }}
-    run: |
-      env
+      if [[ $RUNNER_OS == 'Windows' ]]; then
+          echo "We're on Windows"
+      else
+          echo "We're not on Windows"
+      fi
