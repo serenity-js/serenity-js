@@ -25,5 +25,5 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Setup Node Modules
         uses: ./.github/actions/npm-install
-        with:
-          node-version: ${{ matrix.node-version }}
+        env:
+          NODE_VERSION: ${{ matrix.node-version }}
