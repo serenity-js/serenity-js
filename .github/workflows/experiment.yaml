@@ -30,17 +30,15 @@ jobs:
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
-          node-version: ${{ matrix.node-version }}
         with:
           path: |
             ${{ env.NPM_CACHE }}
             node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-${{ env.node-version }}-build-
-            ${{ runner.os }}-${{ env.node-version }}-
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Install Node modules, if needed
-        if: steps.lerna-npm-cache.outputs.cache-hit != 'true'
+#        if: steps.lerna-npm-cache.outputs.cache-hit != 'true'
         run: npm ci
