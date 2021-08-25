@@ -23,4 +23,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: ./.github/actions/npm-install
+      - name: Setup Node Modules
+        uses: ./.github/actions/npm-install
+        with:
+          node-version: ${{ matrix.node-version }}
