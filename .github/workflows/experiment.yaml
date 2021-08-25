@@ -25,21 +25,22 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Read NPM Cache Directory
         run: echo "NPM_CACHE=$(npm config get cache)" >> $GITHUB_ENV
-      - name: Cache node modules
+      - name: Cache Node modules
         id: lerna-npm-cache
         uses: actions/cache@v2
         env:
           cache-name: cache-node-modules
+          node-version: ${{ matrix.node-version }}
         with:
           path: |
             ${{ env.NPM_CACHE }}
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-      - name: Install dependencies if needed.
+            ${{ runner.os }}-${{ env.node-version }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-${{ env.node-version }}-build-
+            ${{ runner.os }}-${{ env.node-version }}-
+      - name: Install Node modules, if needed
         if: steps.lerna-npm-cache.outputs.cache-hit != 'true'
         run: npm ci
