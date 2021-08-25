@@ -29,7 +29,7 @@ jobs:
         id: lerna-npm-cache
         uses: actions/cache@v2
         env:
-          cache-name: cache-node-modules
+          cache-name: cache-node-${{ matrix.node-version }}-modules
         with:
           path: |
             ${{ env.NPM_CACHE }}
@@ -41,6 +41,6 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: Install Node modules, if needed
+      - name: Install Node modules
 #        if: steps.lerna-npm-cache.outputs.cache-hit != 'true'
         run: npm ci
