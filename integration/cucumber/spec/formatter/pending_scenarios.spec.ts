@@ -17,7 +17,7 @@ describe('@serenity-js/cucumber', function () {
                 'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs('--name', 'A scenario with steps marked as pending')
             .toRun('features/pending_scenarios.feature'),
 
@@ -26,13 +26,13 @@ describe('@serenity-js/cucumber', function () {
                 'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs('--name', 'A scenario with steps marked as pending', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
 
         ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
-            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
                 '--name', 'A scenario with steps marked as pending',
@@ -62,7 +62,7 @@ describe('@serenity-js/cucumber', function () {
                 'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs('--name', 'A scenario with steps that have not been implemented yet')
             .toRun('features/pending_scenarios.feature'),
 
@@ -71,13 +71,13 @@ describe('@serenity-js/cucumber', function () {
                 'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs('--name', 'A scenario with steps that have not been implemented yet', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
 
         ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
-            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
                 // '--no-strict',                       // cucumber 3 ignores the --no-strict mode
@@ -108,7 +108,7 @@ describe('@serenity-js/cucumber', function () {
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs('--name', 'A scenario which tag marks it as pending')
             .toRun('features/pending_scenarios.feature'),
 
@@ -118,7 +118,7 @@ describe('@serenity-js/cucumber', function () {
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs('--name', 'A scenario which tag marks it as pending', '--no-strict')
             .toRun('features/pending_scenarios.feature'),
     ]).
@@ -147,7 +147,7 @@ describe('@serenity-js/cucumber', function () {
                 'lib/support/configure_serenity.js',
                 'lib/support/wip_hook.js',
             )
-            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
                 '--name', 'A scenario which tag marks it as pending',
