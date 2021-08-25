@@ -3,11 +3,11 @@ runs:
   steps:
   - name:  Test OS (Windows)
     shell: bash
-    if:    runner.os == 'Windows'
+#    if:    runner.os == 'Windows'
     run: |
       env
   - name:  Test OS (Linux)
     shell: bash
-    if:    runner.os != 'Windows'
+#    if:    runner.os != 'Windows'
     run: |
       env
