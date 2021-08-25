@@ -15,6 +15,7 @@ runs:
       env
 
   - name: Cache node modules
+    shell: bash
     uses: actions/cache@v2
     env:
       cache-name: cache-node-modules
