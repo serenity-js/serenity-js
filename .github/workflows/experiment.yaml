@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Read NPM Cache Directory
-        run: echo "::set-env name=NPM_CACHE::$(npm config get cache)"
+        run: echo "NPM_CACHE=$(npm config get cache)" >> $GITHUB_ENV
       - name: Cache node modules
         id: lerna-npm-cache
         uses: actions/cache@v2
