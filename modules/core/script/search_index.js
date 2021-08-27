@@ -1843,103 +1843,127 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber152",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber16",
+    "FileSystem when checking if a file exists",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber17",
+    "FileSystem when checking if a file exists returns false when no file exists at path",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber39",
+    "FileSystem when checking if a file exists returns true when a directory exists at path",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber27",
+    "FileSystem when checking if a file exists returns true when a file exists at path",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber188",
     "FileSystem when generating temp file paths",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber166",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber202",
     "FileSystem when generating temp file paths allows for the prefix to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber171",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber207",
     "FileSystem when generating temp file paths allows for the suffix to be overridden",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber161",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber197",
     "FileSystem when generating temp file paths uses a randomly generated file name and .tmp suffix",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber87",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber123",
     "FileSystem when removing",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber124",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber160",
     "FileSystem when removing directories",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber126",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber162",
     "FileSystem when removing directories removes the directory recursively",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber89",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber125",
     "FileSystem when removing individual files",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber112",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber148",
     "FileSystem when removing individual files ",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber91",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber127",
     "FileSystem when removing individual files removes the file",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber16",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber52",
     "FileSystem when storing JSON files",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber43",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber79",
     "FileSystem when storing JSON files ",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber18",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber54",
     "FileSystem when storing JSON files stores a JSON file in a desired location",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber31",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber67",
     "FileSystem when storing JSON files tells the absolute path to a JSON file once it is saved",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber57",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber93",
     "FileSystem when storing pictures",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber59",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber95",
     "FileSystem when storing pictures stores a base64-encoded picture at a desired location",
     "test"
   ],
   [
     "",
-    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber72",
+    "test-file/spec/io/FileSystem.spec.ts.html#lineNumber108",
     "FileSystem when storing pictures tells the absolute path to a JSON file once it is saved",
     "test"
   ],
@@ -4575,6 +4599,12 @@ window.esdocSearchIndex = [
     "src/io/filesystem.ts~filesystem#ensuredirectoryexistsat",
     "class/src/io/FileSystem.ts~FileSystem.html#instance-method-ensureDirectoryExistsAt",
     "src/io/FileSystem.ts~FileSystem#ensureDirectoryExistsAt",
+    "method"
+  ],
+  [
+    "src/io/filesystem.ts~filesystem#exists",
+    "class/src/io/FileSystem.ts~FileSystem.html#instance-method-exists",
+    "src/io/FileSystem.ts~FileSystem#exists",
     "method"
   ],
   [

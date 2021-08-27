@@ -4272,54 +4272,6 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "testrunnerloader src/adapter/runner/testrunnerloader.ts~testrunnerloader,testrunnerloader",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber12",
-    "TestRunnerLoader",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber22",
-    "TestRunnerLoader when loading a TestRunnerAdapter for",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber70",
-    "TestRunnerLoader when loading a TestRunnerAdapter for Cucumber",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber95",
-    "TestRunnerLoader when loading a TestRunnerAdapter for Cucumber resolves glob patterns in `require` to absolute paths",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber24",
-    "TestRunnerLoader when loading a TestRunnerAdapter for Jasmine",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber26",
-    "TestRunnerLoader when loading a TestRunnerAdapter for Jasmine passes the configuration to the adapter",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber48",
-    "TestRunnerLoader when loading a TestRunnerAdapter for Mocha",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber50",
-    "TestRunnerLoader when loading a TestRunnerAdapter for Mocha passes the configuration to the adapter",
-    "test"
-  ],
-  [
     "",
     "test-file/spec/screenplay/questions/Text.spec.ts.html#lineNumber12",
     "Text",
@@ -6892,5 +6844,47 @@ window.esdocSearchIndex = [
     "https://jan-molak.github.io/tiny-types/class/src/TinyType.ts~TinyType.html",
     "tiny-types~TinyType",
     "external"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber26",
+    "when loading a TestRunnerAdapter for",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber74",
+    "when loading a TestRunnerAdapter for Cucumber",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber104",
+    "when loading a TestRunnerAdapter for Cucumber resolves glob patterns in `require` to absolute paths",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber28",
+    "when loading a TestRunnerAdapter for Jasmine",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber30",
+    "when loading a TestRunnerAdapter for Jasmine passes the configuration to the adapter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber52",
+    "when loading a TestRunnerAdapter for Mocha",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/adapter/runner/TestRunnerLoader.spec.ts.html#lineNumber54",
+    "when loading a TestRunnerAdapter for Mocha passes the configuration to the adapter",
+    "test"
   ]
 ]

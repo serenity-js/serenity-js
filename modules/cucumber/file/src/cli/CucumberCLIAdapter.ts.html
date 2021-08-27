@@ -133,7 +133,7 @@
             <section class="col-lg-9 col-md-12">
                 <article class="content" data-ice="content"><h1 data-ice="title">src/cli/CucumberCLIAdapter.ts</h1>
 <pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token comment">/* istanbul ignore file covered in integration tests */</span>
-<span class="token keyword">import</span> <span class="token punctuation">{</span> ModuleLoader<span class="token punctuation">,</span> TestRunnerAdapter<span class="token punctuation">,</span> Version <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> FileSystem<span class="token punctuation">,</span> ModuleLoader<span class="token punctuation">,</span> TestRunnerAdapter<span class="token punctuation">,</span> Version <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
 <span class="token keyword">import</span> <span class="token punctuation">{</span> ExecutionIgnored<span class="token punctuation">,</span> ImplementationPending<span class="token punctuation">,</span> Outcome <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/model'</span><span class="token punctuation">;</span>
 
 <span class="token keyword">import</span> <span class="token punctuation">{</span> CucumberConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./CucumberConfig'</span><span class="token punctuation">;</span>
@@ -162,9 +162,10 @@
     <span class="token function">constructor</span><span class="token punctuation">(</span>
         config<span class="token operator">:</span> CucumberConfig<span class="token punctuation">,</span>
         <span class="token keyword">private</span> <span class="token keyword">readonly</span> loader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">,</span>
+        fileSystem<span class="token operator">:</span> FileSystem<span class="token punctuation">,</span>
         <span class="token keyword">private</span> <span class="token keyword">readonly</span> output<span class="token operator">:</span> SerenityFormatterOutput<span class="token punctuation">,</span>
     <span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CucumberOptions</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>options <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CucumberOptions</span><span class="token punctuation">(</span>fileSystem<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 
     <span class="token comment">/**

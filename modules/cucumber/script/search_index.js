@@ -1171,6 +1171,12 @@ window.esdocSearchIndex = [
   ],
   [
     "",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber20",
+    "CucumberMessagesListener",
+    "test"
+  ],
+  [
+    "",
     "test-file/spec/listeners/messages/rules.spec.ts.html#lineNumber10",
     "CucumberMessagesListener",
     "test"
@@ -1279,8 +1285,8 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber20",
-    "CucumberMessagesListener",
+    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber22",
+    "CucumberMessagesListener when working with Cucumber 7",
     "test"
   ],
   [
@@ -1393,8 +1399,8 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/listeners/messages/retry.spec.ts.html#lineNumber22",
-    "CucumberMessagesListener when working with Cucumber 7",
+    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber39",
+    "CucumberMessagesListener when working with Cucumber 7 ",
     "test"
   ],
   [
@@ -1418,12 +1424,6 @@ window.esdocSearchIndex = [
   [
     "",
     "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber14",
-    "CucumberMessagesListener when working with Cucumber 7 ",
-    "test"
-  ],
-  [
-    "",
-    "test-file/spec/listeners/messages/pending_scenarios.spec.ts.html#lineNumber39",
     "CucumberMessagesListener when working with Cucumber 7 ",
     "test"
   ],
@@ -1555,43 +1555,67 @@ window.esdocSearchIndex = [
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber220",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber258",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI camelCase to kebab-case",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber239",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber277",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI empty values",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber151",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber189",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI flags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber257",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber295",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI objects",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber202",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber240",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI other options",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber92",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber95",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI rerun formatter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber97",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI rerun formatter adds the rerun formatter",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber107",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI rerun formatter appends the rerun file",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber118",
+    "CucumberOptions when used to produce command line arguments for Cucumber CLI rerun formatter does not append the rerun file when it does not exist",
+    "test"
+  ],
+  [
+    "",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber130",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags",
     "test"
   ],
   [
     "",
-    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber136",
+    "test-file/spec/cli/CucumberOptions.spec.ts.html#lineNumber174",
     "CucumberOptions when used to produce command line arguments for Cucumber CLI tags passes the tags individually to Cucumber 1.x",
     "test"
   ],
