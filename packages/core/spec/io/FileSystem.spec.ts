@@ -13,6 +13,42 @@ describe ('FileSystem', () => {
         originalJSON = { name: 'jan' },
         processCWD   = new Path('/Users/jan/projects/serenityjs');
 
+    describe('when checking if a file exists', () => {
+        it('returns false when no file exists at path', () => {
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: FakeFS.Empty_Directory,
+                }),
+                out = new FileSystem(processCWD, fs);
+
+            expect(out.exists(new Path('outlet/some.json'))).to.equal(false);
+        });
+
+        it('returns true when a file exists at path', () => {
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: {
+                        'file.txt': 'content'
+                    },
+                }),
+                out = new FileSystem(processCWD, fs);
+
+            expect(out.exists(new Path('file.txt'))).to.equal(true);
+        });
+
+        it('returns true when a directory exists at path', () => {
+            const
+                fs = FakeFS.with({
+                    [ processCWD.value ]: {
+                        'mydir': FakeFS.Empty_Directory
+                    },
+                }),
+                out = new FileSystem(processCWD, fs);
+
+            expect(out.exists(new Path('mydir'))).to.equal(true);
+        });
+    });
+
     describe ('when storing JSON files', () => {
 
         it ('stores a JSON file in a desired location', () => {

@@ -13,6 +13,7 @@ export = async function (cucumberConfig: CucumberConfig, pathToScenario: Path) {
             ]
         },
         new ModuleLoader(runnerRootDir),
+        new FileSystem(Path.from(runnerRootDir)),
         new TempFileOutput(new FileSystem(Path.from(runnerRootDir))),
     );
 
