@@ -89,6 +89,33 @@ describe('CucumberOptions', () => {
             expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js']);
         });
 
+        /**
+         * @see https://github.com/cucumber/cucumber-js/blob/main/features/rerun_formatter.feature
+          */
+        describe('rerun formatter', () => {
+
+            it('adds the rerun formatter', () => {
+                const options = new CucumberOptions({
+                    format: 'rerun=@rerun.txt',
+                });
+
+                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
+                    ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt'],
+                );
+            });
+
+            it('appends the @rerun.txt file', () => {
+                const options = new CucumberOptions({
+                    format: 'rerun=@rerun.txt',
+                    rerun: '@rerun.txt'
+                });
+
+                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
+                    ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt', '@rerun.txt'],
+                );
+            });
+        });
+
         describe('tags', () => {
 
             const emptyTags = [
