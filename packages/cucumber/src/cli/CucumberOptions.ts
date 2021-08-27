@@ -35,6 +35,8 @@ export class CucumberOptions {
         switch (true) {
             case cliOption === 'tags' && version.isAtLeast(new Version('2.0.0')) && value !== false:
                 return this.valuesToArgs(cliOption, this.tagsToCucumberExpressions(listOf(value as string | string[])));
+            case cliOption === 'rerun':
+                return [];  // ignore since we're appending the rerun file anyway
             case typeof value === 'boolean':
                 return listOf(this.flagToArg(cliOption, value as boolean));
             case this.isObject(value):
