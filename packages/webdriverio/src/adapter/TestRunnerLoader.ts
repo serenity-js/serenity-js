@@ -73,7 +73,7 @@ export class TestRunnerLoader {
             ? new TempFileOutput(this.fileSystem)
             : new StandardOutput();
 
-        return new CucumberCLIAdapter(cleanedCucumberOptions, this.loader, output);
+        return new CucumberCLIAdapter(cleanedCucumberOptions, this.loader, this.fileSystem, output);
     }
 
     private jasmineAdapter(jasmineOptions: WebdriverIO.JasmineOpts): TestRunnerAdapter {

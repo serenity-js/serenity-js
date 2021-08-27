@@ -2,7 +2,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Version } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, Version } from '@serenity-js/core/lib/io';
 import { given } from 'mocha-testdata';
 
 import { CucumberOptions } from '../../src/cli/CucumberOptions';
@@ -20,7 +20,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('is strict by default', (majorVersion: Version) => {
-            const options = new CucumberOptions({ });
+            const options = new CucumberOptions(dummyFS(), { });
 
             expect(options.isStrict()).to.equal(true);
 
@@ -35,7 +35,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('can be explicitly enabled', (majorVersion: Version) => {
-            const options = new CucumberOptions({ strict: true });
+            const options = new CucumberOptions(dummyFS(), { strict: true });
 
             expect(options.isStrict()).to.equal(true);
 
@@ -50,7 +50,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('can be disabled', (majorVersion: Version) => {
-            const options = new CucumberOptions({ strict: false });
+            const options = new CucumberOptions(dummyFS(), { strict: false });
 
             expect(options.isStrict()).to.equal(false);
 
@@ -65,7 +65,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('can be disabled via cucumberOpts.noStrict', (majorVersion: Version) => {
-            const options = new CucumberOptions({ noStrict: true } as any);
+            const options = new CucumberOptions(dummyFS(), { noStrict: true } as any);
 
             expect(options.isStrict()).to.equal(false);
 
@@ -84,7 +84,7 @@ describe('CucumberOptions', () => {
             new Version('5.0.0'),
         ]).
         it('returns no additional arguments when the config is empty', (majorVersion: Version) => {
-            const options = new CucumberOptions({});
+            const options = new CucumberOptions(dummyFS(), {});
 
             expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js']);
         });
@@ -95,7 +95,7 @@ describe('CucumberOptions', () => {
         describe('rerun formatter', () => {
 
             it('adds the rerun formatter', () => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     format: 'rerun=@rerun.txt',
                 });
 
@@ -104,14 +104,25 @@ describe('CucumberOptions', () => {
                 );
             });
 
-            it('appends the @rerun.txt file', () => {
-                const options = new CucumberOptions({
+            it('appends the rerun file', () => {
+                const options = new CucumberOptions(fsWithRerunFile(true), {
                     format: 'rerun=@rerun.txt',
                     rerun: '@rerun.txt'
                 });
 
                 expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
                     ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt', '@rerun.txt'],
+                );
+            });
+
+            it('does not append the rerun file when it does not exist', () => {
+                const options = new CucumberOptions(fsWithRerunFile(false), {
+                    format: 'rerun=@rerun.txt',
+                    rerun: '@rerun.txt'
+                });
+
+                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(
+                    ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt'],
                 );
             });
         });
@@ -127,7 +138,7 @@ describe('CucumberOptions', () => {
             ];
 
             given(emptyTags).it('ignores empty tags when generating tag expressions (>=2.x)', ({ tags }) => {
-                const options = new CucumberOptions({ tags });
+                const options = new CucumberOptions(dummyFS(), { tags });
 
                 expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([
                     'node', 'cucumber-js',
@@ -135,7 +146,7 @@ describe('CucumberOptions', () => {
             });
 
             given(emptyTags).it('ignores empty tags when working with Cucumber 1.x', ({ tags }) => {
-                const options = new CucumberOptions({ tags });
+                const options = new CucumberOptions(dummyFS(), { tags });
 
                 expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([
                     'node', 'cucumber-js',
@@ -147,7 +158,7 @@ describe('CucumberOptions', () => {
                 new Version('3.0.0'),
             ]).
             it('converts a list of tags into a Cucumber expression for Cucumber 2.x and newer', (majorVersion: Version) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     tags: [
                         '@smoke-test',
                         '~@wip',
@@ -161,7 +172,7 @@ describe('CucumberOptions', () => {
             });
 
             it('passes the tags individually to Cucumber 1.x', () => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     tags: [
                         '@smoke-test',
                         '~@wip',
@@ -192,7 +203,7 @@ describe('CucumberOptions', () => {
                 { description: 'colors on',        option: 'colors',       state: true,   expected: '--colors'         },
             ]).
             it('correctly interprets boolean options', ({ option, state, expected }) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     [option]: state,
                 });
 
@@ -216,7 +227,7 @@ describe('CucumberOptions', () => {
                 { description: 'colors on',        option: 'no-colors',       state: false, expected: '--colors'         },
             ]).
             it('correctly interprets negated boolean options', ({ option, state, expected }) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     [option]: state,
                 });
 
@@ -234,7 +245,7 @@ describe('CucumberOptions', () => {
                 { description: 'name',       option: 'name',       value: [ 'checkout.*', 'smoke.*' ],  expected: [ '--name', 'checkout.*',  '--name', 'smoke.*'  ] },
             ]).
             it('includes any other options', ({ option, value, expected }) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     [option]: value,
                 });
 
@@ -253,7 +264,7 @@ describe('CucumberOptions', () => {
                 { description: 'retryTagFilter',    option: 'retryTagFilter',   value: '@flaky',    expected: [ '--retry-tag-filter', '@flaky' ] },
             ]).
             it('converts camelCased options to kebab-case', ({ option, value, expected }) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     [option]: value,
                 });
 
@@ -271,7 +282,7 @@ describe('CucumberOptions', () => {
                 { description: 'empty list',        option: 'format',           value: [],          },
             ]).
             it('ignores empty values', ({ option, value }) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     [option]: value,
                 });
 
@@ -289,7 +300,7 @@ describe('CucumberOptions', () => {
                 { description: 'string',      option: 'worldParameters',    value: '{"baseUrl":"https://example.org"}'  },
             ]).
             it('ignores empty values', ({ option, value }) => {
-                const options = new CucumberOptions({
+                const options = new CucumberOptions(dummyFS(), {
                     [option]: value,
                 });
 
@@ -300,3 +311,15 @@ describe('CucumberOptions', () => {
         });
     });
 });
+
+function dummyFS(): FileSystem {
+    return fsWithRerunFile(false);
+}
+
+function fsWithRerunFile(hasFile: boolean): FileSystem {
+    return {
+        exists: (relativePath_: Path): boolean => {
+            return hasFile
+        }
+    } as unknown as FileSystem;
+}
