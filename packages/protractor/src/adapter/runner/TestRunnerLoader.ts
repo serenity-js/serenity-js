@@ -91,6 +91,6 @@ export class TestRunnerLoader {
             ? new StandardOutput()
             : new TempFileOutput(this.fileSystem);
 
-        return new CucumberCLIAdapter(config.object(), this.moduleLoader, output);
+        return new CucumberCLIAdapter(config.object(), this.moduleLoader, this.fileSystem, output);
     }
 }

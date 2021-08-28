@@ -10,10 +10,6 @@ describe('Managing a Todo List', () => {
             ClearLocalStorage(),
         ));
 
-    // afterEach(() => {
-    //     browser.execute(`window.localStorage.clear()`);
-    // });
-
     describe('TodoMVC', () => {
 
         describe('actor', () => {

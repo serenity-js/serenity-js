@@ -10,6 +10,8 @@ export class FakeJasmineRunner {
 
     loadConfig      = sinon.spy();
     loadSpecs       = sinon.spy();
+    loadHelpers     = sinon.spy();
+    loadRequires    = sinon.spy();
 
     addReporter     = sinon.spy();
     addSpecFiles    = sinon.spy();

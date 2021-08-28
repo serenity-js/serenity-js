@@ -3,6 +3,7 @@ import { ModuleLoader } from '@serenity-js/core/lib/io';
 import * as sinon from 'sinon';
 
 import { JasmineAdapter } from '../../src/adapter';
+import { JasmineReporter } from '../../src/jasmine';
 import { FakeJasmineRunner } from './FakeJasmineRunner';
 
 /** @test JasmineAdapter */
@@ -54,6 +55,33 @@ describe('JasmineAdapter', () => {
         return result;
     });
 
+    /** @test JasmineAdapter#load */
+    it('loads configured requires and helpers', async () => {
+
+        const
+            helpers     = ['some-helper.js'],
+            requires    = ['ts-node/register'],
+            config      = {
+                helpers,
+                requires,
+            },
+            specs       = [];
+
+        const adapter = new JasmineAdapter(config, loader);
+
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs);
+
+        expect(FakeJasmineRunner.instance.loadConfig).to.have.been.calledWithMatch({
+            ... config,
+            random: false,
+        });
+
+        expect(FakeJasmineRunner.instance.loadRequires).to.have.been.called;
+        expect(FakeJasmineRunner.instance.loadHelpers).to.have.been.called;
+    });
+
     /** @test JasmineAdapter#run */
     it('configures the default timeout interval if required', async () => {
 
@@ -74,6 +102,52 @@ describe('JasmineAdapter', () => {
         FakeJasmineRunner.instance.complete(true);
 
         expect(FakeJasmineRunner.instance.jasmine.DEFAULT_TIMEOUT_INTERVAL).to.equal(defaultTimeoutInterval);
+
+        return result;
+    });
+
+    /** @test JasmineAdapter#run */
+    it('registers a Serenity/JS reporter by default', async () => {
+
+        const
+            specs  = [];
+
+        const adapter = new JasmineAdapter({}, loader);
+
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs)
+        const result = adapter.run();
+
+        FakeJasmineRunner.instance.complete(true);
+
+        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledOnce
+
+        return result;
+    });
+
+    /** @test JasmineAdapter#run */
+    it('registers configured custom reporters', async () => {
+
+        const
+            additionalReporter: JasmineReporter = {},
+            config = {
+                reporters: [ additionalReporter ],
+            },
+            specs  = [];
+
+        const adapter = new JasmineAdapter(config, loader);
+
+        FakeJasmineRunner.topSuite.returns(emptySuite)
+
+        await adapter.load(specs)
+        const result = adapter.run();
+
+        FakeJasmineRunner.instance.complete(true);
+
+        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledTwice
+
+        expect(FakeJasmineRunner.instance.addReporter).to.have.been.calledWith(additionalReporter)
 
         return result;
     });

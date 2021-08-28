@@ -37,6 +37,10 @@ export class FileSystem {
         return stat(this.root.resolve(relativeOrAbsolutePathToFile).value);
     }
 
+    public exists(relativeOrAbsolutePathToFile: Path): boolean {
+        return this.fs.existsSync(this.root.resolve(relativeOrAbsolutePathToFile).value);
+    }
+
     public remove(relativeOrAbsolutePathToFileOrDirectory: Path): Promise<void> {
         const
             stat = promisify(this.fs.stat),

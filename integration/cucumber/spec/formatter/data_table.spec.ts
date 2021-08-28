@@ -16,12 +16,12 @@ describe('@serenity-js/cucumber', function () {
                 'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('promise')
             .toRun('features/data_table.feature'),
 
         ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
-            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withStepDefsIn('promise')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
             )

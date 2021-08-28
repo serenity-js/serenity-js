@@ -3,6 +3,13 @@ import { ensure, isDefined } from 'tiny-types';
 import { ActivityDetails, CorrelationId, Timestamp } from '../model';
 import { DomainEvent } from './DomainEvent';
 
+/**
+ * @desc
+ *  Emitted when an {@link Activity} starts.
+ *
+ * @abstract
+ * @extends {DomainEvent}
+ */
 export abstract class ActivityStarts extends DomainEvent {
     constructor(
         public readonly sceneId: CorrelationId,

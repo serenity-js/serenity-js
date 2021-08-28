@@ -143,10 +143,15 @@ describe('CucumberCLIAdapter', function () {
     async function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {
         clearRequireCache('steps.ts');
 
-        const adapter = new CucumberCLIAdapter({
-            ...config,
-            require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],
-        }, new LocalModuleLoader(rootDirectory.value), output);
+        const adapter = new CucumberCLIAdapter(
+            {
+                ...config,
+                require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],
+            },
+            new LocalModuleLoader(rootDirectory.value),
+            new FileSystem(rootDirectory),
+            output
+        );
 
         const inspect = stdout.inspect();
 
