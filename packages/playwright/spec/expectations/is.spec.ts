@@ -1,3 +1,5 @@
+import "mocha";
+
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { Actor, actorCalled, serenity } from '@serenity-js/core';

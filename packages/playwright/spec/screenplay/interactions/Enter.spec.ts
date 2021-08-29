@@ -1,3 +1,5 @@
+import "mocha";
+
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, serenity } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';

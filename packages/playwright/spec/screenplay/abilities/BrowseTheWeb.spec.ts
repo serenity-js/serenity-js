@@ -1,3 +1,5 @@
+import "mocha";
+
 import { expect } from '@integration/testing-tools';
 import { Browser, BrowserContext, BrowserType, Page } from 'playwright';
 import { createSandbox, SinonStub } from 'sinon';

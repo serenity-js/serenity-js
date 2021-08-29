@@ -1,3 +1,5 @@
+import "mocha";
+
 import { expect } from '@integration/testing-tools';
 import {
     Actor,

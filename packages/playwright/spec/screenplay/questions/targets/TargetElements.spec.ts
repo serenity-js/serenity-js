@@ -1,3 +1,5 @@
+// import "mocha";
+
 // import { Actor, actorCalled, serenity } from '@serenity-js/core';
 // import { TestRunFinishes } from '@serenity-js/core/lib/events';
 // import chaiExclude from 'chai-exclude';
