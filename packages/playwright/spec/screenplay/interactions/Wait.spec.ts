@@ -1,40 +1,23 @@
-import "mocha";
+import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import {
-    Actor,
-    actorCalled,
-    Duration,
-    serenity,
-} from '@serenity-js/core';
+import { Actor, actorCalled, Duration, serenity } from '@serenity-js/core';
 import { TestRunFinishes } from '@serenity-js/core/lib/events';
-import { Page } from 'playwright';
-import { createSandbox, SinonStub } from 'sinon';
+import { chromium, Page } from 'playwright';
+import { createSandbox } from 'sinon';
 
-import { isPresent, isVisible } from '../../../src/expectations';
-import {
-    ElementHandleExpectation,
-} from '../../../src/expectations/ElementHandleExpectation';
-import { by, Target, Wait } from '../../../src/screenplay';
+import { by, isPresent, isVisible, Target } from '../../../src';
+import { Wait } from '../../../src/screenplay';
 import { BrowseTheWeb } from '../../../src/screenplay/abilities';
-import {
-    browserTypeStub,
-    elementHandleStub,
-    pageStub,
-} from '../../stubs/playwright';
 
-describe("'Wait' interaction", () => {
+describe('\'Wait\' interaction', () => {
     const sandbox = createSandbox();
     let browseTheWeb: BrowseTheWeb;
     let actor: Actor;
-    let page: Page;
 
     beforeEach(() => {
-        browseTheWeb = BrowseTheWeb.using(browserTypeStub(sandbox));
+        browseTheWeb = BrowseTheWeb.using(chromium);
         actor = actorCalled('Actor').whoCan(browseTheWeb);
-        page = pageStub(sandbox);
-        browseTheWeb.waitForTimeout = sandbox.stub();
-        (browseTheWeb as any).page = sandbox.stub().resolves(page);
     });
 
     afterEach(() => {
@@ -42,84 +25,74 @@ describe("'Wait' interaction", () => {
         serenity.announce(new TestRunFinishes());
     });
 
+    after(async () => {
+        await browseTheWeb.closeBrowser();
+    });
+
     describe('can wait for duration of', () => {
-        it('5 seconds', () => {
-            const action = Wait.for(Duration.ofSeconds(5));
-            action.performAs(actor);
+        it('5 seconds', async () => {
+            const waitForTimeout = sandbox.stub(browseTheWeb, 'waitForTimeout');
 
-            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.called;
-            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.calledWith(
-                5000
+            await actor.attemptsTo(Wait.for(Duration.ofSeconds(5)));
+
+            expect(waitForTimeout).to.have.been.called;
+            expect(waitForTimeout).to.have.been.calledWith(
+                5000,
             );
         });
 
-        it('5000 milliseconds', () => {
-            const action = Wait.for(Duration.ofMilliseconds(5000));
-            action.performAs(actor);
+        it('5000 milliseconds', async () => {
 
-            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.called;
-            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.calledWith(
-                5000
+            const waitForTimeout = sandbox.stub(browseTheWeb, 'waitForTimeout');
+
+            await actor.attemptsTo(Wait.for(Duration.ofMilliseconds(5000)));
+
+            expect(waitForTimeout).to.have.been.called;
+            expect(waitForTimeout).to.have.been.calledWith(
+                5000,
             );
         });
 
-        it('1 minute', () => {
-            const action = Wait.for(Duration.ofMinutes(1));
-            action.performAs(actor);
+        it('1 minute', async () => {
+            const waitForTimeout = sandbox.stub(browseTheWeb, 'waitForTimeout');
 
-            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.called;
-            expect((browseTheWeb.waitForTimeout as SinonStub)).to.have.been.calledWith(
-                60000
+            await actor.attemptsTo(Wait.for(Duration.ofMinutes(1)));
+
+            expect(waitForTimeout).to.have.been.called;
+            expect(waitForTimeout).to.have.been.calledWith(
+                60000,
             );
         });
     });
 
     describe('can wait until element is', () => {
+        let page: Page;
+
+        beforeEach(async () => {
+            page =
+                await (
+                    browseTheWeb as any
+                ).page();
+        });
+
         it('attached', async () => {
-            (page.waitForSelector as SinonStub).resolves(null);
+            sandbox.stub(page, 'waitForSelector').resolves(null);
 
             await expect(actor
-                    .attemptsTo(Wait.until(Target.$(by.id('example')), isPresent())))
+                .attemptsTo(Wait.until(Target.$(by.id('example')), isPresent())))
                 .to.be.rejectedWith(`Expected ${by.id('example').toString()} to be attached`);
         });
 
         it('visible', async () => {
-            const elementHandle = elementHandleStub(sandbox);
-            (elementHandle.isVisible as SinonStub).resolves(false);
-            (page.waitForSelector as SinonStub).resolves(elementHandle);
+            page.setContent(`
+                <div id="hidden" style="display: none">Hidden</div>
+            `);
 
+            const selector = by.id('hidden');
             await expect(actor
-                    .attemptsTo(Wait.until(Target.$(by.id('example')), isVisible())))
-                .to.be.rejectedWith(`Expected ${by.id('example').toString()} to be visible`);
-        });
-
-        [
-            {
-                expectationResult: true,
-                promiseResult: 'fulfilled',
-            },
-            {
-                expectationResult: false,
-                promiseResult: 'rejected',
-            },
-        ].forEach(({ expectationResult, promiseResult }) => {
-            it('in specific state', async () => {
-                // const waitForSelectorStub = sandbox.stub(page, 'waitForSelector').resolves(elementHandleStub(sandbox) as ElementHandle<HTMLElement>);
-                const elementHandle = elementHandleStub(sandbox);
-                (elementHandle.isVisible as SinonStub).resolves(false);
-                (page.waitForSelector as SinonStub).resolves(elementHandle);
-                const isReady = ElementHandleExpectation.forElementToBe(
-                    'attached',
-                    async () => expectationResult
-                );
-    
-                await expect(actor.attemptsTo(Wait.until(Target.$(by.id('example')), isReady))).to.be[promiseResult];
-                expect(page).to.be.equal(await (browseTheWeb as any).workingContext());
-                expect(page.waitForSelector as SinonStub).to.have.been.called;
-                expect(page.waitForSelector as SinonStub).to.have.been.calledWith(by.id('example').selector, {
-                    state: 'attached',
-                });
-            });
+                .attemptsTo(Wait.until(Target.$(selector), isVisible())
+                    .withOptions({ timeout: 5 })))
+                .to.be.rejected;
         });
     });
 });

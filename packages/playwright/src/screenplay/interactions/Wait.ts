@@ -1,12 +1,5 @@
 import { Ensure } from '@serenity-js/assertions';
-import {
-    AnswersQuestions,
-    Duration,
-    Expectation,
-    Interaction,
-    PerformsActivities,
-    UsesAbilities,
-} from '@serenity-js/core';
+import { AnswersQuestions, Duration, Expectation, Interaction, PerformsActivities, UsesAbilities } from '@serenity-js/core';
 
 import { ElementHandleAnswer, extend } from '../../answerTypes/ElementHandleAnswer';
 import { ElementHandleEvent } from '../../expectations/ElementHandleExpectation';
@@ -23,21 +16,35 @@ enum TimeMeasures {
 export class Wait {
     static until(
         target: TargetElement,
-        state: ElementHandleEvent & Expectation<boolean, ElementHandleAnswer>
-    ): Interaction {
-        return {
-            performAs: async (
-                actor: UsesAbilities & AnswersQuestions & PerformsActivities
-            ): Promise<void> => {
-                const targetInState = new TargetElementInState(target, state);
-                const answeredTarget = await actor.answer(targetInState);
-                await actor.attemptsTo(Ensure.that(answeredTarget, state));
-            },
-        };
+        state: ElementHandleEvent & Expectation<boolean, ElementHandleAnswer>,
+    ): Interaction & { withOptions({timeout: number}): Interaction } {
+        return new WaitUntil(target, state);
     }
 
     static for(duration: Duration): Interaction {
         return Timeout.of(duration);
+    }
+}
+
+class WaitUntil extends Interaction {
+    constructor(
+        protected readonly target: TargetElement,
+        protected readonly state: ElementHandleEvent & Expectation<boolean, ElementHandleAnswer>,
+        protected readonly options?: { timeout: number },
+    ) {
+        super();
+    }
+
+    withOptions(options: { timeout: number }): Interaction {
+        return new WaitUntil(this.target, this.state, options);
+    }
+
+    async performAs(
+        actor: UsesAbilities & AnswersQuestions & PerformsActivities,
+    ): Promise<void> {
+        const targetInState = new TargetElementInState(this.target, this.state, this.options);
+        const answeredTarget = await actor.answer(targetInState);
+        await actor.attemptsTo(Ensure.that(answeredTarget, this.state));
     }
 }
 
@@ -48,7 +55,7 @@ class Timeout extends Interaction {
 
     constructor(
         private readonly timeout: number,
-        private readonly measure: TimeMeasures
+        private readonly measure: TimeMeasures,
     ) {
         super();
     }
@@ -61,20 +68,25 @@ class Timeout extends Interaction {
 }
 
 class TargetElementInState extends TargetElement {
-    constructor(element: TargetElement, protected readonly state: ElementHandleEvent) {
+    constructor(
+        element: TargetElement,
+        protected readonly state: ElementHandleEvent,
+        protected readonly options?: { timeout: number },
+    ) {
         super(by.id(''), null);
         Object.assign(this, element);
     }
 
     public async answeredBy(
-        actor: AnswersQuestions & UsesAbilities & PerformsActivities
+        actor: AnswersQuestions & UsesAbilities & PerformsActivities,
     ): Promise<ElementHandleAnswer> {
         const parent = await this.getRealParent(actor);
 
         const element = extend(
             await parent.waitForSelector(this.locator.selector, {
                 state: this.state.expectedEvent(),
-            })
+                ...this.options,
+            }),
         );
 
         this.overrideToString(element, this.toString());

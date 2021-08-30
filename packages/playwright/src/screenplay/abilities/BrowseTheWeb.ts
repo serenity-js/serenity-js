@@ -1,20 +1,12 @@
 import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
-import {
-    Browser,
-    BrowserContext,
-    BrowserType,
-    ElementHandle,
-    Frame,
-    LaunchOptions,
-    Mouse,
-    Page,
-    Response,
-} from 'playwright';
+import { Browser, BrowserContext, BrowserType, ElementHandle, Frame, LaunchOptions, Mouse, Page, Response } from 'playwright';
 import { PageFunction } from 'playwright/types/structs';
 
 import { Stack } from '../../utils';
 import { NavigateOptions } from '../interactions';
 import { ScreenshotOptions } from '../options/screenshotOptions';
+
+type Context = Page | Frame;
 
 /**
  * @desc
@@ -49,51 +41,55 @@ export class BrowseTheWeb implements Ability {
     private static actorMap = new Map();
 
     /**
-   * @private
-   */
+     * @private
+     */
     private _browseContext: BrowserContext;
 
     /**
-   * @private
-   */
+     * @private
+     */
     private _browser: Browser;
     /**
-   * @private
-   */
+     * @private
+     */
     private launchOptions?: LaunchOptions;
 
     /**
-   * @private
-   */
+     * @private
+     */
     private _page: Page;
 
     /**
-   * @private
-   */
-    private _workingContext: Page | Frame;
+     * @private
+     */
+    private _workingContext: Context;
 
     /**
-   * @private
-   */
-    private storedContext: Stack<Page | Frame>;
+     * @private
+     */
+    private storedContext: Stack<Context>;
 
-    protected async workingContext(): Promise<Page | Frame> {
+    protected async workingContext(): Promise<Context> {
         if (!this._workingContext) {
             this._workingContext = await this.page();
         }
         return this._workingContext;
     }
 
-    protected setWorkingContext(newContext: Page | Frame): void {
+    protected setWorkingContext(newContext: Context): void {
         this._workingContext = newContext;
     }
 
+    protected clearContext(): void {
+        this._workingContext = undefined;
+    }
+
     /**
-   * @private
-   * @desc
-   *  Playwright browser context. It's recommended by playwright to use context as wrappers around pages
-   *  for frameworks
-   */
+     * @private
+     * @desc
+     *  Playwright browser context. It's recommended by playwright to use context as wrappers around pages
+     *  for frameworks
+     */
     private async browser(): Promise<Browser> {
         if (!this._browser) {
             this._browser = await this.browserType.launch(this.launchOptions);
@@ -102,63 +98,71 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-   * @private
-   * @desc
-   *  Playwright browser context. It's recommended by playwright to use context as wrappers around pages
-   *  for frameworks
-   */
+     * @private
+     * @desc
+     *  Playwright browser context. It's recommended by playwright to use context as wrappers around pages
+     *  for frameworks
+     */
     private async browserContext(): Promise<BrowserContext> {
         if (!this._browseContext) {
-            this._browseContext = await (await this.browser()).newContext();
+            this._browseContext =
+                await (
+                    await this.browser()
+                ).newContext();
         }
         return this._browseContext;
     }
 
     /**
-   * @private
-   * @desc
-   *  Playwright browser page. It's recommended by playwright to use context as wrappers around pages
-   *  for frameworks
-   *
-   *  This should not be public to ease up maintenance. BrowseTheWeb wroks as an anti-corruption layer for playwright API
-   */
+     * @private
+     * @desc
+     *  Playwright browser page. It's recommended by playwright to use context as wrappers around pages
+     *  for frameworks
+     *
+     *  This should not be public to ease up maintenance. BrowseTheWeb wroks as an anti-corruption layer for playwright API
+     */
     private async page(): Promise<Page> {
         if (!this._page) {
-            this._page = await (await this.browserContext()).newPage();
+            this._page =
+                await (
+                    await this.browserContext()
+                ).newPage();
         }
         return this._page;
     }
 
     /**
-   * @public
-   * @desc
-   *  All open pages
-   */
+     * @public
+     * @desc
+     *  All open pages
+     */
     private async pages(): Promise<Array<Page>> {
-        return (await this.browserContext()).pages();
+        return (
+            await this.browserContext()
+        ).pages();
     }
 
     private _lastScriptExecutionResult: unknown;
 
     /**
-   * @desc
-   *  Ability to interact with web front-ends using a given playwright browser instance.
-   *
-   * @param {Browser} browserType
-   * @returns {BrowseTheWeb}
-   */
+     * @desc
+     *  Ability to interact with web front-ends using a given playwright browser instance.
+     *
+     * @param {Browser} browserType
+     * @returns {BrowseTheWeb}
+     */
     public static using(browserType: BrowserType): BrowseTheWeb {
         return new BrowseTheWeb(browserType);
     }
 
     /**
-   * @desc
-   *  Used to access the Actor's ability to {@link BrowseTheWeb} from within the {@link Interaction} classes,
-   *  such as {@link Navigate}.
-   *
-   * @param {UsesAbilities} actor
-   * @return {BrowseTheWeb}
-   */
+     * @desc
+     *  Used to access the Actor's ability to {@link BrowseTheWeb} from within the {@link Interaction} classes,
+     *  such as {@link Navigate}.
+     *
+     * @param {UsesAbilities} actor
+     * @return {BrowseTheWeb}
+     */
     public static as(actor: UsesAbilities): BrowseTheWeb {
         if (!this.actorMap.has(actor)) {
             this.actorMap.set(actor, actor.abilityTo(BrowseTheWeb));
@@ -167,9 +171,9 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-   * @param {Browser} browser
-   *  An instance of a protractor browser
-   */
+     * @param {Browser} browser
+     *  An instance of a protractor browser
+     */
     private constructor(protected browserType: BrowserType) {
         this.storedContext = new Stack();
     }
@@ -180,35 +184,37 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-   * @desc
-   *  Navigate to the given destination and loads mock modules before Angular.
-   *  Assumes that the page being loaded uses Angular.
-   *
-   * @param {string} destination
-   * @param {number?} timeoutInMillis
-   *
-   * @returns {Promise<void>}
-   */
+     * @desc
+     *  Navigate to the given destination and loads mock modules before Angular.
+     *  Assumes that the page being loaded uses Angular.
+     *
+     * @param {string} destination
+     * @param {number?} timeoutInMillis
+     *
+     * @returns {Promise<void>}
+     */
     async open(
         destination: string,
         options?: {
             referer?: string;
             timeout?: number;
             waitUntil?: 'load' | 'domcontentloaded' | 'networkidle';
-        }
+        },
     ): Promise<Response> {
-        return (await this.workingContext()).goto(destination, options);
+        return (
+            await this.workingContext()
+        ).goto(destination, options);
     }
 
     /**
-   * @desc
-   *  Interface for navigating back and forth in the browser history.
-   *
-   *  @returns {Navigation}
-   */
+     * @desc
+     *  Interface for navigating back and forth in the browser history.
+     *
+     *  @returns {Navigation}
+     */
     async navigate(
         where: 'back' | 'forward' | 'reload',
-        options: NavigateOptions
+        options: NavigateOptions,
     ): Promise<Response> {
         const page = await this.page();
         switch (where) {
@@ -222,70 +228,80 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-   * @desc
-   *  Interface for defining sequences of complex user interactions.
-   *
-   * @returns {ActionSequence}
-   *
-   * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
-   */
+     * @desc
+     *  Interface for defining sequences of complex user interactions.
+     *
+     * @returns {ActionSequence}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/actions.html
+     */
     async mouse(): Promise<Mouse> {
-        return (await this.page()).mouse;
+        return (
+            await this.page()
+        ).mouse;
     }
 
     /**
-   * @desc
-   *  Interface for managing browser and driver state.
-   *
-   * @returns {Options}
-   *
-   * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
-   */
+     * @desc
+     *  Interface for managing browser and driver state.
+     *
+     * @returns {Options}
+     *
+     * @see https://www.selenium.dev/selenium/docs/api/javascript/module/selenium-webdriver/lib/webdriver_exports_WebDriver.html#manage
+     */
     context(): Promise<BrowserContext> {
         return this.browserContext();
     }
 
     /**
-   * @desc
-   *  returns Fram by a selector
-   *
-   * @param {string} selector
-   *
-   * @returns {Promise<Frame>}
-   */
+     * @desc
+     *  returns Fram by a selector
+     *
+     * @param {string} selector
+     *
+     * @returns {Promise<Frame>}
+     */
     public async getFrame(selector: string): Promise<Frame> {
         const page = await this.workingContext();
-        return (await page.$(selector)).contentFrame();
+        return (
+            await page.$(selector)
+        ).contentFrame();
     }
 
     /**
-   * @desc
-   *  Closes the browser
-   *
-   * @returns {Promise<void>}
-   */
+     * @desc
+     *  Closes the browser
+     *
+     * @returns {Promise<void>}
+     */
     async closeBrowser(): Promise<void> {
-        await (await this.browser()).close();
+        await (
+            await this.browser()
+        ).close();
         this._browser = undefined;
+        this.clearContext();
     }
 
     /**
-   * @desc
-   *  Closes the browser
-   *
-   * @returns {Promise<void>}
-   */
+     * @desc
+     *  Closes the browser
+     *
+     * @returns {Promise<void>}
+     */
     async closePage(): Promise<void> {
-        await (await this.page()).close();
+        await (
+            await this.page()
+        ).close();
         this._page = undefined;
+        this.clearContext();
     }
 
     /**
-   * @desc
-   *  Closes the browser
-   *
-   * @returns {Promise<void>}
-   */
+     * @desc
+     *  Closes the browser
+     *
+     * @returns {Promise<void>}
+     */
     async closeAllOtherWindows(): Promise<void> {
         const windows = await this.pages();
         const windowToKeep = await this.page();
@@ -294,32 +310,38 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-   * @desc
-   *  Locates a single element identified by the selector
-   *
-   * @param {string} selector
-   * @returns {Promise<ElementHandle>}
-   */
+     * @desc
+     *  Locates a single element identified by the selector
+     *
+     * @param {string} selector
+     * @returns {Promise<ElementHandle>}
+     */
     public async $(selector: string): Promise<ElementHandle> {
-        return (await this.workingContext()).$(selector);
+        return (
+            await this.workingContext()
+        ).$(selector);
     }
 
     /**
-   * @desc
-   *  Locates all elements identified by the selector
-   *
-   * @param {string} selector
-   * @returns {Promise<ElementHandle[]>}
-   */
+     * @desc
+     *  Locates all elements identified by the selector
+     *
+     * @param {string} selector
+     * @returns {Promise<ElementHandle[]>}
+     */
     public async $$(selector: string): Promise<ElementHandle[]> {
-        return (await this.workingContext()).$$(selector);
+        return (
+            await this.workingContext()
+        ).$$(selector);
     }
 
     public async waitForSelector(
         selector: string,
-        options: PageWaitForSelectorOptions
+        options: PageWaitForSelectorOptions,
     ): Promise<null | ElementHandle> {
-        return (await this.workingContext()).waitForSelector(selector, options);
+        return (
+            await this.workingContext()
+        ).waitForSelector(selector, options);
     }
 
     public async click(
@@ -337,35 +359,43 @@ export class BrowseTheWeb implements Ability {
             };
             timeout?: number;
             trial?: boolean;
-        }
+        },
     ): Promise<void> {
-        return (await this.workingContext()).click(selector, options);
+        return (
+            await this.workingContext()
+        ).click(selector, options);
     }
 
     public async doubleClick(selector: string): Promise<void> {
-        return (await this.workingContext()).dblclick(selector);
+        return (
+            await this.workingContext()
+        ).dblclick(selector);
     }
 
     public async hover(selector: string): Promise<void> {
-        return (await this.workingContext()).hover(selector);
+        return (
+            await this.workingContext()
+        ).hover(selector);
     }
 
     /**
-   * @desc
-   *  Evaluates the function on the page with arguments
-   *
-   * @param {PageFunction<any[], unknown>} script
-   * @param {any[]} args
-   *
-   * @returns {Promise<unknown>}
-   *
-   * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
-   */
+     * @desc
+     *  Evaluates the function on the page with arguments
+     *
+     * @param {PageFunction<any[], unknown>} script
+     * @param {any[]} args
+     *
+     * @returns {Promise<unknown>}
+     *
+     * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
+     */
     public async evaluate<Argument, R>(
         script: PageFunction<Argument, R>,
-        args: Argument
+        args: Argument,
     ): Promise<R> {
-        const result = await (await this.workingContext()).evaluate(script, args);
+        const result = await (
+            await this.workingContext()
+        ).evaluate(script, args);
         this._lastScriptExecutionResult = result;
         return result;
     }
@@ -375,78 +405,90 @@ export class BrowseTheWeb implements Ability {
     }
 
     /**
-   * @desc
-   *  Schedule a command to take a screenshot. The driver makes a best effort to
-   *  return a base64-encoded screenshot of the following, in order of preference:
-   *
-   *  1. Entire page
-   *  2. Current window
-   *  3. Visible portion of the current frame
-   *  4. The entire display containing the browser
-   *
-   * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
-   */
+     * @desc
+     *  Schedule a command to take a screenshot. The driver makes a best effort to
+     *  return a base64-encoded screenshot of the following, in order of preference:
+     *
+     *  1. Entire page
+     *  2. Current window
+     *  3. Visible portion of the current frame
+     *  4. The entire display containing the browser
+     *
+     * @return {Promise<string>} A promise that will be resolved to a base64-encoded screenshot PNG
+     */
     public async takeScreenshot(options?: ScreenshotOptions): Promise<Buffer> {
-        return (await this.page()).screenshot(options);
+        return (
+            await this.page()
+        ).screenshot(options);
     }
 
     /**
-   * @desc
-   *  Returns the title of the current page.
-   *
-   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
-   *
-   * @returns {Promise<string>}
-   */
+     * @desc
+     *  Returns the title of the current page.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
+     *
+     * @returns {Promise<string>}
+     */
     public async getPageTitle(): Promise<string> {
-        return (await this.page()).title();
+        return (
+            await this.page()
+        ).title();
     }
 
     /**
-   * @desc
-   *  Returns the url of the current page.
-   *
-   * @returns {Promise<string>}
-   */
+     * @desc
+     *  Returns the url of the current page.
+     *
+     * @returns {Promise<string>}
+     */
     public async getCurrentUrl(): Promise<string> {
-        return (await this.page()).url();
+        return (
+            await this.page()
+        ).url();
     }
 
     /**
-   * @desc
-   *  Pause the actor flow for a specified number of milliseconds.
-   *
-   * @param {number} millis
-   * @returns {Promise<void>}
-   */
+     * @desc
+     *  Pause the actor flow for a specified number of milliseconds.
+     *
+     * @param {number} millis
+     * @returns {Promise<void>}
+     */
     public async waitForTimeout(millis: number): Promise<void> {
-        return (await this.page()).waitForTimeout(millis);
+        return (
+            await this.page()
+        ).waitForTimeout(millis);
     }
 
     /**
-   * @desc
-   * Resizes browser window
-   */
+     * @desc
+     * Resizes browser window
+     */
     public async resizeBrowserWindow(size: {
         height: number;
         width: number;
     }): Promise<void> {
-        (await this.page()).setViewportSize(size);
+        (
+            await this.page()
+        ).setViewportSize(size);
     }
 
     /**
-   * @desc
-   * Resizes browser window
-   */
+     * @desc
+     * Resizes browser window
+     */
     public async windowSize(): Promise<{
         height: number;
         width: number;
     }> {
-        return (await this.page()).viewportSize();
+        return (
+            await this.page()
+        ).viewportSize();
     }
 
     public async switchToFrame(
-        handleOrNameOrIndex: ElementHandle | number | string
+        handleOrNameOrIndex: ElementHandle | number | string,
     ): Promise<void> {
         const frame = await this.normalizeFrame(handleOrNameOrIndex);
         this.setWorkingContext(frame);
@@ -454,9 +496,15 @@ export class BrowseTheWeb implements Ability {
 
     public async switchToParentFrame(): Promise<void> {
         const context = await this.workingContext();
-        if ((context as Frame).parentFrame) {
-            if ((context as Frame).parentFrame()) {
-                this.setWorkingContext((context as Frame).parentFrame());
+        if ((
+            context as Frame
+        ).parentFrame) {
+            if ((
+                context as Frame
+            ).parentFrame()) {
+                this.setWorkingContext((
+                    context as Frame
+                ).parentFrame());
             } else {
                 this.setWorkingContext(await this.page());
             }
@@ -473,24 +521,26 @@ export class BrowseTheWeb implements Ability {
         switch (type) {
             case 'number': {
                 this.setWorkingContext(
-                    context.pages()[nameOrIndex as number]
+                    context.pages()[nameOrIndex as number],
                 );
                 break;
             }
             case 'string': {
                 const pagesWithTitles = await Promise.all(context
-                  .pages()
-                  .map(async (page) => ({ page, title: await page.title() })));
+                    .pages()
+                    .map(async (page) => (
+                        { page, title: await page.title() }
+                    )));
                 this.setWorkingContext(
                     pagesWithTitles.find(
-                        (pageWithTitle) => pageWithTitle.title === nameOrIndex
-                    ).page
+                        (pageWithTitle) => pageWithTitle.title === nameOrIndex,
+                    ).page,
                 );
                 break;
             }
             default:
                 throw new Error(
-                    "Unsupported window name or index type. How did you even get here? Don't use 'any', I'm watching you."
+                    'Unsupported window name or index type. How did you even get here? Don\'t use \'any\', I\'m watching you.',
                 );
         }
     }
@@ -516,14 +566,14 @@ export class BrowseTheWeb implements Ability {
         const pages = await this.pages();
         if (1 === pages.length) {
             throw new LogicError(
-                `Only one window is open - already on original window`
+                `Only one window is open - already on original window`,
             );
         }
         this.setWorkingContext(pages[0]);
     }
 
     private async normalizeFrame(
-        nameorIndexOrHandle: string | number | ElementHandle
+        nameorIndexOrHandle: string | number | ElementHandle,
     ): Promise<Frame> {
         const page = await this.page();
         const type = typeof nameorIndexOrHandle;
@@ -535,7 +585,9 @@ export class BrowseTheWeb implements Ability {
                 return page.frame({ name: nameorIndexOrHandle as string });
             }
             default: {
-                return (nameorIndexOrHandle as ElementHandle).contentFrame();
+                return (
+                    nameorIndexOrHandle as ElementHandle
+                ).contentFrame();
             }
         }
     }
@@ -543,21 +595,21 @@ export class BrowseTheWeb implements Ability {
 
 interface PageWaitForSelectorOptions {
     /**
-   * Defaults to `'visible'`. Can be either:
-   * - `'attached'` - wait for element to be present in DOM.
-   * - `'detached'` - wait for element to not be present in DOM.
-   * - `'visible'` - wait for element to have non-empty bounding box and no `visibility:hidden`. Note that element without
-   *   any content or with `display:none` has an empty bounding box and is not considered visible.
-   * - `'hidden'` - wait for element to be either detached from DOM, or have an empty bounding box or `visibility:hidden`.
-   *   This is opposite to the `'visible'` option.
-   */
+     * Defaults to `'visible'`. Can be either:
+     * - `'attached'` - wait for element to be present in DOM.
+     * - `'detached'` - wait for element to not be present in DOM.
+     * - `'visible'` - wait for element to have non-empty bounding box and no `visibility:hidden`. Note that element without
+     *   any content or with `display:none` has an empty bounding box and is not considered visible.
+     * - `'hidden'` - wait for element to be either detached from DOM, or have an empty bounding box or `visibility:hidden`.
+     *   This is opposite to the `'visible'` option.
+     */
     state?: 'attached' | 'detached' | 'visible' | 'hidden';
 
     /**
-   * Maximum time in milliseconds, defaults to 30 seconds, pass `0` to disable timeout. The default value can be changed by
-   * using the
-   * [browserContext.setDefaultTimeout(timeout)](https://playwright.dev/docs/api/class-browsercontext#browsercontextsetdefaulttimeouttimeout)
-   * or [page.setDefaultTimeout(timeout)](https://playwright.dev/docs/api/class-page#pagesetdefaulttimeouttimeout) methods.
-   */
+     * Maximum time in milliseconds, defaults to 30 seconds, pass `0` to disable timeout. The default value can be changed by
+     * using the
+     * [browserContext.setDefaultTimeout(timeout)](https://playwright.dev/docs/api/class-browsercontext#browsercontextsetdefaulttimeouttimeout)
+     * or [page.setDefaultTimeout(timeout)](https://playwright.dev/docs/api/class-page#pagesetdefaulttimeouttimeout) methods.
+     */
     timeout?: number;
 }
