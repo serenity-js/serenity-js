@@ -69,9 +69,24 @@
     "@integration/testing-tools": "2.0.0",
     "@documentation/esdoc-template": "2.0.0"
   },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts",
+      "lib",
+      "node_modules",
+      "spec"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [],
+    "reporter": [
+      "json"
+    ],
+    "cache": true,
+    "all": false
   }
 }
