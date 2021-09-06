@@ -2,12 +2,12 @@ import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@seren
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
-import { UIInteraction } from './UIInteraction';
+import { WebElementInteraction } from './WebElementInteraction';
 
 /**
  * @desc
  *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
- *  [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on a given {@link UIElement}.
+ *  [click](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) on a given Web element.
  *
  * @example <caption>Example widget</caption>
  *  <form>
@@ -15,7 +15,7 @@ import { UIInteraction } from './UIInteraction';
  *  </form>
  *
  * @example <caption>Lean Page Object describing the widget</caption>
- *  import { by, Target } from '@serenity-js/web';
+ *  import { by, Target } from '@serenity-js/webdriverio';
  *
  *  class Form {
  *      static exampleInput = Target.the('example input')
@@ -24,7 +24,7 @@ import { UIInteraction } from './UIInteraction';
  *
  * @example <caption>Clicking on an element</caption>
  *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Click, isSelected } from '@serenity-js/web';
+ *  import { BrowseTheWeb, Click, isSelected } from '@serenity-js/webdriverio';
  *  import { Ensure } from '@serenity-js/assertions';
  *
  *  actorCalled('Chloé')
@@ -39,22 +39,21 @@ import { UIInteraction } from './UIInteraction';
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link isSelected}
  *
- * @extends {UIInteraction}
+ * @extends {WebElementInteraction}
  */
-
-export class Click extends UIInteraction {
+export class Click extends WebElementInteraction {
 
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<UIElement>} element
+     * @param {Answerable<UIElement>} target
      *  The element to be clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(element: Answerable<UIElement>): Interaction {
-        return new Click(element);
+    static on(target: Answerable<UIElement>): Interaction {
+        return new Click(target);
     }
 
     /**
@@ -73,7 +72,7 @@ export class Click extends UIInteraction {
      * @param {UsesAbilities & AnswersQuestions} actor
      *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
      *
-     * @returns {Promise<void>}
+     * @returns {PromiseLike<void>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
