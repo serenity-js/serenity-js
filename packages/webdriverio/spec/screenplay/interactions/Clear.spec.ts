@@ -4,8 +4,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { by, Clear, Navigate, Target, Value } from '../../../src';
+import { Clear, Navigate, Target, Value } from '../../../src';
 
 /** @test {Clear} */
 describe('Clear', () => {

@@ -3,8 +3,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { Attribute, by, Hover, Navigate, Target } from '../../../src';
+import { Attribute, Hover, Navigate, Target } from '../../../src';
 
 /** @test {Hover} */
 describe('Hover', function () {

@@ -1,5 +1,5 @@
 import { Expectation } from '@serenity-js/core';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { ElementExpectation } from './ElementExpectation';
 
@@ -14,6 +14,6 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isEnabled(): Expectation<boolean, Element<'async'>> {
+export function isEnabled(): Expectation<boolean, UIElement> {
     return ElementExpectation.forElementTo('become enabled', actual => actual.isEnabled());
 }

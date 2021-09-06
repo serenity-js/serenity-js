@@ -1,6 +1,5 @@
 import { Question } from '@serenity-js/core';
-
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWeb } from '@serenity-js/web';
 
 /**
  * @desc

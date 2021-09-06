@@ -3,10 +3,11 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Answerable } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 import type { Element } from 'webdriverio';
 
-import { by, Click, CSSClasses, Navigate, Target, Text } from '../../../src';
+import { Click, CSSClasses, Navigate, Target, Text } from '../../../src';
 
 /**
  * @test {Target}

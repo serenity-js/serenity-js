@@ -2,7 +2,7 @@ import { EventRecorder } from '@integration/testing-tools';
 import { Actor, Cast, Duration } from '@serenity-js/core';
 import { Clock, Stage, StageManager } from '@serenity-js/core/lib/stage';
 
-import { BrowseTheWeb } from '../../../../src';
+import { BrowseTheWebWithWebdriverIO } from '../../../../src';
 
 class UIActors implements Cast {
     prepare(actor: Actor): Actor {
@@ -12,7 +12,7 @@ class UIActors implements Cast {
 
             case 'Betty':
             default:
-                return actor.whoCan(BrowseTheWeb.using(browser));
+                return actor.whoCan(BrowseTheWebWithWebdriverIO.using(browser));
         }
     }
 }

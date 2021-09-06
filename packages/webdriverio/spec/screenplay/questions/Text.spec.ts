@@ -3,8 +3,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, replace, toNumber, trim } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { by, Navigate, Target, Text } from '../../../src';
+import { Navigate, Target, Text } from '../../../src';
 
 describe('Text', () => {
 

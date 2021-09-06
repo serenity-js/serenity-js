@@ -6,8 +6,9 @@ import { actorCalled, Question, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
+import { by } from '@serenity-js/web';
 
-import { by, ExecuteScript, LastScriptExecution, Navigate, Target, Value } from '../../../../src';
+import { ExecuteScript, LastScriptExecution, Navigate, Target, Value } from '../../../../src';
 import { Actors } from '../../Actors';
 
 /** @test {ExecuteScript} */

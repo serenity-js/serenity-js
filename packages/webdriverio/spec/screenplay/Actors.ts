@@ -1,7 +1,7 @@
 import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { Browser } from 'webdriverio';
 
-import { BrowseTheWeb } from '../../src';
+import { BrowseTheWebWithWebdriverIO } from '../../src';
 
 /*
  * NYC confuses WebdriverIO's ts-node loader (probably because it runs in a child process https://github.com/istanbuljs/nyc/issues/635)
@@ -20,7 +20,7 @@ declare global {
 export class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
-            BrowseTheWeb.using(global.browser),
+            BrowseTheWebWithWebdriverIO.using(global.browser),
             TakeNotes.usingAnEmptyNotepad(),
         );
     }

@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Answerable, AnswersQuestions, Expectation, List, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import type { Element, ElementArray } from 'webdriverio';
+import { BrowseTheWeb, UIElement, UIElementList, UIElementLocation } from '@serenity-js/web';
 
-import { ElementArrayListAdapter } from './lists';
-import { Locator } from './locators';
+import { ElementListAdapter } from './lists';
 import { NestedTargetBuilder } from './NestedTargetBuilder';
 import { TargetBuilder } from './TargetBuilder';
 
@@ -16,9 +15,9 @@ import { TargetBuilder } from './TargetBuilder';
  *
  * @see {@link @serenity-js/core/lib/screenplay/questions~List}
  *
- * @typedef {List<ElementArrayListAdapter, Promise<Element<'async'>>, Promise<ElementArray>>} TargetList
+ * @typedef {List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>} TargetList
  */
-export type TargetList = List<ElementArrayListAdapter, Promise<Element<'async'>>, Promise<ElementArray>>;
+export type TargetList = List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
 
 /**
  * @desc
@@ -84,7 +83,7 @@ export type TargetList = List<ElementArrayListAdapter, Promise<Element<'async'>>
  *   import { by, Target } from '@serenity-js/webdriverio';
  *   import { Element } from 'webdriverio';
  *
- *   const apple: Question<Promise<Element<'async'>>>  =
+ *   const apple: Question<Promise<UIElement>>  =
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .first()
  *
@@ -94,7 +93,7 @@ export type TargetList = List<ElementArrayListAdapter, Promise<Element<'async'>>
  *   import { endsWith } from '@serenity-js/assertions';
  *   import { Element } from 'webdriverio';
  *
- *   const date: Question<Promise<Element<'async'>>>  =
+ *   const date: Question<Promise<UIElement>>  =
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .last()
  *
@@ -103,7 +102,7 @@ export type TargetList = List<ElementArrayListAdapter, Promise<Element<'async'>>
  *   import { by, Target } from '@serenity-js/webdriverio';
  *   import { Element } from 'webdriverio';
  *
- *   const banana: Question<Promise<Element<'async'>>>  =
+ *   const banana: Question<Promise<UIElement>>  =
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .get(1)
  *
@@ -122,7 +121,7 @@ export type TargetList = List<ElementArrayListAdapter, Promise<Element<'async'>>
  *       static link      = Target.the('link').located(by.css('a'));
  *   }
  *
- *   const date: Question<Promise<Element<'async'>>>  =
+ *   const date: Question<Promise<UIElement>>  =
  *       Basket.items
  *          .where(Text, endsWith('e'))
  *          .where(CSSClasses.of(Basket.link), contain('has-discount'))
@@ -174,13 +173,13 @@ export class Target {
      */
     static the(description: string): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement> {
         return {
-            located(locator: Locator): TargetElement {
-                return new TargetElement(`the ${ description }`, locator);
+            located(location: UIElementLocation): TargetElement {
+                return new TargetElement(`the ${ description }`, location);
             },
 
-            of(parent: Answerable<Element<'async'>>) {
+            of(parent: Answerable<UIElement>) {
                 return {
-                    located(locator: Locator): TargetNestedElement {
+                    located(locator: UIElementLocation): TargetNestedElement {
                         return new TargetNestedElement(parent, new TargetElement(description, locator));
                     }
                 }
@@ -199,13 +198,13 @@ export class Target {
      */
     static all(description: string): TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements> {
         return {
-            located(locator: Locator): TargetElements {
+            located(locator: UIElementLocation): TargetElements {
                 return new TargetElements(description, locator);
             },
 
-            of(parent: Answerable<Element<'async'>>) {
+            of(parent: Answerable<UIElement>) {
                 return {
-                    located(locator: Locator): TargetNestedElements {
+                    located(locator: UIElementLocation): TargetNestedElements {
                         return new TargetNestedElements(parent, new TargetElements(description, locator));
                     }
                 }
@@ -224,20 +223,20 @@ export class Target {
  * @see {@link Target}
  */
 export class TargetElements
-    extends Question<Promise<ElementArray>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<ElementArray>>
+    extends Question<Promise<UIElementList>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<UIElementList>>
 {
-    private readonly list: List<ElementArrayListAdapter, Promise<Element<'async'>>, Promise<ElementArray>>;
+    private readonly list: List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
 
     constructor(
         description: string,
-        private readonly locator: Locator,
+        private readonly location: UIElementLocation,
     ) {
         super(description);
-        this.list = new List(new ElementArrayListAdapter(this));
+        this.list = new List(new ElementListAdapter(this));
     }
 
-    of(parent: Answerable<Element<'async'>>): TargetNestedElements {
+    of(parent: Answerable<UIElement>): TargetNestedElements {
         return new TargetNestedElements(parent, this);
     }
 
@@ -245,29 +244,27 @@ export class TargetElements
         return this.list.count();
     }
 
-    first(): Question<Promise<Element<'async'>>> {
+    first(): Question<Promise<UIElement>> {
         return this.list.first()
     }
 
-    last(): Question<Promise<Element<'async'>>> {
+    last(): Question<Promise<UIElement>> {
         return this.list.last()
     }
 
-    get(index: number): Question<Promise<Element<'async'>>> {
+    get(index: number): Question<Promise<UIElement>> {
         return this.list.get(index);
     }
 
     where<Answer_Type>(
-        question: MetaQuestion<Answerable<Element<'async'>>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<UIElement>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>,
     ): TargetList {
         return this.list.where(question, expectation);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementArray> {
-        return this.locator.allMatching()
-            .describedAs(this.subject)
-            .answeredBy(actor);
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElementList> {
+        return BrowseTheWeb.as(actor).locateAllElementsAt(this.location);
     }
 }
 
@@ -281,20 +278,20 @@ export class TargetElements
  * @see {@link Target}
  */
 export class TargetNestedElements
-    extends Question<Promise<ElementArray>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<ElementArray>>
+    extends Question<Promise<UIElementList>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<UIElementList>>
 {
-    private readonly list: List<ElementArrayListAdapter, Promise<Element<'async'>>, Promise<ElementArray>>;
+    private readonly list: List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
 
     constructor(
-        private readonly parent: Answerable<Element<'async'>>,
-        private readonly children: Answerable<ElementArray>,
+        private readonly parent: Answerable<UIElement>,
+        private readonly children: Answerable<UIElementList>,
     ) {
         super(`${ children } of ${ parent }`);
-        this.list = new List(new ElementArrayListAdapter(this));
+        this.list = new List(new ElementListAdapter(this));
     }
 
-    of(parent: Answerable<Element<'async'>>): Question<Promise<ElementArray>> {
+    of(parent: Answerable<UIElement>): Question<Promise<UIElementList>> {
         return new TargetNestedElements(parent, this);
     }
 
@@ -302,26 +299,26 @@ export class TargetNestedElements
         return this.list.count();
     }
 
-    first(): Question<Promise<Element<'async'>>> {
+    first(): Question<Promise<UIElement>> {
         return this.list.first()
     }
 
-    last(): Question<Promise<Element<'async'>>> {
+    last(): Question<Promise<UIElement>> {
         return this.list.last()
     }
 
-    get(index: number): Question<Promise<Element<'async'>>> {
+    get(index: number): Question<Promise<UIElement>> {
         return this.list.get(index);
     }
 
     where<Answer_Type>(
-        question: MetaQuestion<Answerable<Element<'async'>>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<UIElement>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>,
     ): TargetList {
         return this.list.where(question, expectation);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementArray> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElementList> {
         const parent   = await actor.answer(this.parent);
         const children = await actor.answer(this.children);
 
@@ -329,7 +326,7 @@ export class TargetNestedElements
             throw new LogicError(formatted `Couldn't find ${ this.parent }`);
         }
 
-        return parent.$$(children.selector);
+        return parent.locateAllChildElementsAt(children.location());
     }
 }
 
@@ -343,24 +340,22 @@ export class TargetNestedElements
  * @see {@link Target}
  */
 export class TargetElement
-    extends Question<Promise<Element<'async'>>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<Element<'async'>>>
+    extends Question<Promise<UIElement>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<UIElement>>
 {
     constructor(
         description: string,
-        private readonly locator: Locator,
+        private readonly location: UIElementLocation,
     ) {
         super(description);
     }
 
-    of(parent: Answerable<Element<'async'>>): Question<Promise<Element<'async'>>> {
+    of(parent: Answerable<UIElement>): Question<Promise<UIElement>> {
         return new TargetNestedElement(parent, this);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Element<'async'>> {
-        return this.locator.firstMatching()
-            .describedAs(this.subject)
-            .answeredBy(actor);
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElement> {
+        return BrowseTheWeb.as(actor).locateElementAt(this.location);
     }
 }
 
@@ -374,21 +369,21 @@ export class TargetElement
  * @see {@link Target}
  */
 export class TargetNestedElement
-    extends Question<Promise<Element<'async'>>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<Element<'async'>>>
+    extends Question<Promise<UIElement>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<UIElement>>
 {
     constructor(
-        private readonly parent: Answerable<Element<'async'>>,
-        private readonly child: Answerable<Element<'async'>>,
+        private readonly parent: Answerable<UIElement>,
+        private readonly child: Answerable<UIElement>,
     ) {
         super(`${ child } of ${ parent }`);
     }
 
-    of(parent: Answerable<Element<'async'>>): Question<Promise<Element<'async'>>> {
+    of(parent: Answerable<UIElement>): Question<Promise<UIElement>> {
         return new TargetNestedElement(parent, this);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Element<'async'>> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElement> {
         const parent = await actor.answer(this.parent);
         const child  = await actor.answer(this.child);
 
@@ -396,6 +391,6 @@ export class TargetNestedElement
             throw new LogicError(formatted `Couldn't find ${ this.parent }`);
         }
 
-        return parent.$(child.selector);
+        return parent.locateChildElementAt(child.location());
     }
 }

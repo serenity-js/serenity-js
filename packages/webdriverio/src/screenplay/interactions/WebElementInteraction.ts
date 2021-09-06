@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, Interaction, LogicError } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 /**
  * @desc
@@ -25,16 +25,16 @@ export abstract class WebElementInteraction extends Interaction {
      *  if the element is `undefined`.
      *
      * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
-     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} element
+     * @param {@serenity-js/core/lib/screenplay~Answerable<UIElement>} element
      *
-     * @returns {Promise<Element<'async'>>}
+     * @returns {Promise<UIElement>}
      *
      * @protected
      */
     protected async resolve(
         actor: AnswersQuestions,
-        element: Answerable<Element<'async'>>,
-    ): Promise<Element<'async'>> {
+        element: Answerable<UIElement>,
+    ): Promise<UIElement> {
         const resolved = await actor.answer(element);
 
         if (! resolved) {

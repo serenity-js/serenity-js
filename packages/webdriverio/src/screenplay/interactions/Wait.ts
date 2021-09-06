@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, AssertionError, Duration, Expectation, ExpectationMet, ExpectationOutcome, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
+import { BrowseTheWeb } from '@serenity-js/web';
 
-import { BrowseTheWeb } from '../abilities';
 import { WaitBuilder } from './WaitBuilder';
 
 /**
@@ -181,7 +181,7 @@ class WaitFor extends Interaction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return actor.answer(this.duration)
-            .then(duration => BrowseTheWeb.as(actor).browser.pause(duration.inMilliseconds()) as Promise<void>);
+            .then(duration => BrowseTheWeb.as(actor).waitFor(duration));
     }
 
     /**
@@ -227,7 +227,6 @@ class WaitUntil<Actual> extends Interaction {
         let expectationOutcome: ExpectationOutcome<any, Actual>;
 
         return BrowseTheWeb.as(actor)
-            .browser
             .waitUntil(function () {
                 return actor.answer(actual)
                     .then(act => expectation(act))
@@ -236,11 +235,9 @@ class WaitUntil<Actual> extends Interaction {
 
                         return outcome instanceof ExpectationMet;
                     });
-            }, {
-                timeout:    this.timeout.inMilliseconds(),
-                timeoutMsg: `Wait timed out after ${ this.timeout }`,
-            })
-            .then(_ => void 0)
+            },
+            this.timeout
+            )
             .catch(error => {
                 if (expectationOutcome) {
                     throw new AssertionError(

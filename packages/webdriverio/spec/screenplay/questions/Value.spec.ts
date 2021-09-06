@@ -2,8 +2,9 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { by, Navigate, Target, Value } from '../../../src';
+import { Navigate, Target, Value } from '../../../src';
 
 describe('Value', () => {
 

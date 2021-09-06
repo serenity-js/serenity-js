@@ -1,8 +1,7 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
-import { Attribute } from './Attribute';
 import { TargetNestedElement } from './targets';
 
 /**
@@ -60,20 +59,20 @@ import { TargetNestedElement } from './targets';
  */
 export class CSSClasses
     extends Question<Promise<string[]>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<string[]>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<string[]>>
 {
     /**
-     * @param {Question<Element<'async'>> | Element<'async'>} target
+     * @param {Question<UIElement> | UIElement} target
      * @returns {CSSClasses}
      */
-    static of(target: Answerable<Element<'async'>>): CSSClasses {
+    static of(target: Answerable<UIElement>): CSSClasses {
         return new CSSClasses(target);
     }
 
     /**
-     * @param {Question<Element<'async'>> | Element<'async'>} target
+     * @param {Question<UIElement> | UIElement} target
      */
-    constructor(private readonly target: Answerable<Element<'async'>>) {
+    constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `CSS classes of ${ target}`);
     }
 
@@ -82,13 +81,13 @@ export class CSSClasses
      *  Resolves to an array of CSS classes of the `target` element,
      *  located in the context of a `parent` element.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} parent
+     * @param {@serenity-js/core/lib/screenplay~Answerable<UIElement>} parent
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<Element<'async'>>): Question<Promise<string[]>> {
+    of(parent: Answerable<UIElement>): Question<Promise<string[]>> {
         return new CSSClasses(new TargetNestedElement(parent, this.target));
     }
 
@@ -104,8 +103,10 @@ export class CSSClasses
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        return Attribute.called('class').of(this.target).answeredBy(actor)
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
+        const element = await actor.answer(this.target);
+
+        return element.getAttribute('class')
             .then(attribute => attribute
                 .replace(/\s+/, ' ')
                 .trim()

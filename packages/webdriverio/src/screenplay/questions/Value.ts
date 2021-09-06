@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { TargetNestedElement } from './targets';
 
@@ -31,20 +31,20 @@ import { TargetNestedElement } from './targets';
  */
 export class Value
     extends Question<Promise<string>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<string>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<string>>
 {
     /**
-     * @param {Answerable<Element<'async'>>} element
+     * @param {Answerable<UIElement>} element
      * @returns {Value}
      */
-    static of(element: Answerable<Element<'async'>>): Question<Promise<string>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string>> {
+    static of(element: Answerable<UIElement>): Question<Promise<string>> & MetaQuestion<Answerable<UIElement>, Promise<string>> {
         return new Value(element);
     }
 
     /**
-     * @param {Answerable<Element<'async'>>} element
+     * @param {Answerable<UIElement>} element
      */
-    constructor(private readonly element: Answerable<Element<'async'>>) {
+    constructor(private readonly element: Answerable<UIElement>) {
         super(formatted`the value of ${ element }`);
     }
 
@@ -53,12 +53,12 @@ export class Value
      *  Resolves to the value of a given [`input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
      *  {@link WebElement}, located in the context of a `parent` element.
      *
-     * @param {Answerable<Element<'async'>>} parent
+     * @param {Answerable<UIElement>} parent
      * @returns {Question<Promise<string>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<Element<'async'>>): Question<Promise<string>> {
+    of(parent: Answerable<UIElement>): Question<Promise<string>> {
         return new Value(new TargetNestedElement(parent, this.element));
     }
 

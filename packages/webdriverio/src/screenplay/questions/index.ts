@@ -1,7 +1,6 @@
 export * from './Attribute';
 export * from './CSSClasses';
 export * from './LastScriptExecution';
-export * from './locators';
 export * from './NestedTargetBuilder';
 export * from './TargetBuilder';
 export * from './targets';

@@ -1,8 +1,7 @@
 import { Answerable, AnswersQuestions, CollectsArtifacts, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { Name, TextData } from '@serenity-js/core/lib/model';
-
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWeb } from '@serenity-js/web';
 
 /**
  * @desc
@@ -38,7 +37,7 @@ export class ExecuteScript {
      *
      *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
      *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string`
-     *  or {@link Target} (`Answerable<Element<'async'>>`).
+     *  or {@link Target} (`Answerable<UIElement>`).
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
@@ -222,6 +221,7 @@ export abstract class ExecuteScriptWithArguments extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities & CollectsArtifacts & AnswersQuestions): PromiseLike<void> {
+        // todo: interaction should store the result on the ability; the ability should not have a side-effect (?)
         return Promise.all(this.args.map(arg => actor.answer(arg)))
             .then(args => this.executeAs(actor, args))
             .then(() => actor.collect(
@@ -280,7 +280,7 @@ class ExecuteScriptFromUrl extends Interaction {
      */
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<any> {
         return BrowseTheWeb.as(actor)
-            .browser.executeAsync(
+            .executeAsyncScript(
                 /* istanbul ignore next */
                 function executeScriptFromUrl(sourceUrl: string, callback: (message?: string) => void) {
                     const alreadyLoadedScripts = Array.prototype.slice
