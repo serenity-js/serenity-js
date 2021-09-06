@@ -5,10 +5,8 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Check, Question, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { by, Key, UIElement } from '@serenity-js/web';
+import { by, Click, DoubleClick, Enter, Key, Navigate, Press, Target, UIElement, Value } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
-
-import { Click, DoubleClick, Enter, Navigate, Press, Target, Value } from '../../../src';
 
 /** @test {Press} */
 describe('Press', () => {

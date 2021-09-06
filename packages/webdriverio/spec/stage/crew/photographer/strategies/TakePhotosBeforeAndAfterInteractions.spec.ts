@@ -5,8 +5,8 @@ import { Duration } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated, AsyncOperationAttempted, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Photo } from '@serenity-js/core/lib/model';
 import { Stage } from '@serenity-js/core/lib/stage';
+import { Photographer, TakePhotosBeforeAndAfterInteractions } from '@serenity-js/web';
 
-import { Photographer, TakePhotosBeforeAndAfterInteractions } from '../../../../../src/stage';
 import { create } from '../create';
 import { Perform } from '../fixtures';
 

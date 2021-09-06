@@ -3,9 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
-import { by } from '@serenity-js/web';
-
-import { Navigate, Target, Text, Wait } from '../../../src';
+import { by, Navigate, Target, Text, Wait } from '@serenity-js/web';
 
 /** @test {Wait} */
 describe('Wait', () => {

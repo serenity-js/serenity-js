@@ -3,9 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, TestCompromisedError } from '@serenity-js/core';
-import { by } from '@serenity-js/web';
-
-import { Navigate, Target, Text, Website } from '../../../src';
+import { by, Navigate, Target, Text, Website } from '@serenity-js/web';
 
 /** @test {Navigate} */
 describe('Navigate', () => {
