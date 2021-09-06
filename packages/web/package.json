@@ -1,0 +1,82 @@
+{
+  "name": "@serenity-js/web",
+  "version": "2.31.1",
+  "description": "Serenity/JS Screenplay Pattern APIs for the Web",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "funding": {
+    "url": "https://github.com/sponsors/serenity-js"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "keywords": [
+    "serenity-js",
+    "mocha",
+    "tdd",
+    "bdd",
+    "test",
+    "testing",
+    "web"
+  ],
+  "scripts": {
+    "clean": "rimraf .nyc_output lib target",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js .",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "nyc --report-dir ../../target/coverage/web mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'",
+    "compile": "tsc --project tsconfig.json",
+    "site": "esdoc -c .esdoc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^12 || ^14 || ^16",
+    "npm": "^6 || ^7"
+  },
+  "dependencies": {
+    "@serenity-js/core": "2.31.1"
+  },
+  "devDependencies": {
+    "@documentation/esdoc-template": "2.0.0",
+    "@integration/testing-tools": "2.0.0",
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "mocha": "^9.1.0",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "src/**/*.d.ts",
+      "lib",
+      "node_modules",
+      "spec"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "json"
+    ],
+    "cache": true,
+    "all": true
+  }
+}

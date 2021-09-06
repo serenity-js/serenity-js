@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { WebElementInteraction } from './WebElementInteraction';
 
@@ -52,20 +52,20 @@ export class Clear extends WebElementInteraction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element<'async'>>} field
+     * @param {Answerable<UIElement>} field
      *  The field to be cleared
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static theValueOf(field: Answerable<Element<'async'>>): Interaction {
+    static theValueOf(field: Answerable<UIElement>): Interaction {
         return new Clear(field);
     }
 
     /**
-     * @param {Answerable<Element<'async'>>} field
+     * @param {Answerable<UIElement>} field
      *  The element to be clicked on
      */
-    constructor(private readonly field: Answerable<Element<'async'>>) {
+    constructor(private readonly field: Answerable<UIElement>) {
         super(formatted `#actor clears the value of ${ field }`);
     }
 

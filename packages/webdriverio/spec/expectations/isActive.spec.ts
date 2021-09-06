@@ -3,8 +3,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, not } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { by, Click, isActive, Navigate, Target, Wait } from '../../src';
+import { Click, isActive, Navigate, Target, Wait } from '../../src';
 
 describe('isActive', function () {
 

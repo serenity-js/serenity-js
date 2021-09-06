@@ -1,6 +1,5 @@
 import { Question } from '@serenity-js/core';
-
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWeb } from '@serenity-js/web';
 
 export class Website {
 
@@ -14,7 +13,7 @@ export class Website {
      */
     static title(): Question<Promise<string>> {
         return Question.about(`the title of the current page`, actor =>
-            BrowseTheWeb.as(actor).browser.getTitle(),
+            BrowseTheWeb.as(actor).getTitle(),
         );
     }
 
@@ -28,7 +27,7 @@ export class Website {
      */
     static url(): Question<Promise<string>> {
         return Question.about(`the url of the current page`, actor =>
-            BrowseTheWeb.as(actor).browser.getUrl(),
+            BrowseTheWeb.as(actor).getUrl(),
         );
     }
 }

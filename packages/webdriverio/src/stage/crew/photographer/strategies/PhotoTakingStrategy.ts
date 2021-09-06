@@ -1,17 +1,7 @@
 import { Stage } from '@serenity-js/core';
-import {
-    ActivityFinished,
-    ActivityRelatedArtifactGenerated,
-    ActivityStarts,
-    AsyncOperationAttempted,
-    AsyncOperationCompleted,
-    AsyncOperationFailed,
-    DomainEvent,
-} from '@serenity-js/core/lib/events';
+import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, AsyncOperationAttempted, AsyncOperationCompleted, AsyncOperationFailed, DomainEvent } from '@serenity-js/core/lib/events';
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
-import { Capabilities } from '@wdio/types';
-
-import { BrowseTheWeb } from '../../../../screenplay';
+import { BrowseTheWeb } from '@serenity-js/web';
 
 /**
  * @desc
@@ -47,8 +37,7 @@ export abstract class PhotoTakingStrategy {
             const
                 id              = CorrelationId.create(),
                 nameSuffix      = this.photoNameFor(event),
-                // todo: test if this type def is really DesiredCapabilities when multi-capabilities are used
-                capabilities    = browseTheWeb.browser.capabilities as Capabilities.DesiredCapabilities;
+                capabilities    = browseTheWeb.getBrowserCapabilities();
 
             stage.announce(new AsyncOperationAttempted(
                 new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),

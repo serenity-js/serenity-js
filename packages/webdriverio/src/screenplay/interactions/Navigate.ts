@@ -1,7 +1,6 @@
 import { Answerable, AnswersQuestions, Interaction, TestCompromisedError, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-
-import { BrowseTheWeb } from '../';
+import { BrowseTheWeb } from '@serenity-js/web';
 
 /**
  * @desc
@@ -91,7 +90,7 @@ export class Navigate {
      */
     static back(): Interaction {
         return Interaction.where(`#actor navigates back in the browser history`, actor =>
-            BrowseTheWeb.as(actor).browser.back(),
+            BrowseTheWeb.as(actor).navigateBack(),
         );
     }
 
@@ -126,7 +125,7 @@ export class Navigate {
      */
     static forward(): Interaction {
         return Interaction.where(`#actor navigates forward in the browser history`, actor =>
-            BrowseTheWeb.as(actor).browser.forward(),
+            BrowseTheWeb.as(actor).navigateForward(),
         );
     }
 
@@ -157,7 +156,7 @@ export class Navigate {
      */
     static reloadPage(): Interaction {
         return Interaction.where(`#actor reloads the page`, actor =>
-            BrowseTheWeb.as(actor).browser.refresh(),
+            BrowseTheWeb.as(actor).reloadPage(),
         );
     }
 }
@@ -189,7 +188,7 @@ class NavigateToUrl extends Interaction {
         return actor.answer(this.url)
             .then(url =>
                 BrowseTheWeb.as(actor)
-                    .get(url)
+                    .navigateTo(url)
                     .catch(error => {
                         throw new TestCompromisedError(`Couldn't navigate to ${ url }`, error);
                     })

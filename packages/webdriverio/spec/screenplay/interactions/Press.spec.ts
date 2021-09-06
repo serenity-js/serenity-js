@@ -5,10 +5,10 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, Check, Question, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
+import { by, Key, UIElement } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
-import { Element } from 'webdriverio';
 
-import { by, Click, DoubleClick, Enter, Key, Navigate, Press, Target, Value } from '../../../src';
+import { Click, DoubleClick, Enter, Navigate, Press, Target, Value } from '../../../src';
 
 /** @test {Press} */
 describe('Press', () => {
@@ -90,13 +90,13 @@ describe('Press', () => {
         /** @test {Press.the} */
         it('allows the actor to use keyboard shortcuts in the context of a specific input box', async () => {
 
-            const SelectValueOf = (field: Question<Promise<Element<'async'>>>) =>
+            const SelectValueOf = (field: Question<Promise<UIElement>>) =>
                 Task.where(formatted `#actor selects the value of ${ field }`,
                     Click.on(field),
                     DoubleClick.on(field)
                 );
 
-            const CopyFrom = (field: Question<Promise<Element<'async'>>>) =>
+            const CopyFrom = (field: Question<Promise<UIElement>>) =>
                 Task.where(formatted `#actor performs a "copy" operation on ${ field }`,
                     SelectValueOf(field),
                     Check.whether(OS(), equals('darwin'))
@@ -104,7 +104,7 @@ describe('Press', () => {
                         .otherwise(Press.the(Key.Control, 'c').in(field)),
                 );
 
-            const PasteInto = (field: Question<Promise<Element<'async'>>>) =>
+            const PasteInto = (field: Question<Promise<UIElement>>) =>
                 Task.where(formatted `#actor performs a "paste" operation on ${ field }`,
                     Check.whether(OS(), equals('darwin'))
                         .andIfSo(Press.the(Key.Shift, Key.Insert).in(field))

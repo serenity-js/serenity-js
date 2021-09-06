@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { WebElementInteraction } from './WebElementInteraction';
 
@@ -47,21 +47,21 @@ export class Click extends WebElementInteraction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element<'async'>>} target
+     * @param {Answerable<UIElement>} target
      *  The element to be clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<Element<'async'>>): Interaction {
+    static on(target: Answerable<UIElement>): Interaction {
         return new Click(target);
     }
 
     /**
-     * @param {Answerable<Element<'async'>>} target
+     * @param {Answerable<UIElement>} element
      *  The element to be clicked on
      */
-    constructor(private readonly target: Answerable<Element<'async'>>) {
-        super(formatted `#actor clicks on ${ target }`);
+    constructor(private readonly element: Answerable<UIElement>) {
+        super(formatted `#actor clicks on ${ element }`);
     }
 
     /**
@@ -79,7 +79,7 @@ export class Click extends WebElementInteraction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        const element = await this.resolve(actor, this.target);
+        const element = await this.resolve(actor, this.element);
         return element.click();
     }
 }

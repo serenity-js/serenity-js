@@ -3,8 +3,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { by, ExecuteScript, Navigate, Target, Text } from '../../../../src';
+import { ExecuteScript, Navigate, Target, Text } from '../../../../src';
 
 /** @test {ExecuteScript} */
 describe('ExecuteScriptFromUrl', function () {

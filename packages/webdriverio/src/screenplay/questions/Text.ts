@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import type { Element, ElementArray } from 'webdriverio';
+import { UIElement, UIElementList } from '@serenity-js/web';
 
 import { TargetNestedElement, TargetNestedElements } from './targets';
 
@@ -7,7 +7,7 @@ import { TargetNestedElement, TargetNestedElements } from './targets';
  * @desc
  *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:
  *  - a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>
- *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~ElementArray}>
+ *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~UIElementList}>
  *
  *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
@@ -79,39 +79,39 @@ export class Text {
      *  Retrieves text of a single {@link WebElement},
      *  represented by Answerable<{@link @wdio/types~Element}>.
      *
-     * @param {Answerable<Element<'async'>>} element
-     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string>>}
+     * @param {Answerable<UIElement>} element
+     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<UIElement>, Promise<string>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static of(element: Answerable<Element<'async'>>): Question<Promise<string>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string>> {
+    static of(element: Answerable<UIElement>): Question<Promise<string>> & MetaQuestion<Answerable<UIElement>, Promise<string>> {
         return new TextOfSingleElement(element);
     }
 
     /**
      * @desc
      *  Retrieves text of a group of {@link WebElement}s,
-     *  represented by Answerable<{@link @wdio/types~ElementArray}>
+     *  represented by Answerable<{@link @wdio/types~UIElementList}>
      *
-     * @param {Answerable<ElementArray>} elements
-     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string[]>>}
+     * @param {Answerable<UIElementList>} elements
+     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<UIElement>, Promise<string[]>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: Answerable<ElementArray>): Question<Promise<string[]>> & MetaQuestion<Answerable<Element<'async'>>, Promise<string[]>> {
+    static ofAll(elements: Answerable<UIElementList>): Question<Promise<string[]>> & MetaQuestion<Answerable<UIElement>, Promise<string[]>> {
         return new TextOfMultipleElements(elements);
     }
 }
 
 class TextOfSingleElement
     extends Question<Promise<string>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<string>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<string>>
 {
-    constructor(private readonly element: Answerable<Element<'async'>>) {
+    constructor(private readonly element: Answerable<UIElement>) {
         super(`the text of ${ element }`);
     }
 
-    of(parent: Answerable<Element<'async'>>): Question<Promise<string>> {
+    of(parent: Answerable<UIElement>): Question<Promise<string>> {
         return new TextOfSingleElement(new TargetNestedElement(parent, this.element));
     }
 
@@ -123,18 +123,18 @@ class TextOfSingleElement
 
 class TextOfMultipleElements
     extends Question<Promise<string[]>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<string[]>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<string[]>>
 {
-    constructor(private readonly elements: Answerable<ElementArray>) {
+    constructor(private readonly elements: Answerable<UIElementList>) {
         super(`the text of ${ elements }`);
     }
 
-    of(parent: Answerable<Element<'async'>>): Question<Promise<string[]>> {
+    of(parent: Answerable<UIElement>): Question<Promise<string[]>> {
         return new TextOfMultipleElements(new TargetNestedElements(parent, this.elements));
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const elements = await actor.answer(this.elements);
-        return Promise.all(elements.map(answer => answer.getText()));
+        return elements.map(element => element.getText());
     }
 }

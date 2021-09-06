@@ -1,9 +1,7 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { BrowseTheWeb, Key, UIElement } from '@serenity-js/web';
 
-import { Key } from '../../input';
-import { BrowseTheWeb } from '../abilities';
 import { PressBuilder } from './PressBuilder';
 import { WebElementInteraction } from './WebElementInteraction';
 
@@ -67,7 +65,7 @@ export class Press extends WebElementInteraction {
         return new Press(KeySequence.of(keys));
     }
 
-    in(field: Answerable<Element<'async'>> /* | Question<AlertPromise> | AlertPromise */): Interaction {
+    in(field: Answerable<UIElement> /* | Question<AlertPromise> | AlertPromise */): Interaction {
         return new PressKeyInField(this.keys, field)
     }
 
@@ -107,12 +105,12 @@ class PressKeyInField extends WebElementInteraction {
      * @param {Answerable<Array<Key | string>>} keys
      *  A sequence of one or more keys to press
      *
-     * @param {Answerable<Element<'async'>>} field
+     * @param {Answerable<UIElement>} field
      *  Web element to send the keys to
      */
     constructor(
         private readonly keys: Answerable<Array<Key | string>>,
-        private readonly field: Answerable<Element<'async'>> /* todo | Question<AlertPromise> | AlertPromise */,
+        private readonly field: Answerable<UIElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
         super(formatted `#actor presses ${ keys } in ${ field }`);
     }
@@ -121,7 +119,7 @@ class PressKeyInField extends WebElementInteraction {
         const field = await this.resolve(actor, this.field);
         const keys  = await actor.answer(this.keys);
 
-        await BrowseTheWeb.as(actor).browser.execute(
+        await BrowseTheWeb.as(actor).executeScript(
             /* istanbul ignore next */
             function focus(element: any) {  // todo: fix type
                 element.focus();

@@ -1,23 +1,23 @@
 import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 /**
  * @access private
  */
-export class ElementExpectation extends Expectation<any, Element<'async'>> {
-    static forElementTo(message: string, fn: (actual: Element<'async'>) => Promise<boolean>): Expectation<any, Element<'async'>> {
+export class ElementExpectation extends Expectation<any, UIElement> {
+    static forElementTo(message: string, fn: (actual: UIElement) => Promise<boolean>): Expectation<any, UIElement> {
         return new ElementExpectation(message, fn);
     }
 
     constructor(
         subject: string,
-        private readonly fn: (actual: Element<'async'>) => Promise<boolean>,
+        private readonly fn: (actual: UIElement) => Promise<boolean>,
     ) {
         super(subject);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Element<'async'>) => Promise<ExpectationOutcome<boolean, Element<'async'>>> {
-        return (actual: Element<'async'>) =>
+    answeredBy(actor: AnswersQuestions): (actual: UIElement) => Promise<ExpectationOutcome<boolean, UIElement>> {
+        return (actual: UIElement) =>
             this.fn(actual)
                 .then(expectationMet =>
                     expectationMet

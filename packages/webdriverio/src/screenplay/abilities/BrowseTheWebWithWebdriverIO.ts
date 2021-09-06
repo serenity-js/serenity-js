@@ -1,7 +1,8 @@
-import { Ability, LogicError, UsesAbilities } from '@serenity-js/core';
-import type { Browser } from 'webdriverio';
+import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Key, UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
+import type { Browser, Element, ElementArray } from 'webdriverio';
 
-import { Key } from '../../input';
+import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator } from '../../ui';
 
 /**
  * @desc
@@ -38,7 +39,9 @@ import { Key } from '../../input';
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWeb implements Ability {
+export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
+    private readonly $:  UIElementLocator<Element<'async'>>;
+    private readonly $$: UIElementLocator<ElementArray>;
 
     /**
      * @private
@@ -47,29 +50,33 @@ export class BrowseTheWeb implements Ability {
 
     /**
      * @param {@wdio/types~Browser} browserInstance
-     * @returns {BrowseTheWeb}
+     * @returns {BrowseTheWebWithWebdriverIO}
      */
-    static using(browserInstance: Browser<'async'>): BrowseTheWeb {
-        return new BrowseTheWeb(browserInstance);
+    static using(browserInstance: Browser<'async'>): BrowseTheWebWithWebdriverIO {
+        return new BrowseTheWebWithWebdriverIO(browserInstance);
     }
 
     /**
      * @desc
-     *  Used to access the Actor's ability to {@link BrowseTheWeb}
+     *  Used to access the Actor's ability to {@link BrowseTheWebWithWebdriverIO}
      *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
      *  such as {@link Navigate}.
      *
      * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities} actor
-     * @return {BrowseTheWeb}
+     * @return {BrowseTheWebWithWebdriverIO}
      */
-    static as(actor: UsesAbilities): BrowseTheWeb {
-        return actor.abilityTo(BrowseTheWeb);
+    static as(actor: UsesAbilities): BrowseTheWebWithWebdriverIO {
+        return actor.abilityTo(BrowseTheWebWithWebdriverIO);
     }
 
     /**
      * @param {@wdio/types~Browser} browser
      */
     constructor(public readonly browser: Browser<'async'>) {
+        super();
+
+        this.$  = new WebdriverIOElementLocator(this.browser.$.bind(this.browser) as unknown as (selector: string) => Promise<Element<'async'>>);
+        this.$$ = new WebdriverIOElementLocator(this.browser.$$.bind(this.browser));
     }
 
     /**
@@ -80,8 +87,42 @@ export class BrowseTheWeb implements Ability {
      * @param {string} destination
      * @returns {Promise<void>}
      */
-    get(destination: string): Promise<void> {
+    navigateTo(destination: string): Promise<void> {
         return this.browser.url(destination) as any;  // todo: check if this returns a string or is mistyped
+    }
+
+    navigateBack(): Promise<void> {
+        return this.browser.back();
+    }
+
+    navigateForward(): Promise<void> {
+        return this.browser.forward();
+    }
+
+    reloadPage(): Promise<void> {
+        return this.browser.refresh();
+    }
+
+    getTitle(): Promise<string> {
+        return this.browser.getTitle();
+    }
+
+    getUrl(): Promise<string> {
+        return this.browser.getUrl();
+    }
+
+    getBrowserCapabilities(): BrowserCapabilities {
+        return this.browser.capabilities as BrowserCapabilities;
+    }
+
+    locateElementAt(location: UIElementLocation): Promise<UIElement> {
+        return this.$.locateAt(location)
+            .then(element => new WebdriverIOElement(element, location));
+    }
+
+    locateAllElementsAt(location: UIElementLocation): Promise<UIElementList> {
+        return this.$$.locateAt(location)
+            .then(elements => new WebdriverIOElementList(elements, location));
     }
 
     /**
@@ -167,7 +208,9 @@ export class BrowseTheWeb implements Ability {
         ...args: InnerArguments
     ): Promise<Result> {
 
-        return this.browser.execute(script, ...args)
+        const nativeArguments = args.map(arg => arg instanceof WebdriverIOElement ? arg.nativeElement() : arg) as InnerArguments;
+
+        return this.browser.execute(script, ...nativeArguments)
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
                     result,
@@ -188,7 +231,7 @@ export class BrowseTheWeb implements Ability {
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {@link BrowseTheWeb#executeScript},
+     *  Unlike executing synchronous JavaScript with {@link BrowseTheWebWithWebdriverIO#executeScript},
      *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      *  This callback will always be injected into the executed function as the last argument,
@@ -231,7 +274,9 @@ export class BrowseTheWeb implements Ability {
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        return this.browser.executeAsync<Result, Parameters>(script, ...args)
+        const nativeArguments = args.map(arg => arg instanceof WebdriverIOElement ? arg.nativeElement() : arg) as Parameters;
+
+        return this.browser.executeAsync<Result, Parameters>(script, ...nativeArguments)
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary<Result>(
                     result,
@@ -242,8 +287,8 @@ export class BrowseTheWeb implements Ability {
 
     /**
      * @desc
-     *  Returns the last result of calling {@link BrowseTheWeb#executeAsyncScript}
-     *  or {@link BrowseTheWeb#executeScript}
+     *  Returns the last result of calling {@link BrowseTheWebWithWebdriverIO#executeAsyncScript}
+     *  or {@link BrowseTheWebWithWebdriverIO#executeScript}
      *
      * @returns {any}
      */
@@ -253,6 +298,17 @@ export class BrowseTheWeb implements Ability {
         }
 
         return this.lastScriptExecutionSummary.result as Result;
+    }
+
+    waitFor(duration: Duration): Promise<void> {
+        return this.browser.pause(duration.inMilliseconds()) as Promise<void>;
+    }
+
+    waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>  {
+        return this.browser.waitUntil(condition, {
+            timeout:    timeout.inMilliseconds(),
+            timeoutMsg: `Wait timed out after ${ timeout }`,
+        }) as Promise<void>;
     }
 }
 

@@ -8,11 +8,12 @@ import { ExecutionIgnored, Outcome } from '@serenity-js/core/lib/model';
 import Reporter from '@wdio/reporter';
 import type { Capabilities, Reporters } from '@wdio/types';
 import * as sinon from 'sinon';
-import EventEmitter = require('events');
 
+import { WebdriverIOConfig } from '../../src';
 import { WebdriverIOFrameworkAdapterFactory } from '../../src/adapter';
 import { InitialisesReporters, ProvidesWriteStream } from '../../src/adapter/reporter';
-import { WebdriverIOConfig } from '../../src/adapter/WebdriverIOConfig';
+
+import EventEmitter = require('events');
 
 describe('WebdriverIOFrameworkAdapterFactory', () => {
 

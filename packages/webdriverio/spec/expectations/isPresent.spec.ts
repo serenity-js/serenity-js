@@ -4,8 +4,9 @@ import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
 import { ErrorSerialiser } from '@serenity-js/core/lib/io';
+import { by } from '@serenity-js/web';
 
-import { by, isPresent, Navigate, Target, Wait } from '../../src';
+import { isPresent, Navigate, Target, Wait } from '../../src';
 
 describe('isPresent', function () {
 

@@ -1,5 +1,5 @@
 import { Answerable } from '@serenity-js/core';
-import type { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { TargetBuilder } from './TargetBuilder';
 
@@ -26,5 +26,5 @@ export interface NestedTargetBuilder<T> {
      * @see {@link Target}
      * @see {@link TargetBuilder}
      */
-    of: (parent: Answerable<Element<'async'>>) => TargetBuilder<T>;
+    of: (parent: Answerable<UIElement>) => TargetBuilder<T>;
 }

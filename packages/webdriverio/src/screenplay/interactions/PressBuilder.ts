@@ -1,6 +1,6 @@
 import { Answerable } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 /**
  * @desc
@@ -19,10 +19,10 @@ export interface PressBuilder {
      *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
      *  to {@link Press}.
      *
-     * @param {Question<ElementFinder> | ElementFinder | Question<AlertPromise> | AlertPromise} field
+     * @param {Answerable<UIElement>} field
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
      * @see {@link Target}
      */
-    in: (field: Answerable<Element<'async'>> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
+    in: (field: Answerable<UIElement> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
 }

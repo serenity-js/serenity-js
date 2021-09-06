@@ -1,5 +1,5 @@
 import { Answerable, Interaction } from '@serenity-js/core';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 /**
  * @desc
@@ -18,10 +18,10 @@ export interface EnterBuilder {
      *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
      *  to {@link Enter}.
      *
-     * @param {Answerable<Element<'async'>>} field
+     * @param {Answerable<UIElement>} field
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
      * @see {@link Target}
      */
-    into: (field: Answerable<Element<'async'>> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
+    into: (field: Answerable<UIElement> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
 }

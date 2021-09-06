@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { WebElementInteraction } from './WebElementInteraction';
 
@@ -52,20 +52,20 @@ export class Hover extends WebElementInteraction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element<'async'>>} target
+     * @param {Answerable<UIElement>} target
      *  The element to be hovered over
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static over(target: Answerable<Element<'async'>>): Interaction {
+    static over(target: Answerable<UIElement>): Interaction {
         return new Hover(target);
     }
 
     /**
-     * @param {Answerable<Element<'async'>>} target
+     * @param {Answerable<UIElement>} target
      *  The element to be hovered over
      */
-    constructor(private readonly target: Answerable<Element<'async'>>) {
+    constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `#actor hovers the mouse over ${ target }`);
     }
 

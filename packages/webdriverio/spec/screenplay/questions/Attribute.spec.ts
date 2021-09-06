@@ -3,8 +3,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
+import { by } from '@serenity-js/web';
 
-import { Attribute, by, Navigate, Target, Text } from '../../../src';
+import { Attribute, Navigate, Target, Text } from '../../../src';
 
 describe('Attribute', () => {
 

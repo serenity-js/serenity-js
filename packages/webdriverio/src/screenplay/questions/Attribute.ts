@@ -1,5 +1,5 @@
 import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { TargetNestedElement } from './targets';
 
@@ -58,7 +58,7 @@ import { TargetNestedElement } from './targets';
  */
 export class Attribute
     extends Question<Promise<string>>
-    implements MetaQuestion<Answerable<Element<'async'>>, Promise<string>>
+    implements MetaQuestion<Answerable<UIElement>, Promise<string>>
 {
     /**
      * @param {Answerable<string>} name
@@ -70,11 +70,11 @@ export class Attribute
 
     /**
      * @param {Answerable<string>} name
-     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} [element]
+     * @param {@serenity-js/core/lib/screenplay~Answerable<UIElement>} [element]
      */
     constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: Answerable<Element<'async'>>,
+        private readonly element?: Answerable<UIElement>,
     ) {
         super(`"${ name }" attribute of ${ element }`);
     }
@@ -84,13 +84,13 @@ export class Attribute
      *  Resolves to the value of a HTML attribute of the `target` element,
      *  located in the context of a `parent` element.
      *
-     * @param {Answerable<Element<'async'>>} parent
+     * @param {Answerable<UIElement>} parent
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<Element<'async'>>): Question<Promise<string>> {
+    of(parent: Answerable<UIElement>): Question<Promise<string>> {
         return new Attribute(
             this.name,
             this.element

@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { Element } from 'webdriverio';
+import { UIElement } from '@serenity-js/web';
 
 import { WebElementInteraction } from './WebElementInteraction';
 
@@ -62,20 +62,20 @@ export class RightClick extends WebElementInteraction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element<'async'>>} target
+     * @param {Answerable<UIElement>} target
      *  The element to be right-clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<Element<'async'>>): Interaction {
+    static on(target: Answerable<UIElement>): Interaction {
         return new RightClick(target);
     }
 
     /**
-     * @param {Answerable<Element<'async'>>} target
+     * @param {Answerable<UIElement>} target
      *  The element to be right-clicked on
      */
-    constructor(private readonly target: Answerable<Element<'async'>>) {
+    constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `#actor right-clicks on ${ target }`);
     }
 
@@ -95,6 +95,6 @@ export class RightClick extends WebElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element = await this.resolve(actor, this.target);
-        return element.click({ button: 'right' });
+        return element.rightClick();
     }
 }

@@ -1,4 +1,4 @@
-import { Locator } from './locators';
+import { UIElementLocation } from '@serenity-js/web';
 
 /**
  * @desc
@@ -23,5 +23,5 @@ export interface TargetBuilder<T> {
      * @see {@link Target}
      * @see {@link Locator}
      */
-    located: (locator: Locator) => T;
+    located: (location: UIElementLocation) => T;
 }
