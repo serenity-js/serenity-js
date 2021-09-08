@@ -50,7 +50,7 @@ export class Scroll extends WebElementInteraction {
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
      * @param {Answerable<Element<'async'>>} target
-     *  The element to be scroll to
+     *  The element to be scrolled to
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
@@ -60,7 +60,7 @@ export class Scroll extends WebElementInteraction {
 
     /**
      * @param {Answerable<Element<'async'>>} target
-     *  The element to be scroll to
+     *  The element to be scrolled to
      */
     constructor(private readonly target: Answerable<Element<'async'>>) {
         super(formatted `#actor scrolls to ${ target }`);
