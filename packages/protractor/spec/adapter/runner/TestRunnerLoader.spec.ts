@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { ModuleLoader, Path } from '@serenity-js/core/lib/io';
+import { FileSystem, ModuleLoader, Path } from '@serenity-js/core/lib/io';
 import { CucumberFormat, StandardOutput, TempFileOutput } from '@serenity-js/cucumber/lib/cli';
 import { given } from 'mocha-testdata';
 import * as sinon from 'sinon';
@@ -9,14 +9,18 @@ import * as sinon from 'sinon';
 import { TestRunnerLoader } from '../../../src/adapter';
 
 /** @test {TestRunnerLoader} */
-describe('TestRunnerLoader', () => {
+describe.only('TestRunnerLoader', () => {
 
     const exampleRunnerId = 123;
 
     let moduleLoader: sinon.SinonStubbedInstance<ModuleLoader>
+    let fileSystem: sinon.SinonStubbedInstance<FileSystem>
 
     beforeEach(() => {
         moduleLoader = sinon.createStubInstance(ModuleLoader);
+        fileSystem = sinon.createStubInstance(FileSystem, {
+            exists: sinon.stub<[Path]>().returns(false)
+        });
     });
 
     describe('when loading a TestRunnerAdapter for', () => {
@@ -89,7 +93,12 @@ describe('TestRunnerLoader', () => {
 
                 const runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
-                expect(CucumberCLIAdapter).to.have.been.calledWith(cucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
+                expect(CucumberCLIAdapter).to.have.been.calledWith(
+                    cucumberOpts,
+                    moduleLoader,
+                    fileSystem,
+                    sinon.match.instanceOf(expectedOutput)
+                );
             });
 
             it('resolves glob patterns in `require` to absolute paths', () => {
@@ -112,11 +121,16 @@ describe('TestRunnerLoader', () => {
 
                 const runner_ = testRunnerLoader.forCucumber(cucumberOpts, { useStandardOutput: false, uniqueFormatterOutputs: false });
 
-                expect(CucumberCLIAdapter).to.have.been.calledWith({
-                    require: [
-                        absolutePathTo('features/example.steps.ts'),
-                    ]
-                }, moduleLoader, sinon.match.instanceOf(TempFileOutput));
+                expect(CucumberCLIAdapter).to.have.been.calledWith(
+                    {
+                        require: [
+                            absolutePathTo('features/example.steps.ts'),
+                        ]
+                    },
+                    moduleLoader,
+                    fileSystem,
+                    sinon.match.instanceOf(TempFileOutput)
+                );
             });
 
             given([{
@@ -183,7 +197,12 @@ describe('TestRunnerLoader', () => {
 
                 const runner_ = testRunnerLoader.forCucumber(cucumberOpts, adapterConfig);
 
-                expect(CucumberCLIAdapter).to.have.been.calledWith(expectedCucumberOpts, moduleLoader, sinon.match.instanceOf(expectedOutput));
+                expect(CucumberCLIAdapter).to.have.been.calledWith(
+                    expectedCucumberOpts,
+                    moduleLoader,
+                    fileSystem,
+                    sinon.match.instanceOf(expectedOutput)
+                );
             });
         });
     });
@@ -192,7 +211,8 @@ describe('TestRunnerLoader', () => {
         const cwd = Path.from(__dirname);
 
         const testRunnerLoader = new TestRunnerLoader(cwd, runnerId);
-        (testRunnerLoader as any).moduleLoader = moduleLoader;
+        (testRunnerLoader as any).moduleLoader  = moduleLoader;
+        (testRunnerLoader as any).fileSystem    = fileSystem;
 
         return testRunnerLoader;
     }

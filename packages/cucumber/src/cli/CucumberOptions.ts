@@ -1,4 +1,4 @@
-import { Version } from '@serenity-js/core/lib/io';
+import { FileSystem, Path, Version } from '@serenity-js/core/lib/io';
 
 import { CucumberConfig } from './CucumberConfig';
 
@@ -6,7 +6,10 @@ import { CucumberConfig } from './CucumberConfig';
  * @private
  */
 export class CucumberOptions {
-    constructor(private readonly config: CucumberConfig) {
+    constructor(
+        private readonly fileSystem: FileSystem,
+        private readonly config: CucumberConfig,
+    ) {
     }
 
     isStrict(): boolean {
@@ -26,7 +29,7 @@ export class CucumberOptions {
                 //  https://github.com/cucumber/cucumber-js/blob/d74bc45ba98132bdd0af62e0e52d1fe9ff017006/src/cli/helpers.js#L15
                 [ 'node', 'cucumber-js' ],
             )
-            .concat(this.config.rerun ?? []);
+            .concat(this.config.rerun && this.fileSystem.exists(Path.from(this.config.rerun)) ? this.config.rerun : []);
     }
 
     private optionToValues<O extends keyof CucumberConfig>(option: O, value: CucumberConfig[O], version: Version): string[] {
@@ -35,6 +38,8 @@ export class CucumberOptions {
         switch (true) {
             case cliOption === 'tags' && version.isAtLeast(new Version('2.0.0')) && value !== false:
                 return this.valuesToArgs(cliOption, this.tagsToCucumberExpressions(listOf(value as string | string[])));
+            case cliOption === 'rerun':
+                return [];  // ignore since we're appending the rerun file anyway
             case typeof value === 'boolean':
                 return listOf(this.flagToArg(cliOption, value as boolean));
             case this.isObject(value):
