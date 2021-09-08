@@ -3,9 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { by, DoubleClick, Navigate, Target, Text } from '@serenity-js/web';
 
-import { DoubleClick, Navigate, Target, Text } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 describe('DoubleClick', () => {

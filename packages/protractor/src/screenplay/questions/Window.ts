@@ -1,7 +1,7 @@
 import { Question } from '@serenity-js/core';
 
 import { promiseOf } from '../../promiseOf';
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 export class Window {
 
@@ -13,7 +13,7 @@ export class Window {
      */
     static size(): Question<Promise<{ width: number, height: number }>> {
         return Question.about(`browser window size`, actor =>
-            promiseOf(BrowseTheWeb.as(actor).manage().window().getSize()));
+            promiseOf(BrowseTheWebWithProtractor.as(actor).manage().window().getSize()));
     }
 
     /**
@@ -24,6 +24,6 @@ export class Window {
      */
     static position(): Question<Promise<{ x: number, y: number }>> {
         return Question.about(`browser window position`, actor =>
-            promiseOf(BrowseTheWeb.as(actor).manage().window().getPosition()));
+            promiseOf(BrowseTheWebWithProtractor.as(actor).manage().window().getPosition()));
     }
 }

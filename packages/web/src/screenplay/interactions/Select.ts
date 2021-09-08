@@ -1,13 +1,9 @@
-import { Answerable, AnswersQuestions, Question } from '@serenity-js/core';
+import { Answerable, AnswersQuestions } from '@serenity-js/core';
 import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
-import { by, ElementFinder } from 'protractor';
-import { promise } from 'selenium-webdriver';
 
-import { promiseOf } from '../../promiseOf';
-import { Value } from '../questions';
-import { withAnswerOf } from '../withAnswerOf';
+import { by, UIElement, UIElementList } from '../../ui';
 import { SelectBuilder } from './SelectBuilder';
 
 /**
@@ -56,7 +52,7 @@ export class Select {
      *          Ensure.that(Selected.valueOf(Countries.dropdown), equals('UK')),
      *      );
      *
-     * @param {string | Answerable<string>} value
+     * @param {Answerable<string>} value
      *  A value of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
      *
@@ -68,9 +64,9 @@ export class Select {
      * @see {@link @serenity-js/assertions~Ensure}
      * @see {@link @serenity-js/assertions/lib/expectations~equals}
      */
-    static value(value: string | Answerable<string>): SelectBuilder {
+    static value(value: Answerable<string>): SelectBuilder {
         return {
-            from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
+            from: (target: Answerable<UIElement>): Interaction =>
                 new SelectValue(value, target)
         };
     }
@@ -125,7 +121,7 @@ export class Select {
      */
     static values(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
-            from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
+            from: (target: Answerable<UIElement>): Interaction =>
                 new SelectValues(values, target)
         };
     }
@@ -168,7 +164,7 @@ export class Select {
      *          ),
      *      );
      *
-     * @param {string | Answerable<string>} value
+     * @param {Answerable<string>} value
      *  Text of the [`option` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option)
      *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor} to select
      *
@@ -180,9 +176,9 @@ export class Select {
      * @see {@link @serenity-js/assertions~Ensure}
      * @see {@link @serenity-js/assertions/lib/expectations~equals}
      */
-    static option(value: string | Answerable<string>): SelectBuilder {
+    static option(value: Answerable<string>): SelectBuilder {
         return {
-            from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
+            from: (target: Answerable<UIElement>): Interaction =>
                 new SelectOption(value, target)
         };
     }
@@ -239,7 +235,7 @@ export class Select {
      */
     static options(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
-            from: (target: Question<ElementFinder> | ElementFinder): Interaction =>
+            from: (target: Answerable<UIElement>): Interaction =>
                 new SelectOptions(values, target)
         };
     }
@@ -251,19 +247,18 @@ export class Select {
 class SelectValue implements Interaction {
 
     constructor(
-        private readonly value: string | Answerable<string>,
-        private readonly target: Question<ElementFinder> | ElementFinder
+        private readonly value: Answerable<string>,
+        private readonly target: Answerable<UIElement>
     ) {
     }
 
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        return actor.answer(this.value)
-            .then(value =>
-                withAnswerOf(actor, this.target, (element: ElementFinder) =>
-                    element
-                        .element(by.css(`option[value=${ value }]`)))
-                        .click()
-            );
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        const value     = await actor.answer(this.value);
+        const target    = await actor.answer(this.target);
+
+        const option    = await target.locateChildElement(by.css(`option[value=${ value }]`));
+
+        return option.click();
     }
 
     toString () {
@@ -278,32 +273,45 @@ class SelectValues implements Interaction {
 
     constructor(
         private readonly values: Array<Answerable<string[] | string>>,
-        private readonly target: Question<ElementFinder> | ElementFinder
+        private readonly target: Answerable<UIElement>
     ) {
     }
 
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
-        return Promise.all(this.values.map(value => actor.answer(value)))
-            .then(flatten)
-            .then(values => {
+        const target                    = await actor.answer(this.target);
+        const options: UIElementList    = await target.locateAllChildElements(by.css('options'));
 
-                const
-                    hasRequiredValue = (option: ElementFinder) =>
-                        Value.of(option).answeredBy(actor).then(value => !! ~values.indexOf(value));
+        const desiredValues = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();
 
-                return promiseOf(
-                    withAnswerOf(actor, this.target, (element: ElementFinder) =>
-                        element.all(by.css('option'))
-                            .filter(optionsToSelect(hasRequiredValue))
-                            .each(select)
-                    )
-                );
-            });
+        const shouldSelect: boolean[] = await options.map(optionsToSelect(hasValueEqualOneOf(desiredValues)));
+
+        return options.forEach((option, index) => {
+            if (shouldSelect[index]) {
+                return option.click()
+            }
+        });
+        // todo: remove
+        // return Promise.all(this.values.map(value => actor.answer(value)))
+        //     .then(flatten)
+        //     .then(values => {
+        //
+        //         const
+        //             hasRequiredValue = (option: ElementFinder) =>
+        //                 Value.of(option).answeredBy(actor).then(value => !! ~values.indexOf(value));
+        //
+        //         return promiseOf(
+        //             withAnswerOf(actor, this.target, (element: ElementFinder) =>
+        //                 element.all(by.css('option'))
+        //                     .filter(optionsToSelect(hasRequiredValue))
+        //                     .each(select)
+        //             )
+        //         );
+        //     });
     }
 
     toString () {
-        return `#actor selects values ${ commaSeparated(flatten(this.values), inspected) } from ${ this.target }`;
+        return `#actor selects values ${ commaSeparated(this.values.flat(), inspected) } from ${ this.target }`;
     }
 }
 
@@ -313,19 +321,27 @@ class SelectValues implements Interaction {
 class SelectOption implements Interaction {
 
     constructor(
-        private readonly value: string | Answerable<string>,
-        private readonly target: Question<ElementFinder> | ElementFinder
+        private readonly value: Answerable<string>,
+        private readonly target: Answerable<UIElement>
     ) {
     }
 
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        return actor.answer(this.value)
-            .then(value => {
-                return promiseOf(withAnswerOf(actor, this.target, (element: ElementFinder) =>
-                    element
-                        .element(by.cssContainingText('option', value)))
-                        .click());
-            });
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        const value     = await actor.answer(this.value);
+        const target    = await actor.answer(this.target);
+
+        const option    = await target.locateChildElement(by.cssContainingText('option', value));
+
+        return option.click();
+
+        // todo: remove
+        // return actor.answer(this.value)
+        //     .then(value => {
+        //         return promiseOf(withAnswerOf(actor, this.target, (element: ElementFinder) =>
+        //             element
+        //                 .element(by.cssContainingText('option', value)))
+        //                 .click());
+        //     });
     }
 
     toString () {
@@ -340,44 +356,71 @@ class SelectOptions implements Interaction {
 
     constructor(
         private readonly values: Array<Answerable<string[] | string>>,
-        private readonly target: Question<ElementFinder> | ElementFinder
+        private readonly target: Answerable<UIElement>
     ) {
     }
 
-    performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
-        return Promise.all(this.values.map(value => actor.answer(value)))
-            .then(flatten)
-            .then(values => {
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
-                const
-                    hasRequiredText = (option: ElementFinder) =>
-                        option.getText().then(value => !! ~values.indexOf(value));
+        const desiredOptions    = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();
+        const target            = await actor.answer(this.target);
+        const options           = await target.locateAllChildElements(by.css('option'));
 
-                return promiseOf(
-                    withAnswerOf(actor, this.target, (element: ElementFinder) =>
-                        element.all(by.css('option'))
-                            .filter(optionsToSelect(hasRequiredText))
-                            .each(select)
-                    )
-                );
-            });
+        const shouldSelect: boolean[] = await options.map(optionsToSelect(hasTextEqualOneOf(desiredOptions)));
+
+        return options.forEach((option, index) => {
+            if (shouldSelect[index]) {
+                return option.click()
+            }
+        });
+
+        // todo: remove
+        // return Promise.all(this.values.map(value => actor.answer(value)))
+        //     .then(flatten)
+        //     .then(values => {
+        //
+        //         const
+        //             hasRequiredText = (option: ElementFinder) =>
+        //                 option.getText().then(value => !! ~values.indexOf(value));
+        //
+        //         return promiseOf(
+        //             withAnswerOf(actor, this.target, (element: ElementFinder) =>
+        //                 element.all(by.css('option'))
+        //                     .filter(optionsToSelect(hasRequiredText))
+        //                     .each(select)
+        //             )
+        //         );
+        //     });
     }
 
     toString () {
-        return `#actor selects ${ commaSeparated(flatten(this.values), inspected) } from ${ this.target }`;
+        return `#actor selects ${ commaSeparated(this.values.flat(), inspected) } from ${ this.target }`;
     }
 }
 
 /** @package */
-function flatten<T>(listOfLists: Array<T[] | T>): T[] {
-    return listOfLists
-        .map(item => [].concat(item))
-        .reduce((acc: T[], list: T[]) => acc.concat(list), []);
+function hasValueEqualOneOf(desiredValues: string[]): (option: UIElement) => Promise<boolean> {
+    return async (option: UIElement) => {
+
+        const value = await option.getValue()
+
+        return desiredValues.includes(value);
+    }
 }
 
 /** @package */
-function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<boolean>) {
-    return (option: ElementFinder) =>
+function hasTextEqualOneOf(desiredValues: string[]): (option: UIElement) => Promise<boolean> {
+    return async (option: UIElement) => {
+
+        const value = await option.getText()
+
+        return desiredValues.includes(value);
+    }
+}
+
+/** @package */
+function optionsToSelect(criterion: (option: UIElement) => Promise<boolean>) {
+    return (option: UIElement) =>
         isAlreadySelected(option)
             .then(alreadySelected =>
                 criterion(option).then(criterionMet =>
@@ -387,12 +430,7 @@ function optionsToSelect(criterion: (option: ElementFinder) => promise.Promise<b
 }
 
 /** @package */
-function select(option: ElementFinder): promise.Promise<void> {
-    return option.click();
-}
-
-/** @package */
-function isAlreadySelected(option: ElementFinder): promise.Promise<boolean> {
+function isAlreadySelected(option: UIElement): Promise<boolean> {
     return option.isSelected();
 }
 

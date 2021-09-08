@@ -1,6 +1,7 @@
 const
     { actorCalled } = require('@serenity-js/core'),
-    { Navigate, UseAngular } = require('@serenity-js/protractor');
+    { Navigate } = require('@serenity-js/web'),
+    { UseAngular } = require('@serenity-js/protractor');
 
 describe('Jasmine', () => {
 

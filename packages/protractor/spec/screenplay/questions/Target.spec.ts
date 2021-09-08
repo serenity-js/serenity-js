@@ -2,11 +2,10 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
-import { actorCalled, engage, Question } from '@serenity-js/core';
+import { actorCalled, Answerable, engage } from '@serenity-js/core';
+import { by, Click, CSSClasses, Navigate, Target, Text, UIElement } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
-import { by, ElementFinder } from 'protractor';
 
-import { Click, CSSClasses, Navigate, Target, Text } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 /** @test {Target} */
@@ -184,7 +183,7 @@ describe('Target', () => {
             actorCalled('Peter').attemptsTo(
                 Navigate.to('/screenplay/questions/targets/nested_targets.html'),
 
-                Ensure.that(Text.of(Page.Title.of(Page.Header).of(Page.Article)), equals('Title')),
+                Ensure.that(Text.of(Page.Title.of(Page.Header)).of(Page.Article), equals('Title')),
                 Ensure.that(Page.Title.of(Page.Header.of(Page.Article)).toString(), equals('the title of the header of the article')),
             ));
 
@@ -677,7 +676,7 @@ describe('Target', () => {
                     .where(CSSClasses, contain('buy'));
 
             // eslint-disable-next-line unicorn/consistent-function-scoping
-            const LinkTo = (item: Question<ElementFinder> | ElementFinder) =>
+            const LinkTo = (item: Answerable<UIElement>) =>
                 Target.the('link to element').of(item).located(by.css('a'));
 
             /**

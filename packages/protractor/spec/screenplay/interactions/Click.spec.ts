@@ -3,9 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { Attribute, by, Click, Navigate, Target } from '@serenity-js/web';
 
-import { Attribute, Click, Navigate, Target } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 /** @test {Click} */
@@ -24,7 +23,7 @@ describe('Click', () => {
 
             Click.on(Form.Checkbox),
 
-            Ensure.that(Attribute.of(Form.Checkbox).called('checked'), equals('true')),
+            Ensure.that(Attribute.called('checked').of(Form.Checkbox), equals('true')),
         ));
 
     /** @test {Click#toString} */

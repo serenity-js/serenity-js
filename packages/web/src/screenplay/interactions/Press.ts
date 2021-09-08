@@ -63,7 +63,7 @@ export class Press extends WebElementInteraction {
      *
      * @returns {PressBuilder}
      */
-    static  the(...keys: Array<Answerable<Key | string | Key[] | string[]>>): Activity & PressBuilder {
+    static the(...keys: Array<Answerable<Key | string | Key[] | string[]>>): Activity & PressBuilder {
         return new Press(KeySequence.of(keys));
     }
 
@@ -97,7 +97,6 @@ export class Press extends WebElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const keys  = await actor.answer(this.keys);
-
         return BrowseTheWeb.as(actor).sendKeys(keys);
     }
 }

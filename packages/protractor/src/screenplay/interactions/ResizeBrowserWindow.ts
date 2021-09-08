@@ -1,6 +1,6 @@
 import { Interaction, UsesAbilities } from '@serenity-js/core';
 
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 /**
  * @desc
@@ -97,7 +97,7 @@ class MaximiseBrowserWindow implements Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).manage().window().maximize();
+        return BrowseTheWebWithProtractor.as(actor).manage().window().maximize();
     }
 
     /**
@@ -133,7 +133,7 @@ class SetBrowserWindowSize implements Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
     performAs(actor: UsesAbilities): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).manage().window().setSize(this.width, this.height);
+        return BrowseTheWebWithProtractor.as(actor).manage().window().setSize(this.width, this.height);
     }
 
     /**

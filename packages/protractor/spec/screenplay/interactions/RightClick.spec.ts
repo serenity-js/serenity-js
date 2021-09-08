@@ -3,9 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { by, Navigate, RightClick, Target, Text } from '@serenity-js/web';
 
-import { Navigate, RightClick, Target, Text } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 /** @test {RightClick} */
@@ -30,6 +29,6 @@ describe('RightClick', () => {
     /** @test {RightClick#toString} */
     it('provides a sensible description of the interaction being performed', () => {
         expect(RightClick.on(Form.InputField).toString())
-            .to.equal('#actor right clicks on the input field');
+            .to.equal('#actor right-clicks on the input field');
     });
 });

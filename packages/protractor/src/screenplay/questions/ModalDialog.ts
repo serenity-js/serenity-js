@@ -2,7 +2,7 @@ import { Question } from '@serenity-js/core';
 import { AlertPromise, error as errors } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 /**
  * @desc
@@ -62,7 +62,7 @@ export class ModalDialog {
      */
     static window(): Question<AlertPromise> {
         return Question.about<AlertPromise>(`the modal dialog window`, actor =>
-            BrowseTheWeb.as(actor).alert()
+            BrowseTheWebWithProtractor.as(actor).alert()
         );
     }
 
@@ -105,7 +105,7 @@ export class ModalDialog {
      */
     static hasPoppedUp(): Question<Promise<boolean>> {
         return Question.about<Promise<boolean>>(`the modal dialog has popped up`, actor =>
-            promiseOf(BrowseTheWeb.as(actor).alert()).then(() => true, error => {
+            promiseOf(BrowseTheWebWithProtractor.as(actor).alert()).then(() => true, error => {
                 // Based on:
                 // https://github.com/SeleniumHQ/selenium/blob/941dc9c6b2e2aa4f701c1b72be8de03d4b7e996a/javascript/node/selenium-webdriver/lib/until.js#L107
                 return ! (error instanceof errors.NoSuchAlertError
@@ -143,7 +143,7 @@ export class ModalDialog {
      */
     static message(): Question<Promise<string>> {
         return Question.about<Promise<string>>(`the modal dialog message`, actor =>
-            promiseOf(BrowseTheWeb.as(actor).alert().getText())
+            promiseOf(BrowseTheWebWithProtractor.as(actor).alert().getText())
         );
     }
 }

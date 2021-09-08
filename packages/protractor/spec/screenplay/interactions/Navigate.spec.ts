@@ -2,10 +2,10 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, Duration, engage, TestCompromisedError } from '@serenity-js/core';
-import { by, error as errors } from 'protractor';
+import { actorCalled, engage, TestCompromisedError } from '@serenity-js/core';
+import { by, Navigate, Target, Text, Website } from '@serenity-js/web';
+import { error as errors } from 'protractor';
 
-import { Navigate, Target, Text, Website } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 /** @test {Navigate} */
@@ -40,16 +40,6 @@ describe('Navigate', () => {
         it('provides a sensible description of the interaction being performed', () => {
             expect(Navigate.to(`https://serenity-js.org`).toString())
                 .to.equal(`#actor navigates to 'https://serenity-js.org'`);
-        });
-    });
-
-    describe('to(url).withTimeout(duration)', function () {
-
-        /** @test {Navigate.to} */
-        /** @test {Navigate#toString} */
-        it('provides a sensible description of the interaction being performed', () => {
-            expect(Navigate.to(`https://serenity-js.org`).withTimeout(Duration.ofSeconds(5)).toString())
-                .to.equal(`#actor navigates to 'https://serenity-js.org' waiting up to 5s for Angular to load`);
         });
     });
 

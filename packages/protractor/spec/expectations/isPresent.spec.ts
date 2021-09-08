@@ -4,9 +4,8 @@ import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration, engage } from '@serenity-js/core';
 import { ErrorSerialiser } from '@serenity-js/core/lib/io';
-import { by } from 'protractor';
+import { by, isPresent, Navigate, Target, Wait } from '@serenity-js/web';
 
-import { isPresent, Navigate, Target, Wait } from '../../src';
 import { pageFromTemplate } from '../fixtures';
 import { UIActors } from '../UIActors';
 

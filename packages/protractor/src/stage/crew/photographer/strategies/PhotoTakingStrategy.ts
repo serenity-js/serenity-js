@@ -11,7 +11,7 @@ import {
 import { CorrelationId, Description, Name, Photo } from '@serenity-js/core/lib/model';
 import { error as webdriver } from 'selenium-webdriver';
 
-import { BrowseTheWeb } from '../../../../screenplay';
+import { BrowseTheWebWithProtractor } from '../../../../screenplay';
 
 /**
  * @desc
@@ -36,10 +36,10 @@ export abstract class PhotoTakingStrategy {
      */
     considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): void {
         if (this.shouldTakeAPhotoOf(event)) {
-            let browseTheWeb: BrowseTheWeb;
+            let browseTheWeb: BrowseTheWebWithProtractor;
 
             try {
-                browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+                browseTheWeb = BrowseTheWebWithProtractor.as(stage.theActorInTheSpotlight());
             } catch {
                 return void 0;
             }

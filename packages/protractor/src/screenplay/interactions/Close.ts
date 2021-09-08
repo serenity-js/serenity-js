@@ -1,6 +1,6 @@
 import { AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 /**
  * @desc
@@ -74,7 +74,7 @@ export class Close {
      * @see {@link Switch}
      */
     static anyNewWindows(): Interaction {
-        return new CloseWindowsOtherThan(actor => BrowseTheWeb.as(actor).getOriginalWindowHandle(), `#actor closes any new windows`);
+        return new CloseWindowsOtherThan(actor => BrowseTheWebWithProtractor.as(actor).getOriginalWindowHandle(), `#actor closes any new windows`);
     }
 
     /**
@@ -126,7 +126,7 @@ class CloseWindowsOtherThan extends Interaction {
      * @private
      */
     private windowsOtherThan(windowToKeep: string, actor: UsesAbilities & AnswersQuestions) {
-        return BrowseTheWeb.as(actor).getAllWindowHandles()
+        return BrowseTheWebWithProtractor.as(actor).getAllWindowHandles()
             .then(allWindows =>
                 this.isDefined(windowToKeep) && allWindows.length > 1
                     ? allWindows.filter(handle => handle !== windowToKeep)
@@ -143,8 +143,8 @@ class CloseWindowsOtherThan extends Interaction {
         return windows.reduce(
             (previous, handle) => {
                 return previous
-                    .then(() => BrowseTheWeb.as(actor).switchToWindow(handle))
-                    .then(() => BrowseTheWeb.as(actor).closeCurrentWindow());
+                    .then(() => BrowseTheWebWithProtractor.as(actor).switchToWindow(handle))
+                    .then(() => BrowseTheWebWithProtractor.as(actor).closeCurrentWindow());
             },
             Promise.resolve()
         );
@@ -157,7 +157,7 @@ class CloseWindowsOtherThan extends Interaction {
      */
     private switchTo(window: string, actor: UsesAbilities & AnswersQuestions): Promise<void> {
         return this.isDefined(window)
-            ? BrowseTheWeb.as(actor).switchToWindow(window)
+            ? BrowseTheWebWithProtractor.as(actor).switchToWindow(window)
             : Promise.resolve();
     }
 
@@ -175,7 +175,7 @@ class CloseWindowsOtherThan extends Interaction {
  */
 class CloseCurrentWindow extends Interaction {
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).closeCurrentWindow();
+        return BrowseTheWebWithProtractor.as(actor).closeCurrentWindow();
     }
 
     toString(): string {

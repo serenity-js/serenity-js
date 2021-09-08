@@ -37,15 +37,17 @@ export abstract class PhotoTakingStrategy {
 
             const
                 id              = CorrelationId.create(),
-                nameSuffix      = this.photoNameFor(event),
-                capabilities    = browseTheWeb.getBrowserCapabilities();
+                nameSuffix      = this.photoNameFor(event);
 
             stage.announce(new AsyncOperationAttempted(
                 new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),
                 id,
             ));
 
-            browseTheWeb.takeScreenshot().then(screenshot => {
+            Promise.all([
+                browseTheWeb.takeScreenshot(),
+                browseTheWeb.getBrowserCapabilities(),
+            ]).then(([ screenshot, capabilities ]) => {
 
                 const
                     context   = [ capabilities.platformName, capabilities.browserName, capabilities.browserVersion ],

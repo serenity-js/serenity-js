@@ -87,7 +87,7 @@ export class Clear extends WebElementInteraction {
         const element   = await this.resolve(actor, this.field);
         const value     = await element.getValue();
 
-        if (value === undefined) {
+        if (value === null || value === undefined) {
             throw new LogicError(
                 this.capitaliseFirstLetter(formatted `${ this.field } doesn't seem to have a 'value' attribute that could be cleared.`),
             );

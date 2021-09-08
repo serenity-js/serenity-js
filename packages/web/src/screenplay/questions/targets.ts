@@ -327,7 +327,7 @@ export class TargetNestedElements
             throw new LogicError(formatted `Couldn't find ${ this.parent }`);
         }
 
-        return parent.locateAllChildElementsAt(children.location());
+        return parent.locateAllChildElements(children.location());
     }
 }
 
@@ -392,6 +392,6 @@ export class TargetNestedElement
             throw new LogicError(formatted `Couldn't find ${ this.parent }`);
         }
 
-        return parent.locateChildElementAt(child.location());
+        return parent.locateChildElement(child.location());
     }
 }

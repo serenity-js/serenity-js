@@ -33,7 +33,6 @@ export class WebdriverIOElementList implements UIElementList {
 
     private elementAt(index: number): WebdriverIOElement {
         if (! this.elements[index]) {
-            console.error('WebdriverIOElementList', this.elements);
             throw new LogicError(`There's no item at index ${ index } within elements located ${ this.elementLocation } `);
         }
 
@@ -42,9 +41,9 @@ export class WebdriverIOElementList implements UIElementList {
 
     map<O>(fn: (element: UIElement, index?: number, elements?: UIElementList) => Promise<O> | O): Promise<O[]> {
         return Promise.all(
-            this.elements.map((element, i) =>
+            this.elements.map((element, index) =>
                 // todo: is this.elementLocation valid? what does WDIO return in element.selector?
-                fn(new WebdriverIOElement(element, this.elementLocation), i, this)
+                fn(new WebdriverIOElement(element, this.elementLocation), index, this)
             )
         );
     }
@@ -60,5 +59,11 @@ export class WebdriverIOElementList implements UIElementList {
         matching.props      = this.elements.props;
 
         return new WebdriverIOElementList(matching, this.elementLocation);
+    }
+
+    forEach(fn: (element: UIElement, index?: number, elements?: UIElementList) => Promise<void> | void): Promise<void> {
+        return this.elements.reduce((previous: Promise<void>, element: Element<'async'>, index: number) => {
+            return previous.then(() => fn(new WebdriverIOElement(element, this.elementLocation), index, this));
+        }, Promise.resolve());
     }
 }

@@ -19,11 +19,15 @@ export abstract class BrowseTheWeb implements Ability {
     }
 
     abstract navigateTo(destination: string): Promise<void>;
+
     abstract navigateBack(): Promise<void>;
+
     abstract navigateForward(): Promise<void>;
+
     abstract reloadPage(): Promise<void>;
 
     abstract waitFor(duration: Duration): Promise<void>;
+
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
     abstract locateElementAt(location: UIElementLocation): Promise<UIElement>;
@@ -31,9 +35,10 @@ export abstract class BrowseTheWeb implements Ability {
     abstract locateAllElementsAt(location: UIElementLocation): Promise<UIElementList>;
 
     abstract getTitle(): Promise<string>;
-    abstract getUrl(): Promise<string>;
 
-    abstract getBrowserCapabilities(): BrowserCapabilities;
+    abstract getCurrentUrl(): Promise<string>;
+
+    abstract getBrowserCapabilities(): Promise<BrowserCapabilities>;
 
     abstract sendKeys(keys: Array<Key | string>): Promise<void>;
 
@@ -50,4 +55,14 @@ export abstract class BrowseTheWeb implements Ability {
     abstract getLastScriptExecutionResult<R = any>(): R;
 
     abstract takeScreenshot(): Promise<string>;
+
+    abstract switchToFrame(targetOrIndex: UIElement | number | string): Promise<void>;
+    abstract switchToParentFrame(): Promise<void>;
+    abstract switchToDefaultContent(): Promise<void>;
+    abstract switchToWindow(nameOrHandleOrIndex: string | number): Promise<void>;
+    abstract switchToOriginalWindow(): Promise<void>;
+    abstract getCurrentWindowHandle(): Promise<string>;
+    abstract getAllWindowHandles(): Promise<string[]>;
+    abstract closeCurrentWindow(): Promise<void>;
 }
+

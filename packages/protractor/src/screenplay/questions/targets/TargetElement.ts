@@ -1,7 +1,7 @@
 import { AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { ElementFinder, Locator } from 'protractor';
 
-import { BrowseTheWeb } from '../../abilities';
+import { BrowseTheWebWithProtractor } from '../../abilities';
 import { override } from './override';
 import { TargetNestedElement } from './TargetNestedElement';
 
@@ -62,7 +62,7 @@ export class TargetElement
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): ElementFinder {
         return override(
-            BrowseTheWeb.as(actor).locate(this.locator),
+            BrowseTheWebWithProtractor.as(actor).locate(this.locator),
             'toString',
             TargetElement.prototype.toString.bind(this),
         );

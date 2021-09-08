@@ -1,9 +1,7 @@
-import { AnswersQuestions, Interaction, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { ElementFinder } from 'protractor';
 
-import { BrowseTheWeb } from '../abilities';
-import { withAnswerOf } from '../withAnswerOf';
+import { UIElement } from '../../ui';
 
 /**
  * @desc
@@ -52,20 +50,20 @@ export class Scroll extends Interaction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Question<ElementFinder> | ElementFinder} target
+     * @param {Answerable<UIElement>} target
      *  The element to be scroll to
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static to(target: Question<ElementFinder> | ElementFinder): Scroll {
+    static to(target: Answerable<UIElement>): Scroll {
         return new Scroll(target);
     }
 
     /**
-     * @param {Question<ElementFinder> | ElementFinder} target
+     * @param {Answerable<UIElement>} target
      *  The element to be scroll to
      */
-    constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+    constructor(private readonly target: Answerable<UIElement>) {
         super();
     }
 
@@ -83,8 +81,10 @@ export class Scroll extends Interaction {
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
      */
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return withAnswerOf(actor, this.target, (elf: ElementFinder) => BrowseTheWeb.as(actor).actions().mouseMove(elf).perform());
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        const target = await actor.answer(this.target);
+
+        return target.moveTo();
     }
 
     /**
@@ -94,6 +94,6 @@ export class Scroll extends Interaction {
      * @returns {string}
      */
     toString(): string {
-        return formatted `#actor scrolls to ${this.target}`;
+        return formatted `#actor scrolls to ${ this.target }`;
     }
 }

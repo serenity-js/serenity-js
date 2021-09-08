@@ -5,11 +5,12 @@ import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals, isTrue } from '@serenity-js/assertions';
 import { actorCalled, engage, Question, Transform } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
+import { Navigate } from '@serenity-js/web';
 import express = require('express');
 
 import { protractor } from 'protractor';
 
-import { BrowseTheWeb, DeleteCookies, Navigate } from '../../../src';
+import { BrowseTheWebWithProtractor, DeleteCookies } from '../../../src';
 import { Cookie } from '../../../src/screenplay';
 import { UIActors } from '../../UIActors';
 
@@ -39,7 +40,7 @@ describe('Cookie', () => {
 
         // Fun fact: Before Cookie Monster ate his first cookie, he believed his name was Sid. You're welcome.
         const Sid = actorCalled('Sid').whoCan(
-            BrowseTheWeb.using(protractor.browser),
+            BrowseTheWebWithProtractor.using(protractor.browser),
             ManageALocalServer.runningAHttpListener(cookieCutterApp),
         );
 
@@ -175,7 +176,7 @@ describe('Cookie', () => {
     describe('when working with secure cookies', () => {
 
         const Sid = actorCalled('Secure Sid').whoCan(
-            BrowseTheWeb.using(protractor.browser),
+            BrowseTheWebWithProtractor.using(protractor.browser),
             ManageALocalServer.runningAHttpsListener(cookieCutterApp, {
                 cert:               certificates.cert,
                 key:                certificates.key,

@@ -24,15 +24,15 @@ export class WebdriverIOElement implements UIElement {
         return this.elementLocation;
     }
 
-    locateChildElementAt(location: UIElementLocation): Promise<UIElement> {
+    locateChildElement(location: UIElementLocation): Promise<UIElement> {
         return this.$
-            .locateAt(location)
+            .locate(location)
             .then(element => new WebdriverIOElement(element, location));
     }
 
-    locateAllChildElementsAt(location: UIElementLocation): Promise<UIElementList> {
+    locateAllChildElements(location: UIElementLocation): Promise<UIElementList> {
         return this.$$
-            .locateAt(location)
+            .locate(location)
             .then(elements => new WebdriverIOElementList(elements, location));
     }
 

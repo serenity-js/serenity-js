@@ -2,9 +2,8 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { Attribute, by, Navigate, Target } from '@serenity-js/web';
 
-import { Attribute, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
@@ -18,6 +17,6 @@ describe('Attribute', () => {
             <html lang="en" />
         `)),
 
-        Ensure.that(Attribute.of(Target.the('DOM').located(by.tagName('html'))).called('lang'), equals('en')),
+        Ensure.that(Attribute.called('lang').of(Target.the('DOM').located(by.tagName('html'))), equals('en')),
     ));
 });
