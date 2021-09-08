@@ -2,7 +2,7 @@
 import { Answerable, AnswersQuestions, Question, Transform, UsesAbilities } from '@serenity-js/core';
 import { IWebDriverOptionsCookie } from 'selenium-webdriver';
 
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 export class Cookie {
     static valueOf(cookieName: Answerable<string>): Question<Promise<string>> {
@@ -64,7 +64,7 @@ class CookieDetails extends Question<Promise<IWebDriverOptionsCookie>> {
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<IWebDriverOptionsCookie> {
         return actor.answer(this.name)
-            .then(name => BrowseTheWeb.as(actor).manage().getCookie(name))
+            .then(name => BrowseTheWebWithProtractor.as(actor).manage().getCookie(name))
             .then(details => details ? details : undefined);
     }
 }

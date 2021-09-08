@@ -1,10 +1,7 @@
-import { AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
-import { ElementFinder } from 'protractor';
 
-import { promiseOf } from '../../promiseOf';
-import { withAnswerOf } from '../withAnswerOf';
-import { Value } from './Value';
+import { by, UIElement } from '../../ui';
 
 /**
  * @desc
@@ -56,7 +53,7 @@ export class Selected {
      *
      * @see {@link Select.value}
      */
-    static valueOf(target: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
+    static valueOf(target: Answerable<UIElement>): Question<Promise<string>> {
         return new SelectedValue(target);
     }
 
@@ -101,7 +98,7 @@ export class Selected {
      *
      * @see {@link Select.values}
      */
-    static valuesOf(target: Question<ElementFinder> | ElementFinder): Question<Promise<string[]>> {
+    static valuesOf(target: Answerable<UIElement>): Question<Promise<string[]>> {
         return new SelectedValues(target);
     }
 
@@ -149,7 +146,7 @@ export class Selected {
      *
      * @see {@link Select.option}
      */
-    static optionIn(target: Question<ElementFinder> | ElementFinder): Question<Promise<string>> {
+    static optionIn(target: Answerable<UIElement>): Question<Promise<string>> {
         return new SelectedOption(target);
     }
 
@@ -197,7 +194,7 @@ export class Selected {
      *
      * @see {@link Select.options}
      */
-    static optionsIn(target: Question<ElementFinder> | ElementFinder): Question<Promise<string[]>> {
+    static optionsIn(target: Answerable<UIElement>): Question<Promise<string[]>> {
         return new SelectedOptions(target);
     }
 }
@@ -207,16 +204,16 @@ export class Selected {
  */
 class SelectedValue extends Question<Promise<string>> {
 
-    constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+    constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `value selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const value = withAnswerOf(actor, this.target, (element: ElementFinder) =>
-            Value.of(element.$('option:checked')).answeredBy(actor)
-        );
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
 
-        return promiseOf(value);
+        const target    = await actor.answer(this.target);
+        const selected  = await target.locateChildElement(by.css('option:checked'));
+
+        return selected.getValue();
     }
 }
 
@@ -225,15 +222,22 @@ class SelectedValue extends Question<Promise<string>> {
  */
 class SelectedValues extends Question<Promise<string[]>> {
 
-    constructor(private readonly target: Question<ElementFinder> | ElementFinder) {
+    constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `values selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const options = withAnswerOf(actor, this.target, (element: ElementFinder) => element.$$('option')
-            .filter(option => option.isSelected()));
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
 
-        return promiseOf(options.map(option => Value.of(option).answeredBy(actor)));
+        const target    = await actor.answer(this.target);
+        const selected  = await target.locateAllChildElements(by.css('option:checked'));
+
+        return selected.map(item => item.getValue());
+
+        // todo: remove
+        // const options = withAnswerOf(actor, this.target, (element: ElementFinder) => element.$$('option')
+        //     .filter(option => option.isSelected()));
+        //
+        // return promiseOf(options.map(option => Value.of(option).answeredBy(actor)));
     }
 }
 
@@ -242,12 +246,18 @@ class SelectedValues extends Question<Promise<string[]>> {
  */
 class SelectedOption extends Question<Promise<string>> {
 
-    constructor(private target: Question<ElementFinder> | ElementFinder) {
+    constructor(private target: Answerable<UIElement>) {
         super(formatted `option selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        return promiseOf(withAnswerOf(actor, this.target, element => element.$('option:checked').getText()));
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
+        const target    = await actor.answer(this.target);
+        const selected  = await target.locateChildElement(by.css('option:checked'));
+
+        return selected.getText();
+
+        // todo: remove
+        // return promiseOf(withAnswerOf(actor, this.target, element => element.$('option:checked').getText()));
     }
 }
 
@@ -256,13 +266,20 @@ class SelectedOption extends Question<Promise<string>> {
  */
 class SelectedOptions extends Question<Promise<string[]>> {
 
-    constructor(private target: Question<ElementFinder> | ElementFinder) {
+    constructor(private target: Answerable<UIElement>) {
         super(formatted `options selected in ${ target }`);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        return promiseOf(withAnswerOf(actor, this.target, element => element.$$('option')
-            .filter(option => option.isSelected())
-            .map(elements => elements.getText())));
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
+
+        const target    = await actor.answer(this.target);
+        const selected  = await target.locateAllChildElements(by.css('option:checked'));
+
+        return selected.map(item => item.getText());
+
+        // todo: remove
+        // return promiseOf(withAnswerOf(actor, this.target, element => element.$$('option')
+        //     .filter(option => option.isSelected())
+        //     .map(elements => elements.getText())));
     }
 }

@@ -3,9 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { Attribute, by, Hover, Navigate, Target } from '@serenity-js/web';
 
-import { Attribute, Hover, Navigate, Target } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 /** @test {Hover} */
@@ -23,13 +22,13 @@ describe('Hover', function () {
         actorCalled('Mickey').attemptsTo(
             Navigate.to('/screenplay/interactions/hover/example.html'),
 
-            Ensure.that(Attribute.of(Page.Link).called('class'), equals('off')),
+            Ensure.that(Attribute.called('class').of(Page.Link), equals('off')),
 
             Hover.over(Page.Link),
-            Ensure.that(Attribute.of(Page.Link).called('class'), equals('on')),
+            Ensure.that(Attribute.called('class').of(Page.Link), equals('on')),
 
             Hover.over(Page.Header),
-            Ensure.that(Attribute.of(Page.Link).called('class'), equals('off')),
+            Ensure.that(Attribute.called('class').of(Page.Link), equals('off')),
         ));
 
     /** @test {Hover#toString} */

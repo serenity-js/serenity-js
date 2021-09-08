@@ -107,22 +107,47 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.browser.getTitle();
     }
 
-    getUrl(): Promise<string> {
+    getCurrentUrl(): Promise<string> {
         return this.browser.getUrl();
     }
 
-    getBrowserCapabilities(): BrowserCapabilities {
-        return this.browser.capabilities as BrowserCapabilities;
+    getBrowserCapabilities(): Promise<BrowserCapabilities> {
+        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
     }
 
     locateElementAt(location: UIElementLocation): Promise<UIElement> {
-        return this.$.locateAt(location)
+        return this.$.locate(location)
             .then(element => new WebdriverIOElement(element, location));
     }
 
     locateAllElementsAt(location: UIElementLocation): Promise<UIElementList> {
-        return this.$$.locateAt(location)
+        return this.$$.locate(location)
             .then(elements => new WebdriverIOElementList(elements, location));
+    }
+
+    switchToFrame(targetOrIndex: UIElement | number | string): Promise<void> {
+        throw new Error('Not implemented, yet');
+    }
+    switchToParentFrame(): Promise<void> {
+        throw new Error('Not implemented, yet');
+    }
+    switchToDefaultContent(): Promise<void> {
+        throw new Error('Not implemented, yet');
+    }
+    switchToWindow(nameOrHandleOrIndex: string | number): Promise<void> {
+        throw new Error('Not implemented, yet');
+    }
+    switchToOriginalWindow(): Promise<void> {
+        throw new Error('Not implemented, yet');
+    }
+    getCurrentWindowHandle(): Promise<string> {
+        throw new Error('Not implemented, yet');
+    }
+    getAllWindowHandles(): Promise<string[]> {
+        throw new Error('Not implemented, yet');
+    }
+    closeCurrentWindow(): Promise<void> {
+        throw new Error('Not implemented, yet');
     }
 
     /**
@@ -142,7 +167,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
                 return key;
             }
 
-            if (browser.isDevTools) {
+            if (this.browser.isDevTools) {
                 return key.devtoolsName;
             }
 

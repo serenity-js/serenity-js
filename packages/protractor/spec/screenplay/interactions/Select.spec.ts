@@ -5,9 +5,8 @@ import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { ChangeApiConfig } from '@serenity-js/rest';
-import { by } from 'protractor';
+import { by, Select, Selected, Target, Text } from '@serenity-js/web';
 
-import { Select, Selected, Target, Text } from '../../../src';
 import { CreatePage, DeletePage, VisitPage } from '../../pages';
 import { UIActors } from '../../UIActors';
 

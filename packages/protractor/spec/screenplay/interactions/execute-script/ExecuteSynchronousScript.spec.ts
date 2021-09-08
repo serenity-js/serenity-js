@@ -6,9 +6,10 @@ import { actorCalled, engage, Question, Serenity } from '@serenity-js/core';
 import { ActivityFinished, ActivityRelatedArtifactGenerated, ActivityStarts, ArtifactGenerated } from '@serenity-js/core/lib/events';
 import { TextData } from '@serenity-js/core/lib/model';
 import { Clock } from '@serenity-js/core/lib/stage';
-import { by, error } from 'protractor';
+import { by, ExecuteScript, LastScriptExecution, Navigate, Target, Value } from '@serenity-js/web';
+import { error } from 'protractor';
 
-import { Browser, ExecuteScript, LastScriptExecution, Navigate, Target, Value } from '../../../../src';
+import { Browser } from '../../../../src';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScript} */

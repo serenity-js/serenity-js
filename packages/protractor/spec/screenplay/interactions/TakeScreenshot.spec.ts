@@ -3,8 +3,8 @@ import 'mocha';
 import { EventRecorder, expect, PickEvent } from '@integration/testing-tools';
 import { actorCalled, configure, engage } from '@serenity-js/core';
 import { ActivityRelatedArtifactGenerated } from '@serenity-js/core/lib/events';
+import { Navigate, TakeScreenshot } from '@serenity-js/web';
 
-import { Navigate, TakeScreenshot } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

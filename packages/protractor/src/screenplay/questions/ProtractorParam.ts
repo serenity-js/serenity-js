@@ -2,7 +2,7 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 /**
  * @desc
@@ -74,6 +74,6 @@ export class ProtractorParam<T = any>
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<T> {
         return actor.answer(this.name)
-            .then(name => BrowseTheWeb.as(actor).param(name));
+            .then(name => BrowseTheWebWithProtractor.as(actor).param(name));
     }
 }

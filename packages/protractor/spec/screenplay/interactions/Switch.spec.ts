@@ -4,10 +4,10 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage, LogicError } from '@serenity-js/core';
-import { by } from 'protractor';
+import { by, Click, Navigate, Switch, Target, Text} from '@serenity-js/web';
 import { error } from 'selenium-webdriver';
 
-import { Click, Close, Navigate, Switch, Target, Text } from '../../../src';
+import { Close } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

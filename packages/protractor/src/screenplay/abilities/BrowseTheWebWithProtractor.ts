@@ -1,8 +1,10 @@
-import { Ability, ConfigurationError, LogicError, UsesAbilities } from '@serenity-js/core';
+import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Key, UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser } from 'protractor';
-import { AlertPromise, Capabilities, Navigation, Options, WebElement, WebElementPromise } from 'selenium-webdriver';
+import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
+import { ProtractorElement, ProtractorElementList, ProtractorElementLocator } from '../../ui';
 
 /**
  * @desc
@@ -33,7 +35,89 @@ import { promiseOf } from '../../promiseOf';
  * @implements {@serenity-js/core/lib/screenplay~Ability}
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
-export class BrowseTheWeb implements Ability {
+export class BrowseTheWebWithProtractor extends BrowseTheWeb {
+
+    private readonly $:  UIElementLocator<ElementFinder>;
+    private readonly $$: UIElementLocator<ElementArrayFinder>;
+
+    navigateTo(destination: string): Promise<void> {
+        return promiseOf(this.browser.get(destination)
+            .then(() => this.browser.getWindowHandle())
+            .then(handle => {
+                this.originalWindowHandle = handle;
+            }),
+        );
+    }
+
+    navigateBack(): Promise<void> {
+        return promiseOf(this.browser.navigate().back());
+    }
+
+    navigateForward(): Promise<void> {
+        return promiseOf(this.browser.navigate().forward());
+    }
+
+    reloadPage(): Promise<void> {
+        return promiseOf(this.browser.navigate().refresh());
+    }
+
+    waitFor(duration: Duration): Promise<void> {
+        return promiseOf(this.browser.sleep(duration.inMilliseconds()));
+    }
+
+    waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
+        return promiseOf(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
+    }
+
+    locateElementAt(location: UIElementLocation): Promise<UIElement> {
+        return this.$.locate(location)
+            .then(elf => new ProtractorElement(this.browser, elf, location));
+    }
+
+    locateAllElementsAt(location: UIElementLocation): Promise<UIElementList> {
+        return this.$$.locate(location)
+            .then(elf => new ProtractorElementList(this.browser, elf, location));
+    }
+
+    async getBrowserCapabilities(): Promise<BrowserCapabilities> {
+        const capabilities = await promiseOf(this.browser.getCapabilities());
+
+        return {
+            platformName:   capabilities.get('platform'),
+            browserName:    capabilities.get('browserName'),
+            browserVersion: capabilities.get('version'),
+        };
+    }
+
+    async sendKeys(keys: (string | Key)[]): Promise<void> {
+        function isModifier(maybeKey: string | Key): boolean {
+            return Key.isKey(maybeKey) && maybeKey.isModifier;
+        }
+
+        const keySequence = keys.map(key => {
+            if (! Key.isKey(key)) {
+                return key;
+            }
+
+            return key.utf16codePoint;
+        });
+
+        // keyDown for any modifier keys and sendKeys otherwise
+        const keyDownActions = keySequence.reduce((actions, key) => {
+            return isModifier(key)
+                ? actions.keyDown(key)
+                : actions.sendKeys(key)
+        }, this.browser.actions());
+
+        // keyUp for any modifier keys, ignore for regular keys
+        const keyUpActions = keySequence.reduce((actions, key) => {
+            return Key.isKey(key) && key.isModifier
+                ? actions.keyUp(key)
+                : actions;
+        }, keyDownActions);
+
+        return promiseOf(keyUpActions.perform());
+    }
 
     /**
      * @private
@@ -50,22 +134,22 @@ export class BrowseTheWeb implements Ability {
      *  Ability to interact with web front-ends using a given protractor browser instance.
      *
      * @param {ProtractorBrowser} browser
-     * @returns {BrowseTheWeb}
+     * @returns {BrowseTheWebWithProtractor}
      */
-    static using(browser: ProtractorBrowser): BrowseTheWeb {
-        return new BrowseTheWeb(browser);
+    static using(browser: ProtractorBrowser): BrowseTheWebWithProtractor {
+        return new BrowseTheWebWithProtractor(browser);
     }
 
     /**
      * @desc
-     *  Used to access the Actor's ability to {@link BrowseTheWeb} from within the {@link Interaction} classes,
+     *  Used to access the Actor's ability to {@link BrowseTheWebWithProtractor} from within the {@link Interaction} classes,
      *  such as {@link Navigate}.
      *
      * @param {UsesAbilities} actor
-     * @return {BrowseTheWeb}
+     * @return {BrowseTheWebWithProtractor}
      */
-    static as(actor: UsesAbilities): BrowseTheWeb {
-        return actor.abilityTo(BrowseTheWeb);
+    static as(actor: UsesAbilities): BrowseTheWebWithProtractor {
+        return actor.abilityTo(BrowseTheWebWithProtractor);
     }
 
     /**
@@ -73,6 +157,10 @@ export class BrowseTheWeb implements Ability {
      *  An instance of a protractor browser
      */
     constructor(protected browser: ProtractorBrowser) {
+        super();
+
+        this.$ = new ProtractorElementLocator(this.browser.element.bind(this.browser));
+        this.$$ = new ProtractorElementLocator(this.browser.element.all.bind(this.browser.element));    // todo: is this binding correct?
     }
 
     /**
@@ -164,9 +252,13 @@ export class BrowseTheWeb implements Ability {
      *
      * @returns {Promise<void>}
      */
-    switchToFrame(elementOrIndexOrName: number | string | WebElement | WebElementPromise): Promise<void> {
-        // incorrect type definition in selenium-webdriver prevents us from providing a string arg
-        return promiseOf(this.browser.switchTo().frame(elementOrIndexOrName as any));
+    switchToFrame(elementOrIndexOrName: number | string | UIElement): Promise<void> {
+        const elf = elementOrIndexOrName instanceof ProtractorElement
+            ? elementOrIndexOrName.nativeElement()
+            : elementOrIndexOrName;
+
+        // incorrect type definition in selenium-webdriver prevents us from providing a string argument
+        return promiseOf(this.browser.switchTo().frame(elf as any));
     }
 
     /**
@@ -380,7 +472,6 @@ export class BrowseTheWeb implements Ability {
      * @see https://www.protractortest.org/#/api?view=webdriver.WebDriver.prototype.executeScript
      * @see https://seleniumhq.github.io/selenium/docs/api/java/org/openqa/selenium/JavascriptExecutor.html#executeScript-java.lang.String-java.lang.Object...-
      *
-     * @param {string} description  - useful for debugging
      * @param {string | Function} script
      * @param {any[]} args
      *
@@ -388,19 +479,24 @@ export class BrowseTheWeb implements Ability {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeScript(description: string, script: string | Function, ...args: any[]): Promise<any> {   // eslint-disable-line @typescript-eslint/ban-types
-        return promiseOf(this.browser.executeScriptWithDescription(script, description, ...args))
+    executeScript<Result, InnerArguments extends any[]>(
+        script: string | ((...parameters: InnerArguments) => Result),
+        ...args: InnerArguments
+    ): Promise<Result> {
+        const nativeArguments = args.map(arg => arg instanceof ProtractorElement ? arg.nativeElement() : arg) as InnerArguments;
+
+        return promiseOf(this.browser.executeScript(script, ...nativeArguments))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
                     result,
                 );
                 return result;
-            });
+            }) as Promise<Result>;
     }
 
     /**
      * @desc
-     *  A simplified version of {@link BrowseTheWeb#executeScript} that doesn't affect {@link LastScriptExecution.result()}.
+     *  A simplified version of {@link BrowseTheWebWithProtractor#executeScript} that doesn't affect {@link LastScriptExecution.result()}.
      *
      * @param {Function} fn
      * @param {Parameters<fn>} args
@@ -408,7 +504,9 @@ export class BrowseTheWeb implements Ability {
      * @returns {Promise<ReturnType<fn>>}
      */
     executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
-        return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...args));
+        const nativeArguments = args.map(arg => arg instanceof ProtractorElement ? arg.nativeElement() : arg) as Parameters<F>;
+
+        return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...nativeArguments));
     }
 
     /**
@@ -423,7 +521,7 @@ export class BrowseTheWeb implements Ability {
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *
-     *  Unlike executing synchronous JavaScript with {@link BrowseTheWeb#executeScript},
+     *  Unlike executing synchronous JavaScript with {@link BrowseTheWebWithProtractor#executeScript},
      *  scripts executed with this function must explicitly signal they are finished by invoking the provided callback.
      *
      *  This callback will always be injected into the executed function as the last argument,
@@ -463,15 +561,19 @@ export class BrowseTheWeb implements Ability {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeAsyncScript(script: string | Function, ...args: any[]): Promise<any> {   // eslint-disable-line @typescript-eslint/ban-types
-        return promiseOf(this.browser.executeAsyncScript(script, ...args))
+    executeAsyncScript<Result, Parameters extends any[]>(
+        script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
+        ...args: Parameters
+    ): Promise<Result> {
+        const nativeArguments = args.map(arg => arg instanceof ProtractorElement ? arg.nativeElement() : arg) as Parameters;
+
+        return promiseOf(this.browser.executeAsyncScript(script, ...nativeArguments))
             .then(result => {
                 this.lastScriptExecutionSummary = new LastScriptExecutionSummary(
                     result,
                 );
                 return result;
-            });
-        // todo: should I wrap this an provide additional diagnostic information? execution time? error handling?
+            }) as Promise<Result>;
     }
 
     /**
@@ -551,8 +653,8 @@ export class BrowseTheWeb implements Ability {
 
     /**
      * @desc
-     *  Returns the last result of calling {@link BrowseTheWeb#executeAsyncScript}
-     *  or {@link BrowseTheWeb#executeScript}
+     *  Returns the last result of calling {@link BrowseTheWebWithProtractor#executeAsyncScript}
+     *  or {@link BrowseTheWebWithProtractor#executeScript}
      *
      * @returns {any}
      */

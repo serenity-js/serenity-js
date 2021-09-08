@@ -2,10 +2,9 @@ import 'mocha';
 
 import { contain, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
+import { by, CSSClasses, Navigate, Target } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
-import { by } from 'protractor';
 
-import { CSSClasses, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

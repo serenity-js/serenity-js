@@ -2,8 +2,8 @@ import 'mocha';
 
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
+import { Navigate, Website } from '@serenity-js/web';
 
-import { Navigate, Website } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

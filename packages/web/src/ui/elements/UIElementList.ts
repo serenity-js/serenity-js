@@ -13,4 +13,6 @@ export interface UIElementList {
     map<O>(fn: (element: UIElement, index?: number, elements?: UIElementList) => Promise<O> | O): Promise<O[]>;
 
     filter(fn: (element: UIElement, index?: number) => boolean): UIElementList;
+
+    forEach(fn: (element: UIElement, index?: number) => Promise<void> | void): Promise<void>;
 }

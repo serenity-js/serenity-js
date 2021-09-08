@@ -28,7 +28,7 @@ export class Website {
      */
     static url(): Question<Promise<string>> {
         return Question.about(`the url of the current page`, actor =>
-            BrowseTheWeb.as(actor).getUrl(),
+            BrowseTheWeb.as(actor).getCurrentUrl(),
         );
     }
 }

@@ -1,6 +1,6 @@
 import { Interaction } from '@serenity-js/core';
 
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 /**
  * @desc
@@ -53,7 +53,7 @@ export class UseAngular {
      */
     static disableSynchronisation(): Interaction {
         return Interaction.where(`#actor disables synchronisation with Angular`, actor =>
-            BrowseTheWeb.as(actor).enableAngularSynchronisation(false).then(() => void 0));
+            BrowseTheWebWithProtractor.as(actor).enableAngularSynchronisation(false).then(() => void 0));
     }
 
     /**
@@ -65,6 +65,6 @@ export class UseAngular {
      */
     static enableSynchronisation(): Interaction {
         return Interaction.where(`#actor enables synchronisation with Angular`, actor =>
-            BrowseTheWeb.as(actor).enableAngularSynchronisation(true).then(() => void 0));
+            BrowseTheWebWithProtractor.as(actor).enableAngularSynchronisation(true).then(() => void 0));
     }
 }

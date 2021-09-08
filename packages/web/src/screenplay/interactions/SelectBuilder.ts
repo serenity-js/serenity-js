@@ -1,6 +1,7 @@
-import { Question } from '@serenity-js/core';
+import { Answerable } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
-import { ElementFinder } from 'protractor';
+
+import { UIElement } from '../../ui';
 
 /**
  * @desc
@@ -20,7 +21,7 @@ export interface SelectBuilder {
      *  for the {@link @serenity-js/core/lib/screenplay/actor~Actor}
      *  to interact with
      *
-     * @param {Question<ElementFinder> | ElementFinder} target
+     * @param {Answerable<UIElement>} target
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
@@ -31,5 +32,5 @@ export interface SelectBuilder {
      * @see {@link Select.values}
      * @see {@link Target}
      */
-    from: (target: Question<ElementFinder> | ElementFinder) => Interaction;
+    from: (target: Answerable<UIElement>) => Interaction;
 }

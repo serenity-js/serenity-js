@@ -3,9 +3,9 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage, LogicError } from '@serenity-js/core';
-import { by } from 'protractor';
+import { ExecuteScript } from '@serenity-js/web';
+import { by, Enter, LastScriptExecution, Navigate, Target } from '@serenity-js/web';
 
-import { Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

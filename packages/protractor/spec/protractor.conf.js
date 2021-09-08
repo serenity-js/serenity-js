@@ -5,7 +5,18 @@ exports.config = {
 
     baseUrl: `http://localhost:${ port }`,
 
-    specs: [ '**/*.spec.ts' ],
+    specs: [
+        '**/*.spec.ts'
+        // '**/Click.spec.ts',
+        // '**/Clear.spec.ts',
+        // '**/DoubleClick.spec.ts',
+        // '**/Enter.spec.ts',
+        // '**/Hover.spec.ts',
+        // '**/Navigate.spec.ts',
+        // '**/Press.spec.ts',
+        // '**/RightClick.spec.ts',
+        // '**/Wait.spec.ts',
+    ],
 
     params: {
         env: 'test',

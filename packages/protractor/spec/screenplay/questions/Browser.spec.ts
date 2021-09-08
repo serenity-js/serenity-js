@@ -2,9 +2,9 @@ import 'mocha';
 
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { by, Click, Navigate, Target } from '@serenity-js/web';
 
-import { Browser, Click, Navigate, Target } from '../../../src';
+import { Browser } from '../../../src';
 import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 

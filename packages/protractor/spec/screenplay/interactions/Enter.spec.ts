@@ -3,9 +3,8 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, engage } from '@serenity-js/core';
-import { by } from 'protractor';
+import { by, Enter, Navigate, Target, Value } from '@serenity-js/web';
 
-import { Enter, Navigate, Target, Value } from '../../../src';
 import { UIActors } from '../../UIActors';
 
 /** @test {Enter} */

@@ -6,8 +6,8 @@ export interface UIElement {
     nativeElement(): any
 
     location(): UIElementLocation;
-    locateChildElementAt(locator: UIElementLocation): Promise<UIElement>;
-    locateAllChildElementsAt(locator: UIElementLocation): Promise<UIElementList>;
+    locateChildElement(locator: UIElementLocation): Promise<UIElement>;
+    locateAllChildElements(locator: UIElementLocation): Promise<UIElementList>;
 
     enterValue(value: string | number | Array<string | number>): Promise<void>;
     clearValue(): Promise<void>;

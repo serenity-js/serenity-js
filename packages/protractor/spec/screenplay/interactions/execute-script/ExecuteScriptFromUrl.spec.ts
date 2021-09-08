@@ -3,9 +3,10 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { containAtLeastOneItemThat, Ensure, equals, includes, property } from '@serenity-js/assertions';
 import { actorCalled, engage, LogicError } from '@serenity-js/core';
-import { by, protractor } from 'protractor';
+import { by, ExecuteScript, Navigate, Target, Text  } from '@serenity-js/web';
+import { protractor  } from 'protractor';
 
-import { Browser, ExecuteScript, Navigate, Target, Text } from '../../../../src';
+import { Browser } from '../../../../src';
 import { UIActors } from '../../../UIActors';
 
 /** @test {ExecuteScript} */
