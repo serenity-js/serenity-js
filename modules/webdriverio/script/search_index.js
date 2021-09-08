@@ -138,6 +138,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "@serenity-js/webdriverio/lib/screenplay/interactions~scroll",
+    "class/src/screenplay/interactions/Scroll.ts~Scroll.html",
+    "<span>Scroll</span> <span class=\"search-result-import-path\">@serenity-js/webdriverio/lib/screenplay/interactions</span>",
+    "class"
+  ],
+  [
     "@serenity-js/webdriverio/lib/stage/crew/photographer/strategies~takephotosbeforeandafterinteractions",
     "class/src/stage/crew/photographer/strategies/TakePhotosBeforeAndAfterInteractions.ts~TakePhotosBeforeAndAfterInteractions.html",
     "<span>TakePhotosBeforeAndAfterInteractions</span> <span class=\"search-result-import-path\">@serenity-js/webdriverio/lib/stage/crew/photographer/strategies</span>",
@@ -2334,6 +2340,24 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
+    "scroll src/screenplay/interactions/scroll.ts~scroll,scroll",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber11",
+    "Scroll",
+    "test"
+  ],
+  [
+    "scroll.to src/screenplay/interactions/scroll.ts~scroll.to,scroll.to",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber26",
+    "Scroll allows the actor to scroll to a given target so that it appears in the viewport",
+    "test"
+  ],
+  [
+    "scroll#tostring scroll#tostring,scroll#tostring",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber40",
+    "Scroll provides a sensible description of the interaction being performed",
+    "test"
+  ],
+  [
     "",
     "test-file/spec/adapter/reporter/TagPrinter.spec.ts.html#lineNumber8",
     "TagPrinter",
@@ -3468,6 +3492,12 @@ window.esdocSearchIndex = [
     "testFile"
   ],
   [
+    "spec/screenplay/interactions/scroll.spec.ts",
+    "test-file/spec/screenplay/interactions/Scroll.spec.ts.html",
+    "spec/screenplay/interactions/Scroll.spec.ts",
+    "testFile"
+  ],
+  [
     "spec/screenplay/interactions/wait.spec.ts",
     "test-file/spec/screenplay/interactions/Wait.spec.ts.html",
     "spec/screenplay/interactions/Wait.spec.ts",
@@ -4359,6 +4389,30 @@ window.esdocSearchIndex = [
     "src/screenplay/interactions/rightclick.ts~rightclick.on",
     "class/src/screenplay/interactions/RightClick.ts~RightClick.html#static-method-on",
     "src/screenplay/interactions/RightClick.ts~RightClick.on",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/scroll.ts",
+    "file/src/screenplay/interactions/Scroll.ts.html",
+    "src/screenplay/interactions/Scroll.ts",
+    "file"
+  ],
+  [
+    "src/screenplay/interactions/scroll.ts~scroll#constructor",
+    "class/src/screenplay/interactions/Scroll.ts~Scroll.html#instance-constructor-constructor",
+    "src/screenplay/interactions/Scroll.ts~Scroll#constructor",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/scroll.ts~scroll#performas",
+    "class/src/screenplay/interactions/Scroll.ts~Scroll.html#instance-method-performAs",
+    "src/screenplay/interactions/Scroll.ts~Scroll#performAs",
+    "method"
+  ],
+  [
+    "src/screenplay/interactions/scroll.ts~scroll.to",
+    "class/src/screenplay/interactions/Scroll.ts~Scroll.html#static-method-to",
+    "src/screenplay/interactions/Scroll.ts~Scroll.to",
     "method"
   ],
   [

@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/webdriverio/file/src/adapter/reporter/ProvidesWriteStream.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/webdriverio/file/src/screenplay/interactions/Scroll.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -173,14 +173,93 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProvidesWriteStream.ts</h1>
-<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> OutputStream <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+                <article class="content" data-ice="content"><h1 data-ice="title">src/screenplay/interactions/Scroll.ts</h1>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> Answerable<span class="token punctuation">,</span> AnswersQuestions<span class="token punctuation">,</span> Interaction<span class="token punctuation">,</span>  UsesAbilities <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> formatted <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Element <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'webdriverio'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> WebElementInteraction <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./WebElementInteraction'</span><span class="token punctuation">;</span>
 
 <span class="token comment">/**
- * @package
+ * @desc
+ *  Instructs the {@link @serenity-js/core/lib/screenplay/actor~Actor} to
+ *  scroll until a given Web element comes into view.
+ *
+ * @example &lt;caption&gt;Example widget&lt;/caption&gt;
+ *  &lt;!--
+ *      an element somewhere at the bottom of the page,
+ *      outside of the visible area
+ *  --&gt;
+ *  &lt;input type="submit" id="submit" /&gt;
+ *
+ * @example &lt;caption&gt;Lean Page Object describing the widget&lt;/caption&gt;
+ *  import { by, Target } from '@serenity-js/webdriverio';
+ *
+ *  class Form {
+ *      static submitButton = Target.the('submit button')
+ *          .located(by.id('submit'));
+ *  }
+ *
+ * @example &lt;caption&gt;Scrolling to element&lt;/caption&gt;
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { Ensure } from '@serenity-js/assertions';
+ *  import { BrowseTheWeb, Scroll, isVisible } from '@serenity-js/webdriverio';
+ *
+ *  actorCalled('Sara')
+ *      .whoCan(BrowseTheWeb.using(browser))
+ *      .attemptsTo(
+ *          Scroll.to(Form.submitButton),
+ *          Ensure.that(Form.submitButton, isVisible()),
+ *      );
+ *
+ * @see {@link BrowseTheWeb}
+ * @see {@link Target}
+ * @see {@link isVisible}
+ * @see {@link @serenity-js/assertions~Ensure}
+ *
+ * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */</span>
-<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ProvidesWriteStream</span> <span class="token punctuation">{</span>
-    <span class="token function">getWriteStreamObject</span><span class="token punctuation">(</span>reporter<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> OutputStream<span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">Scroll</span> <span class="token keyword">extends</span> <span class="token class-name">WebElementInteraction</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * @desc
+     *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {Answerable&lt;Element&lt;'async'&gt;&gt;} target
+     *  The element to be scrolled to
+     *
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
+     */</span>
+    <span class="token keyword">static</span> <span class="token function">to</span><span class="token punctuation">(</span>target<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Element<span class="token operator">&lt;</span><span class="token string">'async'</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token operator">:</span> Interaction <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Scroll</span><span class="token punctuation">(</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * @param {Answerable&lt;Element&lt;'async'&gt;&gt;} target
+     *  The element to be scrolled to
+     */</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> <span class="token keyword">readonly</span> target<span class="token operator">:</span> Answerable<span class="token operator">&lt;</span>Element<span class="token operator">&lt;</span><span class="token string">'async'</span><span class="token operator">&gt;&gt;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>formatted <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor scrolls to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> target <span class="token interpolation-punctuation punctuation">}</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * @desc
+     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     *  perform this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @param {UsesAbilities &amp; AnswersQuestions} actor
+     *  An {@link @serenity-js/core/lib/screenplay/actor~Actor} to perform this {@link @serenity-js/core/lib/screenplay~Interaction}
+     *
+     * @returns {PromiseLike&lt;void&gt;}
+     *
+     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
+     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
+     */</span>
+    <span class="token keyword">async</span> <span class="token function">performAs</span><span class="token punctuation">(</span>actor<span class="token operator">:</span> UsesAbilities <span class="token operator">&amp;</span> AnswersQuestions<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">Promise</span><span class="token operator">&lt;</span><span class="token keyword">void</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> element <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>actor<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> element<span class="token punctuation">.</span><span class="token function">scrollIntoView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
 

@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/webdriverio/file/src/adapter/reporter/ProvidesWriteStream.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/webdriverio/test-file/spec/screenplay/interactions/Scroll.spec.ts.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -173,15 +173,51 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProvidesWriteStream.ts</h1>
-<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> OutputStream <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+                <article class="content" data-ice="content"><h1 data-ice="title">spec/screenplay/interactions/Scroll.spec.ts</h1>
+<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token string">'mocha'</span><span class="token punctuation">;</span>
 
-<span class="token comment">/**
- * @package
- */</span>
-<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ProvidesWriteStream</span> <span class="token punctuation">{</span>
-    <span class="token function">getWriteStreamObject</span><span class="token punctuation">(</span>reporter<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> OutputStream<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> expect <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@integration/testing-tools'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure<span class="token punctuation">,</span> isGreaterThan<span class="token punctuation">,</span> isLessThan <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token punctuation">{</span> by<span class="token punctuation">,</span> ExecuteScript<span class="token punctuation">,</span> LastScriptExecution<span class="token punctuation">,</span> Navigate<span class="token punctuation">,</span> Scroll<span class="token punctuation">,</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../../src'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> pageFromTemplate <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'../../fixtures'</span><span class="token punctuation">;</span>
+
+<span class="token comment">/** @test {Scroll} */</span>
+<span class="token function">describe</span><span class="token punctuation">(</span><span class="token string">'Scroll'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">const</span> aLongSpell <span class="token operator">=</span> <span class="token function">pageFromTemplate</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+        &lt;html&gt;
+            &lt;body style="margin:0; padding:0 0 1024px 0;"&gt;
+                &lt;input type="submit" value="Cast!" id="cast" style="margin-top:10000px;" /&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+    </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> Page <span class="token operator">=</span> <span class="token punctuation">{</span>
+        Execute_Button<span class="token operator">:</span> Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'"Cast!" button'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'cast'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/** @test {Scroll.to} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'allows the actor to scroll to a given target so that it appears in the viewport'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Gandalf'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+        Navigate<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>aLongSpell<span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">return arguments[0].getBoundingClientRect().top;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span>Page<span class="token punctuation">.</span>Execute_Button<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastScriptExecution<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">result</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">isGreaterThan</span><span class="token punctuation">(</span><span class="token number">9000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+        Scroll<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>Page<span class="token punctuation">.</span>Execute_Button<span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+        ExecuteScript<span class="token punctuation">.</span><span class="token function">sync</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">return arguments[0].getBoundingClientRect().top;</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">withArguments</span><span class="token punctuation">(</span>Page<span class="token punctuation">.</span>Execute_Button<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>LastScriptExecution<span class="token punctuation">.</span><span class="token generic-function"><span class="token function">result</span><span class="token generic class-name"><span class="token operator">&lt;</span><span class="token builtin">number</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">isLessThan</span><span class="token punctuation">(</span><span class="token number">9000</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/** @test {Scroll.to} */</span>
+    <span class="token comment">/** @test {Scroll#toString} */</span>
+    <span class="token function">it</span><span class="token punctuation">(</span><span class="token string">'provides a sensible description of the interaction being performed'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token function">expect</span><span class="token punctuation">(</span>Scroll<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>Page<span class="token punctuation">.</span>Execute_Button<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span>to<span class="token punctuation">.</span><span class="token function">equal</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">#actor scrolls to the "Cast!" button</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 
 </article>

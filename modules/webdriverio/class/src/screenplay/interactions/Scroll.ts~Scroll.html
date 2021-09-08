@@ -20,7 +20,7 @@
     <meta property="og:title" content=" | Serenity/JS"/>
     <meta property="og:description" content="Full-stack acceptance testing with Serenity/JS"/>
     <meta property="og:image" content="https://serenity-js.org/images/serenity-js-banner.png"/>
-    <meta property="og:url" content="https://serenity-js.org/modules/webdriverio/file/src/adapter/reporter/ProvidesWriteStream.ts.html"/>
+    <meta property="og:url" content="https://serenity-js.org/modules/webdriverio/class/src/screenplay/interactions/Scroll.ts~Scroll.html"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
@@ -173,17 +173,429 @@
             </aside>
 
             <section class="col-lg-9 col-md-12">
-                <article class="content" data-ice="content"><h1 data-ice="title">src/adapter/reporter/ProvidesWriteStream.ts</h1>
-<pre class="source-code line-number raw-source-code language-typescript"><code class="linenums" data-ice="content"><span class="token keyword">import</span> <span class="token punctuation">{</span> OutputStream <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core/lib/io'</span><span class="token punctuation">;</span>
+                <article class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="language-typescript"><code data-ice="importPathCode"><span class="token keyword">import</span> <span class="token punctuation">{</span>Scroll<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio/lib/screenplay/interactions'</span></code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber53">source</a></span></span>
+</div>
 
-<span class="token comment">/**
- * @package
- */</span>
-<span class="token keyword">export</span> <span class="token keyword">interface</span> <span class="token class-name">ProvidesWriteStream</span> <span class="token punctuation">{</span>
-    <span class="token function">getWriteStreamObject</span><span class="token punctuation">(</span>reporter<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> OutputStream<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
+<div class="self-detail detail">
+  <h1 data-ice="name">Scroll</h1>
 
+  
+
+  <div class="description" data-ice="description"><p> Instructs the <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to
+ scroll until a given Web element comes into view.</p>
+</div>
+
+  
+  
+  <div class="flat-list" data-ice="extendsChain"><h4>Extends:</h4><div><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span> → Scroll</div></div>
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  <div data-ice="exampleDocs">
+    <h4 id="examples">Examples:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Example widget</div>
+      <pre class="source-code language-markup"><code data-ice="exampleCode"> <span class="token comment">&lt;!--
+     an element somewhere at the bottom of the page,
+     outside of the visible area
+ --&gt;</span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Lean Page Object describing the widget</div>
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> by<span class="token punctuation">,</span> Target <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
+
+ <span class="token keyword">class</span> <span class="token class-name">Form</span> <span class="token punctuation">{</span>
+     <span class="token keyword">static</span> submitButton <span class="token operator">=</span> Target<span class="token punctuation">.</span><span class="token function">the</span><span class="token punctuation">(</span><span class="token string">'submit button'</span><span class="token punctuation">)</span>
+         <span class="token punctuation">.</span><span class="token function">located</span><span class="token punctuation">(</span>by<span class="token punctuation">.</span><span class="token function">id</span><span class="token punctuation">(</span><span class="token string">'submit'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span></code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Scrolling to element</div>
+      <pre class="source-code language-typescript"><code data-ice="exampleCode"> <span class="token keyword">import</span> <span class="token punctuation">{</span> actorCalled <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/core'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> Ensure <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/assertions'</span><span class="token punctuation">;</span>
+ <span class="token keyword">import</span> <span class="token punctuation">{</span> BrowseTheWeb<span class="token punctuation">,</span> Scroll<span class="token punctuation">,</span> isVisible <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@serenity-js/webdriverio'</span><span class="token punctuation">;</span>
+
+ <span class="token function">actorCalled</span><span class="token punctuation">(</span><span class="token string">'Sara'</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">whoCan</span><span class="token punctuation">(</span>BrowseTheWeb<span class="token punctuation">.</span><span class="token function">using</span><span class="token punctuation">(</span>browser<span class="token punctuation">)</span><span class="token punctuation">)</span>
+     <span class="token punctuation">.</span><span class="token function">attemptsTo</span><span class="token punctuation">(</span>
+         Scroll<span class="token punctuation">.</span><span class="token function">to</span><span class="token punctuation">(</span>Form<span class="token punctuation">.</span>submitButton<span class="token punctuation">)</span><span class="token punctuation">,</span>
+         Ensure<span class="token punctuation">.</span><span class="token function">that</span><span class="token punctuation">(</span>Form<span class="token punctuation">.</span>submitButton<span class="token punctuation">,</span> <span class="token function">isVisible</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+    </div>
+</div>
+
+  <div data-ice="tests">
+    <h4 id="tests">Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber11">Scroll</a></span></li>
+</ul>
+  </div>
+
+  
+
+  <div data-ice="see"><h4>See also:</h4><ul><li><span><span><a href="class/src/screenplay/abilities/BrowseTheWeb.ts~BrowseTheWeb.html">BrowseTheWeb</a></span></span></li>
+<li><span><span><a href="class/src/screenplay/questions/targets.ts~Target.html">Target</a></span></span></li>
+<li><span><span><a href="function/index.html#static-function-isVisible">isVisible</a></span></span></li>
+<li><span><span><a href="/modules/assertions/class/src/Ensure.ts~Ensure.html">Ensure</a></span></span></li></ul></div>
+</div>
+
+
+<div data-ice="staticMethodSummary"><h2>Static Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      <span data-ice="static">static</span>
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html#static-method-to">to</a></span></span><span class="code" data-ice="signature">(target: <span>Answerable</span>&lt;<span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts">Element</a></span>&lt;<span>'async'</span>&gt;&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Instantiates this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(target: <span>Answerable</span>&lt;<span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts">Element</a></span>&lt;<span>'async'</span>&gt;&gt;)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          <span data-ice="async">async</span>
+          
+          <span class="code" data-ice="name"><span><a href="class/src/screenplay/interactions/Scroll.ts~Scroll.html#instance-method-performAs">performAs</a></span></span><span class="code" data-ice="signature">(actor: <span>UsesAbilities &amp; AnswersQuestions</span>): <span>PromiseLike</span>&lt;<span>void</span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p> Makes the provided <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ perform this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+<div data-ice="staticMethodDetails"><h2 data-ice="title">Static Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-method-to">
+    <span class="access" data-ice="access">public</span>
+    <span data-ice="static">static</span>
+    
+    
+    
+    
+    <span class="code" data-ice="name">to</span><span class="code" data-ice="signature">(target: <span>Answerable</span>&lt;<span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts">Element</a></span>&lt;<span>'async'</span>&gt;&gt;): <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber79">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Instantiates this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">target</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts">Element</a></span>&lt;<span>'async'</span>&gt;&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The element to be scrolled to</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="tests">
+    <h4>Tests:</h4>
+    <ul>
+      
+    <li data-ice="test"><span><a href="test-file/spec/screenplay/interactions/Scroll.spec.ts.html#lineNumber26">Scroll allows the actor to scroll to a given target so that it appears in the viewport</a></span></li>
+</ul>
+  </div>
+
+  
+  
+</div>
+</div>
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(target: <span>Answerable</span>&lt;<span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts">Element</a></span>&lt;<span>'async'</span>&gt;&gt;)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber87">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">target</td>
+      <td data-ice="type" class="code"><span>Answerable</span>&lt;<span><a href="https://github.com/webdriverio/webdriverio/blob/main/packages/webdriverio/src/types.ts">Element</a></span>&lt;<span>'async'</span>&gt;&gt;</td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The element to be scrolled to</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-performAs">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    <span data-ice="async">async</span>
+    
+    <span class="code" data-ice="name">performAs</span><span class="code" data-ice="signature">(actor: <span>UsesAbilities &amp; AnswersQuestions</span>): <span>PromiseLike</span>&lt;<span>void</span>&gt;</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/screenplay/interactions/Scroll.ts.html#lineNumber118">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p> Makes the provided <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span>
+ perform this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span>.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">actor</td>
+      <td data-ice="type" class="code"><span>UsesAbilities &amp; AnswersQuestions</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>An <span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span> to perform this <span><a href="/modules/core/class/src/screenplay/Interaction.ts~Interaction.html">Interaction</a></span></p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Returns:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span>PromiseLike</span>&lt;<span>void</span>&gt;</td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="/modules/core/class/src/screenplay/actor/Actor.ts~Actor.html">Actor</a></span></span></li>
+<li><span><span><a href="/modules/core/class/src/screenplay/actor/UsesAbilities.ts~UsesAbilities.html">UsesAbilities</a></span></span></li>
+<li><span><span><a href="/modules/core/class/src/screenplay/actor/AnswersQuestions.ts~AnswersQuestions.html">AnswersQuestions</a></span></span></li></ul></div>
+  
+</div>
+</div>
 </article>
             </section>
         </div>

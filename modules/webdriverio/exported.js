@@ -19,6 +19,7 @@
 /** @external {@serenity-js/webdriverio/lib/screenplay/interactions~Press} /modules/webdriverio/class/src/screenplay/interactions/Press.ts~Press.html */
 /** @external {@serenity-js/webdriverio/lib/screenplay/interactions~PressBuilder} /modules/webdriverio/class/src/screenplay/interactions/PressBuilder.ts~PressBuilder.html */
 /** @external {@serenity-js/webdriverio/lib/screenplay/interactions~RightClick} /modules/webdriverio/class/src/screenplay/interactions/RightClick.ts~RightClick.html */
+/** @external {@serenity-js/webdriverio/lib/screenplay/interactions~Scroll} /modules/webdriverio/class/src/screenplay/interactions/Scroll.ts~Scroll.html */
 /** @external {@serenity-js/webdriverio/lib/screenplay/interactions~Wait} /modules/webdriverio/class/src/screenplay/interactions/Wait.ts~Wait.html */
 /** @external {@serenity-js/webdriverio/lib/screenplay/interactions~WaitBuilder} /modules/webdriverio/class/src/screenplay/interactions/WaitBuilder.ts~WaitBuilder.html */
 /** @external {@serenity-js/webdriverio/lib/screenplay/interactions~WebElementInteraction} /modules/webdriverio/class/src/screenplay/interactions/WebElementInteraction.ts~WebElementInteraction.html */
