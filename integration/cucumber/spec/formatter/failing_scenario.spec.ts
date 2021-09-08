@@ -27,12 +27,12 @@ describe('@serenity-js/cucumber', function () {
                 'node_modules/@serenity-js/cucumber/lib/index.js',
                 'lib/support/configure_serenity.js',
             )
-            .withStepDefsIn('promise', 'callback', 'synchronous')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .toRun('features/failing_scenario.feature'),
 
         ...cucumberVersions(3, 4, 5, 6)
             .thatRequires('lib/support/configure_serenity.js')
-            .withStepDefsIn('synchronous', 'promise', 'callback')
+            .withStepDefsIn('callback', 'promise', 'synchronous')
             .withArgs(
                 '--format', 'node_modules/@serenity-js/cucumber',
             )

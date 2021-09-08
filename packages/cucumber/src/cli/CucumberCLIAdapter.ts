@@ -1,5 +1,5 @@
 /* istanbul ignore file covered in integration tests */
-import { ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
+import { FileSystem, ModuleLoader, TestRunnerAdapter, Version } from '@serenity-js/core/lib/io';
 import { ExecutionIgnored, ImplementationPending, Outcome } from '@serenity-js/core/lib/model';
 
 import { CucumberConfig } from './CucumberConfig';
@@ -28,9 +28,10 @@ export class CucumberCLIAdapter implements TestRunnerAdapter {
     constructor(
         config: CucumberConfig,
         private readonly loader: ModuleLoader,
+        fileSystem: FileSystem,
         private readonly output: SerenityFormatterOutput,
     ) {
-        this.options = new CucumberOptions(config);
+        this.options = new CucumberOptions(fileSystem, config);
     }
 
     /**
