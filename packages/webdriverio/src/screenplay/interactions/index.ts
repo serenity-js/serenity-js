@@ -8,5 +8,6 @@ export * from './Navigate';
 export * from './Press';
 export * from './PressBuilder';
 export * from './RightClick';
+export * from './Scroll';
 export * from './Wait';
 export * from './WebElementInteraction';
