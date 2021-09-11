@@ -85,6 +85,6 @@ export class Hover extends WebElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element = await this.resolve(actor, this.target);
-        return element.moveTo();
+        return element.hoverOver();
     }
 }

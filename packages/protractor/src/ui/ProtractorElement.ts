@@ -66,7 +66,7 @@ export class ProtractorElement implements UIElement {
     }
 
     async doubleClick(): Promise<void> {
-        await this.moveTo();
+        await this.hoverOver();
         await promiseOf(this.browser.actions().doubleClick().perform());
     }
 
@@ -74,7 +74,7 @@ export class ProtractorElement implements UIElement {
         return promiseOf(this.element.sendKeys([].concat(value).join('')));
     }
 
-    moveTo(): Promise<void> {
+    scrollIntoView(): Promise<void> {
         return promiseOf(
             this.browser.actions()
                 .mouseMove(this.element as unknown as WebElement)
@@ -82,13 +82,17 @@ export class ProtractorElement implements UIElement {
         );
     }
 
-    rightClick(): Promise<void> {
-        return this.moveTo()
-            .then(() =>
-                this.browser.actions()
-                    .click(protractor.Button.RIGHT)
-                    .perform()
-            );
+    hoverOver(): Promise<void> {
+        return promiseOf(
+            this.browser.actions()
+                .mouseMove(this.element as unknown as WebElement)
+                .perform()
+        );
+    }
+
+    async rightClick(): Promise<void> {
+        await this.hoverOver();
+        await promiseOf(this.browser.actions().click(protractor.Button.RIGHT).perform());
     }
 
     getAttribute(name: string): Promise<string> {

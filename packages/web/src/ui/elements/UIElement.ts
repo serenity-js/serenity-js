@@ -1,7 +1,6 @@
 import { UIElementLocation } from '../locations';
 import { UIElementList } from './UIElementList';
 
-// todo: should this be generic? UIElement<Element<'async'>> ?
 export interface UIElement {
     nativeElement(): any
 
@@ -13,7 +12,8 @@ export interface UIElement {
     clearValue(): Promise<void>;
     click(): Promise<void>;
     doubleClick(): Promise<void>;
-    moveTo(): Promise<void>;
+    scrollIntoView(): Promise<void>;
+    hoverOver(): Promise<void>;
     rightClick(): Promise<void>;    // todo: should this be a click() call with a parameter?
 
     getAttribute(name): Promise<string>;

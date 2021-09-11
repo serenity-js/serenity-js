@@ -52,7 +52,11 @@ export class WebdriverIOElement implements UIElement {
         return this.element.addValue(value);
     }
 
-    moveTo(): Promise<void> {
+    scrollIntoView(): Promise<void> {
+        return this.element.scrollIntoView();
+    }
+
+    hoverOver(): Promise<void> {
         return this.element.moveTo();
     }
 
