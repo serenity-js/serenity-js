@@ -84,7 +84,7 @@ export class Scroll extends Interaction {
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const target = await actor.answer(this.target);
 
-        return target.moveTo();
+        return target.scrollIntoView();
     }
 
     /**
