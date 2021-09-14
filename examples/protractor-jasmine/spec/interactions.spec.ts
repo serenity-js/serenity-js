@@ -1,7 +1,8 @@
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, actorInTheSpotlight, engage } from '@serenity-js/core';
 import { LocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { Navigate, UseAngular, Website } from '@serenity-js/protractor';
+import { UseAngular } from '@serenity-js/protractor';
+import { Navigate, Website } from '@serenity-js/web';
 import { Actors } from './support/Actors';
 
 describe('Interaction flow', () => {
