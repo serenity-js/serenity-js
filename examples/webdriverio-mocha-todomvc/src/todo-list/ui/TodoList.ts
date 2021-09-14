@@ -1,7 +1,5 @@
 import { equals } from '@serenity-js/assertions';
-import { Question } from '@serenity-js/core';
-import { by, Target, Text } from '@serenity-js/webdriverio';
-import { Element } from 'webdriverio';
+import { by, Target, Text } from '@serenity-js/web';
 
 export class TodoList {
     static newTodoInput =
@@ -16,7 +14,7 @@ export class TodoList {
         Target.all('List of Items')
             .located(by.css('.todo-list li'));
 
-    static itemCalled = (name: string): Question<Promise<Element<'async'>>> =>
+    static itemCalled = (name: string) =>
         TodoList.items
             .where(Text, equals(name))
             .first();
