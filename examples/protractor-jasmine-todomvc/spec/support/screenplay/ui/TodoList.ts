@@ -1,6 +1,5 @@
-import { equals } from '@serenity-js/assertions';
-import { Pick, Target, Text } from '@serenity-js/protractor';
-import { by, ElementArrayFinder, ElementFinder } from 'protractor';
+import { includes } from '@serenity-js/assertions';
+import { by, Target, Text } from '@serenity-js/web';
 
 export class TodoList {
     static newTodoInput  = Target.the('"What needs to be done?" input box')
@@ -13,6 +12,5 @@ export class TodoList {
         .located(by.css('.todo-list li'));
 
     static itemCalled = (name: string) =>
-        Pick.from<ElementFinder, ElementArrayFinder>(TodoList.items)
-            .where(Text, equals(name)).first()
+        TodoList.items.where(Text, includes(name)).first()
 }

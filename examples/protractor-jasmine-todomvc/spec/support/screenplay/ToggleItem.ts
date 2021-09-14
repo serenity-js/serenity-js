@@ -1,8 +1,6 @@
-import { Duration, Task } from '@serenity-js/core';
-import { Clear, Click, DoubleClick, Enter, Hover, Press, Wait } from '@serenity-js/protractor';
-import { protractor } from 'protractor';
-import { TodoList } from './ui';
-import { TodoListItem } from './ui/TodoListItem';
+import { Task } from '@serenity-js/core';
+import { Click } from '@serenity-js/web';
+import { TodoList, TodoListItem } from './ui';
 
 export class ToggleItem {
     static called = (name: string) =>
