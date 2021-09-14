@@ -6,12 +6,12 @@ export class ProtractorElementLocator<T extends WebElement> extends UIElementLoc
     constructor(private readonly fn: (locator: Locator) => T) {
         super();
 
-        this.when(ByCss,                location =>  this.asUIElement(this.fn(by.css(location.value))))
-            .when(ByCssContainingText,  location =>  this.asUIElement(this.fn(by.cssContainingText(location.value, location.text) as Locator)))
-            .when(ById,                 location =>  this.asUIElement(this.fn(by.id(location.value))))
-            .when(ByName,               location =>  this.asUIElement(this.fn(by.name(location.value))))
-            .when(ByLinkText,           location =>  this.asUIElement(this.fn(by.linkText(location.value))))
-            .when(ByPartialLinkText,    location =>  this.asUIElement(this.fn(by.partialLinkText(location.value))))
+        this.when(ByCss,                location => this.asUIElement(this.fn(by.css(location.value))))
+            .when(ByCssContainingText,  location => this.asUIElement(this.fn(by.cssContainingText(location.value, location.text) as Locator)))
+            .when(ById,                 location => this.asUIElement(this.fn(by.id(location.value))))
+            .when(ByName,               location => this.asUIElement(this.fn(by.name(location.value))))
+            .when(ByLinkText,           location => this.asUIElement(this.fn(by.linkText(location.value))))
+            .when(ByPartialLinkText,    location => this.asUIElement(this.fn(by.partialLinkText(location.value))))
             .when(ByTagName,            location => this.asUIElement(this.fn(by.tagName(location.value))))
             .when(ByXPath,              location => this.asUIElement(this.fn(by.xpath(location.value))))
     }

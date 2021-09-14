@@ -1,6 +1,7 @@
 import { UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
-import { ElementArrayFinder, ElementFinder, protractor, ProtractorBrowser } from 'protractor';
+import { ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
+import { ensure, isDefined } from 'tiny-types';
 
 import { promiseOf } from '../promiseOf';
 import { ProtractorElementList } from './ProtractorElementList';
@@ -15,8 +16,12 @@ export class ProtractorElement implements UIElement {
         private readonly element: ElementFinder,
         private readonly elementLocation: UIElementLocation,
     ) {
-        this.$  = new ProtractorElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => ElementFinder);
-        this.$$ = new ProtractorElementLocator(this.element.$$.bind(this.element));
+        ensure('browser', browser, isDefined());
+        ensure('element', element, isDefined());
+        ensure('elementLocation', elementLocation, isDefined());
+
+        this.$  = new ProtractorElementLocator(this.element.element.bind(this.element) as (selector: Locator) => ElementFinder);
+        this.$$ = new ProtractorElementLocator(this.element.all.bind(this.element) as (selector: Locator) => ElementArrayFinder);
     }
 
     nativeElement(): any {
@@ -62,23 +67,29 @@ export class ProtractorElement implements UIElement {
     }
 
     click(): Promise<void> {
-        return promiseOf(this.element.click());
+        return promiseOf(
+            this.element.click()
+        );
     }
 
     async doubleClick(): Promise<void> {
-        await this.hoverOver();
-        await promiseOf(this.browser.actions().doubleClick().perform());
+        return promiseOf(
+            this.browser.actions()
+                .mouseMove(this.element as unknown as WebElement)
+                .doubleClick()
+                .perform()
+        );
     }
 
     enterValue(value: string | number | Array<string | number>): Promise<void> {
-        return promiseOf(this.element.sendKeys([].concat(value).join('')));
+        return promiseOf(
+            this.element.sendKeys([].concat(value).join(''))
+        );
     }
 
     scrollIntoView(): Promise<void> {
         return promiseOf(
-            this.browser.actions()
-                .mouseMove(this.element as unknown as WebElement)
-                .perform()
+            this.browser.executeScript('arguments[0].scrollIntoView(true);', this.element)
         );
     }
 
@@ -91,8 +102,12 @@ export class ProtractorElement implements UIElement {
     }
 
     async rightClick(): Promise<void> {
-        await this.hoverOver();
-        await promiseOf(this.browser.actions().click(protractor.Button.RIGHT).perform());
+        return promiseOf(
+            this.browser.actions()
+                .mouseMove(this.element as unknown as WebElement)
+                .click(protractor.Button.RIGHT)
+                .perform()
+        );
     }
 
     getAttribute(name: string): Promise<string> {
@@ -122,7 +137,11 @@ export class ProtractorElement implements UIElement {
     }
 
     isClickable(): Promise<boolean> {
-        return promiseOf(this.element.isClickable());
+        return this.isEnabled();
+    }
+
+    isDisplayed(): Promise<boolean> {
+        return promiseOf(this.element.isDisplayed());
     }
 
     isEnabled(): Promise<boolean> {
@@ -135,10 +154,6 @@ export class ProtractorElement implements UIElement {
 
     isSelected(): Promise<boolean> {
         return promiseOf(this.element.isSelected());
-    }
-
-    isVisible(): Promise<boolean> {
-        return promiseOf(this.element.isDisplayed());
     }
 
     toString(): string {

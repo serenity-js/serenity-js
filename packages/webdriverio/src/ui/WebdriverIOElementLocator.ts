@@ -9,7 +9,7 @@ export class WebdriverIOElementLocator<T> extends UIElementLocator<T> {
             .when(ByName,               location =>  this.fn(`[name="${ location.value }"]`))
             .when(ByLinkText,           location =>  this.fn(`=${ location.value }`))
             .when(ByPartialLinkText,    location =>  this.fn(`*=${ location.value }`))
-            .when(ByTagName,            location  => this.fn(`<${ location.value } />`))
-            .when(ByXPath,              location  => this.fn(`#${ location.value }`))
+            .when(ByTagName,            location => this.fn(`<${ location.value } />`))
+            .when(ByXPath,              location => this.fn(`#${ location.value }`))
     }
 }

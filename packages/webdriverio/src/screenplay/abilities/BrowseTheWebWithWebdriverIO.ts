@@ -117,12 +117,12 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
 
     locateElementAt(location: UIElementLocation): Promise<UIElement> {
         return this.$.locate(location)
-            .then(element => new WebdriverIOElement(element, location));
+            .then(element => new WebdriverIOElement(this.browser, element, location));
     }
 
     locateAllElementsAt(location: UIElementLocation): Promise<UIElementList> {
         return this.$$.locate(location)
-            .then(elements => new WebdriverIOElementList(elements, location));
+            .then(elements => new WebdriverIOElementList(this.browser, elements, location));
     }
 
     switchToFrame(targetOrIndex: UIElement | number | string): Promise<void> {

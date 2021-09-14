@@ -122,7 +122,7 @@ class PressKeyInField extends WebElementInteraction {
 
         await BrowseTheWeb.as(actor).executeScript(
             /* istanbul ignore next */
-            function focus(element: any) {  // todo: fix type
+            function focus(element: any) {
                 element.focus();
             },
             field,
@@ -147,7 +147,9 @@ class KeySequence extends Question<Promise<Array<Key | string>>> {
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<string | Key>> {
         return Promise.all(
             this.keys.map(part => actor.answer(part))
-        ).then(keys => keys.flat().filter(key => !! key))
+        ).then(keys => {
+            return keys.flat().filter(key => !! key)
+        })
     }
 
     private static describe(keys: Array<Answerable<Key | string | Key[] | string[]>>): string {

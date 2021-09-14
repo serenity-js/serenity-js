@@ -4,8 +4,7 @@ import { UIElement } from './UIElement';
 export interface UIElementList {
     location(): UIElementLocation;
 
-    // todo: should this become a more generic "List" to work with REST responses?
-    count(): number;
+    count(): Promise<number>;
     first(): UIElement;
     last(): UIElement;
     get(index: number): UIElement;

@@ -1,5 +1,5 @@
 import { UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
-import { Element, ElementArray } from 'webdriverio';
+import { Browser, Element, ElementArray } from 'webdriverio';
 
 import { WebdriverIOElementList } from './WebdriverIOElementList';
 import { WebdriverIOElementLocator } from './WebdriverIOElementLocator';
@@ -9,6 +9,7 @@ export class WebdriverIOElement implements UIElement {
     private readonly $$: UIElementLocator<ElementArray>;
 
     constructor(
+        private readonly browser: Browser<'async'>,
         private readonly element: Element<'async'>,
         private readonly elementLocation: UIElementLocation,
     ) {
@@ -27,13 +28,13 @@ export class WebdriverIOElement implements UIElement {
     locateChildElement(location: UIElementLocation): Promise<UIElement> {
         return this.$
             .locate(location)
-            .then(element => new WebdriverIOElement(element, location));
+            .then(element => new WebdriverIOElement(this.browser, element, location));
     }
 
     locateAllChildElements(location: UIElementLocation): Promise<UIElementList> {
         return this.$$
             .locate(location)
-            .then(elements => new WebdriverIOElementList(elements, location));
+            .then(elements => new WebdriverIOElementList(this.browser, elements, location));
     }
 
     clearValue(): Promise<void> {
@@ -84,6 +85,10 @@ export class WebdriverIOElement implements UIElement {
         return this.element.isClickable();
     }
 
+    isDisplayed(): Promise<boolean> {
+        return this.element.isDisplayed();
+    }
+
     isEnabled(): Promise<boolean> {
         return this.element.isEnabled();
     }
@@ -94,10 +99,6 @@ export class WebdriverIOElement implements UIElement {
 
     isSelected(): Promise<boolean> {
         return this.element.isSelected();
-    }
-
-    isVisible(): Promise<boolean> {
-        return this.element.isDisplayed();
     }
 
     toString(): string {

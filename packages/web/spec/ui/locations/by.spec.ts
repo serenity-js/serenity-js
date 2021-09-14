@@ -3,6 +3,10 @@ import { describe } from 'mocha';
 
 import { by } from '../../../src';
 
+/**
+ * @test {by}
+ * @test {UIElementLocations}
+ */
 describe('by', () => {
 
     describe('css', () => {
