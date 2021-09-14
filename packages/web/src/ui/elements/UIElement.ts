@@ -22,10 +22,10 @@ export interface UIElement {
 
     isActive(): Promise<boolean>;
     isClickable(): Promise<boolean>;
+    isDisplayed(): Promise<boolean>;
     isEnabled(): Promise<boolean>;
     isPresent(): Promise<boolean>;
     isSelected(): Promise<boolean>;
-    isVisible(): Promise<boolean>;
 
     toString(): string;
 }

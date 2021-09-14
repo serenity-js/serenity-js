@@ -87,7 +87,6 @@ export class Enter extends WebElementInteraction {
         const values = await Promise.all(this.value.map(part => actor.answer(part)));
         const field  = await this.resolve(actor, this.field);
 
-        // addValue rather than setValue so that the behaviour is consistent with Selenium sendKeys
         return field.enterValue(values.flat());
     }
 }

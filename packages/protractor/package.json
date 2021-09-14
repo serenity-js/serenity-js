@@ -34,9 +34,7 @@
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "lint:fix": "npm run lint -- --fix",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
-    "test": "cross-env PORT=8081 start-server-and-test test:start-server http://localhost:8081 test:protractor",
-    "test:start-server": "static-content-server",
-    "test:protractor": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
+    "test": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -79,7 +77,6 @@
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.0",
     "@integration/testing-tools": "2.0.0",
-    "@integration/web": "2.0.0",
     "@serenity-js/cucumber": "2.32.0",
     "@serenity-js/jasmine": "2.32.0",
     "@serenity-js/local-server": "2.32.0",
@@ -99,7 +96,6 @@
     "mocha": "^9.1.1",
     "protractor": "^7.0.0",
     "selenium-webdriver": "^3.6.0",
-    "start-server-and-test": "^1.14.0",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   },

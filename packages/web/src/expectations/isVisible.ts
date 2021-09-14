@@ -1,7 +1,9 @@
+import { and } from '@serenity-js/assertions';
 import { Expectation } from '@serenity-js/core';
 
 import { UIElement } from '../ui';
 import { ElementExpectation } from './ElementExpectation';
+import { isPresent } from './isPresent';
 
 /**
  * @desc
@@ -15,5 +17,12 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link Wait}
  */
 export function isVisible(): Expectation<boolean, UIElement> {
-    return ElementExpectation.forElementTo('become visible', actual => actual.isVisible());
+    return Expectation.to<UIElement>('become visible').soThatActual(and(
+        isPresent(),
+        isDisplayed(),
+    ));
+}
+
+function isDisplayed(): Expectation<any, UIElement> {
+    return ElementExpectation.forElementTo('become displayed', actual => actual.isDisplayed());
 }

@@ -1,0 +1,58 @@
+{
+  "name": "@integration/web-webdriverio-runner",
+  "version": "2.0.0",
+  "description": "Internal module to help test integration of Serenity/JS with WebdriverIO",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "bin": {
+    "webdriverio-runner": "bin/webdriverio-runner.js"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "eslint --ext ts --config ../../.eslintrc.js",
+    "compile": "tsc --project tsconfig.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^12 || ^14 || ^16",
+    "npm": "^6 || ^7"
+  },
+  "dependencies": {
+    "@integration/testing-tools": "2.0.0",
+    "@serenity-js/core": "^2.0.0",
+    "@serenity-js/mocha": "^2.0.0",
+    "@serenity-js/serenity-bdd": "^2.0.0",
+    "@serenity-js/webdriverio": "^2.0.0",
+    "@serenity-js/web": "^2.0.0",
+    "@wdio/cli": "^7.12.5",
+    "@wdio/local-runner": "^7.12.5",
+    "@wdio/spec-reporter": "^7.12.5",
+    "chromedriver": "^93.0.1",
+    "webdriverio": "^7.12.5"
+  },
+  "devDependencies": {
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}

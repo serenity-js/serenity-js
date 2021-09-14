@@ -94,25 +94,25 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
             return Key.isKey(maybeKey) && maybeKey.isModifier;
         }
 
-        const keySequence = keys.map(key => {
-            if (! Key.isKey(key)) {
-                return key;
+        function asCodePoint(maybeKey: string | Key): string {
+            if (! Key.isKey(maybeKey)) {
+                return maybeKey;
             }
 
-            return key.utf16codePoint;
-        });
+            return maybeKey.utf16codePoint;
+        }
 
         // keyDown for any modifier keys and sendKeys otherwise
-        const keyDownActions = keySequence.reduce((actions, key) => {
+        const keyDownActions = keys.reduce((actions, key) => {
             return isModifier(key)
-                ? actions.keyDown(key)
-                : actions.sendKeys(key)
+                ? actions.keyDown(asCodePoint(key))
+                : actions.sendKeys(asCodePoint(key))
         }, this.browser.actions());
 
         // keyUp for any modifier keys, ignore for regular keys
-        const keyUpActions = keySequence.reduce((actions, key) => {
-            return Key.isKey(key) && key.isModifier
-                ? actions.keyUp(key)
+        const keyUpActions = keys.reduce((actions, key) => {
+            return isModifier(key)
+                ? actions.keyUp(asCodePoint(key))
                 : actions;
         }, keyDownActions);
 

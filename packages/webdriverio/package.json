@@ -33,12 +33,7 @@
     "clean": "rimraf .nyc_output lib target",
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "npm run test:mocha && npm run test:wdio",
-    "test:mocha": "nyc --report-dir ../../target/coverage/webdriverio/mocha mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
-    "test:wdio": "cross-env PORT=8080 start-server-and-test test:wdio:start-server http://localhost:8080 test:wdio:run",
-    "test:wdio:start-server": "static-content-server",
-    "test:wdio:run": "nyc --report-dir ../../target/coverage/webdriverio/wdio wdio ./spec/wdio.conf.ts",
-    "wdio": "wdio ./spec/wdio.conf.ts",
+    "test": "nyc --report-dir ../../target/coverage/webdriverio/mocha mocha --config ../../.mocharc.yml 'spec/adapter/**/*.spec.*'",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -56,8 +51,8 @@
   "dependencies": {
     "@serenity-js/core": "2.32.0",
     "@serenity-js/web": "2.32.0",
-    "@wdio/reporter": "^7.10.1",
-    "@wdio/types": "^7.10.1",
+    "@wdio/reporter": "^7.12.5",
+    "@wdio/types": "^7.12.5",
     "deepmerge": "^4.2.2",
     "is-plain-object": "^5.0.0",
     "tiny-types": "^1.16.1"
@@ -66,7 +61,8 @@
     "@serenity-js/cucumber": "^2.29.0",
     "@serenity-js/jasmine": "^2.29.0",
     "@serenity-js/mocha": "^2.29.0",
-    "@wdio/cli": "^7.12.4"
+    "@wdio/cli": "^7.12.5",
+    "webdriverio": "^7.12.5"
   },
   "peerDependenciesMeta": {
     "@serenity-js/cucumber": {
@@ -82,26 +78,11 @@
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.0",
     "@integration/testing-tools": "2.0.0",
-    "@integration/web": "2.0.0",
-    "@serenity-js/assertions": "2.32.0",
-    "@serenity-js/console-reporter": "2.32.0",
-    "@serenity-js/cucumber": "2.32.0",
-    "@serenity-js/jasmine": "2.32.0",
-    "@serenity-js/mocha": "2.32.0",
-    "@serenity-js/rest": "2.32.0",
     "@types/mocha": "^9.0.0",
-    "@wdio/cli": "^7.12.4",
-    "@wdio/devtools-service": "^7.12.4",
-    "@wdio/dot-reporter": "^7.10.1",
-    "@wdio/local-runner": "^7.12.4",
-    "@wdio/mocha-framework": "^7.12.4",
-    "@wdio/spec-reporter": "^7.10.1",
-    "axios": "^0.21.4",
-    "cross-env": "^7.0.3",
+    "@wdio/cli": "^7.12.5",
     "mocha": "^9.1.1",
     "mocha-testdata": "^1.2.0",
-    "start-server-and-test": "^1.14.0",
-    "webdriverio": "^7.12.4"
+    "webdriverio": "^7.12.5"
   },
   "nyc": {
     "include": [
