@@ -73,9 +73,11 @@ export class ProtractorElement implements UIElement {
     }
 
     async doubleClick(): Promise<void> {
+        const webElement = await this.element.getWebElement();
+
         return promiseOf(
             this.browser.actions()
-                .mouseMove(this.element as unknown as WebElement)
+                .mouseMove(webElement)
                 .doubleClick()
                 .perform()
         );
@@ -93,18 +95,22 @@ export class ProtractorElement implements UIElement {
         );
     }
 
-    hoverOver(): Promise<void> {
+    async hoverOver(): Promise<void> {
+        const webElement = await this.element.getWebElement();
+
         return promiseOf(
             this.browser.actions()
-                .mouseMove(this.element as unknown as WebElement)
+                .mouseMove(webElement)
                 .perform()
         );
     }
 
     async rightClick(): Promise<void> {
+        const webElement = await this.element.getWebElement();
+
         return promiseOf(
             this.browser.actions()
-                .mouseMove(this.element as unknown as WebElement)
+                .mouseMove(webElement)
                 .click(protractor.Button.RIGHT)
                 .perform()
         );

@@ -1,6 +1,6 @@
+import { Question } from '@serenity-js/core';
 import { Text } from '@serenity-js/web';
 import { TodoList } from './ui';
-import { Question } from '@serenity-js/core';
 
 export class RecordedItems {
     static names: Question<Promise<string[]>>   = Text.ofAll(TodoList.items);
