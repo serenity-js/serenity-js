@@ -1,4 +1,4 @@
-import { Text } from '@serenity-js/webdriverio';
+import { Text } from '@serenity-js/web';
 import { TodoList } from './ui';
 import { Question } from '@serenity-js/core';
 

@@ -1,5 +1,5 @@
 import { Task } from '@serenity-js/core';
-import { Clear, DoubleClick, Enter, Key, Press } from '@serenity-js/webdriverio';
+import { Clear, DoubleClick, Enter, Key, Press } from '@serenity-js/web';
 import { TodoList, TodoListItem } from './ui';
 
 export class RenameItem {
