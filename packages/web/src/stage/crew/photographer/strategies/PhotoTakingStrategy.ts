@@ -87,9 +87,8 @@ export abstract class PhotoTakingStrategy {
     }
 
     private shouldIgnore(error: Error) {
-        // todo
-        // return error instanceof webdriver.NoSuchSessionError
-        //     || error instanceof webdriver.UnexpectedAlertOpenError
-        return false;
+        return error.name 
+            && (error.name === 'NoSuchSessionError'
+                || error.name === 'UnexpectedAlertOpenError');
     }
 }
