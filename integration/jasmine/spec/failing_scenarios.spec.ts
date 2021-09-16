@@ -8,8 +8,6 @@ import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(5000);
-
     describe('recognises a failing scenario that', () => {
 
         it('has an explicit call to fail()', () => jasmine('examples/failing/marked-as-failing.spec.js')

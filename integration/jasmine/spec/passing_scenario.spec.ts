@@ -7,8 +7,6 @@ import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(5000);
-
     it('recognises a passing scenario', () => jasmine('examples/passing.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(res => {

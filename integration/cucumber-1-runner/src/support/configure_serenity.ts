@@ -12,5 +12,5 @@ export = function () {
         ],
     });
 
-    this.setDefaultTimeout(5000);
+    this.setDefaultTimeout(10000);
 };

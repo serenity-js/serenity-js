@@ -7,8 +7,6 @@ import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(5000);
-
     it('detects the filesystem location of a test suite and individual specs', () => jasmine('examples/location.spec.js')
         .then(ifExitCodeIsOtherThan(0, logOutput))
         .then(res => {

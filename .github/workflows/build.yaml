@@ -129,6 +129,8 @@ jobs:
 
       - name: Test
         run: make test
+        env:
+          RECORD_COVERAGE: false
 
   test-windows-node-lts:
     needs:
@@ -158,15 +160,58 @@ jobs:
         run:  7z.exe x -aoa compiled-libs.zip
       - name: Test
         run: make test
+        env:
+          RECORD_COVERAGE: false
 
-  integration-test-linux-node-lts:
+  integration-test-linux-node-lts-active:
+    name: integration-test-linux-node-lts-active (14.x)
+    needs:
+      - lint
+      - compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Setup Node Modules
+        uses: bahmutov/npm-install@v1
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+      - name: Decompress Libs
+        run: 7z x -aoa compiled-libs.zip
+
+      - name: Integration Test
+        run: make integration-test
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: integration-test-linux-${{ matrix.node-version }}
+          path: integration/web/target/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: integration-test-reports
+          path: |
+            target/**/*
+            package.json
+
+  integration-test-linux-node-lts-other:
     needs:
       - lint
       - compile
     runs-on:  ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 12.x, 14.x, 16.x ]
+        node-version: [ 12.x, 16.x ]
       fail-fast: false
     steps:
       - name: Checkout repository
@@ -188,6 +233,8 @@ jobs:
 
       - name: Integration Test
         run: make integration-test
+        env:
+          RECORD_COVERAGE: false
 
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -223,6 +270,8 @@ jobs:
         run:  7z.exe x -aoa compiled-libs.zip
       - name: Integration Test
         run: make integration-test
+        env:
+          RECORD_COVERAGE: false
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
@@ -231,22 +280,28 @@ jobs:
 
   report:
     runs-on:  ubuntu-latest
-    needs:    test-linux-node-lts-active
+    needs:
+      - test-linux-node-lts-active
+      - integration-test-linux-node-lts-active
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 16.x
+      - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
+          node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-      - name: Download code coverage reports
+      - name: Download code coverage reports (test)
         uses: actions/download-artifact@v2
         with:
           name: test-reports
+      - name: Download code coverage reports (integration test)
+        uses: actions/download-artifact@v2
+        with:
+          name: integration-test-reports
 
       - name: Merge code coverage reports
         run: make report
@@ -264,7 +319,8 @@ jobs:
       - test-linux-node-lts-active
       - test-linux-node-lts-other
       - test-windows-node-lts
-      - integration-test-linux-node-lts
+      - integration-test-linux-node-lts-active
+      - integration-test-linux-node-lts-other
       - integration-test-windows-node-lts
     steps:
       - uses: actions/checkout@v2

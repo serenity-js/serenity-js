@@ -40,7 +40,7 @@ export const config = {
         require: [
             'ts-node/register',
         ],
-        reporter: 'dot',
+        reporter: 'spec',
     },
 
 
@@ -50,6 +50,8 @@ export const config = {
     capabilities: {
         browserName: 'chrome',
         acceptInsecureCerts: true,
+        shardTestFiles: true,
+        maxInstances: 2,
 
         loggingPrefs: {
             browser: 'INFO',

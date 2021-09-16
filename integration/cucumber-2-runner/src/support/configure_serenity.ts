@@ -12,5 +12,5 @@ defineSupportCode(({ setDefaultTimeout }) => {
         ],
     });
 
-    setDefaultTimeout(5000);
+    setDefaultTimeout(10000);
 });
