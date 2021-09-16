@@ -8,8 +8,6 @@ import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(5000);
-
     describe('recognises a pending scenario that', () => {
 
         it('is missing the body', () => jasmine('examples/pending/missing-implementation.spec.js')

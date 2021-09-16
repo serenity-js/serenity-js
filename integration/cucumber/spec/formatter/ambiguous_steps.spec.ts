@@ -8,8 +8,6 @@ import { CucumberRunner, cucumberVersions } from '../../src';
 
 describe('@serenity-js/cucumber', function () {
 
-    this.timeout(5000);
-
     given([
         ...cucumberVersions(1, 2)
             .thatRequires(

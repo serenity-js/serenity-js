@@ -7,8 +7,6 @@ import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
 
-    this.timeout(5000);
-
     /**
      * @see https://jasmine.github.io/tutorials/custom_reporter
      */

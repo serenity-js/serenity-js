@@ -7,7 +7,7 @@ import { wdio } from '../src';
 
 describe('@serenity-js/webdriverio', function () {
 
-    this.timeout(30000);
+    this.timeout(60_000);
 
     it('recognises a passing scenario', () =>
         wdio(

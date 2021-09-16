@@ -3,7 +3,7 @@ import { serenity, StreamReporter } from '@serenity-js/core';
 import { setDefaultTimeout } from 'cucumber';
 import { Actors } from './Actors';
 
-setDefaultTimeout(5000);
+setDefaultTimeout(10000);
 
 serenity.configure({
     actors: new Actors(),

@@ -8,7 +8,7 @@ import { wdio } from '../src';
 
 describe('@serenity-js/mocha', function () {
 
-    this.timeout(30000);
+    this.timeout(60_000);
 
     it('recognises a failing scenario', () =>
         wdio(

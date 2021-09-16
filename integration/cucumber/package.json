@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint --ext ts --config ../../.eslintrc.js",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+    "test": "mocha --config ../../.mocharc.yml --timeout 30000 'spec/**/*.spec.*'"
   },
   "repository": {
     "type": "git",
