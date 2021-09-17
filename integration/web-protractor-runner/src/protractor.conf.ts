@@ -7,6 +7,22 @@ import { Actors } from './Actors';
 
 const port = process.env.PORT || 8080;
 
+function useSauceLabs(): boolean {
+    return !! process.env.SAUCE_USERNAME
+        && !! process.env.SAUCE_ACCESS_KEY;
+}
+
+const localBrowser = {
+    chromeDriver: require(`chromedriver`).path,
+    directConnect: true,
+};
+
+const sauceLabsBrowsers = {
+    sauceUser:  process.env.SAUCE_USERNAME,
+    sauceKey:   process.env.SAUCE_ACCESS_KEY,
+    // sauceRegion: 'eu',
+}
+
 export const config = {
 
     baseUrl: `http://localhost:${port}`,
@@ -42,16 +58,15 @@ export const config = {
         ],
         reporter: 'spec',
     },
-
-
-    chromeDriver: require(`chromedriver`).path,
-    directConnect: true,
+    ... useSauceLabs()
+        ? sauceLabsBrowsers
+        : localBrowser,
 
     capabilities: {
         browserName: 'chrome',
         acceptInsecureCerts: true,
         shardTestFiles: true,
-        maxInstances: 2,
+        maxInstances: useSauceLabs() ? 10 : 3,
 
         loggingPrefs: {
             browser: 'INFO',
