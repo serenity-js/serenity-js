@@ -361,7 +361,7 @@ jobs:
         with:
           github_token:   ${{ secrets.GITHUB_TOKEN }}
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
-          git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
+          git_username:   ${{ secrets.RELEASE_GH_USERNAME }} packages/webdriverio/package.json
           npm_token:      ${{ secrets.NPM_TOKEN }}
       - name: Download compiled libs
         uses: actions/download-artifact@v2
