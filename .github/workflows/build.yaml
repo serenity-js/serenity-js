@@ -204,7 +204,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: integration-test-linux-${{ matrix.node-version }}
+          name: integration-test-linux
           path: integration/web/target/
 
       - uses: actions/upload-artifact@v2
@@ -215,69 +215,18 @@ jobs:
             target/**/*
             package.json
 
-  integration-test-linux-node-lts-other:
-    needs:
-      - lint
-      - compile
-    runs-on:  ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x, 16.x ]
-      fail-fast: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
-
-      - name: Open Sauce Connect Tunnel
-        uses: saucelabs/sauce-connect-action@v1
-        with:
-          username: ${{ secrets.SAUCE_USERNAME }}
-          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-test-linux-node-14.x-tunnel
-
-      - name: Integration Test
-        run: make integration-test
-        env:
-          RECORD_COVERAGE: false
-          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: integration-test-linux-${{ matrix.node-version }}
-          path: integration/web/target/
-
-  integration-test-windows-node-lts:
+  integration-test-windows-node-lts-active:
     needs:
       - lint
       - compile
     runs-on: windows-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x, 14.x, 16.x ]
-      fail-fast: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node ${{ matrix.node-version }}
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
         env:
@@ -306,7 +255,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: integration-test-windows-${{ matrix.node-version }}
+          name: integration-test-windows
           path: integration/web/target/
 
   report:
@@ -351,8 +300,7 @@ jobs:
       - test-linux-node-lts-other
       - test-windows-node-lts
       - integration-test-linux-node-lts-active
-      - integration-test-linux-node-lts-other
-      - integration-test-windows-node-lts
+      - integration-test-windows-node-lts-active
     steps:
       - uses: actions/checkout@v2
         with:
