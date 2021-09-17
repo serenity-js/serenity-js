@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.1](https://github.com/serenity-js/serenity-js/compare/v2.32.0...v2.32.1) (2021-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.15.6 ([d977d4c](https://github.com/serenity-js/serenity-js/commit/d977d4c658e7a93b0ac6ccda4efc49c94b1bc79e))
+* **deps:** update dependency @cucumber/messages to v17 ([3514a91](https://github.com/serenity-js/serenity-js/commit/3514a91b75382e3cbd03c044e8db051622d61a8a))
+
+
+
+
+
 # [2.32.0](https://github.com/serenity-js/serenity-js/compare/v2.31.1...v2.32.0) (2021-09-08)
 
 
