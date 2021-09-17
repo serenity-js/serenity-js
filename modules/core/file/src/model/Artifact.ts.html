@@ -335,8 +335,8 @@
 
     <span class="token keyword">static</span> <span class="token function">ofType</span><span class="token punctuation">(</span>name<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> ArtifactType <span class="token operator">|</span> <span class="token keyword">undefined</span> <span class="token punctuation">{</span>
         <span class="token keyword">const</span>
-            <span class="token keyword">type</span>s <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>artifacts<span class="token punctuation">)</span><span class="token punctuation">,</span>
-            type <span class="token operator">=</span> <span class="token keyword">type</span>s<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>constructorName <span class="token operator">=&gt;</span> constructorName <span class="token operator">===</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            types <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>artifacts<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            type <span class="token operator">=</span> types<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>constructorName <span class="token operator">=&gt;</span> constructorName <span class="token operator">===</span> name<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
         <span class="token keyword">return</span> artifacts<span class="token punctuation">[</span>type<span class="token punctuation">]</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>

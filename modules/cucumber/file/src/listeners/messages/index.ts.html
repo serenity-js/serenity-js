@@ -151,10 +151,10 @@
  * @param {@serenity-js/core/lib/io~ModuleLoader} moduleLoader
  * @returns {@cucumber/cucumber~Formatter}
  */</span>
-<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createListener</span><span class="token punctuation">(</span>serenity<span class="token operator">:</span> Serenity<span class="token punctuation">,</span> <span class="token keyword">module</span>Loader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">createListener</span><span class="token punctuation">(</span>serenity<span class="token operator">:</span> Serenity<span class="token punctuation">,</span> moduleLoader<span class="token operator">:</span> ModuleLoader<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token function">cucumberMessagesListener</span><span class="token punctuation">(</span>
         serenity<span class="token punctuation">,</span>
-        <span class="token keyword">module</span>Loader<span class="token punctuation">,</span>
+        moduleLoader<span class="token punctuation">,</span>
     <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>

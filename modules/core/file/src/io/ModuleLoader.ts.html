@@ -328,9 +328,9 @@
      * @param {string} moduleId
      *  NPM module id, for example 'cucumber' or '@serenity-js/core'
      */</span>
-    <span class="token function">hasAvailable</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">{</span>
+    <span class="token function">hasAvailable</span><span class="token punctuation">(</span>moduleId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span> <span class="token punctuation">{</span>
         <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token operator">!</span><span class="token operator">!</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">{</span>
             <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
@@ -346,10 +346,10 @@
      * @returns {string}
      *  Path a given Node module
      */</span>
-    <span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token function">resolve</span><span class="token punctuation">(</span>moduleId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
         <span class="token keyword">const</span> fromFile <span class="token operator">=</span> path<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>cwd<span class="token punctuation">,</span> <span class="token string">'noop.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-        <span class="token keyword">return</span> Module<span class="token punctuation">.</span><span class="token function">_resolveFilename</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Module<span class="token punctuation">.</span><span class="token function">_resolveFilename</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">,</span> <span class="token punctuation">{</span>
             id<span class="token operator">:</span> fromFile<span class="token punctuation">,</span>
             filename<span class="token operator">:</span> fromFile<span class="token punctuation">,</span>
             paths<span class="token operator">:</span> Module<span class="token punctuation">.</span><span class="token function">_nodeModulePaths</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>cwd<span class="token punctuation">)</span><span class="token punctuation">,</span>
@@ -364,12 +364,12 @@
      *
      * @returns {any}
      */</span>
-    <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
+    <span class="token keyword">require</span><span class="token punctuation">(</span>moduleId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span> <span class="token punctuation">{</span>
         <span class="token keyword">try</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token keyword">catch</span> <span class="token punctuation">{</span>
-            <span class="token keyword">return</span> <span class="token keyword">require</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> <span class="token keyword">require</span><span class="token punctuation">(</span>moduleId<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 
@@ -380,8 +380,8 @@
      * @param {string} moduleId
      * @returns {Version}
      */</span>
-    <span class="token function">versionOf</span><span class="token punctuation">(</span><span class="token keyword">module</span>Id<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Version <span class="token punctuation">{</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Version</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> <span class="token keyword">module</span>Id <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/package.json</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">versionOf</span><span class="token punctuation">(</span>moduleId<span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">)</span><span class="token operator">:</span> Version <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Version</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">require</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span> moduleId <span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">/package.json</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span>version<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
