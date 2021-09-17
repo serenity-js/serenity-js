@@ -28,7 +28,7 @@
     "lint": "lerna run lint --parallel",
     "lint:fix": "lerna run lint:fix --parallel",
     "test": "lerna run test --stream --scope @serenity-js/*",
-    "integration-test": "lerna run test --stream --concurrency 1 --scope @integration/*",
+    "integration-test": "lerna run test --stream --concurrency 2 --scope @integration/*",
     "compile": "lerna run compile --stream",
     "verify": "npm run lint && npm run compile && npm test && npm run integration-test",
     "site": "lerna run site --stream",
