@@ -187,8 +187,19 @@ jobs:
       - name: Decompress Libs
         run: 7z x -aoa compiled-libs.zip
 
+      # todo: Enable when the tests are ready to run on SauceLabs
+      - name: Open Sauce Connect Tunnel
+        uses: saucelabs/sauce-connect-action@v1
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-test-linux-node-14.x-tunnel
+
       - name: Integration Test
         run: make integration-test
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
 
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -231,10 +242,19 @@ jobs:
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
 
+      - name: Open Sauce Connect Tunnel
+        uses: saucelabs/sauce-connect-action@v1
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-test-linux-node-14.x-tunnel
+
       - name: Integration Test
         run: make integration-test
         env:
           RECORD_COVERAGE: false
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
 
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -268,10 +288,21 @@ jobs:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z.exe x -aoa compiled-libs.zip
+
+      - name: Open Sauce Connect Tunnel
+        uses: saucelabs/sauce-connect-action@v1
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-test-linux-node-14.x-tunnel
+
       - name: Integration Test
         run: make integration-test
         env:
           RECORD_COVERAGE: false
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
