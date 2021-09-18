@@ -45,7 +45,7 @@ jobs:
 
   npm-install-cache-windows:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -277,6 +277,7 @@ jobs:
 
   test-windows-node-lts:
     needs:
+      - npm-install-cache-windows
       - lint
       - compile
     runs-on: windows-latest
@@ -386,6 +387,7 @@ jobs:
 
   integration-test-windows-node-lts-active:
     needs:
+      - npm-install-cache-windows
       - lint
       - compile
     runs-on: windows-latest
