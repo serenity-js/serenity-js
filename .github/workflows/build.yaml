@@ -9,8 +9,47 @@ on:
 
 jobs:
 
+  install:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+      fail-fast: true
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
   lint:
-    if:       "!contains(github.event.head_commit.message, 'ci skip')"
+    needs:
+      - install
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -46,7 +85,8 @@ jobs:
         run: make lint
 
   compile:
-    if:       "!contains(github.event.head_commit.message, 'ci skip')"
+    needs:
+      - install
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
