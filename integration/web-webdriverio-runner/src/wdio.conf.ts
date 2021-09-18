@@ -3,6 +3,7 @@ import { ArtifactArchiver } from '@serenity-js/core';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import { isCI } from 'ci-info';
 import { Actors } from './Actors';
 
 const port = process.env.PORT || 8080;
@@ -37,7 +38,7 @@ export const config: WebdriverIOConfig = {
 
     runner: 'local',
 
-    // maxInstances: 1,
+    maxInstances: isCI ? 1 : undefined,
 
     headless: true,
     automationProtocol: 'devtools',

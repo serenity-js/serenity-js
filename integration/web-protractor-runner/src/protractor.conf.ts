@@ -2,10 +2,15 @@ import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver } from '@serenity-js/core';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
+import { isCI } from 'ci-info';
 import { protractor } from 'protractor';
 import { Actors } from './Actors';
 
 const port = process.env.PORT || 8080;
+
+const executionMode = isCI
+    ? { shardTestFiles: false, maxInstances: 1 }
+    : { shardTestFiles: true, maxInstances: 3 }
 
 export const config = {
 
@@ -50,8 +55,7 @@ export const config = {
     capabilities: {
         browserName: 'chrome',
         acceptInsecureCerts: true,
-        shardTestFiles: true,
-        maxInstances: 2,
+        ...executionMode,
 
         loggingPrefs: {
             browser: 'INFO',
