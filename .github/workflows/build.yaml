@@ -42,10 +42,18 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
+
+      - name: Set ChromeDriver path (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          "CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver" >> $GITHUB_ENV
+      - name: Set ChromeDriver path (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          "CHROMEDRIVER_FILEPATH=C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe" >> $GITHUB_ENV
+
       - name: Install Node modules
         run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
   lint:
     needs:
