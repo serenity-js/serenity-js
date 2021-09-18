@@ -161,17 +161,17 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       # todo: Enable when the tests are ready to run on SauceLabs
       #      - name: Open Sauce Connect Tunnel
       #        uses: saucelabs/sauce-connect-action@v1
@@ -229,17 +229,16 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Test
         run: make test
@@ -280,17 +279,17 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z.exe x -aoa compiled-libs.zip
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Test
         run: make test
         env:
@@ -327,17 +326,16 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
         run: 7z x -aoa compiled-libs.zip
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Integration Test
         run: make integration-test
@@ -386,17 +384,17 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z.exe x -aoa compiled-libs.zip
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Integration Test
         run: make integration-test
         env:
@@ -497,17 +495,17 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
