@@ -19,8 +19,26 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -37,8 +55,26 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -67,10 +103,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -116,10 +171,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -148,10 +222,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -176,10 +269,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -216,10 +328,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -248,10 +379,29 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download code coverage reports (test)
         uses: actions/download-artifact@v2
         with:
@@ -289,6 +439,29 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }} packages/webdriverio/package.json
           npm_token:      ${{ secrets.NPM_TOKEN }}
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -299,10 +472,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Publish artifacts
         run: npm run lerna:publish
@@ -342,8 +511,26 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
