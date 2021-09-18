@@ -9,14 +9,9 @@ on:
 
 jobs:
 
-  install:
+  npm-install-cache-linux:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
-    strategy:
-      matrix:
-        os: [ ubuntu-latest, windows-latest ]
-      fail-fast: true
-
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -39,25 +34,52 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Set ChromeDriver path (Linux)
-        if: runner.os == 'Linux'
-        run: |
-          echo "CHROMEDRIVER_FILEPATH=/usr/bin/chromedriver" >> $GITHUB_ENV
-      - name: Set ChromeDriver path (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          echo "CHROMEDRIVER_FILEPATH=C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe" >> $env:GITHUB_ENV
+            ${{ runner.os }}-npm-
 
       - name: Install Node modules
         run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+  npm-install-cache-windows:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+
+      - name: Read NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/node_modules/@serenity-js
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Install Node modules
+        run: npm ci
+        env:
+          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
 
   lint:
     needs:
-      - install
+      - npm-install-cache-linux
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -81,9 +103,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node modules
         run: npm ci
         env:
@@ -94,7 +116,7 @@ jobs:
 
   compile:
     needs:
-      - install
+      - npm-install-cache-linux
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -118,9 +140,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node modules
         run: npm ci
         env:
@@ -166,9 +188,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -234,9 +256,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -284,9 +306,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -331,9 +353,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -389,9 +411,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -440,9 +462,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node modules
         run: npm ci
         env:
@@ -500,9 +522,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -572,9 +594,9 @@ jobs:
             integration/*/node_modules
             packages/*/node_modules
             !*/node_modules/@serenity-js
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node modules
         run: npm ci
         env:
