@@ -149,7 +149,6 @@ jobs:
   test-linux-node-lts-active:
     name: test-linux-node-lts-active (14.x)
     needs:
-      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -210,7 +209,6 @@ jobs:
 
   test-linux-node-lts-other:
     needs:
-      - lint
       - compile
     runs-on:  ubuntu-latest
     strategy:
@@ -257,7 +255,6 @@ jobs:
   test-windows-node-lts:
     needs:
       - cache-node-modules-windows
-      - lint
       - compile
     runs-on: windows-latest
     strategy:
@@ -302,7 +299,6 @@ jobs:
 
   integration-test-linux-node-lts:
     needs:
-      - lint
       - compile
     runs-on:  ubuntu-latest
     strategy:
@@ -349,7 +345,6 @@ jobs:
   integration-test-windows-node-lts:
     needs:
       - cache-node-modules-windows
-      - lint
       - compile
     runs-on: windows-latest
     strategy:
