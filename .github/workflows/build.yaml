@@ -129,8 +129,6 @@ jobs:
 
       - name: Test
         run: make test
-        env:
-          RECORD_COVERAGE: false
 
   test-windows-node-lts:
     needs:
@@ -160,8 +158,6 @@ jobs:
         run:  7z.exe x -aoa compiled-libs.zip
       - name: Test
         run: make test
-        env:
-          RECORD_COVERAGE: false
 
   integration-test-linux-node-lts-active:
     name: integration-test-linux-node-lts-active
@@ -228,8 +224,6 @@ jobs:
         run:  7z.exe x -aoa compiled-libs.zip
       - name: Integration Test
         run: make integration-test
-        env:
-          RECORD_COVERAGE: false
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
