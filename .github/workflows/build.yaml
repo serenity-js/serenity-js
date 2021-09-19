@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 14.x
 
-      # Install Node Modules (@integration)
+      # Install Node Modules (@serenity-js)
       - name: Get NPM cache directory
         id: npm-cache
         run: |
@@ -34,8 +34,8 @@ jobs:
           key: main-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             main-${{ runner.os }}-npm-
-      - name: Install Node Modules (@integration)
-        run: make BOOTSTRAP=@integration install
+      - name: Install Node Modules (@serenity-js)
+        run: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: 14.x
 
-      # Install Node Modules (@integration)
+      # Install Node Modules (@serenity-js)
       - name: Get NPM cache directory
         id: npm-cache
         run: |
@@ -64,8 +64,8 @@ jobs:
           key: main-${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             main-${{ runner.os }}-npm-
-      - name: Install Node Modules (@integration)
-        run: make BOOTSTRAP=@integration install
+      - name: Install Node Modules (@serenity-js)
+        run: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
 
