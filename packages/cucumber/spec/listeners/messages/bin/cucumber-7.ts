@@ -14,7 +14,7 @@ const cucumber = spawner(
 );
 
 export const cucumber7 = (...params: string[]): Promise<SpawnResult> => cucumber(
-    // '--require-module', 'ts-node/register',
+    '--require-module', 'ts-node/register',
     ...params,
     '--publish-quiet',
 );
