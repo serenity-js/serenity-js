@@ -21,14 +21,10 @@ jobs:
           node-version: 14.x
       - name: Setup Node Modules
         uses: bahmutov/npm-install@v1
-        with:
-          install-command: |
-            npm ci --ignore-scripts
-            npm run lerna bootstrap --ignore="@serenity-js-examples/*"
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
       - name: Compile
-        run: npm run lerna run compile --stream --scope '@serenity-js/*' --scope '@integration/*'
+        run: make compile
       - name: Test
         run: make test
       - name: Integration Test
