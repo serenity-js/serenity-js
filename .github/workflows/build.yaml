@@ -30,13 +30,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
 
       - name: Install Node modules
         run: npm ci
@@ -64,13 +66,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
 
       - name: Install Node modules
         run: npm ci
@@ -99,13 +103,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Install Node modules
         run: npm ci
         env:
@@ -136,13 +142,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Install Node modules
         run: npm ci
         env:
@@ -184,13 +192,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -252,13 +262,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -301,13 +313,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -346,13 +360,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -405,13 +421,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -454,13 +472,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Install Node modules
         run: npm ci
         env:
@@ -514,13 +534,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -586,13 +608,15 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-#            */*/node_modules
-#            !**/node_modules/@serenity-js
+            examples/*/node_modules
+            integration/*/node_modules
+            packages/*/node_modules
+            !*/*/node_modules/\@serenity-js
 #            !**/node_modules/.bin
 #            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v2-
+            ${{ runner.os }}-npm-v3-
       - name: Install Node modules
         run: npm ci
         env:
