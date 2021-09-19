@@ -19,10 +19,26 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
-        uses: bahmutov/npm-install@v1
+
+      - name: Get NPM cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - name: Cache Node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.npm-cache.outputs.dir }}
+            node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Node modules
+        run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Compile
         run: make compile
       - name: Test
