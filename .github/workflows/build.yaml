@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 14.x
 
-      # Install Node Modules (root)
+      # Install Node Modules (@serenity-js)
       - name: Get NPM cache directory
         id: npm-cache
         run: |
@@ -31,11 +31,11 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install Node Modules
-        run: npm ci
+            ${{ runner.os }}-npm-
+      - name: Install Node Modules (@serenity-js)
+        run: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -50,7 +50,7 @@ jobs:
         with:
           node-version: 14.x
 
-      # Install Node Modules (external)
+      # Install Node Modules (@serenity-js)
       - name: Get NPM cache directory
         id: npm-cache
         run: |
@@ -61,11 +61,11 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install Node Modules
-        run: npm ci
+            ${{ runner.os }}-npm-
+      - name: Install Node Modules (@serenity-js)
+        run: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
 
@@ -92,9 +92,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (all)
         run: make install
         env:
@@ -126,9 +126,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (all)
         run: make install
         env:
@@ -171,9 +171,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (@serenity-js)
         run: make BOOTSTRAP=@serenity-js install
         env:
@@ -236,9 +236,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (@serenity-js)
         run: make BOOTSTRAP=@serenity-js install
         env:
@@ -283,9 +283,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (@serenity-js)
         run: make BOOTSTRAP=@serenity-js install
         env:
@@ -328,9 +328,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (@integration)
         run: make BOOTSTRAP=@integration install
         env:
@@ -375,9 +375,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (@integration)
         run: make BOOTSTRAP=@integration install
         env:
@@ -414,9 +414,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (root)
         run: npm ci
         env:
@@ -477,9 +477,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (root)
         run: npm ci
         env:
@@ -535,9 +535,9 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-npm-
       - name: Install Node Modules (@documentation)
         run: make BOOTSTRAP=@documentation install
         env:
