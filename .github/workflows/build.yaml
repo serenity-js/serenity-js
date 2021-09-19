@@ -30,12 +30,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -66,12 +64,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -103,12 +99,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -142,12 +136,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -192,12 +184,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -262,12 +252,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -313,12 +301,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -360,12 +346,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -421,12 +405,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -472,12 +454,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/@serenity-js
-            !*/*/node_modules/.bin
-            !*/*/node_modules/.cache
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -534,6 +514,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
@@ -602,6 +586,10 @@ jobs:
           path: |
             ${{ steps.npm-cache.outputs.dir }}
             node_modules
+            */*/node_modules
+            !**/node_modules/@serenity-js
+            !**/node_modules/.bin
+            !**/node_modules/.cache
           key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-npm-cache-
