@@ -28,12 +28,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Install Node modules
         run: npm ci
@@ -60,12 +61,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Install Node modules
         run: npm ci
@@ -95,12 +97,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Install Node modules
         run: npm ci
@@ -142,12 +145,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -208,12 +212,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -255,12 +260,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -298,12 +304,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -355,12 +362,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -402,12 +410,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Install Node modules
         run: npm ci
@@ -460,12 +469,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Download compiled libs
         uses: actions/download-artifact@v2
@@ -530,12 +540,13 @@ jobs:
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
+            !*/*/node_modules/@serenity-js
+            !*/*/node_modules/.cache
           #            !**/node_modules/.bin
           #            !**/node_modules/.cache
-          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
+          key: npm-build-v5-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-build-v4-
+            npm-build-v5-
 
       - name: Install Node modules
         run: npm ci
