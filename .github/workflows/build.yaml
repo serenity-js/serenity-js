@@ -77,7 +77,7 @@ jobs:
 
   compile:
     needs:
-      - npm-install-cache-linux
+      - npm-install-cache
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -231,7 +231,7 @@ jobs:
 
   test-windows-node-lts:
     needs:
-      - npm-install-cache-windows
+      - npm-install-cache
       - lint
       - compile
     runs-on: windows-latest
@@ -335,7 +335,7 @@ jobs:
 
   integration-test-windows-node-lts-active:
     needs:
-      - npm-install-cache-windows
+      - npm-install-cache
       - lint
       - compile
     runs-on: windows-latest
