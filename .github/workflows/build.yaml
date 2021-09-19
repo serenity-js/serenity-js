@@ -9,7 +9,7 @@ on:
 
 jobs:
 
-  npm-install-cache-linux:
+  npm-install-cache:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on: ubuntu-latest
     steps:
@@ -20,70 +20,29 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
 
       - name: Install Node modules
         run: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
-  npm-install-cache-windows:
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: windows-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node 14.x
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-      - name: Cache Node modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            ${{ steps.npm-cache.outputs.dir }}
-            node_modules
-            examples/*/node_modules
-            integration/*/node_modules
-            packages/*/node_modules
-            !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-npm-v3-
-
-      - name: Install Node modules
-        run: npm ci
-        env:
-          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
-
   lint:
     needs:
-      - npm-install-cache-linux
+      - npm-install-cache
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -93,25 +52,21 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Install Node modules
         run: npm ci
         env:
@@ -132,25 +87,21 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Install Node modules
         run: npm ci
         env:
@@ -182,25 +133,22 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
+
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -252,25 +200,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -303,25 +247,21 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -350,25 +290,21 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -411,25 +347,21 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -462,25 +394,21 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Install Node modules
         run: npm ci
         env:
@@ -524,25 +452,21 @@ jobs:
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }} packages/webdriverio/package.json
           npm_token:      ${{ secrets.NPM_TOKEN }}
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -598,25 +522,21 @@ jobs:
         with:
           node-version: 14.x
 
-      - name: Read NPM cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
       - name: Cache Node modules
         uses: actions/cache@v2
         with:
           path: |
-            ${{ steps.npm-cache.outputs.dir }}
             node_modules
             examples/*/node_modules
             integration/*/node_modules
             packages/*/node_modules
             !*/*/node_modules/\@serenity-js
-#            !**/node_modules/.bin
-#            !**/node_modules/.cache
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('**/package-lock.json') }}
+          #            !**/node_modules/.bin
+          #            !**/node_modules/.cache
+          key: npm-build-v4-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-v3-
+            npm-build-v4-
+
       - name: Install Node modules
         run: npm ci
         env:
