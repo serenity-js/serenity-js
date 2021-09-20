@@ -273,7 +273,6 @@ jobs:
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
-      - name: Download code coverage reports
       - name: Download code coverage reports (test)
         uses: actions/download-artifact@v2
         with:
