@@ -87,7 +87,7 @@ export abstract class PhotoTakingStrategy {
     }
 
     private shouldIgnore(error: Error) {
-        return error.name 
+        return error.name
             && (error.name === 'NoSuchSessionError'
                 || error.name === 'UnexpectedAlertOpenError');
     }
