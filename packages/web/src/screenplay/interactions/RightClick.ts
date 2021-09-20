@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@seren
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
-import { WebElementInteraction } from './WebElementInteraction';
+import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -55,9 +55,9 @@ import { WebElementInteraction } from './WebElementInteraction';
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link isVisible}
  *
- * @extends {WebElementInteraction}
+ * @extends {UIElementInteraction}
  */
-export class RightClick extends WebElementInteraction {
+export class RightClick extends UIElementInteraction {
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.

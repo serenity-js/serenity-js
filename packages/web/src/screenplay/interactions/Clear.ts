@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Interaction, LogicError, UsesAbilities } 
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
-import { WebElementInteraction } from './WebElementInteraction';
+import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -46,7 +46,7 @@ import { WebElementInteraction } from './WebElementInteraction';
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
-export class Clear extends WebElementInteraction {
+export class Clear extends UIElementInteraction {
 
     /**
      * @desc

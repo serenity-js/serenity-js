@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@seren
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
-import { WebElementInteraction } from './WebElementInteraction';
+import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -44,9 +44,9 @@ import { WebElementInteraction } from './WebElementInteraction';
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/assertions/lib/expectations~equals}
  *
- * @extends {WebElementInteraction}
+ * @extends {UIElementInteraction}
  */
-export class Hover extends WebElementInteraction {
+export class Hover extends UIElementInteraction {
 
     /**
      * @desc

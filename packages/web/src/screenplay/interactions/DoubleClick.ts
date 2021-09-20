@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@seren
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
-import { WebElementInteraction } from './WebElementInteraction';
+import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -56,9 +56,9 @@ import { WebElementInteraction } from './WebElementInteraction';
  *
  * @see {@link Target}
  *
- * @extends {WebElementInteraction}
+ * @extends {UIElementInteraction}
  */
-export class DoubleClick extends WebElementInteraction {
+export class DoubleClick extends UIElementInteraction {
 
     /**
      * @desc

@@ -3,7 +3,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
 import { EnterBuilder } from './EnterBuilder';
-import { WebElementInteraction } from './WebElementInteraction';
+import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -35,9 +35,9 @@ import { WebElementInteraction } from './WebElementInteraction';
  *
  * @see {@link Target}
  *
- * @extends {WebElementInteraction}
+ * @extends {UIElementInteraction}
  */
-export class Enter extends WebElementInteraction {
+export class Enter extends UIElementInteraction {
 
     /**
      * @desc
