@@ -2,6 +2,7 @@ import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } f
 
 import { UIElement, UIElementList } from '../../ui';
 import { TargetNestedElement, TargetNestedElements } from './targets';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -104,7 +105,7 @@ export class Text {
 }
 
 class TextOfSingleElement
-    extends Question<Promise<string>>
+    extends UIElementQuestion<Promise<string>>
     implements MetaQuestion<Answerable<UIElement>, Promise<string>>
 {
     constructor(private readonly element: Answerable<UIElement>) {
@@ -115,14 +116,15 @@ class TextOfSingleElement
         return new TextOfSingleElement(new TargetNestedElement(parent, this.element));
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        return actor.answer(this.element)
-            .then(element => element.getText())
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
+        const element = await this.resolve(actor, this.element);
+
+        return element.getText();
     }
 }
 
 class TextOfMultipleElements
-    extends Question<Promise<string[]>>
+    extends UIElementQuestion<Promise<string[]>>
     implements MetaQuestion<Answerable<UIElement>, Promise<string[]>>
 {
     constructor(private readonly elements: Answerable<UIElementList>) {
@@ -134,7 +136,7 @@ class TextOfMultipleElements
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const elements = await actor.answer(this.elements);
+        const elements = await this.resolve(actor, this.elements);
         return elements.map(element => element.getText());
     }
 }

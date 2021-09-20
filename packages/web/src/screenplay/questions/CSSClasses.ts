@@ -3,6 +3,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
 import { TargetNestedElement } from './targets';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -54,11 +55,11 @@ import { TargetNestedElement } from './targets';
  *          ),
  *      )
  *
- * @extends {@serenity-js/core/lib/screenplay~Question}
+ * @extends {UIElementQuestion}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class CSSClasses
-    extends Question<Promise<string[]>>
+    extends UIElementQuestion<Promise<string[]>>
     implements MetaQuestion<Answerable<UIElement>, Promise<string[]>>
 {
     /**
@@ -104,9 +105,10 @@ export class CSSClasses
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
-        const element = await actor.answer(this.target);
+        const element = await this.resolve(actor, this.target);
 
         return element.getAttribute('class')
+            .then(attribute => attribute ?? '')
             .then(attribute => attribute
                 .replace(/\s+/, ' ')
                 .trim()

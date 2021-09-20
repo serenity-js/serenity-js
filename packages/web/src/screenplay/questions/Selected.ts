@@ -2,6 +2,7 @@ import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { by, UIElement } from '../../ui';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -202,7 +203,7 @@ export class Selected {
 /**
  * @package
  */
-class SelectedValue extends Question<Promise<string>> {
+class SelectedValue extends UIElementQuestion<Promise<string>> {
 
     constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `value selected in ${ target }`);
@@ -210,7 +211,7 @@ class SelectedValue extends Question<Promise<string>> {
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
 
-        const target    = await actor.answer(this.target);
+        const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateChildElement(by.css('option:checked'));
 
         return selected.getValue();
@@ -220,7 +221,7 @@ class SelectedValue extends Question<Promise<string>> {
 /**
  * @package
  */
-class SelectedValues extends Question<Promise<string[]>> {
+class SelectedValues extends UIElementQuestion<Promise<string[]>> {
 
     constructor(private readonly target: Answerable<UIElement>) {
         super(formatted `values selected in ${ target }`);
@@ -228,7 +229,7 @@ class SelectedValues extends Question<Promise<string[]>> {
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
 
-        const target    = await actor.answer(this.target);
+        const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateAllChildElements(by.css('option:checked'));
 
         return selected.map(item => item.getValue());
@@ -244,14 +245,14 @@ class SelectedValues extends Question<Promise<string[]>> {
 /**
  * @package
  */
-class SelectedOption extends Question<Promise<string>> {
+class SelectedOption extends UIElementQuestion<Promise<string>> {
 
     constructor(private target: Answerable<UIElement>) {
         super(formatted `option selected in ${ target }`);
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const target    = await actor.answer(this.target);
+        const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateChildElement(by.css('option:checked'));
 
         return selected.getText();
@@ -264,7 +265,7 @@ class SelectedOption extends Question<Promise<string>> {
 /**
  * @package
  */
-class SelectedOptions extends Question<Promise<string[]>> {
+class SelectedOptions extends UIElementQuestion<Promise<string[]>> {
 
     constructor(private target: Answerable<UIElement>) {
         super(formatted `options selected in ${ target }`);
@@ -272,7 +273,7 @@ class SelectedOptions extends Question<Promise<string[]>> {
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
 
-        const target    = await actor.answer(this.target);
+        const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateAllChildElements(by.css('option:checked'));
 
         return selected.map(item => item.getText());

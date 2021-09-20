@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import { Answerable, AnswersQuestions, Expectation, List, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import { formatted } from '@serenity-js/core/lib/io';
+import { Answerable, AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
 import { UIElement, UIElementList, UIElementLocation } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
 import { ElementListAdapter } from './lists';
 import { NestedTargetBuilder } from './NestedTargetBuilder';
 import { TargetBuilder } from './TargetBuilder';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -279,7 +279,7 @@ export class TargetElements
  * @see {@link Target}
  */
 export class TargetNestedElements
-    extends Question<Promise<UIElementList>>
+    extends UIElementQuestion<Promise<UIElementList>>
     implements MetaQuestion<Answerable<UIElement>, Promise<UIElementList>>
 {
     private readonly list: List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
@@ -320,12 +320,8 @@ export class TargetNestedElements
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElementList> {
-        const parent   = await actor.answer(this.parent);
-        const children = await actor.answer(this.children);
-
-        if (! parent) {
-            throw new LogicError(formatted `Couldn't find ${ this.parent }`);
-        }
+        const parent   = await this.resolve(actor, this.parent);
+        const children = await this.resolve(actor, this.children);
 
         return parent.locateAllChildElements(children.location());
     }
@@ -370,7 +366,7 @@ export class TargetElement
  * @see {@link Target}
  */
 export class TargetNestedElement
-    extends Question<Promise<UIElement>>
+    extends UIElementQuestion<Promise<UIElement>>
     implements MetaQuestion<Answerable<UIElement>, Promise<UIElement>>
 {
     constructor(
@@ -385,12 +381,8 @@ export class TargetNestedElement
     }
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElement> {
-        const parent = await actor.answer(this.parent);
-        const child  = await actor.answer(this.child);
-
-        if (! parent) {
-            throw new LogicError(formatted `Couldn't find ${ this.parent }`);
-        }
+        const parent = await this.resolve(actor, this.parent);
+        const child  = await this.resolve(actor, this.child);
 
         return parent.locateChildElement(child.location());
     }
