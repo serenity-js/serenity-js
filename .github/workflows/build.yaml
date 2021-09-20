@@ -266,6 +266,7 @@ jobs:
         run: make report
 
       - name: Publish coverage
+        continue-on-error: true
         if: github.ref == 'refs/heads/master'
         run: npm run coverage:publish
         env:
