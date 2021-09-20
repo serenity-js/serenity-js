@@ -102,7 +102,7 @@ describe('Select', () => {
         )
     )
 
-    describe('when working with single-option selects', () => {
+    describe.skip('when working with single-option selects', () => {
 
         describe('Select.value()', () => {
 
@@ -147,7 +147,7 @@ describe('Select', () => {
         });
     });
 
-    describe('when working with multi-option selects', () => {
+    describe.skip('when working with multi-option selects', () => {
 
         describe('Select.values()', () => {
 
