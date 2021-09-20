@@ -1,8 +1,9 @@
-import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationOutcome, MetaQuestion, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { ListAdapter } from '@serenity-js/core/lib/screenplay/questions/lists';
 
 import { UIElement, UIElementList } from '../../ui';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -126,7 +127,7 @@ export class ElementListAdapter implements ListAdapter<Promise<UIElement>, Promi
  * @private
  */
 class UIElementListFilter<Answer_Type>
-    extends Question<Promise<UIElementList>>
+    extends UIElementQuestion<Promise<UIElementList>>
 {
     constructor(
         private readonly collection: Answerable<UIElementList>,
@@ -142,7 +143,7 @@ class UIElementListFilter<Answer_Type>
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElementList> {
 
-        const collection: UIElementList = await actor.answer(this.collection);
+        const collection: UIElementList = await this.resolve(actor, this.collection);
         const outcomes: Array<ExpectationOutcome<any, Answer_Type>> = await collection.map((element: UIElement) =>
             actor.answer(this.question.of(element))
                 .then((answer: Answer_Type) => {

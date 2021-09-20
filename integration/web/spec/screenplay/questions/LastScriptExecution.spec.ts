@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, or } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { by, Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '@serenity-js/web';
 
@@ -22,10 +22,10 @@ describe('LastScriptExecution', function () {
 
             Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
 
-            ExecuteScript.sync(`
+            ExecuteScript.sync(`function() {
                 var field = arguments[0];
                 return field.value;
-            `).withArguments(Sandbox.Input),
+            }`).withArguments(Sandbox.Input),
 
             Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
         ));
@@ -33,14 +33,15 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.sync} */
         /** @test {ExecuteSynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('returns null if the script did not return any result', () => actorCalled('Joe').attemptsTo(
+        it('returns undefined or null if the script did not return any result', () => actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             ExecuteScript.sync(`
                 /* do nothing */
             `),
 
-            Ensure.that(LastScriptExecution.result<null>(), equals(null)),  // eslint-disable-line unicorn/no-null
+            // Selenium returns `null`, WebdriverIO returns an `undefined`
+            Ensure.that(LastScriptExecution.result<null>(), or(equals(undefined), equals(null))),  // eslint-disable-line unicorn/no-null
         ));
     });
 
@@ -66,7 +67,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.async} */
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('returns null if the script did not return any result', () => actorCalled('Joe').attemptsTo(
+        it('returns undefined or null if the script did not return any result', () => actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             ExecuteScript.async(`
@@ -74,7 +75,8 @@ describe('LastScriptExecution', function () {
                 callback();
             `),
 
-            Ensure.that(LastScriptExecution.result<null>(), equals(null)),  // eslint-disable-line unicorn/no-null
+            // Selenium returns `null`, WebdriverIO returns an `undefined`
+            Ensure.that(LastScriptExecution.result<null>(), or(equals(undefined), equals(null))),  // eslint-disable-line unicorn/no-null
         ));
     });
 

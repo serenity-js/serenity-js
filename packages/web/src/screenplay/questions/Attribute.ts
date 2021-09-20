@@ -2,6 +2,7 @@ import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesA
 
 import { UIElement } from '../../ui';
 import { TargetNestedElement } from './targets';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -53,11 +54,11 @@ import { TargetNestedElement } from './targets';
  *          ),
  *      )
  *
- * @extends {@serenity-js/core/lib/screenplay~Question}
+ * @extends {UIElementQuestion}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Attribute
-    extends Question<Promise<string>>
+    extends UIElementQuestion<Promise<string>>
     implements MetaQuestion<Answerable<UIElement>, Promise<string>>
 {
     /**

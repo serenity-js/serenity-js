@@ -3,6 +3,7 @@ import { formatted } from '@serenity-js/core/lib/io';
 
 import { UIElement } from '../../ui';
 import { TargetNestedElement } from './targets';
+import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -30,7 +31,7 @@ import { TargetNestedElement } from './targets';
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Value
-    extends Question<Promise<string>>
+    extends UIElementQuestion<Promise<string>>
     implements MetaQuestion<Answerable<UIElement>, Promise<string>>
 {
     /**
@@ -75,7 +76,7 @@ export class Value
      * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
      */
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
-        const element = await actor.answer(this.element);
+        const element = await this.resolve(actor, this.element);
 
         return element.getValue();
     }
