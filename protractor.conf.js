@@ -45,7 +45,7 @@ module.exports = {
         require: [
             'ts-node/register',
         ],
-        reporter: 'dot',
+        reporter: 'spec',
     },
 
     ... localChromeConfig,

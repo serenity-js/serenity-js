@@ -9,7 +9,7 @@ import * as sinon from 'sinon';
 import { TestRunnerLoader } from '../../../src/adapter';
 
 /** @test {TestRunnerLoader} */
-describe.only('TestRunnerLoader', () => {
+describe('TestRunnerLoader', () => {
 
     const exampleRunnerId = 123;
 
