@@ -5,28 +5,30 @@ import { UIElement } from '../../ui';
 
 /**
  * @desc
- *  A base class for WebdriverIO-specific interactions
+ *  A base class for interactions with {@link UIElement}s.
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
-export abstract class WebElementInteraction extends Interaction {
+export abstract class UIElementInteraction extends Interaction {
 
     /**
      * @param {string} description
      *  A human-readable description to be used when reporting
      *  this {@link @serenity-js/core/lib/screenplay~Interaction}.
+     *
+     * @protected
      */
-    constructor(private readonly description: string) {
+    protected constructor(private readonly description: string) {
         super();
     }
 
     /**
      * @desc
-     *  Returns the resolved {@link @wdio/types~Element}, or throws a {@link @serenity-js/core/lib/errors~LogicError}
+     *  Returns the resolved {@link UIElement}, or throws a {@link @serenity-js/core/lib/errors~LogicError}
      *  if the element is `undefined`.
      *
      * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
-     * @param {@serenity-js/core/lib/screenplay~Answerable<UIElement>} element
+     * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} element
      *
      * @returns {Promise<UIElement>}
      *

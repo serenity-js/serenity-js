@@ -5,7 +5,7 @@ import { Key } from '../../input';
 import { UIElement } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
 import { PressBuilder } from './PressBuilder';
-import { WebElementInteraction } from './WebElementInteraction';
+import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -50,9 +50,9 @@ import { WebElementInteraction } from './WebElementInteraction';
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/assertions/lib/expectations~equals}
  *
- * @extends {WebElementInteraction}
+ * @extends {UIElementInteraction}
  */
-export class Press extends WebElementInteraction {
+export class Press extends UIElementInteraction {
 
     /**
      * @desc
@@ -101,7 +101,7 @@ export class Press extends WebElementInteraction {
     }
 }
 
-class PressKeyInField extends WebElementInteraction {
+class PressKeyInField extends UIElementInteraction {
     /**
      * @param {Answerable<Array<Key | string>>} keys
      *  A sequence of one or more keys to press

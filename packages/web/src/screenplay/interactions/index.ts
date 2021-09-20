@@ -14,4 +14,3 @@ export * from './SelectBuilder';
 export * from './Switch';
 export * from './TakeScreenshot';
 export * from './Wait';
-export * from './WebElementInteraction';
