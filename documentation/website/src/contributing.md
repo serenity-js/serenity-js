@@ -51,7 +51,7 @@ If you have decided to raise a pull request, you'll need to:
 - [Fork](https://help.github.com/en/github/getting-started-with-github/fork-a-repo) the [Serenity/JS mono-repo](https://github.com/serenity-js/serenity-js) to your GitHub account
 - [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) your fork to your machine
 - Make sure you have the [runtime dependencies](/handbook/integration/runtime-dependencies.html) installed
-- Install the Node.js dependencies by running `npm ci` in the project root. Serenity/JS uses [Lerna.js](https://github.com/lerna/lerna) to manage the `@serenity-js/*` modules you'll find in the mono-repo, so it will take care of propagating the `npm ci` and other commands to the modules.
+- Install the Node.js dependencies by running `make install` in the project root. Serenity/JS uses [Lerna.js](https://github.com/lerna/lerna) to manage the `@serenity-js/*` modules you'll find in the mono-repo, so it will take care of propagating the `npm ci` and other commands to the modules.
 - Make sure you can build the Serenity/JS project on your machine and all the unit- and integration tests are passing before introducing any changes
 - Introduce the changes you wish to propose and update or introduce any unit- and integration tests that might be affected.
 - Run the **full local build** before committing
@@ -69,9 +69,12 @@ In the project root directory, you'll find the following sub-directories
 Serenity/JS [Makefile](https://github.com/serenity-js/serenity-js/blob/master/Makefile) drives the entire build process. 
 
 Here's a list of commands you'll need to build and test Serenity/JS locally:
+- `make` - same as running `make install clean compile`
+- `make install` - installs dependencies across the Serenity/JS monorepo
 - `make clean` - removes any build and test artifacts.
 - `make clean test` - removes build artifacts and executes the unit tests located under `packages/*/spec` in memory using [ts-node](https://github.com/TypeStrong/ts-node). This is so that you don't have to transpile TypeScript to JavaScript before running the tests
+- `make clean integration-test` - removes build artifacts and executes the integration tests located under `integration/*/spec` in memory using [ts-node](https://github.com/TypeStrong/ts-node). This is so that you don't have to transpile TypeScript to JavaScript before running the tests
 - `make clean verify` - removes build artifacts, runs the linter, transpiles TypeScript to JavaScript, runs the unit tests, runs the integration tests located under `integration/*/` 
 - `make clean verify report site` - same as verify, but additionally generates test reports and produces the serenity-js.org website. This is the **full local build** you should run at least once before committing your changes and submitting the pull request.
 
-If you encounter any issues, [let us know on Gitter](https://gitter.im/serenity-js/Lobby).
+If you encounter any issues, let us know on the [Serenity/JS Contributors Channel](https://gitter.im/serenity-js/Contributors) on Gitter.
