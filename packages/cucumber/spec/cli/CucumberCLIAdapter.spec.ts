@@ -27,7 +27,7 @@ const { stdout } = require('test-console'); // eslint-disable-line @typescript-e
 /** @test {CucumberCLIAdapter} */
 describe('CucumberCLIAdapter', function () {
 
-    this.timeout(5000);
+    this.timeout(30_000);
 
     let recorder: EventRecorder;
 
