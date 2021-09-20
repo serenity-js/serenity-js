@@ -32,7 +32,7 @@
     "compile": "lerna run compile --stream",
     "verify": "npm run lint && npm run compile && npm test && npm run integration-test",
     "site": "lerna run site --stream",
-    "site:publish": "gh-pages -t -d documentation/website/target/site -r 'https://${GH_TOKEN}@github.com/serenity-js/serenity-js.git'",
+    "site:publish": "gh-pages -t -d documentation/website/target/site -r \"https://${GH_TOKEN}@github.com/serenity-js/serenity-js.git\"",
     "report": "npm run coverage:merge && npm run coverage:report",
     "coverage:merge": "istanbul-merge --out=./target/coverage/coverage-final.json './target/coverage/**/coverage-final.json'",
     "coverage:report": "nyc report --reporter=html --reporter=lcovonly --temp-directory=./target/coverage --report-dir=./target/coverage",
