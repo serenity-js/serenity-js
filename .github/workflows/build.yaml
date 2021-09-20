@@ -19,8 +19,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -37,8 +40,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@integration install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -57,7 +63,6 @@ jobs:
   test-linux-node-lts-active:
     name: test-linux-node-lts-active (14.x)
     needs:
-      - lint
       - compile
     runs-on:  ubuntu-latest
     steps:
@@ -67,10 +72,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.x
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -102,7 +111,6 @@ jobs:
 
   test-linux-node-lts-other:
     needs:
-      - lint
       - compile
     runs-on:  ubuntu-latest
     strategy:
@@ -116,10 +124,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -132,7 +144,6 @@ jobs:
 
   test-windows-node-lts:
     needs:
-      - lint
       - compile
     runs-on: windows-latest
     strategy:
@@ -146,10 +157,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -161,7 +176,6 @@ jobs:
 
   integration-test-linux-node-lts:
     needs:
-      - lint
       - compile
     runs-on:  ubuntu-latest
     strategy:
@@ -175,10 +189,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@integration install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -191,7 +209,6 @@ jobs:
 
   integration-test-windows-node-lts:
     needs:
-      - lint
       - compile
     runs-on: windows-latest
     strategy:
@@ -205,10 +222,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Setup Node Modules
+
+      - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@integration install
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
+
       - name: Download compiled libs
         uses: actions/download-artifact@v2
         with:
@@ -224,14 +245,18 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 16.x
+      - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
-      - name: Setup Node Modules
+          node-version: 14.x
+
+      - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
         with:
@@ -250,6 +275,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs:
+      - lint
       - test-linux-node-lts-active
       - test-linux-node-lts-other
       - test-windows-node-lts
@@ -271,12 +297,15 @@ jobs:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
-      - name: Setup Node 16.x
+      - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
-      - name: Setup Node Modules
+          node-version: 14.x
+
+      - name: Install Node Modules (root)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -314,12 +343,15 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: changelog
-      - name: Setup Node 16.x
+      - name: Setup Node 14.x
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
-      - name: Setup Node Modules
+          node-version: 14.x
+
+      - name: Install Node Modules (@documentation)
         uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@documentation install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
