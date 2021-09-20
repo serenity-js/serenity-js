@@ -1,4 +1,16 @@
-default: clean compile
+# all
+# @serenity-js
+# @integration
+# @documentation
+# @examples
+BOOTSTRAP=all
+
+.PHONY: all install clean lint test compile integration-test verify report site
+all: install clean compile
+
+install:
+	npm ci
+	npm run lerna:bootstrap:$(BOOTSTRAP)
 
 clean:
 	npm run clean
