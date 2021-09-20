@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { Ensure, equals } from '@serenity-js/assertions';
+import { endsWith, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
 import { Navigate, Website } from '@serenity-js/web';
 
@@ -21,9 +21,9 @@ describe('Website', () => {
         /** @test {Website} */
         it('allows the actor to read the URL of the website', () =>
             actorCalled('Bernie').attemptsTo(
-                Navigate.to(`chrome://accessibility/`),
+                Navigate.to(`/screenplay/questions/website/title.html`),
 
-                Ensure.that(Website.url(), equals(`chrome://accessibility/`)),
+                Ensure.that(Website.url(), endsWith(`/screenplay/questions/website/title.html`)),
             ));
 
         /**
@@ -32,9 +32,9 @@ describe('Website', () => {
          */
         it(`correctly represents the URL containing special characters`, () =>
             actorCalled('Bernie').attemptsTo(
-                Navigate.to(`chrome://accessibility/fr/noworries/#`),
+                Navigate.to(`/screenplay/questions/website/title.html#name`),
 
-                Ensure.that(Website.url(), equals(`chrome://accessibility/fr/noworries/#`)),
+                Ensure.that(Website.url(), endsWith(`/screenplay/questions/website/title.html#name`)),
             ));
     });
 });
