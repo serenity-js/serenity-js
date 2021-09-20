@@ -2,31 +2,15 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, engage, LogicError } from '@serenity-js/core';
-import { ExecuteScript } from '@serenity-js/web';
-import { by, Enter, LastScriptExecution, Navigate, Target } from '@serenity-js/web';
-
-import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
+import { actorCalled, LogicError } from '@serenity-js/core';
+import { by, Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '@serenity-js/web';
 
 /** @test {LastScriptExecution} */
 describe('LastScriptExecution', function () {
 
-    const page = pageFromTemplate(`
-        <html>
-            <body>
-                <form>
-                    <input type="text" id="name" />
-                </form>
-            </body>
-        </html>
-    `);
-
     class Sandbox {
         static Input = Target.the('input field').located(by.id('name'));
     }
-
-    beforeEach(() => engage(new UIActors()));
 
     describe('when used with ExecuteScript.sync', () => {
 
@@ -34,7 +18,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteSynchronousScript} */
         /** @test {LastScriptExecution} */
         it('allows the actor to retrieve the result of the script execution', () => actorCalled('Joe').attemptsTo(
-            Navigate.to(page),
+            Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
 
@@ -50,7 +34,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteSynchronousScript} */
         /** @test {LastScriptExecution} */
         it('returns null if the script did not return any result', () => actorCalled('Joe').attemptsTo(
-            Navigate.to(page),
+            Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             ExecuteScript.sync(`
                 /* do nothing */
@@ -66,7 +50,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
         it('allows the actor to retrieve the result of the script execution', () => actorCalled('Joe').attemptsTo(
-            Navigate.to(page),
+            Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
 
@@ -83,7 +67,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
         it('returns null if the script did not return any result', () => actorCalled('Joe').attemptsTo(
-            Navigate.to(page),
+            Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
             ExecuteScript.async(`
                 var callback = arguments[arguments.length - 1];
@@ -96,8 +80,8 @@ describe('LastScriptExecution', function () {
 
     /** @test {ExecuteAsynchronousScript} */
     /** @test {LastScriptExecution} */
-    it('complains if the script hasn\'t been executed yet', () => expect(actorCalled('Joe').attemptsTo(
-        Navigate.to(page),
+    it(`complains if the script hasn't been executed yet`, () => expect(actorCalled('Joe').attemptsTo(
+        Navigate.to('/screenplay/questions/last-script-execution/result.html'),
 
         Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
     )).to.be.rejectedWith(LogicError, 'Make sure to execute a script before checking on the result'));
