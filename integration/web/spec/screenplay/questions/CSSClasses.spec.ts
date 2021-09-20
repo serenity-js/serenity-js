@@ -1,35 +1,21 @@
 import 'mocha';
 
 import { contain, Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, engage } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core';
 import { by, CSSClasses, Navigate, Target } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
-import { pageFromTemplate } from '../../fixtures';
-import { UIActors } from '../../UIActors';
-
 describe('CSSClasses', () => {
-
-    const testPage = pageFromTemplate(`
-            <html>
-            <body>
-                <ul>
-                    <li id="no-class-attribute"></li>
-                    <li id="empty-class-attribute" class=""></li>
-                    <li id="class-attribute-with-whitespace-only" class="   "></li>
-                    <li id="single-class" class="pretty"></li>
-                    <li id="several-classes" class="pretty css classes"></li>
-                    <li id="several-classes-with-whitespace" class="  pretty   css  classes     "></li>
-                </ul>
-            </body>
-            </html>
-        `);
-
-    beforeEach(() => engage(new UIActors()));
 
     /** @test {CSSClasses} */
     /** @test {CSSClasses.of} */
     describe('of', () => {
+
+        before(() =>
+            actorCalled('Bernie').attemptsTo(
+                Navigate.to('/screenplay/questions/css-classes/example.html'),
+            )
+        );
 
         given([
             { description: 'no-class-attribute',                    expected: []                            },
@@ -41,8 +27,6 @@ describe('CSSClasses', () => {
         ]).
         it('allows the actor to read the css classes of a DOM element matching the locator', ({ description, expected }) =>
             actorCalled('Bernie').attemptsTo(
-                Navigate.to(testPage),
-
                 Ensure.that(
                     CSSClasses.of(Target.the(`Element with ${ description }`).located(by.id(description))),
                     equals(expected),
@@ -52,8 +36,6 @@ describe('CSSClasses', () => {
         /** @test {CSSClasses} */
         /** @test {CSSClasses#of} */
         it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
-            Navigate.to(testPage),
-
             Ensure.that(
                 CSSClasses.of(
                     Target.the(`Element with single-class`).located(by.id('single-class')),
