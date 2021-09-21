@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals, or } from '@serenity-js/assertions';
+import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, LogicError } from '@serenity-js/core';
 import { by, Enter, ExecuteScript, LastScriptExecution, Navigate, Target } from '@serenity-js/web';
 
@@ -23,11 +23,11 @@ describe('LastScriptExecution', function () {
     
                 Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
     
-                ExecuteScript.sync(`
+                ExecuteScript.sync(function() {
                     var field = arguments[0];
                     return field.value;
-                `).withArguments(Sandbox.Input),
-    
+                }).withArguments(Sandbox.Input),
+
                 Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
             ));
 
