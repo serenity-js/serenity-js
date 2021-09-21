@@ -232,7 +232,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-
         const nativeArguments = args.map(arg => arg instanceof WebdriverIOElement ? arg.nativeElement() : arg) as InnerArguments;
 
         return this.browser.execute(script, ...nativeArguments)

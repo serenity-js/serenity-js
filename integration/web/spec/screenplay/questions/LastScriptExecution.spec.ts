@@ -23,10 +23,10 @@ describe('LastScriptExecution', function () {
     
                 Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
     
-                ExecuteScript.sync(`function getValue() {
+                ExecuteScript.sync(`
                     var field = arguments[0];
                     return field.value;
-                }`).withArguments(Sandbox.Input),
+                `).withArguments(Sandbox.Input),
     
                 Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
             ));
