@@ -663,7 +663,11 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
             throw new LogicError(`Make sure to execute a script before checking on the result`);
         }
 
-        return this.lastScriptExecutionSummary.result;
+        // Selenium 3 returns `null` when the script it executed returns `undefined`
+        // so we're mapping the result back.
+        return this.lastScriptExecutionSummary.result !== null
+            ? this.lastScriptExecutionSummary.result
+            : undefined;
     }
 
     /**

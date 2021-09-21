@@ -17,17 +17,17 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.sync} */
         /** @test {ExecuteSynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('allows the actor to retrieve the result of the script execution', () =>
+        it('allows the actor to retrieve the result of the script execution', () => 
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
-
+    
                 Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
-
-                ExecuteScript.sync(`function() {
+    
+                ExecuteScript.sync(`function getValue() {
                     var field = arguments[0];
                     return field.value;
                 }`).withArguments(Sandbox.Input),
-
+    
                 Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
             ));
 
@@ -37,13 +37,12 @@ describe('LastScriptExecution', function () {
         it('returns undefined or null if the script did not return any result', () =>
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
-
+    
                 ExecuteScript.sync(`
                     /* do nothing */
                 `),
 
-                // Selenium returns `null`, WebdriverIO returns an `undefined`
-                Ensure.that(LastScriptExecution.result<null>(), or(equals(undefined), equals(null))),  // eslint-disable-line unicorn/no-null
+                Ensure.that(LastScriptExecution.result<null>(), equals(undefined)),
             ));
     });
 
@@ -52,44 +51,43 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.async} */
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('allows the actor to retrieve the result of the script execution', () =>
+        it('allows the actor to retrieve the result of the script execution', () => 
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
-
+    
                 Enter.theValue(actorCalled('Joe').name).into(Sandbox.Input),
-
+    
                 ExecuteScript.async(`
                     var field = arguments[0];
                     var callback = arguments[arguments.length - 1];
                     callback(field.value);
                 `).withArguments(Sandbox.Input),
-
+    
                 Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
             ));
 
         /** @test {ExecuteScript.async} */
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('returns undefined or null if the script did not return any result', () =>
+        it('returns undefined or null if the script did not return any result', () => 
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
-
+    
                 ExecuteScript.async(`
                     var callback = arguments[arguments.length - 1];
                     callback();
                 `),
-
-                // Selenium returns `null`, WebdriverIO returns an `undefined`
-                Ensure.that(LastScriptExecution.result<null>(), or(equals(undefined), equals(null))),  // eslint-disable-line unicorn/no-null
+    
+                Ensure.that(LastScriptExecution.result<null>(), equals(undefined)),
             ));
     });
 
     /** @test {ExecuteAsynchronousScript} */
     /** @test {LastScriptExecution} */
-    it(`complains if the script hasn't been executed yet`, () =>
+    it(`complains if the script hasn't been executed yet`, () => 
         expect(actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/questions/last-script-execution/result.html'),
-
+    
             Ensure.that(LastScriptExecution.result<string>(), equals(actorCalled('Joe').name)),
         )).to.be.rejectedWith(LogicError, 'Make sure to execute a script before checking on the result'));
 });
