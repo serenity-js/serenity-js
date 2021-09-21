@@ -8,6 +8,10 @@ BOOTSTRAP=all
 .PHONY: all install clean lint test compile integration-test verify report site
 all: install clean compile
 
+reinstall:
+	npm install
+	npm run lerna:bootstrap:all
+
 install:
 	npm ci
 	npm run lerna:bootstrap:$(BOOTSTRAP)
