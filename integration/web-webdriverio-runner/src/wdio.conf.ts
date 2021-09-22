@@ -23,7 +23,7 @@ const local: Partial<WebdriverIOConfig> = {
                 '--headless',
                 '--disable-gpu',
                 '--disable-gpu',
-                '--window-size=640x480',
+                '--window-size=800x600',
             ],
         }
     }],
@@ -39,7 +39,7 @@ const sauceLabs: Partial<WebdriverIOConfig> = {
         'sauce:options': {
             tunnelIdentifier:   process.env.SAUCE_TUNNEL_ID,
             build:              `@serenity-js/web-${ process.env.GITHUB_RUN_NUMBER }`,
-            screenResolution:   '640x480',
+            screenResolution:   '800x600',
         },
     }],
 };
