@@ -38,7 +38,7 @@ export const config: WebdriverIOConfig = {
 
     runner: 'local',
 
-    maxInstances: isCI ? 1 : undefined,
+    // maxInstances: isCI ? 1 : undefined,
 
     headless: true,
     automationProtocol: 'devtools',
