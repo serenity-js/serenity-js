@@ -184,14 +184,7 @@ jobs:
         with:
           username: ${{ secrets.SAUCE_USERNAME }}
           accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-integration-test-linux-node-lts-active-${{ env.GITHUB_RUN_ID }}-tunnel
-
-      - name: Test
-        run: make test
-        # todo: Enable when the tests are ready to run on SauceLabs
-        #        env:
-        #          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-        #          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-integration-test-linux-node-lts-active-${{ github.run_id }}-tunnel
 
       - name: Checkout repository
         uses: actions/checkout@v2
