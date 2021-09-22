@@ -184,7 +184,7 @@ jobs:
         with:
           username: ${{ secrets.SAUCE_USERNAME }}
           accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-integration-test-linux-node-lts-active-${{ github.run_id }}-tunnel
+          tunnelIdentifier: github-serenity-js-integration-test-linux-node-lts-active-${{ github.run_number }}-tunnel
 
       - name: Checkout repository
         uses: actions/checkout@v2
