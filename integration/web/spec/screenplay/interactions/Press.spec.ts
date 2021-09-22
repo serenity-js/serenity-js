@@ -3,7 +3,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, matches } from '@serenity-js/assertions';
-import { actorCalled, Check, Question, Task } from '@serenity-js/core';
+import { actorCalled, Check, Log, Question, Task } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 import { BrowseTheWeb, by, Click, DoubleClick, Enter, Key, Navigate, Press, Target, UIElement, Value } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
@@ -58,13 +58,13 @@ describe('Press', () => {
         it('allows the actor to use keyboard shortcuts outside the context of any specific input box', async () => {
 
             const Copy = () => Task.where(`#actor performs a "copy" operation`,
-                Check.whether(OS(), matches(/^mac/i))
+                Check.whether(OS(), matches(/^mac|darwin/i))
                     .andIfSo(Press.the(Key.Control, Key.Insert))
                     .otherwise(Press.the(Key.Control, 'c')),
             );
 
             const Paste = () => Task.where(`#actor performs a "paste" operation`,
-                Check.whether(OS(), matches(/^mac/i))
+                Check.whether(OS(), matches(/^mac|darwin/i))
                     .andIfSo(Press.the(Key.Shift, Key.Insert))
                     .otherwise(Press.the(Key.Control, 'v')),
             );
@@ -77,6 +77,8 @@ describe('Press', () => {
                 // todo: SelectAll
                 Press.the(Key.Shift, Key.ArrowLeft, Key.ArrowLeft).in(CopyAndPasteBoxesForm.source),
                 // Press.the(Key.Meta, 'a').in(CopyAndPasteBoxesForm.source),
+
+                Log.the(OS()),
 
                 Copy(),
 
@@ -100,14 +102,14 @@ describe('Press', () => {
             const CopyFrom = (field: Question<Promise<UIElement>>) =>
                 Task.where(formatted `#actor performs a "copy" operation on ${ field }`,
                     SelectValueOf(field),
-                    Check.whether(OS(), matches(/^mac/i))
+                    Check.whether(OS(), matches(/^mac|darwin/i))
                         .andIfSo(Press.the(Key.Control, Key.Insert).in(field))
                         .otherwise(Press.the(Key.Control, 'c').in(field)),
                 );
 
             const PasteInto = (field: Question<Promise<UIElement>>) =>
                 Task.where(formatted `#actor performs a "paste" operation on ${ field }`,
-                    Check.whether(OS(), matches(/^mac/i))
+                    Check.whether(OS(), matches(/^mac|darwin/i))
                         .andIfSo(Press.the(Key.Shift, Key.Insert).in(field))
                         .otherwise(Press.the(Key.Control, 'v').in(field)),
                 );
@@ -119,6 +121,8 @@ describe('Press', () => {
 
             await actorCalled('Bernie').attemptsTo(
                 Navigate.to('/screenplay/interactions/press/copy_and_paste_boxes.html'),
+
+                Log.the(OS()),
 
                 Enter.theValue('example').into(CopyAndPasteBoxesForm.source),
                 LoseFocus(),
