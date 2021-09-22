@@ -321,7 +321,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
             throw new LogicError(`Make sure to execute a script before checking on the result`);
         }
 
-        return this.lastScriptExecutionSummary.result as Result;
+        // Selenium returns `null` when the script it executed returns `undefined`
+        // so we're mapping the result back.
+        return this.lastScriptExecutionSummary.result !== null
+            ? this.lastScriptExecutionSummary.result as Result
+            : undefined;
     }
 
     waitFor(duration: Duration): Promise<void> {
