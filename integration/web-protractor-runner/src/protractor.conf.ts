@@ -1,6 +1,6 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver } from '@serenity-js/core';
-import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
+import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { protractor } from 'protractor';
 import { Actors } from './Actors';
@@ -28,7 +28,8 @@ export const config = {
         crew: [
             new TestRunnerTagger('protractor'),
             ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
-            Photographer.whoWill(TakePhotosOfFailures),
+            Photographer.whoWill(TakePhotosOfInteractions),
+            // Photographer.whoWill(TakePhotosOfFailures),
             new SerenityBDDReporter(),
         ]
     },
