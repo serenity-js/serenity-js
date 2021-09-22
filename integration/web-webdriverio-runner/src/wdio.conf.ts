@@ -7,7 +7,7 @@ import { Actors } from './Actors';
 
 const port = process.env.PORT || 8080;
 
-const local = {
+const local: Partial<WebdriverIOConfig> = {
     headless: true,
     automationProtocol: 'devtools',
 
@@ -29,7 +29,7 @@ const local = {
     }],
 };
 
-const sauceLabs = {
+const sauceLabs: Partial<WebdriverIOConfig> = {
     user:   process.env.SAUCE_USERNAME,
     key:    process.env.SAUCE_ACCESS_KEY,
     region: 'us', // or 'eu' or 'apac'
@@ -80,6 +80,7 @@ export const config: WebdriverIOConfig = {
 
     // maxInstances: isCI ? 1 : undefined,
 
+    capabilities: [],
     ...browserConfig,
 
     // logLevel: 'debug',
