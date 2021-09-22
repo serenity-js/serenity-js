@@ -21,7 +21,7 @@ describe('Navigate', () => {
         /** @test {Navigate.to} */
         it(`marks the test as compromised if the desired destination can't be reached`, () =>
             expect(actorCalled('Wendy').attemptsTo(
-                Navigate.to('http://localhost:9999/invalid-destination'),
+                Navigate.to('http://localhost:9898/invalid-destination'),
             )).
             to.be.rejectedWith(TestCompromisedError, `Couldn't navigate to http://localhost:9999/invalid-destination`).
             then((error: TestCompromisedError) => {
