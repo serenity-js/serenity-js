@@ -179,6 +179,20 @@ jobs:
       - compile
     runs-on:  ubuntu-latest
     steps:
+      - name: Open Sauce Connect Tunnel
+        uses: saucelabs/sauce-connect-action@v1
+        with:
+          username: ${{ secrets.SAUCE_USERNAME }}
+          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
+          tunnelIdentifier: github-serenity-js-integration-test-linux-node-lts-active-${{ env.GITHUB_RUN_ID }}-tunnel
+
+      - name: Test
+        run: make test
+        # todo: Enable when the tests are ready to run on SauceLabs
+        #        env:
+        #          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+        #          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
+
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Setup Node 14.x
@@ -202,6 +216,9 @@ jobs:
 
       - name: Integration Test
         run: make integration-test
+        env:
+          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
+          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
 
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -216,38 +233,6 @@ jobs:
           path: |
             target/**/*
             package.json
-
-  integration-test-windows-node-lts-active:
-    needs:
-      - compile
-    runs-on: windows-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14.x
-      - name: Install Node Modules (@integration)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP=@integration install
-        env:
-          CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z.exe x -aoa compiled-libs.zip
-      - name: Integration Test
-        run: make integration-test
-      - uses: actions/upload-artifact@v2
-        if: failure()
-        with:
-          name: integration-test-windows
-          path: integration/web/target/
 
   report:
     runs-on:  ubuntu-latest
@@ -297,7 +282,6 @@ jobs:
       - test-linux-node-lts-other
       - test-windows-node-lts
       - integration-test-linux-node-lts-active
-      - integration-test-windows-node-lts-active
     steps:
       - uses: actions/checkout@v2
         with:
