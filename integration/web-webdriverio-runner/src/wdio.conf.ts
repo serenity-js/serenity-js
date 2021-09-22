@@ -33,6 +33,11 @@ const sauceLabs: Partial<WebdriverIOConfig> = {
     user:   process.env.SAUCE_USERNAME,
     key:    process.env.SAUCE_ACCESS_KEY,
     region: 'us', // or 'eu' or 'apac'
+
+    services: [
+        ['sauce', {}],
+    ],
+
     capabilities: [{
 
         browserName: 'chrome',
