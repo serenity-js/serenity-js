@@ -23,7 +23,7 @@ describe('Navigate', () => {
             expect(actorCalled('Wendy').attemptsTo(
                 Navigate.to('http://localhost:9898/invalid-destination'),
             )).
-            to.be.rejectedWith(TestCompromisedError, `Couldn't navigate to http://localhost:9999/invalid-destination`).
+            to.be.rejectedWith(TestCompromisedError, `Couldn't navigate to http://localhost:9898/invalid-destination`).
             then((error: TestCompromisedError) => {
                 expect(error.cause).to.be.instanceOf(Error);
                 expect(error.cause.message).to.include('net::ERR_CONNECTION_REFUSED');
