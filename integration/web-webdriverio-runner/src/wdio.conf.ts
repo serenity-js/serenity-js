@@ -7,7 +7,7 @@ import { Actors } from './Actors';
 
 const port = process.env.PORT || 8080;
 
-const local: Partial<WebdriverIOConfig> = {
+const localBrowser: Partial<WebdriverIOConfig> = {
     headless: true,
     automationProtocol: 'devtools',
 
@@ -29,7 +29,7 @@ const local: Partial<WebdriverIOConfig> = {
     }],
 };
 
-const sauceLabs: Partial<WebdriverIOConfig> = {
+const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
     user:   process.env.SAUCE_USERNAME,
     key:    process.env.SAUCE_ACCESS_KEY,
     region: 'us', // or 'eu' or 'apac'
@@ -50,8 +50,8 @@ const sauceLabs: Partial<WebdriverIOConfig> = {
 };
 
 const browserConfig = process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY
-    ? sauceLabs
-    : local;
+    ? sauceLabsBrowsers
+    : localBrowser;
 
 export const config: WebdriverIOConfig = {
 
@@ -72,7 +72,7 @@ export const config: WebdriverIOConfig = {
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 60000,
+        timeout: 3_000_000,
     },
 
     specs: [ ], // specified in tests themselves to avoid loading more than needed

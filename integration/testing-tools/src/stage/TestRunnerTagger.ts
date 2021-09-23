@@ -12,8 +12,7 @@ export class TestRunnerTagger implements StageCrewMember {
     }
 
     assignedTo(stage: Stage): StageCrewMember {
-        this.stage = stage;
-        return this;
+        return new TestRunnerTagger(this.tagName, stage);
     }
 
     notifyOf(event: events.DomainEvent): void {
