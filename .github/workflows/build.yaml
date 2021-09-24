@@ -44,7 +44,7 @@ jobs:
       - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@integration install
+          install-command: make install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -196,7 +196,7 @@ jobs:
       - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@integration install
+          install-command: make BOOTSTRAP=@integration-web install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
