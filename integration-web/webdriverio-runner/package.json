@@ -1,7 +1,7 @@
 {
-  "name": "@web-integration/web-protractor-runner",
+  "name": "@integration-web/webdriverio-runner",
   "version": "2.0.0",
-  "description": "Internal module to help test integration of Serenity/JS with Protractor",
+  "description": "Internal module to help test integration of Serenity/JS with WebdriverIO",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -16,7 +16,7 @@
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
-    "protractor-runner": "bin/protractor-runner.js"
+    "webdriverio-runner": "bin/webdriverio-runner.js"
   },
   "keywords": [
     "serenity-js",
@@ -42,11 +42,15 @@
     "@integration/testing-tools": "2.0.0",
     "@serenity-js/core": "^2.0.0",
     "@serenity-js/mocha": "^2.0.0",
-    "@serenity-js/protractor": "^2.0.0",
     "@serenity-js/serenity-bdd": "^2.0.0",
+    "@serenity-js/webdriverio": "^2.0.0",
     "@serenity-js/web": "^2.0.0",
+    "@wdio/cli": "^7.12.5",
+    "@wdio/local-runner": "^7.12.5",
+    "@wdio/spec-reporter": "^7.12.5",
     "chromedriver": "^93.0.1",
-    "protractor": "^7.0.0"
+    "ci-info": "^3.2.0",
+    "webdriverio": "^7.12.5"
   },
   "devDependencies": {
     "ts-node": "^10.2.1",

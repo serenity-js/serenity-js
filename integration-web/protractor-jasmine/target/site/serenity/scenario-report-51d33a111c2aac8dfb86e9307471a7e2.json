@@ -1,0 +1,362 @@
+{
+  "name": "A scenario fails",
+  "title": "A scenario fails",
+  "id": "jasmine;a-scenario-fails",
+  "manual": false,
+  "testSteps": [
+    {
+      "number": 1,
+      "description": "A stand-in actor poses for a shot",
+      "startTime": 1572970110766,
+      "children": [],
+      "reportData": [],
+      "screenshots": [],
+      "result": "FAILURE",
+      "duration": 1,
+      "exception": {
+        "errorType": "AssertionError",
+        "message": "Expected false to be true.",
+        "stackTrace": [
+          {
+            "declaringClass": "",
+            "methodName": "SerenityReporterForJasmine.failureOutcomeFrom()",
+            "fileName": "/Users/jan/Projects/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
+            "lineNumber": 188
+          },
+          {
+            "declaringClass": "",
+            "methodName": "SerenityReporterForJasmine.outcomeFrom()",
+            "fileName": "/Users/jan/Projects/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
+            "lineNumber": 165
+          },
+          {
+            "declaringClass": "",
+            "methodName": "SerenityReporterForJasmine.specDone()",
+            "fileName": "/Users/jan/Projects/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
+            "lineNumber": 89
+          },
+          {
+            "declaringClass": "",
+            "methodName": "UserContext.fn()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6488
+          },
+          {
+            "declaringClass": "",
+            "methodName": "QueueRunner.attempt()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6365
+          },
+          {
+            "declaringClass": "",
+            "methodName": "QueueRunner.run()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6406
+          },
+          {
+            "declaringClass": "",
+            "methodName": "QueueRunner.execute()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6273
+          },
+          {
+            "declaringClass": "",
+            "methodName": "queueRunnerFactory()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 1458
+          },
+          {
+            "declaringClass": "",
+            "methodName": "dispatch()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6471
+          },
+          {
+            "declaringClass": "",
+            "methodName": "ReportDispatcher.specDone()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6437
+          },
+          {
+            "declaringClass": "",
+            "methodName": "Spec.specResultCallback [as resultCallback]()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 1922
+          },
+          {
+            "declaringClass": "",
+            "methodName": "UserContext.fn()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 735
+          },
+          {
+            "declaringClass": "",
+            "methodName": "QueueRunner.attempt()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6373
+          },
+          {
+            "declaringClass": "",
+            "methodName": "QueueRunner.run()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6406
+          },
+          {
+            "declaringClass": "",
+            "methodName": "runNext()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6325
+          },
+          {
+            "declaringClass": "",
+            "methodName": "next()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6332
+          },
+          {
+            "declaringClass": "",
+            "methodName": "undefined()",
+            "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+            "lineNumber": 6226
+          },
+          {
+            "declaringClass": "",
+            "methodName": "UserContext.it()",
+            "fileName": "/Users/jan/Projects/serenity-js/integration/protractor-jasmine/examples/failing.spec.js",
+            "lineNumber": 6
+          },
+          {
+            "declaringClass": "",
+            "methodName": "runCallback()",
+            "fileName": "timers.js",
+            "lineNumber": 705
+          },
+          {
+            "declaringClass": "",
+            "methodName": "tryOnImmediate()",
+            "fileName": "timers.js",
+            "lineNumber": 676
+          },
+          {
+            "declaringClass": "",
+            "methodName": "processImmediate()",
+            "fileName": "timers.js",
+            "lineNumber": 658
+          }
+        ],
+        "rootCause": {
+          "errorType": "Error",
+          "message": "Expected false to be true.",
+          "stackTrace": [
+            {
+              "declaringClass": "",
+              "methodName": "UserContext.it()",
+              "fileName": "/Users/jan/Projects/serenity-js/integration/protractor-jasmine/examples/failing.spec.js",
+              "lineNumber": 6
+            },
+            {
+              "declaringClass": "",
+              "methodName": "runCallback()",
+              "fileName": "timers.js",
+              "lineNumber": 705
+            },
+            {
+              "declaringClass": "",
+              "methodName": "tryOnImmediate()",
+              "fileName": "timers.js",
+              "lineNumber": 676
+            },
+            {
+              "declaringClass": "",
+              "methodName": "processImmediate()",
+              "fileName": "timers.js",
+              "lineNumber": 658
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "userStory": {
+    "id": "jasmine",
+    "storyName": "Jasmine",
+    "path": "/Users/jan/Projects/serenity-js/integration/protractor-jasmine/examples/failing.spec.js",
+    "type": "feature"
+  },
+  "startTime": 1572970110741,
+  "tags": [
+    {
+      "name": "Jasmine",
+      "type": "feature"
+    }
+  ],
+  "featureTag": {
+    "name": "Jasmine",
+    "type": "feature"
+  },
+  "testSource": "Jasmine",
+  "duration": 29,
+  "result": "FAILURE",
+  "testFailureCause": {
+    "errorType": "AssertionError",
+    "message": "Expected false to be true.",
+    "stackTrace": [
+      {
+        "declaringClass": "",
+        "methodName": "SerenityReporterForJasmine.failureOutcomeFrom()",
+        "fileName": "/Users/jan/Projects/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
+        "lineNumber": 188
+      },
+      {
+        "declaringClass": "",
+        "methodName": "SerenityReporterForJasmine.outcomeFrom()",
+        "fileName": "/Users/jan/Projects/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
+        "lineNumber": 165
+      },
+      {
+        "declaringClass": "",
+        "methodName": "SerenityReporterForJasmine.specDone()",
+        "fileName": "/Users/jan/Projects/serenity-js/packages/jasmine/src/SerenityReporterForJasmine.ts",
+        "lineNumber": 89
+      },
+      {
+        "declaringClass": "",
+        "methodName": "UserContext.fn()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6488
+      },
+      {
+        "declaringClass": "",
+        "methodName": "QueueRunner.attempt()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6365
+      },
+      {
+        "declaringClass": "",
+        "methodName": "QueueRunner.run()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6406
+      },
+      {
+        "declaringClass": "",
+        "methodName": "QueueRunner.execute()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6273
+      },
+      {
+        "declaringClass": "",
+        "methodName": "queueRunnerFactory()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 1458
+      },
+      {
+        "declaringClass": "",
+        "methodName": "dispatch()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6471
+      },
+      {
+        "declaringClass": "",
+        "methodName": "ReportDispatcher.specDone()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6437
+      },
+      {
+        "declaringClass": "",
+        "methodName": "Spec.specResultCallback [as resultCallback]()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 1922
+      },
+      {
+        "declaringClass": "",
+        "methodName": "UserContext.fn()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 735
+      },
+      {
+        "declaringClass": "",
+        "methodName": "QueueRunner.attempt()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6373
+      },
+      {
+        "declaringClass": "",
+        "methodName": "QueueRunner.run()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6406
+      },
+      {
+        "declaringClass": "",
+        "methodName": "runNext()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6325
+      },
+      {
+        "declaringClass": "",
+        "methodName": "next()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6332
+      },
+      {
+        "declaringClass": "",
+        "methodName": "undefined()",
+        "fileName": "/Users/jan/Projects/serenity-js/node_modules/jasmine-core/lib/jasmine-core/jasmine.js",
+        "lineNumber": 6226
+      },
+      {
+        "declaringClass": "",
+        "methodName": "UserContext.it()",
+        "fileName": "/Users/jan/Projects/serenity-js/integration/protractor-jasmine/examples/failing.spec.js",
+        "lineNumber": 6
+      },
+      {
+        "declaringClass": "",
+        "methodName": "runCallback()",
+        "fileName": "timers.js",
+        "lineNumber": 705
+      },
+      {
+        "declaringClass": "",
+        "methodName": "tryOnImmediate()",
+        "fileName": "timers.js",
+        "lineNumber": 676
+      },
+      {
+        "declaringClass": "",
+        "methodName": "processImmediate()",
+        "fileName": "timers.js",
+        "lineNumber": 658
+      }
+    ],
+    "rootCause": {
+      "errorType": "Error",
+      "message": "Expected false to be true.",
+      "stackTrace": [
+        {
+          "declaringClass": "",
+          "methodName": "UserContext.it()",
+          "fileName": "/Users/jan/Projects/serenity-js/integration/protractor-jasmine/examples/failing.spec.js",
+          "lineNumber": 6
+        },
+        {
+          "declaringClass": "",
+          "methodName": "runCallback()",
+          "fileName": "timers.js",
+          "lineNumber": 705
+        },
+        {
+          "declaringClass": "",
+          "methodName": "tryOnImmediate()",
+          "fileName": "timers.js",
+          "lineNumber": 676
+        },
+        {
+          "declaringClass": "",
+          "methodName": "processImmediate()",
+          "fileName": "timers.js",
+          "lineNumber": 658
+        }
+      ]
+    }
+  }
+}

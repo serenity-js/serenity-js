@@ -5,7 +5,7 @@
 # @examples
 BOOTSTRAP=all
 
-.PHONY: all install clean lint test compile integration-test web-integration-test non-web-integration-test verify report site
+.PHONY: all install clean lint test compile integration-test integration-test-web integration-test-non-web verify report site
 all: install clean compile
 
 reinstall:
@@ -28,13 +28,13 @@ test:
 compile:
 	npm run compile
 
-integration-test: non-web-integration-test web-integration-test
+integration-test: integration-test-non-web integration-test-web
 
-non-web-integration-test:
-	npm run non-web-integration-test
+integration-test-non-web:
+	npm run integration-test:non-web
 
-web-integration-test:
-	npm run web-integration-test
+integration-test-web:
+	npm run integration-test:web
 
 verify: lint compile test integration-test
 
