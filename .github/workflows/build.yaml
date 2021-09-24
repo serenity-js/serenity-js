@@ -298,7 +298,7 @@ jobs:
       - name: Download code coverage reports (non-web integration test)
         uses: actions/download-artifact@v2
         with:
-          name: non-webintegration-test-reports
+          name: non-web-integration-test-coverage-reports
 
       - name: Merge code coverage reports
         run: make report
