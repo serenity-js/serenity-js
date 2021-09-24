@@ -101,25 +101,29 @@ describe('Photographer', function () {
                 expect(firstActivityEvents).to.have.lengthOf(4);
                 expect(secondActivityEvents).to.have.lengthOf(4);
 
-                PickEvent.from(firstActivityEvents)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty succeeds \(#1\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
-                    })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty succeeds \(#1\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
-                    });
+                // todo:
+                //  - pick first, then second, compare timestamps?
 
-                PickEvent.from(secondActivityEvents)
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/Before Betty succeeds \(#2\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
-                    })
-                    .next(ArtifactGenerated, event => {
-                        expect(event.name.value).to.match(/After Betty succeeds \(#2\)$/);
-                        expect(event.artifact).to.be.instanceof(Photo);
-                    });
+                const firstBefore   = firstActivityEvents.find(artifactGeneratedEventFor(/Before Betty succeeds \(#1\)$/));
+                const firstAfter    = firstActivityEvents.find(artifactGeneratedEventFor(/After Betty succeeds \(#1\)$/));
+
+                expect(firstBefore).is.not.undefined;
+                expect(firstBefore.artifact).to.be.instanceof(Photo);
+                expect(firstAfter).is.not.undefined;
+                expect(firstAfter.artifact).to.be.instanceof(Photo);
+                expect(firstBefore.timestamp.toMillisecondTimestamp())
+                    .to.be.lessThan(firstAfter.timestamp.toMillisecondTimestamp());
+
+                const secondBefore = secondActivityEvents.find(artifactGeneratedEventFor(/Before Betty succeeds \(#2\)$/))
+                const secondAfter  = secondActivityEvents.find(artifactGeneratedEventFor(/After Betty succeeds \(#2\)$/));
+
+                expect(secondBefore).is.not.undefined;
+                expect(secondBefore.artifact).to.be.instanceof(Photo);
+                expect(secondAfter).is.not.undefined;
+                expect(secondAfter.artifact).to.be.instanceof(Photo);
+
+                expect(secondBefore.timestamp.toMillisecondTimestamp())
+                    .to.be.lessThan(secondAfter.timestamp.toMillisecondTimestamp());
             })));
 
         it('includes the browser context in the name of the emitted artifact', async () => {
@@ -134,19 +138,22 @@ describe('Photographer', function () {
             const capabilities  = await BrowseTheWeb.as(Betty).getBrowserCapabilities();
             const events        = stringified(recorder.events);
 
-            PickEvent.from(recorder.events)
-                .next(ArtifactGenerated, event => {
-                    expect(event.name.value, events).to.equal(
-                        `${ capabilities.platformName }-${ capabilities.browserName }-${ capabilities.browserVersion }-Before Betty succeeds (#1)`,
-                    );
-                    expect(event.artifact, events).to.be.instanceof(Photo);
-                })
-                .next(ArtifactGenerated, event => {
-                    expect(event.name.value, events).to.equal(
-                        `${ capabilities.platformName }-${ capabilities.browserName }-${ capabilities.browserVersion }-After Betty succeeds (#1)`,
-                    );
-                    expect(event.artifact, events).to.be.instanceof(Photo);
-                });
+            expect(capabilities.platformName).to.not.be.undefined;
+            expect(capabilities.browserName).to.not.be.undefined;
+            expect(capabilities.browserVersion).to.not.be.undefined;
+
+            const before   = recorder.events.find(artifactGeneratedEventFor(/Before Betty succeeds \(#1\)$/));
+            const after    = recorder.events.find(artifactGeneratedEventFor(/After Betty succeeds \(#1\)$/));
+
+            expect(before.name.value, events).to.equal(
+                `${ capabilities.platformName }-${ capabilities.browserName }-${ capabilities.browserVersion }-Before Betty succeeds (#1)`,
+            );
+            expect(before.artifact, events).to.be.instanceof(Photo);
+
+            expect(after.name.value, events).to.equal(
+                `${ capabilities.platformName }-${ capabilities.browserName }-${ capabilities.browserVersion }-After Betty succeeds (#1)`,
+            );
+            expect(after.artifact, events).to.be.instanceof(Photo);
         });
     });
 });
@@ -161,4 +168,11 @@ function withCorrelationIdOf(cid: CorrelationId) {
 
         return activityId && cid.equals(activityId);
     };
+}
+
+function artifactGeneratedEventFor(expectedName: RegExp) {
+    return (event: DomainEvent): event is ArtifactGenerated => {
+        return event instanceof ArtifactGenerated
+            && expectedName.test(event.name.value);
+    }
 }
