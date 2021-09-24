@@ -37,7 +37,6 @@ const sauceCapabilities = {
     user:   process.env.SAUCE_USERNAME,
     key:    process.env.SAUCE_ACCESS_KEY,
     'sauce:options': {
-        name:               '@serenity-js/web',
         tunnelIdentifier:   process.env.SAUCE_TUNNEL_ID,
         build,
         screenResolution:   '1024x768',
@@ -45,6 +44,12 @@ const sauceCapabilities = {
 };
 
 const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
+    services: [
+        ['sauce', {
+            sauceConnect: false,
+        }]
+    ],
+
     capabilities: [{
         browserName:    'chrome',
         browserVersion: 'latest',
