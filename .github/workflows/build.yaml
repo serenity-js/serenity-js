@@ -217,13 +217,13 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: integration-test-linux
-          path: integration/web/target/
+          name: web-integration-test-linux
+          path: integration-web/web/target/
 
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
-          name: web-integration-test-reports
+          name: web-integration-test-coverage-reports
           path: |
             target/**/*
             package.json
@@ -260,7 +260,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
-          name: non-web-integration-test-reports
+          name: non-web-integration-test-coverage-reports
           path: |
             target/**/*
             package.json
@@ -294,7 +294,7 @@ jobs:
       - name: Download code coverage reports (web integration test)
         uses: actions/download-artifact@v2
         with:
-          name: web-integration-test-reports
+          name: web-integration-test-coverage-reports
       - name: Download code coverage reports (non-web integration test)
         uses: actions/download-artifact@v2
         with:
