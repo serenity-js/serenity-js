@@ -1,7 +1,6 @@
 # all
 # @serenity-js
 # @integration
-# @integration-web
 # @documentation
 # @examples
 BOOTSTRAP=all
