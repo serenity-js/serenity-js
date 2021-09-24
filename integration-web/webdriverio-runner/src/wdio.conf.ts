@@ -23,29 +23,33 @@ const localBrowser: Partial<WebdriverIOConfig> = {
                 '--headless',
                 '--disable-gpu',
                 '--disable-gpu',
-                '--window-size=800x600',
+                '--window-size=1024x768',
             ],
         }
     }],
 };
 
-const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
+const build = process.env.GITHUB_RUN_NUMBER
+    ? `@serenity-js/web (GitHub #${ process.env.GITHUB_RUN_NUMBER })`
+    : `@serenity-js/web (local ${ new Date().toISOString() })`;
+
+const sauceCapabilities = {
     user:   process.env.SAUCE_USERNAME,
     key:    process.env.SAUCE_ACCESS_KEY,
-    region: 'us', // or 'eu' or 'apac'
+    'sauce:options': {
+        name:               '@serenity-js/web',
+        tunnelIdentifier:   process.env.SAUCE_TUNNEL_ID,
+        build,
+        screenResolution:   '1024x768',
+    }
+};
 
-    services: [
-        ['sauce', {}],
-    ],
-
+const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
     capabilities: [{
-
-        browserName: 'chrome',
-        'sauce:options': {
-            tunnelIdentifier:   process.env.SAUCE_TUNNEL_ID,
-            build:              `@serenity-js/web-${ process.env.GITHUB_RUN_NUMBER }`,
-            screenResolution:   '800x600',
-        },
+        browserName:    'chrome',
+        browserVersion: 'latest',
+        platformName:   'windows',
+        ...sauceCapabilities,
     }],
 };
 
@@ -72,7 +76,7 @@ export const config: WebdriverIOConfig = {
 
     mochaOpts: {
         ui: 'bdd',
-        timeout: 3_000_000,
+        timeout: 60_000,
     },
 
     specs: [ ], // specified in tests themselves to avoid loading more than needed
@@ -83,17 +87,15 @@ export const config: WebdriverIOConfig = {
 
     runner: 'local',
 
-    // maxInstances: isCI ? 1 : undefined,
+    maxInstances: 10,
+    waitforTimeout: 10_000,
+    connectionRetryTimeout: 90_000,
 
     capabilities: [],
     ...browserConfig,
 
     // logLevel: 'debug',
     logLevel: 'error',
-
-    waitforTimeout: 10000,
-
-    connectionRetryTimeout: 90000,
 
     connectionRetryCount: 3,
 };
