@@ -208,7 +208,7 @@ jobs:
         run:  7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make web-integration-test
+        run: make integration-test-web
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
@@ -255,7 +255,7 @@ jobs:
         run:  7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make non-web-integration-test
+        run: make integration-test-non-web
 
       - uses: actions/upload-artifact@v2
         with:
@@ -271,7 +271,6 @@ jobs:
       - test-linux-node-lts-active
       - web-integration-test-linux-node-lts-active
       - non-web-integration-test-linux-node-lts-active
-      - web-integration-test-linux-node-lts-active
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
