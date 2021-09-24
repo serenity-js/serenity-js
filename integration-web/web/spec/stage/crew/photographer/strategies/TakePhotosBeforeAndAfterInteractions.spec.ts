@@ -101,9 +101,6 @@ describe('Photographer', function () {
                 expect(firstActivityEvents).to.have.lengthOf(4);
                 expect(secondActivityEvents).to.have.lengthOf(4);
 
-                // todo:
-                //  - pick first, then second, compare timestamps?
-
                 const firstBefore   = firstActivityEvents.find(artifactGeneratedEventFor(/Before Betty succeeds \(#1\)$/));
                 const firstAfter    = firstActivityEvents.find(artifactGeneratedEventFor(/After Betty succeeds \(#1\)$/));
 
@@ -111,8 +108,6 @@ describe('Photographer', function () {
                 expect(firstBefore.artifact).to.be.instanceof(Photo);
                 expect(firstAfter).is.not.undefined;
                 expect(firstAfter.artifact).to.be.instanceof(Photo);
-                expect(firstBefore.timestamp.toMillisecondTimestamp())
-                    .to.be.lessThan(firstAfter.timestamp.toMillisecondTimestamp());
 
                 const secondBefore = secondActivityEvents.find(artifactGeneratedEventFor(/Before Betty succeeds \(#2\)$/))
                 const secondAfter  = secondActivityEvents.find(artifactGeneratedEventFor(/After Betty succeeds \(#2\)$/));
@@ -121,9 +116,6 @@ describe('Photographer', function () {
                 expect(secondBefore.artifact).to.be.instanceof(Photo);
                 expect(secondAfter).is.not.undefined;
                 expect(secondAfter.artifact).to.be.instanceof(Photo);
-
-                expect(secondBefore.timestamp.toMillisecondTimestamp())
-                    .to.be.lessThan(secondAfter.timestamp.toMillisecondTimestamp());
             })));
 
         it('includes the browser context in the name of the emitted artifact', async () => {
