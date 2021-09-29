@@ -44,6 +44,8 @@ const sauceCapabilities = {
 };
 
 const sauceLabsBrowsers: Partial<WebdriverIOConfig> = {
+    user:   process.env.SAUCE_USERNAME,
+    key:    process.env.SAUCE_ACCESS_KEY,
     services: [
         ['sauce', {
             sauceConnect: false,

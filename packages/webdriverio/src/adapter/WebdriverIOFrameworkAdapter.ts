@@ -44,6 +44,8 @@ export class WebdriverIOFrameworkAdapter {
         ]));
 
         this.notifier = new WebdriverIONotifier(
+            config,
+            capabilities,
             reporter,
             this.adapter.successThreshold(),
             cid,
