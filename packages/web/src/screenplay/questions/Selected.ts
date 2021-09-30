@@ -233,12 +233,6 @@ class SelectedValues extends UIElementQuestion<Promise<string[]>> {
         const selected  = await target.locateAllChildElements(by.css('option:checked'));
 
         return selected.map(item => item.getValue());
-
-        // todo: remove
-        // const options = withAnswerOf(actor, this.target, (element: ElementFinder) => element.$$('option')
-        //     .filter(option => option.isSelected()));
-        //
-        // return promiseOf(options.map(option => Value.of(option).answeredBy(actor)));
     }
 }
 
@@ -256,9 +250,6 @@ class SelectedOption extends UIElementQuestion<Promise<string>> {
         const selected  = await target.locateChildElement(by.css('option:checked'));
 
         return selected.getText();
-
-        // todo: remove
-        // return promiseOf(withAnswerOf(actor, this.target, element => element.$('option:checked').getText()));
     }
 }
 
@@ -277,10 +268,5 @@ class SelectedOptions extends UIElementQuestion<Promise<string[]>> {
         const selected  = await target.locateAllChildElements(by.css('option:checked'));
 
         return selected.map(item => item.getText());
-
-        // todo: remove
-        // return promiseOf(withAnswerOf(actor, this.target, element => element.$$('option')
-        //     .filter(option => option.isSelected())
-        //     .map(elements => elements.getText())));
     }
 }
