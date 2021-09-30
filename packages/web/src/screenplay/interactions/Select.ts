@@ -280,7 +280,7 @@ class SelectValues implements Interaction {
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
         const target                    = await actor.answer(this.target);
-        const options: UIElementList    = await target.locateAllChildElements(by.css('options'));
+        const options: UIElementList    = await target.locateAllChildElements(by.css('option'));
 
         const desiredValues = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();
 
@@ -291,23 +291,6 @@ class SelectValues implements Interaction {
                 return option.click()
             }
         });
-        // todo: remove
-        // return Promise.all(this.values.map(value => actor.answer(value)))
-        //     .then(flatten)
-        //     .then(values => {
-        //
-        //         const
-        //             hasRequiredValue = (option: ElementFinder) =>
-        //                 Value.of(option).answeredBy(actor).then(value => !! ~values.indexOf(value));
-        //
-        //         return promiseOf(
-        //             withAnswerOf(actor, this.target, (element: ElementFinder) =>
-        //                 element.all(by.css('option'))
-        //                     .filter(optionsToSelect(hasRequiredValue))
-        //                     .each(select)
-        //             )
-        //         );
-        //     });
     }
 
     toString () {
@@ -333,15 +316,6 @@ class SelectOption implements Interaction {
         const option    = await target.locateChildElement(by.cssContainingText('option', value));
 
         return option.click();
-
-        // todo: remove
-        // return actor.answer(this.value)
-        //     .then(value => {
-        //         return promiseOf(withAnswerOf(actor, this.target, (element: ElementFinder) =>
-        //             element
-        //                 .element(by.cssContainingText('option', value)))
-        //                 .click());
-        //     });
     }
 
     toString () {
@@ -373,24 +347,6 @@ class SelectOptions implements Interaction {
                 return option.click()
             }
         });
-
-        // todo: remove
-        // return Promise.all(this.values.map(value => actor.answer(value)))
-        //     .then(flatten)
-        //     .then(values => {
-        //
-        //         const
-        //             hasRequiredText = (option: ElementFinder) =>
-        //                 option.getText().then(value => !! ~values.indexOf(value));
-        //
-        //         return promiseOf(
-        //             withAnswerOf(actor, this.target, (element: ElementFinder) =>
-        //                 element.all(by.css('option'))
-        //                     .filter(optionsToSelect(hasRequiredText))
-        //                     .each(select)
-        //             )
-        //         );
-        //     });
     }
 
     toString () {

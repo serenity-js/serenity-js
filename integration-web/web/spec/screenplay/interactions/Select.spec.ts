@@ -24,7 +24,7 @@ describe('Select', () => {
         static anotherCountryName = Target.the('another country name').located(by.css('#another-country-of-interest-name'));
     }
 
-    describe.skip('when working with single-option selects', () => {
+    describe('when working with single-option selects', () => {
 
         describe('Select.value()', () => {
 
@@ -69,7 +69,7 @@ describe('Select', () => {
         });
     });
 
-    describe.skip('when working with multi-option selects', () => {
+    describe('when working with multi-option selects', () => {
 
         describe('Select.values()', () => {
 
