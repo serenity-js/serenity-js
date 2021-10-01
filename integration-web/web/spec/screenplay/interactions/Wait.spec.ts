@@ -3,12 +3,13 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, AssertionError, Duration } from '@serenity-js/core';
-import { by, Navigate, Target, Text, Wait } from '@serenity-js/web';
+import { by, Click, Navigate, Target, Text, Wait } from '@serenity-js/web';
 
 /** @test {Wait} */
 describe('Wait', () => {
 
     const status = Target.the('header').located(by.id('status'));
+    const loadButton = Target.the('load button').located(by.id('load'));
 
     describe('for', () => {
 
@@ -16,6 +17,10 @@ describe('Wait', () => {
         it('pauses the actor flow for the length of an explicitly-set duration', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/wait/loader.html'),
+
+                Ensure.that(Text.of(status), equals('Not ready')),
+                Click.on(loadButton),
+                Ensure.that(Text.of(status), equals('Loading...')),
 
                 Wait.for(Duration.ofMilliseconds(1500)),
 
@@ -36,6 +41,8 @@ describe('Wait', () => {
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/wait/loader.html'),
 
+                Ensure.that(Text.of(status), equals('Not ready')),
+                Click.on(loadButton),
                 Wait.until(Text.of(status), equals('Ready!')),
 
                 Ensure.that(Text.of(status), equals('Ready!')),
@@ -47,7 +54,11 @@ describe('Wait', () => {
             expect(actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/wait/loader.html'),
 
+                Ensure.that(Text.of(status), equals('Not ready')),
+                Click.on(loadButton),
+
                 Wait.upTo(Duration.ofMilliseconds(10)).until(Text.of(status), equals('Ready!')),
+
             )).to.be.rejected.then((error: AssertionError) => {
                 expect(error).to.be.instanceOf(AssertionError);
                 expect(error.message).to.be.equal(`Waited 10ms for the text of the header to equal 'Ready!'`);
