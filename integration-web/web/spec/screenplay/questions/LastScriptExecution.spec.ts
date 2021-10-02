@@ -17,7 +17,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.sync} */
         /** @test {ExecuteSynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('allows the actor to retrieve the result of the script execution', () => 
+        it('allows the actor to retrieve the result of the script execution', () =>
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
     
@@ -51,7 +51,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.async} */
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('allows the actor to retrieve the result of the script execution', () => 
+        it('allows the actor to retrieve the result of the script execution', () =>
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
     
@@ -69,7 +69,7 @@ describe('LastScriptExecution', function () {
         /** @test {ExecuteScript.async} */
         /** @test {ExecuteAsynchronousScript} */
         /** @test {LastScriptExecution} */
-        it('returns undefined or null if the script did not return any result', () => 
+        it('returns undefined or null if the script did not return any result', () =>
             actorCalled('Joe').attemptsTo(
                 Navigate.to('/screenplay/questions/last-script-execution/result.html'),
     
@@ -84,7 +84,7 @@ describe('LastScriptExecution', function () {
 
     /** @test {ExecuteAsynchronousScript} */
     /** @test {LastScriptExecution} */
-    it(`complains if the script hasn't been executed yet`, () => 
+    it(`complains if the script hasn't been executed yet`, () =>
         expect(actorCalled('Joe').attemptsTo(
             Navigate.to('/screenplay/questions/last-script-execution/result.html'),
     
