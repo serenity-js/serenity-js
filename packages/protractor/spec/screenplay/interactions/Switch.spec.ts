@@ -12,7 +12,7 @@ import { pageFromTemplate } from '../../fixtures';
 import { UIActors } from '../../UIActors';
 
 /** @test {Switch} */
-describe.skip('Switch', () => {
+describe('Switch', () => {
 
     const
         h1 = Target.the('header').located(by.css('h1')),

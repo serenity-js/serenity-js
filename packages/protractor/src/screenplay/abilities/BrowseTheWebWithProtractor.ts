@@ -1,6 +1,6 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
 import { BrowserCapabilities, BrowseTheWeb, Key, UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
-import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser } from 'protractor';
+import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
@@ -254,7 +254,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      */
     switchToFrame(elementOrIndexOrName: number | string | UIElement): Promise<void> {
         const elf = elementOrIndexOrName instanceof ProtractorElement
-            ? elementOrIndexOrName.nativeElement()
+            ? elementOrIndexOrName.nativeElement().getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
             : elementOrIndexOrName;
 
         // incorrect type definition in selenium-webdriver prevents us from providing a string argument
