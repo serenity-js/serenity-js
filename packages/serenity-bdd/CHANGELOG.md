@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.2](https://github.com/serenity-js/serenity-js/compare/v2.32.1...v2.32.2) (2021-10-04)
+
+
+### Bug Fixes
+
+* **rest:** reverted axios to 0.21.4 to avoid issue axios/axios[#4124](https://github.com/serenity-js/serenity-js/issues/4124) introduced in version 0.22.0 ([ce1fc7f](https://github.com/serenity-js/serenity-js/commit/ce1fc7f8c8dcee0c0f41a2a2663b9ebe18de740d))
+
+
+
+
+
 ## [2.32.1](https://github.com/serenity-js/serenity-js/compare/v2.32.0...v2.32.1) (2021-09-17)
 
 **Note:** Version bump only for package @serenity-js/serenity-bdd
