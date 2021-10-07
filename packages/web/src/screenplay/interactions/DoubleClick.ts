@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { UIElement } from '../../ui';
-import { UIElementInteraction } from './UIElementInteraction';
+import { Element } from '../../ui';
+import { ElementInteraction } from './ElementInteraction';
 
 /**
  * @desc
@@ -56,28 +56,28 @@ import { UIElementInteraction } from './UIElementInteraction';
  *
  * @see {@link Target}
  *
- * @extends {UIElementInteraction}
+ * @extends {ElementInteraction}
  */
-export class DoubleClick extends UIElementInteraction {
+export class DoubleClick extends ElementInteraction {
 
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<UIElement>} target
+     * @param {Answerable<Element>} target
      *  The element to be double-clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<UIElement>): Interaction {
+    static on(target: Answerable<Element>): Interaction {
         return new DoubleClick(target);
     }
 
     /**
-     * @param {Answerable<UIElement>} target
+     * @param {Answerable<Element>} target
      *  The element to be double-clicked on
      */
-    constructor(private readonly target: Answerable<UIElement>) {
+    constructor(private readonly target: Answerable<Element>) {
         super(formatted `#actor double-clicks on ${ target }`);
     }
 

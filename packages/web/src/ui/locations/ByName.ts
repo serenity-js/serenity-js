@@ -1,6 +1,6 @@
-import { UIElementLocation } from './UIElementLocation';
+import { ElementLocation } from './ElementLocation';
 
-export class ByName extends UIElementLocation {
+export class ByName extends ElementLocation {
     constructor(value: string) {
         super(`by name "${ value }"`, value);
     }

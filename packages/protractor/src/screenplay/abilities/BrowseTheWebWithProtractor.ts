@@ -1,5 +1,5 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Key, UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Element, ElementList, ElementLocation, ElementLocator,Key } from '@serenity-js/web';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
@@ -37,8 +37,8 @@ import { ProtractorElement, ProtractorElementList, ProtractorElementLocator } fr
  */
 export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
-    private readonly $:  UIElementLocator<ElementFinder>;
-    private readonly $$: UIElementLocator<ElementArrayFinder>;
+    private readonly $:  ElementLocator<ElementFinder>;
+    private readonly $$: ElementLocator<ElementArrayFinder>;
 
     navigateTo(destination: string): Promise<void> {
         return promiseOf(this.browser.get(destination)
@@ -69,12 +69,12 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promiseOf(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
     }
 
-    locateElementAt(location: UIElementLocation): Promise<UIElement> {
+    locateElementAt(location: ElementLocation): Promise<Element> {
         return this.$.locate(location)
             .then(elf => new ProtractorElement(this.browser, elf, location));
     }
 
-    locateAllElementsAt(location: UIElementLocation): Promise<UIElementList> {
+    locateAllElementsAt(location: ElementLocation): Promise<ElementList> {
         return this.$$.locate(location)
             .then(elf => new ProtractorElementList(this.browser, elf, location));
     }
@@ -252,7 +252,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<void>}
      */
-    switchToFrame(elementOrIndexOrName: number | string | UIElement): Promise<void> {
+    switchToFrame(elementOrIndexOrName: number | string | Element): Promise<void> {
         const elf = elementOrIndexOrName instanceof ProtractorElement
             ? elementOrIndexOrName.nativeElement().getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
             : elementOrIndexOrName;

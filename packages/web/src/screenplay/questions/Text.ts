@@ -1,14 +1,14 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { UIElement, UIElementList } from '../../ui';
+import { Element, ElementList } from '../../ui';
+import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement, TargetNestedElements } from './targets';
-import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
  *  Resolves to the visible (i.e. not hidden by CSS) `innerText` of:
  *  - a given {@link WebElement}, represented by Answerable<{@link @wdio/types~Element}>
- *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~UIElementList}>
+ *  - a group of {@link WebElement}s, represented by Answerable<{@link @wdio/types~ElementList}>
  *
  *  The result includes the visible text of any sub-elements, without any leading or trailing whitespace.
  *
@@ -80,39 +80,39 @@ export class Text {
      *  Retrieves text of a single {@link WebElement},
      *  represented by Answerable<{@link @wdio/types~Element}>.
      *
-     * @param {Answerable<UIElement>} element
-     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<UIElement>, Promise<string>>}
+     * @param {Answerable<Element>} element
+     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<Element>, Promise<string>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static of(element: Answerable<UIElement>): Question<Promise<string>> & MetaQuestion<Answerable<UIElement>, Promise<string>> {
+    static of(element: Answerable<Element>): Question<Promise<string>> & MetaQuestion<Answerable<Element>, Promise<string>> {
         return new TextOfSingleElement(element);
     }
 
     /**
      * @desc
      *  Retrieves text of a group of {@link WebElement}s,
-     *  represented by Answerable<{@link @wdio/types~UIElementList}>
+     *  represented by Answerable<{@link @wdio/types~ElementList}>
      *
-     * @param {Answerable<UIElementList>} elements
-     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<UIElement>, Promise<string[]>>}
+     * @param {Answerable<ElementList>} elements
+     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<Element>, Promise<string[]>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: Answerable<UIElementList>): Question<Promise<string[]>> & MetaQuestion<Answerable<UIElement>, Promise<string[]>> {
+    static ofAll(elements: Answerable<ElementList>): Question<Promise<string[]>> & MetaQuestion<Answerable<Element>, Promise<string[]>> {
         return new TextOfMultipleElements(elements);
     }
 }
 
 class TextOfSingleElement
-    extends UIElementQuestion<Promise<string>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<string>>
+    extends ElementQuestion<Promise<string>>
+    implements MetaQuestion<Answerable<Element>, Promise<string>>
 {
-    constructor(private readonly element: Answerable<UIElement>) {
+    constructor(private readonly element: Answerable<Element>) {
         super(`the text of ${ element }`);
     }
 
-    of(parent: Answerable<UIElement>): Question<Promise<string>> {
+    of(parent: Answerable<Element>): Question<Promise<string>> {
         return new TextOfSingleElement(new TargetNestedElement(parent, this.element));
     }
 
@@ -124,14 +124,14 @@ class TextOfSingleElement
 }
 
 class TextOfMultipleElements
-    extends UIElementQuestion<Promise<string[]>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<string[]>>
+    extends ElementQuestion<Promise<string[]>>
+    implements MetaQuestion<Answerable<Element>, Promise<string[]>>
 {
-    constructor(private readonly elements: Answerable<UIElementList>) {
+    constructor(private readonly elements: Answerable<ElementList>) {
         super(`the text of ${ elements }`);
     }
 
-    of(parent: Answerable<UIElement>): Question<Promise<string[]>> {
+    of(parent: Answerable<Element>): Question<Promise<string[]>> {
         return new TextOfMultipleElements(new TargetNestedElements(parent, this.elements));
     }
 

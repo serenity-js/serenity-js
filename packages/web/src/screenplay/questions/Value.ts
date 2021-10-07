@@ -1,9 +1,9 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
+import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
-import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -31,21 +31,21 @@ import { UIElementQuestion } from './UIElementQuestion';
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Value
-    extends UIElementQuestion<Promise<string>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<string>>
+    extends ElementQuestion<Promise<string>>
+    implements MetaQuestion<Answerable<Element>, Promise<string>>
 {
     /**
-     * @param {Answerable<UIElement>} element
+     * @param {Answerable<Element>} element
      * @returns {Value}
      */
-    static of(element: Answerable<UIElement>): Question<Promise<string>> & MetaQuestion<Answerable<UIElement>, Promise<string>> {
+    static of(element: Answerable<Element>): Question<Promise<string>> & MetaQuestion<Answerable<Element>, Promise<string>> {
         return new Value(element);
     }
 
     /**
-     * @param {Answerable<UIElement>} element
+     * @param {Answerable<Element>} element
      */
-    constructor(private readonly element: Answerable<UIElement>) {
+    constructor(private readonly element: Answerable<Element>) {
         super(formatted`the value of ${ element }`);
     }
 
@@ -54,12 +54,12 @@ export class Value
      *  Resolves to the value of a given [`input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
      *  {@link WebElement}, located in the context of a `parent` element.
      *
-     * @param {Answerable<UIElement>} parent
+     * @param {Answerable<Element>} parent
      * @returns {Question<Promise<string>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<UIElement>): Question<Promise<string>> {
+    of(parent: Answerable<Element>): Question<Promise<string>> {
         return new Value(new TargetNestedElement(parent, this.element));
     }
 

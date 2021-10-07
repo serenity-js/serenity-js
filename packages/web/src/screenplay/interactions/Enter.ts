@@ -1,9 +1,9 @@
 import { Answerable, AnswersQuestions, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
+import { ElementInteraction } from './ElementInteraction';
 import { EnterBuilder } from './EnterBuilder';
-import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -35,9 +35,9 @@ import { UIElementInteraction } from './UIElementInteraction';
  *
  * @see {@link Target}
  *
- * @extends {UIElementInteraction}
+ * @extends {ElementInteraction}
  */
-export class Enter extends UIElementInteraction {
+export class Enter extends ElementInteraction {
 
     /**
      * @desc
@@ -50,7 +50,7 @@ export class Enter extends UIElementInteraction {
      */
     static theValue(...value: Array<Answerable<string | number | string[] | number[]>>): EnterBuilder {
         return {
-            into: (field: Answerable<UIElement>  /* todo Question<AlertPromise> | AlertPromise */) =>
+            into: (field: Answerable<Element>  /* todo Question<AlertPromise> | AlertPromise */) =>
                 new Enter(value, field),
         };
     }
@@ -59,12 +59,12 @@ export class Enter extends UIElementInteraction {
      * @param {Array<Answerable<string | number | string[] | number[]>>} value
      *  The value to be entered
      *
-     * @param {Answerable<UIElement>} field
+     * @param {Answerable<Element>} field
      *  The field to enter the value into
      */
     constructor(
         private readonly value: Array<Answerable<string | number | string[] | number[]>>,
-        private readonly field: Answerable<UIElement> /* todo | Question<AlertPromise> | AlertPromise */,
+        private readonly field: Answerable<Element> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
         super(formatted `#actor enters ${ value.join(', ') } into ${ field }`);
     }

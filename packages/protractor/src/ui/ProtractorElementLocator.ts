@@ -1,19 +1,19 @@
-import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText, ByTagName, ByXPath, UIElementLocator } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText, ByTagName, ByXPath, ElementLocator } from '@serenity-js/web';
 import { by } from 'protractor';
 import { Locator, WebElement } from 'selenium-webdriver';
 
-export class ProtractorElementLocator<T extends WebElement> extends UIElementLocator<T> {
+export class ProtractorElementLocator<T extends WebElement> extends ElementLocator<T> {
     constructor(private readonly fn: (locator: Locator) => T) {
         super();
 
-        this.when(ByCss,                location => this.asUIElement(this.fn(by.css(location.value))))
-            .when(ByCssContainingText,  location => this.asUIElement(this.fn(by.cssContainingText(location.value, location.text) as Locator)))
-            .when(ById,                 location => this.asUIElement(this.fn(by.id(location.value))))
-            .when(ByName,               location => this.asUIElement(this.fn(by.name(location.value))))
-            .when(ByLinkText,           location => this.asUIElement(this.fn(by.linkText(location.value))))
-            .when(ByPartialLinkText,    location => this.asUIElement(this.fn(by.partialLinkText(location.value))))
-            .when(ByTagName,            location => this.asUIElement(this.fn(by.tagName(location.value))))
-            .when(ByXPath,              location => this.asUIElement(this.fn(by.xpath(location.value))))
+        this.when(ByCss,                location => this.asElement(this.fn(by.css(location.value))))
+            .when(ByCssContainingText,  location => this.asElement(this.fn(by.cssContainingText(location.value, location.text) as Locator)))
+            .when(ById,                 location => this.asElement(this.fn(by.id(location.value))))
+            .when(ByName,               location => this.asElement(this.fn(by.name(location.value))))
+            .when(ByLinkText,           location => this.asElement(this.fn(by.linkText(location.value))))
+            .when(ByPartialLinkText,    location => this.asElement(this.fn(by.partialLinkText(location.value))))
+            .when(ByTagName,            location => this.asElement(this.fn(by.tagName(location.value))))
+            .when(ByXPath,              location => this.asElement(this.fn(by.xpath(location.value))))
     }
 
     /**
@@ -26,7 +26,7 @@ export class ProtractorElementLocator<T extends WebElement> extends UIElementLoc
      * @returns {Promise<T>>}
      * @private
      */
-    private asUIElement(elementFinder: T): Promise<T> {
+    private asElement(elementFinder: T): Promise<T> {
         return Promise.resolve(new Proxy(elementFinder, {
             has: (target, property) =>
                 property !== 'then',

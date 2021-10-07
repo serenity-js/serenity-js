@@ -1,12 +1,12 @@
-import { UIElementLocation } from '../locations';
-import { UIElementList } from './UIElementList';
+import { ElementLocation } from '../locations';
+import { ElementList } from './ElementList';
 
-export interface UIElement {
+export interface Element {
     nativeElement(): any
 
-    location(): UIElementLocation;
-    locateChildElement(locator: UIElementLocation): Promise<UIElement>;
-    locateAllChildElements(locator: UIElementLocation): Promise<UIElementList>;
+    location(): ElementLocation;
+    locateChildElement(locator: ElementLocation): Promise<Element>;
+    locateAllChildElements(locator: ElementLocation): Promise<ElementList>;
 
     enterValue(value: string | number | Array<string | number>): Promise<void>;
     clearValue(): Promise<void>;

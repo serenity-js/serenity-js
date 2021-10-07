@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Answerable, Duration, Log } from '@serenity-js/core';
-import { by, Click, CSSClasses, Navigate, TakeScreenshot, Target, Text, UIElement, Wait } from '@serenity-js/web';
+import { by, Click, CSSClasses, Navigate, TakeScreenshot, Target, Text, Element, Wait } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 /**
@@ -508,7 +508,7 @@ describe('Target', () => {
                     .where(CSSClasses, contain('buy'));
 
             // eslint-disable-next-line unicorn/consistent-function-scoping
-            const LinkTo = (item: Answerable<UIElement>) =>
+            const LinkTo = (item: Answerable<Element>) =>
                 Target.the('link to element').of(item).located(by.css('a'));
 
             /**

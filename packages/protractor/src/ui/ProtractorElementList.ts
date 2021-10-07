@@ -1,23 +1,23 @@
 import { LogicError } from '@serenity-js/core';
-import { UIElement, UIElementList, UIElementLocation } from '@serenity-js/web';
+import { Element, ElementList, ElementLocation } from '@serenity-js/web';
 import { ElementArrayFinder, ElementFinder, ProtractorBrowser } from 'protractor';
 import { ensure, isDefined } from 'tiny-types';
 
 import { promiseOf } from '../promiseOf';
 import { ProtractorElement } from './ProtractorElement';
 
-export class ProtractorElementList implements UIElementList {
+export class ProtractorElementList implements ElementList {
     constructor(
         private readonly browser: ProtractorBrowser,
         private readonly elements: ElementArrayFinder,
-        private readonly elementLocation: UIElementLocation,
+        private readonly elementLocation: ElementLocation,
     ) {
         ensure('browser', browser, isDefined());
         ensure('elements', elements, isDefined());
         ensure('elementLocation', elementLocation, isDefined());
     }
 
-    location(): UIElementLocation {
+    location(): ElementLocation {
         return this.elementLocation;
     }
 
@@ -25,23 +25,23 @@ export class ProtractorElementList implements UIElementList {
         return promiseOf(this.elements.count());
     }
 
-    first(): UIElement {
-        return this.asUIElement(this.elements.first());
+    first(): Element {
+        return this.asElement(this.elements.first());
     }
 
-    last(): UIElement {
-        return this.asUIElement(this.elements.last());
+    last(): Element {
+        return this.asElement(this.elements.last());
     }
 
-    get(index: number): UIElement {
+    get(index: number): Element {
         if (! this.elements.get(index)) {
             throw new LogicError(`There's no item at index ${ index } within elements located ${ this.elementLocation } `);
         }
 
-        return this.asUIElement(this.elements.get(index));
+        return this.asElement(this.elements.get(index));
     }
 
-    map<O>(fn: (element: UIElement, index?: number, elements?: UIElementList) => Promise<O> | O): Promise<O[]> {
+    map<O>(fn: (element: Element, index?: number, elements?: ElementList) => Promise<O> | O): Promise<O[]> {
         return promiseOf(
             this.elements.map((element?: ElementFinder, i?: number) =>
                 fn(new ProtractorElement(this.browser, element, this.elementLocation), i, this)
@@ -49,9 +49,9 @@ export class ProtractorElementList implements UIElementList {
         );
     }
 
-    filter(fn: (element: UIElement, index?: number) => boolean): UIElementList {
+    filter(fn: (element: Element, index?: number) => boolean): ElementList {
         const matching = this.elements.filter(
-            (element: ElementFinder, index: number) => fn(this.asUIElement(element), index)
+            (element: ElementFinder, index: number) => fn(this.asElement(element), index)
         ) as ElementArrayFinder;
 
         // fixme: this is WDIO-specific; review
@@ -63,13 +63,13 @@ export class ProtractorElementList implements UIElementList {
         return new ProtractorElementList(this.browser, matching, this.elementLocation);
     }
 
-    forEach(fn: (element: UIElement, index?: number, elements?: UIElementList) => Promise<void> | void): Promise<void> {
+    forEach(fn: (element: Element, index?: number, elements?: ElementList) => Promise<void> | void): Promise<void> {
         return promiseOf(this.elements.each((element: ElementFinder, index: number) => {
             return fn(new ProtractorElement(this.browser, element, this.elementLocation), index, this);
         }));
     }
 
-    private asUIElement(elementFinder: ElementFinder): UIElement {
+    private asElement(elementFinder: ElementFinder): Element {
         return new ProtractorElement(this.browser, elementFinder, this.elementLocation)
     }
 }

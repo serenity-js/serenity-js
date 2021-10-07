@@ -1,3 +1,3 @@
-import { UIElementLocations } from './UIElementLocations';
+import { ElementLocations } from './ElementLocations';
 
-export const by = new UIElementLocations();
+export const by = new ElementLocations();

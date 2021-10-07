@@ -38,7 +38,7 @@ export class ExecuteScript {
      *
      *  Any arguments provided in addition to the script will be included as script arguments and may be referenced
      *  using the `arguments` object. Arguments may be a `boolean`, `number`, `string`
-     *  or {@link Target} (`Answerable<UIElement>`).
+     *  or {@link Target} (`Answerable<Element>`).
      *  Arrays and objects may also be used as script arguments as long as each item adheres
      *  to the types previously mentioned.
      *

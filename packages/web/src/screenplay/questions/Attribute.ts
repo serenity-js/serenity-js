@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
+import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
-import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -54,12 +54,12 @@ import { UIElementQuestion } from './UIElementQuestion';
  *          ),
  *      )
  *
- * @extends {UIElementQuestion}
+ * @extends {ElementQuestion}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class Attribute
-    extends UIElementQuestion<Promise<string>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<string>>
+    extends ElementQuestion<Promise<string>>
+    implements MetaQuestion<Answerable<Element>, Promise<string>>
 {
     /**
      * @param {Answerable<string>} name
@@ -71,11 +71,11 @@ export class Attribute
 
     /**
      * @param {Answerable<string>} name
-     * @param {@serenity-js/core/lib/screenplay~Answerable<UIElement>} [element]
+     * @param {@serenity-js/core/lib/screenplay~Answerable<Element>} [element]
      */
     constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: Answerable<UIElement>,
+        private readonly element?: Answerable<Element>,
     ) {
         super(`"${ name }" attribute of ${ element }`);
     }
@@ -85,13 +85,13 @@ export class Attribute
      *  Resolves to the value of a HTML attribute of the `target` element,
      *  located in the context of a `parent` element.
      *
-     * @param {Answerable<UIElement>} parent
+     * @param {Answerable<Element>} parent
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<UIElement>): Question<Promise<string>> {
+    of(parent: Answerable<Element>): Question<Promise<string>> {
         return new Attribute(
             this.name,
             this.element
