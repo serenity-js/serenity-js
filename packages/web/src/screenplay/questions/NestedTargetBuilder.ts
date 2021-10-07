@@ -1,6 +1,6 @@
 import { Answerable } from '@serenity-js/core';
 
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
 import { TargetBuilder } from './TargetBuilder';
 
 /**
@@ -26,5 +26,5 @@ export interface NestedTargetBuilder<T> {
      * @see {@link Target}
      * @see {@link TargetBuilder}
      */
-    of: (parent: Answerable<UIElement>) => TargetBuilder<T>;
+    of: (parent: Answerable<Element>) => TargetBuilder<T>;
 }

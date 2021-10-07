@@ -1,6 +1,6 @@
 import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Key, UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
-import type { Browser, Element, ElementArray } from 'webdriverio';
+import { BrowserCapabilities, BrowseTheWeb, Element, ElementList, ElementLocation, ElementLocator,Key } from '@serenity-js/web';
+import type * as wdio from 'webdriverio';
 
 import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator } from '../../ui';
 
@@ -40,8 +40,8 @@ import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator }
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
-    private readonly $:  UIElementLocator<Element<'async'>>;
-    private readonly $$: UIElementLocator<ElementArray>;
+    private readonly $:  ElementLocator<wdio.Element<'async'>>;
+    private readonly $$: ElementLocator<wdio.ElementArray>;
 
     /**
      * @private
@@ -52,7 +52,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      * @param {@wdio/types~Browser} browserInstance
      * @returns {BrowseTheWebWithWebdriverIO}
      */
-    static using(browserInstance: Browser<'async'>): BrowseTheWebWithWebdriverIO {
+    static using(browserInstance: wdio.Browser<'async'>): BrowseTheWebWithWebdriverIO {
         return new BrowseTheWebWithWebdriverIO(browserInstance);
     }
 
@@ -60,7 +60,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      * @desc
      *  Used to access the Actor's ability to {@link BrowseTheWebWithWebdriverIO}
      *  from within the {@link @serenity-js/core/lib/screenplay~Interaction} classes,
-     *  such as {@link Navigate}.
+     *  such as {@link @serenity-js/web/lib/screenplay/interactions~Navigate}.
      *
      * @param {@serenity-js/core/lib/screenplay/actor~UsesAbilities} actor
      * @return {BrowseTheWebWithWebdriverIO}
@@ -72,10 +72,10 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     /**
      * @param {@wdio/types~Browser} browser
      */
-    constructor(public readonly browser: Browser<'async'>) {
+    constructor(public readonly browser: wdio.Browser<'async'>) {
         super();
 
-        this.$  = new WebdriverIOElementLocator(this.browser.$.bind(this.browser) as unknown as (selector: string) => Promise<Element<'async'>>);
+        this.$  = new WebdriverIOElementLocator(this.browser.$.bind(this.browser) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
         this.$$ = new WebdriverIOElementLocator(this.browser.$$.bind(this.browser));
     }
 
@@ -115,17 +115,17 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
     }
 
-    locateElementAt(location: UIElementLocation): Promise<UIElement> {
+    locateElementAt(location: ElementLocation): Promise<Element> {
         return this.$.locate(location)
             .then(element => new WebdriverIOElement(this.browser, element, location));
     }
 
-    locateAllElementsAt(location: UIElementLocation): Promise<UIElementList> {
+    locateAllElementsAt(location: ElementLocation): Promise<ElementList> {
         return this.$$.locate(location)
             .then(elements => new WebdriverIOElementList(this.browser, elements, location));
     }
 
-    switchToFrame(targetOrIndex: UIElement | number | string): Promise<void> {
+    switchToFrame(targetOrIndex: Element | number | string): Promise<void> {
         throw new Error('Not implemented, yet');
     }
     switchToParentFrame(): Promise<void> {

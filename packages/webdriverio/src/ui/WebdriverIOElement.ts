@@ -1,19 +1,19 @@
-import { UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
-import { Browser, Element, ElementArray } from 'webdriverio';
+import { Element, ElementList, ElementLocation, ElementLocator } from '@serenity-js/web';
+import * as wdio from 'webdriverio';
 
 import { WebdriverIOElementList } from './WebdriverIOElementList';
 import { WebdriverIOElementLocator } from './WebdriverIOElementLocator';
 
-export class WebdriverIOElement implements UIElement {
-    private readonly $:  UIElementLocator<Element<'async'>>;
-    private readonly $$: UIElementLocator<ElementArray>;
+export class WebdriverIOElement implements Element {
+    private readonly $:  ElementLocator<wdio.Element<'async'>>;
+    private readonly $$: ElementLocator<wdio.ElementArray>;
 
     constructor(
-        private readonly browser: Browser<'async'>,
-        private readonly element: Element<'async'>,
-        private readonly elementLocation: UIElementLocation,
+        private readonly browser: wdio.Browser<'async'>,
+        private readonly element: wdio.Element<'async'>,
+        private readonly elementLocation: ElementLocation,
     ) {
-        this.$  = new WebdriverIOElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => Promise<Element<'async'>>);
+        this.$  = new WebdriverIOElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
         this.$$ = new WebdriverIOElementLocator(this.element.$$.bind(this.element));
     }
 
@@ -21,17 +21,17 @@ export class WebdriverIOElement implements UIElement {
         return this.element;
     }
 
-    location(): UIElementLocation {
+    location(): ElementLocation {
         return this.elementLocation;
     }
 
-    locateChildElement(location: UIElementLocation): Promise<UIElement> {
+    locateChildElement(location: ElementLocation): Promise<Element> {
         return this.$
             .locate(location)
             .then(element => new WebdriverIOElement(this.browser, element, location));
     }
 
-    locateAllChildElements(location: UIElementLocation): Promise<UIElementList> {
+    locateAllChildElements(location: ElementLocation): Promise<ElementList> {
         return this.$$
             .locate(location)
             .then(elements => new WebdriverIOElementList(this.browser, elements, location));

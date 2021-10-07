@@ -1,4 +1,4 @@
-import { UIElement, UIElementList, UIElementLocation, UIElementLocator } from '@serenity-js/web';
+import { Element, ElementList, ElementLocation, ElementLocator } from '@serenity-js/web';
 import { ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 import { ensure, isDefined } from 'tiny-types';
@@ -7,14 +7,14 @@ import { promiseOf } from '../promiseOf';
 import { ProtractorElementList } from './ProtractorElementList';
 import { ProtractorElementLocator } from './ProtractorElementLocator';
 
-export class ProtractorElement implements UIElement {
-    private readonly $:  UIElementLocator<ElementFinder>;
-    private readonly $$: UIElementLocator<ElementArrayFinder>;
+export class ProtractorElement implements Element {
+    private readonly $:  ElementLocator<ElementFinder>;
+    private readonly $$: ElementLocator<ElementArrayFinder>;
 
     constructor(
         private readonly browser: ProtractorBrowser,
         private readonly element: ElementFinder,
-        private readonly elementLocation: UIElementLocation,
+        private readonly elementLocation: ElementLocation,
     ) {
         ensure('browser', browser, isDefined());
         ensure('element', element, isDefined());
@@ -28,17 +28,17 @@ export class ProtractorElement implements UIElement {
         return this.element;
     }
 
-    location(): UIElementLocation {
+    location(): ElementLocation {
         return this.elementLocation;
     }
 
-    locateChildElement(location: UIElementLocation): Promise<UIElement> {
+    locateChildElement(location: ElementLocation): Promise<Element> {
         return this.$
             .locate(location)
             .then(element => new ProtractorElement(this.browser, element, location));
     }
 
-    locateAllChildElements(location: UIElementLocation): Promise<UIElementList> {
+    locateAllChildElements(location: ElementLocation): Promise<ElementList> {
         return this.$$
             .locate(location)
             .then(elements => new ProtractorElementList(this.browser, elements, location));

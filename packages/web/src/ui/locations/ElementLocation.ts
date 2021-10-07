@@ -1,4 +1,4 @@
-export abstract class UIElementLocation {
+export abstract class ElementLocation {
     constructor(
         public readonly description: string,
         public readonly value: string,

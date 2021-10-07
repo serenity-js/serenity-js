@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Answerable, AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { UIElement, UIElementList, UIElementLocation } from '../../ui';
+import { Element, ElementList, ElementLocation } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
+import { ElementQuestion } from './ElementQuestion';
 import { ElementListAdapter } from './lists';
 import { NestedTargetBuilder } from './NestedTargetBuilder';
 import { TargetBuilder } from './TargetBuilder';
-import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -16,9 +16,9 @@ import { UIElementQuestion } from './UIElementQuestion';
  *
  * @see {@link @serenity-js/core/lib/screenplay/questions~List}
  *
- * @typedef {List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>} TargetList
+ * @typedef {List<ElementListAdapter, Promise<Element>, Promise<ElementList>>} TargetList
  */
-export type TargetList = List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
+export type TargetList = List<ElementListAdapter, Promise<Element>, Promise<ElementList>>;
 
 /**
  * @desc
@@ -84,7 +84,7 @@ export type TargetList = List<ElementListAdapter, Promise<UIElement>, Promise<UI
  *   import { by, Target } from '@serenity-js/webdriverio';
  *   import { Element } from 'webdriverio';
  *
- *   const apple: Question<Promise<UIElement>>  =
+ *   const apple: Question<Promise<Element>>  =
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .first()
  *
@@ -94,7 +94,7 @@ export type TargetList = List<ElementListAdapter, Promise<UIElement>, Promise<UI
  *   import { endsWith } from '@serenity-js/assertions';
  *   import { Element } from 'webdriverio';
  *
- *   const date: Question<Promise<UIElement>>  =
+ *   const date: Question<Promise<Element>>  =
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .last()
  *
@@ -103,7 +103,7 @@ export type TargetList = List<ElementListAdapter, Promise<UIElement>, Promise<UI
  *   import { by, Target } from '@serenity-js/webdriverio';
  *   import { Element } from 'webdriverio';
  *
- *   const banana: Question<Promise<UIElement>>  =
+ *   const banana: Question<Promise<Element>>  =
  *       Target.all('items in the basket').located(by.css('ul#basket li'))
  *          .get(1)
  *
@@ -122,7 +122,7 @@ export type TargetList = List<ElementListAdapter, Promise<UIElement>, Promise<UI
  *       static link      = Target.the('link').located(by.css('a'));
  *   }
  *
- *   const date: Question<Promise<UIElement>>  =
+ *   const date: Question<Promise<Element>>  =
  *       Basket.items
  *          .where(Text, endsWith('e'))
  *          .where(CSSClasses.of(Basket.link), contain('has-discount'))
@@ -174,13 +174,13 @@ export class Target {
      */
     static the(description: string): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement> {
         return {
-            located(location: UIElementLocation): TargetElement {
+            located(location: ElementLocation): TargetElement {
                 return new TargetElement(`the ${ description }`, location);
             },
 
-            of(parent: Answerable<UIElement>) {
+            of(parent: Answerable<Element>) {
                 return {
-                    located(locator: UIElementLocation): TargetNestedElement {
+                    located(locator: ElementLocation): TargetNestedElement {
                         return new TargetNestedElement(parent, new TargetElement(description, locator));
                     }
                 }
@@ -199,13 +199,13 @@ export class Target {
      */
     static all(description: string): TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements> {
         return {
-            located(locator: UIElementLocation): TargetElements {
+            located(locator: ElementLocation): TargetElements {
                 return new TargetElements(description, locator);
             },
 
-            of(parent: Answerable<UIElement>) {
+            of(parent: Answerable<Element>) {
                 return {
-                    located(locator: UIElementLocation): TargetNestedElements {
+                    located(locator: ElementLocation): TargetNestedElements {
                         return new TargetNestedElements(parent, new TargetElements(description, locator));
                     }
                 }
@@ -224,20 +224,20 @@ export class Target {
  * @see {@link Target}
  */
 export class TargetElements
-    extends Question<Promise<UIElementList>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<UIElementList>>
+    extends Question<Promise<ElementList>>
+    implements MetaQuestion<Answerable<Element>, Promise<ElementList>>
 {
-    private readonly list: List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
+    private readonly list: List<ElementListAdapter, Promise<Element>, Promise<ElementList>>;
 
     constructor(
         description: string,
-        private readonly location: UIElementLocation,
+        private readonly location: ElementLocation,
     ) {
         super(description);
         this.list = new List(new ElementListAdapter(this));
     }
 
-    of(parent: Answerable<UIElement>): TargetNestedElements {
+    of(parent: Answerable<Element>): TargetNestedElements {
         return new TargetNestedElements(parent, this);
     }
 
@@ -245,26 +245,26 @@ export class TargetElements
         return this.list.count();
     }
 
-    first(): Question<Promise<UIElement>> {
+    first(): Question<Promise<Element>> {
         return this.list.first()
     }
 
-    last(): Question<Promise<UIElement>> {
+    last(): Question<Promise<Element>> {
         return this.list.last()
     }
 
-    get(index: number): Question<Promise<UIElement>> {
+    get(index: number): Question<Promise<Element>> {
         return this.list.get(index);
     }
 
     where<Answer_Type>(
-        question: MetaQuestion<Answerable<UIElement>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<Element>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>,
     ): TargetList {
         return this.list.where(question, expectation);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElementList> {
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
         return BrowseTheWeb.as(actor).locateAllElementsAt(this.location);
     }
 }
@@ -279,20 +279,20 @@ export class TargetElements
  * @see {@link Target}
  */
 export class TargetNestedElements
-    extends UIElementQuestion<Promise<UIElementList>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<UIElementList>>
+    extends ElementQuestion<Promise<ElementList>>
+    implements MetaQuestion<Answerable<Element>, Promise<ElementList>>
 {
-    private readonly list: List<ElementListAdapter, Promise<UIElement>, Promise<UIElementList>>;
+    private readonly list: List<ElementListAdapter, Promise<Element>, Promise<ElementList>>;
 
     constructor(
-        private readonly parent: Answerable<UIElement>,
-        private readonly children: Answerable<UIElementList>,
+        private readonly parent: Answerable<Element>,
+        private readonly children: Answerable<ElementList>,
     ) {
         super(`${ children } of ${ parent }`);
         this.list = new List(new ElementListAdapter(this));
     }
 
-    of(parent: Answerable<UIElement>): Question<Promise<UIElementList>> {
+    of(parent: Answerable<Element>): Question<Promise<ElementList>> {
         return new TargetNestedElements(parent, this);
     }
 
@@ -300,26 +300,26 @@ export class TargetNestedElements
         return this.list.count();
     }
 
-    first(): Question<Promise<UIElement>> {
+    first(): Question<Promise<Element>> {
         return this.list.first()
     }
 
-    last(): Question<Promise<UIElement>> {
+    last(): Question<Promise<Element>> {
         return this.list.last()
     }
 
-    get(index: number): Question<Promise<UIElement>> {
+    get(index: number): Question<Promise<Element>> {
         return this.list.get(index);
     }
 
     where<Answer_Type>(
-        question: MetaQuestion<Answerable<UIElement>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<Element>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>,
     ): TargetList {
         return this.list.where(question, expectation);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElementList> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
         const parent   = await this.resolve(actor, this.parent);
         const children = await this.resolve(actor, this.children);
 
@@ -337,21 +337,21 @@ export class TargetNestedElements
  * @see {@link Target}
  */
 export class TargetElement
-    extends Question<Promise<UIElement>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<UIElement>>
+    extends Question<Promise<Element>>
+    implements MetaQuestion<Answerable<Element>, Promise<Element>>
 {
     constructor(
         description: string,
-        private readonly location: UIElementLocation,
+        private readonly location: ElementLocation,
     ) {
         super(description);
     }
 
-    of(parent: Answerable<UIElement>): Question<Promise<UIElement>> {
+    of(parent: Answerable<Element>): Question<Promise<Element>> {
         return new TargetNestedElement(parent, this);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElement> {
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Element> {
         return BrowseTheWeb.as(actor).locateElementAt(this.location);
     }
 }
@@ -366,21 +366,21 @@ export class TargetElement
  * @see {@link Target}
  */
 export class TargetNestedElement
-    extends UIElementQuestion<Promise<UIElement>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<UIElement>>
+    extends ElementQuestion<Promise<Element>>
+    implements MetaQuestion<Answerable<Element>, Promise<Element>>
 {
     constructor(
-        private readonly parent: Answerable<UIElement>,
-        private readonly child: Answerable<UIElement>,
+        private readonly parent: Answerable<Element>,
+        private readonly child: Answerable<Element>,
     ) {
         super(`${ child } of ${ parent }`);
     }
 
-    of(parent: Answerable<UIElement>): Question<Promise<UIElement>> {
+    of(parent: Answerable<Element>): Question<Promise<Element>> {
         return new TargetNestedElement(parent, this);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<UIElement> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Element> {
         const parent = await this.resolve(actor, this.parent);
         const child  = await this.resolve(actor, this.child);
 

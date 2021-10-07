@@ -1,7 +1,7 @@
 import { Answerable } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
 
 /**
  * @desc
@@ -20,10 +20,10 @@ export interface PressBuilder {
      *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
      *  to {@link Press}.
      *
-     * @param {Answerable<UIElement>} field
+     * @param {Answerable<Element>} field
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
      * @see {@link Target}
      */
-    in: (field: Answerable<UIElement> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
+    in: (field: Answerable<Element> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
 }

@@ -2,10 +2,10 @@ import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbil
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { Key } from '../../input';
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
+import { ElementInteraction } from './ElementInteraction';
 import { PressBuilder } from './PressBuilder';
-import { UIElementInteraction } from './UIElementInteraction';
 
 /**
  * @desc
@@ -50,9 +50,9 @@ import { UIElementInteraction } from './UIElementInteraction';
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/assertions/lib/expectations~equals}
  *
- * @extends {UIElementInteraction}
+ * @extends {ElementInteraction}
  */
-export class Press extends UIElementInteraction {
+export class Press extends ElementInteraction {
 
     /**
      * @desc
@@ -67,7 +67,7 @@ export class Press extends UIElementInteraction {
         return new Press(KeySequence.of(keys));
     }
 
-    in(field: Answerable<UIElement> /* | Question<AlertPromise> | AlertPromise */): Interaction {
+    in(field: Answerable<Element> /* | Question<AlertPromise> | AlertPromise */): Interaction {
         return new PressKeyInField(this.keys, field)
     }
 
@@ -101,17 +101,17 @@ export class Press extends UIElementInteraction {
     }
 }
 
-class PressKeyInField extends UIElementInteraction {
+class PressKeyInField extends ElementInteraction {
     /**
      * @param {Answerable<Array<Key | string>>} keys
      *  A sequence of one or more keys to press
      *
-     * @param {Answerable<UIElement>} field
+     * @param {Answerable<Element>} field
      *  Web element to send the keys to
      */
     constructor(
         private readonly keys: Answerable<Array<Key | string>>,
-        private readonly field: Answerable<UIElement> /* todo | Question<AlertPromise> | AlertPromise */,
+        private readonly field: Answerable<Element> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
         super(formatted `#actor presses ${ keys } in ${ field }`);
     }

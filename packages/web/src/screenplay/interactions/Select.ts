@@ -3,7 +3,7 @@ import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 
-import { by, UIElement, UIElementList } from '../../ui';
+import { by, Element, ElementList } from '../../ui';
 import { SelectBuilder } from './SelectBuilder';
 
 /**
@@ -66,7 +66,7 @@ export class Select {
      */
     static value(value: Answerable<string>): SelectBuilder {
         return {
-            from: (target: Answerable<UIElement>): Interaction =>
+            from: (target: Answerable<Element>): Interaction =>
                 new SelectValue(value, target)
         };
     }
@@ -121,7 +121,7 @@ export class Select {
      */
     static values(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
-            from: (target: Answerable<UIElement>): Interaction =>
+            from: (target: Answerable<Element>): Interaction =>
                 new SelectValues(values, target)
         };
     }
@@ -178,7 +178,7 @@ export class Select {
      */
     static option(value: Answerable<string>): SelectBuilder {
         return {
-            from: (target: Answerable<UIElement>): Interaction =>
+            from: (target: Answerable<Element>): Interaction =>
                 new SelectOption(value, target)
         };
     }
@@ -235,7 +235,7 @@ export class Select {
      */
     static options(...values: Array<Answerable<string[] | string>>): SelectBuilder {
         return {
-            from: (target: Answerable<UIElement>): Interaction =>
+            from: (target: Answerable<Element>): Interaction =>
                 new SelectOptions(values, target)
         };
     }
@@ -248,7 +248,7 @@ class SelectValue implements Interaction {
 
     constructor(
         private readonly value: Answerable<string>,
-        private readonly target: Answerable<UIElement>
+        private readonly target: Answerable<Element>
     ) {
     }
 
@@ -273,14 +273,14 @@ class SelectValues implements Interaction {
 
     constructor(
         private readonly values: Array<Answerable<string[] | string>>,
-        private readonly target: Answerable<UIElement>
+        private readonly target: Answerable<Element>
     ) {
     }
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
         const target                    = await actor.answer(this.target);
-        const options: UIElementList    = await target.locateAllChildElements(by.css('option'));
+        const options: ElementList    = await target.locateAllChildElements(by.css('option'));
 
         const desiredValues = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();
 
@@ -305,7 +305,7 @@ class SelectOption implements Interaction {
 
     constructor(
         private readonly value: Answerable<string>,
-        private readonly target: Answerable<UIElement>
+        private readonly target: Answerable<Element>
     ) {
     }
 
@@ -330,7 +330,7 @@ class SelectOptions implements Interaction {
 
     constructor(
         private readonly values: Array<Answerable<string[] | string>>,
-        private readonly target: Answerable<UIElement>
+        private readonly target: Answerable<Element>
     ) {
     }
 
@@ -355,8 +355,8 @@ class SelectOptions implements Interaction {
 }
 
 /** @package */
-function hasValueEqualOneOf(desiredValues: string[]): (option: UIElement) => Promise<boolean> {
-    return async (option: UIElement) => {
+function hasValueEqualOneOf(desiredValues: string[]): (option: Element) => Promise<boolean> {
+    return async (option: Element) => {
 
         const value = await option.getValue()
 
@@ -365,8 +365,8 @@ function hasValueEqualOneOf(desiredValues: string[]): (option: UIElement) => Pro
 }
 
 /** @package */
-function hasTextEqualOneOf(desiredValues: string[]): (option: UIElement) => Promise<boolean> {
-    return async (option: UIElement) => {
+function hasTextEqualOneOf(desiredValues: string[]): (option: Element) => Promise<boolean> {
+    return async (option: Element) => {
 
         const value = await option.getText()
 
@@ -375,8 +375,8 @@ function hasTextEqualOneOf(desiredValues: string[]): (option: UIElement) => Prom
 }
 
 /** @package */
-function optionsToSelect(criterion: (option: UIElement) => Promise<boolean>) {
-    return (option: UIElement) =>
+function optionsToSelect(criterion: (option: Element) => Promise<boolean>) {
+    return (option: Element) =>
         isAlreadySelected(option)
             .then(alreadySelected =>
                 criterion(option).then(criterionMet =>
@@ -386,7 +386,7 @@ function optionsToSelect(criterion: (option: UIElement) => Promise<boolean>) {
 }
 
 /** @package */
-function isAlreadySelected(option: UIElement): Promise<boolean> {
+function isAlreadySelected(option: Element): Promise<boolean> {
     return option.isSelected();
 }
 

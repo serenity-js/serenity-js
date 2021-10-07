@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { by, UIElement } from '../../ui';
-import { UIElementQuestion } from './UIElementQuestion';
+import { by, Element } from '../../ui';
+import { ElementQuestion } from './ElementQuestion';
 
 /**
  * @desc
@@ -54,7 +54,7 @@ export class Selected {
      *
      * @see {@link Select.value}
      */
-    static valueOf(target: Answerable<UIElement>): Question<Promise<string>> {
+    static valueOf(target: Answerable<Element>): Question<Promise<string>> {
         return new SelectedValue(target);
     }
 
@@ -99,7 +99,7 @@ export class Selected {
      *
      * @see {@link Select.values}
      */
-    static valuesOf(target: Answerable<UIElement>): Question<Promise<string[]>> {
+    static valuesOf(target: Answerable<Element>): Question<Promise<string[]>> {
         return new SelectedValues(target);
     }
 
@@ -147,7 +147,7 @@ export class Selected {
      *
      * @see {@link Select.option}
      */
-    static optionIn(target: Answerable<UIElement>): Question<Promise<string>> {
+    static optionIn(target: Answerable<Element>): Question<Promise<string>> {
         return new SelectedOption(target);
     }
 
@@ -195,7 +195,7 @@ export class Selected {
      *
      * @see {@link Select.options}
      */
-    static optionsIn(target: Answerable<UIElement>): Question<Promise<string[]>> {
+    static optionsIn(target: Answerable<Element>): Question<Promise<string[]>> {
         return new SelectedOptions(target);
     }
 }
@@ -203,9 +203,9 @@ export class Selected {
 /**
  * @package
  */
-class SelectedValue extends UIElementQuestion<Promise<string>> {
+class SelectedValue extends ElementQuestion<Promise<string>> {
 
-    constructor(private readonly target: Answerable<UIElement>) {
+    constructor(private readonly target: Answerable<Element>) {
         super(formatted `value selected in ${ target }`);
     }
 
@@ -221,9 +221,9 @@ class SelectedValue extends UIElementQuestion<Promise<string>> {
 /**
  * @package
  */
-class SelectedValues extends UIElementQuestion<Promise<string[]>> {
+class SelectedValues extends ElementQuestion<Promise<string[]>> {
 
-    constructor(private readonly target: Answerable<UIElement>) {
+    constructor(private readonly target: Answerable<Element>) {
         super(formatted `values selected in ${ target }`);
     }
 
@@ -239,9 +239,9 @@ class SelectedValues extends UIElementQuestion<Promise<string[]>> {
 /**
  * @package
  */
-class SelectedOption extends UIElementQuestion<Promise<string>> {
+class SelectedOption extends ElementQuestion<Promise<string>> {
 
-    constructor(private target: Answerable<UIElement>) {
+    constructor(private target: Answerable<Element>) {
         super(formatted `option selected in ${ target }`);
     }
 
@@ -256,9 +256,9 @@ class SelectedOption extends UIElementQuestion<Promise<string>> {
 /**
  * @package
  */
-class SelectedOptions extends UIElementQuestion<Promise<string[]>> {
+class SelectedOptions extends ElementQuestion<Promise<string[]>> {
 
-    constructor(private target: Answerable<UIElement>) {
+    constructor(private target: Answerable<Element>) {
         super(formatted `options selected in ${ target }`);
     }
 

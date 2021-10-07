@@ -1,9 +1,9 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { UIElement } from '../../ui';
+import { Element } from '../../ui';
+import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
-import { UIElementQuestion } from './UIElementQuestion';
 
 /**
  * @desc
@@ -55,25 +55,25 @@ import { UIElementQuestion } from './UIElementQuestion';
  *          ),
  *      )
  *
- * @extends {UIElementQuestion}
+ * @extends {ElementQuestion}
  * @implements {@serenity-js/core/lib/screenplay/questions~MetaQuestion}
  */
 export class CSSClasses
-    extends UIElementQuestion<Promise<string[]>>
-    implements MetaQuestion<Answerable<UIElement>, Promise<string[]>>
+    extends ElementQuestion<Promise<string[]>>
+    implements MetaQuestion<Answerable<Element>, Promise<string[]>>
 {
     /**
-     * @param {Question<UIElement> | UIElement} target
+     * @param {Question<Element> | Element} target
      * @returns {CSSClasses}
      */
-    static of(target: Answerable<UIElement>): CSSClasses {
+    static of(target: Answerable<Element>): CSSClasses {
         return new CSSClasses(target);
     }
 
     /**
-     * @param {Question<UIElement> | UIElement} target
+     * @param {Question<Element> | Element} target
      */
-    constructor(private readonly target: Answerable<UIElement>) {
+    constructor(private readonly target: Answerable<Element>) {
         super(formatted `CSS classes of ${ target}`);
     }
 
@@ -82,13 +82,13 @@ export class CSSClasses
      *  Resolves to an array of CSS classes of the `target` element,
      *  located in the context of a `parent` element.
      *
-     * @param {@serenity-js/core/lib/screenplay~Answerable<UIElement>} parent
+     * @param {@serenity-js/core/lib/screenplay~Answerable<Element>} parent
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<UIElement>): Question<Promise<string[]>> {
+    of(parent: Answerable<Element>): Question<Promise<string[]>> {
         return new CSSClasses(new TargetNestedElement(parent, this.target));
     }
 

@@ -2,7 +2,7 @@ import 'mocha';
 
 // import { Ensure, equals, not } from '@serenity-js/assertions';
 // import { actorCalled, engage, Loop } from '@serenity-js/core';
-// import { by, Click, isSelected, Navigate, Target, Text, UIElement } from '@serenity-js/web';
+// import { by, Click, isSelected, Navigate, Target, Text, Element } from '@serenity-js/web';
 //
 // import { pageFromTemplate } from '../../fixtures';
 // import { UIActors } from '../../UIActors';
@@ -61,7 +61,7 @@ describe.skip('Loop', () => {
     //         Navigate.to(pageWithAComplexForm),
     //
     //         Loop.over(Form.Labels).to(
-    //             Ensure.that(Form.Checkbox.of(Loop.item<UIElement>()), not(isSelected())),
+    //             Ensure.that(Form.Checkbox.of(Loop.item<Element>()), not(isSelected())),
     //             Click.on(Loop.item()),
     //             Ensure.that(Form.Checkbox.of(Loop.item()), isSelected()),
     //         ),

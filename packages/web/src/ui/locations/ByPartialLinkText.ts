@@ -1,6 +1,6 @@
-import { UIElementLocation } from './UIElementLocation';
+import { ElementLocation } from './ElementLocation';
 
-export class ByPartialLinkText extends UIElementLocation {
+export class ByPartialLinkText extends ElementLocation {
     constructor(value: string) {
         super(`by partial link text "${ value }"`, value);
     }

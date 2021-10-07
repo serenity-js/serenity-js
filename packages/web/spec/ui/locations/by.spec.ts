@@ -5,7 +5,7 @@ import { by } from '../../../src';
 
 /**
  * @test {by}
- * @test {UIElementLocations}
+ * @test {ElementLocations}
  */
 describe('by', () => {
 
