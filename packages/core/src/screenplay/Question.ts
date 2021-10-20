@@ -125,10 +125,10 @@ export abstract class Question<T> {
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 
-    public as<O>(mapping: (answer: SyncAnswerType<T>) => O): Question<Promise<O>> {
+    public as<O>(mapping: (answer: SyncAnswerType<T>) => Promise<O> | O): Question<Promise<O>> {
         return Question.about<Promise<O>>(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
-            const answer = await actor.answer(this)
-            return mapping(answer as unknown as SyncAnswerType<T>);
+            const answer = (await actor.answer(this)) as SyncAnswerType<T>;
+            return mapping(answer);
         });
     }
 }
