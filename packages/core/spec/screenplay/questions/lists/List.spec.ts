@@ -39,7 +39,7 @@ describe('List', () => {
         }, {
             description:            'Promise<string[]>',
             answerable:             p(collection),
-            collectionDescription:  `a Promise`,
+            collectionDescription:  `<<Promise>>`,
         }, {
             description:            'Question<Promise<string[]>>',
             answerable:             q(p(collection)),

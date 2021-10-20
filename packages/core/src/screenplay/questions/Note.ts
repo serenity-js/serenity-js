@@ -1,3 +1,4 @@
+import { formatted } from '../../io';
 import { TakeNotes } from '../abilities';
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Question } from '../Question';
@@ -58,7 +59,7 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      * @param {Question<Promise<Answer>> | Question<Answer> | string} topic
      */
     constructor(private readonly topic: Question<Promise<Answer>> | Question<Answer> | string) {
-        super(`a note of ${ topic }`);
+        super(formatted `a note of ${ topic }`);
     }
 
     /**

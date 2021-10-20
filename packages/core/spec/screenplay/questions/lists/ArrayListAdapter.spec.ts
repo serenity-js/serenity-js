@@ -115,7 +115,7 @@ describe('ArrayListAdapter', () => {
 
             it(`(Promise<array>)`, () =>
                 expect(new ArrayListAdapter(p([])).first(Ariana))
-                    .to.be.rejectedWith(Error, `a Promise [ ] is empty`)
+                    .to.be.rejectedWith(Error, `<<Promise>> [ ] is empty`)
             );
 
             it(`(Question<Promise<array>>)`, () =>
@@ -153,7 +153,7 @@ describe('ArrayListAdapter', () => {
 
             it(`(Promise<array>)`, () =>
                 expect(new ArrayListAdapter(p([])).last(Ariana))
-                    .to.be.rejectedWith(Error, `a Promise [ ] is empty`)
+                    .to.be.rejectedWith(Error, `<<Promise>> [ ] is empty`)
             );
 
             it(`(Question<Promise<array>>)`, () =>
@@ -193,7 +193,7 @@ describe('ArrayListAdapter', () => {
 
             it(`(Promise<array>)`, () =>
                 expect(new ArrayListAdapter(p(example)).get(Ariana, 42))
-                    .to.be.rejectedWith(Error, `a Promise [ 'first', 'second' ] has no item at index 42`)
+                    .to.be.rejectedWith(Error, `<<Promise>> [ 'first', 'second' ] has no item at index 42`)
             );
 
             it(`(Question<Promise<array>>)`, () =>

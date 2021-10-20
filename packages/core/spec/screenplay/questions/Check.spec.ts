@@ -101,7 +101,7 @@ describe('Check', () => {
                 person: {
                     name: 'Jan',
                 },
-            })).andIfSo().toString()).to.equal(`#actor checks whether { "person": { "name": "Jan" } } does have value identical to { "person": { "name": "Jan" } }`);
+            })).andIfSo().toString()).to.equal(`#actor checks whether {"person":{"name":"Jan"}} does have value identical to {"person":{"name":"Jan"}}`);
         });
     })
 });
