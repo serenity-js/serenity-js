@@ -1,5 +1,4 @@
-import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
-import { AnswerProxy, createAnswerProxy } from '@serenity-js/core/lib/screenplay/questions/proxies';
+import { Answerable, AnswersQuestions, createProxyAnswer, MetaQuestion, ProxyAnswer, Question, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement, PageElementList } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
@@ -87,11 +86,11 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static of(element: Answerable<PageElement>):
-    Question<Promise<string>> &
-    MetaQuestion<Answerable<PageElement>, Promise<string>> &
-    AnswerProxy<string>
+        Question<Promise<string>> &
+        MetaQuestion<Answerable<PageElement>, Promise<string>> &
+        ProxyAnswer<string>
     {
-        return createAnswerProxy<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
+        return createProxyAnswer<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
             new TextOfSingleElement(element)
         );
     }
@@ -107,11 +106,11 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static ofAll(elements: Answerable<PageElementList>):
-    Question<Promise<string[]>> &
-    MetaQuestion<Answerable<PageElement>, Promise<string[]>> &
-    AnswerProxy<string[]>
+        Question<Promise<string[]>> &
+        MetaQuestion<Answerable<PageElement>, Promise<string[]>> &
+        ProxyAnswer<string[]>
     {
-        return createAnswerProxy<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
+        return createProxyAnswer<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
             new TextOfMultipleElements(elements)
         );
     }
