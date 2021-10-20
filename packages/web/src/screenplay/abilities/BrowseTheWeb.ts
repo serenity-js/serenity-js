@@ -1,7 +1,7 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Page,PageElement, PageElementList, PageElementLocation } from '../../ui';
+import { PageElement, PageElementList, PageElementLocation } from '../../ui';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -55,9 +55,6 @@ export abstract class BrowseTheWeb implements Ability {
     abstract getLastScriptExecutionResult<R = any>(): R;
 
     abstract takeScreenshot(): Promise<string>;
-
-    abstract getCurrentPage(): Promise<Page>;
-    abstract getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
 
     // todo: remove
     abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
