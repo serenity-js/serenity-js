@@ -1,6 +1,7 @@
-import { isMappable, Mappable } from '../io/collections';
+import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { AnswerMappingFunction } from './questions/mappings';
+import { createAnswerProxy, SyncAnswerType } from './questions/proxies';
+import { AnswerProxy } from './questions/proxies/createAnswerProxy';
 
 /**
  * @desc
@@ -77,8 +78,8 @@ export abstract class Question<T> {
      *
      * @returns {Question<R>}
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> {
-        return new AnonymousQuestion<R>(description, body);
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & AnswerProxy<SyncAnswerType<R>> {
+        return createAnswerProxy<R>(new AnonymousQuestion<R>(description, body));
     }
 
     /**
@@ -120,105 +121,18 @@ export abstract class Question<T> {
     }
 
     /**
-     * @desc
-     *  Creates a new {@link Question}, which value is a result of applying the `mapping`
-     *  function to the value of this {@link Question}.
-     *
-     * @example <caption>Mapping a Question<Promise<string>> to Question<Promise<number>></caption>
-     *  import { Question, replace, toNumber } from '@serenity-js/core';
-     *
-     *  Question.about('the price of some item', actor => '$3.99')
-     *      .map(replace('$', ''))
-     *      .map(toNumber)
-     *
-     *  // => Question<Promise<number>>
-     *  //      3.99
-     *
-     * @example <caption>Mapping all items of Question<string[]> to Question<Promise<number>></caption>
-     *  import { Question, trim } from '@serenity-js/core';
-     *
-     *  Question.about('things to do', actor => [ ' walk the dog  ', '  read a book  ' ])
-     *      .map(trim())
-     *
-     *  // => Question<Promise<string[]>>
-     *  //      [ 'walk the dog', 'read a book' ]
-     *
-     * @example <caption>Using a custom mapping function</caption>
-     *  import { Question } from '@serenity-js/core';
-     *
-     *  Question.about('normalised percentages', actor => [ 0.1, 0.3, 0.6 ])
-     *      .map((actor: AnswersQuestions) => (value: number) => value * 100)
-     *
-     *  // => Question<Promise<number[]>>
-     *  //      [ 10, 30, 60 ]
-     *
-     * @example <caption>Extracting values from LastResponse.body()</caption>
-     *  import { Question } from '@serenity-js/core';
-     *  import { LastResponse } from '@serenity-js/rest';
-     *
-     *  interface UserDetails {
-     *      id: number;
-     *      name: string;
-     *  }
-     *
-     *  LastResponse.body<UserDetails>().map(actor => details => details.id)
-     *
-     *  // => Question<number>
-     *
-     * @param {function(value: A, index?: number): Promise<O> | O} mapping
-     *  A mapping function that receives a value of type `<A>`, which is either:
-     *  - an answer to the original question, if the question is defined as `Question<Promise<A>>` or `Question<A>`
-     *  - or, if the question is defined as `Question<Promise<Mappable<A>>`, `Question<Mappable<A>>` - each item of the {@link Mappable} collection,
-     *
-     * @returns {Question<Promise<Mapped>>}
-     *  A new Question which value is a result of applying the `mapping` function
-     *  to the value of the current question, so that:
-     *  - if the answer to the current question is a `Mappable<A>`, the result becomes `Question<Promise<O[]>>`
-     *  - if the answer is a value `<A>` or `Promise<A>`, the result becomes `Question<Promise<O>>`
-     *
-     * @see {@link AnswerMappingFunction}
-     * @see {@link Mappable}
-     */
-    map<O>(mapping: AnswerMappingFunction<AnswerOrItemOfMappableCollection<T>, O>): Question<Promise<Mapped<T, O>>> {
-        return Question.about(this.subject, actor =>
-            actor.answer(this).then(value =>
-                (isMappable(value)
-                    ? Promise.all(((value).map(mapping(actor)) as Array<PromiseLike<O> | O>))
-                    : mapping(actor)(value as AnswerOrItemOfMappableCollection<T>)
-                ) as Promise<Mapped<T, O>>
-            )
-        ) as Question<Promise<Mapped<T, O>>>;
-    }
-
-    /**
      * @abstract
+     * // todo check why api docs are not getting generated for this methods
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
+
+    public as<O>(mapping: (answer: SyncAnswerType<T>) => O): Question<Promise<O>> {
+        return Question.about<Promise<O>>(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+            const answer = await actor.answer(this)
+            return mapping(answer as unknown as SyncAnswerType<T>);
+        });
+    }
 }
-
-/**
- * @package
- */
-type AnswerOrItemOfMappableCollection<V> =
-    V extends PromiseLike<infer PromisedValue>
-        ? PromisedValue extends Mappable<infer Item>
-            ? Item
-            : PromisedValue
-        : V extends Mappable<infer Item>
-            ? Item
-            : V;
-
-/**
- * @package
- */
-type Mapped<T, O> =
-    T extends PromiseLike<infer PromisedValue>
-        ? PromisedValue extends Mappable<infer Item>        // eslint-disable-line @typescript-eslint/no-unused-vars
-            ? O[]
-            : O
-        : T extends Mappable<infer Item>                    // eslint-disable-line @typescript-eslint/no-unused-vars
-            ? O[]
-            : O
 
 /**
  * @package
@@ -228,7 +142,7 @@ class AnonymousQuestion<T> extends Question<T> {
         super(description);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities) {
+    answeredBy(actor: AnswersQuestions & UsesAbilities): T {
         return this.body(actor);
     }
 
