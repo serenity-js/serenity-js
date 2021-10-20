@@ -1,2 +1,1 @@
-export * from './createMetaQuestionProxy';
-export * from './createQuestionProxy';
+export * from './createAnswerProxy';
