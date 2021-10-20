@@ -114,11 +114,11 @@ export class Actor implements
      */
     answer<T>(answerable: Answerable<T>): Promise<T> {
         function isAPromise<V>(v: Answerable<V>): v is Promise<V> {
-            return !!(v as any).then;
+            return Object.prototype.hasOwnProperty.call(v, 'then');
         }
 
         function isDefined<V>(v: Answerable<V>) {
-            return ! (answerable === undefined || answerable === null);
+            return ! (v === undefined || v === null);
         }
 
         if (isDefined(answerable) && isAPromise(answerable)) {
