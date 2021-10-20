@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
 
@@ -60,20 +60,20 @@ import { TargetNestedElement } from './targets';
  */
 export class CSSClasses
     extends ElementQuestion<Promise<string[]>>
-    implements MetaQuestion<Answerable<Element>, Promise<string[]>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
     /**
-     * @param {Question<Element> | Element} target
+     * @param {Question<PageElement> | PageElement} target
      * @returns {CSSClasses}
      */
-    static of(target: Answerable<Element>): CSSClasses {
+    static of(target: Answerable<PageElement>): CSSClasses {
         return new CSSClasses(target);
     }
 
     /**
-     * @param {Question<Element> | Element} target
+     * @param {Question<PageElement> | PageElement} target
      */
-    constructor(private readonly target: Answerable<Element>) {
+    constructor(private readonly target: Answerable<PageElement>) {
         super(formatted `CSS classes of ${ target}`);
     }
 
@@ -88,7 +88,7 @@ export class CSSClasses
      * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<Element>): Question<Promise<string[]>> {
+    of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
         return new CSSClasses(new TargetNestedElement(parent, this.target));
     }
 

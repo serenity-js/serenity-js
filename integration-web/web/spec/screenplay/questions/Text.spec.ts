@@ -2,7 +2,7 @@ import 'mocha';
 
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
-import { actorCalled, replace, toNumber, trim } from '@serenity-js/core';
+import { actorCalled } from '@serenity-js/core';
 import { by, Navigate, Target, Text } from '@serenity-js/web';
 
 describe('Text', () => {
@@ -35,7 +35,7 @@ describe('Text', () => {
 
                     Navigate.to('/screenplay/questions/text/single_number_example.html'),
 
-                    Ensure.that(Text.of(header).map(toNumber()), equals(2)),
+                    Ensure.that(Text.of(header).as(Number), equals(2)),
                 ));
 
             /** @test {Text.of} */
@@ -46,7 +46,7 @@ describe('Text', () => {
                     Navigate.to('/screenplay/questions/text/date_example.html'),
 
                     Ensure.that(
-                        Text.of(header).map(trim()).map(actor => value => new Date(value)), // eslint-disable-line unicorn/consistent-function-scoping
+                        Text.of(header).trim().as(value => new Date(value)),
                         equals(new Date('2020-09-11T19:53:18.160Z'))
                     ),
                 ));
@@ -95,9 +95,9 @@ describe('Text', () => {
 
                 Ensure.that(
                     Text.ofAll(Target.all('possible answers').located(by.css('#answers li')))
-                        .map(trim())
-                        .map(replace('%', ''))
-                        .map(toNumber()),
+                        .map((answer: string) => answer.trim())
+                        .map((answer: string) => answer.replace('%', ''))
+                        .map((answer: string) => Number(answer)),
                     equals([6.67, 3.34])
                 ),
             ));

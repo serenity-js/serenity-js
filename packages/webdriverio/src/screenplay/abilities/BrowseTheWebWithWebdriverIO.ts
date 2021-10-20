@@ -1,8 +1,8 @@
 import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Element, ElementList, ElementLocation, ElementLocator,Key } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Key, Page,PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator } from '../../ui';
+import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator, WebdriverIOPage } from '../../ui';
 
 /**
  * @desc
@@ -40,8 +40,8 @@ import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator }
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
-    private readonly $:  ElementLocator<wdio.Element<'async'>>;
-    private readonly $$: ElementLocator<wdio.ElementArray>;
+    private readonly $:  PageElementLocator<wdio.Element<'async'>>;
+    private readonly $$: PageElementLocator<wdio.ElementArray>;
 
     /**
      * @private
@@ -115,37 +115,61 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
     }
 
-    locateElementAt(location: ElementLocation): Promise<Element> {
+    locateElementAt(location: PageElementLocation): Promise<PageElement> {
         return this.$.locate(location)
             .then(element => new WebdriverIOElement(this.browser, element, location));
     }
 
-    locateAllElementsAt(location: ElementLocation): Promise<ElementList> {
+    locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
         return this.$$.locate(location)
             .then(elements => new WebdriverIOElementList(this.browser, elements, location));
     }
 
-    switchToFrame(targetOrIndex: Element | number | string): Promise<void> {
+    async getCurrentPage(): Promise<Page> {
+
+        const windowHandle = await this.browser.getWindowHandle();
+
+        // todo: wrap in proxy
+        return new WebdriverIOPage(this.browser, windowHandle);
+    }
+
+    async getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+
+        // const windowHandles = await this.browser.getWindowHandle();
+
+        // return new WebdriverIOPage(this.browser, windowHandle);
         throw new Error('Not implemented, yet');
     }
+
+    // todo: remove
+    switchToFrame(targetOrIndex: PageElement | number | string): Promise<void> {
+        throw new Error('Not implemented, yet');
+    }
+    // todo: remove
     switchToParentFrame(): Promise<void> {
         throw new Error('Not implemented, yet');
     }
+    // todo: remove
     switchToDefaultContent(): Promise<void> {
         throw new Error('Not implemented, yet');
     }
+    // todo: remove
     switchToWindow(nameOrHandleOrIndex: string | number): Promise<void> {
         throw new Error('Not implemented, yet');
     }
+    // todo: remove
     switchToOriginalWindow(): Promise<void> {
         throw new Error('Not implemented, yet');
     }
+    // todo: remove
     getCurrentWindowHandle(): Promise<string> {
         throw new Error('Not implemented, yet');
     }
+    // todo: remove
     getAllWindowHandles(): Promise<string[]> {
         throw new Error('Not implemented, yet');
     }
+    // todo: remove
     closeCurrentWindow(): Promise<void> {
         throw new Error('Not implemented, yet');
     }

@@ -1,2 +1,2 @@
-export * from './Element';
-export * from './ElementList';
+export * from './PageElement';
+export * from './PageElementList';

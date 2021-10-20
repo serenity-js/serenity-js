@@ -1,6 +1,6 @@
-import { ElementLocation } from './ElementLocation';
+import { PageElementLocation } from './PageElementLocation';
 
-export class ByName extends ElementLocation {
+export class ByName extends PageElementLocation {
     constructor(value: string) {
         super(`by name "${ value }"`, value);
     }

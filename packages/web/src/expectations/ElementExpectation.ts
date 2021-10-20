@@ -1,24 +1,24 @@
 import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 
-import { Element } from '../ui';
+import { PageElement } from '../ui';
 
 /**
  * @access private
  */
-export class ElementExpectation extends Expectation<any, Element> {
-    static forElementTo(message: string, fn: (actual: Element) => Promise<boolean>): Expectation<any, Element> {
+export class ElementExpectation extends Expectation<any, PageElement> {
+    static forElementTo(message: string, fn: (actual: PageElement) => Promise<boolean>): Expectation<any, PageElement> {
         return new ElementExpectation(message, fn);
     }
 
     constructor(
         subject: string,
-        private readonly fn: (actual: Element) => Promise<boolean>,
+        private readonly fn: (actual: PageElement) => Promise<boolean>,
     ) {
         super(subject);
     }
 
-    answeredBy(actor: AnswersQuestions): (actual: Element) => Promise<ExpectationOutcome<boolean, Element>> {
-        return (actual: Element) =>
+    answeredBy(actor: AnswersQuestions): (actual: PageElement) => Promise<ExpectationOutcome<boolean, PageElement>> {
+        return (actual: PageElement) =>
             this.fn(actual)
                 .then(expectationMet =>
                     expectationMet

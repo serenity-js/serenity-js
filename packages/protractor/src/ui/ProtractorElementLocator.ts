@@ -1,8 +1,8 @@
-import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText, ByTagName, ByXPath, ElementLocator } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText, ByTagName, ByXPath, PageElementLocator } from '@serenity-js/web';
 import { by } from 'protractor';
 import { Locator, WebElement } from 'selenium-webdriver';
 
-export class ProtractorElementLocator<T extends WebElement> extends ElementLocator<T> {
+export class ProtractorElementLocator<T extends WebElement> extends PageElementLocator<T> {
     constructor(private readonly fn: (locator: Locator) => T) {
         super();
 

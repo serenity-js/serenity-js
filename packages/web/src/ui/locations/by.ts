@@ -1,3 +1,3 @@
-import { ElementLocations } from './ElementLocations';
+import { PageElementLocations } from './ElementLocations';
 
-export const by = new ElementLocations();
+export const by = new PageElementLocations();

@@ -2,9 +2,9 @@ import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbil
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { Key } from '../../input';
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
-import { ElementInteraction } from './ElementInteraction';
+import { PageElementInteraction } from './PageElementInteraction';
 import { PressBuilder } from './PressBuilder';
 
 /**
@@ -52,7 +52,7 @@ import { PressBuilder } from './PressBuilder';
  *
  * @extends {ElementInteraction}
  */
-export class Press extends ElementInteraction {
+export class Press extends PageElementInteraction {
 
     /**
      * @desc
@@ -67,7 +67,7 @@ export class Press extends ElementInteraction {
         return new Press(KeySequence.of(keys));
     }
 
-    in(field: Answerable<Element> /* | Question<AlertPromise> | AlertPromise */): Interaction {
+    in(field: Answerable<PageElement> /* | Question<AlertPromise> | AlertPromise */): Interaction {
         return new PressKeyInField(this.keys, field)
     }
 
@@ -101,17 +101,17 @@ export class Press extends ElementInteraction {
     }
 }
 
-class PressKeyInField extends ElementInteraction {
+class PressKeyInField extends PageElementInteraction {
     /**
      * @param {Answerable<Array<Key | string>>} keys
      *  A sequence of one or more keys to press
      *
-     * @param {Answerable<Element>} field
+     * @param {Answerable<PageElement>} field
      *  Web element to send the keys to
      */
     constructor(
         private readonly keys: Answerable<Array<Key | string>>,
-        private readonly field: Answerable<Element> /* todo | Question<AlertPromise> | AlertPromise */,
+        private readonly field: Answerable<PageElement> /* todo | Question<AlertPromise> | AlertPromise */,
     ) {
         super(formatted `#actor presses ${ keys } in ${ field }`);
     }
@@ -120,6 +120,7 @@ class PressKeyInField extends ElementInteraction {
         const field = await this.resolve(actor, this.field);
         const keys  = await actor.answer(this.keys);
 
+        // todo: should this wait on focus to occur?
         await BrowseTheWeb.as(actor).executeScript(
             /* istanbul ignore next */
             function focus(element: any) {
