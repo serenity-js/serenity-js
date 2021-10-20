@@ -36,7 +36,7 @@ describe('Expectation', () => {
             }, {
                 description:    'Promise<number>',
                 expected:       p(value),
-                message:        `have value identical to a Promise`
+                message:        `have value identical to <<Promise>>`
             }, {
                 description:    'Question<Promise<number>>',
                 expected:       q(p(value)),
