@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
-import { ElementInteraction } from './ElementInteraction';
+import { PageElement } from '../../ui';
+import { PageElementInteraction } from './PageElementInteraction';
 
 /**
  * @desc
@@ -46,26 +46,26 @@ import { ElementInteraction } from './ElementInteraction';
  *
  * @extends {ElementInteraction}
  */
-export class Hover extends ElementInteraction {
+export class Hover extends PageElementInteraction {
 
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be hovered over
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static over(target: Answerable<Element>): Interaction {
+    static over(target: Answerable<PageElement>): Interaction {
         return new Hover(target);
     }
 
     /**
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be hovered over
      */
-    constructor(private readonly target: Answerable<Element>) {
+    constructor(private readonly target: Answerable<PageElement>) {
         super(formatted `#actor hovers the mouse over ${ target }`);
     }
 

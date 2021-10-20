@@ -1,4 +1,4 @@
-import { ElementLocation } from '../../ui';
+import { PageElementLocation } from '../../ui';
 
 /**
  * @desc
@@ -23,5 +23,5 @@ export interface TargetBuilder<T> {
      * @see {@link Target}
      * @see {@link Locator}
      */
-    located: (location: ElementLocation) => T;
+    located: (location: PageElementLocation) => T;
 }

@@ -1,7 +1,7 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Element, ElementList, ElementLocation } from '../../ui';
+import { Page,PageElement, PageElementList, PageElementLocation } from '../../ui';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -30,9 +30,9 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
-    abstract locateElementAt(location: ElementLocation): Promise<Element>;
+    abstract locateElementAt(location: PageElementLocation): Promise<PageElement>;
 
-    abstract locateAllElementsAt(location: ElementLocation): Promise<ElementList>;
+    abstract locateAllElementsAt(location: PageElementLocation): Promise<PageElementList>;
 
     abstract getTitle(): Promise<string>;
 
@@ -56,7 +56,11 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract takeScreenshot(): Promise<string>;
 
-    abstract switchToFrame(targetOrIndex: Element | number | string): Promise<void>;
+    abstract getCurrentPage(): Promise<Page>;
+    abstract getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
+
+    // todo: remove
+    abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
     abstract switchToParentFrame(): Promise<void>;
     abstract switchToDefaultContent(): Promise<void>;
     abstract switchToWindow(nameOrHandleOrIndex: string | number): Promise<void>;

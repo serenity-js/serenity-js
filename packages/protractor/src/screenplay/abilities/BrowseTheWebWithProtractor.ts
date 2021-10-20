@@ -1,10 +1,10 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Element, ElementList, ElementLocation, ElementLocator,Key } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Key, Page,PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { ProtractorElement, ProtractorElementList, ProtractorElementLocator } from '../../ui';
+import { ProtractorElement, ProtractorElementList, ProtractorElementLocator, ProtractorPage } from '../../ui';
 
 /**
  * @desc
@@ -37,8 +37,8 @@ import { ProtractorElement, ProtractorElementList, ProtractorElementLocator } fr
  */
 export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
-    private readonly $:  ElementLocator<ElementFinder>;
-    private readonly $$: ElementLocator<ElementArrayFinder>;
+    private readonly $:  PageElementLocator<ElementFinder>;
+    private readonly $$: PageElementLocator<ElementArrayFinder>;
 
     navigateTo(destination: string): Promise<void> {
         return promiseOf(this.browser.get(destination)
@@ -69,12 +69,12 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promiseOf(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
     }
 
-    locateElementAt(location: ElementLocation): Promise<Element> {
+    locateElementAt(location: PageElementLocation): Promise<PageElement> {
         return this.$.locate(location)
             .then(elf => new ProtractorElement(this.browser, elf, location));
     }
 
-    locateAllElementsAt(location: ElementLocation): Promise<ElementList> {
+    locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
         return this.$$.locate(location)
             .then(elf => new ProtractorElementList(this.browser, elf, location));
     }
@@ -252,7 +252,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<void>}
      */
-    switchToFrame(elementOrIndexOrName: number | string | Element): Promise<void> {
+    switchToFrame(elementOrIndexOrName: number | string | PageElement): Promise<void> {
         const elf = elementOrIndexOrName instanceof ProtractorElement
             ? elementOrIndexOrName.nativeElement().getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
             : elementOrIndexOrName;
@@ -385,6 +385,21 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      */
     closeCurrentWindow(): Promise<void> {
         return promiseOf(this.browser.close());
+    }
+
+    async getCurrentPage(): Promise<Page> {
+
+        const windowHandle = await this.browser.getWindowHandle();
+
+        return new ProtractorPage(this.browser, windowHandle);
+    }
+
+    async getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+
+        const windowHandles = await this.browser.getWindowHandle();
+
+        // return new ProtractorPage(this.browser, windowHandle);
+        throw new Error('Not implemented, yet');
     }
 
     /**

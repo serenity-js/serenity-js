@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Answerable, AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { Element, ElementList, ElementLocation } from '../../ui';
+import { PageElement, PageElementList, PageElementLocation } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
 import { ElementQuestion } from './ElementQuestion';
 import { ElementListAdapter } from './lists';
@@ -16,9 +16,9 @@ import { TargetBuilder } from './TargetBuilder';
  *
  * @see {@link @serenity-js/core/lib/screenplay/questions~List}
  *
- * @typedef {List<ElementListAdapter, Promise<Element>, Promise<ElementList>>} TargetList
+ * @typedef {List<ElementListAdapter, Promise<PageElement>, Promise<PageElementList>>} TargetList
  */
-export type TargetList = List<ElementListAdapter, Promise<Element>, Promise<ElementList>>;
+export type TargetList = List<ElementListAdapter, Promise<PageElement>, Promise<PageElementList>>;
 
 /**
  * @desc
@@ -174,13 +174,13 @@ export class Target {
      */
     static the(description: string): TargetBuilder<TargetElement> & NestedTargetBuilder<TargetNestedElement> {
         return {
-            located(location: ElementLocation): TargetElement {
+            located(location: PageElementLocation): TargetElement {
                 return new TargetElement(`the ${ description }`, location);
             },
 
-            of(parent: Answerable<Element>) {
+            of(parent: Answerable<PageElement>) {
                 return {
-                    located(locator: ElementLocation): TargetNestedElement {
+                    located(locator: PageElementLocation): TargetNestedElement {
                         return new TargetNestedElement(parent, new TargetElement(description, locator));
                     }
                 }
@@ -199,13 +199,13 @@ export class Target {
      */
     static all(description: string): TargetBuilder<TargetElements> & NestedTargetBuilder<TargetNestedElements> {
         return {
-            located(locator: ElementLocation): TargetElements {
+            located(locator: PageElementLocation): TargetElements {
                 return new TargetElements(description, locator);
             },
 
-            of(parent: Answerable<Element>) {
+            of(parent: Answerable<PageElement>) {
                 return {
-                    located(locator: ElementLocation): TargetNestedElements {
+                    located(locator: PageElementLocation): TargetNestedElements {
                         return new TargetNestedElements(parent, new TargetElements(description, locator));
                     }
                 }
@@ -224,20 +224,20 @@ export class Target {
  * @see {@link Target}
  */
 export class TargetElements
-    extends Question<Promise<ElementList>>
-    implements MetaQuestion<Answerable<Element>, Promise<ElementList>>
+    extends Question<Promise<PageElementList>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<PageElementList>>
 {
-    private readonly list: List<ElementListAdapter, Promise<Element>, Promise<ElementList>>;
+    private readonly list: List<ElementListAdapter, Promise<PageElement>, Promise<PageElementList>>;
 
     constructor(
         description: string,
-        private readonly location: ElementLocation,
+        private readonly location: PageElementLocation,
     ) {
         super(description);
         this.list = new List(new ElementListAdapter(this));
     }
 
-    of(parent: Answerable<Element>): TargetNestedElements {
+    of(parent: Answerable<PageElement>): TargetNestedElements {
         return new TargetNestedElements(parent, this);
     }
 
@@ -245,26 +245,26 @@ export class TargetElements
         return this.list.count();
     }
 
-    first(): Question<Promise<Element>> {
+    first(): Question<Promise<PageElement>> {
         return this.list.first()
     }
 
-    last(): Question<Promise<Element>> {
+    last(): Question<Promise<PageElement>> {
         return this.list.last()
     }
 
-    get(index: number): Question<Promise<Element>> {
+    get(index: number): Question<Promise<PageElement>> {
         return this.list.get(index);
     }
 
     where<Answer_Type>(
-        question: MetaQuestion<Answerable<Element>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<PageElement>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>,
     ): TargetList {
         return this.list.where(question, expectation);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElementList> {
         return BrowseTheWeb.as(actor).locateAllElementsAt(this.location);
     }
 }
@@ -279,20 +279,20 @@ export class TargetElements
  * @see {@link Target}
  */
 export class TargetNestedElements
-    extends ElementQuestion<Promise<ElementList>>
-    implements MetaQuestion<Answerable<Element>, Promise<ElementList>>
+    extends ElementQuestion<Promise<PageElementList>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<PageElementList>>
 {
-    private readonly list: List<ElementListAdapter, Promise<Element>, Promise<ElementList>>;
+    private readonly list: List<ElementListAdapter, Promise<PageElement>, Promise<PageElementList>>;
 
     constructor(
-        private readonly parent: Answerable<Element>,
-        private readonly children: Answerable<ElementList>,
+        private readonly parent: Answerable<PageElement>,
+        private readonly children: Answerable<PageElementList>,
     ) {
         super(`${ children } of ${ parent }`);
         this.list = new List(new ElementListAdapter(this));
     }
 
-    of(parent: Answerable<Element>): Question<Promise<ElementList>> {
+    of(parent: Answerable<PageElement>): Question<Promise<PageElementList>> {
         return new TargetNestedElements(parent, this);
     }
 
@@ -300,26 +300,26 @@ export class TargetNestedElements
         return this.list.count();
     }
 
-    first(): Question<Promise<Element>> {
+    first(): Question<Promise<PageElement>> {
         return this.list.first()
     }
 
-    last(): Question<Promise<Element>> {
+    last(): Question<Promise<PageElement>> {
         return this.list.last()
     }
 
-    get(index: number): Question<Promise<Element>> {
+    get(index: number): Question<Promise<PageElement>> {
         return this.list.get(index);
     }
 
     where<Answer_Type>(
-        question: MetaQuestion<Answerable<Element>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<PageElement>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>,
     ): TargetList {
         return this.list.where(question, expectation);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElementList> {
         const parent   = await this.resolve(actor, this.parent);
         const children = await this.resolve(actor, this.children);
 
@@ -337,21 +337,21 @@ export class TargetNestedElements
  * @see {@link Target}
  */
 export class TargetElement
-    extends Question<Promise<Element>>
-    implements MetaQuestion<Answerable<Element>, Promise<Element>>
+    extends Question<Promise<PageElement>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<PageElement>>
 {
     constructor(
         description: string,
-        private readonly location: ElementLocation,
+        private readonly location: PageElementLocation,
     ) {
         super(description);
     }
 
-    of(parent: Answerable<Element>): Question<Promise<Element>> {
+    of(parent: Answerable<PageElement>): Question<Promise<PageElement>> {
         return new TargetNestedElement(parent, this);
     }
 
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Element> {
+    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElement> {
         return BrowseTheWeb.as(actor).locateElementAt(this.location);
     }
 }
@@ -366,21 +366,21 @@ export class TargetElement
  * @see {@link Target}
  */
 export class TargetNestedElement
-    extends ElementQuestion<Promise<Element>>
-    implements MetaQuestion<Answerable<Element>, Promise<Element>>
+    extends ElementQuestion<Promise<PageElement>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<PageElement>>
 {
     constructor(
-        private readonly parent: Answerable<Element>,
-        private readonly child: Answerable<Element>,
+        private readonly parent: Answerable<PageElement>,
+        private readonly child: Answerable<PageElement>,
     ) {
         super(`${ child } of ${ parent }`);
     }
 
-    of(parent: Answerable<Element>): Question<Promise<Element>> {
+    of(parent: Answerable<PageElement>): Question<Promise<PageElement>> {
         return new TargetNestedElement(parent, this);
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Element> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElement> {
         const parent = await this.resolve(actor, this.parent);
         const child  = await this.resolve(actor, this.child);
 

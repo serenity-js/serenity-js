@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { by, Element } from '../../ui';
+import { by, PageElement } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
 
 /**
@@ -54,7 +54,7 @@ export class Selected {
      *
      * @see {@link Select.value}
      */
-    static valueOf(target: Answerable<Element>): Question<Promise<string>> {
+    static valueOf(target: Answerable<PageElement>): Question<Promise<string>> {
         return new SelectedValue(target);
     }
 
@@ -99,7 +99,7 @@ export class Selected {
      *
      * @see {@link Select.values}
      */
-    static valuesOf(target: Answerable<Element>): Question<Promise<string[]>> {
+    static valuesOf(target: Answerable<PageElement>): Question<Promise<string[]>> {
         return new SelectedValues(target);
     }
 
@@ -147,7 +147,7 @@ export class Selected {
      *
      * @see {@link Select.option}
      */
-    static optionIn(target: Answerable<Element>): Question<Promise<string>> {
+    static optionIn(target: Answerable<PageElement>): Question<Promise<string>> {
         return new SelectedOption(target);
     }
 
@@ -195,7 +195,7 @@ export class Selected {
      *
      * @see {@link Select.options}
      */
-    static optionsIn(target: Answerable<Element>): Question<Promise<string[]>> {
+    static optionsIn(target: Answerable<PageElement>): Question<Promise<string[]>> {
         return new SelectedOptions(target);
     }
 }
@@ -205,7 +205,7 @@ export class Selected {
  */
 class SelectedValue extends ElementQuestion<Promise<string>> {
 
-    constructor(private readonly target: Answerable<Element>) {
+    constructor(private readonly target: Answerable<PageElement>) {
         super(formatted `value selected in ${ target }`);
     }
 
@@ -223,7 +223,7 @@ class SelectedValue extends ElementQuestion<Promise<string>> {
  */
 class SelectedValues extends ElementQuestion<Promise<string[]>> {
 
-    constructor(private readonly target: Answerable<Element>) {
+    constructor(private readonly target: Answerable<PageElement>) {
         super(formatted `values selected in ${ target }`);
     }
 
@@ -241,7 +241,7 @@ class SelectedValues extends ElementQuestion<Promise<string[]>> {
  */
 class SelectedOption extends ElementQuestion<Promise<string>> {
 
-    constructor(private target: Answerable<Element>) {
+    constructor(private target: Answerable<PageElement>) {
         super(formatted `option selected in ${ target }`);
     }
 
@@ -258,7 +258,7 @@ class SelectedOption extends ElementQuestion<Promise<string>> {
  */
 class SelectedOptions extends ElementQuestion<Promise<string[]>> {
 
-    constructor(private target: Answerable<Element>) {
+    constructor(private target: Answerable<PageElement>) {
         super(formatted `options selected in ${ target }`);
     }
 

@@ -1,6 +1,6 @@
 import { Answerable, Interaction } from '@serenity-js/core';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 
 /**
  * @desc
@@ -19,10 +19,10 @@ export interface EnterBuilder {
      *  Instantiates an {@link @serenity-js/core/lib/screenplay~Interaction}
      *  to {@link Enter}.
      *
-     * @param {Answerable<Element>} field
+     * @param {Answerable<PageElement>} field
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
      * @see {@link Target}
      */
-    into: (field: Answerable<Element> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
+    into: (field: Answerable<PageElement> /* | Question<AlertPromise> | AlertPromise */) => Interaction;
 }

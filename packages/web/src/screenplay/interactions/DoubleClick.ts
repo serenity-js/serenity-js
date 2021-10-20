@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
-import { ElementInteraction } from './ElementInteraction';
+import { PageElement } from '../../ui';
+import { PageElementInteraction } from './PageElementInteraction';
 
 /**
  * @desc
@@ -58,26 +58,26 @@ import { ElementInteraction } from './ElementInteraction';
  *
  * @extends {ElementInteraction}
  */
-export class DoubleClick extends ElementInteraction {
+export class DoubleClick extends PageElementInteraction {
 
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be double-clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<Element>): Interaction {
+    static on(target: Answerable<PageElement>): Interaction {
         return new DoubleClick(target);
     }
 
     /**
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be double-clicked on
      */
-    constructor(private readonly target: Answerable<Element>) {
+    constructor(private readonly target: Answerable<PageElement>) {
         super(formatted `#actor double-clicks on ${ target }`);
     }
 

@@ -1,18 +1,18 @@
 import { LogicError } from '@serenity-js/core';
-import { Element, ElementList, ElementLocation } from '@serenity-js/web';
+import { PageElement, PageElementList, PageElementLocation } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOElement } from './WebdriverIOElement';
 
-export class WebdriverIOElementList implements ElementList {
+export class WebdriverIOElementList implements PageElementList {
     constructor(
         private readonly browser: wdio.Browser<'async'>,
         private readonly elements: wdio.ElementArray,
-        private readonly elementLocation: ElementLocation,
+        private readonly elementLocation: PageElementLocation,
     ) {
     }
 
-    location(): ElementLocation {
+    location(): PageElementLocation {
         return this.elementLocation;
     }
 
@@ -20,15 +20,15 @@ export class WebdriverIOElementList implements ElementList {
         return Promise.resolve(this.elements.length);
     }
 
-    first(): Element {
+    first(): PageElement {
         return this.elementAt(0);
     }
 
-    last(): Element {
+    last(): PageElement {
         return this.elementAt(this.elements.length - 1);
     }
 
-    get(index: number): Element {
+    get(index: number): PageElement {
         return this.elementAt(index);
     }
 
@@ -40,7 +40,7 @@ export class WebdriverIOElementList implements ElementList {
         return new WebdriverIOElement(this.browser, this.elements[index], this.elementLocation)
     }
 
-    map<O>(fn: (element: Element, index?: number, elements?: ElementList) => Promise<O> | O): Promise<O[]> {
+    map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]> {
         return Promise.all(
             this.elements.map((element, index) =>
                 // todo: is this.elementLocation reasonable? what does WDIO return in element.selector?
@@ -49,7 +49,7 @@ export class WebdriverIOElementList implements ElementList {
         );
     }
 
-    filter(fn: (element: Element, index?: number) => boolean): WebdriverIOElementList {
+    filter(fn: (element: PageElement, index?: number) => boolean): WebdriverIOElementList {
         const matching = this.elements.filter(
             (element: wdio.Element<'async'>, index: number) => fn(new WebdriverIOElement(this.browser, element, this.elementLocation), index)
         ) as wdio.ElementArray;
@@ -62,7 +62,7 @@ export class WebdriverIOElementList implements ElementList {
         return new WebdriverIOElementList(this.browser, matching, this.elementLocation);
     }
 
-    forEach(fn: (element: Element, index?: number, elements?: ElementList) => Promise<void> | void): Promise<void> {
+    forEach(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<void> | void): Promise<void> {
         return this.elements.reduce((previous: Promise<void>, element: wdio.Element<'async'>, index: number) => {
             return previous.then(() => fn(new WebdriverIOElement(this.browser, element, this.elementLocation), index, this));
         }, Promise.resolve());

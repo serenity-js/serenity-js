@@ -1,6 +1,6 @@
-import { ElementLocation } from './ElementLocation';
+import { PageElementLocation } from './PageElementLocation';
 
-export class ByTagName extends ElementLocation {
+export class ByTagName extends PageElementLocation {
     constructor(value: string) {
         super(`by tag name <${ value } />`, value);
     }

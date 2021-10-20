@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
 
@@ -32,20 +32,20 @@ import { TargetNestedElement } from './targets';
  */
 export class Value
     extends ElementQuestion<Promise<string>>
-    implements MetaQuestion<Answerable<Element>, Promise<string>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
     /**
-     * @param {Answerable<Element>} element
+     * @param {Answerable<PageElement>} element
      * @returns {Value}
      */
-    static of(element: Answerable<Element>): Question<Promise<string>> & MetaQuestion<Answerable<Element>, Promise<string>> {
+    static of(element: Answerable<PageElement>): Question<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>> {
         return new Value(element);
     }
 
     /**
-     * @param {Answerable<Element>} element
+     * @param {Answerable<PageElement>} element
      */
-    constructor(private readonly element: Answerable<Element>) {
+    constructor(private readonly element: Answerable<PageElement>) {
         super(formatted`the value of ${ element }`);
     }
 
@@ -54,12 +54,12 @@ export class Value
      *  Resolves to the value of a given [`input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
      *  {@link WebElement}, located in the context of a `parent` element.
      *
-     * @param {Answerable<Element>} parent
+     * @param {Answerable<PageElement>} parent
      * @returns {Question<Promise<string>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<Element>): Question<Promise<string>> {
+    of(parent: Answerable<PageElement>): Question<Promise<string>> {
         return new Value(new TargetNestedElement(parent, this.element));
     }
 

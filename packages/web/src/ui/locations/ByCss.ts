@@ -1,6 +1,6 @@
-import { ElementLocation } from './ElementLocation';
+import { PageElementLocation } from './PageElementLocation';
 
-export class ByCss extends ElementLocation {
+export class ByCss extends PageElementLocation {
     constructor(value: string) {
         super(`by css "${ value }"`, value);
     }

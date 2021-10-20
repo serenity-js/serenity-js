@@ -1,6 +1,7 @@
 import { Answerable, AnswersQuestions, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
+import { AnswerProxy, createAnswerProxy } from '@serenity-js/core/lib/screenplay/questions/proxies';
 
-import { Element, ElementList } from '../../ui';
+import { PageElement, PageElementList } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement, TargetNestedElements } from './targets';
 
@@ -80,13 +81,19 @@ export class Text {
      *  Retrieves text of a single {@link WebElement},
      *  represented by Answerable<{@link @wdio/types~Element}>.
      *
-     * @param {Answerable<Element>} element
-     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<Element>, Promise<string>>}
+     * @param {Answerable<PageElement>} element
+     * @returns {Question<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static of(element: Answerable<Element>): Question<Promise<string>> & MetaQuestion<Answerable<Element>, Promise<string>> {
-        return new TextOfSingleElement(element);
+    static of(element: Answerable<PageElement>):
+    Question<Promise<string>> &
+    MetaQuestion<Answerable<PageElement>, Promise<string>> &
+    AnswerProxy<string>
+    {
+        return createAnswerProxy<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
+            new TextOfSingleElement(element)
+        );
     }
 
     /**
@@ -94,25 +101,31 @@ export class Text {
      *  Retrieves text of a group of {@link WebElement}s,
      *  represented by Answerable<{@link @wdio/types~ElementList}>
      *
-     * @param {Answerable<ElementList>} elements
-     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<Element>, Promise<string[]>>}
+     * @param {Answerable<PageElementList>} elements
+     * @returns {Question<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>}
      *
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    static ofAll(elements: Answerable<ElementList>): Question<Promise<string[]>> & MetaQuestion<Answerable<Element>, Promise<string[]>> {
-        return new TextOfMultipleElements(elements);
+    static ofAll(elements: Answerable<PageElementList>):
+    Question<Promise<string[]>> &
+    MetaQuestion<Answerable<PageElement>, Promise<string[]>> &
+    AnswerProxy<string[]>
+    {
+        return createAnswerProxy<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
+            new TextOfMultipleElements(elements)
+        );
     }
 }
 
 class TextOfSingleElement
     extends ElementQuestion<Promise<string>>
-    implements MetaQuestion<Answerable<Element>, Promise<string>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
-    constructor(private readonly element: Answerable<Element>) {
+    constructor(private readonly element: Answerable<PageElement>) {
         super(`the text of ${ element }`);
     }
 
-    of(parent: Answerable<Element>): Question<Promise<string>> {
+    of(parent: Answerable<PageElement>): Question<Promise<string>> {
         return new TextOfSingleElement(new TargetNestedElement(parent, this.element));
     }
 
@@ -125,13 +138,13 @@ class TextOfSingleElement
 
 class TextOfMultipleElements
     extends ElementQuestion<Promise<string[]>>
-    implements MetaQuestion<Answerable<Element>, Promise<string[]>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<string[]>>
 {
-    constructor(private readonly elements: Answerable<ElementList>) {
+    constructor(private readonly elements: Answerable<PageElementList>) {
         super(`the text of ${ elements }`);
     }
 
-    of(parent: Answerable<Element>): Question<Promise<string[]>> {
+    of(parent: Answerable<PageElement>): Question<Promise<string[]>> {
         return new TextOfMultipleElements(new TargetNestedElements(parent, this.elements));
     }
 

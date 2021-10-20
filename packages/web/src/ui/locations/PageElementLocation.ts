@@ -1,4 +1,4 @@
-export abstract class ElementLocation {
+export abstract class PageElementLocation {
     constructor(
         public readonly description: string,
         public readonly value: string,

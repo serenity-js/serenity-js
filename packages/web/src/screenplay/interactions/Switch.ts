@@ -1,6 +1,6 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
 
 /**
@@ -113,7 +113,7 @@ export class Switch {
      * @see {@link Switch.toDefaultContent}
      * @see {@link Target}
      */
-    static toFrame(targetOrIndex: Answerable<Element | number | string>): SwitchToFrame {
+    static toFrame(targetOrIndex: Answerable<PageElement | number | string>): SwitchToFrame {
         return new SwitchToFrame(targetOrIndex);
     }
 
@@ -196,7 +196,7 @@ export class Switch {
  * @package
  */
 class SwitchToFrame extends Interaction {
-    constructor(private readonly targetOrIndex: Answerable<Element | number | string>) {
+    constructor(private readonly targetOrIndex: Answerable<PageElement | number | string>) {
         super();
     }
 
@@ -206,7 +206,7 @@ class SwitchToFrame extends Interaction {
 
     performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
         return actor.answer(this.targetOrIndex)
-            .then((targetOrIndex: Element | number | string) => {
+            .then((targetOrIndex: PageElement | number | string) => {
                 return BrowseTheWeb.as(actor).switchToFrame(targetOrIndex);
             },
             );
@@ -222,7 +222,7 @@ class SwitchToFrame extends Interaction {
  */
 class SwitchToFrameAndPerformActivities extends Task {
     constructor(
-        private readonly targetOrIndex: Answerable<Element | number | string>,
+        private readonly targetOrIndex: Answerable<PageElement | number | string>,
         private readonly activities: Activity[]
     ) {
         super();

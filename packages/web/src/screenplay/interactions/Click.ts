@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
-import { ElementInteraction } from './ElementInteraction';
+import { PageElement } from '../../ui';
+import { PageElementInteraction } from './PageElementInteraction';
 
 /**
  * @desc
@@ -41,26 +41,26 @@ import { ElementInteraction } from './ElementInteraction';
  *
  * @extends {ElementInteraction}
  */
-export class Click extends ElementInteraction {
+export class Click extends PageElementInteraction {
 
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be clicked on
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static on(target: Answerable<Element>): Interaction {
+    static on(target: Answerable<PageElement>): Interaction {
         return new Click(target);
     }
 
     /**
-     * @param {Answerable<Element>} element
+     * @param {Answerable<PageElement>} element
      *  The element to be clicked on
      */
-    constructor(private readonly element: Answerable<Element>) {
+    constructor(private readonly element: Answerable<PageElement>) {
         super(formatted `#actor clicks on ${ element }`);
     }
 

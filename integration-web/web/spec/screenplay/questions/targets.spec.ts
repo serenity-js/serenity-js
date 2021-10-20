@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { contain, Ensure, equals, startsWith } from '@serenity-js/assertions';
 import { actorCalled, Answerable, Duration, Log } from '@serenity-js/core';
-import { by, Click, CSSClasses, Navigate, TakeScreenshot, Target, Text, Element, Wait } from '@serenity-js/web';
+import { by, Click, CSSClasses, Navigate, TakeScreenshot, Target, Text, PageElement, Wait } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
 /**
@@ -337,7 +337,7 @@ describe('Target', () => {
                  */
                 it('returns the number of items', () =>
                     expect(list.count().toString())
-                        .to.equal(`the number of shopping list items where CSSClasses property does contain 'buy'`));
+                        .to.equal(`the number of shopping list items where CSSClasses does contain 'buy'`));
 
                 /**
                  * @test {Target}
@@ -345,7 +345,7 @@ describe('Target', () => {
                  */
                 it('picks all the items', () =>
                     expect(list.toString())
-                        .to.equal(`shopping list items where CSSClasses property does contain 'buy'`));
+                        .to.equal(`shopping list items where CSSClasses does contain 'buy'`));
 
                 /**
                  * @test {Target}
@@ -353,7 +353,7 @@ describe('Target', () => {
                  */
                 it('picks the first item', () =>
                     expect(list.first().toString())
-                        .to.equal(`the first of shopping list items where CSSClasses property does contain 'buy'`));
+                        .to.equal(`the first of shopping list items where CSSClasses does contain 'buy'`));
 
                 /**
                  * @test {Target}
@@ -361,7 +361,7 @@ describe('Target', () => {
                  */
                 it('picks the last item', () =>
                     expect(list.last().toString())
-                        .to.equal(`the last of shopping list items where CSSClasses property does contain 'buy'`));
+                        .to.equal(`the last of shopping list items where CSSClasses does contain 'buy'`));
 
                 given([
                     { description: '1st', index: 0 },
@@ -376,7 +376,7 @@ describe('Target', () => {
                     { description: '115th', index: 114 },
                     { description: '1522nd', index: 1521 },
                 ]).it('picks the nth item', ({ description, index }) => {
-                    expect(list.get(index).toString()).to.equal(`the ${ description } of shopping list items where CSSClasses property does contain 'buy'`);
+                    expect(list.get(index).toString()).to.equal(`the ${ description } of shopping list items where CSSClasses does contain 'buy'`);
                 });
             });
         });
@@ -451,7 +451,7 @@ describe('Target', () => {
                  */
                 it('returns the number of answers', () =>
                     expect(list.count().toString())
-                        .to.equal(`the number of shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
+                        .to.equal(`the number of shopping list items where CSSClasses does contain 'buy' and Text does start with 'coconut'`));
 
                 /**
                  * @test {Target}
@@ -459,7 +459,7 @@ describe('Target', () => {
                  */
                 it('picks all the items', () =>
                     expect(list.toString())
-                        .to.equal(`shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
+                        .to.equal(`shopping list items where CSSClasses does contain 'buy' and Text does start with 'coconut'`));
 
                 /**
                  * @test {Target}
@@ -467,7 +467,7 @@ describe('Target', () => {
                  */
                 it('picks the first item', () =>
                     expect(list.first().toString())
-                        .to.equal(`the first of shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
+                        .to.equal(`the first of shopping list items where CSSClasses does contain 'buy' and Text does start with 'coconut'`));
 
                 /**
                  * @test {Target}
@@ -475,7 +475,7 @@ describe('Target', () => {
                  */
                 it('picks the last item', () =>
                     expect(list.last().toString())
-                        .to.equal(`the last of shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`));
+                        .to.equal(`the last of shopping list items where CSSClasses does contain 'buy' and Text does start with 'coconut'`));
 
                 given([
                     { description: '1st', index: 0 },
@@ -491,7 +491,7 @@ describe('Target', () => {
                     { description: '1522nd', index: 1521 },
                 ]).it('picks the nth item', ({ description, index }) => {
                     expect(list.get(index).toString())
-                        .to.equal(`the ${ description } of shopping list items where CSSClasses property does contain 'buy' and Text property does start with 'coconut'`);
+                        .to.equal(`the ${ description } of shopping list items where CSSClasses does contain 'buy' and Text does start with 'coconut'`);
                 });
             });
         });
@@ -508,7 +508,7 @@ describe('Target', () => {
                     .where(CSSClasses, contain('buy'));
 
             // eslint-disable-next-line unicorn/consistent-function-scoping
-            const LinkTo = (item: Answerable<Element>) =>
+            const LinkTo = (item: Answerable<PageElement>) =>
                 Target.the('link to element').of(item).located(by.css('a'));
 
             /**

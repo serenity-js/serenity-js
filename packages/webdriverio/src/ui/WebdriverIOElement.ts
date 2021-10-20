@@ -1,17 +1,17 @@
-import { Element, ElementList, ElementLocation, ElementLocator } from '@serenity-js/web';
+import { PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
 import { WebdriverIOElementList } from './WebdriverIOElementList';
 import { WebdriverIOElementLocator } from './WebdriverIOElementLocator';
 
-export class WebdriverIOElement implements Element {
-    private readonly $:  ElementLocator<wdio.Element<'async'>>;
-    private readonly $$: ElementLocator<wdio.ElementArray>;
+export class WebdriverIOElement implements PageElement {
+    private readonly $:  PageElementLocator<wdio.Element<'async'>>;
+    private readonly $$: PageElementLocator<wdio.ElementArray>;
 
     constructor(
         private readonly browser: wdio.Browser<'async'>,
         private readonly element: wdio.Element<'async'>,
-        private readonly elementLocation: ElementLocation,
+        private readonly elementLocation: PageElementLocation,
     ) {
         this.$  = new WebdriverIOElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
         this.$$ = new WebdriverIOElementLocator(this.element.$$.bind(this.element));
@@ -21,17 +21,17 @@ export class WebdriverIOElement implements Element {
         return this.element;
     }
 
-    location(): ElementLocation {
+    location(): PageElementLocation {
         return this.elementLocation;
     }
 
-    locateChildElement(location: ElementLocation): Promise<Element> {
+    locateChildElement(location: PageElementLocation): Promise<PageElement> {
         return this.$
             .locate(location)
             .then(element => new WebdriverIOElement(this.browser, element, location));
     }
 
-    locateAllChildElements(location: ElementLocation): Promise<ElementList> {
+    locateAllChildElements(location: PageElementLocation): Promise<PageElementList> {
         return this.$$
             .locate(location)
             .then(elements => new WebdriverIOElementList(this.browser, elements, location));

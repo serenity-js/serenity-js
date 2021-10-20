@@ -1,12 +1,12 @@
-import { ElementLocation } from '../locations';
-import { ElementList } from './ElementList';
+import { PageElementLocation } from '../locations';
+import { PageElementList } from './PageElementList';
 
-export interface Element {
+export interface PageElement {
     nativeElement(): any
 
-    location(): ElementLocation;
-    locateChildElement(locator: ElementLocation): Promise<Element>;
-    locateAllChildElements(locator: ElementLocation): Promise<ElementList>;
+    location(): PageElementLocation;
+    locateChildElement(locator: PageElementLocation): Promise<PageElement>;
+    locateAllChildElements(locator: PageElementLocation): Promise<PageElementList>;
 
     enterValue(value: string | number | Array<string | number>): Promise<void>;
     clearValue(): Promise<void>;

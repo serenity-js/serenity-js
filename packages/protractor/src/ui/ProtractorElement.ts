@@ -1,4 +1,4 @@
-import { Element, ElementList, ElementLocation, ElementLocator } from '@serenity-js/web';
+import { PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import { ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrowser } from 'protractor';
 import { WebElement } from 'selenium-webdriver';
 import { ensure, isDefined } from 'tiny-types';
@@ -7,18 +7,18 @@ import { promiseOf } from '../promiseOf';
 import { ProtractorElementList } from './ProtractorElementList';
 import { ProtractorElementLocator } from './ProtractorElementLocator';
 
-export class ProtractorElement implements Element {
-    private readonly $:  ElementLocator<ElementFinder>;
-    private readonly $$: ElementLocator<ElementArrayFinder>;
+export class ProtractorElement implements PageElement {
+    private readonly $:  PageElementLocator<ElementFinder>;
+    private readonly $$: PageElementLocator<ElementArrayFinder>;
 
     constructor(
         private readonly browser: ProtractorBrowser,
         private readonly element: ElementFinder,
-        private readonly elementLocation: ElementLocation,
+        private readonly elementLocation: PageElementLocation,
     ) {
         ensure('browser', browser, isDefined());
         ensure('element', element, isDefined());
-        ensure('elementLocation', elementLocation, isDefined());
+        ensure('elementLocation', PageElementLocation, isDefined());
 
         this.$  = new ProtractorElementLocator(this.element.element.bind(this.element) as (selector: Locator) => ElementFinder);
         this.$$ = new ProtractorElementLocator(this.element.all.bind(this.element) as (selector: Locator) => ElementArrayFinder);
@@ -28,17 +28,17 @@ export class ProtractorElement implements Element {
         return this.element;
     }
 
-    location(): ElementLocation {
+    location(): PageElementLocation {
         return this.elementLocation;
     }
 
-    locateChildElement(location: ElementLocation): Promise<Element> {
+    locateChildElement(location: PageElementLocation): Promise<PageElement> {
         return this.$
             .locate(location)
             .then(element => new ProtractorElement(this.browser, element, location));
     }
 
-    locateAllChildElements(location: ElementLocation): Promise<ElementList> {
+    locateAllChildElements(location: PageElementLocation): Promise<PageElementList> {
         return this.$$
             .locate(location)
             .then(elements => new ProtractorElementList(this.browser, elements, location));

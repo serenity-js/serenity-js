@@ -1,15 +1,15 @@
 import { Answerable, AnswersQuestions, Interaction, LogicError } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 
 /**
  * @desc
- *  A base class for interactions with {@link Element}s.
+ *  A base class for interactions with {@link PageElement}s.
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
-export abstract class ElementInteraction extends Interaction {
+export abstract class PageElementInteraction extends Interaction {
 
     /**
      * @param {string} description
@@ -24,20 +24,20 @@ export abstract class ElementInteraction extends Interaction {
 
     /**
      * @desc
-     *  Returns the resolved {@link Element}, or throws a {@link @serenity-js/core/lib/errors~LogicError}
+     *  Returns the resolved {@link PageElement}, or throws a {@link @serenity-js/core/lib/errors~LogicError}
      *  if the element is `undefined`.
      *
      * @param {@serenity-js/core/lib/screenplay/actor~AnswersQuestions} actor
      * @param {@serenity-js/core/lib/screenplay~Answerable<Element<'async'>>} element
      *
-     * @returns {Promise<Element>}
+     * @returns {Promise<PageElement>}
      *
      * @protected
      */
     protected async resolve(
         actor: AnswersQuestions,
-        element: Answerable<Element>,
-    ): Promise<Element> {
+        element: Answerable<PageElement>,
+    ): Promise<PageElement> {
         const resolved = await actor.answer(element);
 
         if (! resolved) {

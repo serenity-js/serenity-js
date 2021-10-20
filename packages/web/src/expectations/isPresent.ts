@@ -1,6 +1,6 @@
 import { Expectation } from '@serenity-js/core';
 
-import { Element } from '../ui';
+import { PageElement } from '../ui';
 import { ElementExpectation } from './ElementExpectation';
 
 /**
@@ -15,6 +15,6 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isPresent(): Expectation<boolean, Element> {
+export function isPresent(): Expectation<boolean, PageElement> {
     return ElementExpectation.forElementTo('become present', actual => actual.isPresent());
 }

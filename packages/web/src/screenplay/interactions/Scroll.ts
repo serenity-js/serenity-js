@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, Interaction, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 
 /**
  * @desc
@@ -50,20 +50,20 @@ export class Scroll extends Interaction {
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be scroll to
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static to(target: Answerable<Element>): Scroll {
+    static to(target: Answerable<PageElement>): Scroll {
         return new Scroll(target);
     }
 
     /**
-     * @param {Answerable<Element>} target
+     * @param {Answerable<PageElement>} target
      *  The element to be scroll to
      */
-    constructor(private readonly target: Answerable<Element>) {
+    constructor(private readonly target: Answerable<PageElement>) {
         super();
     }
 

@@ -1,6 +1,6 @@
 import { Expectation } from '@serenity-js/core';
 
-import { Element } from '../ui';
+import { PageElement } from '../ui';
 import { ElementExpectation } from './ElementExpectation';
 
 /**
@@ -15,7 +15,8 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
-export function isActive(): Expectation<boolean, Element> {
+// todo: isFocused?
+export function isActive(): Expectation<boolean, PageElement> {
     return ElementExpectation.forElementTo('become active', actual => actual.isActive());
 }
 

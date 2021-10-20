@@ -1,6 +1,6 @@
-import { ElementLocation } from './ElementLocation';
+import { PageElementLocation } from './PageElementLocation';
 
-export class ByXPath extends ElementLocation {
+export class ByXPath extends PageElementLocation {
     constructor(value: string) {
         super(`by XPath ${ value }`, value);
     }

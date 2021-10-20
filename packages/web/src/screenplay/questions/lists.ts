@@ -2,12 +2,12 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationO
 import { formatted } from '@serenity-js/core/lib/io';
 import { ListAdapter } from '@serenity-js/core/lib/screenplay/questions/lists';
 
-import { Element, ElementList } from '../../ui';
+import { PageElement, PageElementList } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
 
 /**
  * @desc
- *  Adapts {@link ElementList} so that it can be used with {@link @serenity-js/core/lib/screenplay/questions~List}.
+ *  Adapts {@link PageElementList} so that it can be used with {@link @serenity-js/core/lib/screenplay/questions~List}.
  *
  *  You most likely won't need to use this class directly. Instead, check out {@link Target} and {@link Target.all}.
  *
@@ -15,14 +15,14 @@ import { ElementQuestion } from './ElementQuestion';
  *
  * @implements {@serenity-js/core/lib/screenplay/questions/lists~ListAdapter}
  */
-export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise<ElementList>> {
+export class ElementListAdapter implements ListAdapter<Promise<PageElement>, Promise<PageElementList>> {
 
-    constructor(private readonly collection: Answerable<ElementList>) {
+    constructor(private readonly collection: Answerable<PageElementList>) {
     }
 
     /**
      * @desc
-     *  Returns the number of {@link Element}s that the underlying {@link ElementList} contains,
+     *  Returns the number of {@link PageElement}s that the underlying {@link PageElementList} contains,
      *  left after applying any filters.
      *
      * @param {AnswersQuestions & UsesAbilities} actor
@@ -35,33 +35,33 @@ export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise
 
     /**
      * @desc
-     *  Returns the first of {@link Element}s that the underlying {@link ElementList} contains,
+     *  Returns the first of {@link PageElement}s that the underlying {@link PageElementList} contains,
      *  left after applying any filters
      *
      * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Element<'async'>}
+     * @returns {PageElement<'async'>}
      */
-    async first(actor: AnswersQuestions & UsesAbilities): Promise<Element> {
+    async first(actor: AnswersQuestions & UsesAbilities): Promise<PageElement> {
         const elements = await this.elements(actor);
         return elements.first();
     }
 
     /**
      * @desc
-     *  Returns the last of {@link Element}s that the underlying {@link ElementList} contains,
+     *  Returns the last of {@link PageElement}s that the underlying {@link PageElementList} contains,
      *  left after applying any filters
      *
      * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Element<'async'>}
+     * @returns {PageElement<'async'>}
      */
-    async last(actor: AnswersQuestions & UsesAbilities): Promise<Element> {
+    async last(actor: AnswersQuestions & UsesAbilities): Promise<PageElement> {
         const elements = await this.elements(actor);
         return elements.last();
     }
 
     /**
      * @desc
-     *  Returns the nth of {@link Element}s that the underlying {@link ElementList} contains,
+     *  Returns the nth of {@link PageElement}s that the underlying {@link PageElementList} contains,
      *  left after applying any filters
      *
      * @param {AnswersQuestions & UsesAbilities} actor
@@ -69,28 +69,28 @@ export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise
      * @param {number} index
      *  Zero-based index of the item to return
      *
-     * @returns {Element<'async'>}
+     * @returns {PageElement<'async'>}
      */
-    async get(actor: AnswersQuestions & UsesAbilities, index: number): Promise<Element> {
+    async get(actor: AnswersQuestions & UsesAbilities, index: number): Promise<PageElement> {
         const elements = await this.elements(actor);
         return elements.get(index);
     }
 
     /**
      * @desc
-     *  Returns the underlying {@link ElementList},
+     *  Returns the underlying {@link PageElementList},
      *  with any filters applied.
      *
      * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Element<'async'>}
+     * @returns {PageElement<'async'>}
      */
-    items(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
+    items(actor: AnswersQuestions & UsesAbilities): Promise<PageElementList> {
         return this.elements(actor);
     }
 
     /**
      * @desc
-     *  Filters the underlying {@link ElementList} so that the result contains only those {@link Element<'async'>}s that meet the {@link Expectation}
+     *  Filters the underlying {@link PageElementList} so that the result contains only those {@link PageElement<'async'>}s that meet the {@link Expectation}
      *
      * @param {@serenity-js/core/lib/screenplay/questions~MetaQuestion<Answerable<Element<'async'>>, Promise<Answer_Type> | Answer_Type>} question
      * @param {@serenity-js/core/lib/screenplay/questions~Expectation<any, Answer_Type>} expectation
@@ -100,9 +100,9 @@ export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     withFilter<Answer_Type>(
-        question: MetaQuestion<Answerable<Element>, Promise<Answer_Type> | Answer_Type>,
+        question: MetaQuestion<Answerable<PageElement>, Promise<Answer_Type> | Answer_Type>,
         expectation: Expectation<any, Answer_Type>
-    ): ListAdapter<Promise<Element>, Promise<ElementList>> {
+    ): ListAdapter<Promise<PageElement>, Promise<PageElementList>> {
         return new ElementListAdapter(
             new ElementListFilter(this.collection, question, expectation)
         );
@@ -110,7 +110,7 @@ export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise
 
     /**
      * @desc
-     *  Returns a human-readable description of the underlying {@link ElementList}.
+     *  Returns a human-readable description of the underlying {@link PageElementList}.
      *
      * @returns {string}
      */
@@ -118,7 +118,7 @@ export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise
         return formatted `${ this.collection }`;
     }
 
-    private elements(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
+    private elements(actor: AnswersQuestions & UsesAbilities): Promise<PageElementList> {
         return actor.answer(this.collection);
     }
 }
@@ -127,11 +127,11 @@ export class ElementListAdapter implements ListAdapter<Promise<Element>, Promise
  * @private
  */
 class ElementListFilter<Answer_Type>
-    extends ElementQuestion<Promise<ElementList>>
+    extends ElementQuestion<Promise<PageElementList>>
 {
     constructor(
-        private readonly collection: Answerable<ElementList>,
-        private readonly question: MetaQuestion<Answerable<Element>, Promise<Answer_Type> | Answer_Type>,
+        private readonly collection: Answerable<PageElementList>,
+        private readonly question: MetaQuestion<Answerable<PageElement>, Promise<Answer_Type> | Answer_Type>,
         private readonly expectation: Expectation<any, Answer_Type>
     ) {
         super([
@@ -141,10 +141,10 @@ class ElementListFilter<Answer_Type>
         ].join(' '));
     }
 
-    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<ElementList> {
+    async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElementList> {
 
-        const collection: ElementList = await this.resolve(actor, this.collection);
-        const outcomes: Array<ExpectationOutcome<any, Answer_Type>> = await collection.map((element: Element) =>
+        const collection: PageElementList = await this.resolve(actor, this.collection);
+        const outcomes: Array<ExpectationOutcome<any, Answer_Type>> = await collection.map((element: PageElement) =>
             actor.answer(this.question.of(element))
                 .then((answer: Answer_Type) => {
                     return this.expectation.answeredBy(actor)(answer)
@@ -152,7 +152,7 @@ class ElementListFilter<Answer_Type>
         );
 
         return collection.filter(
-            (element: Element, index: number) => outcomes[index] instanceof ExpectationMet
-        ) as ElementList;
+            (element: PageElement, index: number) => outcomes[index] instanceof ExpectationMet
+        ) as PageElementList;
     }
 }

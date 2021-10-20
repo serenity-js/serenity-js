@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { Element } from '../../ui';
+import { PageElement } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
 
@@ -59,7 +59,7 @@ import { TargetNestedElement } from './targets';
  */
 export class Attribute
     extends ElementQuestion<Promise<string>>
-    implements MetaQuestion<Answerable<Element>, Promise<string>>
+    implements MetaQuestion<Answerable<PageElement>, Promise<string>>
 {
     /**
      * @param {Answerable<string>} name
@@ -75,7 +75,7 @@ export class Attribute
      */
     constructor(
         private readonly name: Answerable<string>,
-        private readonly element?: Answerable<Element>,
+        private readonly element?: Answerable<PageElement>,
     ) {
         super(`"${ name }" attribute of ${ element }`);
     }
@@ -85,13 +85,13 @@ export class Attribute
      *  Resolves to the value of a HTML attribute of the `target` element,
      *  located in the context of a `parent` element.
      *
-     * @param {Answerable<Element>} parent
+     * @param {Answerable<PageElement>} parent
      * @returns {Question<Promise<string[]>>}
      *
      * @see {@link Target.all}
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
-    of(parent: Answerable<Element>): Question<Promise<string>> {
+    of(parent: Answerable<PageElement>): Question<Promise<string>> {
         return new Attribute(
             this.name,
             this.element

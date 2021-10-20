@@ -1,6 +1,6 @@
-import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText, ByTagName, ByXPath, ElementLocator } from '@serenity-js/web';
+import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText, ByTagName, ByXPath, PageElementLocator } from '@serenity-js/web';
 
-export class WebdriverIOElementLocator<T> extends ElementLocator<T> {
+export class WebdriverIOElementLocator<T> extends PageElementLocator<T> {
     constructor(private readonly fn: (selector: string) => Promise<T>) {
         super();
         this.when(ByCss,                location => this.fn(location.value))

@@ -1,8 +1,8 @@
 import { Answerable, AnswersQuestions, Interaction, LogicError, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { Element } from '../../ui';
-import { ElementInteraction } from './ElementInteraction';
+import { PageElement } from '../../ui';
+import { PageElementInteraction } from './PageElementInteraction';
 
 /**
  * @desc
@@ -46,26 +46,26 @@ import { ElementInteraction } from './ElementInteraction';
  *
  * @extends {@serenity-js/core/lib/screenplay~Interaction}
  */
-export class Clear extends ElementInteraction {
+export class Clear extends PageElementInteraction {
 
     /**
      * @desc
      *  Instantiates this {@link @serenity-js/core/lib/screenplay~Interaction}.
      *
-     * @param {Answerable<Element>} field
+     * @param {Answerable<PageElement>} field
      *  The field to be cleared
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static theValueOf(field: Answerable<Element>): Interaction {
+    static theValueOf(field: Answerable<PageElement>): Interaction {
         return new Clear(field);
     }
 
     /**
-     * @param {Answerable<Element>} field
+     * @param {Answerable<PageElement>} field
      *  The element to be clicked on
      */
-    constructor(private readonly field: Answerable<Element>) {
+    constructor(private readonly field: Answerable<PageElement>) {
         super(formatted `#actor clears the value of ${ field }`);
     }
 
