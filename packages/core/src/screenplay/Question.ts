@@ -1,7 +1,6 @@
 import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { createAnswerProxy, SyncAnswerType } from './questions/proxies';
-import { AnswerProxy } from './questions/proxies/createAnswerProxy';
+import { createProxyAnswer, ProxyAnswer, SyncAnswerType } from './questions/proxies';
 
 /**
  * @desc
@@ -78,8 +77,8 @@ export abstract class Question<T> {
      *
      * @returns {Question<R>}
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & AnswerProxy<SyncAnswerType<R>> {
-        return createAnswerProxy<R>(new AnonymousQuestion<R>(description, body));
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & ProxyAnswer<SyncAnswerType<R>> {
+        return createProxyAnswer<R>(new AnonymousQuestion<R>(description, body));
     }
 
     /**

@@ -20,19 +20,19 @@ type NonQuestionSpecificProperties<T> = {
 }
 
 /* eslint-disable @typescript-eslint/indent */
-export type AnswerProxy<OriginalType> = {
+export type ProxyAnswer<OriginalType> = {
     [Field in keyof NonQuestionSpecificProperties<OriginalType>]:
     // is it a method?
     OriginalType[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
         // make the method asynchronous
-        ? (...args: AnswerableParameters<OriginalParameters>) => Question<Promise<SyncAnswerType<OriginalMethodResult>>> & AnswerProxy<OriginalMethodResult>
+        ? (...args: AnswerableParameters<OriginalParameters>) => Question<Promise<SyncAnswerType<OriginalMethodResult>>> & ProxyAnswer<OriginalMethodResult>
         // is it an object?
-        : Question<Promise<OriginalType[Field]>> & AnswerProxy<OriginalType[Field]>
+        : Question<Promise<OriginalType[Field]>> & ProxyAnswer<OriginalType[Field]>
 }
 
 /* eslint-enable @typescript-eslint/indent */
 
-export function createAnswerProxy<A, Q extends Question<A> = Question<A>>(question: Q): Q & AnswerProxy<SyncAnswerType<A>> {
+export function createProxyAnswer<A, Q extends Question<A> = Question<A>>(question: Q): Q & ProxyAnswer<SyncAnswerType<A>> {
 
     return new Proxy<Q>(question, {
 
@@ -112,9 +112,9 @@ export function createAnswerProxy<A, Q extends Question<A> = Question<A>>(questi
                 });
             }
 
-            return createAnswerProxy(proxy as any);
+            return createProxyAnswer(proxy as any);
         }
-    }) as Q & AnswerProxy<SyncAnswerType<A>>
+    }) as Q & ProxyAnswer<SyncAnswerType<A>>
 }
 
 function doNotProxy(key: string | symbol | number) {
