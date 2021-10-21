@@ -48,7 +48,7 @@ describe('Page', () => {
 
             /** @test {Page.current()} */
             /** @test {Page#title()} */
-            it('is accessible via a ProxyAnswer', async () =>
+            it('is accessible via a ProxyQuestion', async () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.current().title(), equals(`Hello World`)),
                 ));
@@ -78,7 +78,7 @@ describe('Page', () => {
             // todo: add Interaction.proxy
             // /** @test {Page.current()} */
             // /** @test {Page#title()} */
-            // it('is accessible via a ProxyAnswer', async () =>
+            // it('is accessible via a ProxyQuestion', async () =>
             //     actorCalled('Bernie').attemptsTo(
             //         Ensure.that(Page.current().title(), equals(`Hello World`)),
             //     ));

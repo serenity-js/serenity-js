@@ -1,9 +1,9 @@
-import { Answerable, ProxyAnswer, Question } from '@serenity-js/core';
+import { Answerable, ProxyQuestion, Question } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../screenplay';
 
 export abstract class Page {
-    static current(): Question<Promise<Page>> & ProxyAnswer<Page> {
+    static current(): Question<Promise<Page>> & ProxyQuestion<Page> {
         return Question.about('current page', actor => {
             return BrowseTheWeb.as(actor).getCurrentPage()
         });

@@ -4,7 +4,7 @@ import { Actor } from '../../actor';
 import { Answerable } from '../../Answerable';
 import { Question } from '../../Question';
 
-export type SyncAnswerType<Result> =
+export type PromisedResult<Result> =
     Result extends Promise<infer A>
         ? A
         : Result;
@@ -15,24 +15,23 @@ type AnswerableParameters<T extends unknown[]> =
 // https://stackoverflow.com/questions/48215950/exclude-property-from-type
 
 // https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#key-remapping-in-mapped-types
-type NonQuestionSpecificProperties<T> = {
-    [Key in keyof T as Exclude<Key, keyof Question<T>>]: T[Key];
+type SubtractKeys<Minuend, Subtrahend> = {
+    [Key in keyof Minuend as Exclude<Key, keyof Subtrahend>]: Minuend[Key];
 }
 
 /* eslint-disable @typescript-eslint/indent */
-export type ProxyAnswer<OriginalType> = {
-    [Field in keyof NonQuestionSpecificProperties<OriginalType>]:
+export type ProxyQuestion<OriginalType> = {
+    [Field in keyof SubtractKeys<OriginalType, Question<OriginalType>>]:
     // is it a method?
     OriginalType[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
         // make the method asynchronous
-        ? (...args: AnswerableParameters<OriginalParameters>) => Question<Promise<SyncAnswerType<OriginalMethodResult>>> & ProxyAnswer<OriginalMethodResult>
+        ? (...args: AnswerableParameters<OriginalParameters>) => Question<Promise<PromisedResult<OriginalMethodResult>>> & ProxyQuestion<OriginalMethodResult>
         // is it an object?
-        : Question<Promise<OriginalType[Field]>> & ProxyAnswer<OriginalType[Field]>
+        : Question<Promise<PromisedResult<OriginalType[Field]>>> & ProxyQuestion<OriginalType[Field]>
 }
 
 /* eslint-enable @typescript-eslint/indent */
-
-export function createProxyAnswer<A, Q extends Question<A> = Question<A>>(question: Q): Q & ProxyAnswer<SyncAnswerType<A>> {
+export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(question: Q): Q & ProxyQuestion<PromisedResult<A>> {
 
     return new Proxy<Q>(question, {
 
@@ -105,16 +104,16 @@ export function createProxyAnswer<A, Q extends Question<A> = Question<A>>(questi
                 return proxy;
             }
 
-            proxy.as = <O>(mapping: (answer: SyncAnswerType<A>) => O): Question<Promise<O>> => {
+            proxy.as = <O>(mapping: (answer: PromisedResult<A>) => O): Question<Promise<O>> => {
                 return Question.about<Promise<O>>(`${ proxy.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
                     const answer = await actor.answer(proxy)
                     return mapping(answer);
                 });
             }
 
-            return createProxyAnswer(proxy as any);
+            return createProxyQuestion(proxy as any);
         }
-    }) as Q & ProxyAnswer<SyncAnswerType<A>>
+    }) as Q & ProxyQuestion<PromisedResult<A>>
 }
 
 function doNotProxy(key: string | symbol | number) {
