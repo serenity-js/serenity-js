@@ -12,4 +12,12 @@ export class WebdriverIOPage extends Page {
     title(): Promise<string> {
         return this.browser.getTitle();
     }
+
+    viewportSize(): Promise<{ width: number, height: number }> {
+        return this.browser.getWindowSize();
+    }
+
+    setViewportSize(size: { width: number, height: number }): Promise<void> {
+        return this.browser.setWindowSize(size.width, size.height);
+    }
 }

@@ -21,6 +21,8 @@ describe('Page', () => {
 
         describe('toString()', () => {
 
+            /** @test {Page.current()} */
+            /** @test {Page#toString()} */
             it('returns a human-readable description of the question being asked', () => {
                 const description = Page.current().toString();
 
@@ -35,7 +37,8 @@ describe('Page', () => {
                     Navigate.to('/screenplay/questions/page/title.html'),
                 ));
 
-            /** @test {Website} */
+            /** @test {Page.current()} */
+            /** @test {Page#title()} */
             it('allows the actor to read the <title /> of the current page', async () => {
                 const page  = await Page.current().answeredBy(actorCalled('Bernie'));
                 const title = await page.title();
@@ -49,6 +52,36 @@ describe('Page', () => {
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.current().title(), equals(`Hello World`)),
                 ));
+        });
+
+        describe('viewportSize()', () => {
+
+            beforeEach(() =>
+                actorCalled('Bernie').attemptsTo(
+                    Navigate.to('/screenplay/questions/page/viewport_size.html'),
+                ));
+
+            /** @test {Page.current()} */
+            /** @test {Page#viewportSize()} */
+            /** @test {Page#setViewportSize()} */
+            it('allows the actor to read the inner size of the current page', async () => {
+                const page  = await Page.current().answeredBy(actorCalled('Bernie'));
+
+                const expectedSize = { width: 1600, height: 1200 };
+
+                await page.setViewportSize(expectedSize);
+                const actualSize = await page.viewportSize();
+
+                expect(actualSize).to.deep.equal(expectedSize);
+            });
+
+            // todo: add Interaction.proxy
+            // /** @test {Page.current()} */
+            // /** @test {Page#title()} */
+            // it('is accessible via a ProxyAnswer', async () =>
+            //     actorCalled('Bernie').attemptsTo(
+            //         Ensure.that(Page.current().title(), equals(`Hello World`)),
+            //     ));
         });
     });
 
