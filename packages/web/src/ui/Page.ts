@@ -23,6 +23,9 @@ export abstract class Page {
 
     abstract title(): Promise<string>;
 
+    abstract viewportSize(): Promise<{ width: number, height: number }>;
+    abstract setViewportSize(size: { width: number, height: number }): Promise<void>;
+
     // close(): Promise<void>;
 
     // toString() {
