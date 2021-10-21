@@ -1,6 +1,7 @@
 import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { createProxyQuestion, PromisedResult,ProxyQuestion } from './questions/proxies';
+import { PromisedResult, ProxyQuestion } from './proxy';
+import { createProxyQuestion } from './questions/proxies';
 
 /**
  * @desc

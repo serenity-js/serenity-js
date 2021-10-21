@@ -68,7 +68,7 @@ export function inspected(value: Answerable<any>, config?: InspectedConfig): str
 
     if (isAFunction(value)) {
         return hasName(value)
-            ? mark(value.name, true)
+            ? value.name
             : mark(`Function`, true);
     }
 
@@ -154,7 +154,7 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
  * @private
  * @param {Answerable<any>} v
  */
-function isAFunction(v: any): v is Function {
+function isAFunction(v: any): v is Function {       // eslint-disable-line @typescript-eslint/ban-types
     return Object.prototype.toString.call(v) === '[object Function]';
 }
 

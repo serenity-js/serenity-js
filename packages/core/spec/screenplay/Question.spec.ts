@@ -162,7 +162,7 @@ describe('Question', () => {
 
                             const result: number = await extracted.answeredBy(Quentin);
 
-                            expect(extracted.toString()).to.equal('<<example>>.name.slice(5, 7) as <<Number>>');
+                            expect(extracted.toString()).to.equal('<<example>>.name.slice(5, 7) as Number');
                             expect(result).to.equal(42);
                         })
                     });
@@ -503,7 +503,7 @@ describe('Question', () => {
                     const subject   = question.toString();
 
                     expect(result).to.deep.equal(42);
-                    expect(subject).to.equal('some answer as <<Number>>');
+                    expect(subject).to.equal('some answer as Number');
                 });
 
                 it('can be mapped from a sync value to another type', async () => {
@@ -514,7 +514,7 @@ describe('Question', () => {
                     const subject   = question.toString();
 
                     expect(result).to.deep.equal(42);
-                    expect(subject).to.equal('some answer as <<Number>>');
+                    expect(subject).to.equal('some answer as Number');
                 });
 
                 it('can be mapped to another Array type', async () => {
@@ -528,7 +528,7 @@ describe('Question', () => {
                     const subject   = question.toString();
 
                     expect(result).to.deep.equal([ 1, 2, 3 ]);
-                    expect(subject).to.equal('list of strings as <<numbers>>');
+                    expect(subject).to.equal('list of strings as numbers');
                 });
             });
         });
