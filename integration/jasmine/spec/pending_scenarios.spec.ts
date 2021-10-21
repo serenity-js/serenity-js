@@ -43,6 +43,7 @@ describe('@serenity-js/jasmine', function () {
                         expect(outcome).to.be.instanceOf(ImplementationPending);
 
                         expect(outcome.error).to.be.instanceof(ImplementationPendingError);
+                        console.log('>>', outcome.error);
                         expect(outcome.error.message).to.equal('Temporarily disabled with xit');
                     })
                 ;
