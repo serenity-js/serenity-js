@@ -1,36 +1,9 @@
 import { LogicError } from '../../../errors';
 import { inspected } from '../../../io/inspected';
 import { Actor } from '../../actor';
-import { Answerable } from '../../Answerable';
+import { PromisedResult, ProxyQuestion } from '../../proxy';
 import { Question } from '../../Question';
 
-export type PromisedResult<Result> =
-    Result extends Promise<infer A>
-        ? A
-        : Result;
-
-type AnswerableParameters<T extends unknown[]> =
-    { [P in keyof T]: Answerable<T[P]> }
-
-// https://stackoverflow.com/questions/48215950/exclude-property-from-type
-
-// https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#key-remapping-in-mapped-types
-type SubtractKeys<Minuend, Subtrahend> = {
-    [Key in keyof Minuend as Exclude<Key, keyof Subtrahend>]: Minuend[Key];
-}
-
-/* eslint-disable @typescript-eslint/indent */
-export type ProxyQuestion<OriginalType> = {
-    [Field in keyof SubtractKeys<OriginalType, Question<OriginalType>>]:
-    // is it a method?
-    OriginalType[Field] extends (...args: infer OriginalParameters) => infer OriginalMethodResult
-        // make the method asynchronous
-        ? (...args: AnswerableParameters<OriginalParameters>) => Question<Promise<PromisedResult<OriginalMethodResult>>> & ProxyQuestion<OriginalMethodResult>
-        // is it an object?
-        : Question<Promise<PromisedResult<OriginalType[Field]>>> & ProxyQuestion<OriginalType[Field]>
-}
-
-/* eslint-enable @typescript-eslint/indent */
 export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(question: Q): Q & ProxyQuestion<PromisedResult<A>> {
 
     return new Proxy<Q>(question, {
