@@ -43,7 +43,8 @@ describe('@serenity-js/jasmine', function () {
                         expect(outcome).to.be.instanceOf(ImplementationPending);
 
                         expect(outcome.error).to.be.instanceof(ImplementationPendingError);
-                        console.log(require('@serenity-js/jasmine/package.json').version)
+                        console.log('>> DEBUG', require('@serenity-js/jasmine/package.json').version)   // todo: remove
+                        console.log('>> DEBUG', require.resolve('@serenity-js/jasmine/package.json'))   // todo: remove
                         expect(outcome.error.message).to.equal('Temporarily disabled with xit');
                     })
                 ;
