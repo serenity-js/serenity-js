@@ -209,6 +209,7 @@ export class SerenityReporterForJasmine implements JasmineReporter {
             case 'failed':
                 return this.failureOutcomeFrom(result.failedExpectations[0]);
             case 'pending':
+                console.log('>> SerenityReporterForJasmine', result)
                 return new ImplementationPending(new ImplementationPendingError((result as any).pendingReason || ''));
             case 'excluded':
                 return new ExecutionSkipped();
