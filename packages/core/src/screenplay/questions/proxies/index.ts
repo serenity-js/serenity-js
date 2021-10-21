@@ -1,1 +1,1 @@
-export * from './createProxyAnswer';
+export * from './createProxyQuestion';

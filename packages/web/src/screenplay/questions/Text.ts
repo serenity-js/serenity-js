@@ -1,4 +1,4 @@
-import { Answerable, AnswersQuestions, createProxyAnswer, MetaQuestion, ProxyAnswer, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, AnswersQuestions, createProxyQuestion, MetaQuestion, ProxyQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
 import { PageElement, PageElementList } from '../../ui';
 import { ElementQuestion } from './ElementQuestion';
@@ -88,9 +88,9 @@ export class Text {
     static of(element: Answerable<PageElement>):
         Question<Promise<string>> &                                 // eslint-disable-line @typescript-eslint/indent
         MetaQuestion<Answerable<PageElement>, Promise<string>> &    // eslint-disable-line @typescript-eslint/indent
-        ProxyAnswer<string>                                         // eslint-disable-line @typescript-eslint/indent
+        ProxyQuestion<string>                                         // eslint-disable-line @typescript-eslint/indent
     {
-        return createProxyAnswer<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
+        return createProxyQuestion<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
             new TextOfSingleElement(element)
         );
     }
@@ -108,9 +108,9 @@ export class Text {
     static ofAll(elements: Answerable<PageElementList>):
         Question<Promise<string[]>> &                               // eslint-disable-line @typescript-eslint/indent
         MetaQuestion<Answerable<PageElement>, Promise<string[]>> &  // eslint-disable-line @typescript-eslint/indent
-        ProxyAnswer<string[]>                                       // eslint-disable-line @typescript-eslint/indent
+        ProxyQuestion<string[]>                                       // eslint-disable-line @typescript-eslint/indent
     {
-        return createProxyAnswer<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
+        return createProxyQuestion<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
             new TextOfMultipleElements(elements)
         );
     }

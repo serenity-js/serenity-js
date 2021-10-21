@@ -1,6 +1,6 @@
 import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { createProxyAnswer, ProxyAnswer, SyncAnswerType } from './questions/proxies';
+import { createProxyQuestion, PromisedResult,ProxyQuestion } from './questions/proxies';
 
 /**
  * @desc
@@ -77,8 +77,8 @@ export abstract class Question<T> {
      *
      * @returns {Question<R>}
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & ProxyAnswer<SyncAnswerType<R>> {
-        return createProxyAnswer<R>(new AnonymousQuestion<R>(description, body));
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & ProxyQuestion<PromisedResult<R>> {
+        return createProxyQuestion<R>(new AnonymousQuestion<R>(description, body));
     }
 
     /**
@@ -125,9 +125,9 @@ export abstract class Question<T> {
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 
-    public as<O>(mapping: (answer: SyncAnswerType<T>) => Promise<O> | O): Question<Promise<O>> {
+    public as<O>(mapping: (answer: PromisedResult<T>) => Promise<O> | O): Question<Promise<O>> {
         return Question.about<Promise<O>>(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
-            const answer = (await actor.answer(this)) as SyncAnswerType<T>;
+            const answer = (await actor.answer(this)) as PromisedResult<T>;
             return mapping(answer);
         });
     }
