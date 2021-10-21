@@ -205,7 +205,6 @@ export class SerenityReporterForJasmine implements JasmineReporter {
      * @returns {Outcome}
      */
     private outcomeFrom(result: SpecResult | SuiteResult): Outcome {
-        console.log('>> SerenityReporterForJasmine result', result) // todo: remove
         switch (result.status) {
             case 'failed':
                 return this.failureOutcomeFrom(result.failedExpectations[0]);
