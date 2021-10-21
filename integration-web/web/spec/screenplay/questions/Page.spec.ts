@@ -67,7 +67,7 @@ describe('Page', () => {
             it('allows the actor to read the inner size of the current page', async () => {
                 const page  = await Page.current().answeredBy(actorCalled('Bernie'));
 
-                const expectedSize = { width: 1600, height: 1200 };
+                const expectedSize = { width: 640, height: 480 };
 
                 await page.setViewportSize(expectedSize);
                 const actualSize = await page.viewportSize();
