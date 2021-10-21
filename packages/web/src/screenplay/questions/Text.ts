@@ -86,9 +86,9 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static of(element: Answerable<PageElement>):
-        Question<Promise<string>> &
-        MetaQuestion<Answerable<PageElement>, Promise<string>> &
-        ProxyAnswer<string>
+        Question<Promise<string>> &                                 // eslint-disable-line @typescript-eslint/indent
+        MetaQuestion<Answerable<PageElement>, Promise<string>> &    // eslint-disable-line @typescript-eslint/indent
+        ProxyAnswer<string>                                         // eslint-disable-line @typescript-eslint/indent
     {
         return createProxyAnswer<Promise<string>, ElementQuestion<Promise<string>> & MetaQuestion<Answerable<PageElement>, Promise<string>>>(
             new TextOfSingleElement(element)
@@ -106,9 +106,9 @@ export class Text {
      * @see {@link @serenity-js/core/lib/screenplay/questions~MetaQuestion}
      */
     static ofAll(elements: Answerable<PageElementList>):
-        Question<Promise<string[]>> &
-        MetaQuestion<Answerable<PageElement>, Promise<string[]>> &
-        ProxyAnswer<string[]>
+        Question<Promise<string[]>> &                               // eslint-disable-line @typescript-eslint/indent
+        MetaQuestion<Answerable<PageElement>, Promise<string[]>> &  // eslint-disable-line @typescript-eslint/indent
+        ProxyAnswer<string[]>                                       // eslint-disable-line @typescript-eslint/indent
     {
         return createProxyAnswer<Promise<string[]>, ElementQuestion<Promise<string[]>> & MetaQuestion<Answerable<PageElement>, Promise<string[]>>>(
             new TextOfMultipleElements(elements)
