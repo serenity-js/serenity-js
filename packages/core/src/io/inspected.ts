@@ -66,8 +66,10 @@ export function inspected(value: Answerable<any>, config?: InspectedConfig): str
         return value.inspect();
     }
 
-    if (isANamedFunction(value)) {
-        return value.name;
+    if (isAFunction(value)) {
+        return hasName(value)
+            ? mark(value.name, true)
+            : mark(`Function`, true);
     }
 
     if (! hasCustomInspectionFunction(value) && isPlainObject(value) && isSerialisableAsJSON(value)) {
@@ -152,8 +154,19 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
  * @private
  * @param {Answerable<any>} v
  */
-function isANamedFunction(v: any): v is { name: string } {
-    return Object.prototype.toString.call(v) === '[object Function]' && (v as any).name !== '';
+function isAFunction(v: any): v is Function {
+    return Object.prototype.toString.call(v) === '[object Function]';
+}
+
+/**
+ * @desc
+ *  Checks if the value is has a property called 'name' with a non-empty value.
+ *
+ * @private
+ * @param {Answerable<any>} v
+ */
+function hasName(v: any): v is { name: string } {
+    return typeof (v as any).name === 'string' && (v as any).name !== '';
 }
 
 /**
