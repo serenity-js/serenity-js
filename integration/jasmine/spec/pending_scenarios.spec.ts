@@ -4,6 +4,7 @@ import { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integratio
 import { ImplementationPendingError } from '@serenity-js/core';
 import { SceneFinished, SceneStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';
 import { ImplementationPending, Name, ProblemIndication } from '@serenity-js/core/lib/model';
+import { Version } from '@serenity-js/core/lib/io';
 import { jasmine } from '../src/jasmine';
 
 describe('@serenity-js/jasmine', function () {
@@ -43,9 +44,16 @@ describe('@serenity-js/jasmine', function () {
                         expect(outcome).to.be.instanceOf(ImplementationPending);
 
                         expect(outcome.error).to.be.instanceof(ImplementationPendingError);
-                        console.log('>> DEBUG', require('@serenity-js/jasmine/package.json').version)   // todo: remove
-                        console.log('>> DEBUG', require.resolve('@serenity-js/jasmine/package.json'))   // todo: remove
-                        expect(outcome.error.message).to.equal('Temporarily disabled with xit');
+
+                        expect(outcome.error.message).to.satisfy(() => {
+                            // see https://github.com/jasmine/jasmine/issues/1939
+                            if (jasmineVersion().equals(new Version('3.10.0'))) {
+                                return outcome.error.message === '';
+                            }
+                            else {
+                                return outcome.error.message === 'Temporarily disabled with xit'
+                            }
+                        });
                     })
                 ;
             }));
@@ -89,3 +97,8 @@ describe('@serenity-js/jasmine', function () {
             }));
     });
 });
+
+function jasmineVersion() {
+    const version = require('jasmine/package.json').version;
+    return new Version(version);
+}
