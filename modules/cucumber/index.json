@@ -8359,17 +8359,6 @@
   {
     "__docId__": 459,
     "kind": "file",
-    "name": "src/listeners/messages/parser/index.ts",
-    "content": "",
-    "static": true,
-    "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/src/listeners/messages/parser/index.ts",
-    "access": "public",
-    "description": null,
-    "lineNumber": 1
-  },
-  {
-    "__docId__": 460,
-    "kind": "file",
     "name": "src/listeners/messages/parser/types/ExtractedScenario.ts",
     "content": "import { BusinessRule, Description, Name, Tag } from '@serenity-js/core/lib/model';\n\nexport interface ExtractedScenario {\n    featureDescription?: Description;\n    rule?: BusinessRule;\n    scenarioDescription?: Description;\n    testRunnerName: Name;\n    tags: Tag[];\n}\n",
     "static": true,
@@ -8379,7 +8368,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 461,
+    "__docId__": 460,
     "kind": "file",
     "name": "src/listeners/messages/parser/types/ExtractedScenarioOutline.ts",
     "content": "import { Description, ScenarioDetails, ScenarioParameters } from '@serenity-js/core/lib/model';\n\nexport interface ExtractedScenarioOutline {\n    details: ScenarioDetails;\n    template: Description;\n    parameters: ScenarioParameters;\n}\n",
@@ -8390,7 +8379,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 462,
+    "__docId__": 461,
     "kind": "file",
     "name": "src/listeners/messages/parser/types/index.ts",
     "content": "/* istanbul ignore file */\nexport * from './ExtractedScenario';\nexport * from './ExtractedScenarioOutline';\n",
@@ -8410,14 +8399,14 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@serenity-js/cucumber\",\n  \"version\": \"2.32.1\",\n  \"description\": \"Serenity/JS adapter for Cucumber test runners version 1.x - 7.x\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"cucumber\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml --timeout 30000 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7\"\n  },\n  \"dependencies\": {\n    \"@cucumber/messages\": \"^16.0.1\",\n    \"@serenity-js/core\": \"2.32.1\",\n    \"cli-table3\": \"^0.6.0\",\n    \"gherkin\": \"5.1.0\",\n    \"tiny-types\": \"^1.16.1\"\n  },\n  \"peerDependencies\": {\n    \"@cucumber/cucumber\": \"^7.3.1\",\n    \"cucumber\": \"^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@cucumber/cucumber\": {\n      \"optional\": true\n    },\n    \"cucumber\": {\n      \"optional\": true\n    }\n  },\n  \"devDependencies\": {\n    \"@cucumber/cucumber\": \"^7.3.1\",\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.22\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"mocha\": \"^9.1.1\",\n    \"ts-node\": \"^10.2.1\",\n    \"typescript\": \"^4.4.3\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/listeners/legacy/cucumber-*.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
+    "content": "{\n  \"name\": \"@serenity-js/cucumber\",\n  \"version\": \"2.32.2\",\n  \"description\": \"Serenity/JS adapter for Cucumber test runners version 1.x - 7.x\",\n  \"author\": {\n    \"name\": \"Jan Molak\",\n    \"email\": \"jan.molak@smartcodeltd.co.uk\",\n    \"url\": \"https://janmolak.com\"\n  },\n  \"funding\": {\n    \"url\": \"https://github.com/sponsors/serenity-js\"\n  },\n  \"homepage\": \"https://serenity-js.org\",\n  \"license\": \"Apache-2.0\",\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"main\": \"lib/index.js\",\n  \"typings\": \"lib/index.d.ts\",\n  \"keywords\": [\n    \"serenity-js\",\n    \"cucumber\",\n    \"tdd\",\n    \"bdd\",\n    \"test\",\n    \"testing\"\n  ],\n  \"scripts\": {\n    \"clean\": \"rimraf .nyc_output lib target\",\n    \"lint\": \"eslint --ext ts --config ../../.eslintrc.js .\",\n    \"lint:fix\": \"npm run lint -- --fix\",\n    \"test\": \"nyc --report-dir ../../target/coverage/cucumber mocha --config ../../.mocharc.yml --timeout 30000 'spec/**/*.spec.*'\",\n    \"compile\": \"tsc --project tsconfig.json\",\n    \"site\": \"esdoc -c .esdoc.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/serenity-js/serenity-js.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/serenity-js/serenity-js/issues\"\n  },\n  \"engines\": {\n    \"node\": \"^12 || ^14 || ^16\",\n    \"npm\": \"^6 || ^7 || ^8\"\n  },\n  \"dependencies\": {\n    \"@cucumber/messages\": \"^16.0.1\",\n    \"@serenity-js/core\": \"2.32.2\",\n    \"cli-table3\": \"^0.6.0\",\n    \"gherkin\": \"5.1.0\",\n    \"tiny-types\": \"^1.16.1\"\n  },\n  \"peerDependencies\": {\n    \"@cucumber/cucumber\": \"^7.3.1\",\n    \"cucumber\": \"^1.3.3 || ^2.3.1 || ^3.2.1 || ^4.2.1 || ^5.0.0 || ^6.0.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@cucumber/cucumber\": {\n      \"optional\": true\n    },\n    \"cucumber\": {\n      \"optional\": true\n    }\n  },\n  \"devDependencies\": {\n    \"@cucumber/cucumber\": \"^7.3.1\",\n    \"@documentation/esdoc-template\": \"2.0.0\",\n    \"@integration/testing-tools\": \"2.0.0\",\n    \"@types/chai\": \"^4.2.22\",\n    \"@types/mocha\": \"^9.0.0\",\n    \"mocha\": \"^9.1.3\",\n    \"ts-node\": \"^10.2.1\",\n    \"typescript\": \"^4.4.3\"\n  },\n  \"nyc\": {\n    \"include\": [\n      \"src/**/*.ts\"\n    ],\n    \"exclude\": [\n      \"src/**/*.d.ts\",\n      \"src/listeners/legacy/cucumber-*.ts\",\n      \"lib\",\n      \"node_modules\",\n      \"spec\"\n    ],\n    \"extension\": [\n      \".ts\"\n    ],\n    \"require\": [\n      \"ts-node/register\"\n    ],\n    \"reporter\": [\n      \"json\"\n    ],\n    \"cache\": true,\n    \"all\": true\n  }\n}\n",
     "longname": "/home/runner/work/serenity-js/serenity-js/packages/cucumber/package.json",
     "name": "package.json",
     "static": true,
     "access": "public"
   },
   {
-    "__docId__": 463,
+    "__docId__": 462,
     "kind": "testFile",
     "name": "spec/cli/CucumberCLIAdapter.spec.ts",
     "content": "import 'mocha';\n\nimport { EventRecorder, expect, PickEvent } from '@integration/testing-tools';\nimport { configure } from '@serenity-js/core';\nimport {\n    ActivityFinished,\n    ActivityStarts,\n    SceneFinished,\n    SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TestRunFinished,\n    TestRunFinishes,\n    TestRunnerDetected,\n    TestRunStarts,\n} from '@serenity-js/core/lib/events';\nimport { FileSystem, ModuleLoader, Path, trimmed } from '@serenity-js/core/lib/io';\nimport { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';\nimport { given } from 'mocha-testdata';\nimport * as path from 'path';   // eslint-disable-line unicorn/import-style\n\n// eslint-disable-next-line unicorn/prevent-abbreviations\nimport { CucumberCLIAdapter, CucumberConfig, SerenityFormatterOutput, StandardOutput, TempFileOutput } from '../../src/cli';\n\nconst { stdout } = require('test-console'); // eslint-disable-line @typescript-eslint/no-var-requires\n\n/** @test {CucumberCLIAdapter} */\ndescribe('CucumberCLIAdapter', function () {\n\n    this.timeout(5000);\n\n    let recorder: EventRecorder;\n\n    const rootDirectory = Path.from(__dirname);\n\n    beforeEach(() => {\n        recorder = new EventRecorder();\n\n        configure({\n            crew: [ recorder ]\n        });\n    });\n\n    describe('registers @serenity-js/cucumber and', () => {\n\n        given<Example>([ {\n            description: 'no custom formats => default output',\n            config: { formatOptions: { colorsEnabled: false } },\n            expectedOutput: trimmed`\n                | ..\n                |\n                | 1 scenario (1 passed)\n                | 1 step (1 passed)\n            `\n        }, {\n            description: 'custom formats => custom output',\n            config: {\n                format: [ 'usage' ],\n                formatOptions: { colorsEnabled: false }\n            },\n            expectedOutput: 'Pattern / Text'\n        } ]).\n        it('runs together with native Cucumber formatters, when configured to print to a temp file', ({ config, expectedOutput }: Example) =>\n            run(config, new TempFileOutput(new FileSystem(rootDirectory)))\n                .then(output => {\n                    expect(output).to.include(expectedOutput);\n\n                    PickEvent.from(recorder.events)\n                        .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                        .next(SceneStarts,         event => {\n                            expect(event.details.name).to.equal(new Name('A passing scenario'))\n                            expect(event.details.location.path.value).to.match(/features\\/passing_scenario.feature$/)\n                            expect(event.details.location.line).to.equal(3);\n                            expect(event.details.location.column).to.equal(3);\n                        })\n                        .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                        .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))\n                        .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))\n                        .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                        .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                        .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                        .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                        .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                    ;\n                })\n        );\n\n        given<Example>([ {\n            description: 'no custom formats => no output',\n            config: {},\n            expectedOutput: ''\n        }, {\n            description: 'custom formats => no output',\n            config: {\n                format: 'usage'\n            },\n            expectedOutput: ''\n        } ]).\n        it('takes precedence over native the standard output formatters, if configured to do so', ({ config, expectedOutput }: Example) =>\n            run(config, new StandardOutput()).then(output => {\n                expect(output).to.equal('');\n\n                PickEvent.from(recorder.events)\n                    .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('A passing scenario'))\n                        expect(event.details.location.path.value).to.match(/features\\/passing_scenario.feature$/)\n                        expect(event.details.location.line).to.equal(3);\n                        expect(event.details.location.column).to.equal(3);\n                    })\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                    .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                ;\n            })\n        )\n    });\n\n    class LocalModuleLoader extends ModuleLoader {\n        resolve(moduleId: string): string {\n            if (moduleId === '@serenity-js/cucumber') {\n                return super.resolve(path.resolve(__dirname, '../../src'));\n            }\n\n            return super.resolve(moduleId);\n        }\n    }\n\n    // eslint-disable-next-line unicorn/consistent-function-scoping\n    function clearRequireCache(pattern: string) {\n        Object.keys(require.cache)\n            .filter(key => key.includes(pattern))\n            .forEach(function (key) {\n                delete require.cache[key];\n            });\n    }\n\n    async function run(config: CucumberConfig, output: SerenityFormatterOutput): Promise<string> {\n        clearRequireCache('steps.ts');\n\n        const adapter = new CucumberCLIAdapter(\n            {\n                ...config,\n                require: [ path.resolve(__dirname, 'features/step_definitions/steps.ts') ],\n            },\n            new LocalModuleLoader(rootDirectory.value),\n            new FileSystem(rootDirectory),\n            output\n        );\n\n        const inspect = stdout.inspect();\n\n        await adapter.load([ 'features/passing_scenario.feature' ])\n\n        return adapter\n            .run()\n            .then(() => {\n                inspect.restore();\n                return inspect.output.join('');\n            }, error => {\n                inspect.restore();\n                throw error;\n            });\n    }\n\n    interface Example {\n        description: string;\n        config: CucumberConfig;\n        expectedOutput: string;\n    }\n});\n",
@@ -8428,7 +8417,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 464,
+    "__docId__": 463,
     "kind": "test",
     "name": "describe0",
     "testId": 0,
@@ -8444,7 +8433,7 @@
     ]
   },
   {
-    "__docId__": 465,
+    "__docId__": 464,
     "kind": "test",
     "name": "describe1",
     "testId": 1,
@@ -8457,7 +8446,7 @@
     "lineNumber": 44
   },
   {
-    "__docId__": 466,
+    "__docId__": 465,
     "kind": "testFile",
     "name": "spec/cli/CucumberFormat.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { given } from 'mocha-testdata';\n\nimport { CucumberFormat } from '../../src/cli';\n\n/** @test {CucumberFormat} */\ndescribe('CucumberFormat', () => {\n\n    given([ {\n        description:    `outputs to standard output on Unix`,\n        format:         '../custom/formatter',\n        formatter:      '../custom/formatter',\n        output:         '',\n    }, {\n        description:    'outputs to standard output on Windows',\n        format:         'C:\\\\custom\\\\formatter',\n        formatter:      'C:\\\\custom\\\\formatter',\n        output:         '',\n    }, {\n        description:    'uses relative unix paths to describe the location of both the formatter and its output',\n        format:         '../custom/formatter:../formatter/output.txt',\n        formatter:      '../custom/formatter',\n        output:         '../formatter/output.txt',\n    }, {\n        description:    'uses absolute unix paths to describe the location of both the formatter and its output',\n        format:         '/custom/formatter:/formatter/output.txt',\n        formatter:      '/custom/formatter',\n        output:         '/formatter/output.txt',\n    }, {\n        description:    'uses absolute Windows paths to describe the location of both the formatter and its output',\n        format:         'C:\\\\custom\\\\formatter:C:\\\\formatter\\\\output.txt',\n        formatter:      'C:\\\\custom\\\\formatter',\n        output:         'C:\\\\formatter\\\\output.txt',\n    } ]).\n    it('represents native Cucumber format that', ({ format, formatter, output }) => {\n        const cucumberFormat = new CucumberFormat(format);\n\n        expect(cucumberFormat.value).to.equal(format);\n        expect(cucumberFormat.formatter).to.equal(formatter);\n        expect(cucumberFormat.output).to.equal(output);\n    });\n});\n",
@@ -8468,7 +8457,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 467,
+    "__docId__": 466,
     "kind": "test",
     "name": "describe2",
     "testId": 2,
@@ -8484,7 +8473,7 @@
     ]
   },
   {
-    "__docId__": 468,
+    "__docId__": 467,
     "kind": "testFile",
     "name": "spec/cli/CucumberOptions.spec.ts",
     "content": "/* eslint-disable unicorn/no-null */\nimport 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { FileSystem, Path, Version } from '@serenity-js/core/lib/io';\nimport { given } from 'mocha-testdata';\n\nimport { CucumberOptions } from '../../src/cli/CucumberOptions';\n\n/** @test {CucumberOptions} */\ndescribe('CucumberOptions', () => {\n\n    describe('strict mode', () => {\n\n        given([\n            new Version('1.0.0'),\n            new Version('2.0.0'),\n            new Version('3.0.0'),\n            new Version('4.0.0'),\n            new Version('5.0.0'),\n        ]).\n        it('is strict by default', (majorVersion: Version) => {\n            const options = new CucumberOptions(dummyFS(), { });\n\n            expect(options.isStrict()).to.equal(true);\n\n            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js']);\n        });\n\n        given([\n            new Version('1.0.0'),\n            new Version('2.0.0'),\n            new Version('3.0.0'),\n            new Version('4.0.0'),\n            new Version('5.0.0'),\n        ]).\n        it('can be explicitly enabled', (majorVersion: Version) => {\n            const options = new CucumberOptions(dummyFS(), { strict: true });\n\n            expect(options.isStrict()).to.equal(true);\n\n            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--strict']);\n        });\n\n        given([\n            new Version('1.0.0'),\n            new Version('2.0.0'),\n            new Version('3.0.0'),\n            new Version('4.0.0'),\n            new Version('5.0.0'),\n        ]).\n        it('can be disabled', (majorVersion: Version) => {\n            const options = new CucumberOptions(dummyFS(), { strict: false });\n\n            expect(options.isStrict()).to.equal(false);\n\n            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--no-strict']);\n        });\n\n        given([\n            new Version('1.0.0'),\n            new Version('2.0.0'),\n            new Version('3.0.0'),\n            new Version('4.0.0'),\n            new Version('5.0.0'),\n        ]).\n        it('can be disabled via cucumberOpts.noStrict', (majorVersion: Version) => {\n            const options = new CucumberOptions(dummyFS(), { noStrict: true } as any);\n\n            expect(options.isStrict()).to.equal(false);\n\n            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js', '--no-strict']);\n        });\n\n    });\n\n    describe('when used to produce command line arguments for Cucumber CLI', () => {\n\n        given([\n            new Version('1.0.0'),\n            new Version('2.0.0'),\n            new Version('3.0.0'),\n            new Version('4.0.0'),\n            new Version('5.0.0'),\n        ]).\n        it('returns no additional arguments when the config is empty', (majorVersion: Version) => {\n            const options = new CucumberOptions(dummyFS(), {});\n\n            expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal(['node', 'cucumber-js']);\n        });\n\n        /**\n         * @see https://github.com/cucumber/cucumber-js/blob/main/features/rerun_formatter.feature\n          */\n        describe('rerun formatter', () => {\n\n            it('adds the rerun formatter', () => {\n                const options = new CucumberOptions(dummyFS(), {\n                    format: 'rerun=@rerun.txt',\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt'],\n                );\n            });\n\n            it('appends the rerun file', () => {\n                const options = new CucumberOptions(fsWithRerunFile(true), {\n                    format: 'rerun=@rerun.txt',\n                    rerun: '@rerun.txt'\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt', '@rerun.txt'],\n                );\n            });\n\n            it('does not append the rerun file when it does not exist', () => {\n                const options = new CucumberOptions(fsWithRerunFile(false), {\n                    format: 'rerun=@rerun.txt',\n                    rerun: '@rerun.txt'\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js', '--format', 'rerun=@rerun.txt'],\n                );\n            });\n        });\n\n        describe('tags', () => {\n\n            const emptyTags = [\n                {   description: 'empty string',            tags: '',                   },\n                {   description: 'null',                    tags: null,                 },\n                {   description: 'undefined',               tags: undefined,            },\n                {   description: 'empty list',              tags: [],                   },\n                {   description: 'list with empty values',  tags: ['', null, undefined] },\n            ];\n\n            given(emptyTags).it('ignores empty tags when generating tag expressions (>=2.x)', ({ tags }) => {\n                const options = new CucumberOptions(dummyFS(), { tags });\n\n                expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([\n                    'node', 'cucumber-js',\n                ]);\n            });\n\n            given(emptyTags).it('ignores empty tags when working with Cucumber 1.x', ({ tags }) => {\n                const options = new CucumberOptions(dummyFS(), { tags });\n\n                expect(options.asArgumentsForCucumber(new Version('2.0.0'))).to.deep.equal([\n                    'node', 'cucumber-js',\n                ]);\n            });\n\n            given([\n                new Version('2.0.0'),\n                new Version('3.0.0'),\n            ]).\n            it('converts a list of tags into a Cucumber expression for Cucumber 2.x and newer', (majorVersion: Version) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    tags: [\n                        '@smoke-test',\n                        '~@wip',\n                        'not @failing and ~@flaky',\n                    ],\n                });\n\n                expect(options.asArgumentsForCucumber(majorVersion)).to.deep.equal([\n                    'node', 'cucumber-js', '--tags', '@smoke-test and not @wip and not @failing and not @flaky',\n                ]);\n            });\n\n            it('passes the tags individually to Cucumber 1.x', () => {\n                const options = new CucumberOptions(dummyFS(), {\n                    tags: [\n                        '@smoke-test',\n                        '~@wip',\n                        '~@failing',\n                    ],\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('1.0.0'))).to.deep.equal([\n                    'node', 'cucumber-js', '--tags', '@smoke-test', '--tags', '~@wip', '--tags', '~@failing',\n                ]);\n            });\n        });\n\n        describe('flags', () => {\n\n            given([\n                { description: 'backtrace off',    option: 'backtrace',    state: false,  expected: '--no-backtrace'   },\n                { description: 'backtrace on',     option: 'backtrace',    state: true,   expected: '--backtrace'      },\n                { description: 'dry-run off',      option: 'dry-run',      state: false,  expected: '--no-dry-run'     },\n                { description: 'dry-run on',       option: 'dry-run',      state: true,   expected: '--dry-run'        },\n                { description: 'exit off',         option: 'exit',         state: false,  expected: '--no-exit'        },\n                { description: 'exit on',          option: 'exit',         state: true,   expected: '--exit'           },\n                { description: 'fail-fast off',    option: 'fail-fast',    state: false,  expected: '--no-fail-fast'   },\n                { description: 'fail-fast on',     option: 'fail-fast',    state: true,   expected: '--fail-fast'      },\n                { description: 'strict off',       option: 'strict',       state: false,  expected: '--no-strict'      },\n                { description: 'strict on',        option: 'strict',       state: true,   expected: '--strict'         },\n                { description: 'colors off',       option: 'colors',       state: false,  expected: '--no-colors'      },\n                { description: 'colors on',        option: 'colors',       state: true,   expected: '--colors'         },\n            ]).\n            it('correctly interprets boolean options', ({ option, state, expected }) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    [option]: state,\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('5.0.0'))).to.deep.equal([\n                    'node', 'cucumber-js', expected,\n                ]);\n            });\n\n            given([\n                { description: 'backtrace off',    option: 'no-backtrace',    state: true,  expected: '--no-backtrace'   },\n                { description: 'backtrace on',     option: 'no-backtrace',    state: false, expected: '--backtrace'      },\n                { description: 'dry-run off',      option: 'no-dry-run',      state: true,  expected: '--no-dry-run'     },\n                { description: 'dry-run on',       option: 'no-dry-run',      state: false, expected: '--dry-run'        },\n                { description: 'exit off',         option: 'no-exit',         state: true,  expected: '--no-exit'        },\n                { description: 'exit on',          option: 'no-exit',         state: false, expected: '--exit'           },\n                { description: 'fail-fast off',    option: 'no-fail-fast',    state: true,  expected: '--no-fail-fast'   },\n                { description: 'fail-fast on',     option: 'no-fail-fast',    state: false, expected: '--fail-fast'      },\n                { description: 'strict off',       option: 'no-strict',       state: true,  expected: '--no-strict'      },\n                { description: 'strict on',        option: 'no-strict',       state: false, expected: '--strict'         },\n                { description: 'colors off',       option: 'no-colors',       state: true,  expected: '--no-colors'      },\n                { description: 'colors on',        option: 'no-colors',       state: false, expected: '--colors'         },\n            ]).\n            it('correctly interprets negated boolean options', ({ option, state, expected }) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    [option]: state,\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('5.0.0'))).to.deep.equal([\n                    'node', 'cucumber-js', expected,\n                ]);\n            });\n        });\n\n        describe('other options', () => {\n\n            given([\n                { description: 'profile',    option: 'profile',    value: ['dry', 'progress'],          expected: [ '--profile', 'dry', '--profile', 'progress' ] },\n                { description: 'require',    option: 'require',    value: [ 'features/**/*.ts' ],       expected: [ '--require', 'features/**/*.ts' ] },\n                { description: 'name',       option: 'name',       value: [ 'checkout.*', 'smoke.*' ],  expected: [ '--name', 'checkout.*',  '--name', 'smoke.*'  ] },\n            ]).\n            it('includes any other options', ({ option, value, expected }) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    [option]: value,\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('5.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js'].concat(expected),\n                );\n            });\n        });\n\n        describe('camelCase to kebab-case', () => {\n\n            given([\n                { description: 'dryRun on',         option: 'dryRun',           value: true,        expected: [ '--dry-run' ] },\n                { description: 'dryRun off',        option: 'dryRun',           value: false,       expected: [ '--no-dry-run' ] },\n                { description: 'noFailFast',        option: 'noFailFast',       value: true,        expected: [ '--no-fail-fast' ] },\n                { description: 'retryTagFilter',    option: 'retryTagFilter',   value: '@flaky',    expected: [ '--retry-tag-filter', '@flaky' ] },\n            ]).\n            it('converts camelCased options to kebab-case', ({ option, value, expected }) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    [option]: value,\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js'].concat(expected),\n                );\n            });\n        });\n\n        describe('empty values', () => {\n\n            given([\n                { description: 'undefined',         option: 'format',           value: undefined,   },\n                { description: 'null',              option: 'format',           value: null,        },\n                { description: 'empty list',        option: 'format',           value: [],          },\n            ]).\n            it('ignores empty values', ({ option, value }) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    [option]: value,\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js'],\n                );\n            });\n        });\n\n        describe('objects', () => {\n\n            given([\n                { description: 'camelCase',   option: 'worldParameters',    value: { baseUrl: 'https://example.org' }   },\n                { description: 'kebab-case',  option: 'world-parameters',   value: { baseUrl: 'https://example.org' }   },\n                { description: 'string',      option: 'worldParameters',    value: '{\"baseUrl\":\"https://example.org\"}'  },\n            ]).\n            it('ignores empty values', ({ option, value }) => {\n                const options = new CucumberOptions(dummyFS(), {\n                    [option]: value,\n                });\n\n                expect(options.asArgumentsForCucumber(new Version('7.0.0'))).to.deep.equal(\n                    ['node', 'cucumber-js', '--world-parameters', '{\"baseUrl\":\"https://example.org\"}'],\n                );\n            });\n        });\n    });\n});\n\nfunction dummyFS(): FileSystem {\n    return fsWithRerunFile(false);\n}\n\nfunction fsWithRerunFile(hasFile: boolean): FileSystem {\n    return {\n        exists: (relativePath_: Path): boolean => {\n            return hasFile\n        }\n    } as unknown as FileSystem;\n}\n",
@@ -8495,7 +8484,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 469,
+    "__docId__": 468,
     "kind": "test",
     "name": "describe3",
     "testId": 3,
@@ -8511,7 +8500,7 @@
     ]
   },
   {
-    "__docId__": 470,
+    "__docId__": 469,
     "kind": "test",
     "name": "describe4",
     "testId": 4,
@@ -8524,7 +8513,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 471,
+    "__docId__": 470,
     "kind": "test",
     "name": "describe5",
     "testId": 5,
@@ -8537,7 +8526,7 @@
     "lineNumber": 77
   },
   {
-    "__docId__": 472,
+    "__docId__": 471,
     "kind": "test",
     "name": "describe6",
     "testId": 6,
@@ -8553,7 +8542,7 @@
     "lineNumber": 95
   },
   {
-    "__docId__": 473,
+    "__docId__": 472,
     "kind": "test",
     "name": "it7",
     "testId": 7,
@@ -8566,7 +8555,7 @@
     "lineNumber": 97
   },
   {
-    "__docId__": 474,
+    "__docId__": 473,
     "kind": "test",
     "name": "it8",
     "testId": 8,
@@ -8579,7 +8568,7 @@
     "lineNumber": 107
   },
   {
-    "__docId__": 475,
+    "__docId__": 474,
     "kind": "test",
     "name": "it9",
     "testId": 9,
@@ -8592,7 +8581,7 @@
     "lineNumber": 118
   },
   {
-    "__docId__": 476,
+    "__docId__": 475,
     "kind": "test",
     "name": "describe10",
     "testId": 10,
@@ -8605,7 +8594,7 @@
     "lineNumber": 130
   },
   {
-    "__docId__": 477,
+    "__docId__": 476,
     "kind": "test",
     "name": "it11",
     "testId": 11,
@@ -8618,7 +8607,7 @@
     "lineNumber": 174
   },
   {
-    "__docId__": 478,
+    "__docId__": 477,
     "kind": "test",
     "name": "describe12",
     "testId": 12,
@@ -8631,7 +8620,7 @@
     "lineNumber": 189
   },
   {
-    "__docId__": 479,
+    "__docId__": 478,
     "kind": "test",
     "name": "describe13",
     "testId": 13,
@@ -8644,7 +8633,7 @@
     "lineNumber": 240
   },
   {
-    "__docId__": 480,
+    "__docId__": 479,
     "kind": "test",
     "name": "describe14",
     "testId": 14,
@@ -8657,7 +8646,7 @@
     "lineNumber": 258
   },
   {
-    "__docId__": 481,
+    "__docId__": 480,
     "kind": "test",
     "name": "describe15",
     "testId": 15,
@@ -8670,7 +8659,7 @@
     "lineNumber": 277
   },
   {
-    "__docId__": 482,
+    "__docId__": 481,
     "kind": "test",
     "name": "describe16",
     "testId": 16,
@@ -8683,7 +8672,7 @@
     "lineNumber": 295
   },
   {
-    "__docId__": 483,
+    "__docId__": 482,
     "kind": "testFile",
     "name": "spec/listeners/legacy/CucumberEventProtocolAdapter.spec.ts",
     "content": "/* eslint-disable @typescript-eslint/no-var-requires */\nimport 'mocha';\n\nimport { EventRecorder, expect, PickEvent } from '@integration/testing-tools';\nimport { ImplementationPendingError, Serenity } from '@serenity-js/core';\nimport { SceneFinished, SceneStarts, SceneTagged, TaskFinished, TaskStarts, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { FileSystemLocation, ModuleLoader, Path, Version } from '@serenity-js/core/lib/io';\nimport { Category, ExecutionFailedWithError, ExecutionSkipped, ExecutionSuccessful, FeatureTag, ImplementationPending, Name, ScenarioDetails } from '@serenity-js/core/lib/model';\nimport { EventEmitter } from 'events';\nimport * as sinon from 'sinon';\nimport { JSONObject } from 'tiny-types';\n\nimport { AmbiguousStepDefinitionError } from '../../../src/errors';\nimport { createListener } from '../../../src/listeners/legacy';\n\ndescribe('CucumberEventProtocolAdapter', () => {\n\n    type CucumberHook = (event?: object) =>     // eslint-disable-line @typescript-eslint/ban-types\n    Promise<void> | void;\n\n    let afterHook: CucumberHook;\n\n    const fakeCucumber = {\n        BeforeAll: (hook: CucumberHook) => Promise.resolve(hook()),\n        Before: (hook: CucumberHook) => Promise.resolve(hook()),\n        After: (hook: CucumberHook) => { afterHook = hook; },\n        AfterAll: (hook: CucumberHook) => Promise.resolve(hook()),\n    };\n\n    let recorder: EventRecorder,\n        serenity: Serenity,\n        log: typeof console.log,\n        eventBroadcaster: EventEmitter,\n        moduleLoader: sinon.SinonStubbedInstance<ModuleLoader>,\n        adapter: any;\n\n    beforeEach(() => {\n\n        log      = sinon.spy();\n        moduleLoader = sinon.createStubInstance(ModuleLoader);\n        serenity = new Serenity();\n        recorder = new EventRecorder();\n        eventBroadcaster = new EventEmitter();\n\n        serenity.configure({\n            crew: [recorder],\n        });\n\n        moduleLoader.hasAvailable.withArgs('@cucumber/cucumber').returns(false);\n\n        moduleLoader.hasAvailable.withArgs('cucumber').returns(true);\n        moduleLoader.versionOf.withArgs('cucumber').returns(new Version('5.0.0'));\n        moduleLoader.require.withArgs('cucumber').returns(fakeCucumber);\n\n        const listener = createListener(serenity, moduleLoader);\n\n        adapter = new listener({ eventBroadcaster, log });  // eslint-disable-line @typescript-eslint/no-unused-vars\n    });\n\n    it('correctly recognises Cucumber Event Protocol events', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 2, status: 'passed' } }));\n\n        emitAllFrom(require('./samples/scenario-with-hooks.json'));\n\n        const expectedScenarioDetails = new ScenarioDetails(\n            new Name('Hooks'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/tasty-cucumber.feature'),\n                3,\n                3,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n            PickEvent.from(recorder.events)\n                .next(SceneStarts,          e => expect(e.details).to.equal(expectedScenarioDetails))\n                .next(TestRunnerDetected,   e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged,          e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts,           e => expect(e.details.name).to.equal(new Name('Given I have a tasty cucumber in my belly')))\n                .next(TaskFinished,         e => {\n                    expect(e.details.name).to.equal(new Name('Given I have a tasty cucumber in my belly'));\n                    expect(e.outcome).to.equal(new ExecutionSuccessful());\n                })\n                .next(TaskStarts,           e => expect(e.details.name).to.equal(new Name(`Then I'm very happy`)))\n                .next(TaskFinished,         e => {\n                    expect(e.details.name).to.equal(new Name(`Then I'm very happy`));\n                    expect(e.outcome).to.equal(new ExecutionSuccessful());\n                })\n                .next(SceneFinished,        e => {\n                    expect(e.details).to.equal(expectedScenarioDetails);\n                    expect(e.outcome).to.equal(new ExecutionSuccessful());\n                })\n            ;\n        });\n    });\n\n    it('correctly recognises undefined steps', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 0, status: 'undefined' } }));\n\n        emitAllFrom(require('./samples/scenario-with-undefined-steps.json'));\n\n        const expectedScenarioDetails = new ScenarioDetails(\n            new Name('Undefined steps'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/undefined-steps.feature'),\n                3,\n                3,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n\n            PickEvent.from(recorder.events)\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I have an undefined step')))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Given I have an undefined step'));\n                    expect(e.outcome).to.be.instanceOf(ImplementationPending);\n                })\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name(`Then I should implement it`)))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Then I should implement it'));\n                    expect(e.outcome).to.be.instanceOf(ImplementationPending);\n                })\n                .next(SceneFinished, e => {\n                    expect(e.details).to.equal(expectedScenarioDetails);\n                    expect(e.outcome).to.be.instanceOf(ImplementationPending);\n                })\n            ;\n        });\n    });\n\n    it('correctly recognises pending steps', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({ result: { duration: 0, status: 'pending' } }));\n\n        emitAllFrom(require('./samples/scenario-with-pending-steps.json'));\n\n        const expectedScenarioDetails = new ScenarioDetails(\n            new Name('Pending steps'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/pending-steps.feature'),\n                3,\n                3,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n\n            PickEvent.from(recorder.events)\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I have a pending step')))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Given I have a pending step'));\n                    expect(e.outcome).to.be.instanceOf(ImplementationPending);\n                })\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name(`Then I should implement it`)))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Then I should implement it'));\n                    expect(e.outcome).to.be.instanceOf(ExecutionSkipped);\n                })\n                .next(SceneFinished, e => {\n                    expect(e.details).to.equal(expectedScenarioDetails);\n                    expect(e.outcome).to.be.instanceOf(ImplementationPending);\n                })\n            ;\n        });\n    });\n\n    it('correctly recognises ambiguous steps', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({\n            result: {\n                duration: 0,\n                status: 'ambiguous',\n                exception: 'Multiple step definitions match:\\n  /^I have an ambiguous step definition$/ - step_definitions/ambiguous.steps.ts:3\\n  /^I have an ambiguous step definition$/ - step_definitions/ambiguous.steps.ts:7'\n            },\n        }));\n\n        emitAllFrom(require('./samples/scenario-with-ambiguous-steps.json'));\n\n        const expectedScenarioDetails = new ScenarioDetails(\n            new Name('Ambiguous steps'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/ambiguous-steps.feature'),\n                3,\n                3,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n            PickEvent.from(recorder.events)\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I have an ambiguous step definition')))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Given I have an ambiguous step definition'));\n                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);\n                })\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name(`Then I should correct it`)))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Then I should correct it'));\n                    expect(e.outcome).to.be.instanceOf(ExecutionSkipped);\n                })\n                .next(SceneFinished, e => {\n                    expect(e.details).to.equal(expectedScenarioDetails);\n                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(AmbiguousStepDefinitionError);\n                })\n            ;\n        });\n    });\n\n    it('correctly recognises errors thrown in steps', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({\n            result: {\n                duration: 0,\n                status: 'failed',\n                exception: `Error: We're sorry, something happened\\n    at World.<anonymous> (step_definitions/errors.steps.ts:4:11)`\n            },\n        }));\n\n        emitAllFrom(require('./samples/scenario-with-errors.json'));\n\n        const expectedScenarioDetails = new ScenarioDetails(\n            new Name('Errors in steps'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/errors-in-steps.feature'),\n                3,\n                3,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n\n            PickEvent.from(recorder.events)\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I have a step that throws an error')))\n                .next(TaskFinished, e => {\n                    expect(e.details.name).to.equal(new Name('Given I have a step that throws an error'));\n                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(Error);\n                    expect((e.outcome as ExecutionFailedWithError).error.message).to.equal(`We're sorry, something happened`);\n                })\n                .next(SceneFinished, e => {\n                    expect(e.details).to.equal(expectedScenarioDetails);\n                    expect(e.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                    expect((e.outcome as ExecutionFailedWithError).error).to.be.instanceOf(Error);\n                    expect((e.outcome as ExecutionFailedWithError).error.message).to.equal(`We're sorry, something happened`);\n                })\n            ;\n        });\n    });\n\n    it('correctly recognises scenario outlines', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({\n            result: {\n                duration: 0,\n                status: 'passed',\n            },\n        }));\n\n        emitAllFrom(require('./samples/scenario-outline.json'));\n\n        // eslint-disable-next-line unicorn/consistent-function-scoping\n        const expectedScenarioDetails = (line: number) => new ScenarioDetails(\n            new Name('The things I like'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/outlines.feature'),\n                line,\n                7,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n\n            PickEvent.from(recorder.events)\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails(10)))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I like programming')))\n                .next(TaskFinished, e => expect(e.details.name).to.equal(new Name('Given I like programming')))\n                .next(SceneFinished, e => expect(e.details).to.equal(expectedScenarioDetails(10)))\n\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails(11)))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I like to play guitar')))\n                .next(TaskFinished, e => expect(e.details.name).to.equal(new Name('Given I like to play guitar')))\n                .next(SceneFinished, e => expect(e.details).to.equal(expectedScenarioDetails(11)))\n\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails(12)))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(TaskStarts, e => expect(e.details.name).to.equal(new Name('Given I like martial arts')))\n                .next(TaskFinished, e => expect(e.details.name).to.equal(new Name('Given I like martial arts')))\n                .next(SceneFinished, e => expect(e.details).to.equal(expectedScenarioDetails(12)))\n            ;\n        });\n    });\n\n    it('considers a scenario with no steps and no hooks to be pending implementation', () => {\n\n        eventBroadcaster.on('test-case-finished', () => afterHook({\n            result: {\n                duration: 0,\n                status: 'passed',\n            },\n        }));\n\n        emitAllFrom(require('./samples/pending-scenario.json'));\n\n        const expectedScenarioDetails = new ScenarioDetails(\n            new Name('Implement me'),\n            new Category('Event Protocol'),\n            new FileSystemLocation(\n                new Path('features/pending-scenario.feature'),\n                3,\n                3,\n            ),\n        );\n\n        return serenity.waitForNextCue().then(() => {\n\n            PickEvent.from(recorder.events)\n                .next(SceneStarts, e => expect(e.details).to.equal(expectedScenarioDetails))\n                .next(TestRunnerDetected, e => expect(e.name).to.equal(new Name('Cucumber')))\n                .next(SceneTagged, e => expect(e.tag).to.equal(new FeatureTag('Event Protocol')))\n                .next(SceneFinished, e => {\n                    expect(e.details).to.equal(expectedScenarioDetails);\n                    expect(e.outcome).to.be.instanceOf(ImplementationPending);\n                    expect((e.outcome as ImplementationPending).error).to.be.instanceOf(ImplementationPendingError);\n                    expect((e.outcome as ImplementationPending).error.message).to.equal(`\"Implement me\" has no test steps`);\n                })\n            ;\n        });\n    });\n\n    function emitAllFrom(events: JSONObject[]): void {\n        events.forEach(event => {\n            // I can't use the convenient { type, ...body } construct because ESDoc/Babylon doesn't understand it; falling back to es5:\n            const emitted = Object.assign({}, event);\n            delete emitted.type;\n            eventBroadcaster.emit(event.type as string, emitted);\n        });\n    }\n});\n",
@@ -8694,7 +8683,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 484,
+    "__docId__": 483,
     "kind": "test",
     "name": "describe17",
     "testId": 17,
@@ -8707,7 +8696,7 @@
     "lineNumber": 16
   },
   {
-    "__docId__": 485,
+    "__docId__": 484,
     "kind": "test",
     "name": "it18",
     "testId": 18,
@@ -8720,7 +8709,7 @@
     "lineNumber": 67
   },
   {
-    "__docId__": 486,
+    "__docId__": 485,
     "kind": "test",
     "name": "it19",
     "testId": 19,
@@ -8733,7 +8722,7 @@
     "lineNumber": 106
   },
   {
-    "__docId__": 487,
+    "__docId__": 486,
     "kind": "test",
     "name": "it20",
     "testId": 20,
@@ -8746,7 +8735,7 @@
     "lineNumber": 146
   },
   {
-    "__docId__": 488,
+    "__docId__": 487,
     "kind": "test",
     "name": "it21",
     "testId": 21,
@@ -8759,7 +8748,7 @@
     "lineNumber": 186
   },
   {
-    "__docId__": 489,
+    "__docId__": 488,
     "kind": "test",
     "name": "it22",
     "testId": 22,
@@ -8772,7 +8761,7 @@
     "lineNumber": 233
   },
   {
-    "__docId__": 490,
+    "__docId__": 489,
     "kind": "test",
     "name": "it23",
     "testId": 23,
@@ -8785,7 +8774,7 @@
     "lineNumber": 278
   },
   {
-    "__docId__": 491,
+    "__docId__": 490,
     "kind": "test",
     "name": "it24",
     "testId": 24,
@@ -8798,7 +8787,7 @@
     "lineNumber": 327
   },
   {
-    "__docId__": 492,
+    "__docId__": 491,
     "kind": "testFile",
     "name": "spec/listeners/legacy/gherkin/feature-files/Cache.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { Path } from '@serenity-js/core/lib/io';\n\nimport { Cache } from '../../../../../src/listeners/legacy/gherkin';\n\ndescribe('Cache', () => {\n\n    it('starts empty', () => {\n        const cache = new Cache();\n\n        expect(cache.size()).to.equal(0);\n    });\n\n    it('allows for items to be stored and retrieved', () => {\n        const cache = new Cache<Path, number>();\n\n        cache.set(new Path('/home/alice'), 1);\n        cache.set(new Path('/home/bob'), 2);\n\n        expect(cache.size()).to.equal(2);\n        expect(cache.get(new Path('/home/alice'))).to.equal(1);\n        expect(cache.get(new Path('/home/bob'))).to.equal(2);\n    });\n\n    it('tells whether or not an item has already been cached', () => {\n        const cache = new Cache<Path, number>();\n\n        cache.set(new Path('/home/alice'), 1);\n\n        expect(cache.has(new Path('/home/alice'))).to.equal(true);\n        expect(cache.has(new Path('/home/bob'))).to.equal(false);\n    });\n\n    it('complains when you try to retrieve an object that has not been cached yet', () => {\n        const cache = new Cache<Path, number>();\n\n        expect(() => cache.get(new Path('/home/alice'))).to.throw(\n            'Make sure you cache a value under Path(value=/home/alice) before trying to retrieve it',\n        );\n    });\n});\n",
@@ -8809,7 +8798,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 493,
+    "__docId__": 492,
     "kind": "test",
     "name": "describe25",
     "testId": 25,
@@ -8822,7 +8811,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 494,
+    "__docId__": 493,
     "kind": "test",
     "name": "it26",
     "testId": 26,
@@ -8835,7 +8824,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 495,
+    "__docId__": 494,
     "kind": "test",
     "name": "it27",
     "testId": 27,
@@ -8848,7 +8837,7 @@
     "lineNumber": 16
   },
   {
-    "__docId__": 496,
+    "__docId__": 495,
     "kind": "test",
     "name": "it28",
     "testId": 28,
@@ -8861,7 +8850,7 @@
     "lineNumber": 27
   },
   {
-    "__docId__": 497,
+    "__docId__": 496,
     "kind": "test",
     "name": "it29",
     "testId": 29,
@@ -8874,7 +8863,7 @@
     "lineNumber": 36
   },
   {
-    "__docId__": 498,
+    "__docId__": 497,
     "kind": "testFile",
     "name": "spec/listeners/legacy/gherkin/feature-files/FeatureFileLoader.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { Path } from '@serenity-js/core/lib/io';\nimport * as sinon from 'sinon';\n\nimport Gherkin = require('gherkin');\nimport { Cache, FeatureFileLoader, FeatureFileMap, FeatureFileMapper, FeatureFileParser } from '../../../../../src/listeners/legacy/gherkin';\n\ndescribe('FeatureFileLoader', () => {\n\n    const sampleFeature = new Path(__dirname).join(new Path('fixtures')).join(new Path('sample.feature'));\n\n    it('caches the feature file map it has loaded', () => {\n\n        const\n            parser = new FeatureFileParser(new Gherkin.Parser()),\n            mapper = new FeatureFileMapper(),\n            cache  = new Cache<Path, FeatureFileMap>();\n\n        const\n            parse = sinon.spy(parser, 'parse'),\n            map = sinon.spy(mapper, 'map');\n\n        const loader = new FeatureFileLoader(\n            parser,\n            mapper,\n            cache,\n        );\n\n        return loader.load(sampleFeature)\n            .then(_ => loader.load(sampleFeature))\n            .then(_ => loader.load(sampleFeature))\n            .then(_ => {\n                expect(cache.has(sampleFeature)).to.equal(true);\n\n                expect(parse.callCount).to.equal(1);\n                expect(map.callCount).to.equal(1);\n            });\n    });\n});\n",
@@ -8885,7 +8874,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 499,
+    "__docId__": 498,
     "kind": "test",
     "name": "describe30",
     "testId": 30,
@@ -8898,7 +8887,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 500,
+    "__docId__": 499,
     "kind": "test",
     "name": "it31",
     "testId": 31,
@@ -8911,7 +8900,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 501,
+    "__docId__": 500,
     "kind": "testFile",
     "name": "spec/listeners/legacy/gherkin/feature-files/FeatureFileMap.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { Description, Name } from '@serenity-js/core/lib/model';\n\nimport { FeatureFileMap } from '../../../../../src/listeners/legacy/gherkin';\n\ndescribe('FeatureFileMap', () => {\n\n    const\n        featureName = new Description('some feature');\n\n    it('allows for values to be stored and retrieved', () => {\n        const map = new FeatureFileMap()\n            .set(featureName).onLine(1);\n\n        expect(map.get(Description).onLine(1)).to.equal(featureName);\n    });\n\n    it('allows for values to be retrieved based on their type when their location is not known', () => {\n        const map = new FeatureFileMap()\n            .set(featureName).onLine(1);\n\n        expect(map.getFirst(Description)).to.equal(featureName);\n    });\n\n    it('allows for values to be retrieved based on the line alone', () => {\n        const map = new FeatureFileMap()\n            .set(featureName).onLine(1);\n\n        expect(map.get(Description).onLine(1)).to.equal(featureName);\n    });\n\n    it('complains if the value stored is not of the same type as value that needs to be retrieved', () => {\n        const map = new FeatureFileMap()\n            .set(featureName).onLine(1);\n\n        expect(() => map.get(Name).onLine(1)).to.throw('Item on line 1 is a Description, not a Name');\n    });\n\n    it('complains if the requested value is not present', () => {\n        const map = new FeatureFileMap();\n\n        expect(() => map.get(Name).onLine(1)).to.throw('Nothing was found on line 1');\n        expect(() => map.getFirst(Name)).to.throw(`Didn't find any Name amongst no items`);\n    });\n});\n",
@@ -8922,7 +8911,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 502,
+    "__docId__": 501,
     "kind": "test",
     "name": "describe32",
     "testId": 32,
@@ -8935,7 +8924,7 @@
     "lineNumber": 8
   },
   {
-    "__docId__": 503,
+    "__docId__": 502,
     "kind": "test",
     "name": "it33",
     "testId": 33,
@@ -8948,7 +8937,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 504,
+    "__docId__": 503,
     "kind": "test",
     "name": "it34",
     "testId": 34,
@@ -8961,7 +8950,7 @@
     "lineNumber": 20
   },
   {
-    "__docId__": 505,
+    "__docId__": 504,
     "kind": "test",
     "name": "it35",
     "testId": 35,
@@ -8974,7 +8963,7 @@
     "lineNumber": 27
   },
   {
-    "__docId__": 506,
+    "__docId__": 505,
     "kind": "test",
     "name": "it36",
     "testId": 36,
@@ -8987,7 +8976,7 @@
     "lineNumber": 34
   },
   {
-    "__docId__": 507,
+    "__docId__": 506,
     "kind": "test",
     "name": "it37",
     "testId": 37,
@@ -9000,7 +8989,7 @@
     "lineNumber": 41
   },
   {
-    "__docId__": 508,
+    "__docId__": 507,
     "kind": "testFile",
     "name": "spec/listeners/legacy/gherkin/feature-files/FeatureFileMapper.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { FileSystemLocation, Path } from '@serenity-js/core/lib/io';\nimport { ArbitraryTag, Description, IssueTag, Name, ScenarioParameters } from '@serenity-js/core/lib/model';\nimport Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available\n\nimport {\n    Background,\n    Feature,\n    FeatureFileMap,\n    FeatureFileMapper,\n    FeatureFileParser,\n    Scenario,\n    ScenarioOutline,\n    Step,\n} from '../../../../../src/listeners/legacy/gherkin';\n\ndescribe('FeatureFileMapper', () => {\n\n    const fixtures = new Path(__dirname).join(new Path('fixtures'));\n\n    describe('when mapping names and descriptions', () => {\n\n        it('maps a feature', parse('names_and_descriptions.feature', map => {\n            expect(map.get(Feature).onLine(1)).to.equal(new Feature(\n                new FileSystemLocation(fixtures.join(new Path('names_and_descriptions.feature')),\n                    1,\n                    1,\n                ),\n                new Name('Names and descriptions'),\n                new Description('A multi-line\\n\\ndescription\\nof a feature'),\n            ));\n        }));\n\n        it('maps a scenario with a single-line description', parse('names_and_descriptions.feature', map => {\n            const scenario = map.get(Scenario).onLine(8);\n\n            expect(scenario.name).to.equal(new Name('The one with a description'));\n            expect(scenario.description).to.equal(new Description('Description of a scenario'));\n        }));\n\n        it('maps a scenario with a multi-line description', parse('names_and_descriptions.feature', map => {\n            const scenario = map.get(Scenario).onLine(14);\n\n            expect(scenario.name).to.equal(new Name('The one with a multi-line description'));\n            expect(scenario.description).to.equal(new Description('A multi-line\\n\\ndescription\\nof a scenario'));\n        }));\n    });\n\n    describe('when mapping scenarios with no steps', () => {\n\n        it('maps a scenario even though it has no steps defined', parse('no_steps.feature', map => {\n            const scenario = map.get(Scenario).onLine(3);\n\n            expect(scenario.name).to.equal(new Name('The one with no steps'));\n            expect(scenario.steps).have.lengthOf(0);\n        }));\n    });\n\n    describe('when mapping scenarios with backgrounds', () => {\n\n        it('maps the background with no name or description', parse('background_with_no_name_or_description.feature', map => {\n            const firstBackground = map.get(Background).onLine(3);\n\n            expect(firstBackground.name).to.equal(new Name(''));\n            expect(firstBackground.description).to.equal(undefined);\n            expect(firstBackground.steps).to.deep.equal([\n                new Step(\n                    new FileSystemLocation(fixtures.join(new Path('background_with_no_name_or_description.feature')),\n                        5,\n                        5,\n                    ),\n                    new Name('Given a prerequisite'),\n                ),\n            ]);\n        }));\n\n        it('maps the background with name and description', parse('backgrounds.feature', map => {\n            const firstBackground = map.get(Background).onLine(3);\n\n            expect(firstBackground.name).to.equal(new Name('The one that provides some context'));\n            expect(firstBackground.description).to.equal(new Description('Once upon a time, there was a test suite.'));\n            expect(firstBackground.steps).to.deep.equal([\n                new Step(\n                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')),\n                        7,\n                        5,\n                    ),\n                    new Name('Given a prerequisite'),\n                ),\n            ]);\n        }));\n\n        it('associates the background with the feature', parse('backgrounds.feature', map => {\n            const feature = map.get(Feature).onLine(1);\n\n            expect(feature.background).to.equal(\n                new Background(\n                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 3, 3),\n                    new Name('The one that provides some context'),\n                    new Description('Once upon a time, there was a test suite.'),\n                    [\n                        new Step(\n                            new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 7, 5),\n                            new Name('Given a prerequisite'),\n                        ),\n                    ],\n                )\n            );\n        }));\n\n        it('associates the background steps with the scenarios', parse('backgrounds.feature', map => {\n            const scenario = map.get(Scenario).onLine(9);\n\n            expect(scenario.steps).to.deep.equal([\n                new Step(\n                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 7, 5),\n                    new Name('Given a prerequisite'),\n                ),\n                new Step(\n                    new FileSystemLocation(fixtures.join(new Path('backgrounds.feature')), 11, 5),\n                    new Name('Given some scenario step'),\n                ),\n            ]);\n        }));\n    });\n\n    describe('when mapping scenario with special step arguments', () => {\n\n        it('recognises DocString argument', parse('step_arguments.feature', map => {\n            const scenario = map.get(Scenario).onLine(3);\n\n            expect(scenario.steps).to.deep.equal([\n                new Step(\n                    new FileSystemLocation(fixtures.join(new Path('step_arguments.feature')), 5, 5),\n                    new Name('Given a step with DocString argument:\\nA couple of\\nlines of\\ntext'),\n                ),\n            ]);\n        }));\n\n        it('recognises DataTable argument', parse('step_arguments.feature', map => {\n            const scenario = map.get(Scenario).onLine(12);\n\n            expect(scenario.steps).to.deep.equal([\n                new Step(\n                    new FileSystemLocation(fixtures.join(new Path('step_arguments.feature')), 14, 5),\n                    new Name('Given a step with a DataTable argument:\\n| first name | last name |\\n| Jan | Molak |'),\n                ),\n            ]);\n        }));\n    });\n\n    describe('when mapping scenario outlines with one set of examples', () => {\n        it('maps the scenario template', parse('scenario_outlines.feature', map => {\n            const\n                scenario = map.get(ScenarioOutline).onLine(3),\n                path = fixtures.join(new Path('scenario_outlines.feature'));\n\n            expect(scenario).to.equal(new ScenarioOutline(\n                new FileSystemLocation(path, 3, 3),\n                new Name('The one with examples'),\n                new Description('Description of the scenario with examples'),\n                [\n                    new Step(\n                        new FileSystemLocation(path, 7, 5),\n                        new Name('Given step with a <parameter>'),\n                    ),\n                ],\n                {\n                    14: new ScenarioParameters(\n                        new Name('Name of the example set'),\n                        new Description('Description of the example set'),\n                        { parameter: 'value one' },\n                    ),\n                    15: new ScenarioParameters(\n                        new Name('Name of the example set'),\n                        new Description('Description of the example set'),\n                        { parameter: 'value two' },\n                    ),\n                },\n            ));\n        }));\n\n        it('maps the interpolated scenario', parse('scenario_outlines.feature', map => {\n            const path = fixtures.join(new Path('scenario_outlines.feature'));\n\n            expect(map.get(Scenario).onLine(14)).to.equal(new Scenario(\n                new FileSystemLocation(path, 14, 7),\n                new Name('The one with examples'),\n                new Description('Description of the scenario with examples'),\n                [\n                    new Step(\n                        new FileSystemLocation(path, 7, 5),\n                        new Name('Given step with a value one'),\n                    ),\n                ],\n                [],\n                new FileSystemLocation(path, 3, 3),\n            ));\n\n            expect(map.get(Scenario).onLine(15)).to.equal(new Scenario(\n                new FileSystemLocation(path, 15, 7),\n                new Name('The one with examples'),\n                new Description('Description of the scenario with examples'),\n                [\n                    new Step(\n                        new FileSystemLocation(path, 7, 5),\n                        new Name('Given step with a value two'),\n                    ),\n                ],\n                [],\n                new FileSystemLocation(path, 3, 3),\n            ));\n        }));\n    });\n\n    describe('when mapping scenario outlines with multiple sets of examples', () => {\n        it('recognises the different names and descriptions of example sets', parse('scenario_outlines.feature', map => {\n            const path = fixtures.join(new Path('scenario_outlines.feature'));\n\n            /* eslint-disable @typescript-eslint/indent */\n            expect(map.get(ScenarioOutline).onLine(17)).to.equal(\n                new ScenarioOutline(\n                    new FileSystemLocation(path, 17, 3),\n                    new Name('The one with more examples'),\n                    new Description('Description of the scenario with more examples'),\n                    [\n                        new Step(\n                            new FileSystemLocation(path, 21, 5),\n                            new Name('Given step with a <parameter>'),\n                        ),\n                    ],\n                    {\n                        28: new ScenarioParameters(\n                                new Name('Name of the first set of examples'),\n                                new Description('Description of the first set of examples'),\n                                { parameter: 'value one' },\n                            ),\n                        29: new ScenarioParameters(\n                                new Name('Name of the first set of examples'),\n                                new Description('Description of the first set of examples'),\n                                { parameter: 'value two' },\n                            ),\n                        36: new ScenarioParameters(\n                                new Name('Name of the second set of examples'),\n                                new Description('Description of the second set of examples'),\n                                { parameter: 'value three' },\n                            ),\n                        37: new ScenarioParameters(\n                                new Name('Name of the second set of examples'),\n                                new Description('Description of the second set of examples'),\n                                { parameter: 'value four' },\n                            ),\n                    },\n                )\n            );\n            /* eslint-enable */\n        }));\n    });\n\n    describe('when mapping scenario outlines with special step arguments', () => {\n        it('recognises and interpolates DocString arguments', parse('scenario_outlines.feature', map => {\n            const\n                path = fixtures.join(new Path('scenario_outlines.feature')),\n                outline = map.get(ScenarioOutline).onLine(39);\n\n            expect(outline.name).to.equal(new Name('The one with parametrised step argument (DocString)'));\n            expect(outline.steps[0]).to.equal(new Step(\n                new FileSystemLocation(path, 41, 5),\n                new Name('Given step with a:\\nParameter of <parameter>'),\n            ));\n            expect(outline.parameters[49]).to.equal(new ScenarioParameters(\n                new Name(''),\n                new Description(''),\n                { parameter: 'value one' },\n            ));\n\n            const scenario = map.get(Scenario).onLine(49);\n            expect(scenario.steps[ 0 ]).to.equal(new Step(\n                new FileSystemLocation(path, 41, 5),\n                new Name('Given step with a:\\nParameter of value one'),\n            ));\n        }));\n\n        it('recognises and interpolates DataTable arguments', parse('scenario_outlines.feature', map => {\n            const\n                outline = map.get(ScenarioOutline).onLine(51),\n                path = fixtures.join(new Path('scenario_outlines.feature'));\n\n            expect(outline.name).to.equal(new Name('The one with parametrised step argument (DataTable)'));\n            expect(outline.steps[0])\n                .to.equal(new Step(\n                    new FileSystemLocation(path, 53, 5),\n                    new Name('Given the user logs in as <username> with the following credentials:\\n| username | <username> |\\n| password | <password> |'),\n                ));\n            expect(outline.parameters[60]).to.equal(new ScenarioParameters(\n                new Name(''),\n                new Description(''),\n                { username: 'admin', password: 'P@ssw0rd1' },\n            ));\n            expect(outline.parameters[61]).to.equal(new ScenarioParameters(\n                new Name(''),\n                new Description(''),\n                { username: 'editor', password: 'P@ssw0rd2' },\n            ));\n\n            expect(map.get(Scenario).onLine(60).steps[0])\n                .to.equal(new Step(\n                    new FileSystemLocation(path, 53, 5),\n                    new Name('Given the user logs in as admin with the following credentials:\\n| username | admin |\\n| password | P@ssw0rd1 |'),\n                ));\n\n            expect(map.get(Scenario).onLine(61).steps[0])\n                .to.equal(new Step(\n                    new FileSystemLocation(path, 53, 5),\n                    new Name('Given the user logs in as editor with the following credentials:\\n| username | editor |\\n| password | P@ssw0rd2 |'),\n                ));\n        }));\n    });\n\n    describe('when mapping an empty feature file', () => {\n\n        it('returns an empty map', () => {\n            const empty = { type: 'GherkinDocument', comments: [] };\n\n            const mapper = new FeatureFileMapper();\n\n            expect(mapper.map(empty, fixtures).size()).to.equal(0); // eslint-disable-line unicorn/no-array-method-this-argument\n        });\n    });\n\n    describe('when mapping a tagged scenario', () => {\n\n        it('detects all the applicable tags',  parse('tags.feature', map => {\n            const scenario = map.get(Scenario).onLine(7);\n\n            expect(scenario.tags[0]).to.equal(new IssueTag('ABC-123'));\n            expect(scenario.tags[1]).to.equal(new IssueTag('DEF-456'));\n            expect(scenario.tags[2]).to.equal(new ArbitraryTag('saves-data'));\n            expect(scenario.tags[3]).to.equal(new IssueTag('GHI-789'));\n            expect(scenario.tags[4]).to.equal(new ArbitraryTag('regression'));\n        }));\n    });\n\n    function parse(featureFileName: string, spec: (map: FeatureFileMap) => void) {\n        const\n            path = fixtures.join(new Path(featureFileName)),\n            mapper = new FeatureFileMapper(),\n            loader = new FeatureFileParser(new Gherkin.Parser());\n\n        // eslint-disable-next-line unicorn/no-array-method-this-argument\n        return () => loader.parse(path).then(document => mapper.map(document, path)).then(spec);\n    }\n});\n",
@@ -9011,7 +9000,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 509,
+    "__docId__": 508,
     "kind": "test",
     "name": "describe38",
     "testId": 38,
@@ -9024,7 +9013,7 @@
     "lineNumber": 19
   },
   {
-    "__docId__": 510,
+    "__docId__": 509,
     "kind": "test",
     "name": "describe39",
     "testId": 39,
@@ -9037,7 +9026,7 @@
     "lineNumber": 23
   },
   {
-    "__docId__": 511,
+    "__docId__": 510,
     "kind": "test",
     "name": "it40",
     "testId": 40,
@@ -9050,7 +9039,7 @@
     "lineNumber": 25
   },
   {
-    "__docId__": 512,
+    "__docId__": 511,
     "kind": "test",
     "name": "it41",
     "testId": 41,
@@ -9063,7 +9052,7 @@
     "lineNumber": 36
   },
   {
-    "__docId__": 513,
+    "__docId__": 512,
     "kind": "test",
     "name": "it42",
     "testId": 42,
@@ -9076,7 +9065,7 @@
     "lineNumber": 43
   },
   {
-    "__docId__": 514,
+    "__docId__": 513,
     "kind": "test",
     "name": "describe43",
     "testId": 43,
@@ -9089,7 +9078,7 @@
     "lineNumber": 51
   },
   {
-    "__docId__": 515,
+    "__docId__": 514,
     "kind": "test",
     "name": "it44",
     "testId": 44,
@@ -9102,7 +9091,7 @@
     "lineNumber": 53
   },
   {
-    "__docId__": 516,
+    "__docId__": 515,
     "kind": "test",
     "name": "describe45",
     "testId": 45,
@@ -9115,7 +9104,7 @@
     "lineNumber": 61
   },
   {
-    "__docId__": 517,
+    "__docId__": 516,
     "kind": "test",
     "name": "it46",
     "testId": 46,
@@ -9128,7 +9117,7 @@
     "lineNumber": 63
   },
   {
-    "__docId__": 518,
+    "__docId__": 517,
     "kind": "test",
     "name": "it47",
     "testId": 47,
@@ -9141,7 +9130,7 @@
     "lineNumber": 79
   },
   {
-    "__docId__": 519,
+    "__docId__": 518,
     "kind": "test",
     "name": "it48",
     "testId": 48,
@@ -9154,7 +9143,7 @@
     "lineNumber": 95
   },
   {
-    "__docId__": 520,
+    "__docId__": 519,
     "kind": "test",
     "name": "it49",
     "testId": 49,
@@ -9167,7 +9156,7 @@
     "lineNumber": 113
   },
   {
-    "__docId__": 521,
+    "__docId__": 520,
     "kind": "test",
     "name": "describe50",
     "testId": 50,
@@ -9180,7 +9169,7 @@
     "lineNumber": 129
   },
   {
-    "__docId__": 522,
+    "__docId__": 521,
     "kind": "test",
     "name": "it51",
     "testId": 51,
@@ -9193,7 +9182,7 @@
     "lineNumber": 131
   },
   {
-    "__docId__": 523,
+    "__docId__": 522,
     "kind": "test",
     "name": "it52",
     "testId": 52,
@@ -9206,7 +9195,7 @@
     "lineNumber": 142
   },
   {
-    "__docId__": 524,
+    "__docId__": 523,
     "kind": "test",
     "name": "describe53",
     "testId": 53,
@@ -9219,7 +9208,7 @@
     "lineNumber": 154
   },
   {
-    "__docId__": 525,
+    "__docId__": 524,
     "kind": "test",
     "name": "it54",
     "testId": 54,
@@ -9232,7 +9221,7 @@
     "lineNumber": 155
   },
   {
-    "__docId__": 526,
+    "__docId__": 525,
     "kind": "test",
     "name": "it55",
     "testId": 55,
@@ -9245,7 +9234,7 @@
     "lineNumber": 185
   },
   {
-    "__docId__": 527,
+    "__docId__": 526,
     "kind": "test",
     "name": "describe56",
     "testId": 56,
@@ -9258,7 +9247,7 @@
     "lineNumber": 218
   },
   {
-    "__docId__": 528,
+    "__docId__": 527,
     "kind": "test",
     "name": "it57",
     "testId": 57,
@@ -9271,7 +9260,7 @@
     "lineNumber": 219
   },
   {
-    "__docId__": 529,
+    "__docId__": 528,
     "kind": "test",
     "name": "describe58",
     "testId": 58,
@@ -9284,7 +9273,7 @@
     "lineNumber": 262
   },
   {
-    "__docId__": 530,
+    "__docId__": 529,
     "kind": "test",
     "name": "it59",
     "testId": 59,
@@ -9297,7 +9286,7 @@
     "lineNumber": 263
   },
   {
-    "__docId__": 531,
+    "__docId__": 530,
     "kind": "test",
     "name": "it60",
     "testId": 60,
@@ -9310,7 +9299,7 @@
     "lineNumber": 286
   },
   {
-    "__docId__": 532,
+    "__docId__": 531,
     "kind": "test",
     "name": "describe61",
     "testId": 61,
@@ -9323,7 +9312,7 @@
     "lineNumber": 322
   },
   {
-    "__docId__": 533,
+    "__docId__": 532,
     "kind": "test",
     "name": "it62",
     "testId": 62,
@@ -9336,7 +9325,7 @@
     "lineNumber": 324
   },
   {
-    "__docId__": 534,
+    "__docId__": 533,
     "kind": "test",
     "name": "describe63",
     "testId": 63,
@@ -9349,7 +9338,7 @@
     "lineNumber": 333
   },
   {
-    "__docId__": 535,
+    "__docId__": 534,
     "kind": "test",
     "name": "it64",
     "testId": 64,
@@ -9362,7 +9351,7 @@
     "lineNumber": 335
   },
   {
-    "__docId__": 536,
+    "__docId__": 535,
     "kind": "testFile",
     "name": "spec/listeners/legacy/gherkin/feature-files/FeatureFileParser.spec.ts",
     "content": "import 'mocha';\n\nimport { expect } from '@integration/testing-tools';\nimport { Path } from '@serenity-js/core/lib/io';\nimport Gherkin = require('gherkin'); // ts-node:disable-line:no-var-requires     No type definitions available\n\nimport { FeatureFileParser } from '../../../../../src/listeners/legacy/gherkin';\n\ndescribe('FeatureFileParser', () => {\n\n    const\n        sampleFeature = new Path(__dirname).join(new Path('fixtures')).join(new Path('sample.feature')),\n        brokenFeature = new Path(__dirname).join(new Path('fixtures')).join(new Path('broken.feature'));\n\n    it('loads a GherkinDocument from a file', () => {\n        const loader = new FeatureFileParser(new Gherkin.Parser());\n\n        return loader.parse(sampleFeature)\n            .then(document => {\n                expect(document).to.deep.equal({\n                    type: 'GherkinDocument',\n                    feature: {\n                        type: 'Feature',\n                        tags: [],\n                        location: { line: 1, column: 1 },\n                        language: 'en',\n                        keyword: 'Feature',\n                        name: 'Sample feature',\n                        description: '  Description of the feature',\n                        children: [ {\n                            type: 'Scenario',\n                            tags: [],\n                            location: { line: 5, column: 3 },\n                            keyword: 'Scenario',\n                            name: 'Sample scenario',\n                            description: '    Description of a scenario',\n                            steps: [ {\n                                argument: undefined,\n                                type: 'Step',\n                                location: { line: 9, column: 5 },\n                                keyword: 'Given ',\n                                text: 'some step',\n                            } ],\n                        } ],\n                    },\n                    comments: [],\n                });\n            });\n    });\n\n    it('complains if the feature file does not exist', () => {\n        const loader = new FeatureFileParser(new Gherkin.Parser());\n\n        return expect(loader.parse(new Path('path/to/invalid.feature')))\n            .to.be.rejectedWith('Could not read feature file at \"path/to/invalid.feature\"');\n    });\n\n    it('complains if the feature file could not be parsed', () => {\n        const loader = new FeatureFileParser(new Gherkin.Parser());\n\n        return expect(loader.parse(brokenFeature))\n            .to.be.rejectedWith('Could not parse feature file');\n    });\n});\n",
@@ -9373,7 +9362,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 537,
+    "__docId__": 536,
     "kind": "test",
     "name": "describe65",
     "testId": 65,
@@ -9386,7 +9375,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 538,
+    "__docId__": 537,
     "kind": "test",
     "name": "it66",
     "testId": 66,
@@ -9399,7 +9388,7 @@
     "lineNumber": 15
   },
   {
-    "__docId__": 539,
+    "__docId__": 538,
     "kind": "test",
     "name": "it67",
     "testId": 67,
@@ -9412,7 +9401,7 @@
     "lineNumber": 51
   },
   {
-    "__docId__": 540,
+    "__docId__": 539,
     "kind": "test",
     "name": "it68",
     "testId": 68,
@@ -9425,7 +9414,7 @@
     "lineNumber": 58
   },
   {
-    "__docId__": 541,
+    "__docId__": 540,
     "kind": "testFile",
     "name": "spec/listeners/messages/ambiguous_steps.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport {\n    ActivityFinished,\n    ActivityStarts,\n    SceneFinished, SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TestRunnerDetected,\n} from '@serenity-js/core/lib/events';\nimport { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises scenarios with ambiguous steps', () =>\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/ambiguous.steps.ts',\n                './examples/features/passing_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts, event => expect(event.details.name).to.equal(new Name('A passing scenario')))\n                    .next(TestRunnerDetected, event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged, event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))\n                    .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name('Given a step that passes')))\n                    .next(ActivityFinished, event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);\n\n                        const error = (event.outcome as ExecutionFailedWithError).error;\n\n                        const lines = error.message.split('\\n');\n\n                        expect(lines[0]).to.equal('Multiple step definitions match:');\n                        expect(lines[1]).to.contain('/^.*step .* passes$/');\n                        expect(lines[1]).to.contain('ambiguous.steps.ts');\n                        expect(lines[2]).to.contain('/^.*step .* passes$/');\n                        expect(lines[2]).to.contain('ambiguous.steps.ts');\n                    })\n                    .next(SceneFinishes, event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);\n\n                        const error = (event.outcome as ExecutionFailedWithError).error;\n\n                        expect(error.message).to.match(/^Multiple step definitions match/);\n                    })\n                    .next(SceneFinished, event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);\n\n                        const error = (event.outcome as ExecutionFailedWithError).error;\n\n                        expect(error.message).to.match(/^Multiple step definitions match/);\n                    })\n                ;\n            }));\n    });\n});\n",
@@ -9436,7 +9425,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 542,
+    "__docId__": 541,
     "kind": "test",
     "name": "describe69",
     "testId": 69,
@@ -9449,7 +9438,7 @@
     "lineNumber": 17
   },
   {
-    "__docId__": 543,
+    "__docId__": 542,
     "kind": "test",
     "name": "describe70",
     "testId": 70,
@@ -9462,7 +9451,7 @@
     "lineNumber": 19
   },
   {
-    "__docId__": 544,
+    "__docId__": 543,
     "kind": "test",
     "name": "it71",
     "testId": 71,
@@ -9475,7 +9464,7 @@
     "lineNumber": 21
   },
   {
-    "__docId__": 545,
+    "__docId__": 544,
     "kind": "testFile",
     "name": "spec/listeners/messages/assertion_failure_scenario.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { AssertionError } from '@serenity-js/core';\nimport { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { ExecutionFailedWithAssertionError, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises a scenario failing due to a Serenity/JS assertion error being thrown', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/assertion_failure_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An assertion failure scenario')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with an assertion error')))\n                    .next(ActivityFinished,    event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n                        expect((event.outcome as ExecutionFailedWithAssertionError).error).to.be.instanceOf(AssertionError);\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n                        expect((event.outcome as ExecutionFailedWithAssertionError).error).to.be.instanceOf(AssertionError);\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n                        expect((event.outcome as ExecutionFailedWithAssertionError).error).to.be.instanceOf(AssertionError);\n                    });\n            }));\n\n        it('recognises a scenario failing due to a non-Serenity/JS assertion error being thrown', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/non_serenity_assertion_failure_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('An assertion failure scenario')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a scenario failing due to an assertion error')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with a non-Serenity assertion error')))\n                    .next(ActivityFinished,    event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n                        expect((event.outcome as ExecutionFailedWithAssertionError).error.constructor.name).to.equal('AssertionError');\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n                        expect((event.outcome as ExecutionFailedWithAssertionError).error.constructor.name).to.equal('AssertionError');\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithAssertionError);\n                        expect((event.outcome as ExecutionFailedWithAssertionError).error.constructor.name).to.equal('AssertionError');\n                    });\n            }));\n    });\n});\n",
@@ -9486,7 +9475,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 546,
+    "__docId__": 545,
     "kind": "test",
     "name": "describe72",
     "testId": 72,
@@ -9499,7 +9488,7 @@
     "lineNumber": 11
   },
   {
-    "__docId__": 547,
+    "__docId__": 546,
     "kind": "test",
     "name": "describe73",
     "testId": 73,
@@ -9512,7 +9501,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 548,
+    "__docId__": 547,
     "kind": "test",
     "name": "it74",
     "testId": 74,
@@ -9525,7 +9514,7 @@
     "lineNumber": 15
   },
   {
-    "__docId__": 549,
+    "__docId__": 548,
     "kind": "test",
     "name": "it75",
     "testId": 75,
@@ -9538,7 +9527,7 @@
     "lineNumber": 46
   },
   {
-    "__docId__": 550,
+    "__docId__": 549,
     "kind": "testFile",
     "name": "spec/listeners/messages/capabilities.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { SceneTagged } from '@serenity-js/core/lib/events';\nimport { CapabilityTag, FeatureTag } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', function () {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises directories that features are grouped in as capabilities', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/capability/example.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new CapabilityTag('capability')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises capabilities')))\n                ;\n            }));\n    });\n});\n",
@@ -9549,7 +9538,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 551,
+    "__docId__": 550,
     "kind": "test",
     "name": "describe76",
     "testId": 76,
@@ -9562,7 +9551,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 552,
+    "__docId__": 551,
     "kind": "test",
     "name": "describe77",
     "testId": 77,
@@ -9575,7 +9564,7 @@
     "lineNumber": 11
   },
   {
-    "__docId__": 553,
+    "__docId__": 552,
     "kind": "test",
     "name": "it78",
     "testId": 78,
@@ -9588,7 +9577,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 554,
+    "__docId__": 553,
     "kind": "testFile",
     "name": "spec/listeners/messages/data_table.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityStarts } from '@serenity-js/core/lib/events';\nimport { Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises a scenario with a Data Table step', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/data_table.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(\n                        'Given a step that receives a table:\\n' +\n                        '| Developer | Website      |\\n' +\n                        '| Jan Molak | janmolak.com |',\n                    )))\n                ;\n            }));\n    });\n});\n",
@@ -9599,7 +9588,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 555,
+    "__docId__": 554,
     "kind": "test",
     "name": "describe79",
     "testId": 79,
@@ -9612,7 +9601,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 556,
+    "__docId__": 555,
     "kind": "test",
     "name": "describe80",
     "testId": 80,
@@ -9625,7 +9614,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 557,
+    "__docId__": 556,
     "kind": "test",
     "name": "it81",
     "testId": 81,
@@ -9638,7 +9627,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 558,
+    "__docId__": 557,
     "kind": "testFile",
     "name": "spec/listeners/messages/descriptions.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { FeatureNarrativeDetected, SceneDescriptionDetected, SceneStarts } from '@serenity-js/core/lib/events';\nimport { Description, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises scenario descriptions', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/descriptions.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,              event => expect(event.details.name).to.equal(new Name('First scenario')))\n                    .next(FeatureNarrativeDetected, event => {\n                        expect(event.description).to.equal(new Description(\n                            'In order to accurately report the scenario\\n' +\n                            'Serenity/JS should recognise all of its important parts',\n                        ));\n                    })\n                    .next(SceneDescriptionDetected, event => {\n                        expect(event.description).to.equal(new Description(\n                            'A scenario where all the steps pass\\nIs reported as passing',\n                        ));\n                    })\n                ;\n            }));\n    });\n});\n",
@@ -9649,7 +9638,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 559,
+    "__docId__": 558,
     "kind": "test",
     "name": "describe82",
     "testId": 82,
@@ -9662,7 +9651,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 560,
+    "__docId__": 559,
     "kind": "test",
     "name": "describe83",
     "testId": 83,
@@ -9675,7 +9664,7 @@
     "lineNumber": 11
   },
   {
-    "__docId__": 561,
+    "__docId__": 560,
     "kind": "test",
     "name": "it84",
     "testId": 84,
@@ -9688,7 +9677,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 562,
+    "__docId__": 561,
     "kind": "testFile",
     "name": "spec/listeners/messages/doc_string.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case,unicorn/prevent-abbreviations */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityStarts } from '@serenity-js/core/lib/events';\nimport { Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises a scenario with a DocString step', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/doc_string.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(ActivityStarts, event => expect(event.details.name).to.equal(new Name(\n                        'Given a step that receives a doc string:\\n' +\n                        'Dear customer,\\n' +\n                        '\\n' +\n                        'Please click this link to reset your password.',\n                    )))\n                ;\n            }));\n    });\n});\n",
@@ -9699,7 +9688,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 563,
+    "__docId__": 562,
     "kind": "test",
     "name": "describe85",
     "testId": 85,
@@ -9712,7 +9701,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 564,
+    "__docId__": 563,
     "kind": "test",
     "name": "describe86",
     "testId": 86,
@@ -9725,7 +9714,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 565,
+    "__docId__": 564,
     "kind": "test",
     "name": "it87",
     "testId": 87,
@@ -9738,7 +9727,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 566,
+    "__docId__": 565,
     "kind": "testFile",
     "name": "spec/listeners/messages/failing_scenario.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport {\n    ActivityFinished,\n    ActivityStarts,\n    SceneFinished,\n    SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TestRunFinished,\n    TestRunFinishes,\n    TestRunnerDetected,\n    TestRunStarts,\n} from '@serenity-js/core/lib/events';\nimport { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises scenarios failing due to a generic error', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/failing_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                PickEvent.from(result.events)\n                    .next(TestRunStarts,       event => expect(event).to.be.instanceOf(TestRunStarts))\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('A failing scenario'))\n                        expect(event.details.location.path.value).to.match(/examples\\/features\\/failing_scenario.feature$/)\n                        expect(event.details.location.line).to.equal(3);\n                        expect(event.details.location.column).to.equal(3);\n                    })\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A failing feature')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that fails with a generic error')))\n                    .next(ActivityFinished,    event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)\n                        const outcome = event.outcome as ExecutionFailedWithError;\n\n                        expect(outcome.error.name).to.equal('Error');\n                        expect(outcome.error.message).to.equal(`Something's wrong`);\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)\n                        const outcome = event.outcome as ExecutionFailedWithError;\n\n                        expect(outcome.error.name).to.equal('Error');\n                        expect(outcome.error.message).to.equal(`Something's wrong`);\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError)\n                        const outcome = event.outcome as ExecutionFailedWithError;\n\n                        expect(outcome.error.name).to.equal('Error');\n                        expect(outcome.error.message).to.equal(`Something's wrong`);\n                    })\n                    .next(TestRunFinishes,     event => expect(event).to.be.instanceOf(TestRunFinishes))\n                    .next(TestRunFinished,     event => expect(event).to.be.instanceOf(TestRunFinished))\n                ;\n            }));\n    });\n});\n",
@@ -9749,7 +9738,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 567,
+    "__docId__": 566,
     "kind": "test",
     "name": "describe88",
     "testId": 88,
@@ -9762,7 +9751,7 @@
     "lineNumber": 21
   },
   {
-    "__docId__": 568,
+    "__docId__": 567,
     "kind": "test",
     "name": "describe89",
     "testId": 89,
@@ -9775,7 +9764,7 @@
     "lineNumber": 23
   },
   {
-    "__docId__": 569,
+    "__docId__": 568,
     "kind": "test",
     "name": "it90",
     "testId": 90,
@@ -9788,7 +9777,7 @@
     "lineNumber": 25
   },
   {
-    "__docId__": 570,
+    "__docId__": 569,
     "kind": "testFile",
     "name": "spec/listeners/messages/hooks.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { InteractionFinished, InteractionStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TaskFinished, TaskStarts } from '@serenity-js/core/lib/events';\nimport { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises Screenplay activities in any part of a Cucumber scenario', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/hooks.steps.ts',\n                './examples/features/hooks.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    // before all\n                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeAll')))\n                    .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeAll')))\n\n                    // first scenario\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('First screenplay scenario')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Cucumber hooks')))\n\n                    // Before\n                    .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('Before')))\n                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in Before')))\n                    .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in Before')))\n                    .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('Before')))\n\n                    // Given\n                    .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('Given Amanda fulfills a task')))\n\n                        // BeforeStep\n                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeStep')))\n                        .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeStep')))\n\n                        // ... actual Given\n                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Amanda performs in Given')))\n                        .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Amanda performs in Given')))\n\n                        // AfterStep\n                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in AfterStep')))\n                        .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in AfterStep')))\n\n                    .next(TaskFinished,         event => expect(event.details.name).to.equal(new Name('Given Amanda fulfills a task')))\n\n                    // after\n                    .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('After')))\n                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in After')))\n                    .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in After')))\n                    .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('After')))\n\n                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n\n                    // second scenario\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('Second screenplay scenario')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Cucumber hooks')))\n\n                    // Before\n                    .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('Before')))\n                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in Before')))\n                    .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in Before')))\n                    .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('Before')))\n\n                    // Given\n                    .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('Given Beth fulfills a task')))\n\n                        // BeforeStep\n                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeStep')))\n                        .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in BeforeStep')))\n\n                        // ... actual Given\n                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Beth performs in Given')))\n                        .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Beth performs in Given')))\n\n                        // AfterStep\n                        .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in AfterStep')))\n                        .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in AfterStep')))\n\n                    .next(TaskFinished,         event => expect(event.details.name).to.equal(new Name('Given Beth fulfills a task')))\n\n                    // after\n                    .next(TaskStarts,          event => expect(event.details.name).to.equal(new Name('After')))\n                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in After')))\n                    .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in After')))\n                    .next(TaskFinished,        event => expect(event.details.name).to.equal(new Name('After')))\n\n                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n\n                    // after all\n                    .next(InteractionStarts,   event => expect(event.details.name).to.equal(new Name('Helen performs in AfterAll')))\n                    .next(InteractionFinished, event => expect(event.details.name).to.equal(new Name('Helen performs in AfterAll')))\n                ;\n            }));\n    });\n});\n",
@@ -9799,7 +9788,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 571,
+    "__docId__": 570,
     "kind": "test",
     "name": "describe91",
     "testId": 91,
@@ -9812,7 +9801,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 572,
+    "__docId__": 571,
     "kind": "test",
     "name": "describe92",
     "testId": 92,
@@ -9825,7 +9814,7 @@
     "lineNumber": 11
   },
   {
-    "__docId__": 573,
+    "__docId__": 572,
     "kind": "test",
     "name": "it93",
     "testId": 93,
@@ -9838,7 +9827,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 574,
+    "__docId__": 573,
     "kind": "testFile",
     "name": "spec/listeners/messages/passing_scenario.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport {\n    ActivityFinished,\n    ActivityStarts,\n    SceneFinished, SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TestRunFinished,\n    TestRunFinishes,\n    TestRunnerDetected,\n    TestRunStarts,\n} from '@serenity-js/core/lib/events';\nimport { ExecutionSuccessful, FeatureTag, Name, Timestamp } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises passing scenarios', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/passing_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('A passing scenario'))\n                        expect(event.details.location.path.value).to.match(/examples\\/features\\/passing_scenario.feature$/)\n                        expect(event.details.location.line).to.equal(3);\n                        expect(event.details.location.column).to.equal(3);\n                    })\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('A passing feature')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                    .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                ;\n            }));\n    });\n});\n",
@@ -9849,7 +9838,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 575,
+    "__docId__": 574,
     "kind": "test",
     "name": "describe94",
     "testId": 94,
@@ -9862,7 +9851,7 @@
     "lineNumber": 20
   },
   {
-    "__docId__": 576,
+    "__docId__": 575,
     "kind": "test",
     "name": "describe95",
     "testId": 95,
@@ -9875,7 +9864,7 @@
     "lineNumber": 22
   },
   {
-    "__docId__": 577,
+    "__docId__": 576,
     "kind": "test",
     "name": "it96",
     "testId": 96,
@@ -9888,7 +9877,7 @@
     "lineNumber": 24
   },
   {
-    "__docId__": 578,
+    "__docId__": 577,
     "kind": "testFile",
     "name": "spec/listeners/messages/pending_scenarios.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it(`recognises a pending scenario where some steps are marked as 'pending'`, () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                '--name', 'A scenario with steps marked as pending',\n                '--no-strict',  // considered only when steps are explicitly marked as 'pending'\n                './examples/features/pending_scenarios.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps marked as pending')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that's marked as pending`)))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ImplementationPending))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))\n                ;\n            }));\n\n        it(`recognises a scenario tagged as 'pending'`, () =>\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                '--require', './examples/step_definitions/wip_hook.ts',\n                '--name', 'A scenario which tag marks it as pending',\n                '--no-strict',  // considered only when steps are explicitly marked as 'pending'\n                './examples/features/pending_scenarios.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as pending')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises pending scenarios')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Before`)))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ImplementationPending))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ImplementationPending))\n                ;\n            }));\n    });\n});\n",
@@ -9899,7 +9888,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 579,
+    "__docId__": 578,
     "kind": "test",
     "name": "describe97",
     "testId": 97,
@@ -9912,7 +9901,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 580,
+    "__docId__": 579,
     "kind": "test",
     "name": "describe98",
     "testId": 98,
@@ -9925,7 +9914,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 581,
+    "__docId__": 580,
     "kind": "test",
     "name": "it99",
     "testId": 99,
@@ -9937,7 +9926,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 582,
+    "__docId__": 581,
     "kind": "test",
     "name": "it100",
     "testId": 100,
@@ -9949,7 +9938,7 @@
     "lineNumber": 39
   },
   {
-    "__docId__": 583,
+    "__docId__": 582,
     "kind": "testFile",
     "name": "spec/listeners/messages/retry.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport {\n    ActivityFinished,\n    ActivityStarts,\n    RetryableSceneDetected,\n    SceneFinished,\n    SceneFinishes,\n    SceneStarts,\n    SceneTagged,\n    TestRunFinished,\n    TestRunFinishes,\n    TestRunStarts,\n} from '@serenity-js/core/lib/events';\nimport { ArbitraryTag, CorrelationId, ExecutionFailedWithError, ExecutionRetriedTag, ExecutionSuccessful, Name, Timestamp } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', function () {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('reports scenarios that have been retried and succeeded', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--retry', '2',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/retry.steps.ts',\n                './examples/features/retry.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                let sceneId: CorrelationId;\n\n                PickEvent.from(result.events)\n                    .next(TestRunStarts,       event => expect(event.timestamp).to.be.instanceof(Timestamp))\n\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('An eventually passing scenario'))\n                        sceneId = event.sceneId;\n                    })\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('An eventually passing scenario'))\n                        sceneId = event.sceneId;\n                    })\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('An eventually passing scenario'))\n                        sceneId = event.sceneId;\n                    })\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))\n                    // the scene is no longer retryable, so no RetryableSceneDetected\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(2)))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionSuccessful))\n\n                    .next(TestRunFinishes,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                    .next(TestRunFinished,     event => expect(event.timestamp).to.be.instanceof(Timestamp))\n                ;\n\n                const retryableSceneDetectedEvents = result.events.filter(event => event instanceof RetryableSceneDetected)\n\n                expect(retryableSceneDetectedEvents).to.have.lengthOf(2);\n            }));\n\n        it('reports scenarios that have been retried and failed', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--retry', '1',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/retry.steps.ts',\n                './examples/features/retry.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                let sceneId: CorrelationId;\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('An eventually passing scenario'))\n                        sceneId = event.sceneId;\n                    })\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(RetryableSceneDetected, event => expect(event.sceneId).to.equal(sceneId))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n\n                    .next(SceneStarts,         event => {\n                        expect(event.details.name).to.equal(new Name('An eventually passing scenario'))\n                        sceneId = event.sceneId;\n                    })\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that eventually passes')))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n\n                    // the scene is no longer retryable, so no RetryableSceneDetected\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ArbitraryTag('retried')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new ExecutionRetriedTag(1)))\n                    .next(SceneFinished,       event => expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError))\n\n                    .next(TestRunFinishes,     event => expect(event).to.be.instanceOf(TestRunFinishes))\n                    .next(TestRunFinished,     event => expect(event).to.be.instanceOf(TestRunFinished))\n                ;\n\n                const retryableSceneDetectedEvents = result.events.filter(event => event instanceof RetryableSceneDetected)\n\n                expect(retryableSceneDetectedEvents).to.have.lengthOf(1);\n            }));\n    });\n});\n",
@@ -9960,7 +9949,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 584,
+    "__docId__": 583,
     "kind": "test",
     "name": "describe101",
     "testId": 101,
@@ -9973,7 +9962,7 @@
     "lineNumber": 20
   },
   {
-    "__docId__": 585,
+    "__docId__": 584,
     "kind": "test",
     "name": "describe102",
     "testId": 102,
@@ -9986,7 +9975,7 @@
     "lineNumber": 22
   },
   {
-    "__docId__": 586,
+    "__docId__": 585,
     "kind": "test",
     "name": "it103",
     "testId": 103,
@@ -9999,7 +9988,7 @@
     "lineNumber": 24
   },
   {
-    "__docId__": 587,
+    "__docId__": 586,
     "kind": "test",
     "name": "it104",
     "testId": 104,
@@ -10012,7 +10001,7 @@
     "lineNumber": 86
   },
   {
-    "__docId__": 588,
+    "__docId__": 587,
     "kind": "testFile",
     "name": "spec/listeners/messages/rules.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { BusinessRuleDetected, FeatureNarrativeDetected, SceneDescriptionDetected, SceneFinished, SceneFinishes, SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';\nimport { trimmed } from '@serenity-js/core/lib/io';\nimport { BusinessRule, Description, ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it(`recognises rules and examples`, () =>\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/rules.steps.ts',\n                './examples/features/rules.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                const expectedFeatureNarrative = new Description(trimmed `\n                    | As a Frequent Flyer Member\n                    | I want to transfer points that I don't need to members of my family\n                    | So that the points don't go to waste\n                `.trim());\n\n                const firstBusinessRule = new BusinessRule(\n                    new Name(`Frequent Flyer members in the same family can transfer points`),\n                    new Description(`Each family has a unique family code`),\n                );\n\n                const secondBusinessRule = new BusinessRule(\n                    new Name(`Members cannot transfer more points than they have`),\n                    new Description(``),    // no description represented as empty description\n                );\n\n                PickEvent.from(result.events)\n                    // Rule 1, Example 1\n                    .next(SceneStarts,              event => {\n                        expect(event.details.name).to.equal(new Name('Transfer points between existing members'))\n                    })\n                    .next(FeatureNarrativeDetected, event => {\n                        expect(event.description).to.equal(expectedFeatureNarrative);\n                    })\n                    .next(SceneDescriptionDetected, event => {\n                        expect(event.description).to.equal(new Description('Sarah and Steve are members of the same family'))\n                    })\n                    .next(BusinessRuleDetected,     event => {\n                        expect(event.rule).to.equal(firstBusinessRule);\n                    })\n                    .next(SceneTagged,         event => {\n                        expect(event.tag).to.equal(new FeatureTag('Transferring points between members'))\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.equal(new ExecutionSuccessful())\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.equal(new ExecutionSuccessful())\n                    })\n\n                    // Rule 1, Example 2\n                    .next(SceneStarts,              event => {\n                        expect(event.details.name).to.equal(new Name(`Transfer points between non-family members`))\n                    })\n                    .next(FeatureNarrativeDetected, event => {\n                        expect(event.description).to.equal(expectedFeatureNarrative);\n                    })\n                    .next(SceneDescriptionDetected, event => {\n                        expect(event.description).to.equal(new Description('Sarah and Fred are members of different families'))\n                    })\n                    .next(BusinessRuleDetected,     event => {\n                        expect(event.rule).to.equal(firstBusinessRule);\n                    })\n                    .next(SceneTagged,         event => {\n                        expect(event.tag).to.equal(new FeatureTag('Transferring points between members'))\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.equal(new ExecutionSuccessful())\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.equal(new ExecutionSuccessful())\n                    })\n\n                    // Rule 2, Example 1\n                    .next(SceneStarts,              event => {\n                        expect(event.details.name).to.equal(new Name(`Steve tries to transfer more points than he has`))\n                    })\n                    .next(FeatureNarrativeDetected, event => {\n                        expect(event.description).to.equal(expectedFeatureNarrative);\n                    })\n                    .next(BusinessRuleDetected,     event => {\n                        expect(event.rule).to.equal(secondBusinessRule);\n                    })\n                    .next(SceneTagged,         event => {\n                        expect(event.tag).to.equal(new FeatureTag('Transferring points between members'))\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.equal(new ExecutionSuccessful())\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.equal(new ExecutionSuccessful())\n                    })\n                ;\n            }));\n    });\n});\n",
@@ -10023,7 +10012,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 589,
+    "__docId__": 588,
     "kind": "test",
     "name": "describe105",
     "testId": 105,
@@ -10036,7 +10025,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 590,
+    "__docId__": 589,
     "kind": "test",
     "name": "describe106",
     "testId": 106,
@@ -10049,7 +10038,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 591,
+    "__docId__": 590,
     "kind": "test",
     "name": "it107",
     "testId": 107,
@@ -10061,7 +10050,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 592,
+    "__docId__": 591,
     "kind": "testFile",
     "name": "spec/listeners/messages/scenario_outlines.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { SceneFinished, SceneFinishes, SceneParametersDetected, SceneSequenceDetected, SceneStarts } from '@serenity-js/core/lib/events';\nimport { Category, Description, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises scenario outlines as sequences of scenes', () =>\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/scenario_outlines.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                const\n                    expectedScenarioName = new Name('Sample outline'),\n                    expectedScenarioCategory = new Category('Serenity/JS recognises scenario outlines'),\n                    outlineLine = 3,\n                    firstScenarioLine = 12,\n                    secondScenarioLine = 13,\n                    thirdScenarioLine = 18,\n                    expectedExamplesName = new Name('Example results'),\n                    expectedExamplesDescription = new Description('Description of the examples');\n\n                PickEvent.from(result.events)\n                    .next(SceneSequenceDetected, event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(outlineLine);\n                    })\n                    .next(SceneParametersDetected, event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.parameters.name).to.equal(expectedExamplesName);\n                        expect(event.parameters.description).to.equal(expectedExamplesDescription);\n                        expect(event.parameters.values).to.deep.equal({ result: 'passes' });\n                    })\n                    .next(SceneStarts,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(firstScenarioLine);\n                    })\n                    .next(SceneFinishes,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(firstScenarioLine);\n                    })\n                    .next(SceneFinished,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(firstScenarioLine);\n                    })\n                    .next(SceneSequenceDetected, event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(outlineLine);\n                    })\n                    .next(SceneParametersDetected, event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.parameters.name).to.equal(expectedExamplesName);\n                        expect(event.parameters.description).to.equal(expectedExamplesDescription);\n                        expect(event.parameters.values).to.deep.equal({ result: 'fails with a generic error' });\n                    })\n                    .next(SceneStarts,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(secondScenarioLine);\n                    })\n                    .next(SceneFinishes,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(secondScenarioLine);\n                    })\n                    .next(SceneFinished,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(secondScenarioLine);\n                    })\n                    .next(SceneSequenceDetected, event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(outlineLine);\n                    })\n                    .next(SceneParametersDetected, event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.parameters.name.value).to.equal('');\n                        expect(event.parameters.description.value).to.equal('');\n                        expect(event.parameters.values).to.deep.equal({ result: 'passes' });\n                    })\n                    .next(SceneStarts,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(thirdScenarioLine);\n                    })\n                    .next(SceneFinishes,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(thirdScenarioLine);\n                    })\n                    .next(SceneFinished,          event => {\n                        expect(event.details.name).to.equal(expectedScenarioName);\n                        expect(event.details.category).to.equal(expectedScenarioCategory);\n                        expect(event.details.location.line).to.equal(thirdScenarioLine);\n                    })\n                ;\n            }));\n    });\n});\n",
@@ -10072,7 +10061,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 593,
+    "__docId__": 592,
     "kind": "test",
     "name": "describe108",
     "testId": 108,
@@ -10085,7 +10074,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 594,
+    "__docId__": 593,
     "kind": "test",
     "name": "describe109",
     "testId": 109,
@@ -10098,7 +10087,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 595,
+    "__docId__": 594,
     "kind": "test",
     "name": "it110",
     "testId": 110,
@@ -10111,7 +10100,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 596,
+    "__docId__": 595,
     "kind": "testFile",
     "name": "spec/listeners/messages/screenplay_scenario.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { ExecutionSuccessful, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises Screenplay activities in any part of a Cucumber scenario', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/screenplay.steps.ts',\n                './examples/features/screenplay_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A screenplay scenario')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises Screenplay activities')))\n                    // before\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Before')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara makes an arrow')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara makes an arrow')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Before')))\n                    // when step\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('When Lara shoots an arrow')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara fits an arrow to the bowstring')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara fits an arrow to the bowstring')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara draws the bow')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara draws the bow')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara releases the bowstring')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara releases the bowstring')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('When Lara shoots an arrow')))\n                    // then step\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Then she should hit a target')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Then she should hit a target')))\n                    // after\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('After')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Lara retrieves the arrow from the target')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('Lara retrieves the arrow from the target')))\n                    .next(ActivityFinished,    event => expect(event.details.name).to.equal(new Name('After')))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSuccessful()))\n                ;\n            }));\n    });\n});\n",
@@ -10122,7 +10111,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 597,
+    "__docId__": 596,
     "kind": "test",
     "name": "describe111",
     "testId": 111,
@@ -10135,7 +10124,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 598,
+    "__docId__": 597,
     "kind": "test",
     "name": "describe112",
     "testId": 112,
@@ -10148,7 +10137,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 599,
+    "__docId__": 598,
     "kind": "test",
     "name": "it113",
     "testId": 113,
@@ -10161,7 +10150,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 600,
+    "__docId__": 599,
     "kind": "testFile",
     "name": "spec/listeners/messages/skipped_scenarios.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { ExecutionSkipped, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it(`recognises a scenario tagged as 'skipped'`, () =>\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                '--require', './examples/step_definitions/skip_hook.ts',\n                '--name', 'A scenario which tag marks it as skipped',\n                './examples/features/skipped_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario which tag marks it as skipped')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises skipped scenarios')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Before`)))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given step number one that passes`)))\n                    .next(ActivityFinished,    event => expect(event.outcome).to.equal(new ExecutionSkipped()))\n                    .next(SceneFinishes,       event => expect(event.outcome).to.equal(new ExecutionSkipped()))\n                    .next(SceneFinished,       event => expect(event.outcome).to.equal(new ExecutionSkipped()))\n                ;\n            }));\n    });\n});\n",
@@ -10172,7 +10161,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 601,
+    "__docId__": 600,
     "kind": "test",
     "name": "describe114",
     "testId": 114,
@@ -10185,7 +10174,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 602,
+    "__docId__": 601,
     "kind": "test",
     "name": "describe115",
     "testId": 115,
@@ -10198,7 +10187,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 603,
+    "__docId__": 602,
     "kind": "test",
     "name": "it116",
     "testId": 116,
@@ -10210,7 +10199,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 604,
+    "__docId__": 603,
     "kind": "testFile",
     "name": "spec/listeners/messages/snippets.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { trimmed } from '@serenity-js/core/lib/io';\nimport { FeatureTag, ImplementationPending, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', () => {\n\n    describe('when working with Cucumber 7', () => {\n\n        it(`suggests implementation of Cucumber steps that haven't been implemented yet`, () =>\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                '--name', 'A scenario with steps that have not been implemented yet',\n                '--no-strict',  // --no-strict won't affect the outcome in this case\n                './examples/features/snippets.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A scenario with steps that have not been implemented yet')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS suggest implementation snippets')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name(`Given a step that hasn't been implemented yet`)))\n                    .next(ActivityFinished,    event => {\n                        expect(event.outcome).to.be.instanceOf(ImplementationPending);\n                        const error = (event.outcome as ImplementationPending).error;\n\n                        expect(error.message).to.equal(trimmed `\n                            | Step implementation missing:\n                            |\n                            | Given('a step that hasn\\\\'t been implemented yet', function () {\n                            |   // Write code here that turns the phrase above into concrete actions\n                            |   return 'pending';\n                            | });\n                        `.trim());\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.be.instanceOf(ImplementationPending);\n\n                        const error = (event.outcome as ImplementationPending).error;\n\n                        // SceneFinishes is triggered by an AfterHook, which doesn't have access to code snippets\n                        expect(error.message).to.equal('Step implementation missing');\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.be.instanceOf(ImplementationPending);\n\n                        const error = (event.outcome as ImplementationPending).error;\n\n                        expect(error.message).to.equal(trimmed `\n                            | Step implementation missing:\n                            |\n                            | Given('a step that hasn\\\\'t been implemented yet', function () {\n                            |   // Write code here that turns the phrase above into concrete actions\n                            |   return 'pending';\n                            | });\n                            |\n                            | Given('another one', function () {\n                            |   // Write code here that turns the phrase above into concrete actions\n                            |   return 'pending';\n                            | });\n                        `.trim());\n                    })\n                ;\n            }));\n    });\n});\n",
@@ -10221,7 +10210,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 605,
+    "__docId__": 604,
     "kind": "test",
     "name": "describe117",
     "testId": 117,
@@ -10234,7 +10223,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 606,
+    "__docId__": 605,
     "kind": "test",
     "name": "describe118",
     "testId": 118,
@@ -10247,7 +10236,7 @@
     "lineNumber": 12
   },
   {
-    "__docId__": 607,
+    "__docId__": 606,
     "kind": "test",
     "name": "it119",
     "testId": 119,
@@ -10259,7 +10248,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 608,
+    "__docId__": 607,
     "kind": "testFile",
     "name": "spec/listeners/messages/tags.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { SceneStarts, SceneTagged } from '@serenity-js/core/lib/events';\nimport { ArbitraryTag, FeatureTag } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', function () {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises tags on a scenario', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                '--name', 'A tagged scenario',\n                './examples/features/tags.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,  event => expect(event.details.name.value).to.equal('A tagged scenario'))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('scenario-tag')))\n                ;\n            }));\n\n        it('recognises tags on a scenario outline and its examples', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                '--name', 'More tagged scenarios',\n                './examples/features/tags.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,  event => expect(event.details.name.value).to.equal('More tagged scenarios'))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('scenario-outline-tag')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('example-set-1')))\n                    .next(SceneStarts,  event => expect(event.details.name.value).to.equal('More tagged scenarios'))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises tags at multiple levels')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('feature-tag')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('scenario-outline-tag')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ArbitraryTag('example-set-2')))\n                ;\n            }));\n    });\n});\n",
@@ -10270,7 +10259,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 609,
+    "__docId__": 608,
     "kind": "test",
     "name": "describe120",
     "testId": 120,
@@ -10283,7 +10272,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 610,
+    "__docId__": 609,
     "kind": "test",
     "name": "describe121",
     "testId": 121,
@@ -10296,7 +10285,7 @@
     "lineNumber": 11
   },
   {
-    "__docId__": 611,
+    "__docId__": 610,
     "kind": "test",
     "name": "it122",
     "testId": 122,
@@ -10309,7 +10298,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 612,
+    "__docId__": 611,
     "kind": "test",
     "name": "it123",
     "testId": 123,
@@ -10322,7 +10311,7 @@
     "lineNumber": 34
   },
   {
-    "__docId__": 613,
+    "__docId__": 612,
     "kind": "testFile",
     "name": "spec/listeners/messages/themes.spec.ts",
     "content": "import 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { SceneTagged } from '@serenity-js/core/lib/events';\nimport { CapabilityTag, FeatureTag, ThemeTag } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', function () {\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises directories that group capabilities as themes', () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/theme/capability/example.feature',\n            )\n            .then(ifExitCodeIsOtherThan(0, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(0);\n\n                PickEvent.from(result.events)\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new ThemeTag('theme')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new CapabilityTag('capability')))\n                    .next(SceneTagged,  event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises capabilities and themes')))\n                ;\n            }));\n    });\n});\n",
@@ -10333,7 +10322,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 614,
+    "__docId__": 613,
     "kind": "test",
     "name": "describe124",
     "testId": 124,
@@ -10346,7 +10335,7 @@
     "lineNumber": 9
   },
   {
-    "__docId__": 615,
+    "__docId__": 614,
     "kind": "test",
     "name": "describe125",
     "testId": 125,
@@ -10359,7 +10348,7 @@
     "lineNumber": 11
   },
   {
-    "__docId__": 616,
+    "__docId__": 615,
     "kind": "test",
     "name": "it126",
     "testId": 126,
@@ -10372,7 +10361,7 @@
     "lineNumber": 13
   },
   {
-    "__docId__": 617,
+    "__docId__": 616,
     "kind": "testFile",
     "name": "spec/listeners/messages/timed_out_scenario.spec.ts",
     "content": "/* eslint-disable unicorn/filename-case */\nimport 'mocha';\n\nimport { expect, ifExitCodeIsOtherThan, logOutput, PickEvent } from '@integration/testing-tools';\nimport { ActivityFinished, ActivityStarts, SceneFinished, SceneFinishes, SceneStarts, SceneTagged, TestRunnerDetected } from '@serenity-js/core/lib/events';\nimport { ExecutionFailedWithError, FeatureTag, Name } from '@serenity-js/core/lib/model';\n\nimport { cucumber7 } from './bin/cucumber-7';\n\ndescribe('CucumberMessagesListener', function () {\n\n    this.timeout(10000);\n\n    describe('when working with Cucumber 7', () => {\n\n        it('recognises a timed out scenario',  () =>\n\n            cucumber7(\n                '--format', '../../../src',\n                '--require', './examples/support/serenity.config.ts',\n                '--require', './examples/step_definitions/common.steps.ts',\n                './examples/features/timed_out_scenario.feature',\n            )\n            .then(ifExitCodeIsOtherThan(1, logOutput))\n            .then(result => {\n                expect(result.exitCode).to.equal(1);\n\n                PickEvent.from(result.events)\n                    .next(SceneStarts,         event => expect(event.details.name).to.equal(new Name('A timed out scenario')))\n                    .next(TestRunnerDetected,  event => expect(event.name).to.equal(new Name('Cucumber')))\n                    .next(SceneTagged,         event => expect(event.tag).to.equal(new FeatureTag('Serenity/JS recognises a timed out scenario')))\n                    .next(ActivityStarts,      event => expect(event.details.name).to.equal(new Name('Given a step that times out')))\n                    .next(ActivityFinished,    event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                        expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);\n                    })\n                    .next(SceneFinishes,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                        expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);\n                    })\n                    .next(SceneFinished,       event => {\n                        expect(event.outcome).to.be.instanceOf(ExecutionFailedWithError);\n                        expect((event.outcome as ExecutionFailedWithError).error.message).to.match(/function timed out.*100 milliseconds/);\n                    })\n                ;\n            }));\n    });\n});\n",
@@ -10383,7 +10372,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 618,
+    "__docId__": 617,
     "kind": "test",
     "name": "describe127",
     "testId": 127,
@@ -10396,7 +10385,7 @@
     "lineNumber": 10
   },
   {
-    "__docId__": 619,
+    "__docId__": 618,
     "kind": "test",
     "name": "describe128",
     "testId": 128,
@@ -10409,7 +10398,7 @@
     "lineNumber": 14
   },
   {
-    "__docId__": 620,
+    "__docId__": 619,
     "kind": "test",
     "name": "it129",
     "testId": 129,

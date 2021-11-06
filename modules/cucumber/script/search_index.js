@@ -2562,12 +2562,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/listeners/messages/parser/index.ts",
-    "file/src/listeners/messages/parser/index.ts.html",
-    "src/listeners/messages/parser/index.ts",
-    "file"
-  ],
-  [
     "src/listeners/messages/parser/types/extractedscenario.ts",
     "file/src/listeners/messages/parser/types/ExtractedScenario.ts.html",
     "src/listeners/messages/parser/types/ExtractedScenario.ts",

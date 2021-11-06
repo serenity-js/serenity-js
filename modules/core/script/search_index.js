@@ -3744,18 +3744,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/decorators/pending.ts",
-    "file/src/decorators/pending.ts.html",
-    "src/decorators/pending.ts",
-    "file"
-  ],
-  [
-    "src/decorators/step.ts",
-    "file/src/decorators/step.ts.html",
-    "src/decorators/step.ts",
-    "file"
-  ],
-  [
     "src/errors/assertionerror.ts",
     "file/src/errors/AssertionError.ts.html",
     "src/errors/AssertionError.ts",
