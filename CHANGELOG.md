@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.3](https://github.com/serenity-js/serenity-js/compare/v2.32.2...v2.32.3) (2021-11-06)
+
+
+### Bug Fixes
+
+* **core:** support for NPM 8 ([7cb470c](https://github.com/serenity-js/serenity-js/commit/7cb470c985a7149f058a317dcb14e6294913f9ff))
+* **deps:** update dependency @babel/parser to ^7.16.2 ([2475839](https://github.com/serenity-js/serenity-js/commit/24758397fc014dca8025162cecc805a9044da642))
+
+
+
+
+
 ## [2.32.2](https://github.com/serenity-js/serenity-js/compare/v2.32.1...v2.32.2) (2021-10-04)
 
 
