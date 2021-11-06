@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-empty-file */
+
 // todo: re-implement Cookie
 // /* eslint-disable unicorn/consistent-function-scoping */
 // import { Answerable, AnswersQuestions, Question, Transform, UsesAbilities } from '@serenity-js/core';

@@ -1,3 +1,5 @@
+/* eslint-disable unicorn/no-empty-file */
+
 // /* eslint-disable unicorn/consistent-function-scoping,unicorn/no-useless-undefined */
 // import 'mocha';
 //
