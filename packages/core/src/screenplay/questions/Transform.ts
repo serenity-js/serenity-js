@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 import { AnswersQuestions, UsesAbilities } from '../actor';
 import { Answerable } from '../Answerable';
 import { Question } from '../Question';
