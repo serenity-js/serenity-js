@@ -396,7 +396,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
     async getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
 
-        const windowHandles = await this.browser.getWindowHandle();
+        // const windowHandles = await this.browser.getWindowHandle();
 
         // return new ProtractorPage(this.browser, windowHandle);
         throw new Error('Not implemented, yet');
