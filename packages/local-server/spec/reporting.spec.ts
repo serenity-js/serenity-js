@@ -68,7 +68,7 @@ describe('@serenity-js/local-server', () => {
 
         let Nadia: Actor, Phillip: Actor;
 
-        const port = 5000;
+        const port = 5555;
 
         beforeEach(() =>  {
             Nadia = actorCalled('Nadia');
