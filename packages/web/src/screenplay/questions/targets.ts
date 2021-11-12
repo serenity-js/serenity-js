@@ -230,10 +230,10 @@ export class TargetElements
     private readonly list: List<ElementListAdapter, Promise<PageElement>, Promise<PageElementList>>;
 
     constructor(
-        description: string,
+        private subject: string,
         private readonly location: PageElementLocation,
     ) {
-        super(description);
+        super();
         this.list = new List(new ElementListAdapter(this));
     }
 
@@ -266,6 +266,22 @@ export class TargetElements
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElementList> {
         return BrowseTheWeb.as(actor).locateAllElementsAt(this.location);
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }
 
@@ -341,10 +357,10 @@ export class TargetElement
     implements MetaQuestion<Answerable<PageElement>, Promise<PageElement>>
 {
     constructor(
-        description: string,
+        private subject: string,
         private readonly location: PageElementLocation,
     ) {
-        super(description);
+        super();
     }
 
     of(parent: Answerable<PageElement>): Question<Promise<PageElement>> {
@@ -353,6 +369,22 @@ export class TargetElement
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<PageElement> {
         return BrowseTheWeb.as(actor).locateElementAt(this.location);
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }
 

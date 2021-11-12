@@ -137,12 +137,15 @@ class PressKeyInField extends PageElementInteraction {
  * @package
  */
 class KeySequence extends Question<Promise<Array<Key | string>>> {
+    private subject: string;
+
     static of(keys: Array<Answerable<Key | string | Key[] | string[]>>) {
         return new KeySequence(keys);
     }
 
     constructor(private readonly keys: Array<Answerable<Key | string | Key[] | string[]>>) {
-        super(KeySequence.describe(keys));
+        super();
+        this.subject = KeySequence.describe(keys);
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Array<string | Key>> {
@@ -151,6 +154,22 @@ class KeySequence extends Question<Promise<Array<Key | string>>> {
         ).then(keys => {
             return keys.flat().filter(key => !! key)
         })
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 
     private static describe(keys: Array<Answerable<Key | string | Key[] | string[]>>): string {

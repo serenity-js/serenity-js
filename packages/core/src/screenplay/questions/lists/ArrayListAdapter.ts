@@ -154,16 +154,19 @@ export class ArrayListAdapter<Item_Type> implements ListAdapter<Item_Type, Item_
 class ArrayListFilter<Item_Type, Answer_Type>
     extends Question<Promise<Item_Type[]>>
 {
+    private subject: string;
+
     constructor(
         private readonly collection: Answerable<Item_Type[]>,
         private readonly question: MetaQuestion<Item_Type, Promise<Answer_Type> | Answer_Type>,
         private readonly expectation: Expectation<any, Answer_Type>
     ) {
-        super([
+        super();
+        this.subject = [
             formatted `${ collection }`,
             collection instanceof ArrayListFilter ? 'and' : 'where',
             formatted `${ question } does ${ expectation }`
-        ].join(' '));
+        ].join(' ');
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Item_Type[]> {
@@ -181,6 +184,22 @@ class ArrayListFilter<Item_Type, Answer_Type>
                 results.filter(result => result.outcome instanceof ExpectationMet)
                     .map(result => result.item)
             );
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }
 

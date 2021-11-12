@@ -12,6 +12,8 @@ import { AxiosRequestConfig } from 'axios';
  */
 export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> {
 
+    private subject: string;
+
     /**
      * @protected
      *
@@ -30,7 +32,7 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
         protected readonly data?: Answerable<any>,
         protected readonly config?: Answerable<AxiosRequestConfig>,
     ) {
-        super('');
+        super();
         this.subject = `${ this.requestDescription() } to ${ formatted `${ this.resourceUri }` }`;
     }
 
@@ -65,6 +67,22 @@ export abstract class HTTPRequest extends Question<Promise<AxiosRequestConfig>> 
                 return acc;
             }, {})
         );
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 
     /**

@@ -1,10 +1,12 @@
-import { LogicError } from '../../../errors';
-import { inspected } from '../../../io/inspected';
-import { Actor } from '../../actor';
-import { PromisedResult, ProxyQuestion } from '../../proxy';
-import { Question } from '../../Question';
+import { LogicError } from '../../errors';
+import { inspected } from '../../io/inspected';
+import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
+import { Interaction } from '../Interaction';
+import { Question } from '../Question';
+import { Awaited } from './Awaited';
+import { Prop } from './Prop';
 
-export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(question: Q): Q & ProxyQuestion<PromisedResult<A>> {
+export function createProp<A, Q extends Question<A> = Question<A>>(question: Q): Q & Prop<Awaited<A>> {
 
     return new Proxy<Q>(question, {
 
@@ -38,7 +40,7 @@ export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(ques
 
                 const originalSubject = inspected(question, { inline: true, markQuestions: true });
 
-                return Question.about(originalSubject + fieldDescription + parameterDescriptions, async actor => {
+                return createProp(new DynamicProp(originalSubject + fieldDescription + parameterDescriptions, async actor => {
                     // convert parameters from Answerable<T> => T
                     const parameters = await (Promise.all(
                         originalParameters.map(parameter => actor.answer(parameter))
@@ -49,7 +51,7 @@ export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(ques
 
                     // invoke the method call on the original answer
                     return answer[key](...parameters)
-                });
+                }));
             }
 
             const originalSubject = inspected(question, { inline: true, markQuestions: true });
@@ -57,7 +59,7 @@ export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(ques
             proxy.subject = originalSubject + fieldDescription
 
             // when property is accessed as a field
-            proxy.answeredBy = async (actor: Actor) => {
+            const body = async (actor: Actor) => {
                 const answer = await actor.answer(target);
 
                 if (answer === undefined) { // todo: or null?
@@ -66,6 +68,9 @@ export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(ques
 
                 return answer[key];
             };
+
+            proxy.answeredBy = body;
+            proxy.performAs = body;
 
             proxy.toString = () => {
                 return proxy.subject;
@@ -77,16 +82,16 @@ export function createProxyQuestion<A, Q extends Question<A> = Question<A>>(ques
                 return proxy;
             }
 
-            proxy.as = <O>(mapping: (answer: PromisedResult<A>) => O): Question<Promise<O>> => {
+            proxy.as = <O>(mapping: (answer: Awaited<A>) => O): Question<Promise<O>> => {
                 return Question.about<Promise<O>>(`${ proxy.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
                     const answer = await actor.answer(proxy)
                     return mapping(answer);
                 });
             }
 
-            return createProxyQuestion(proxy as any);
+            return createProp(proxy as any);
         }
-    }) as Q & ProxyQuestion<PromisedResult<A>>
+    }) as Q & Prop<Awaited<A>>
 }
 
 function doNotProxy(key: string | symbol | number) {
@@ -95,4 +100,34 @@ function doNotProxy(key: string | symbol | number) {
     ];
 
     return prohibited.includes(key)
+}
+
+class DynamicProp<T> extends Interaction implements Question<T> {
+    constructor(protected subject: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
+        super();
+    }
+
+    answeredBy(actor: AnswersQuestions & UsesAbilities): T {
+        return this.body(actor);
+    }
+
+    async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
+        await this.body(actor);
+    }
+
+    as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): Question<Promise<O>> {
+        return createProp(new DynamicProp(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+            const answer = (await actor.answer(this)) as Awaited<T>;
+            return mapping(answer);
+        })) as Question<Promise<O>>;
+    }
+
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
+    }
 }

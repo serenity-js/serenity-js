@@ -6,6 +6,8 @@ import { Argv } from '../../Argv';
  * @package
  */
 export class SerenityBDDArguments extends Question<string[]> {
+    private subject: string;
+
     private static Allowed =  [
         'destination',
         'features',
@@ -21,21 +23,29 @@ export class SerenityBDDArguments extends Question<string[]> {
     }
 
     constructor(private readonly argv: Argv) {
-        super('Serenity BDD arguments');
+        super();
+        this.subject = 'Serenity BDD arguments';
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): string[] {
-        return flatten(Object.keys(this.argv)
+        return Object.keys(this.argv)
             .filter(key => !! ~ SerenityBDDArguments.Allowed.indexOf(key) && !! this.argv[key])
-            .map(arg => [`--${ arg }`, this.argv[arg]]));
+            .flatMap(arg => [`--${ arg }`, this.argv[arg]]);
     }
-}
 
-function flatten(list: any[]) {
-    return list.reduce((acc, current) => {
-        Array.isArray(current)
-            ? acc.push(...flatten(current))
-            : acc.push(current);
-        return acc;
-    }, []);
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
+    }
 }

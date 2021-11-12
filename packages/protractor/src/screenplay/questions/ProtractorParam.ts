@@ -41,6 +41,8 @@ import { BrowseTheWebWithProtractor } from '../abilities';
 export class ProtractorParam<T = any>
     extends Question<Promise<T>>
 {
+    private subject: string;
+
     /**
      * @desc
      *  Name of the parameter to retrieve. This could also be a dot-delimited path,
@@ -57,7 +59,8 @@ export class ProtractorParam<T = any>
      * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
      */
     constructor(private readonly name: Answerable<string>) {
-        super(formatted `the ${ name } param specified in Protractor config`);
+        super();
+        this.subject = formatted `the ${ name } param specified in Protractor config`;
     }
 
     /**
@@ -75,5 +78,21 @@ export class ProtractorParam<T = any>
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<T> {
         return actor.answer(this.name)
             .then(name => BrowseTheWebWithProtractor.as(actor).param(name));
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }

@@ -48,7 +48,7 @@ describe('Page', () => {
 
             /** @test {Page.current()} */
             /** @test {Page#title()} */
-            it('is accessible via a ProxyQuestion', async () =>
+            it('is accessible via a Prop', async () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.current().title(), equals(`Hello World`)),
                 ));
@@ -74,14 +74,6 @@ describe('Page', () => {
 
                 expect(actualSize).to.deep.equal(expectedSize);
             });
-
-            // todo: add Interaction.proxy
-            // /** @test {Page.current()} */
-            // /** @test {Page#title()} */
-            // it('is accessible via a ProxyQuestion', async () =>
-            //     actorCalled('Bernie').attemptsTo(
-            //         Ensure.that(Page.current().title(), equals(`Hello World`)),
-            //     ));
         });
     });
 
