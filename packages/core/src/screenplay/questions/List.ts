@@ -64,6 +64,7 @@ export class List<
 >
     extends Question<Collection_Return_Type>
 {
+    private subject: string;
 
     /**
      * @desc
@@ -88,7 +89,8 @@ export class List<
      * @param {List_Adapter_Type} collection
      */
     constructor(private readonly collection: List_Adapter_Type) {
-        super(formatted`${ collection }`);
+        super();
+        this.subject = formatted`${ collection }`;
     }
 
     /**
@@ -239,6 +241,22 @@ export class List<
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Collection_Return_Type {
         return this.collection.items(actor);
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 
     private static ordinalSuffixOf(index: number): string {

@@ -43,6 +43,8 @@ import { Question } from '../Question';
  */
 export class Note<Answer> extends Question<Promise<Answer>> {
 
+    private subject: string;
+
     /**
      * @desc
      *  Retrieves the previously recorded answer to a given {@link Question}
@@ -59,7 +61,8 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      * @param {Question<Promise<Answer>> | Question<Answer> | string} topic
      */
     constructor(private readonly topic: Question<Promise<Answer>> | Question<Answer> | string) {
-        super(formatted `a note of ${ topic }`);
+        super();
+        this.subject = formatted `a note of ${ topic }`;
     }
 
     /**
@@ -76,5 +79,21 @@ export class Note<Answer> extends Question<Promise<Answer>> {
      */
     answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<Answer> {
         return TakeNotes.as(actor).answerTo(this.topic);
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }

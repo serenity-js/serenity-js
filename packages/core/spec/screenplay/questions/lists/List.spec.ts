@@ -144,17 +144,36 @@ describe('List', () => {
             const people = [ alice, bob, cindy ];
 
             class Name extends Question<Promise<string>> {
+                private subject: string;
+
                 static of(person: Answerable<Person>): Question<Promise<string>> {
                     return new Name(person);
                 }
 
                 constructor(private readonly person: Answerable<Person>) {
-                    super(formatted `the name of ${ person }`);
+                    super();
+                    this.subject = formatted `the name of ${ person }`;
                 }
 
                 answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
                     return actor.answer(this.person)
                         .then(person => person.name);
+                }
+
+                /**
+                 * @desc
+                 *  Changes the description of this question's subject.
+                 *
+                 * @param {string} subject
+                 * @returns {Question<T>}
+                 */
+                describedAs(subject: string): this {
+                    this.subject = subject;
+                    return this;
+                }
+
+                toString(): string {
+                    return this.subject;
                 }
             }
 

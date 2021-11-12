@@ -12,6 +12,26 @@ import { PageElement, PageElementList } from '../../ui';
 export abstract class ElementQuestion<T>
     extends Question<T>
 {
+    constructor(protected subject: string) {
+        super();
+    }
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
+    }
+
     /**
      * @desc
      *  Returns the resolved {@link PageElement}, or throws a {@link @serenity-js/core/lib/errors~LogicError}

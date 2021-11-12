@@ -4,5 +4,4 @@ export * from './expectations';
 export * from './List';
 export * from './MetaQuestion';
 export * from './Note';
-export * from './proxies';
 export * from './q';

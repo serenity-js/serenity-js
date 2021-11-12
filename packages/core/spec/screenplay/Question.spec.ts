@@ -2,7 +2,7 @@
 import { describe, it } from 'mocha';
 import { given } from 'mocha-testdata';
 
-import { actorCalled, LogicError } from '../../src';
+import { actorCalled, Interaction, LogicError } from '../../src';
 import { Actor, Question } from '../../src/screenplay';
 import { expect } from '../expect';
 
@@ -81,44 +81,212 @@ describe('Question', () => {
 
                     expect(result).to.equal('question about some subject');
                 });
+
+                /** @test {Question#describedAs} */
+                it('can be overridden at any point in the proxied method chain', async () => {
+
+                    const Alex = actorCalled('Alex');
+
+                    const Value = <V>(value: V) =>
+                        Question.about<Promise<V>>('a value', (actor: Actor) =>
+                            Promise.resolve(value)
+                        );
+
+                    const start = Value(0);
+                    const end   = Promise.resolve(5);
+
+                    const question: Question<Promise<number>> =
+                        Value('Hello World')
+                            .describedAs('greeting')
+                            .slice(start.describedAs('start index'), end)
+                            .toLocaleLowerCase(Value('en-GB').describedAs('locale'))
+                            .length
+
+                    expect(await question.answeredBy(Alex)).to.equal(5);
+
+                    expect(question.toString())
+                        .to.equal('<<greeting>>.slice(<<start index>>, <<Promise>>).toLocaleLowerCase(<<locale>>).length');
+                });
+
             });
 
-            describe('acts as a proxy that', () => {
+            describe('answer', () => {
 
-                describe('wraps any field of the underlying answer in another question which', () => {
+                it('can be mapped from an async value to another type', async () => {
+                    const input     = q('some answer', p('42'));
+                    const question  = input.as(Number);
 
-                    const Name = () =>
-                        Question.about(`name`, (actor: Actor) =>
-                            actor.name
+                    const result    = await question.answeredBy(Quentin);
+                    const subject   = question.toString();
+
+                    expect(result).to.deep.equal(42);
+                    expect(subject).to.equal('some answer as Number');
+                });
+
+                it('can be mapped from a sync value to another type', async () => {
+                    const input     = q('some answer', '42');
+                    const question  = input.as(Number);
+
+                    const result    = await question.answeredBy(Quentin);
+                    const subject   = question.toString();
+
+                    expect(result).to.deep.equal(42);
+                    expect(subject).to.equal('some answer as Number');
+                });
+
+                it('can be mapped to another Array type', async () => {
+                    const input: Question<Promise<string[]>> = q('list of strings', p([ '1', '2', '3' ]));
+
+                    const question: Question<Promise<number[]>> = input.as(function numbers(items: string[]) {
+                        return items.map(Number);
+                    });
+
+                    const result    = await question.answeredBy(Quentin);
+                    const subject   = question.toString();
+
+                    expect(result).to.deep.equal([ 1, 2, 3 ]);
+                    expect(subject).to.equal('list of strings as numbers');
+                });
+            });
+        });
+
+        describe('wraps the created question in a "prop", which acts as a proxy that', () => {
+
+            describe('wraps any field of the underlying answer in another question which', () => {
+
+                const Name = () =>
+                    Question.about(`name`, (actor: Actor) =>
+                        actor.name
+                    );
+
+                describe('subject', () => {
+
+                    /** @test {Question.about} */
+                    it('is generated automatically based on the name of the field', () => {
+                        const length: Question<Promise<number>> = Name().length;
+
+                        const result = length.toString();
+
+                        expect(result).to.equal(`<<name>>.length`);
+                    });
+
+                    /** @test {Question.about} */
+                    it('can be used in string template literals', () => {
+                        const length: Question<Promise<number>> = Name().length;
+
+                        const result = `question: ${ length }`;
+
+                        expect(result).to.equal(`question: <<name>>.length`);
+                    });
+
+                    /** @test {Question.about} */
+                    it('can be concatenated with other strings', () => {
+                        const length: Question<Promise<number>> = Name().length;
+
+                        const result = 'question: ' + length
+
+                        expect(result).to.equal(`question: <<name>>.length`);
+                    });
+                });
+
+                describe('when answered', () => {
+
+                    const Value = <T>(value: T) =>
+                        Question.about(`some value`, (actor: Actor) =>
+                            value
                         );
+
+                    /** @test {Question.about} */
+                    it('resolves to the value of the underlying answer', async () => {
+                        const length: Question<Promise<number>> = Name().length;
+
+                        const result: number = await length.answeredBy(Quentin);
+
+                        expect(result).to.equal(7);
+                    });
+
+                    /** @test {Question.about} */
+                    it(`resolves to undefined if the underlying field is undefined`, async () => {
+                        interface Person {
+                            firstName: string;
+                            lastName?: string;
+                        }
+
+                        const person: Person = { firstName: 'Cher' };
+                        const lastName: Question<Promise<string>> = Value(person).lastName;
+
+                        const result: string = await lastName.answeredBy(Quentin);
+
+                        expect(result).to.equal(undefined);
+                    });
+
+                    it(`can be mapped to another type`, async () => {
+                        const question: Question<Promise<string>> = q('example', p({ name: 'Hello42' }))
+                            .name
+                            .slice(5, 7);
+
+                        const extracted: Question<Promise<number>> = question.as(Number);
+
+                        const result: number = await extracted.answeredBy(Quentin);
+
+                        expect(extracted.toString()).to.equal('<<example>>.name.slice(5, 7) as Number');
+                        expect(result).to.equal(42);
+                    })
+                });
+            });
+
+            describe('wraps any method of the underlying answer in a proxy function which', () => {
+                const Name = () =>
+                    Question.about(`name`, (actor: Actor) =>
+                        actor.name
+                    );
+
+                describe('produces a question which', () => {
 
                     describe('subject', () => {
 
                         /** @test {Question.about} */
-                        it('is generated automatically based on the name of the field', () => {
-                            const length: Question<Promise<number>> = Name().length;
+                        it('is generated automatically based on the name of the method', () => {
+                            const lowerCase: Question<Promise<string>> = Name().toLocaleLowerCase();
 
-                            const result = length.toString();
+                            const result = lowerCase.toString();
 
-                            expect(result).to.equal(`<<name>>.length`);
+                            expect(result).to.equal(`<<name>>.toLocaleLowerCase()`);
+                        });
+
+                        /** @test {Question.about} */
+                        it('is generated automatically based on the name of the method and its arguments', () => {
+                            const start = (value: number) =>
+                                Question.about('start index', actor => value);
+
+                            const end = (value: number) =>
+                                Question.about('end index', actor => value);
+
+                            const slice: Question<Promise<string>> = Name()
+                                .slice(start(0), end(0))
+                                .toLocaleLowerCase([ 'en-GB', 'en-US' ]);
+
+                            const result = slice.toString();
+
+                            expect(result).to.equal(`<<name>>.slice(<<start index>>, <<end index>>).toLocaleLowerCase([ 'en-GB', 'en-US' ])`);
                         });
 
                         /** @test {Question.about} */
                         it('can be used in string template literals', () => {
-                            const length: Question<Promise<number>> = Name().length;
+                            const slice: Question<Promise<string>> = Name().slice(0, 5);
 
-                            const result = `question: ${ length }`;
+                            const result = `question: ${ slice }`;
 
-                            expect(result).to.equal(`question: <<name>>.length`);
+                            expect(result).to.equal(`question: <<name>>.slice(0, 5)`);
                         });
 
                         /** @test {Question.about} */
                         it('can be concatenated with other strings', () => {
-                            const length: Question<Promise<number>> = Name().length;
+                            const slice: Question<Promise<string>> = Name().slice(0, 5);
 
-                            const result = 'question: ' + length
+                            const result = 'question: ' + slice;
 
-                            expect(result).to.equal(`question: <<name>>.length`);
+                            expect(result).to.equal(`question: <<name>>.slice(0, 5)`);
                         });
                     });
 
@@ -131,127 +299,25 @@ describe('Question', () => {
 
                         /** @test {Question.about} */
                         it('resolves to the value of the underlying answer', async () => {
-                            const length: Question<Promise<number>> = Name().length;
+                            const chunk: Question<Promise<string>> = Name().slice(0, 3);
 
-                            const result: number = await length.answeredBy(Quentin);
+                            const result: string = await chunk.answeredBy(Quentin);
 
-                            expect(result).to.equal(7);
+                            expect(result).to.equal('Que');
                         });
 
                         /** @test {Question.about} */
                         it(`resolves to undefined if the underlying field is undefined`, async () => {
                             interface Person {
-                                firstName: string;
-                                lastName?: string;
+                                fullName(): string;
                             }
 
-                            const person: Person = { firstName: 'Cher' };
-                            const lastName: Question<Promise<string>> = Value(person).lastName;
+                            const person: Person = { fullName: () => void 0 };
+                            const fullName: Question<Promise<string>> = Value(person).fullName();
 
-                            const result: string = await lastName.answeredBy(Quentin);
+                            const result: string = await fullName.answeredBy(Quentin);
 
                             expect(result).to.equal(undefined);
-                        });
-
-                        it(`can be mapped to another type`, async () => {
-                            const question: Question<Promise<string>> = q('example', p({ name: 'Hello42' }))
-                                .name
-                                .slice(5, 7);
-
-                            const extracted: Question<Promise<number>> = question.as(Number);
-
-                            const result: number = await extracted.answeredBy(Quentin);
-
-                            expect(extracted.toString()).to.equal('<<example>>.name.slice(5, 7) as Number');
-                            expect(result).to.equal(42);
-                        })
-                    });
-                });
-
-                describe('wraps any method of the underlying answer in a proxy function that', () => {
-                    const Name = () =>
-                        Question.about(`name`, (actor: Actor) =>
-                            actor.name
-                        );
-
-                    describe('produces a question which', () => {
-
-                        describe('subject', () => {
-
-                            /** @test {Question.about} */
-                            it('is generated automatically based on the name of the method', () => {
-                                const lowerCase: Question<Promise<string>> = Name().toLocaleLowerCase();
-
-                                const result = lowerCase.toString();
-
-                                expect(result).to.equal(`<<name>>.toLocaleLowerCase()`);
-                            });
-
-                            /** @test {Question.about} */
-                            it('is generated automatically based on the name of the method and its arguments', () => {
-                                const start = (value: number) =>
-                                    Question.about('start index', actor => value);
-
-                                const end = (value: number) =>
-                                    Question.about('end index', actor => value);
-
-                                const slice: Question<Promise<string>> = Name()
-                                    .slice(start(0), end(0))
-                                    .toLocaleLowerCase([ 'en-GB', 'en-US' ]);
-
-                                const result = slice.toString();
-
-                                expect(result).to.equal(`<<name>>.slice(<<start index>>, <<end index>>).toLocaleLowerCase([ 'en-GB', 'en-US' ])`);
-                            });
-
-                            /** @test {Question.about} */
-                            it('can be used in string template literals', () => {
-                                const slice: Question<Promise<string>> = Name().slice(0, 5);
-
-                                const result = `question: ${ slice }`;
-
-                                expect(result).to.equal(`question: <<name>>.slice(0, 5)`);
-                            });
-
-                            /** @test {Question.about} */
-                            it('can be concatenated with other strings', () => {
-                                const slice: Question<Promise<string>> = Name().slice(0, 5);
-
-                                const result = 'question: ' + slice;
-
-                                expect(result).to.equal(`question: <<name>>.slice(0, 5)`);
-                            });
-                        });
-
-                        describe('when answered', () => {
-
-                            const Value = <T>(value: T) =>
-                                Question.about(`some value`, (actor: Actor) =>
-                                    value
-                                );
-
-                            /** @test {Question.about} */
-                            it('resolves to the value of the underlying answer', async () => {
-                                const chunk: Question<Promise<string>> = Name().slice(0, 3);
-
-                                const result: string = await chunk.answeredBy(Quentin);
-
-                                expect(result).to.equal('Que');
-                            });
-
-                            /** @test {Question.about} */
-                            it(`resolves to undefined if the underlying field is undefined`, async () => {
-                                interface Person {
-                                    fullName(): string;
-                                }
-
-                                const person: Person = { fullName: () => void 0 };
-                                const fullName: Question<Promise<string>> = Value(person).fullName();
-
-                                const result: string = await fullName.answeredBy(Quentin);
-
-                                expect(result).to.equal(undefined);
-                            });
                         });
                     });
 
@@ -323,212 +389,324 @@ describe('Question', () => {
                     });
                 });
 
-                describe('enables chaining of', () => {
+                describe('produces an interaction which', () => {
 
-                    interface Address {
-                        lines: string[];
-                    }
+                    describe('description', () => {
 
-                    interface Person {
-                        firstName: string;
-                        lastName: string;
-                        fullName(): string;
-                        address: Address;
-                        lastKnownAddress(): Address;
-                        siblings?: Person[]
-                    }
+                        /** @test {Question.about} */
+                        it('is generated automatically based on the name of the method', () => {
+                            const lowerCase: Interaction = Name().toLocaleLowerCase();
 
-                    const address: Address = {
-                        lines: [
-                            '17 Cherry Tree Lane',
-                            'London',
-                        ]
-                    }
+                            const result = lowerCase.toString();
 
-                    function siblings(): [ Person, Person ] {
-                        const Jane: Person = {
-                            firstName: 'Jane',
-                            lastName: 'Banks',
-                            fullName(): string {
-                                return `${ this.firstName } ${ this.lastName }`;
-                            },
-                            lastKnownAddress(): Address {
-                                return this.address
-                            },
-                            address,
-                            siblings: [ ],
-                        }
+                            expect(result).to.equal(`<<name>>.toLocaleLowerCase()`);
+                        });
 
-                        const Michael: Person = {
-                            firstName: 'Michael',
-                            lastName: 'Banks',
-                            fullName(): string {
-                                return `${ this.firstName } ${ this.lastName }`;
-                            },
-                            lastKnownAddress(): Address {
-                                return this.address
-                            },
-                            address,
-                            siblings: [ ],
-                        }
+                        /** @test {Question.about} */
+                        it('is generated automatically based on the name of the method and its arguments', () => {
+                            const start = (value: number) =>
+                                Question.about('start index', actor => value);
 
-                        Jane.siblings.push(Michael);
-                        Michael.siblings.push(Jane);
+                            const end = (value: number) =>
+                                Question.about('end index', actor => value);
 
-                        return [Jane, Michael]
-                    }
+                            const slice: Interaction = Name()
+                                .slice(start(0), end(0))
+                                .toLocaleLowerCase([ 'en-GB', 'en-US' ]);
 
-                    function mary(): Person {
-                        return {
-                            firstName: 'Mary',
-                            lastName: 'Poppins',
-                            fullName(): string {
-                                return `${ this.firstName } ${ this.lastName }`;
-                            },
-                            lastKnownAddress(): Address {
-                                return this.address
-                            },
-                            address: undefined,
-                        }
-                    }
+                            const result = slice.toString();
 
-                    const Value = <T>(value: T) =>
-                        Question.about(`some value`, (actor: Actor) =>
-                            Promise.resolve(value)
-                        );
+                            expect(result).to.equal(`<<name>>.slice(<<start index>>, <<end index>>).toLocaleLowerCase([ 'en-GB', 'en-US' ])`);
+                        });
 
-                    describe('fields', () => {
+                        /** @test {Question.about} */
+                        it('can be used in string template literals', () => {
+                            const slice: Interaction = Name().slice(0, 5);
 
-                        describe('so that the answer', () => {
+                            const result = `question: ${ slice }`;
 
-                            it('resolves to the value of the expected field', async () => {
-                                const [ Jane ] = siblings();
+                            expect(result).to.equal(`question: <<name>>.slice(0, 5)`);
+                        });
 
-                                const city: Question<Promise<string>> = Value(Jane).address.lines[1].toLocaleUpperCase();
+                        /** @test {Question.about} */
+                        it('can be concatenated with other strings', () => {
+                            const slice: Interaction = Name().slice(0, 5);
 
-                                const result: string = await city.answeredBy(Quentin);
+                            const result = 'question: ' + slice;
 
-                                expect(result).to.equal('LONDON');
-                            });
-
-                            it('has a human-readable subject', async () => {
-                                const [ Jane ] = siblings();
-
-                                const city: Question<Promise<string>> = Value(Jane).address.lines[1].toLocaleUpperCase();
-
-                                const result: string = city.toString();
-
-                                expect(result).to.equal('<<some value>>.address.lines[1].toLocaleUpperCase()');
-                            });
-
-                            it(`complains if any of the objects in the proxied chain is undefined`, async () => {
-                                const Mary = mary();
-
-                                const city: Question<Promise<string>> = Value(Mary).address.lines[1].toLocaleUpperCase();
-
-                                await expect(city.answeredBy(Quentin))
-                                    .to.be.rejectedWith(LogicError, `<<some value>>.address is undefined, can't read property "lines"`);
-                            });
+                            expect(result).to.equal(`question: <<name>>.slice(0, 5)`);
                         });
                     });
 
-                    describe('methods', () => {
+                    describe('when performed', () => {
+                        it('invokes the proxied method', async () => {
+                            const counter = new Counter();
+                            const Value = <T>(v: T) =>
+                                q('some value', p(v));
 
-                        describe('so that the answer', () => {
+                            const increase: Interaction = Value(counter)
+                                .increase();
 
-                            it('resolves to the value returned by the proxied methods', async () => {
-                                const [ Jane ] = siblings();
+                            await increase.performAs(Quentin);
 
-                                const fullName: Question<Promise<string>> = Value(Jane)
-                                    .fullName()
-                                    .toLocaleUpperCase(Value(['en-GB']));
+                            expect(counter.current).to.equal(1)
+                        });
 
-                                const result: string = await fullName.answeredBy(Quentin);
+                        it('invokes the proxied getter', async () => {
+                            const counter = new CounterWithGetters();
+                            const Value = <T>(v: T) =>
+                                q('some value', p(v));
 
-                                expect(result).to.equal('JANE BANKS');
-                            });
+                            const increase: Interaction = Value(counter)
+                                .increase
+                                .increase;
 
-                            it('has a human-readable subject', async () => {
-                                const [ Jane ] = siblings();
+                            await increase.performAs(Quentin);
 
-                                const fullName: Question<Promise<string>> = Value(Jane).fullName().toLocaleUpperCase(Value(['en-GB']));
-
-                                const subject: string = fullName.toString();
-
-                                expect(subject).to.equal('<<some value>>.fullName().toLocaleUpperCase(<<some value>>)');
-                            });
-
-                            it(`complains if any of the objects in the proxied chain is undefined`, async () => {
-                                const Mary = mary();
-
-                                const city: Question<Promise<string>> = Value(Mary).lastKnownAddress().lines[1].toLocaleUpperCase();
-
-                                await expect(city.answeredBy(Quentin))
-                                    .to.be.rejectedWith(LogicError, `<<some value>>.lastKnownAddress() is undefined, can't read property "lines"`);
-                            });
+                            expect(counter.current).to.equal(2)
                         });
                     });
 
-                    describe('so that an answer with cyclic dependencies', () => {
-                        it('is correctly resolved', async () => {
-                            const [ Jane ] = siblings();
+                    it('is an instance of Interaction', () => {
+                        const counter = new Counter();
+                        const Value = <T>(v: T) =>
+                            q('some value', p(v));
 
-                            const name: Question<Promise<string>> = Value(Jane).siblings[0].siblings[0].firstName;
+                        const increase: Interaction = Value(counter)
+                            .increase();
 
-                            const subject: string   = name.toString();
-
-                            expect(subject).to.equal('<<some value>>.siblings[0].siblings[0].firstName');
-                        });
-
-                        it('is correctly described', async () => {
-                            const [ Jane ] = siblings();
-
-                            const name: Question<Promise<string>> = Value(Jane).siblings[0].siblings[0].firstName;
-
-                            const subject: string   = name.toString();
-
-                            expect(subject).to.equal('<<some value>>.siblings[0].siblings[0].firstName');
-                        });
+                        expect(increase).to.be.instanceOf(Interaction);
                     });
                 });
             });
 
-            describe('answer', () => {
+            describe('enables chaining of', () => {
 
-                it('can be mapped from an async value to another type', async () => {
-                    const input     = q('some answer', p('42'));
-                    const question  = input.as(Number);
+                interface Address {
+                    lines: string[];
+                }
 
-                    const result    = await question.answeredBy(Quentin);
-                    const subject   = question.toString();
+                interface Person {
+                    firstName: string;
+                    lastName: string;
+                    fullName(): string;
+                    address: Address;
+                    lastKnownAddress(): Address;
+                    siblings?: Person[]
+                }
 
-                    expect(result).to.deep.equal(42);
-                    expect(subject).to.equal('some answer as Number');
+                const address: Address = {
+                    lines: [
+                        '17 Cherry Tree Lane',
+                        'London',
+                    ]
+                }
+
+                function siblings(): [ Person, Person ] {
+                    const Jane: Person = {
+                        firstName: 'Jane',
+                        lastName: 'Banks',
+                        fullName(): string {
+                            return `${ this.firstName } ${ this.lastName }`;
+                        },
+                        lastKnownAddress(): Address {
+                            return this.address
+                        },
+                        address,
+                        siblings: [ ],
+                    }
+
+                    const Michael: Person = {
+                        firstName: 'Michael',
+                        lastName: 'Banks',
+                        fullName(): string {
+                            return `${ this.firstName } ${ this.lastName }`;
+                        },
+                        lastKnownAddress(): Address {
+                            return this.address
+                        },
+                        address,
+                        siblings: [ ],
+                    }
+
+                    Jane.siblings.push(Michael);
+                    Michael.siblings.push(Jane);
+
+                    return [Jane, Michael]
+                }
+
+                function mary(): Person {
+                    return {
+                        firstName: 'Mary',
+                        lastName: 'Poppins',
+                        fullName(): string {
+                            return `${ this.firstName } ${ this.lastName }`;
+                        },
+                        lastKnownAddress(): Address {
+                            return this.address
+                        },
+                        address: undefined,
+                    }
+                }
+
+                const Value = <T>(value: T) =>
+                    Question.about(`some value`, (actor: Actor) =>
+                        Promise.resolve(value)
+                    );
+
+                describe('fields', () => {
+
+                    describe('so that the answer', () => {
+
+                        it('resolves to the value of the expected field', async () => {
+                            const [ Jane ] = siblings();
+
+                            const city: Question<Promise<string>> = Value(Jane).address.lines[1].toLocaleUpperCase();
+
+                            const result: string = await city.answeredBy(Quentin);
+
+                            expect(result).to.equal('LONDON');
+                        });
+
+                        it('has a human-readable subject', async () => {
+                            const [ Jane ] = siblings();
+
+                            const city: Question<Promise<string>> = Value(Jane).address.lines[1].toLocaleUpperCase();
+
+                            const result: string = city.toString();
+
+                            expect(result).to.equal('<<some value>>.address.lines[1].toLocaleUpperCase()');
+                        });
+
+                        it(`complains if any of the objects in the proxied chain is undefined`, async () => {
+                            const Mary = mary();
+
+                            const city: Question<Promise<string>> = Value(Mary).address.lines[1].toLocaleUpperCase();
+
+                            await expect(city.answeredBy(Quentin))
+                                .to.be.rejectedWith(LogicError, `<<some value>>.address is undefined, can't read property "lines"`);
+                        });
+                    });
                 });
 
-                it('can be mapped from a sync value to another type', async () => {
-                    const input     = q('some answer', '42');
-                    const question  = input.as(Number);
+                describe('methods', () => {
 
-                    const result    = await question.answeredBy(Quentin);
-                    const subject   = question.toString();
+                    describe('so that the Question', () => {
 
-                    expect(result).to.deep.equal(42);
-                    expect(subject).to.equal('some answer as Number');
-                });
+                        it('resolves to the value returned by the proxied methods', async () => {
+                            const [ Jane ] = siblings();
 
-                it('can be mapped to another Array type', async () => {
-                    const input: Question<Promise<string[]>> = q('list of strings', p([ '1', '2', '3' ]));
+                            const fullName: Question<Promise<string>> = Value(Jane)
+                                .fullName()
+                                .toLocaleUpperCase(Value(['en-GB']));
 
-                    const question: Question<Promise<number[]>> = input.as(function numbers(items: string[]) {
-                        return items.map(Number);
+                            const result: string = await fullName.answeredBy(Quentin);
+
+                            expect(result).to.equal('JANE BANKS');
+                        });
+
+                        it('has a human-readable subject', async () => {
+                            const [ Jane ] = siblings();
+
+                            const fullName: Question<Promise<string>> = Value(Jane).fullName().toLocaleUpperCase(Value(['en-GB']));
+
+                            const subject: string = fullName.toString();
+
+                            expect(subject).to.equal('<<some value>>.fullName().toLocaleUpperCase(<<some value>>)');
+                        });
+
+                        /** @test {Question#describedAs} */
+                        it('has a subject that can be overridden with the last call to describedAs', async () => {
+
+                            const Value = <V>(value: V) =>
+                                Question.about<Promise<V>>('a value', (actor: Actor) =>
+                                    Promise.resolve(value)
+                                );
+
+                            const start = Value(0);
+                            const end   = Promise.resolve(5);
+
+                            const question: Question<Promise<number>> =
+                                Value('Hello World')
+                                    .describedAs('greeting 1')
+                                    .slice(start, end)
+                                    .describedAs('greeting 2')
+                                    .toLocaleLowerCase(Value('en-GB'))
+                                    .describedAs('greeting 3')
+                                    .length
+                                    .describedAs('greeting')
+
+                            expect(question.toString())
+                                .to.equal('greeting');
+                        });
+
+                        it(`complains if any of the objects in the proxied chain is undefined`, async () => {
+                            const Mary = mary();
+
+                            const city: Question<Promise<string>> = Value(Mary).lastKnownAddress().lines[1].toLocaleUpperCase();
+
+                            await expect(city.answeredBy(Quentin))
+                                .to.be.rejectedWith(LogicError, `<<some value>>.lastKnownAddress() is undefined, can't read property "lines"`);
+                        });
                     });
 
-                    const result    = await question.answeredBy(Quentin);
-                    const subject   = question.toString();
+                    describe('so that the Interaction', () => {
 
-                    expect(result).to.deep.equal([ 1, 2, 3 ]);
-                    expect(subject).to.equal('list of strings as numbers');
+                        it('invokes the proxied methods', async () => {
+                            const counter = new Counter();
+
+                            const increase3x: Interaction = Value(counter)
+                                .increase()
+                                .increase()
+                                .increase();
+
+                            await increase3x.performAs(Quentin);
+
+                            expect(counter.current).to.equal(3)
+                        });
+
+                        it('has a human-readable subject', async () => {
+                            const [ Jane ] = siblings();
+
+                            const fullName: Interaction = Value(Jane).fullName().toLocaleUpperCase(Value(['en-GB']));
+
+                            const subject: string = fullName.toString();
+
+                            expect(subject).to.equal('<<some value>>.fullName().toLocaleUpperCase(<<some value>>)');
+                        });
+
+                        it(`complains if any of the objects in the proxied chain is undefined`, async () => {
+                            const Mary = mary();
+
+                            const city: Interaction = Value(Mary).lastKnownAddress().lines[1].toLocaleUpperCase();
+
+                            await expect(city.performAs(Quentin))
+                                .to.be.rejectedWith(LogicError, `<<some value>>.lastKnownAddress() is undefined, can't read property "lines"`);
+                        });
+                    });
+
+                });
+
+                describe('so that an answer with cyclic dependencies', () => {
+                    it('is correctly resolved', async () => {
+                        const [ Jane ] = siblings();
+
+                        const name: Question<Promise<string>> = Value(Jane).siblings[0].siblings[0].firstName;
+
+                        const subject: string   = name.toString();
+
+                        expect(subject).to.equal('<<some value>>.siblings[0].siblings[0].firstName');
+                    });
+
+                    it('is correctly described', async () => {
+                        const [ Jane ] = siblings();
+
+                        const name: Question<Promise<string>> = Value(Jane).siblings[0].siblings[0].firstName;
+
+                        const subject: string   = name.toString();
+
+                        expect(subject).to.equal('<<some value>>.siblings[0].siblings[0].firstName');
+                    });
                 });
             });
         });
@@ -551,81 +729,25 @@ describe('Question', () => {
             expect(Question.isAQuestion(value)).to.equal(isAQuestion);
         });
     });
-
-    // todo: REVIEW ------------------------------------------------------------------------------------------------
-
-    describe('subject', () => {
-
-        /** @test {Question} */
-        it('proxies method calls so that they accept Answerable of an appropriate type', async () => {
-            const Alex = actorCalled('Alex');
-
-            const Value = <V>(value: V) =>
-                Question.about<Promise<V>>('a value', (actor: Actor) =>
-                    Promise.resolve(value)
-                );
-
-            const start = Value(0).describedAs('start index');
-            const end   = Promise.resolve(5);
-
-            const question =
-                Value('Hello World')
-                    .slice(start, end)
-                    .toLocaleLowerCase();
-
-            expect(await question.answeredBy(Alex)).to.equal('hello');
-            expect(await question.length.answeredBy(Alex)).to.equal(5);
-        });
-
-        /** @test {Question#describedAs} */
-        it('can override the description at any point in the proxied method chain', async () => {
-
-            const Alex = actorCalled('Alex');
-
-            const Value = <V>(value: V) =>
-                Question.about<Promise<V>>('a value', (actor: Actor) =>
-                    Promise.resolve(value)
-                );
-
-            const start = Value(0);
-            const end   = Promise.resolve(5);
-
-            const question: Question<Promise<number>> =
-                Value('Hello World')
-                    .describedAs('greeting')
-                    .slice(start.describedAs('start index'), end)
-                    .toLocaleLowerCase(Value('en-GB').describedAs('locale'))
-                    .length
-
-            expect(await question.answeredBy(Alex)).to.equal(5);
-
-            expect(question.toString())
-                .to.equal('<<greeting>>.slice(<<start index>>, <<Promise>>).toLocaleLowerCase(<<locale>>).length');
-        });
-
-        /** @test {Question#describedAs} */
-        it('overrides the name of the subject with the last call to describedAs', async () => {
-
-            const Value = <V>(value: V) =>
-                Question.about<Promise<V>>('a value', (actor: Actor) =>
-                    Promise.resolve(value)
-                );
-
-            const start = Value(0);
-            const end   = Promise.resolve(5);
-
-            const question: Question<Promise<number>> =
-                Value('Hello World')
-                    .describedAs('greeting 1')
-                    .slice(start, end)
-                    .describedAs('greeting 2')
-                    .toLocaleLowerCase(Value('en-GB'))
-                    .describedAs('greeting 3')
-                    .length
-                    .describedAs('greeting')
-
-            expect(question.toString())
-                .to.equal('greeting');
-        });
-    });
 });
+
+class Counter {
+    constructor(public current: number = 0) {
+    }
+
+    increase(): this {
+        this.current++;
+        return this;
+    }
+}
+
+// I'd prefer to believe that people don't write getters with side effects, but then experience teaches as otherwise...
+class CounterWithGetters {
+    constructor(public current: number = 0) {
+    }
+
+    get increase(): this {
+        this.current++;
+        return this;
+    }
+}

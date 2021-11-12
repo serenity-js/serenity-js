@@ -1,7 +1,6 @@
 import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { PromisedResult, ProxyQuestion } from './proxy';
-import { createProxyQuestion } from './questions/proxies';
+import { Awaited, createProp, Prop } from './props';
 
 /**
  * @desc
@@ -55,15 +54,6 @@ import { createProxyQuestion } from './questions/proxies';
 export abstract class Question<T> {
 
     /**
-     * @param {string} subject
-     *  The subject of this question
-     *
-     * @protected
-     */
-    protected constructor(protected subject: string) {
-    }
-
-    /**
      * @desc
      *  Factory method that simplifies the process of defining custom questions.
      *
@@ -78,8 +68,8 @@ export abstract class Question<T> {
      *
      * @returns {Question<R>}
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & ProxyQuestion<PromisedResult<R>> {
-        return createProxyQuestion<R>(new AnonymousQuestion<R>(description, body));
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & Prop<Awaited<R>> {
+        return createProp<R>(new AnonymousQuestion<R>(description, body));
     }
 
     /**
@@ -103,9 +93,7 @@ export abstract class Question<T> {
      *
      * @returns {string}
      */
-    toString(): string {
-        return this.subject;
-    }
+    abstract toString(): string;
 
     /**
      * @desc
@@ -114,11 +102,7 @@ export abstract class Question<T> {
      * @param {string} subject
      * @returns {Question<T>}
      */
-    describedAs(subject: string): this {
-        this.subject = subject;
-
-        return this;
-    }
+    abstract describedAs(subject: string): this;
 
     /**
      * @abstract
@@ -126,9 +110,9 @@ export abstract class Question<T> {
      */
     abstract answeredBy(actor: AnswersQuestions & UsesAbilities): T;
 
-    public as<O>(mapping: (answer: PromisedResult<T>) => Promise<O> | O): Question<Promise<O>> {
-        return Question.about<Promise<O>>(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
-            const answer = (await actor.answer(this)) as PromisedResult<T>;
+    public as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): Question<Promise<O>> {
+        return Question.about<Promise<O>>(`${ this.toString() } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+            const answer = (await actor.answer(this)) as Awaited<T>;
             return mapping(answer);
         });
     }
@@ -138,8 +122,8 @@ export abstract class Question<T> {
  * @package
  */
 class AnonymousQuestion<T> extends Question<T> {
-    constructor(private description: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
-        super(description);
+    constructor(private subject: string, private body: (actor: AnswersQuestions & UsesAbilities) => T) {
+        super();
     }
 
     answeredBy(actor: AnswersQuestions & UsesAbilities): T {
@@ -157,5 +141,9 @@ class AnonymousQuestion<T> extends Question<T> {
         this.subject = subject;
 
         return this;
+    }
+
+    toString(): string {
+        return this.subject;
     }
 }
