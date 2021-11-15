@@ -7,7 +7,7 @@ import { SerenityBDDReportContext } from '../SerenityBDDReportContext';
  */
 export function executionStartedAt<Context extends SerenityBDDReportContext>(timestamp: Timestamp): (context: Context) => Context {
     return (context: Context): Context => {
-        context.report.startTime = context.report.startTime || timestamp.toMillisecondTimestamp();
+        context.report.startTime = context.report.startTime || timestamp.toMilliseconds();
 
         return context;
     }

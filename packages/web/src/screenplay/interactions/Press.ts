@@ -120,6 +120,7 @@ class PressKeyInField extends PageElementInteraction {
         const field = await this.resolve(actor, this.field);
         const keys  = await actor.answer(this.keys);
 
+        // fix for protractor
         // todo: should this wait on focus to occur?
         await BrowseTheWeb.as(actor).executeScript(
             /* istanbul ignore next */

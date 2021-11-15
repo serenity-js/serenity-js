@@ -180,7 +180,7 @@ describe('SerenityBDDReporter', () => {
              * @test {ExecutionSuccessful}
              */
             it('contains the start time of the scenario', () => {
-                expect(report.startTime).to.equal(startTime.toMillisecondTimestamp());
+                expect(report.startTime).to.equal(startTime.toMilliseconds());
             });
 
             /**

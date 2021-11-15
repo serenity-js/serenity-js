@@ -14,7 +14,7 @@ export function activityFinished<Context extends SerenityBDDReportContext>(activ
 
         linkedStep.step.result = outcomeReport.result;
         linkedStep.step.exception = outcomeReport.error;
-        linkedStep.step.duration = Timestamp.fromMillisecondTimestamp(linkedStep.step.startTime).diff(finishedAt).inMilliseconds();
+        linkedStep.step.duration = Timestamp.fromTimestampInMilliseconds(linkedStep.step.startTime).diff(finishedAt).inMilliseconds();
 
         context.currentActivityId = linkedStep.parentActivityId;
 

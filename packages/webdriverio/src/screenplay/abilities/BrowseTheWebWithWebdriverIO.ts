@@ -1,8 +1,9 @@
-import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Key, Page,PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
 import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator, WebdriverIOPage } from '../../ui';
+import { WebdriverIOCookie } from '../model';
 
 /**
  * @desc
@@ -40,8 +41,8 @@ import { WebdriverIOElement, WebdriverIOElementList, WebdriverIOElementLocator, 
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
-    private readonly $:  PageElementLocator<wdio.Element<'async'>>;
-    private readonly $$: PageElementLocator<wdio.ElementArray>;
+    private $:  PageElementLocator<wdio.Element<'async'>>;
+    private $$: PageElementLocator<wdio.ElementArray>;
 
     /**
      * @private
@@ -74,6 +75,10 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      */
     constructor(public readonly browser: wdio.Browser<'async'>) {
         super();
+
+        if (! this.browser.$ || ! this.browser.$$) {
+            throw new LogicError(`WebdriverIO browser object is not initalised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
+        }
 
         this.$  = new WebdriverIOElementLocator(this.browser.$.bind(this.browser) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
         this.$$ = new WebdriverIOElementLocator(this.browser.$$.bind(this.browser));
@@ -123,6 +128,34 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
         return this.$$.locate(location)
             .then(elements => new WebdriverIOElementList(this.browser, elements, location));
+    }
+
+    async getCookie(name: string): Promise<Cookie> {
+        const [ cookie ] = await this.browser.getCookies(name);
+
+        if (! cookie) {
+            throw new CookieMissingError(`Cookie '${ name }' not set`);
+        }
+
+        // There _might_ be a bug in WDIO where the expiry date is set on "expires" rather than the "expiry" key
+        // and possibly another one around deserialising the timestamp, since WDIO seems to add several hundred milliseconds
+        // to the original expiry date
+        const expiry: number | undefined = cookie.expiry || (cookie as any).expires;
+
+        return new WebdriverIOCookie(
+            this.browser,
+            name,
+            cookie.value,
+            cookie.domain,
+            cookie.path,
+            expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.floor(expiry)) : undefined,
+            cookie.httpOnly,
+            cookie.secure,
+        );
+    }
+
+    deleteAllCookies(): Promise<void> {
+        return this.browser.deleteCookies() as Promise<void>;
     }
 
     async getCurrentPage(): Promise<Page> {

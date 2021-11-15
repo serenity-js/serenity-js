@@ -8,7 +8,11 @@ export class Timestamp extends TinyType {
         return new Timestamp(new Date(ensure(Timestamp.name, v, isSerialisedISO8601Date())));
     }
 
-    static fromMillisecondTimestamp(v: number): Timestamp {
+    static fromTimestampInSeconds(v: number): Timestamp {
+        return Timestamp.fromTimestampInMilliseconds(v * 1000);
+    }
+
+    static fromTimestampInMilliseconds(v: number): Timestamp {
         return new Timestamp(moment(v).toDate());
     }
 
@@ -29,8 +33,12 @@ export class Timestamp extends TinyType {
         return new Timestamp(moment(this.value).subtract(duration.inMilliseconds(), 'ms').toDate());
     }
 
-    toMillisecondTimestamp(): number {
+    toMilliseconds(): number {
         return moment(this.value).valueOf();
+    }
+
+    toSeconds(): number {
+        return moment(this.value).unix();
     }
 
     toJSON(): string {
