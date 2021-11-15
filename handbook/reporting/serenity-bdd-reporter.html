@@ -175,7 +175,7 @@
 <pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev @serenity-js/<span class="token punctuation">{</span>core,serenity-bdd<span class="token punctuation">}</span>
 </code></pre>
 <p>To generate Serenity BDD HTML reports, you'll need the Serenity BDD Reporting CLI. You can download it using the <code>serenity-bdd</code> command available as part of this module:</p>
-<pre class="language-bash"><code class="lang-bash">npx serenity-bdd update
+<pre class="language-bash"><code class="lang-bash">npx @serenity-js/serenity-bdd update
 </code></pre>
 <p>The best way to ensure you always have the latest version of the CLI available is to run <code>serenity-bdd update</code> whenever you run <code>npm install</code>. To automate this process, add the below entry to your <code>package.json</code>: </p>
 <pre class="language-json"><code class="lang-json"><span class="token punctuation">{</span>
@@ -257,7 +257,7 @@ graph TB
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>When your test suite has finished running, generate the Serenity BDD reports by executing the following command in your terminal:</p>
-<pre class="language-bash"><code class="lang-bash">npx serenity-bdd run
+<pre class="language-bash"><code class="lang-bash">npx @serenity-js/serenity-bdd run
 </code></pre>
 <p>To automate this process, install the following additional modules:</p>
 <pre class="language-bash"><code class="lang-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev rimraf npm-failsafe
