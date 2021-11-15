@@ -138,20 +138,21 @@ export class Navigate {
      * @example <caption>Navigate to path relative to baseUrl</caption>
      *  import { actorCalled } from '@serenity-js/core';
      *  import { Ensure, endsWith } from '@serenity-js/assertions';
-     *  import { Navigate, BrowseTheWeb, DeleteCookies } from '@serenity-js/webdriverio';
+     *  import { Navigate, Cookie } from '@serenity-js/web';
+     *  import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
      *
      *  actorCalled('Hannu')
-     *      .whoCan(BrowseTheWeb.using(browser))
+     *      .whoCan(BrowseTheWebWithWebdriverIO.using(browser))
      *      .attemptsTo(
      *          Navigate.to('/login'),
-     *          DeleteCookies.called('session_id'),
+     *          Cookie.called('session_id').delete(),
      *          Navigate.reloadPage(),
      *      );
      *
      * @returns {@serenity-js/core/lib/screenplay~Interaction}
      *
      * @see {@link BrowseTheWeb}
-     * @see {@link DeleteCookies}
+     * @see {@link Cookie}
      * @see {@link @serenity-js/assertions~Ensure}
      * @see {@link @serenity-js/assertions/lib/expectations~endsWith}
      */

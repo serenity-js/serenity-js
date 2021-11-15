@@ -1,10 +1,11 @@
-import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Key, Page,PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { ConfigurationError, Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
 import { ProtractorElement, ProtractorElementList, ProtractorElementLocator, ProtractorPage } from '../../ui';
+import { ProtractorCookie } from '../model';
 
 /**
  * @desc
@@ -117,6 +118,29 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         }, keyDownActions);
 
         return promiseOf(keyUpActions.perform());
+    }
+
+    async getCookie(name: string): Promise<Cookie> {
+        const cookie = await this.browser.manage().getCookie(name);
+
+        if (! cookie) {
+            throw new CookieMissingError(`Cookie '${ name }' not set`);
+        }
+
+        return new ProtractorCookie(
+            this.browser,
+            name,
+            cookie.value,
+            cookie.domain,
+            cookie.path,
+            cookie.expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.floor(cookie.expiry)) : undefined,
+            cookie.httpOnly,
+            cookie.secure,
+        );
+    }
+
+    deleteAllCookies(): Promise<void> {
+        return promiseOf(this.browser.manage().deleteAllCookies());
     }
 
     /**

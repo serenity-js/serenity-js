@@ -85,14 +85,25 @@ describe('Timestamp', () => {
     describe('conversion', () => {
 
         /** @test {Timestamp} */
-        it('can be converted to a numeric unix timestamp', () => {
-            expect(now.toMillisecondTimestamp()).to.equal(Math.floor(now.value.getTime()));
+        it('can be converted to a millisecond timestamp', () => {
+            expect(now.toMilliseconds()).to.equal(Math.floor(now.value.getTime()));
+        });
+
+        /** @test {Timestamp} */
+        it('can be created from a millisecond timestamp', () => {
+            expect(Timestamp.fromTimestampInMilliseconds(now.toMilliseconds()))
+                .to.equal(now);
+        });
+
+        /** @test {Timestamp} */
+        it('can be converted to a unix timestamp', () => {
+            expect(now.toSeconds()).to.equal(Math.floor(now.value.getTime() / 1000));
         });
 
         /** @test {Timestamp} */
         it('can be created from a numeric unix timestamp', () => {
-            expect(Timestamp.fromMillisecondTimestamp(Math.floor(now.value.getTime())).toMillisecondTimestamp())
-                .to.equal(now.toMillisecondTimestamp());
+            expect(Timestamp.fromTimestampInSeconds(now.toSeconds()))
+                .to.equal(now);
         });
     });
 });

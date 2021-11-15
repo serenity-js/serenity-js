@@ -1,6 +1,6 @@
 import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { Awaited, createProp, Prop } from './props';
+import { Awaited, createModel, Model } from './model';
 
 /**
  * @desc
@@ -68,8 +68,8 @@ export abstract class Question<T> {
      *
      * @returns {Question<R>}
      */
-    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & Prop<Awaited<R>> {
-        return createProp<R>(new AnonymousQuestion<R>(description, body));
+    static about<R>(description: string, body: (actor: AnswersQuestions & UsesAbilities) => R): Question<R> & Model<Awaited<R>> {
+        return createModel<R>(new AnonymousQuestion<R>(description, body));
     }
 
     /**

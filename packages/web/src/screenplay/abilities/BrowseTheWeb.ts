@@ -2,6 +2,7 @@ import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
 import { Page,PageElement, PageElementList, PageElementLocation } from '../../ui';
+import { Cookie } from '../model';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -59,6 +60,9 @@ export abstract class BrowseTheWeb implements Ability {
     abstract getCurrentPage(): Promise<Page>;
     abstract getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
 
+    abstract getCookie(name: string): Promise<Cookie>;
+    abstract deleteAllCookies(): Promise<void>;
+
     // todo: remove
     abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
     abstract switchToParentFrame(): Promise<void>;
@@ -67,6 +71,7 @@ export abstract class BrowseTheWeb implements Ability {
     abstract switchToOriginalWindow(): Promise<void>;
     abstract getCurrentWindowHandle(): Promise<string>;
     abstract getAllWindowHandles(): Promise<string[]>;
+
     abstract closeCurrentWindow(): Promise<void>;
 }
 

@@ -20,6 +20,7 @@ const localBrowser: Partial<WebdriverIOConfig> = {
                 '--allow-file-access-from-files',
                 '--allow-file-access',
                 '--disable-infobars',
+                '--ignore-certificate-errors',
                 '--headless',
                 '--disable-gpu',
                 '--disable-gpu',

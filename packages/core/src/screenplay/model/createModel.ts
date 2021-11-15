@@ -4,9 +4,9 @@ import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Interaction } from '../Interaction';
 import { Question } from '../Question';
 import { Awaited } from './Awaited';
-import { Prop } from './Prop';
+import { Model } from './Model';
 
-export function createProp<A, Q extends Question<A> = Question<A>>(question: Q): Q & Prop<Awaited<A>> {
+export function createModel<A, Q extends Question<A> = Question<A>>(question: Q): Q & Model<Awaited<A>> {
 
     return new Proxy<Q>(question, {
 
@@ -40,7 +40,7 @@ export function createProp<A, Q extends Question<A> = Question<A>>(question: Q):
 
                 const originalSubject = inspected(question, { inline: true, markQuestions: true });
 
-                return createProp(new DynamicProp(originalSubject + fieldDescription + parameterDescriptions, async actor => {
+                return createModel(new DynamicProp(originalSubject + fieldDescription + parameterDescriptions, async actor => {
                     // convert parameters from Answerable<T> => T
                     const parameters = await (Promise.all(
                         originalParameters.map(parameter => actor.answer(parameter))
@@ -48,6 +48,10 @@ export function createProp<A, Q extends Question<A> = Question<A>>(question: Q):
 
                     // resolve the original answer
                     const answer = await actor.answer(target);
+
+                    if (answer === undefined) {
+                        throw new LogicError(`${ target } is undefined, can't read property "${ String(key) }"`);
+                    }
 
                     // invoke the method call on the original answer
                     return answer[key](...parameters)
@@ -62,7 +66,7 @@ export function createProp<A, Q extends Question<A> = Question<A>>(question: Q):
             const body = async (actor: Actor) => {
                 const answer = await actor.answer(target);
 
-                if (answer === undefined) { // todo: or null?
+                if (answer === undefined) {
                     throw new LogicError(`${ target } is undefined, can't read property "${ String(key) }"`);
                 }
 
@@ -89,9 +93,9 @@ export function createProp<A, Q extends Question<A> = Question<A>>(question: Q):
                 });
             }
 
-            return createProp(proxy as any);
+            return createModel(proxy as any);
         }
-    }) as Q & Prop<Awaited<A>>
+    }) as Q & Model<Awaited<A>>
 }
 
 function doNotProxy(key: string | symbol | number) {
@@ -116,7 +120,7 @@ class DynamicProp<T> extends Interaction implements Question<T> {
     }
 
     as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): Question<Promise<O>> {
-        return createProp(new DynamicProp(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+        return createModel(new DynamicProp(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
             const answer = (await actor.answer(this)) as Awaited<T>;
             return mapping(answer);
         })) as Question<Promise<O>>;

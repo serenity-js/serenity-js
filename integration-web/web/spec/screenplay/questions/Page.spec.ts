@@ -48,7 +48,7 @@ describe('Page', () => {
 
             /** @test {Page.current()} */
             /** @test {Page#title()} */
-            it('is accessible via a Prop', async () =>
+            it('is accessible via a Model', async () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.current().title(), equals(`Hello World`)),
                 ));

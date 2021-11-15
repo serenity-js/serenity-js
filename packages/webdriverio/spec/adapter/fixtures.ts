@@ -39,7 +39,7 @@ export function when(stageCrewMember: StageCrewMember) {
 }
 
 export const
-    startTime = Timestamp.fromMillisecondTimestamp(0),
+    startTime = Timestamp.fromTimestampInMilliseconds(0),
     cid = '0-0',
     successThreshold: Outcome | { Code: number } = ExecutionIgnored,
 

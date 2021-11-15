@@ -109,7 +109,7 @@ function arbitraryData<Context extends SerenityBDDReportContext>(activityId: Cor
             const id = createHash('sha1')
                 .update(name.value)
                 .update(contents)
-                .update(`${ timestamp.toMillisecondTimestamp() }`)
+                .update(`${ timestamp.toMilliseconds() }`)
                 .digest('hex');
 
             context.steps.get(activityId.value).step.reportData.push({
