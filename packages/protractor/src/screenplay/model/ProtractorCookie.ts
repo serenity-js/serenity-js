@@ -1,9 +1,9 @@
+import { Timestamp } from '@serenity-js/core';
 import { Cookie } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
 import { ensure, isDefined } from 'tiny-types';
 
 import { promiseOf } from '../../promiseOf';
-import { Timestamp } from '@serenity-js/core';
 
 export class ProtractorCookie extends Cookie {
 
