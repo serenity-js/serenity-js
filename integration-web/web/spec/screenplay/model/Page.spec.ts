@@ -8,6 +8,7 @@ import { Ensure, equals } from '@serenity-js/assertions';
 describe('Page', () => {
 
     /*
+    todo:
     Title.of(Page.current()) === Page.current().title() === Page.title()
     Page.called(..) => Page.called(
     Page.title()

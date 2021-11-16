@@ -1,7 +1,7 @@
 import { Page } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
 
-import { promiseOf } from '../promiseOf';
+import { promiseOf } from '../../promiseOf';
 
 export class ProtractorPage extends Page {
     constructor(
