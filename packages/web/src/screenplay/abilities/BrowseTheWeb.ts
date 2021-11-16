@@ -1,8 +1,8 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Page,PageElement, PageElementList, PageElementLocation } from '../../ui';
-import { Cookie } from '../model';
+import { PageElement, PageElementList, PageElementLocation } from '../../ui';
+import { Cookie, Page } from '../model';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
