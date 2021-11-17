@@ -16,9 +16,9 @@ export interface PageElement {
     hoverOver(): Promise<void>;
     rightClick(): Promise<void>;    // todo: should this be a click() call with a parameter?
 
-    getAttribute(name): Promise<string>;
-    getText(): Promise<string>;
-    getValue(): Promise<string>;
+    attribute(name): Promise<string>;
+    text(): Promise<string>;
+    value(): Promise<string>;
 
     isActive(): Promise<boolean>;
     isClickable(): Promise<boolean>;

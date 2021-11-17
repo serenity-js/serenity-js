@@ -59,7 +59,7 @@ export class ProtractorPageElement implements PageElement {
             return Array.from({ length }).map(() => key);
         }
 
-        const currentValue = await this.getValue();
+        const currentValue = await this.value();
 
         if (currentValue !== null && currentValue !== undefined) {
             return removeCharactersFrom(this.nativeElement(), currentValue.length);
@@ -116,15 +116,15 @@ export class ProtractorPageElement implements PageElement {
         );
     }
 
-    getAttribute(name: string): Promise<string> {
+    attribute(name: string): Promise<string> {
         return promiseOf(this.element.getAttribute(name));
     }
 
-    getText(): Promise<string> {
+    text(): Promise<string> {
         return promiseOf(this.element.getText());
     }
 
-    getValue(): Promise<string> {
+    value(): Promise<string> {
         return promiseOf(this.browser.executeScript(
             /* istanbul ignore next */
             function getValue(webElement) {

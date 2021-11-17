@@ -85,7 +85,7 @@ export class Clear extends PageElementInteraction {
      */
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
         const element   = await this.resolve(actor, this.field);
-        const value     = await element.getValue();
+        const value     = await element.value();
 
         if (value === null || value === undefined) {
             throw new LogicError(

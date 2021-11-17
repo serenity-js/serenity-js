@@ -78,6 +78,6 @@ export class Value
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const element = await this.resolve(actor, this.element);
 
-        return element.getValue();
+        return element.value();
     }
 }

@@ -65,15 +65,15 @@ export class WebdriverIOPageElement implements PageElement {
         return this.element.click({ button: 'right' });
     }
 
-    getAttribute(name: string): Promise<string> {
+    attribute(name: string): Promise<string> {
         return this.element.getAttribute(name);
     }
 
-    getText(): Promise<string> {
+    text(): Promise<string> {
         return this.element.getText();
     }
 
-    getValue(): Promise<string> {
+    value(): Promise<string> {
         return this.element.getValue();
     }
 

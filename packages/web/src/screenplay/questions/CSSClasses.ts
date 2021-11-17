@@ -107,7 +107,7 @@ export class CSSClasses
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const element = await this.resolve(actor, this.target);
 
-        return element.getAttribute('class')
+        return element.attribute('class')
             .then(attribute => attribute ?? '')
             .then(attribute => attribute
                 .replace(/\s+/, ' ')
