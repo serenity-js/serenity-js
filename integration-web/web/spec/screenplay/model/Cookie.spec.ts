@@ -2,7 +2,7 @@ import 'mocha';
 
 import { certificates, expect } from '@integration/testing-tools';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
-import { actorCalled, Answerable, q, Question, Timestamp } from '@serenity-js/core';
+import { actorCalled, Answerable, Duration, q, Question, Timestamp } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
 import { Cookie, CookieMissingError, Navigate } from '@serenity-js/web';
 import express = require('express');
@@ -183,14 +183,22 @@ describe('Cookie', () => {
 
         describe('when working with an expiry date', () => {
 
-            const futureDate = new Timestamp(new Date('3000-01-01T09:00:00.000Z'));
+            const futureDate = new Timestamp(new Date('3000-01-01T09:00:00.500Z'));
+
+            function tomorrow(): Timestamp {
+                const now = new Timestamp();
+
+                return now.plus(Duration.ofDays(1));
+            }
+
+            const expectedExpiryDate = tomorrow();
 
             /** @test {Cookie} */
             /** @test {Cookie#isHttpOnly} */
             it('allows the actor to retrieve it', () =>
                 actorCalled('Sid').attemptsTo(
-                    Navigate.to(cookieCutterURLFor(`/cookie?name=expiring&value=chocolate-chip&expires=${ futureDate.toJSON() }`)),
-                    Ensure.that(Cookie.called('expiring').expiry().toJSON(), equals(futureDate.toJSON())),
+                    Navigate.to(cookieCutterURLFor(`/cookie?name=expiring&value=chocolate-chip&expires=${ expectedExpiryDate.toJSON() }`)),
+                    Ensure.that(Cookie.called('expiring').expiry().value.getDay(), equals(expectedExpiryDate.value.getDay())),
                 )
             );
 

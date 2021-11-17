@@ -148,7 +148,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
             cookie.value,
             cookie.domain,
             cookie.path,
-            expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.floor(expiry)) : undefined,
+            expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.round(expiry)) : undefined,
             cookie.httpOnly,
             cookie.secure,
         );
