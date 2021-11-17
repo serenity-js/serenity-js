@@ -4,8 +4,7 @@ import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorB
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { ProtractorElement, ProtractorElementList, ProtractorElementLocator } from '../../ui';
-import { ProtractorCookie, ProtractorPage } from '../model';
+import { ProtractorCookie, ProtractorPage, ProtractorPageElement, ProtractorPageElementList, ProtractorPageElementLocator } from '../model';
 
 /**
  * @desc
@@ -72,12 +71,12 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
     locateElementAt(location: PageElementLocation): Promise<PageElement> {
         return this.$.locate(location)
-            .then(elf => new ProtractorElement(this.browser, elf, location));
+            .then(elf => new ProtractorPageElement(this.browser, elf, location));
     }
 
     locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
         return this.$$.locate(location)
-            .then(elf => new ProtractorElementList(this.browser, elf, location));
+            .then(elf => new ProtractorPageElementList(this.browser, elf, location));
     }
 
     async getBrowserCapabilities(): Promise<BrowserCapabilities> {
@@ -183,8 +182,8 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     constructor(protected browser: ProtractorBrowser) {
         super();
 
-        this.$ = new ProtractorElementLocator(this.browser.element.bind(this.browser));
-        this.$$ = new ProtractorElementLocator(this.browser.element.all.bind(this.browser.element));    // todo: is this binding correct?
+        this.$ = new ProtractorPageElementLocator(this.browser.element.bind(this.browser));
+        this.$$ = new ProtractorPageElementLocator(this.browser.element.all.bind(this.browser.element));    // todo: is this binding correct?
     }
 
     /**
@@ -277,7 +276,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     switchToFrame(elementOrIndexOrName: number | string | PageElement): Promise<void> {
-        const elf = elementOrIndexOrName instanceof ProtractorElement
+        const elf = elementOrIndexOrName instanceof ProtractorPageElement
             ? elementOrIndexOrName.nativeElement().getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
             : elementOrIndexOrName;
 
@@ -522,7 +521,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof ProtractorElement ? arg.nativeElement() : arg) as InnerArguments;
+        const nativeArguments = args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg) as InnerArguments;
 
         return promiseOf(this.browser.executeScript(script, ...nativeArguments))
             .then(result => {
@@ -543,7 +542,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<ReturnType<fn>>}
      */
     executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
-        const nativeArguments = args.map(arg => arg instanceof ProtractorElement ? arg.nativeElement() : arg) as Parameters<F>;
+        const nativeArguments = args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg) as Parameters<F>;
 
         return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...nativeArguments));
     }
@@ -604,7 +603,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof ProtractorElement ? arg.nativeElement() : arg) as Parameters;
+        const nativeArguments = args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg) as Parameters;
 
         return promiseOf(this.browser.executeAsyncScript(script, ...nativeArguments))
             .then(result => {

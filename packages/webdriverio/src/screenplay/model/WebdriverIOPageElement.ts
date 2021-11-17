@@ -1,10 +1,10 @@
 import { PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import * as wdio from 'webdriverio';
 
-import { WebdriverIOElementList } from './WebdriverIOElementList';
-import { WebdriverIOElementLocator } from './WebdriverIOElementLocator';
+import { WebdriverIOPageElementList } from './WebdriverIOPageElementList';
+import { WebdriverIOPageElementLocator } from './WebdriverIOPageElementLocator';
 
-export class WebdriverIOElement implements PageElement {
+export class WebdriverIOPageElement implements PageElement {
     private readonly $:  PageElementLocator<wdio.Element<'async'>>;
     private readonly $$: PageElementLocator<wdio.ElementArray>;
 
@@ -13,8 +13,8 @@ export class WebdriverIOElement implements PageElement {
         private readonly element: wdio.Element<'async'>,
         private readonly elementLocation: PageElementLocation,
     ) {
-        this.$  = new WebdriverIOElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
-        this.$$ = new WebdriverIOElementLocator(this.element.$$.bind(this.element));
+        this.$  = new WebdriverIOPageElementLocator(this.element.$.bind(this.element) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
+        this.$$ = new WebdriverIOPageElementLocator(this.element.$$.bind(this.element));
     }
 
     nativeElement(): any {
@@ -28,13 +28,13 @@ export class WebdriverIOElement implements PageElement {
     locateChildElement(location: PageElementLocation): Promise<PageElement> {
         return this.$
             .locate(location)
-            .then(element => new WebdriverIOElement(this.browser, element, location));
+            .then(element => new WebdriverIOPageElement(this.browser, element, location));
     }
 
     locateAllChildElements(location: PageElementLocation): Promise<PageElementList> {
         return this.$$
             .locate(location)
-            .then(elements => new WebdriverIOElementList(this.browser, elements, location));
+            .then(elements => new WebdriverIOPageElementList(this.browser, elements, location));
     }
 
     clearValue(): Promise<void> {

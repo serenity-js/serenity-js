@@ -3,10 +3,10 @@ import { PageElement, PageElementList, PageElementLocation } from '@serenity-js/
 import { ElementArrayFinder, ElementFinder, ProtractorBrowser } from 'protractor';
 import { ensure, isDefined } from 'tiny-types';
 
-import { promiseOf } from '../promiseOf';
-import { ProtractorElement } from './ProtractorElement';
+import { promiseOf } from '../../promiseOf';
+import { ProtractorPageElement } from './ProtractorPageElement';
 
-export class ProtractorElementList implements PageElementList {
+export class ProtractorPageElementList implements PageElementList {
     constructor(
         private readonly browser: ProtractorBrowser,
         private readonly elements: ElementArrayFinder,
@@ -44,7 +44,7 @@ export class ProtractorElementList implements PageElementList {
     map<O>(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<O> | O): Promise<O[]> {
         return promiseOf(
             this.elements.map((element?: ElementFinder, i?: number) =>
-                fn(new ProtractorElement(this.browser, element, this.elementLocation), i, this)
+                fn(new ProtractorPageElement(this.browser, element, this.elementLocation), i, this)
             )
         );
     }
@@ -60,16 +60,16 @@ export class ProtractorElementList implements PageElementList {
         // matching.foundWith  = this.elements.foundWith;
         // matching.props      = this.elements.props;
 
-        return new ProtractorElementList(this.browser, matching, this.elementLocation);
+        return new ProtractorPageElementList(this.browser, matching, this.elementLocation);
     }
 
     forEach(fn: (element: PageElement, index?: number, elements?: PageElementList) => Promise<void> | void): Promise<void> {
         return promiseOf(this.elements.each((element: ElementFinder, index: number) => {
-            return fn(new ProtractorElement(this.browser, element, this.elementLocation), index, this);
+            return fn(new ProtractorPageElement(this.browser, element, this.elementLocation), index, this);
         }));
     }
 
     private asElement(elementFinder: ElementFinder): PageElement {
-        return new ProtractorElement(this.browser, elementFinder, this.elementLocation)
+        return new ProtractorPageElement(this.browser, elementFinder, this.elementLocation)
     }
 }

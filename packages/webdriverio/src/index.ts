@@ -13,4 +13,3 @@ export default adapterFactory;
 
 export { WebdriverIOConfig } from './adapter';
 export * from './screenplay';
-export * from './ui';

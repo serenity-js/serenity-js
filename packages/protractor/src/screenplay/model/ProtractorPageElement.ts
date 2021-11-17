@@ -3,11 +3,11 @@ import { ElementArrayFinder, ElementFinder, Locator, protractor, ProtractorBrows
 import { WebElement } from 'selenium-webdriver';
 import { ensure, isDefined } from 'tiny-types';
 
-import { promiseOf } from '../promiseOf';
-import { ProtractorElementList } from './ProtractorElementList';
-import { ProtractorElementLocator } from './ProtractorElementLocator';
+import { promiseOf } from '../../promiseOf';
+import { ProtractorPageElementList } from './ProtractorPageElementList';
+import { ProtractorPageElementLocator } from './ProtractorPageElementLocator';
 
-export class ProtractorElement implements PageElement {
+export class ProtractorPageElement implements PageElement {
     private readonly $:  PageElementLocator<ElementFinder>;
     private readonly $$: PageElementLocator<ElementArrayFinder>;
 
@@ -20,8 +20,8 @@ export class ProtractorElement implements PageElement {
         ensure('element', element, isDefined());
         ensure('elementLocation', PageElementLocation, isDefined());
 
-        this.$  = new ProtractorElementLocator(this.element.element.bind(this.element) as (selector: Locator) => ElementFinder);
-        this.$$ = new ProtractorElementLocator(this.element.all.bind(this.element) as (selector: Locator) => ElementArrayFinder);
+        this.$  = new ProtractorPageElementLocator(this.element.element.bind(this.element) as (selector: Locator) => ElementFinder);
+        this.$$ = new ProtractorPageElementLocator(this.element.all.bind(this.element) as (selector: Locator) => ElementArrayFinder);
     }
 
     nativeElement(): any {
@@ -35,13 +35,13 @@ export class ProtractorElement implements PageElement {
     locateChildElement(location: PageElementLocation): Promise<PageElement> {
         return this.$
             .locate(location)
-            .then(element => new ProtractorElement(this.browser, element, location));
+            .then(element => new ProtractorPageElement(this.browser, element, location));
     }
 
     locateAllChildElements(location: PageElementLocation): Promise<PageElementList> {
         return this.$$
             .locate(location)
-            .then(elements => new ProtractorElementList(this.browser, elements, location));
+            .then(elements => new ProtractorPageElementList(this.browser, elements, location));
     }
 
     async clearValue(): Promise<void> {
