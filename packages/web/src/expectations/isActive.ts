@@ -1,6 +1,6 @@
 import { Expectation } from '@serenity-js/core';
 
-import { PageElement } from '../ui';
+import { PageElement } from '../screenplay';
 import { ElementExpectation } from './ElementExpectation';
 
 /**

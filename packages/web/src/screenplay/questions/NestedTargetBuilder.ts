@@ -1,6 +1,6 @@
 import { Answerable } from '@serenity-js/core';
 
-import { PageElement } from '../../ui';
+import { PageElement } from '../models';
 import { TargetBuilder } from './TargetBuilder';
 
 /**

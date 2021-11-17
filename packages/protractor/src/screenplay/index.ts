@@ -1,4 +1,4 @@
 export * from './abilities';
 export * from './interactions';
-export * from './model';
+export * from './models';
 export * from './questions';

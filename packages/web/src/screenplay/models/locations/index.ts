@@ -7,6 +7,6 @@ export * from './ByName';
 export * from './ByPartialLinkText';
 export * from './ByTagName';
 export * from './ByXPath';
-export * from './ElementLocations';
 export * from './PageElementLocation';
+export * from './PageElementLocations';
 export * from './PageElementLocator';

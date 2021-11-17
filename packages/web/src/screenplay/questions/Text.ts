@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, createModel, MetaQuestion, Model, Question, UsesAbilities } from '@serenity-js/core';
 
-import { PageElement, PageElementList } from '../../ui';
+import { PageElement, PageElementList } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement, TargetNestedElements } from './targets';
 

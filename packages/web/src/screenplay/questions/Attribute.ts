@@ -1,6 +1,6 @@
 import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { PageElement } from '../../ui';
+import { PageElement } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 import { TargetNestedElement } from './targets';
 

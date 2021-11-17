@@ -3,7 +3,7 @@ import { commaSeparated, formatted } from '@serenity-js/core/lib/io';
 import { inspected } from '@serenity-js/core/lib/io/inspected';
 import { Interaction, UsesAbilities } from '@serenity-js/core/lib/screenplay';
 
-import { by, PageElement, PageElementList } from '../../ui';
+import { by, PageElement, PageElementList } from '../models';
 import { SelectBuilder } from './SelectBuilder';
 
 /**

@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, LogicError, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { PageElement, PageElementList } from '../../ui';
+import { PageElement, PageElementList } from '../models';
 
 /**
  * @desc

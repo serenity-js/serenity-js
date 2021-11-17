@@ -1,7 +1,7 @@
 import { Answerable } from '@serenity-js/core';
 import { Interaction } from '@serenity-js/core/lib/screenplay';
 
-import { PageElement } from '../../ui';
+import { PageElement } from '../models';
 
 /**
  * @desc

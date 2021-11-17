@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Answerable, AnswersQuestions, Expectation, List, MetaQuestion, Question, UsesAbilities } from '@serenity-js/core';
 
-import { PageElement, PageElementList, PageElementLocation } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
+import { PageElement, PageElementList, PageElementLocation } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 import { ElementListAdapter } from './lists';
 import { NestedTargetBuilder } from './NestedTargetBuilder';

@@ -2,8 +2,8 @@ import { Activity, Answerable, AnswersQuestions, Interaction, Question, UsesAbil
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { Key } from '../../input';
-import { PageElement } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
+import { PageElement } from '../models';
 import { PageElementInteraction } from './PageElementInteraction';
 import { PressBuilder } from './PressBuilder';
 
