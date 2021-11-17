@@ -1,6 +1,6 @@
 import { Answerable, Interaction } from '@serenity-js/core';
 
-import { PageElement } from '../../ui';
+import { PageElement } from '../models';
 
 /**
  * @desc

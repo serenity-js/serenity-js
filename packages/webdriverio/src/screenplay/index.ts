@@ -1,2 +1,2 @@
 export * from './abilities';
-export * from './model';
+export * from './models';

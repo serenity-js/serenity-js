@@ -1,6 +1,6 @@
 import { AnswersQuestions, Expectation, ExpectationMet, ExpectationNotMet, ExpectationOutcome } from '@serenity-js/core';
 
-import { PageElement } from '../ui';
+import { PageElement } from '../screenplay';
 
 /**
  * @access private

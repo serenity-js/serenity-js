@@ -4,7 +4,7 @@ import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorB
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { ProtractorCookie, ProtractorPage, ProtractorPageElement, ProtractorPageElementList, ProtractorPageElementLocator } from '../model';
+import { ProtractorCookie, ProtractorPage, ProtractorPageElement, ProtractorPageElementList, ProtractorPageElementLocator } from '../models';
 
 /**
  * @desc

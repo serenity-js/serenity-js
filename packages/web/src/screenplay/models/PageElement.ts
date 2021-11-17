@@ -1,4 +1,4 @@
-import { PageElementLocation } from '../locations';
+import { PageElementLocation } from './locations';
 import { PageElementList } from './PageElementList';
 
 export interface PageElement {

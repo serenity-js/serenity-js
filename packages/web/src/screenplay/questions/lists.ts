@@ -2,7 +2,7 @@ import { Answerable, AnswersQuestions, Expectation, ExpectationMet, ExpectationO
 import { formatted } from '@serenity-js/core/lib/io';
 import { ListAdapter } from '@serenity-js/core/lib/screenplay/questions/lists';
 
-import { PageElement, PageElementList } from '../../ui';
+import { PageElement, PageElementList } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 
 /**

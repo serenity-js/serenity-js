@@ -1,7 +1,7 @@
 import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
-import { by, PageElement } from '../../ui';
+import { by, PageElement } from '../models';
 import { ElementQuestion } from './ElementQuestion';
 
 /**

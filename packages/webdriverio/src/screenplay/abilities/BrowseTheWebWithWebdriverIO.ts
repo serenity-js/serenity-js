@@ -2,7 +2,7 @@ import { Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/cor
 import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../model';
+import { WebdriverIOCookie, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../models';
 
 /**
  * @desc

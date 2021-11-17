@@ -1,7 +1,7 @@
 import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 
-import { PageElement } from '../../ui';
 import { BrowseTheWeb } from '../abilities';
+import { PageElement } from '../models';
 
 /**
  * @desc

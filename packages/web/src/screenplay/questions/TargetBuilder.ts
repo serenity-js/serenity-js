@@ -1,4 +1,4 @@
-import { PageElementLocation } from '../../ui';
+import { PageElementLocation } from '../models';
 
 /**
  * @desc
