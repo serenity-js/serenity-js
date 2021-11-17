@@ -1,7 +1,7 @@
 import 'mocha';
 
 import { actorCalled } from '@serenity-js/core';
-import { Navigate, Page } from '@serenity-js/web';
+import { by, Navigate, Page, Target, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 
@@ -10,7 +10,6 @@ describe('Page', () => {
     /*
     todo:
     Title.of(Page.current()) === Page.current().title() === Page.title()
-    Page.called(..) => Page.called(
     Page.title()
     Switch.to(Page.original())
     Switch.to(Page.called(...))
@@ -57,6 +56,11 @@ describe('Page', () => {
 
         describe('viewportSize()', () => {
 
+            const RenderedViewportSize = {
+                width: Target.the('viewport width').located(by.id('viewport-width')),
+                height: Target.the('viewport height').located(by.id('viewport-height')),
+            };
+
             beforeEach(() =>
                 actorCalled('Bernie').attemptsTo(
                     Navigate.to('/screenplay/questions/page/viewport_size.html'),
@@ -66,18 +70,24 @@ describe('Page', () => {
             /** @test {Page#viewportSize()} */
             /** @test {Page#setViewportSize()} */
             it('allows the actor to read the inner size of the current page', async () => {
-                const page  = await Page.current().answeredBy(actorCalled('Bernie'));
+                const Bernie = actorCalled('Bernie');
+
+                const page  = await Page.current().answeredBy(Bernie);
 
                 const expectedSize = { width: 640, height: 480 };
 
                 await page.setViewportSize(expectedSize);
-                const actualSize = await page.viewportSize();
+                const reportedSize = await page.viewportSize();
 
-                expect(actualSize).to.deep.equal(expectedSize);
+                const renderedWidth     = await Text.of(RenderedViewportSize.width).as(Number).answeredBy(Bernie);
+                const renderedHeight    = await Text.of(RenderedViewportSize.height).as(Number).answeredBy(Bernie);
+
+                expect(reportedSize).to.deep.equal(expectedSize);
+                expect(expectedSize.width).to.deep.equal(renderedWidth);
+                expect(expectedSize.height).to.deep.equal(renderedHeight);
             });
         });
     });
-
 
     describe('called(name)', () => {
         describe('toString', () => {
