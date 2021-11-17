@@ -28,26 +28,26 @@ describe('Cookie', () => {
         return q`${ LocalServer.url() }${ path }`;
     }
 
-    describe('over HTTP', () => {
-
+    before(() =>
         // Fun fact: Before Cookie Monster ate his first cookie, he believed his name was Sid. You're welcome.
-        before(() =>
-            actorCalled('Sid')
-                .whoCan(ManageALocalServer.runningAHttpListener(cookieCutterApp))
-                .attemptsTo(StartLocalServer.onRandomPort())
-        );
+        actorCalled('Sid')
+            .whoCan(ManageALocalServer.runningAHttpListener(cookieCutterApp))
+            .attemptsTo(StartLocalServer.onRandomPort())
+    );
 
-        afterEach(() =>
-            actorCalled('Sid').attemptsTo(
-                Cookie.deleteAll()
-            )
-        );
+    afterEach(() =>
+        actorCalled('Sid').attemptsTo(
+            Cookie.deleteAll()
+        )
+    );
 
-        after(() =>
-            actorCalled('Sid').attemptsTo(
-                StopLocalServer.ifRunning(),
-            )
-        );
+    after(() =>
+        actorCalled('Sid').attemptsTo(
+            StopLocalServer.ifRunning(),
+        )
+    );
+
+    describe('over HTTP', () => {
 
         describe('when working with cookies', () => {
             it('allows the actor to check if a given cookie is set', () =>
@@ -218,37 +218,12 @@ describe('Cookie', () => {
         });
     });
 
-    describe('over HTTPs, when working with secure cookies', () => {
-
-        before(() =>
-            actorCalled('Rachel')
-                .whoCan(
-                    ManageALocalServer.runningAHttpsListener(cookieCutterApp, {
-                        cert:               certificates.cert,
-                        key:                certificates.key,
-                        requestCert:        true,
-                        rejectUnauthorized: false,
-                    }),
-                )
-                .attemptsTo(StartLocalServer.onRandomPort())
-        );
-
-        afterEach(() =>
-            actorCalled('Rachel').attemptsTo(
-                Cookie.deleteAll()
-            )
-        );
-
-        after(() =>
-            actorCalled('Rachel').attemptsTo(
-                StopLocalServer.ifRunning(),
-            )
-        );
+    describe('when working with secure cookies', () => {
 
         /** @test {Cookie} */
         /** @test {Cookie#isSecure} */
         it('allows the actor to confirm that a cookie is not secure', () =>
-            actorCalled('Rachel').attemptsTo(
+            actorCalled('Sid').attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.called('favourite').isSecure(), isFalse()),
             )
@@ -257,7 +232,7 @@ describe('Cookie', () => {
         /** @test {Cookie} */
         /** @test {Cookie#isSecure} */
         it('allows the actor to confirm that a cookie is secure', () =>
-            actorCalled('Rachel').attemptsTo(
+            actorCalled('Sid').attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip&secure=1')),
                 Ensure.that(Cookie.called('favourite').isSecure(), isTrue()),
             )
@@ -266,7 +241,7 @@ describe('Cookie', () => {
         /** @test {Cookie} */
         /** @test {Cookie#isSecure} */
         it(`complains it the cookie doesn't exist`, () =>
-            expect(actorCalled('Rachel').attemptsTo(
+            expect(actorCalled('Sid').attemptsTo(
                 Navigate.to(cookieCutterURLFor('/cookie?name=favourite&value=chocolate-chip')),
                 Ensure.that(Cookie.called('not-so-favourite').isSecure(), equals(undefined)),
             )).to.be.rejectedWith(CookieMissingError, `Cookie 'not-so-favourite' not set`)
