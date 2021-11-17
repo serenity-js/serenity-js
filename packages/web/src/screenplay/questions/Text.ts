@@ -131,7 +131,7 @@ class TextOfSingleElement
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string> {
         const element = await this.resolve(actor, this.element);
 
-        return element.getText();
+        return element.text();
     }
 }
 
@@ -149,6 +149,6 @@ class TextOfMultipleElements
 
     async answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<string[]> {
         const elements = await this.resolve(actor, this.elements);
-        return elements.map(element => element.getText());
+        return elements.map(element => element.text());
     }
 }

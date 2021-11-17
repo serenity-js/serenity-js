@@ -214,7 +214,7 @@ class SelectedValue extends ElementQuestion<Promise<string>> {
         const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateChildElement(by.css('option:checked'));
 
-        return selected.getValue();
+        return selected.value();
     }
 }
 
@@ -232,7 +232,7 @@ class SelectedValues extends ElementQuestion<Promise<string[]>> {
         const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateAllChildElements(by.css('option:checked'));
 
-        return selected.map(item => item.getValue());
+        return selected.map(item => item.value());
     }
 }
 
@@ -249,7 +249,7 @@ class SelectedOption extends ElementQuestion<Promise<string>> {
         const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateChildElement(by.css('option:checked'));
 
-        return selected.getText();
+        return selected.text();
     }
 }
 
@@ -267,6 +267,6 @@ class SelectedOptions extends ElementQuestion<Promise<string[]>> {
         const target    = await this.resolve(actor, this.target);
         const selected  = await target.locateAllChildElements(by.css('option:checked'));
 
-        return selected.map(item => item.getText());
+        return selected.map(item => item.text());
     }
 }

@@ -358,7 +358,7 @@ class SelectOptions implements Interaction {
 function hasValueEqualOneOf(desiredValues: string[]): (option: PageElement) => Promise<boolean> {
     return async (option: PageElement) => {
 
-        const value = await option.getValue()
+        const value = await option.value()
 
         return desiredValues.includes(value);
     }
@@ -368,7 +368,7 @@ function hasValueEqualOneOf(desiredValues: string[]): (option: PageElement) => P
 function hasTextEqualOneOf(desiredValues: string[]): (option: PageElement) => Promise<boolean> {
     return async (option: PageElement) => {
 
-        const value = await option.getText()
+        const value = await option.text()
 
         return desiredValues.includes(value);
     }
