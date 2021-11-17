@@ -133,7 +133,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
             cookie.value,
             cookie.domain,
             cookie.path,
-            cookie.expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.floor(cookie.expiry)) : undefined,
+            cookie.expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.round(cookie.expiry)) : undefined,
             cookie.httpOnly,
             cookie.secure,
         );
