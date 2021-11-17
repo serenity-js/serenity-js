@@ -2,7 +2,7 @@ import { ByCss, ByCssContainingText, ById, ByLinkText, ByName, ByPartialLinkText
 import { by } from 'protractor';
 import { Locator, WebElement } from 'selenium-webdriver';
 
-export class ProtractorElementLocator<T extends WebElement> extends PageElementLocator<T> {
+export class ProtractorPageElementLocator<T extends WebElement> extends PageElementLocator<T> {
     constructor(private readonly fn: (locator: Locator) => T) {
         super();
 
