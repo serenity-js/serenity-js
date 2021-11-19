@@ -1,9 +1,9 @@
 import 'mocha';
 
-import { actorCalled } from '@serenity-js/core';
+import { actorCalled, Note, TakeNote } from '@serenity-js/core';
 import { by, Navigate, Page, Target, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { Ensure, equals, not } from '@serenity-js/assertions';
 
 describe('Page', () => {
 
@@ -54,37 +54,101 @@ describe('Page', () => {
                 ));
         });
 
-        describe('viewportSize()', () => {
+        describe('viewport', () => {
 
             const RenderedViewportSize = {
-                width: Target.the('viewport width').located(by.id('viewport-width')),
-                height: Target.the('viewport height').located(by.id('viewport-height')),
+                width:  Text.of(Target.the('viewport width').located(by.id('viewport-width'))).as(Number),
+                height: Text.of(Target.the('viewport height').located(by.id('viewport-height'))).as(Number),
             };
+
+            const viewportSize = {
+                small:  { width: 640, height: 480 },
+                medium: { width: 667, height: 375 },    // iPhone 8, something in the middle, but still representative of what people might use
+                large:  { width: 800, height: 600 },
+            }
+
+            before(() =>
+                actorCalled('Bernie').attemptsTo(
+                    Navigate.to('/screenplay/questions/page/viewport_size.html'),
+                    TakeNote.of(Page.current().viewportSize()).as('original viewport size')
+                ));
 
             beforeEach(() =>
                 actorCalled('Bernie').attemptsTo(
-                    Navigate.to('/screenplay/questions/page/viewport_size.html'),
+                    Page.current().setViewportSize(Note.of('original viewport size')),
                 ));
 
-            /** @test {Page.current()} */
-            /** @test {Page#viewportSize()} */
-            /** @test {Page#setViewportSize()} */
-            it('allows the actor to read the inner size of the current page', async () => {
-                const Bernie = actorCalled('Bernie');
+            after(() =>
+                actorCalled('Bernie').attemptsTo(
+                    Page.current().setViewportSize(Note.of('original viewport size')),
+                ));
 
-                const page  = await Page.current().answeredBy(Bernie);
+            describe('setViewportSize()', () => {
 
-                const expectedSize = { width: 640, height: 480 };
+                /** @test {Page.current()} */
+                /** @test {Page#viewportSize()} */
+                /** @test {Page#setViewportSize()} */
+                it('allows the actor to set the size of the viewport', () =>
+                    actorCalled('Bernie').attemptsTo(
+                        Page.current().setViewportSize(viewportSize.small)
+                            .describedAs(`#actor resizes viewport to ${ viewportSize.small.width }x${ viewportSize.small.height }`),
 
-                await page.setViewportSize(expectedSize);
-                const reportedSize = await page.viewportSize();
+                        Ensure.that(RenderedViewportSize.height, equals(viewportSize.small.height)),
+                        Ensure.that(RenderedViewportSize.width,  equals(viewportSize.small.width)),
+                    )
+                );
 
-                const renderedWidth     = await Text.of(RenderedViewportSize.width).as(Number).answeredBy(Bernie);
-                const renderedHeight    = await Text.of(RenderedViewportSize.height).as(Number).answeredBy(Bernie);
+                /** @test {Page.current()} */
+                /** @test {Page#viewportSize()} */
+                /** @test {Page#setViewportSize()} */
+                it('allows the actor to increase the size of the viewport', () =>
+                    actorCalled('Bernie').attemptsTo(
+                        Page.current().setViewportSize(viewportSize.small)
+                            .describedAs(`#actor resizes viewport to ${ viewportSize.small.width }x${ viewportSize.small.height }`),
 
-                expect(reportedSize).to.deep.equal(expectedSize);
-                expect(expectedSize.width).to.deep.equal(renderedWidth);
-                expect(expectedSize.height).to.deep.equal(renderedHeight);
+                        Ensure.that(RenderedViewportSize.height, equals(viewportSize.small.height)),
+                        Ensure.that(RenderedViewportSize.width,  equals(viewportSize.small.width)),
+
+                        Page.current().setViewportSize(viewportSize.medium)
+                            .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
+
+                        Ensure.that(RenderedViewportSize.height, equals(viewportSize.medium.height)),
+                        Ensure.that(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
+                    )
+                );
+
+                /** @test {Page.current()} */
+                /** @test {Page#viewportSize()} */
+                /** @test {Page#setViewportSize()} */
+                it('allows the actor to decrease the size of the viewport', () =>
+                    actorCalled('Bernie').attemptsTo(
+                        Page.current().setViewportSize(viewportSize.large)
+                            .describedAs(`#actor resizes viewport to ${ viewportSize.large.width }x${ viewportSize.large.height }`),
+
+                        Ensure.that(RenderedViewportSize.height, equals(viewportSize.large.height)),
+                        Ensure.that(RenderedViewportSize.width,  equals(viewportSize.large.width)),
+
+                        Page.current().setViewportSize(viewportSize.medium)
+                            .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
+
+                        Ensure.that(RenderedViewportSize.height, equals(viewportSize.medium.height)),
+                        Ensure.that(RenderedViewportSize.width,  equals(viewportSize.medium.width)),
+                    )
+                );
+            });
+
+            describe('viewportSize()', () => {
+
+                it('returns the real size of the viewport', () =>
+                    actorCalled('Bernie').attemptsTo(
+                        Ensure.that(Page.current().viewportSize(), not(equals(viewportSize.medium))),
+
+                        Page.current().setViewportSize(viewportSize.medium)
+                            .describedAs(`#actor resizes viewport to ${ viewportSize.medium.width }x${ viewportSize.medium.height }`),
+
+                        Ensure.that(Page.current().viewportSize(), equals(viewportSize.medium)),
+                    )
+                );
             });
         });
     });

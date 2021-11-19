@@ -1,6 +1,6 @@
 import { TestRunnerTagger } from '@integration/testing-tools';
 import { ArtifactArchiver } from '@serenity-js/core';
-import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
+import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
 import { protractor } from 'protractor';
 import { Actors } from './Actors';
@@ -28,9 +28,10 @@ export const config = {
         crew: [
             new TestRunnerTagger('protractor'),
             ArtifactArchiver.storingArtifactsAt(`${ process.cwd() }/target/site/serenity`),
-            Photographer.whoWill(TakePhotosOfInteractions),
-            // Photographer.whoWill(TakePhotosOfFailures),
+            // Photographer.whoWill(TakePhotosOfInteractions),
+            Photographer.whoWill(TakePhotosOfFailures),
             new SerenityBDDReporter(),
+            // ConsoleReporter.withDefaultColourSupport(),
         ]
     },
 
@@ -41,9 +42,7 @@ export const config = {
         require: [
             'ts-node/register',
         ],
-        reporter: 'spec',
     },
-
 
     chromeDriver: require(`chromedriver`).path,
     directConnect: true,
@@ -66,7 +65,7 @@ export const config = {
                 '--disable-infobars',
                 '--headless',
                 '--disable-gpu',
-                '--window-size=640x480',
+                '--window-size=1024x768',
             ],
         },
     },

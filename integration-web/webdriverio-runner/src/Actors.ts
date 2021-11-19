@@ -1,4 +1,4 @@
-import { Actor, Cast } from '@serenity-js/core';
+import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { BrowseTheWebWithWebdriverIO } from '@serenity-js/webdriverio';
 
 export class Actors implements Cast {
@@ -7,6 +7,9 @@ export class Actors implements Cast {
             return actor;
         }
 
-        return actor.whoCan(BrowseTheWebWithWebdriverIO.using(browser));
+        return actor.whoCan(
+            BrowseTheWebWithWebdriverIO.using(browser),
+            TakeNotes.usingAnEmptyNotepad(),
+        );
     }
 }

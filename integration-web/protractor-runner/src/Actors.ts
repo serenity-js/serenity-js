@@ -1,4 +1,4 @@
-import { Actor, Cast } from '@serenity-js/core';
+import { Actor, Cast, TakeNotes } from '@serenity-js/core';
 import { BrowseTheWebWithProtractor } from '@serenity-js/protractor';
 import { protractor } from 'protractor';
 
@@ -8,6 +8,9 @@ export class Actors implements Cast {
             return actor;
         }
 
-        return actor.whoCan(BrowseTheWebWithProtractor.using(protractor.browser));
+        return actor.whoCan(
+            BrowseTheWebWithProtractor.using(protractor.browser),
+            TakeNotes.usingAnEmptyNotepad(),
+        );
     }
 }
