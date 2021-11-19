@@ -150,7 +150,7 @@ describe('Question', () => {
             });
         });
 
-        describe('wraps the created question in a "prop", which acts as a proxy that', () => {
+        describe('wraps the created question in a "Model", which acts as a proxy that', () => {
 
             describe('wraps any field of the underlying answer in another question which', () => {
 
