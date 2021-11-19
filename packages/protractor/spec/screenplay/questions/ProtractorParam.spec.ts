@@ -10,6 +10,12 @@ import { UIActors } from '../../UIActors';
 
 describe('ProtractorParam', () => {
 
+    interface User {
+        id: number;
+        firstName: string;
+        lastName: string;
+    }
+
     beforeEach(() => engage(new UIActors()));
 
     /**
@@ -28,7 +34,7 @@ describe('ProtractorParam', () => {
     it('lets the actor read the value of an object Protractor parameter specified in protractor.conf.js', () =>
         actorCalled('Bernie').attemptsTo(
             Ensure.that(
-                ProtractorParam.called<{ id: number, firstName: string, lastName: string }>('user'),
+                ProtractorParam.called<User>('user'),
                 equals({ id: 1, firstName: 'Jan', lastName: 'Molak' })
             ),
         ));
@@ -40,6 +46,15 @@ describe('ProtractorParam', () => {
     it('lets the actor read the value of a Protractor parameter specified by path', () =>
         actorCalled('Bernie').attemptsTo(
             Ensure.that(ProtractorParam.called<string>('user.firstName'), equals('Jan')),
+        ));
+
+    /**
+     * @test {ProtractorParam}
+     * @test {ProtractorParam.called}
+     */
+    it('creates a Screenplay Model around the Question', () =>
+        actorCalled('Bernie').attemptsTo(
+            Ensure.that(ProtractorParam.called<User>('user').firstName, equals('Jan')),
         ));
 
     /**
