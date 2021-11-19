@@ -3,7 +3,6 @@ import { inspected } from '../../io/inspected';
 import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Interaction } from '../Interaction';
 import { Question } from '../Question';
-import { Awaited } from './Awaited';
 import { Model } from './Model';
 
 export function createModel<A, Q extends Question<A> = Question<A>>(question: Q): Q & Model<Awaited<A>> {

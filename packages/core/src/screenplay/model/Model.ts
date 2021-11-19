@@ -1,7 +1,6 @@
 import { Answerable } from '../Answerable';
 import { Interaction } from '../Interaction';
 import { Question } from '../Question';
-import { Awaited } from './Awaited';
 
 export type Model<OriginalType> = {
     [Field in keyof Omit<OriginalType, keyof Question<OriginalType>>]:

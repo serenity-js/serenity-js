@@ -1,6 +1,6 @@
 import { inspected } from '../io/inspected';
 import { AnswersQuestions, UsesAbilities } from './actor';
-import { Awaited, createModel, Model } from './model';
+import { createModel, Model } from './model';
 
 /**
  * @desc
