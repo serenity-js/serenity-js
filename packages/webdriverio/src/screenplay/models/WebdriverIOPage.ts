@@ -13,11 +13,39 @@ export class WebdriverIOPage extends Page {
         return this.browser.getTitle();
     }
 
-    viewportSize(): Promise<{ width: number, height: number }> {
+    async viewportSize(): Promise<{ width: number, height: number }> {
+        if (! this.browser.isDevTools) {
+            const calculatedViewportSize = await this.browser.execute(`
+                return {
+                    width:  Math.max(document.documentElement.clientWidth,  window.innerWidth || 0), 
+                    height: Math.max(document.documentElement.clientHeight, window.innerHeight || 0),
+                }
+            `) as { width: number, height: number };
+
+            // Chrome headless hard-codes window.innerWidth and window.innerHeight to 0
+            if (calculatedViewportSize.width > 0 && calculatedViewportSize.height > 0) {
+                return calculatedViewportSize;
+            }
+        }
+
         return this.browser.getWindowSize();
     }
 
-    setViewportSize(size: { width: number, height: number }): Promise<void> {
-        return this.browser.setWindowSize(size.width, size.height);
+    async setViewportSize(size: { width: number, height: number }): Promise<void> {
+        let desiredWindowSize = size;
+
+        if (! this.browser.isDevTools) {
+            desiredWindowSize = await this.browser.execute(`
+                var currentViewportWidth  = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+                var currentViewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+                
+                return { 
+                    width:  Math.max(window.outerWidth  - currentViewportWidth  + ${ size.width },  ${ size.width }), 
+                    height: Math.max(window.outerHeight - currentViewportHeight + ${ size.height }, ${ size.height }),
+                };
+            `);
+        }
+
+        return this.browser.setWindowSize(desiredWindowSize.width, desiredWindowSize.height);
     }
 }

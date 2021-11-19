@@ -28,7 +28,7 @@
     "test:acceptance": "cross-env PORT=8080 start-server-and-test start http://localhost:8080 test:acceptance:run",
     "start": "node start.js",
     "test:acceptance:run": "failsafe test:acceptance:run:webdriverio test:acceptance:run:protractor",
-    "test:acceptance:run:webdriverio": "nyc --report-dir='../target/coverage/integration-web-webdriverio' webdriverio-runner --spec='./spec/**/Page.spec.ts'",
+    "test:acceptance:run:webdriverio": "nyc --report-dir='../target/coverage/integration-web-webdriverio' webdriverio-runner --spec='./spec/**/*.spec.ts'",
     "test:acceptance:run:protractor": "nyc --report-dir='../target/coverage/integration-web-protractor' protractor-runner --specs='./spec/**/*.spec.ts'",
     "test:debug": "protractor-runner --specs='./spec/**/Press.spec.ts'",
     "test:report": "serenity-bdd run"
