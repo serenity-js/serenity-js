@@ -39,7 +39,7 @@ export class Browser {
      *
      * actor.attemptsTo(
      *   Ensure.that(Browser.log(),
-     *     not(contrainAtLeastOneItemThat(
+     *     not(containAtLeastOneItemThat(
      *       property('message', includes('the server responded with a status of 500'))
      *     ))
      *   ).otherwiseFailWith(TestCompromisedError, 'The server is down'),
