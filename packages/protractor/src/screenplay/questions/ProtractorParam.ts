@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { Answerable, AnswersQuestions, Question, UsesAbilities } from '@serenity-js/core';
+import { Answerable, Model, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
@@ -18,81 +18,53 @@ import { BrowseTheWebWithProtractor } from '../abilities';
  *        }
  *    }
  *    // ...
- * }
+ *  }
  *
  * @example <caption>Overriding configuration parameter via the command line</caption>
  *  protractor ./protractor.conf.js --params.login.username="bob@example.org"
  *
- * @example <caption>Using in a test scenario</caption>
+ * @example <caption>Using as Screenplay Model</caption>
  *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Enter, ProtractorParam } from '@serenity-js/protractor';
+ *  import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor';
+ *  import { Enter } from '@serenity-js/web';
  *  import { protractor } from 'protractor';
  *
  *  actorCalled('Jane')
- *      .whoCan(BrowseTheWeb.using(protractor.browser))
+ *      .whoCan( BrowseTheWebWithProtractor.using(protractor.browser))
  *      .attemptsTo(
- *          Enter.theValue(ProtractorParam.called('login.username').into(Form.exampleInput),
+ *          Enter.theValue(ProtractorParam.called('login').username).into(Form.exampleInput),
+ *      );
+ *
+ * @example <caption>Specifying path to param as string</caption>
+ *  import { actorCalled } from '@serenity-js/core';
+ *  import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor';
+ *  import { Enter } from '@serenity-js/web';
+ *  import { protractor } from 'protractor';
+ *
+ *  actorCalled('Jane')
+ *      .whoCan( BrowseTheWebWithProtractor.using(protractor.browser))
+ *      .attemptsTo(
+ *          Enter.theValue(ProtractorParam.called('login.username')).into(Form.exampleInput),
  *      );
  *
  * @extends {@serenity-js/core/lib/screenplay~Question<Promise<T>>}
- *
- * @see {@link BrowseTheWeb#param}
+ *g
+ * @see {@link BrowseTheWebWithProtractor#param}
  */
-export class ProtractorParam<T = any>
-    extends Question<Promise<T>>
+export class ProtractorParam
 {
-    private subject: string;
-
     /**
      * @desc
      *  Name of the parameter to retrieve. This could also be a dot-delimited path,
      *  i.e. `login.username`
      *
      * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
-     * @returns {ProtractorParam<R>}
+     * @returns {Question<Promise<R>> & Model<R>}
      */
-    static called<R>(name: Answerable<string>): ProtractorParam {
-        return new ProtractorParam<R>(name);
-    }
-
-    /**
-     * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
-     */
-    constructor(private readonly name: Answerable<string>) {
-        super();
-        this.subject = formatted `the ${ name } param specified in Protractor config`;
-    }
-
-    /**
-     * @desc
-     *  Makes the provided {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  answer this {@link @serenity-js/core/lib/screenplay~Question}.
-     *
-     * @param {AnswersQuestions & UsesAbilities} actor
-     * @returns {Promise<void>}
-     *
-     * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~AnswersQuestions}
-     * @see {@link @serenity-js/core/lib/screenplay/actor~UsesAbilities}
-     */
-    answeredBy(actor: AnswersQuestions & UsesAbilities): Promise<T> {
-        return actor.answer(this.name)
-            .then(name => BrowseTheWebWithProtractor.as(actor).param(name));
-    }
-
-    /**
-     * @desc
-     *  Changes the description of this question's subject.
-     *
-     * @param {string} subject
-     * @returns {Question<T>}
-     */
-    describedAs(subject: string): this {
-        this.subject = subject;
-        return this;
-    }
-
-    toString(): string {
-        return this.subject;
+    static called<R>(name: Answerable<string>): Question<Promise<R>> & Model<R> {
+        return Question.about<Promise<R>>(formatted `the ${ name } param specified in Protractor config`, actor => {
+            return actor.answer(name)
+                .then(name => BrowseTheWebWithProtractor.as(actor).param(name));
+        });
     }
 }
