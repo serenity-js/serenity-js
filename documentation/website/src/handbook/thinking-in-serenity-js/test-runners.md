@@ -164,7 +164,7 @@ describe('Mocha', () => {
 
 When you run the tests again:
 ```shell-session
-npm tests
+npm test
 ```
 you should see results similar to the below:
 ```shell-session
