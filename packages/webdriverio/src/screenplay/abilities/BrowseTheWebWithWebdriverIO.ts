@@ -1,8 +1,8 @@
 import { Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../models';
 
 /**
  * @desc
@@ -171,6 +171,10 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
 
         // return new WebdriverIOPage(this.browser, windowHandle);
         throw new Error('Not implemented, yet');
+    }
+
+    async modalDialog(): Promise<ModalDialog> {
+        return new WebdriverIOModalDialog(this.browser);
     }
 
     // todo: remove

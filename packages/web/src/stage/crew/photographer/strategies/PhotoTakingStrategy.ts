@@ -44,37 +44,50 @@ export abstract class PhotoTakingStrategy {
                 id,
             ));
 
-            Promise.all([
-                browseTheWeb.takeScreenshot(),
-                browseTheWeb.getBrowserCapabilities(),
-            ]).then(([ screenshot, capabilities ]) => {
+            browseTheWeb.modalDialog().then(dialog => dialog.isPresent())
+                .then(dialogPresent => {
 
-                const
-                    context   = [ capabilities.platformName, capabilities.browserName, capabilities.browserVersion ],
-                    photoName = this.combinedNameFrom(...context, nameSuffix);
+                    if (dialogPresent) {
+                        stage.announce(new AsyncOperationCompleted(
+                            new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of a modal dialog obstructing the view`),
+                            id,
+                        ));
 
-                stage.announce(new ActivityRelatedArtifactGenerated(
-                    event.sceneId,
-                    event.activityId,
-                    photoName,
-                    Photo.fromBase64(screenshot),
-                ));
+                        return void 0;
+                    }
 
-                stage.announce(new AsyncOperationCompleted(
-                    new Description(`[${ this.constructor.name }] Took screenshot of '${ nameSuffix }' on ${ context }`),
-                    id,
-                ));
-            }).catch(error => {
-                if (this.shouldIgnore(error)) {
-                    stage.announce(new AsyncOperationCompleted(
-                        new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
-                        id,
-                    ));
-                }
-                else {
-                    stage.announce(new AsyncOperationFailed(error, id));
-                }
-            });
+                    Promise.all([
+                        browseTheWeb.takeScreenshot(),
+                        browseTheWeb.getBrowserCapabilities(),
+                    ]).then(([ screenshot, capabilities ]) => {
+
+                        const
+                            context   = [ capabilities.platformName, capabilities.browserName, capabilities.browserVersion ],
+                            photoName = this.combinedNameFrom(...context, nameSuffix);
+
+                        stage.announce(new ActivityRelatedArtifactGenerated(
+                            event.sceneId,
+                            event.activityId,
+                            photoName,
+                            Photo.fromBase64(screenshot),
+                        ));
+
+                        stage.announce(new AsyncOperationCompleted(
+                            new Description(`[${ this.constructor.name }] Took screenshot of '${ nameSuffix }' on ${ context }`),
+                            id,
+                        ));
+                    }).catch(error => {
+                        if (this.shouldIgnore(error)) {
+                            stage.announce(new AsyncOperationCompleted(
+                                new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
+                                id,
+                            ));
+                        }
+                        else {
+                            stage.announce(new AsyncOperationFailed(error, id));
+                        }
+                    });
+                });
         }
     }
 
@@ -88,7 +101,6 @@ export abstract class PhotoTakingStrategy {
 
     private shouldIgnore(error: Error) {
         return error.name
-            && (error.name === 'NoSuchSessionError'
-                || error.name === 'UnexpectedAlertOpenError');
+            && (error.name === 'NoSuchSessionError');
     }
 }
