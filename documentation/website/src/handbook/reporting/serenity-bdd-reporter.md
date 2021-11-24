@@ -28,7 +28,7 @@ npm install --save-dev @serenity-js/{core,serenity-bdd}
 To generate Serenity BDD HTML reports, you'll need the Serenity BDD Reporting CLI. You can download it using the `serenity-bdd` command available as part of this module:
 
 ```bash
-npx serenity-bdd update
+npx @serenity-js/serenity-bdd update
 ```
 
 The best way to ensure you always have the latest version of the CLI available is to run `serenity-bdd update` whenever you run `npm install`. To automate this process, add the below entry to your `package.json`: 
@@ -126,7 +126,7 @@ configure({
 When your test suite has finished running, generate the Serenity BDD reports by executing the following command in your terminal:
 
 ```bash
-npx serenity-bdd run
+npx @serenity-js/serenity-bdd run
 ```
 
 To automate this process, install the following additional modules:
