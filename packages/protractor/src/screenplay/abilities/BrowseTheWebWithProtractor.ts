@@ -1,10 +1,22 @@
 import { ConfigurationError, Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import {
+    BrowserCapabilities,
+    BrowseTheWeb,
+    Cookie,
+    CookieMissingError,
+    Key,
+    ModalDialog,
+    Page,
+    PageElement,
+    PageElementList,
+    PageElementLocation,
+    PageElementLocator,
+} from '@serenity-js/web';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { ProtractorCookie, ProtractorPage, ProtractorPageElement, ProtractorPageElementList, ProtractorPageElementLocator } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPageElement, ProtractorPageElementList, ProtractorPageElementLocator } from '../models';
 
 /**
  * @desc
@@ -140,6 +152,10 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
     deleteAllCookies(): Promise<void> {
         return promiseOf(this.browser.manage().deleteAllCookies());
+    }
+
+    async modalDialog(): Promise<ModalDialog> {
+        return new ProtractorModalDialog(this.browser);
     }
 
     /**

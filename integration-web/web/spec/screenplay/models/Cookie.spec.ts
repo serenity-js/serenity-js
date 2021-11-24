@@ -1,6 +1,6 @@
 import 'mocha';
 
-import { certificates, expect } from '@integration/testing-tools';
+import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 import { actorCalled, Answerable, Duration, q, Question, Timestamp } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';

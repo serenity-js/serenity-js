@@ -1,7 +1,7 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, Page, PageElement, PageElementList, PageElementLocation } from '../models';
+import { Cookie, ModalDialog, Page, PageElement, PageElementList, PageElementLocation } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -61,6 +61,8 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract getCookie(name: string): Promise<Cookie>;
     abstract deleteAllCookies(): Promise<void>;
+
+    abstract modalDialog(): Promise<ModalDialog>;
 
     // todo: remove
     abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;

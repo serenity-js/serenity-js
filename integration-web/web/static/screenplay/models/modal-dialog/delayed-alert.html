@@ -1,0 +1,19 @@
+<html lang="en">
+<body>
+<button id="trigger" onclick="trigger()">Trigger Alert</button>
+<p id="result"></p>
+<script>
+    function trigger() {
+        document.getElementById("result").innerHTML = (
+            function() {
+                setTimeout(function() {
+                    alert('Almost there!');
+                    document.getElementById("result").innerHTML = 'And the wait is over :-)';
+                }, 250);
+                return 'The wait has began';
+            }
+        )();
+    }
+</script>
+</body>
+</html>

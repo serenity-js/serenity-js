@@ -1,7 +1,7 @@
 import { expect } from '@integration/testing-tools';
 import { describe } from 'mocha';
 
-import { by } from '../../../src';
+import { by } from '../../../../src';
 
 /**
  * @test {by}
