@@ -211,6 +211,8 @@ jobs:
     needs:
       - compile
     runs-on: windows-latest
+    env:
+      NODE_OPTIONS: "--max-old-space-size=4096"
     strategy:
       matrix:
         node-version: [ 12.x, 14.x, 16.x ]
