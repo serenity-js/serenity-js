@@ -1,4 +1,5 @@
 import { Page } from '@serenity-js/web';
+import { URL } from 'url';
 import * as wdio from 'webdriverio';
 
 export class WebdriverIOPage extends Page {
@@ -11,6 +12,10 @@ export class WebdriverIOPage extends Page {
 
     title(): Promise<string> {
         return this.browser.getTitle();
+    }
+
+    async url(): Promise<URL> {
+        return new URL(await this.browser.getUrl());
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {

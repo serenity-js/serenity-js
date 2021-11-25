@@ -1,4 +1,5 @@
 import { Answerable, Model, Question } from '@serenity-js/core';
+import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
 
@@ -21,7 +22,21 @@ export abstract class Page {
     ) {
     }
 
+    /**
+     * @desc
+     *  Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.
+     *
+     * @returns {Promise<string>}
+     */
     abstract title(): Promise<string>;
+
+    /**
+     * @desc
+     *  Retrieves the URL of the current top-level browsing context.
+     *
+     * @returns {Promise<URL>}
+     */
+    abstract url(): Promise<URL>;
 
     abstract viewportSize(): Promise<{ width: number, height: number }>;
     abstract setViewportSize(size: { width: number, height: number }): Promise<void>;
