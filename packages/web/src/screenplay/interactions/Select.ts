@@ -282,7 +282,7 @@ class SelectValues implements Interaction {
         const target                    = await actor.answer(this.target);
         const options: PageElementList    = await target.locateAllChildElements(by.css('option'));
 
-        const desiredValues = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();
+        const desiredValues = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
 
         const shouldSelect: boolean[] = await options.map(optionsToSelect(hasValueEqualOneOf(desiredValues)));
 
@@ -336,7 +336,7 @@ class SelectOptions implements Interaction {
 
     async performAs(actor: UsesAbilities & AnswersQuestions): Promise<void> {
 
-        const desiredOptions    = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();
+        const desiredOptions    = (await Promise.all(this.values.map(value => actor.answer(value)))).flat();    // eslint-disable-line unicorn/no-await-expression-member
         const target            = await actor.answer(this.target);
         const options           = await target.locateAllChildElements(by.css('option'));
 
