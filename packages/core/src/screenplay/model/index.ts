@@ -1,2 +1,2 @@
-export * from './createModel';
-export * from './Model';
+export * from './Adapter';
+export * from './createAdapter';

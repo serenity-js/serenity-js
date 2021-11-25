@@ -1,4 +1,4 @@
-import { Answerable, Interaction, Model, Question, Timestamp } from '@serenity-js/core';
+import { Adapter, Answerable, Interaction, Question, Timestamp } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 
@@ -9,9 +9,9 @@ export abstract class Cookie {
      *  Creates a {@link @serenity-js/core/lib/screenplay~Question} about a Cookie
      *
      * @param {Answerable<string>} name
-     * @returns {Question<Promise<Cookie>> & Model<Cookie>}
+     * @returns {Question<Promise<Cookie>> & Adapter<Cookie>}
      */
-    static called(name: Answerable<string>): Question<Promise<Cookie>> & Model<Cookie> {
+    static called(name: Answerable<string>): Question<Promise<Cookie>> & Adapter<Cookie> {
         return Question.about(`"${ name }" cookie`, async actor => {
             const cookieName = await actor.answer(name);
             return BrowseTheWeb.as(actor).cookie(cookieName);

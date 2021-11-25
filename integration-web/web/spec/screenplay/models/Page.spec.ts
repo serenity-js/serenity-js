@@ -49,7 +49,7 @@ describe('Page', () => {
 
             /** @test {Page.current()} */
             /** @test {Page#title()} */
-            it('is accessible via a Model', async () =>
+            it('is accessible via an Adapter', async () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.current().title(), equals(`Hello World`)),
                 ));
@@ -73,7 +73,7 @@ describe('Page', () => {
 
             /** @test {Page.current()} */
             /** @test {Page#title()} */
-            it('is accessible via a Model', async () =>
+            it('is accessible via an Adapter', async () =>
                 actorCalled('Bernie').attemptsTo(
                     Ensure.that(Page.current().url().pathname, equals(`/screenplay/models/page/url.html`)),
                 ));
