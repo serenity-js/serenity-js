@@ -3,7 +3,7 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { endsWith, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled, TestCompromisedError } from '@serenity-js/core';
-import { by, Navigate, Target, Text, Website } from '@serenity-js/web';
+import { by, Navigate, Page, Target, Text } from '@serenity-js/web';
 
 /** @test {Navigate} */
 describe('Navigate', () => {
@@ -47,8 +47,8 @@ describe('Navigate', () => {
                 Navigate.to('/screenplay/interactions/navigate/second.html'),
 
                 Navigate.back(),
-    
-                Ensure.that(Website.url(), endsWith('/first.html')),
+
+                Ensure.that(Page.current().url().pathname, endsWith('/first.html')),
             ));
 
         /** @test {Navigate.back} */
@@ -66,11 +66,11 @@ describe('Navigate', () => {
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/navigate/first.html'),
                 Navigate.to('/screenplay/interactions/navigate/second.html'),
-    
+
                 Navigate.back(),
                 Navigate.forward(),
-    
-                Ensure.that(Website.url(), endsWith('second.html')),
+
+                Ensure.that(Page.current().url().pathname, endsWith('second.html')),
             ));
 
         /** @test {Navigate.forward} */
@@ -87,9 +87,9 @@ describe('Navigate', () => {
         it('allows the actor to navigate to a desired destination', () =>
             actorCalled('Wendy').attemptsTo(
                 Navigate.to('/screenplay/interactions/navigate/reloaded.html'),
-    
+
                 Navigate.reloadPage(),
-    
+
                 Ensure.that(Text.of(Target.the('heading').located(by.id('h'))), equals('Reloaded')),
             ));
 

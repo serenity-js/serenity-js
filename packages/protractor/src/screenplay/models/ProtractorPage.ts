@@ -1,5 +1,6 @@
 import { Page } from '@serenity-js/web';
 import { ProtractorBrowser } from 'protractor';
+import { URL } from 'url';
 
 import { promiseOf } from '../../promiseOf';
 
@@ -13,6 +14,10 @@ export class ProtractorPage extends Page {
 
     title(): Promise<string> {
         return promiseOf(this.browser.getTitle());
+    }
+
+    async url(): Promise<URL> {
+        return new URL(await promiseOf(this.browser.getCurrentUrl()));
     }
 
     async viewportSize(): Promise<{ width: number, height: number }> {

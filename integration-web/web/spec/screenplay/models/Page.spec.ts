@@ -4,6 +4,7 @@ import { actorCalled, Note, TakeNote } from '@serenity-js/core';
 import { by, Navigate, Page, Target, Text } from '@serenity-js/web';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals, not } from '@serenity-js/assertions';
+import { URL } from 'url';
 
 describe('Page', () => {
 
@@ -34,7 +35,7 @@ describe('Page', () => {
 
             beforeEach(() =>
                 actorCalled('Bernie').attemptsTo(
-                    Navigate.to('/screenplay/questions/page/title.html'),
+                    Navigate.to('/screenplay/models/page/title.html'),
                 ));
 
             /** @test {Page.current()} */
@@ -54,6 +55,42 @@ describe('Page', () => {
                 ));
         });
 
+        describe('url()', () => {
+
+            beforeEach(() =>
+                actorCalled('Bernie').attemptsTo(
+                    Navigate.to('/screenplay/models/page/url.html'),
+                ));
+
+            /** @test {Page.current()} */
+            /** @test {Page#title()} */
+            it('allows the actor to read the URL of the current page', async () => {
+                const page  = await Page.current().answeredBy(actorCalled('Bernie'));
+                const url: URL = await page.url();
+
+                expect(url.pathname).to.equal('/screenplay/models/page/url.html');
+            });
+
+            /** @test {Page.current()} */
+            /** @test {Page#title()} */
+            it('is accessible via a Model', async () =>
+                actorCalled('Bernie').attemptsTo(
+                    Ensure.that(Page.current().url().pathname, equals(`/screenplay/models/page/url.html`)),
+                ));
+
+            /**
+             * @test {Page.current()}
+             * @test {Page#title()}
+             * @see https://github.com/serenity-js/serenity-js/issues/273
+             */
+            it(`correctly represents the URL containing special characters`, () =>
+                actorCalled('Bernie').attemptsTo(
+                    Navigate.to(`/screenplay/models/page/url.html#example`),
+
+                    Ensure.that(Page.current().url().hash, equals(`#example`)),
+                ));
+        });
+
         describe('viewport', () => {
 
             const RenderedViewportSize = {
@@ -69,7 +106,7 @@ describe('Page', () => {
 
             before(() =>
                 actorCalled('Bernie').attemptsTo(
-                    Navigate.to('/screenplay/questions/page/viewport_size.html'),
+                    Navigate.to('/screenplay/models/page/viewport_size.html'),
                     TakeNote.of(Page.current().viewportSize()).as('original viewport size')
                 ));
 
