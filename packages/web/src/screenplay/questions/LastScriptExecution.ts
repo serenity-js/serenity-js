@@ -16,6 +16,6 @@ export class LastScriptExecution {
      */
     static result<R>(): Question<R> {
         return Question.about(`last script execution result`, actor =>
-            BrowseTheWeb.as(actor).getLastScriptExecutionResult());
+            BrowseTheWeb.as(actor).lastScriptExecutionResult());
     }
 }

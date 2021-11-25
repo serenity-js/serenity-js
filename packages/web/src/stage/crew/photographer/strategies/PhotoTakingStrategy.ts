@@ -58,7 +58,7 @@ export abstract class PhotoTakingStrategy {
 
                     Promise.all([
                         browseTheWeb.takeScreenshot(),
-                        browseTheWeb.getBrowserCapabilities(),
+                        browseTheWeb.browserCapabilities(),
                     ]).then(([ screenshot, capabilities ]) => {
 
                         const

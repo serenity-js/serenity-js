@@ -107,15 +107,15 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.browser.refresh();
     }
 
-    getTitle(): Promise<string> {
+    title(): Promise<string> {
         return this.browser.getTitle();
     }
 
-    getCurrentUrl(): Promise<string> {
+    currentUrl(): Promise<string> {
         return this.browser.getUrl();
     }
 
-    getBrowserCapabilities(): Promise<BrowserCapabilities> {
+    browserCapabilities(): Promise<BrowserCapabilities> {
         return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
     }
 
@@ -129,7 +129,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
             .then(elements => new WebdriverIOPageElementList(this.browser, elements, location));
     }
 
-    async getCookie(name: string): Promise<Cookie> {
+    async cookie(name: string): Promise<Cookie> {
         const [ cookie ] = await this.browser.getCookies(name);
 
         if (! cookie) {
@@ -157,15 +157,14 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.browser.deleteCookies() as Promise<void>;
     }
 
-    async getCurrentPage(): Promise<Page> {
+    async currentPage(): Promise<Page> {
 
         const windowHandle = await this.browser.getWindowHandle();
 
-        // todo: wrap in proxy
         return new WebdriverIOPage(this.browser, windowHandle);
     }
 
-    async getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+    async pageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
 
         // const windowHandles = await this.browser.getWindowHandle();
 
@@ -376,7 +375,7 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      *
      * @returns {any}
      */
-    getLastScriptExecutionResult<Result = any>(): Result {
+    lastScriptExecutionResult<Result = any>(): Result {
         if (! this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);
         }

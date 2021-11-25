@@ -21,7 +21,7 @@ describe('Press', () => {
     };
 
     const OS = () => Question.about('operating system', async actor => {
-        const capabilities = await BrowseTheWeb.as(actor).getBrowserCapabilities();
+        const capabilities = await BrowseTheWeb.as(actor).browserCapabilities();
         return capabilities.platformName;
     });
 

@@ -127,7 +127,7 @@ describe('Photographer', function () {
 
             await stage.waitForNextCue();
 
-            const capabilities  = await BrowseTheWeb.as(Betty).getBrowserCapabilities();
+            const capabilities  = await BrowseTheWeb.as(Betty).browserCapabilities();
             const events        = stringified(recorder.events);
 
             expect(capabilities.platformName).to.not.be.undefined;
