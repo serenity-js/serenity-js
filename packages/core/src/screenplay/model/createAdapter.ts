@@ -3,9 +3,9 @@ import { inspected } from '../../io/inspected';
 import { Actor, AnswersQuestions, UsesAbilities } from '../actor';
 import { Interaction } from '../Interaction';
 import { Question } from '../Question';
-import { Model } from './Model';
+import { Adapter } from './Adapter';
 
-export function createModel<A, Q extends Question<A> = Question<A>>(question: Q): Q & Model<Awaited<A>> {
+export function createAdapter<A, Q extends Question<A> = Question<A>>(question: Q): Q & Adapter<Awaited<A>> {
 
     return new Proxy<Q>(question, {
 
@@ -39,7 +39,7 @@ export function createModel<A, Q extends Question<A> = Question<A>>(question: Q)
 
                 const originalSubject = inspected(question, { inline: true, markQuestions: true });
 
-                return createModel(new DynamicProp(originalSubject + fieldDescription + parameterDescriptions, async actor => {
+                return createAdapter(new DynamicProp(originalSubject + fieldDescription + parameterDescriptions, async actor => {
                     // convert parameters from Answerable<T> => T
                     const parameters = await (Promise.all(
                         originalParameters.map(parameter => actor.answer(parameter))
@@ -92,9 +92,9 @@ export function createModel<A, Q extends Question<A> = Question<A>>(question: Q)
                 });
             }
 
-            return createModel(proxy as any);
+            return createAdapter(proxy as any);
         }
-    }) as Q & Model<Awaited<A>>
+    }) as Q & Adapter<Awaited<A>>
 }
 
 function doNotProxy(key: string | symbol | number) {
@@ -119,7 +119,7 @@ class DynamicProp<T> extends Interaction implements Question<T> {
     }
 
     as<O>(mapping: (answer: Awaited<T>) => Promise<O> | O): Question<Promise<O>> {
-        return createModel(new DynamicProp(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
+        return createAdapter(new DynamicProp(`${ this.subject } as ${ inspected(mapping, { inline: true }) }`, async actor => {
             const answer = (await actor.answer(this)) as Awaited<T>;
             return mapping(answer);
         })) as Question<Promise<O>>;

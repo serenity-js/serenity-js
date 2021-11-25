@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/prevent-abbreviations */
-import { Answerable, Model, Question } from '@serenity-js/core';
+import { Adapter, Answerable, Question } from '@serenity-js/core';
 import { formatted } from '@serenity-js/core/lib/io';
 
 import { BrowseTheWebWithProtractor } from '../abilities';
@@ -23,7 +23,7 @@ import { BrowseTheWebWithProtractor } from '../abilities';
  * @example <caption>Overriding configuration parameter via the command line</caption>
  *  protractor ./protractor.conf.js --params.login.username="bob@example.org"
  *
- * @example <caption>Using as Screenplay Model</caption>
+ * @example <caption>Using as Screenplay Adapter</caption>
  *  import { actorCalled } from '@serenity-js/core';
  *  import { BrowseTheWebWithProtractor, ProtractorParam } from '@serenity-js/protractor';
  *  import { Enter } from '@serenity-js/web';
@@ -59,9 +59,9 @@ export class ProtractorParam
      *  i.e. `login.username`
      *
      * @param {@serenity-js/core/lib/screenplay~Answerable<string>} name
-     * @returns {Question<Promise<R>> & Model<R>}
+     * @returns {Question<Promise<R>> & Adapter<R>}
      */
-    static called<R>(name: Answerable<string>): Question<Promise<R>> & Model<R> {
+    static called<R>(name: Answerable<string>): Question<Promise<R>> & Adapter<R> {
         return Question.about<Promise<R>>(formatted `the ${ name } param specified in Protractor config`, actor => {
             return actor.answer(name)
                 .then(name => BrowseTheWebWithProtractor.as(actor).param(name));

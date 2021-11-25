@@ -1,16 +1,16 @@
-import { Answerable, Model, Question } from '@serenity-js/core';
+import { Adapter, Answerable, Question } from '@serenity-js/core';
 import { URL } from 'url';
 
 import { BrowseTheWeb } from '../abilities';
 
 export abstract class Page {
-    static current(): Question<Promise<Page>> & Model<Page> {
+    static current(): Question<Promise<Page>> & Adapter<Page> {
         return Question.about<Promise<Page>>('current page', actor => {
             return BrowseTheWeb.as(actor).currentPage();
         });
     }
 
-    static called(windowNameOrHandle: Answerable<string>): Question<Promise<Page>> & Model<Page> {
+    static called(windowNameOrHandle: Answerable<string>): Question<Promise<Page>> & Adapter<Page> {
         return Question.about<Promise<Page>>(`page called "${ windowNameOrHandle }"`, async actor => {
             const nameOrHandle = await actor.answer(windowNameOrHandle);
             return BrowseTheWeb.as(actor).pageCalled(nameOrHandle)

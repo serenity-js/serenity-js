@@ -52,7 +52,7 @@ describe('ProtractorParam', () => {
      * @test {ProtractorParam}
      * @test {ProtractorParam.called}
      */
-    it('creates a Screenplay Model around the Question', () =>
+    it('creates a Screenplay Adapter around the Question', () =>
         actorCalled('Bernie').attemptsTo(
             Ensure.that(ProtractorParam.called<User>('user').firstName, equals('Jan')),
         ));
