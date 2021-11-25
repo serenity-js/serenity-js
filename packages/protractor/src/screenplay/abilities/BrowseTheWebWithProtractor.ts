@@ -91,7 +91,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
             .then(elf => new ProtractorPageElementList(this.browser, elf, location));
     }
 
-    async getBrowserCapabilities(): Promise<BrowserCapabilities> {
+    async browserCapabilities(): Promise<BrowserCapabilities> {
         const capabilities = await promiseOf(this.browser.getCapabilities());
 
         return {
@@ -131,7 +131,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promiseOf(keyUpActions.perform());
     }
 
-    async getCookie(name: string): Promise<Cookie> {
+    async cookie(name: string): Promise<Cookie> {
         const cookie = await this.browser.manage().getCookie(name);
 
         if (! cookie) {
@@ -426,14 +426,14 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promiseOf(this.browser.close());
     }
 
-    async getCurrentPage(): Promise<Page> {
+    async currentPage(): Promise<Page> {
 
         const windowHandle = await this.browser.getWindowHandle();
 
         return new ProtractorPage(this.browser, windowHandle);
     }
 
-    async getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+    async pageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
 
         // const windowHandles = await this.browser.getWindowHandle();
 
@@ -654,7 +654,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<string>}
      */
-    getTitle(): Promise<string> {
+    title(): Promise<string> {
         return promiseOf(this.browser.getTitle());
     }
 
@@ -664,7 +664,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<string>}
      */
-    getCurrentUrl(): Promise<string> {
+    currentUrl(): Promise<string> {
         return promiseOf(this.browser.getCurrentUrl());
     }
 
@@ -678,7 +678,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<Capabilities>} The actual capabilities of this browser.
      */
-    getCapabilities(): Promise<Capabilities> {
+    capabilities(): Promise<Capabilities> {
         return promiseOf(this.browser.getCapabilities());
     }
 
@@ -712,7 +712,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {any}
      */
-    getLastScriptExecutionResult(): any {
+    lastScriptExecutionResult(): any {
         if (! this.lastScriptExecutionSummary) {
             throw new LogicError(`Make sure to execute a script before checking on the result`);
         }

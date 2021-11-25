@@ -86,7 +86,7 @@ describe('Photographer', () => {
 
             await stage.waitForNextCue();
 
-            const capabilities = await BrowseTheWeb.as(Betty).getBrowserCapabilities();
+            const capabilities = await BrowseTheWeb.as(Betty).browserCapabilities();
 
             PickEvent.from(recorder.events)
                 .next(ActivityRelatedArtifactGenerated, event => {

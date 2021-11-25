@@ -34,11 +34,11 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract locateAllElementsAt(location: PageElementLocation): Promise<PageElementList>;
 
-    abstract getTitle(): Promise<string>;
+    abstract title(): Promise<string>;
 
-    abstract getCurrentUrl(): Promise<string>;
+    abstract currentUrl(): Promise<string>;
 
-    abstract getBrowserCapabilities(): Promise<BrowserCapabilities>;
+    abstract browserCapabilities(): Promise<BrowserCapabilities>;
 
     abstract sendKeys(keys: Array<Key | string>): Promise<void>;
 
@@ -52,14 +52,14 @@ export abstract class BrowseTheWeb implements Ability {
         ...args: Parameters
     ): Promise<Result>;
 
-    abstract getLastScriptExecutionResult<R = any>(): R;
+    abstract lastScriptExecutionResult<R = any>(): R;
 
     abstract takeScreenshot(): Promise<string>;
 
-    abstract getCurrentPage(): Promise<Page>;
-    abstract getPageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
+    abstract currentPage(): Promise<Page>;
+    abstract pageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
 
-    abstract getCookie(name: string): Promise<Cookie>;
+    abstract cookie(name: string): Promise<Cookie>;
     abstract deleteAllCookies(): Promise<void>;
 
     abstract modalDialog(): Promise<ModalDialog>;

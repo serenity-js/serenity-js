@@ -14,7 +14,7 @@ export abstract class Cookie {
     static called(name: Answerable<string>): Question<Promise<Cookie>> & Model<Cookie> {
         return Question.about(`"${ name }" cookie`, async actor => {
             const cookieName = await actor.answer(name);
-            return BrowseTheWeb.as(actor).getCookie(cookieName);
+            return BrowseTheWeb.as(actor).cookie(cookieName);
         });
     }
 
@@ -30,7 +30,7 @@ export abstract class Cookie {
             const cookieName = await actor.answer(name);
             let cookie;
             try {
-                cookie = await BrowseTheWeb.as(actor).getCookie(cookieName);
+                cookie = await BrowseTheWeb.as(actor).cookie(cookieName);
                 return cookie !== undefined;
             } catch {
                 return false;
