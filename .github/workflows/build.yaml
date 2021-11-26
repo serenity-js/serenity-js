@@ -156,8 +156,6 @@ jobs:
         run: make test
 
   x-test-windows-node-lts-active:
-    needs:
-      - compile
     runs-on: windows-latest
     steps:
       - name: Checkout repository
