@@ -52,7 +52,7 @@ jobs:
         run: make compile
 
       - name: Compress Libs
-        run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "integration-web/*/lib/*" "packages/*/lib/*"
+        run:  7z a compiled-libs.zip package.json "integration/*/lib/*" "packages/*/lib/*"
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
