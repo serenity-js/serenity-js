@@ -15,10 +15,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 14.x
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
@@ -36,12 +36,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 14.x
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
 
-      - name: Install Node Modules (@integration)
+      - name: Install Node Modules (all)
         uses: bahmutov/npm-install@v1
         with:
           install-command: make install
@@ -61,7 +61,44 @@ jobs:
             compiled-libs.zip
 
   test-linux-node-lts-active:
-    name: test-linux-node-lts-active (14.x)
+    name: test-linux-node-lts-active (16.x)
+    needs:
+      - compile
+    runs-on:  ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install Node Modules (@serenity-js)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP=@serenity-js install
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Download compiled libs
+        uses: actions/download-artifact@v2
+        with:
+          name: compiled-libs
+      - name: Decompress Libs
+        run:  7z x -aoa compiled-libs.zip
+
+      - name: Test
+        run: make test
+
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: test-reports
+          path: |
+            target/**/*
+            package.json
+
+  test-linux-node-lts-previous:
     needs:
       - compile
     runs-on:  ubuntu-latest
@@ -86,77 +123,21 @@ jobs:
           name: compiled-libs
       - name: Decompress Libs
         run:  7z x -aoa compiled-libs.zip
-      # todo: Enable when the tests are ready to run on SauceLabs
-      #      - name: Open Sauce Connect Tunnel
-      #        uses: saucelabs/sauce-connect-action@v1
-      #        with:
-      #          username: ${{ secrets.SAUCE_USERNAME }}
-      #          accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-      #          tunnelIdentifier: github-serenity-js-test-linux-node-14.x-tunnel
-
-      - name: Test
-        run: make test
-      # todo: Enable when the tests are ready to run on SauceLabs
-      #        env:
-      #          SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
-      #          SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-
-      - uses: actions/upload-artifact@v2
-        with:
-          retention-days: 3
-          name: test-reports
-          path: |
-            target/**/*
-            package.json
-
-  test-linux-node-lts-other:
-    needs:
-      - compile
-    runs-on:  ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x, 16.x ]
-      fail-fast: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Install Node Modules (@serenity-js)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make BOOTSTRAP=@serenity-js install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download compiled libs
-        uses: actions/download-artifact@v2
-        with:
-          name: compiled-libs
-      - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
 
       - name: Test
         run: make test
 
-  test-windows-node-lts:
+  test-windows-node-lts-active:
     needs:
       - compile
     runs-on: windows-latest
-    strategy:
-      matrix:
-        node-version: [ 12.x, 14.x, 16.x ]
-      fail-fast: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node ${{ matrix.node-version }}
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.x
 
       - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
@@ -174,24 +155,24 @@ jobs:
       - name: Test
         run: make test
 
-  web-integration-test-linux-node-lts-active:
+  integration-test-saucelabs:
     needs:
       - compile
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Open Sauce Connect Tunnel
         uses: saucelabs/sauce-connect-action@v1
         with:
           username: ${{ secrets.SAUCE_USERNAME }}
           accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-web-integration-test-linux-node-lts-active-${{ github.run_number }}-tunnel
+          tunnelIdentifier: github-serenity-js-integration-test-saucelabs-${{ github.run_number }}-tunnel
 
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 14.x
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
@@ -205,10 +186,10 @@ jobs:
         with:
           name: compiled-libs
       - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
+        run: 7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make integration-test-web
+        run: make INTEGRATION=web integration-test
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
@@ -217,28 +198,37 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: web-integration-test-linux
-          path: integration-web/web/target/
+          name: integration-test-saucelabs
+          path: integration/web/target/
 
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
-          name: web-integration-test-coverage-reports
+          name: integration-test-saucelabs-coverage-reports
           path: |
             target/**/*
             package.json
 
-  non-web-integration-test-linux-node-lts-active:
+  integration-test:
     needs:
       - compile
-    runs-on:  ubuntu-latest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module:
+          - cucumber
+          - jasmine
+          - mocha
+          - protractor
+          - webdriverio
+      fail-fast: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Setup Node 14.x
+      - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: 16.x
 
       - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
@@ -252,15 +242,15 @@ jobs:
         with:
           name: compiled-libs
       - name: Decompress Libs
-        run:  7z x -aoa compiled-libs.zip
+        run: 7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make integration-test-non-web
+        run: make INTEGRATION=${{ matrix.module }} integration-test
 
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
-          name: non-web-integration-test-coverage-reports
+          name: integration-test-coverage-reports-${{ matrix.module }}
           path: |
             target/**/*
             package.json
@@ -269,8 +259,8 @@ jobs:
     runs-on:  ubuntu-latest
     needs:
       - test-linux-node-lts-active
-      - web-integration-test-linux-node-lts-active
-      - non-web-integration-test-linux-node-lts-active
+      - integration-test-saucelabs
+      - integration-test
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -291,14 +281,15 @@ jobs:
         with:
           name: test-reports
 
-      - name: Download code coverage reports (web integration test)
+      - name: Download code coverage reports
         uses: actions/download-artifact@v2
         with:
-          name: web-integration-test-coverage-reports
-      - name: Download code coverage reports (non-web integration test)
-        uses: actions/download-artifact@v2
-        with:
-          name: non-web-integration-test-coverage-reports
+          path: target/coverage
+
+      # DEBUG
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: target/coverage
 
       - name: Merge code coverage reports
         run: make report
@@ -316,10 +307,10 @@ jobs:
     needs:
       - lint
       - test-linux-node-lts-active
-      - test-linux-node-lts-other
-      - test-windows-node-lts
-      - web-integration-test-linux-node-lts-active
-      - non-web-integration-test-linux-node-lts-active
+      - test-linux-node-lts-previous
+      - test-windows-node-lts-active
+      - integration-test-saucelabs
+      - integration-test
     steps:
       - uses: actions/checkout@v2
         with:

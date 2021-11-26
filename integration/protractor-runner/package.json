@@ -1,7 +1,7 @@
 {
-  "name": "@integration-web/protractor-cucumber",
+  "name": "@integration/protractor-runner",
   "version": "2.0.0",
-  "description": "Protractor/Cucumber integration tests",
+  "description": "Internal module to help test integration of Serenity/JS with Protractor",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -13,10 +13,19 @@
   "config": {
     "access": "private"
   },
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "bin": {
+    "protractor-runner": "bin/protractor-runner.js"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint --ext ts --config ../../.eslintrc.js",
-    "test": "mocha --config ../../.mocharc.yml --timeout 60000 'spec/**/*.spec.*'"
+    "compile": "tsc --project tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -30,18 +39,17 @@
     "npm": "^6 || ^7 || ^8"
   },
   "dependencies": {
-    "@cucumber/cucumber": "^7.3.1",
     "@integration/testing-tools": "2.0.0",
     "@serenity-js/core": "^2.0.0",
-    "@serenity-js/cucumber": "^2.0.0",
+    "@serenity-js/console-reporter": "^2.0.0",
+    "@serenity-js/mocha": "^2.0.0",
     "@serenity-js/protractor": "^2.0.0",
+    "@serenity-js/serenity-bdd": "^2.0.0",
     "@serenity-js/web": "^2.0.0",
+    "chromedriver": "^96.0.0",
     "protractor": "^7.0.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.22",
-    "@types/mocha": "^9.0.0",
-    "mocha": "^9.1.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
   }
