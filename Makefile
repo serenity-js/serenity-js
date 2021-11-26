@@ -5,7 +5,16 @@
 # @examples
 BOOTSTRAP=all
 
-.PHONY: all install clean lint test compile integration-test integration-test-web integration-test-non-web verify report site
+# all
+# cucumber
+# jasmine
+# mocha
+# protractor
+# webdriverio
+# web
+INTEGRATION=all
+
+.PHONY: all install clean lint test compile integration-test verify report site
 all: install clean compile
 
 reinstall:
@@ -28,13 +37,8 @@ test:
 compile:
 	npm run compile
 
-integration-test: integration-test-non-web integration-test-web
-
-integration-test-non-web:
-	npm run integration-test:non-web
-
-integration-test-web:
-	npm run integration-test:web
+integration-test:
+	npm run integration-test:$(INTEGRATION)
 
 verify: lint compile test integration-test
 
