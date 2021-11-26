@@ -61,7 +61,7 @@ jobs:
             compiled-libs.zip
 
   test-linux-node-lts-active:
-    name: test-linux-node-lts-active (16.x)
+    name: test-linux-node-lts-active
     needs:
       - compile
     runs-on:  ubuntu-latest
