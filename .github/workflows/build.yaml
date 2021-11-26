@@ -193,7 +193,7 @@ jobs:
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-          SAUCE_TUNNEL_ID: github-serenity-js-web-integration-test-linux-node-lts-active-${{ github.run_number }}-tunnel
+          SAUCE_TUNNEL_ID: github-serenity-js-integration-test-saucelabs-${{ github.run_number }}-tunnel
 
       - uses: actions/upload-artifact@v2
         if: failure()
