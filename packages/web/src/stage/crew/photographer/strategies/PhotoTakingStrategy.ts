@@ -25,69 +25,76 @@ export abstract class PhotoTakingStrategy {
      *
      * @see {@link @serenity-js/core/lib/stage~Stage#theActorInTheSpotlight}
      */
-    considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): void {
-        if (this.shouldTakeAPhotoOf(event)) {
-            let browseTheWeb: BrowseTheWeb;
+    async considerTakingPhoto(event: ActivityStarts | ActivityFinished, stage: Stage): Promise<void> {
+        if (! this.shouldTakeAPhotoOf(event)) {
+            return void 0;
+        }
 
-            try {
-                browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
-            } catch {
-                return void 0;
+        let browseTheWeb: BrowseTheWeb;
+
+        try {
+            browseTheWeb = BrowseTheWeb.as(stage.theActorInTheSpotlight());
+        } catch {
+            // actor doesn't have a browser, abort
+            return void 0;
+        }
+
+        const
+            id              = CorrelationId.create(),
+            nameSuffix      = this.photoNameFor(event);
+
+        stage.announce(new AsyncOperationAttempted(
+            new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),
+            id,
+        ));
+
+        let dialogIsPresent: boolean;
+
+        try {
+            dialogIsPresent = await browseTheWeb.modalDialog().then(dialog => dialog.isPresent());
+
+            if (dialogIsPresent) {
+                return stage.announce(new AsyncOperationCompleted(
+                    new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of a modal dialog obstructing the view`),
+                    id,
+                ));
             }
+        } catch (error) {
+            return stage.announce(new AsyncOperationFailed(error, id));
+        }
+
+        try {
+            const [ screenshot, capabilities ] = await Promise.all([
+                browseTheWeb.takeScreenshot(),
+                browseTheWeb.browserCapabilities(),
+            ]);
 
             const
-                id              = CorrelationId.create(),
-                nameSuffix      = this.photoNameFor(event);
+                context   = [ capabilities.platformName, capabilities.browserName, capabilities.browserVersion ],
+                photoName = this.combinedNameFrom(...context, nameSuffix);
 
-            stage.announce(new AsyncOperationAttempted(
-                new Description(`[Photographer:${ this.constructor.name }] Taking screenshot of '${ nameSuffix }'...`),
-                id,
+            stage.announce(new ActivityRelatedArtifactGenerated(
+                event.sceneId,
+                event.activityId,
+                photoName,
+                Photo.fromBase64(screenshot),
             ));
 
-            browseTheWeb.modalDialog().then(dialog => dialog.isPresent())
-                .then(dialogPresent => {
-
-                    if (dialogPresent) {
-                        stage.announce(new AsyncOperationCompleted(
-                            new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of a modal dialog obstructing the view`),
-                            id,
-                        ));
-
-                        return void 0;
-                    }
-
-                    Promise.all([
-                        browseTheWeb.takeScreenshot(),
-                        browseTheWeb.browserCapabilities(),
-                    ]).then(([ screenshot, capabilities ]) => {
-
-                        const
-                            context   = [ capabilities.platformName, capabilities.browserName, capabilities.browserVersion ],
-                            photoName = this.combinedNameFrom(...context, nameSuffix);
-
-                        stage.announce(new ActivityRelatedArtifactGenerated(
-                            event.sceneId,
-                            event.activityId,
-                            photoName,
-                            Photo.fromBase64(screenshot),
-                        ));
-
-                        stage.announce(new AsyncOperationCompleted(
-                            new Description(`[${ this.constructor.name }] Took screenshot of '${ nameSuffix }' on ${ context }`),
-                            id,
-                        ));
-                    }).catch(error => {
-                        if (this.shouldIgnore(error)) {
-                            stage.announce(new AsyncOperationCompleted(
-                                new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
-                                id,
-                            ));
-                        }
-                        else {
-                            stage.announce(new AsyncOperationFailed(error, id));
-                        }
-                    });
-                });
+            return stage.announce(new AsyncOperationCompleted(
+                new Description(`[${ this.constructor.name }] Took screenshot of '${ nameSuffix }' on ${ context }`),
+                id,
+            ));
+        }
+        catch (error) {
+            if (this.shouldIgnore(error)) {
+                stage.announce(new AsyncOperationCompleted(
+                    new Description(`[${ this.constructor.name }] Aborted taking screenshot of '${ nameSuffix }' because of ${ error.constructor && error.constructor.name }`),
+                    id,
+                ));
+            }
+            else {
+                stage.announce(new AsyncOperationFailed(error, id));
+            }
         }
     }
 
