@@ -1,7 +1,7 @@
 {
-  "name": "@integration/protractor-runner",
+  "name": "@integration/web-specs",
   "version": "2.0.0",
-  "description": "Internal module to help test integration of Serenity/JS with Protractor",
+  "description": "Internal module that holds specs to be executed by any @serenity-js/web implementations",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -13,19 +13,15 @@
   "config": {
     "access": "private"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
   "bin": {
-    "protractor-runner": "bin/protractor-runner.js"
+    "web-specs-start": "bin/web-specs-start"
   },
   "keywords": [
     "serenity-js",
     "internal"
   ],
   "scripts": {
-    "clean": "rimraf lib",
-    "lint": "eslint --ext ts --config ../../.eslintrc.js",
-    "compile": "tsc --project tsconfig.json"
+    "lint": "eslint --ext ts --config ../../.eslintrc.js"
   },
   "repository": {
     "type": "git",
@@ -36,21 +32,23 @@
   },
   "engines": {
     "node": "^12 || ^14 || ^16",
-    "npm": "^6 || ^7 || ^8"
+    "npm": "^6 || ^7"
   },
   "dependencies": {
-    "@integration/testing-tools": "2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/console-reporter": "^2.0.0",
-    "@serenity-js/mocha": "^2.0.0",
-    "@serenity-js/protractor": "^2.0.0",
-    "@serenity-js/serenity-bdd": "^2.0.0",
-    "@serenity-js/web": "^2.0.0",
-    "chromedriver": "^96.0.0",
-    "protractor": "^7.0.0"
+    "express": "^4.17.1"
   },
   "devDependencies": {
+    "@serenity-js/assertions": "^2.0.0",
+    "@serenity-js/core": "^2.0.0",
+    "@serenity-js/local-server": "^2.0.0",
+    "@serenity-js/mocha": "^2.0.0",
+    "@serenity-js/serenity-bdd": "^2.0.0",
+    "@integration/testing-tools": "2.0.0",
+    "@serenity-js/web": "^2.0.0",
+    "@types/mocha": "^9.0.0",
+    "cross-env": "^7.0.3",
     "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "start-server-and-test": "^1.14.0"
   }
 }

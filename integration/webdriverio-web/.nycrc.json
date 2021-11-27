@@ -1,0 +1,29 @@
+{
+  "cache": true,
+  "all": true,
+  "sourceMap": true,
+  "cwd": "../../packages",
+  "tempDir": "../.nyc_output",
+  "include": [
+    "web/src/**/*.ts",
+    "web/lib/**/*.js",
+    "webdriverio/src/**/*.ts",
+    "webdriverio/lib/**/*.js"
+  ],
+  "exclude": [
+    "**/.esdoc.js",
+    "**/target/**",
+    "**/spec/**",
+    "**/*.d.ts",
+    "**/*.spec.ts"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "require": [
+    "ts-node/register"
+  ],
+  "reporter": [
+    "json"
+  ]
+}

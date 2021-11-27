@@ -34,7 +34,7 @@
     "integration-test:mocha": "lerna run test --stream --concurrency 1 --scope @integration/mocha",
     "integration-test:protractor": "lerna run test --stream --concurrency 1 --scope @integration/protractor-*",
     "integration-test:webdriverio": "lerna run test --stream --concurrency 1 --scope @integration/webdriverio-*",
-    "integration-test:web": "lerna run test --stream --concurrency 1 --scope @integration/web",
+    "integration-test:saucelabs": "lerna run test --stream --concurrency 1 --scope @integration/webdriverio-web",
     "compile": "lerna run compile --stream",
     "site": "lerna run site --stream",
     "site:publish": "gh-pages -t -d documentation/website/target/site -r \"https://${GH_TOKEN}@github.com/serenity-js/serenity-js.git\"",

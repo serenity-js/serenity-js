@@ -11,7 +11,7 @@ BOOTSTRAP=all
 # mocha
 # protractor
 # webdriverio
-# web
+# saucelabs
 INTEGRATION=all
 
 .PHONY: all install clean lint test compile integration-test verify report site

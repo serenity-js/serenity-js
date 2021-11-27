@@ -10,15 +10,13 @@
     "outDir": "./lib",
     "types": [
       "node",
-      "webdriverio/async"
+      "webdriverio/async",
+      "chai-as-promised"
     ]
   },
 
   "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "spec",
-    "node_modules"
+    "src/**/*.ts",
+    "node_modules/@integration/web-specs/**/*.ts"
   ]
 }

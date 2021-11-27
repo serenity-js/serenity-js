@@ -3,7 +3,7 @@ import { ArtifactArchiver } from '@serenity-js/core';
 import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { Actors } from './Actors';
+import { Actors } from './src/Actors';
 
 const port = process.env.PORT || 8080;
 
@@ -87,7 +87,9 @@ export const config: WebdriverIOConfig = {
         timeout: 60_000,
     },
 
-    specs: [ ], // specified in tests themselves to avoid loading more than needed
+    specs: [
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts'
+    ],
 
     reporters: [
         'spec',
