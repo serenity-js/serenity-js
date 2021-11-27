@@ -189,7 +189,7 @@ jobs:
         run: 7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make INTEGRATION=web integration-test
+        run: make INTEGRATION=saucelabs integration-test
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
@@ -293,6 +293,12 @@ jobs:
 
       - name: Merge code coverage reports
         run: make report
+
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: code-coverage
+          path: ./target/coverage
 
       - name: Publish coverage
         continue-on-error: true

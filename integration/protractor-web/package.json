@@ -1,7 +1,7 @@
 {
-  "name": "@integration/webdriverio-runner",
+  "name": "@integration/protractor-web",
   "version": "2.0.0",
-  "description": "Internal module to help test integration of Serenity/JS with WebdriverIO",
+  "description": "Internal module to help test integration of Serenity/JS with Protractor",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -13,11 +13,6 @@
   "config": {
     "access": "private"
   },
-  "main": "lib/index.js",
-  "typings": "lib/index.d.ts",
-  "bin": {
-    "webdriverio-runner": "bin/webdriverio-runner.js"
-  },
   "keywords": [
     "serenity-js",
     "internal"
@@ -25,7 +20,12 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint --ext ts --config ../../.eslintrc.js",
-    "compile": "tsc --project tsconfig.json"
+    "test": "failsafe clean test:update-serenity test:acceptance test:report",
+    "test:update-serenity": "serenity-bdd update --ignoreSSL",
+    "test:acceptance": "cross-env PORT=8081 start-server-and-test start http://localhost:8081 test:acceptance:run",
+    "start": "npx web-specs-start",
+    "test:acceptance:run": "nyc --report-dir='../target/coverage/integration-protractor-web' protractor protractor.conf.js",
+    "test:report": "serenity-bdd run"
   },
   "repository": {
     "type": "git",
@@ -36,22 +36,21 @@
   },
   "engines": {
     "node": "^12 || ^14 || ^16",
-    "npm": "^6 || ^7"
+    "npm": "^6 || ^7 || ^8"
   },
   "dependencies": {
     "@integration/testing-tools": "2.0.0",
+    "@integration/web-specs": "2.0.0",
     "@serenity-js/core": "^2.0.0",
+    "@serenity-js/console-reporter": "^2.0.0",
     "@serenity-js/mocha": "^2.0.0",
+    "@serenity-js/protractor": "^2.0.0",
     "@serenity-js/serenity-bdd": "^2.0.0",
-    "@serenity-js/webdriverio": "^2.0.0",
     "@serenity-js/web": "^2.0.0",
-    "@wdio/cli": "^7.16.10",
-    "@wdio/local-runner": "^7.16.10",
-    "@wdio/spec-reporter": "^7.16.9",
-    "@wdio/sauce-service": "^7.16.10",
     "chromedriver": "^96.0.0",
-    "ci-info": "^3.2.0",
-    "webdriverio": "^7.16.10"
+    "cross-env": "^7.0.3",
+    "npm-failsafe": "^0.4.3",
+    "protractor": "^7.0.0"
   },
   "devDependencies": {
     "ts-node": "^10.4.0",

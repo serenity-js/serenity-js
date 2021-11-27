@@ -1,20 +1,20 @@
-import { TestRunnerTagger } from '@integration/testing-tools';
-import { ArtifactArchiver } from '@serenity-js/core';
-import { Photographer, TakePhotosOfFailures } from '@serenity-js/web';
-import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { protractor } from 'protractor';
-import { Actors } from './Actors';
+const { TestRunnerTagger } = require('@integration/testing-tools');
+const { ArtifactArchiver } = require('@serenity-js/core');
+const { ConsoleReporter } = require('@serenity-js/console-reporter');
+const { Photographer, TakePhotosOfFailures } = require('@serenity-js/web');
+const { SerenityBDDReporter } = require('@serenity-js/serenity-bdd');
+const { Actors } = require('./src/Actors');
 
 const port = process.env.PORT || 8080;
 
-export const config = {
+exports.config = {
 
     baseUrl: `http://localhost:${port}`,
 
     SELENIUM_PROMISE_MANAGER: false,
 
     onPrepare: function () {
-        return protractor.browser.waitForAngularEnabled(false);
+        return require('protractor').browser.waitForAngularEnabled(false);
     },
 
     allScriptsTimeout: 120_000,
@@ -35,7 +35,9 @@ export const config = {
         ]
     },
 
-    // specs: [ ],  // set via the command line
+    specs: [
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts'
+    ],
 
     mochaOpts: {
         timeout: 60_000,
