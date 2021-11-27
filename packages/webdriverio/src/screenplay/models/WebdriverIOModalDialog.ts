@@ -20,7 +20,7 @@ export class WebdriverIOModalDialog extends ModalDialog {
     async enterValue(value: string | number | (string | number)[]): Promise<void> {
         const text = [].concat(value).join('');
 
-        this.browser.sendAlertText(text);
+        await this.browser.sendAlertText(text);
 
         // Puppeteer auto-accepts the dialog upon sendAlertText
         // other implementations require the dialog to be closed
