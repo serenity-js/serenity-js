@@ -199,7 +199,7 @@ jobs:
         if: failure()
         with:
           name: integration-test-saucelabs
-          path: integration/web/target/
+          path: integration/webdriverio-web/target/
 
       - uses: actions/upload-artifact@v2
         with:
