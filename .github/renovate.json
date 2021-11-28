@@ -5,8 +5,12 @@
   "rangeStrategy": "bump",
   "packageRules": [
     {
+      "packagePatterns": ["^eslint$", "^eslint-plugin", "^@typescript-eslint"],
+      "groupName": "ESLint dependencies"
+    },
+    {
       "packagePatterns": ["^@wdio", "^webdriverio"],
-      "groupName": "WebdriverIO"
+      "groupName": "WebdriverIO dependencies"
     },
     {
       "packagePatterns": [
@@ -24,6 +28,12 @@
         "sinon-chai"
       ],
       "groupName": "test dependencies"
+    },
+    {
+      "packagePatterns": [
+        "^@cucumber"
+      ],
+      "groupName": "Cucumber"
     },
     {
       "packagePatterns": [

@@ -3,6 +3,69 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.4](https://github.com/serenity-js/serenity-js/compare/v2.32.3...v2.32.4) (2021-11-25)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.16.4 ([d1860f5](https://github.com/serenity-js/serenity-js/commit/d1860f5c98a9b21930fff04785a2c3f4036dac9f))
+
+
+
+
+
+## [2.32.3](https://github.com/serenity-js/serenity-js/compare/v2.32.2...v2.32.3) (2021-11-06)
+
+
+### Bug Fixes
+
+* **core:** support for NPM 8 ([7cb470c](https://github.com/serenity-js/serenity-js/commit/7cb470c985a7149f058a317dcb14e6294913f9ff))
+* **deps:** update dependency @babel/parser to ^7.16.2 ([2475839](https://github.com/serenity-js/serenity-js/commit/24758397fc014dca8025162cecc805a9044da642))
+
+
+
+
+
+## [2.32.2](https://github.com/serenity-js/serenity-js/compare/v2.32.1...v2.32.2) (2021-10-04)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.15.7 ([b4afc93](https://github.com/serenity-js/serenity-js/commit/b4afc9352c4f3447c37c05d8b3110d2f9d23aa02))
+* **rest:** reverted axios to 0.21.4 to avoid issue axios/axios[#4124](https://github.com/serenity-js/serenity-js/issues/4124) introduced in version 0.22.0 ([ce1fc7f](https://github.com/serenity-js/serenity-js/commit/ce1fc7f8c8dcee0c0f41a2a2663b9ebe18de740d))
+
+
+
+
+
+## [2.32.1](https://github.com/serenity-js/serenity-js/compare/v2.32.0...v2.32.1) (2021-09-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.15.6 ([d977d4c](https://github.com/serenity-js/serenity-js/commit/d977d4c658e7a93b0ac6ccda4efc49c94b1bc79e))
+* **deps:** update dependency @cucumber/messages to v17 ([3514a91](https://github.com/serenity-js/serenity-js/commit/3514a91b75382e3cbd03c044e8db051622d61a8a))
+
+
+
+
+
+# [2.32.0](https://github.com/serenity-js/serenity-js/compare/v2.31.1...v2.32.0) (2021-09-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @babel/parser to ^7.15.5 ([1319565](https://github.com/serenity-js/serenity-js/commit/13195652dfb795a46bcac33804c1376845e29f1c))
+
+
+### Features
+
+* **webdriverio:** implemented Scroll interaction ([fcea8a3](https://github.com/serenity-js/serenity-js/commit/fcea8a3bcf57beecf170198b5f43628f30a8c98b))
+
+
+
+
+
 ## [2.31.1](https://github.com/serenity-js/serenity-js/compare/v2.31.0...v2.31.1) (2021-08-27)
 
 

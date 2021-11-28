@@ -27,12 +27,30 @@ Thank you! Your support helps us implement new features, write documentation and
         <a href="https://github.com/daydreamman" target="_blank" title="@daydreamman"><img height="60" width="60" alt="@daydreamman" src="https://avatars3.githubusercontent.com/u/4936131?s=120&v=4" /><span class="name"></span><span class="nickname">@daydreamman</span></a>
     </li>
     <li>
-        <a href="https://github.com/viper3400" target="_blank" title="@y3rsh"><img height="60" width="60" alt="@viper3400" src="https://avatars.githubusercontent.com/u/11006334?s=460&u=f6e1dda2c008a6168a555dce5ee4774faf771f94&v=4" />
+        <a href="https://github.com/viper3400" target="_blank" title="@viper3400"><img height="60" width="60" alt="@viper3400" src="https://avatars.githubusercontent.com/u/11006334?s=460&u=f6e1dda2c008a6168a555dce5ee4774faf771f94&v=4" />
 <span class="name"></span><span class="nickname">@viper3400</span></a>
     </li>
     <li>
-        <a href="https://github.com/EshChn" target="_blank" title="@y3rsh"><img height="60" width="60" alt="@viper3400" src="https://avatars.githubusercontent.com/u/9217895?v=4" />
+        <a href="https://github.com/EshChn" target="_blank" title="@EshChn"><img height="60" width="60" alt="@EshChn" src="https://avatars.githubusercontent.com/u/9217895?v=4" />
 <span class="name"></span><span class="nickname">@EshChn</span></a>
+    </li>
+    <li>
+        <a href="https://github.com/etavela" target="_blank" title="@etavela"><img height="60" width="60" alt="@etavela" src="https://avatars.githubusercontent.com/u/5199168?v=4" />
+            <span class="name">Eric Tavela</span>
+            <span class="nickname">@etavela</span>
+        </a>
+    </li>
+    <li>
+        <a href="https://github.com/vkvych" target="_blank" title="@vkvych"><img height="60" width="60" alt="@vkvych" src="https://avatars.githubusercontent.com/u/22840769?v=4" />
+            <span class="name">Volodymyr Kvych</span>
+            <span class="nickname">@vkvych</span>
+        </a>
+    </li>
+    <li>
+        <a href="https://github.com/LayMui" target="_blank" title="@LayMui"><img height="60" width="60" alt="@LayMui" src="https://avatars.githubusercontent.com/u/11436517?v=4" />
+            <span class="name">Lay Mui</span>
+            <span class="nickname">@LayMui</span>
+        </a>
     </li>
 </ul>
 

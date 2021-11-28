@@ -3,6 +3,55 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.32.4](https://github.com/serenity-js/serenity-js/compare/v2.32.3...v2.32.4) (2021-11-25)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+## [2.32.3](https://github.com/serenity-js/serenity-js/compare/v2.32.2...v2.32.3) (2021-11-06)
+
+
+### Bug Fixes
+
+* **core:** support for NPM 8 ([7cb470c](https://github.com/serenity-js/serenity-js/commit/7cb470c985a7149f058a317dcb14e6294913f9ff))
+
+
+
+
+
+## [2.32.2](https://github.com/serenity-js/serenity-js/compare/v2.32.1...v2.32.2) (2021-10-04)
+
+
+### Bug Fixes
+
+* **rest:** reverted axios to 0.21.4 to avoid issue axios/axios[#4124](https://github.com/serenity-js/serenity-js/issues/4124) introduced in version 0.22.0 ([ce1fc7f](https://github.com/serenity-js/serenity-js/commit/ce1fc7f8c8dcee0c0f41a2a2663b9ebe18de740d))
+
+
+
+
+
+## [2.32.1](https://github.com/serenity-js/serenity-js/compare/v2.32.0...v2.32.1) (2021-09-17)
+
+**Note:** Version bump only for package @serenity-js/webdriverio
+
+
+
+
+
+# [2.32.0](https://github.com/serenity-js/serenity-js/compare/v2.31.1...v2.32.0) (2021-09-08)
+
+
+### Features
+
+* **webdriverio:** implemented Scroll interaction ([fcea8a3](https://github.com/serenity-js/serenity-js/commit/fcea8a3bcf57beecf170198b5f43628f30a8c98b))
+
+
+
+
+
 ## [2.31.1](https://github.com/serenity-js/serenity-js/compare/v2.31.0...v2.31.1) (2021-08-27)
 
 
