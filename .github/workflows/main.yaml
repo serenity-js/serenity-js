@@ -254,8 +254,8 @@ jobs:
         run: make INTEGRATION=${{ matrix.module }} integration-test
 
       - uses: actions/upload-artifact@v2
+        if: failure()
         with:
-          if: failure()
           retention-days: 3
           name: integration-test-reports-${{ matrix.module }}
           path: |
@@ -264,7 +264,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          retention-days: 2
+          retention-days: 1
           name: integration-test-coverage-reports-${{ matrix.module }}
           path: |
             target/**/*
