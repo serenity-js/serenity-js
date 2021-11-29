@@ -207,27 +207,4 @@ describe('Page', () => {
             it('automatically switches the context back to the original page afterwards')
         });
     });
-
-
-    // describe('url', () => {
-    //
-    //     /** @test {Website} */
-    //     it('allows the actor to read the URL of the website', () =>
-    //         actorCalled('Bernie').attemptsTo(
-    //             Navigate.to(`/screenplay/questions/website/title.html`),
-    //
-    //             Ensure.that(Website.url(), endsWith(`/screenplay/questions/website/title.html`)),
-    //         ));
-    //
-    //     /**
-    //      *  @test {Website}
-    //      *  @see https://github.com/serenity-js/serenity-js/issues/273
-    //      */
-    //     it(`correctly represents the URL containing special characters`, () =>
-    //         actorCalled('Bernie').attemptsTo(
-    //             Navigate.to(`/screenplay/questions/website/title.html#name`),
-    //
-    //             Ensure.that(Website.url(), endsWith(`/screenplay/questions/website/title.html#name`)),
-    //         ));
-    // });
 });
