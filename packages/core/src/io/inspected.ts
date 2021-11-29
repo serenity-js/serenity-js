@@ -29,29 +29,15 @@ export function inspected(value: Answerable<any>, config?: InspectedConfig): str
     }
 
     if (Array.isArray(value)) {
-        const indentation   = inline ? '' : '  ';
-        const separator     = inline ? ' ' : '\n';
-
-        const inspectedItem = (item: unknown, index: number) =>
-            [
-                indentation,
-                inspected(item, { inline, markQuestions: true }),
-                index < value.length - 1 ? ',' : ''
-            ].join('')
-
-        return [
-            '[',
-            ...value.map(inspectedItem),
-            ']',
-        ].join(separator);
+        return stringifiedArray(value, inline);
     }
 
     if (isAPromise(value)) {
-        return mark('Promise', true);
+        return markAs('Promise', true);
     }
 
     if (Question.isAQuestion(value)) {
-        return mark(value.toString(), markQuestions);
+        return markAs(value.toString(), markQuestions);
     }
 
     if (isADate(value)) {
@@ -69,19 +55,41 @@ export function inspected(value: Answerable<any>, config?: InspectedConfig): str
     if (isAFunction(value)) {
         return hasName(value)
             ? value.name
-            : mark(`Function`, true);
+            : markAs(`Function`, true);
     }
 
     if (! hasCustomInspectionFunction(value) && isPlainObject(value) && isSerialisableAsJSON(value)) {
-        const indentation = inline ? 0 : 4;
-
-        return JSON.stringify(value, undefined, indentation);
+        return stringifiedToJson(value, inline);
     }
 
     return inspect(value, { breakLength: Number.POSITIVE_INFINITY, compact: ! inline, sorted: false  });
 }
 
-function mark(value: string, markValue: boolean): string {
+function stringifiedToJson(value: any, inline: boolean): string {
+    const indentation = inline ? 0 : 4;
+
+    return JSON.stringify(value, undefined, indentation);
+}
+
+function stringifiedArray(value: any[], inline: boolean): string {
+    const indentation   = inline ? '' : '  ';
+    const separator     = inline ? ' ' : '\n';
+
+    const inspectedItem = (item: unknown, index: number) =>
+        [
+            indentation,
+            inspected(item, { inline, markQuestions: true }),
+            index < value.length - 1 ? ',' : ''
+        ].join('')
+
+    return [
+        '[',
+        ...value.map(inspectedItem),
+        ']',
+    ].join(separator);
+}
+
+function markAs(value: string, markValue: boolean): string {
     const [left, right] = markValue && ! value.startsWith('<<')
         ? [ '<<', '>>' ]
         : ['', ''];
