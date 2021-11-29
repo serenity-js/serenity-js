@@ -255,7 +255,16 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
+          if: failure()
           retention-days: 3
+          name: integration-test-reports-${{ matrix.module }}
+          path: |
+            integration/**/target/**/*
+            package.json
+
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 2
           name: integration-test-coverage-reports-${{ matrix.module }}
           path: |
             target/**/*
