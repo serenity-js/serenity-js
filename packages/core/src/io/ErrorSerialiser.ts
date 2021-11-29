@@ -39,10 +39,14 @@ export class ErrorSerialiser {
     ];
 
     static serialise(error: Error): string {
+        const name = error && error.constructor && error.constructor.name
+            ? error.constructor.name
+            : error.name;
+
         const serialisedError = Object.getOwnPropertyNames(error).reduce((serialised, key) => {
             serialised[key] = error[key]
             return serialised;
-        }, { name: error.constructor.name || error.name }) as SerialisedError;
+        }, { name }) as SerialisedError;
 
         return stringify(serialisedError);
     }

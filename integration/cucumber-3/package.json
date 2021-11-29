@@ -1,7 +1,7 @@
 {
-  "name": "@integration/mocha",
+  "name": "@integration/cucumber-3",
   "version": "2.0.0",
-  "description": "Mocha integration tests",
+  "description": "Specs verifying integration between Serenity/JS and Cucumber.js",
   "author": {
     "name": "Jan Molak",
     "email": "jan.molak@smartcodeltd.co.uk",
@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint --ext ts --config ../../.eslintrc.js",
-    "test": "mocha --config ../../.mocharc.yml 'spec/**/*.spec.*'"
+    "test": "mocha --config .mocharc.yml"
   },
   "repository": {
     "type": "git",
@@ -29,15 +29,14 @@
     "node": "^12 || ^14 || ^16",
     "npm": "^6 || ^7 || ^8"
   },
-  "dependencies": {
-    "@integration/testing-tools": "2.0.0",
-    "@serenity-js/assertions": "^2.0.0",
-    "@serenity-js/core": "^2.0.0",
-    "@serenity-js/mocha": "^2.0.0"
-  },
   "devDependencies": {
-    "@types/chai": "^4.2.22",
+    "@integration/testing-tools": "2.0.0",
+    "@integration/cucumber-specs": "2.0.0",
+    "@serenity-js/core": "^2.0.0",
+    "@serenity-js/cucumber": "^2.0.0",
     "@types/mocha": "^9.0.0",
+    "@types/chai": "^4.2.22",
+    "cucumber": "3.2.1",
     "mocha": "^9.1.3",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.2"

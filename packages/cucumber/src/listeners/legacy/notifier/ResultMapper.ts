@@ -36,9 +36,15 @@ export class ResultMapper {
 
             case status === 'failed':
                 switch (true) {
-                    case error instanceof AssertionError:       return new ExecutionFailedWithAssertionError(error as AssertionError);
-                    case error instanceof TestCompromisedError: return new ExecutionCompromised(error as TestCompromisedError);
-                    default:                                    return new ExecutionFailedWithError(error);
+                    case error instanceof AssertionError:
+                        return new ExecutionFailedWithAssertionError(error as AssertionError);
+                    // non-Serenity/JS assertion errors
+                    case error instanceof Error && error.name === 'AssertionError' && error.message && hasOwnProperty(error, 'expected') && hasOwnProperty(error, 'actual'):
+                        return new ExecutionFailedWithAssertionError(new AssertionError(error.message, (error as any).expected, (error as any).actual, error));
+                    case error instanceof TestCompromisedError:
+                        return new ExecutionCompromised(error as TestCompromisedError);
+                    default:
+                        return new ExecutionFailedWithError(error);
                 }
 
             case status === 'pending':
@@ -61,4 +67,11 @@ export class ResultMapper {
             default:         return void 0;
         }
     }
+}
+
+/**
+ * @private
+ */
+function hasOwnProperty(value: any, fieldName: string): boolean {
+    return Object.prototype.hasOwnProperty.call(value, fieldName);
 }
