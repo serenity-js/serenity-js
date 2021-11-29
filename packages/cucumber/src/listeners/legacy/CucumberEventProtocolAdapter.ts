@@ -1,3 +1,4 @@
+import { RuntimeError } from '@serenity-js/core';
 import { AssertionError, ImplementationPendingError, TestCompromisedError } from '@serenity-js/core/lib/errors';
 import { ErrorSerialiser, FileSystemLocation, Path } from '@serenity-js/core/lib/io';
 import {
@@ -174,9 +175,12 @@ export function cucumberEventProtocolAdapter({ serenity, notifier, mapper, cache
         }
 
         errorFrom(exception: Error | string): Error {
+
             switch (true) {
-                case exception instanceof Error:
+                case exception instanceof RuntimeError:
                     return exception as Error;
+                case exception instanceof Error && exception.name === 'AssertionError' && exception.message && hasOwnProperty(exception, 'expected') && hasOwnProperty(exception, 'actual'):
+                    return new AssertionError((exception as any).message, (exception as any).expected, (exception as any).actual, exception as Error);
                 case typeof exception === 'string' && exception.startsWith('Multiple step definitions match'):
                     return new AmbiguousStepDefinitionError(exception as string);
                 default:
@@ -203,4 +207,11 @@ function interleaveStepsAndHooks(steps: Step[], stepsLocations: StepLocations[])
             ?   new Hook(new FileSystemLocation(new Path(location.actionLocation.uri), location.actionLocation.line), new Name('Setup'))
             :   steps.find(matching(location)),
     );
+}
+
+/**
+ * @private
+ */
+function hasOwnProperty(value: any, fieldName: string): boolean {
+    return Object.prototype.hasOwnProperty.call(value, fieldName);
 }

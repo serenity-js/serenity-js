@@ -14,6 +14,7 @@ module.exports = {
     plugins: [
         '@typescript-eslint',
         'import',
+        'mocha-no-only',
         'simple-import-sort',
         'unused-imports'
     ],
@@ -29,6 +30,8 @@ module.exports = {
         'sort-imports': 'off',
         'import/order': 'off',
         'unused-imports/no-unused-imports': 'error',
+
+        'mocha-no-only/mocha-no-only': ['error'],
 
         'no-multiple-empty-lines': ['warn', {
             'max': 1,
@@ -101,6 +104,7 @@ module.exports = {
                 'args': true,
                 'attrs': true,
                 'conf': true,
+                'createProp': true,
                 'devtools': true,
                 'docString': true,
                 'DocString': true,
@@ -111,6 +115,8 @@ module.exports = {
                 'i': true,
                 'params': true,
                 'pkg': true,
+                'prop': true,
+                'Prop': true,
                 'props': true,
                 'temp': true,
                 'wdio': true,

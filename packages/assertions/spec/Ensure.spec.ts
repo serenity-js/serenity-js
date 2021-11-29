@@ -37,7 +37,7 @@ describe('Ensure', () => {
             person: {
                 name: 'Jan',
             },
-        })).toString()).to.equal(`#actor ensures that { "person": { "name": "Jan" } } does equal { "person": { "name": "Jan" } }`);
+        })).toString()).to.equal(`#actor ensures that {"person":{"name":"Jan"}} does equal {"person":{"name":"Jan"}}`);
     });
 
     /** @test {Ensure.that} */

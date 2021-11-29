@@ -20,7 +20,7 @@ const localChromeConfig = {
                 '--disable-infobars',
                 '--headless',
                 '--disable-gpu',
-                '--window-size=200x100',
+                '--window-size=1024x768',
             ]
         },
     }
@@ -45,7 +45,7 @@ module.exports = {
         require: [
             'ts-node/register',
         ],
-        reporter: 'dot',
+        reporter: 'spec',
     },
 
     ... localChromeConfig,

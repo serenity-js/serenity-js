@@ -6,7 +6,9 @@ describe('Todo List App', function () {
     describe('test script', () => {
 
         it('allows for the list to show active items only', async function () {
-            await browser.get('http://todomvc.com/examples/angularjs/#/');
+            await browser.get('https://todo-app.serenity-js.org/#/');
+            await browser.executeScript(`window.localStorage.clear()`);
+            await browser.refresh();
 
             await element(by.css('.new-todo')).sendKeys('Play guitar');
             await element(by.css('.new-todo')).sendKeys(protractor.Key.ENTER);
@@ -39,7 +41,9 @@ describe('Todo List App', function () {
 
         const TodoListApp = {
             open: async () => {
-                await browser.get('http://todomvc.com/examples/angularjs/#/');
+                await browser.get('https://todo-app.serenity-js.org/#/');
+                await browser.executeScript(`window.localStorage.clear()`);
+                await browser.refresh();
             },
 
             recordItemCalled: async (itemName: string) => {
@@ -82,9 +86,5 @@ describe('Todo List App', function () {
                 ]);
             });
         });
-    });
-
-    afterEach(async () => {
-        await browser.executeScript(`window.localStorage.clear()`);
     });
 });

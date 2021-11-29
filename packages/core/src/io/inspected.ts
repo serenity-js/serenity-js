@@ -3,6 +3,11 @@ import { inspect } from 'util';
 import { Answerable } from '../screenplay/Answerable';
 import { Question } from '../screenplay/Question';
 
+interface InspectedConfig {
+    inline: boolean;
+    markQuestions?: boolean;
+}
+
 /**
  * @desc
  *  Provides a human-readable description of the {@link Answerable<T>}.
@@ -10,27 +15,43 @@ import { Question } from '../screenplay/Question';
  *
  * @public
  * @param {Answerable<any>} value
+ * @param config
+ *  - inline - Return a single-line string instead of the default potentially multi-line description
+ *  - markQuestions - Surround the description of async values, such as Promises and Questions with <<value>>
  * @return {string}
  */
-export function inspected(value: Answerable<any>): string {
+export function inspected(value: Answerable<any>, config?: InspectedConfig): string {
+
+    const { inline, markQuestions } = { inline: false, markQuestions: false, ...config };
+
     if (! isDefined(value)) {
         return inspect(value);
     }
 
     if (Array.isArray(value)) {
+        const indentation   = inline ? '' : '  ';
+        const separator     = inline ? ' ' : '\n';
+
+        const inspectedItem = (item: unknown, index: number) =>
+            [
+                indentation,
+                inspected(item, { inline, markQuestions: true }),
+                index < value.length - 1 ? ',' : ''
+            ].join('')
+
         return [
             '[',
-            value.map(item => `  ${ inspected(item) }`).join(',\n'),
+            ...value.map(inspectedItem),
             ']',
-        ].join('\n');
+        ].join(separator);
     }
 
     if (isAPromise(value)) {
-        return `a Promise`;
+        return mark('Promise', true);
     }
 
     if (Question.isAQuestion(value)) {
-        return value.toString();
+        return mark(value.toString(), markQuestions);
     }
 
     if (isADate(value)) {
@@ -45,15 +66,27 @@ export function inspected(value: Answerable<any>): string {
         return value.inspect();
     }
 
-    if (isANamedFunction(value)) {
-        return `${ value.name } property`;
+    if (isAFunction(value)) {
+        return hasName(value)
+            ? value.name
+            : mark(`Function`, true);
     }
 
     if (! hasCustomInspectionFunction(value) && isPlainObject(value) && isSerialisableAsJSON(value)) {
-        return JSON.stringify(value, undefined, 4);
+        const indentation = inline ? 0 : 4;
+
+        return JSON.stringify(value, undefined, indentation);
     }
 
-    return inspect(value, { breakLength: Number.POSITIVE_INFINITY, compact: true, sorted: false  });
+    return inspect(value, { breakLength: Number.POSITIVE_INFINITY, compact: ! inline, sorted: false  });
+}
+
+function mark(value: string, markValue: boolean): string {
+    const [left, right] = markValue && ! value.startsWith('<<')
+        ? [ '<<', '>>' ]
+        : ['', ''];
+
+    return [ left, value, right ].join('');
 }
 
 /**
@@ -121,8 +154,19 @@ function isAPromise<T>(v: Answerable<T>): v is Promise<T> {
  * @private
  * @param {Answerable<any>} v
  */
-function isANamedFunction(v: any): v is { name: string } {
-    return Object.prototype.toString.call(v) === '[object Function]' && (v as any).name !== '';
+function isAFunction(v: any): v is Function {       // eslint-disable-line @typescript-eslint/ban-types
+    return Object.prototype.toString.call(v) === '[object Function]';
+}
+
+/**
+ * @desc
+ *  Checks if the value is has a property called 'name' with a non-empty value.
+ *
+ * @private
+ * @param {Answerable<any>} v
+ */
+function hasName(v: any): v is { name: string } {
+    return typeof (v as any).name === 'string' && (v as any).name !== '';
 }
 
 /**

@@ -38,7 +38,7 @@ describe('ProtractorReporter', () => {
             new Category('example category'),
             new FileSystemLocation(new Path('./some/scenario.spec.ts')),
         ),
-        now = Timestamp.fromMillisecondTimestamp(0),
+        now = Timestamp.fromTimestampInMilliseconds(0),
         later = now.plus(Duration.ofMilliseconds(1)),
 
         executionSuccessful     = new ExecutionSuccessful(),

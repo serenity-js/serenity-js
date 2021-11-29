@@ -1,6 +1,6 @@
 import { endsWith, Ensure } from '@serenity-js/assertions';
 import { Task } from '@serenity-js/core';
-import { Navigate, Website } from '@serenity-js/webdriverio';
+import { Navigate, Website } from '@serenity-js/web';
 import { RecordItem } from './RecordItem';
 
 export class Start {

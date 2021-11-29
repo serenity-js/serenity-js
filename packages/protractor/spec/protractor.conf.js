@@ -5,7 +5,9 @@ exports.config = {
 
     baseUrl: `http://localhost:${ port }`,
 
-    specs: [ '**/*.spec.ts' ],
+    specs: [
+        '**/*.spec.ts',
+    ],
 
     params: {
         env: 'test',

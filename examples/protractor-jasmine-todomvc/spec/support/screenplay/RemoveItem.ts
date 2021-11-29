@@ -1,7 +1,6 @@
 import { Task } from '@serenity-js/core';
-import { Click, Hover } from '@serenity-js/protractor';
-import { TodoList } from './ui';
-import { TodoListItem } from './ui/TodoListItem';
+import { Click, Hover } from '@serenity-js/web';
+import { TodoList, TodoListItem } from './ui';
 
 export class RemoveItem {
     static called = (name: string) =>

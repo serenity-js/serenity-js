@@ -19,6 +19,9 @@ export type Predicate<A, E> = (actual: A, expected: E) => boolean;
 export abstract class Expectation<Expected, Actual = Expected>
     extends Question<(actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>>>
 {
+    constructor(protected subject: string) {
+        super();
+    }
 
     /**
      * @desc
@@ -88,6 +91,22 @@ export abstract class Expectation<Expected, Actual = Expected>
     }
 
     abstract answeredBy(actor: AnswersQuestions): (actual: Actual) => Promise<ExpectationOutcome<Expected, Actual>>;
+
+    /**
+     * @desc
+     *  Changes the description of this question's subject.
+     *
+     * @param {string} subject
+     * @returns {Question<T>}
+     */
+    describedAs(subject: string): this {
+        this.subject = subject;
+        return this;
+    }
+
+    toString(): string {
+        return this.subject;
+    }
 }
 
 /**
@@ -96,7 +115,7 @@ export abstract class Expectation<Expected, Actual = Expected>
 class DynamicallyGeneratedExpectation<Expected, Actual> extends Expectation<Expected, Actual> {
 
     constructor(
-        private readonly description: string,
+        description: string,
         private readonly predicate: Predicate<Actual, Expected>,
         private readonly expectedValue: Answerable<Expected>,
     ) {

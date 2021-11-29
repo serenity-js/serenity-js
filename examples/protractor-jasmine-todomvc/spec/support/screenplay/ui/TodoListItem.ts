@@ -1,5 +1,4 @@
-import { Target } from '@serenity-js/protractor';
-import { by } from 'protractor';
+import { by, Target } from '@serenity-js/web';
 
 export class TodoListItem {
     static label = Target.the(`label`)

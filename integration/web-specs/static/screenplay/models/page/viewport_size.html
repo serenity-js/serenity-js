@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <title>Viewport Size</title>
+</head>
+<body>
+    <p>Width: <span id="viewport-width">unknown</span></p>
+    <p>Height: <span id="viewport-height">unknown</span></p>
+
+    <script>
+        const heightOutput = document.querySelector('#viewport-height');
+        const widthOutput = document.querySelector('#viewport-width');
+
+        function reportWindowSize() {
+            heightOutput.textContent = String(Math.max(document.documentElement.clientHeight, window.innerHeight || 0));
+            widthOutput.textContent  = String(Math.max(document.documentElement.clientWidth,  window.innerWidth  || 0));
+        }
+
+        window.onload   = reportWindowSize;
+        window.onresize = reportWindowSize;
+    </script>
+</body>
+</html>

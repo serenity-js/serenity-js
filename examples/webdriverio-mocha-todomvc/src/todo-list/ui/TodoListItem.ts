@@ -1,4 +1,4 @@
-import { by, Target } from '@serenity-js/webdriverio';
+import { by, Target } from '@serenity-js/web';
 
 export class TodoListItem {
     static label =

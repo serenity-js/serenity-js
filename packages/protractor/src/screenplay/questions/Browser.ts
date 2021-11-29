@@ -2,7 +2,7 @@ import { Question } from '@serenity-js/core';
 import { logging } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { BrowseTheWeb } from '../abilities';
+import { BrowseTheWebWithProtractor } from '../abilities';
 
 export class Browser {
 
@@ -39,7 +39,7 @@ export class Browser {
      *
      * actor.attemptsTo(
      *   Ensure.that(Browser.log(),
-     *     not(contrainAtLeastOneItemThat(
+     *     not(containAtLeastOneItemThat(
      *       property('message', includes('the server responded with a status of 500'))
      *     ))
      *   ).otherwiseFailWith(TestCompromisedError, 'The server is down'),
@@ -50,6 +50,6 @@ export class Browser {
      */
     static log(): Question<Promise<logging.Entry[]>> {
         return Question.about<Promise<logging.Entry[]>>(`browser log`, actor =>
-            promiseOf(BrowseTheWeb.as(actor).manage().logs().get('browser')));
+            promiseOf(BrowseTheWebWithProtractor.as(actor).manage().logs().get('browser')));
     }
 }

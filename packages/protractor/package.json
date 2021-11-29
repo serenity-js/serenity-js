@@ -34,9 +34,7 @@
     "lint": "eslint --ext ts --config ../../.eslintrc.js .",
     "lint:fix": "npm run lint -- --fix",
     "debug": "node --inspect-brk node_modules/.bin/protractor ./spec/protractor.conf.js",
-    "test": "cross-env PORT=8081 start-server-and-test test:start-server http://localhost:8081 test:protractor",
-    "test:start-server": "static-content-server",
-    "test:protractor": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
+    "test": "nyc --report-dir ../../target/coverage/protractor protractor ./spec/protractor.conf.js",
     "compile": "tsc --project tsconfig.json",
     "site": "esdoc -c .esdoc.js"
   },
@@ -59,9 +57,9 @@
     "tiny-types": "^1.16.1"
   },
   "peerDependencies": {
-    "@serenity-js/cucumber": "^2.29.0",
-    "@serenity-js/jasmine": "^2.29.0",
-    "@serenity-js/mocha": "^2.29.0",
+    "@serenity-js/cucumber": "^2.32.4",
+    "@serenity-js/jasmine": "^2.32.4",
+    "@serenity-js/mocha": "^2.32.4",
     "protractor": "^5.0.0 || ^7.0.0",
     "selenium-webdriver": "^3.6.0"
   },
@@ -79,12 +77,12 @@
   "devDependencies": {
     "@documentation/esdoc-template": "2.0.0",
     "@integration/testing-tools": "2.0.0",
-    "@integration/web-testing-tools": "2.0.0",
     "@serenity-js/cucumber": "2.32.4",
     "@serenity-js/jasmine": "2.32.4",
     "@serenity-js/local-server": "2.32.4",
     "@serenity-js/mocha": "2.32.4",
     "@serenity-js/rest": "2.32.4",
+    "@serenity-js/web": "2.32.4",
     "@types/chai": "^4.2.22",
     "@types/express": "^4.17.13",
     "@types/html-minifier": "^4.0.1",

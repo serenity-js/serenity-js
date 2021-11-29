@@ -1,0 +1,55 @@
+{
+  "name": "@integration/web-specs",
+  "version": "2.0.0",
+  "description": "Internal module that holds specs to be executed by any @serenity-js/web implementations",
+  "author": {
+    "name": "Jan Molak",
+    "email": "jan.molak@smartcodeltd.co.uk",
+    "url": "https://janmolak.com"
+  },
+  "homepage": "https://serenity-js.org",
+  "license": "Apache-2.0",
+  "private": true,
+  "config": {
+    "access": "private"
+  },
+  "bin": {
+    "web-specs-start": "bin/web-specs-start"
+  },
+  "keywords": [
+    "serenity-js",
+    "internal"
+  ],
+  "scripts": {
+    "lint": "eslint --ext ts --config ../../.eslintrc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/serenity-js/serenity-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/serenity-js/serenity-js/issues"
+  },
+  "engines": {
+    "node": "^12 || ^14 || ^16",
+    "npm": "^6 || ^7"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@serenity-js/assertions": "^2.0.0",
+    "@serenity-js/core": "^2.0.0",
+    "@serenity-js/local-server": "^2.0.0",
+    "@serenity-js/mocha": "^2.0.0",
+    "@serenity-js/serenity-bdd": "^2.0.0",
+    "@integration/testing-tools": "2.0.0",
+    "@serenity-js/web": "^2.0.0",
+    "@types/mocha": "^9.0.0",
+    "cross-env": "^7.0.3",
+    "mocha": "^9.1.3",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.2",
+    "start-server-and-test": "^1.14.0"
+  }
+}

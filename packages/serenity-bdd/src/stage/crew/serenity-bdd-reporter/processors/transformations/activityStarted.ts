@@ -11,7 +11,7 @@ export function activityStarted<Context extends SerenityBDDReportContext>(activi
         const step = {
             number: context.steps.size + 1,
             description: name.value,
-            startTime: startedAt.toMillisecondTimestamp(),
+            startTime: startedAt.toMilliseconds(),
             children: [],
             reportData: [],
             screenshots: [],

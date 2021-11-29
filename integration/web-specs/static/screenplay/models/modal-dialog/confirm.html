@@ -1,0 +1,17 @@
+<html lang="en">
+<body>
+<button id="trigger" onclick="trigger()">Trigger Alert</button>
+<p id="result"></p>
+<script>
+    function trigger() {
+        document.getElementById("result").innerHTML = (
+            function () {
+                return confirm('Continue?')
+                    ? 'accepted'
+                    : 'dismissed';
+            }
+        )();
+    }
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@ export * from './actor';
 export * from './Answerable';
 export * from './Interaction';
 export * from './interactions';
+export * from './model';
 export * from './Question';
 export * from './questions';
 export * from './Task';
-export * from './tasks';
