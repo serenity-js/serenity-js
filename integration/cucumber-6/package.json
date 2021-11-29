@@ -16,7 +16,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "lint": "eslint --ext ts --config ../../.eslintrc.js",
-    "test": "mocha --config .mocharc.yml"
+    "test": "mocha --parallel --config .mocharc.yml"
   },
   "repository": {
     "type": "git",
