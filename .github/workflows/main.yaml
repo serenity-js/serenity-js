@@ -197,7 +197,7 @@ jobs:
   # Integration test
   #
 
-  integration-test-saucelabs:
+  integration-saucelabs:
     needs:
       - compile
     runs-on: ubuntu-latest
@@ -207,7 +207,7 @@ jobs:
         with:
           username: ${{ secrets.SAUCE_USERNAME }}
           accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-integration-test-saucelabs-${{ github.run_number }}-tunnel
+          tunnelIdentifier: github-serenity-js-integration-saucelabs-${{ github.run_number }}-tunnel
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -235,23 +235,23 @@ jobs:
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-          SAUCE_TUNNEL_ID: github-serenity-js-integration-test-saucelabs-${{ github.run_number }}-tunnel
+          SAUCE_TUNNEL_ID: github-serenity-js-integration-saucelabs-${{ github.run_number }}-tunnel
 
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: integration-test-saucelabs
+          name: integration-saucelabs
           path: integration/webdriverio-web/target/
 
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
-          name: integration-test-saucelabs-coverage-reports
+          name: integration-saucelabs-coverage-reports
           path: |
             target/**/*
             package.json
 
-  integration-test:
+  integration:
     needs:
       - compile
     runs-on: ubuntu-latest
@@ -299,7 +299,7 @@ jobs:
         if: failure()
         with:
           retention-days: 3
-          name: integration-test-reports-${{ matrix.module }}
+          name: integration-reports-${{ matrix.module }}
           path: |
             integration/**/target/**/*
             package.json
@@ -307,7 +307,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 1
-          name: integration-test-coverage-reports-${{ matrix.module }}
+          name: integration-coverage-reports-${{ matrix.module }}
           path: |
             target/**/*
             package.json
@@ -320,8 +320,8 @@ jobs:
     runs-on:  ubuntu-latest
     needs:
       - test-linux-node-lts-active
-      - integration-test-saucelabs
-      - integration-test
+      - integration-saucelabs
+      - integration
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -371,8 +371,8 @@ jobs:
       - test-linux-node-lts-active
       - test-linux-node-lts-previous
       - test-windows-node-lts-active
-      - integration-test-saucelabs
-      - integration-test
+      - integration-saucelabs
+      - integration
     steps:
       - uses: actions/checkout@v2
         with:
