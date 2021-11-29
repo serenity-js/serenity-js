@@ -417,6 +417,7 @@ jobs:
   publish-site:
     runs-on: ubuntu-latest
     needs:
+      - api-docs
       - publish-artifacts
     if: always()
 
