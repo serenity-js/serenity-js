@@ -29,7 +29,7 @@
     "lint:fix": "lerna run lint:fix --parallel",
     "test": "lerna run test --stream --scope @serenity-js/*",
     "integration-test:all": "lerna run test --stream --concurrency 1 --scope @integration/*",
-    "integration-test:cucumber": "lerna run test --stream --scope @integration/cucumber",
+    "integration-test:cucumber": "lerna run test --stream --scope @integration/cucumber-*",
     "integration-test:jasmine": "lerna run test --stream --concurrency 1 --scope @integration/jasmine",
     "integration-test:mocha": "lerna run test --stream --concurrency 1 --scope @integration/mocha",
     "integration-test:protractor": "lerna run test --stream --concurrency 1 --scope @integration/protractor-*",

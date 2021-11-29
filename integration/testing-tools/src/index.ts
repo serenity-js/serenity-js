@@ -7,3 +7,4 @@ export * from './contentsOf';
 export * from './EventStreamEmitter';
 export * from './givenFollowingEvents';
 export * from './PickEvent';
+export * from './when';
