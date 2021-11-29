@@ -9,6 +9,10 @@ on:
 
 jobs:
 
+  #
+  # Build
+  #
+
   lint:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on:  ubuntu-latest
@@ -29,6 +33,36 @@ jobs:
 
       - name: Lint
         run: make lint
+
+  api-docs:
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Install Node Modules (@serenity-js)
+        uses: bahmutov/npm-install@v1
+        with:
+          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
+        env:
+          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
+
+      - name: Site (API Docs)
+        run: make SITE_SCOPE=@serenity-js site
+
+      - name: Compress API Docs
+        run: 7z a api-docs.zip package.json "packages/*/target/site"
+      - uses: actions/upload-artifact@v2
+        with:
+          retention-days: 3
+          name: api-docs
+          path: |
+            api-docs.zip
 
   compile:
     if: "!contains(github.event.head_commit.message, 'ci skip')"
@@ -60,6 +94,10 @@ jobs:
           path: |
             compiled-libs.zip
 
+  #
+  # Test
+  #
+
   test-linux-node-lts-active:
     name: test-linux-node-lts-active
     needs:
@@ -76,7 +114,7 @@ jobs:
       - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@serenity-js install
+          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -113,7 +151,7 @@ jobs:
       - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@serenity-js install
+          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -142,7 +180,7 @@ jobs:
       - name: Install Node Modules (@serenity-js)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@serenity-js install
+          install-command: make BOOTSTRAP_SCOPE=@serenity-js install
         env:
           CHROMEDRIVER_FILEPATH: "C:\\SeleniumWebDrivers\\ChromeDriver\\chromedriver.exe"
 
@@ -154,6 +192,10 @@ jobs:
         run:  7z.exe x -aoa compiled-libs.zip
       - name: Test
         run: make test
+
+  #
+  # Integration test
+  #
 
   integration-test-saucelabs:
     needs:
@@ -177,7 +219,7 @@ jobs:
       - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@integration install
+          install-command: make BOOTSTRAP_SCOPE=@integration install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -189,7 +231,7 @@ jobs:
         run: 7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make INTEGRATION=saucelabs integration-test
+        run: make INTEGRATION_SCOPE=saucelabs integration-test
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
@@ -239,7 +281,7 @@ jobs:
       - name: Install Node Modules (@integration)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@integration install
+          install-command: make BOOTSTRAP_SCOPE=@integration install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
@@ -251,7 +293,7 @@ jobs:
         run: 7z x -aoa compiled-libs.zip
 
       - name: Integration Test
-        run: make INTEGRATION=${{ matrix.module }} integration-test
+        run: make INTEGRATION_SCOPE=${{ matrix.module }} integration-test
 
       - uses: actions/upload-artifact@v2
         if: failure()
@@ -270,7 +312,11 @@ jobs:
             target/**/*
             package.json
 
-  report:
+  #
+  # Publish
+  #
+
+  report-coverage:
     runs-on:  ubuntu-latest
     needs:
       - test-linux-node-lts-active
@@ -290,11 +336,6 @@ jobs:
           install-command: npm ci
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
-      - name: Download code coverage reports (test)
-        uses: actions/download-artifact@v2
-        with:
-          name: test-reports
 
       - name: Download code coverage reports
         uses: actions/download-artifact@v2
@@ -322,7 +363,7 @@ jobs:
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
 
-  release:
+  publish-artifacts:
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     needs:
@@ -373,10 +414,10 @@ jobs:
           path: |
             CHANGELOG.md
 
-  site:
+  publish-site:
     runs-on: ubuntu-latest
     needs:
-      - release
+      - publish-artifacts
     if: always()
 
     steps:
@@ -389,11 +430,18 @@ jobs:
           git_user_email: ${{ secrets.RELEASE_GH_EMAIL }}
           git_username:   ${{ secrets.RELEASE_GH_USERNAME }}
           npm_token:      ${{ secrets.NPM_TOKEN }}
+
       - name: Download changelog
-        if: needs.release.result == 'success'
+        if: needs.publish-artifacts.result == 'success'
         uses: actions/download-artifact@v2
         with:
           name: changelog
+      - name: Download API docs
+        if: needs.api-docs.result == 'success'
+        uses: actions/download-artifact@v2
+        with:
+          name: api-docs
+
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
@@ -402,12 +450,12 @@ jobs:
       - name: Install Node Modules (@documentation)
         uses: bahmutov/npm-install@v1
         with:
-          install-command: make BOOTSTRAP=@documentation install
+          install-command: make BOOTSTRAP_SCOPE=@documentation install
         env:
           CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
 
       - name: Build Serenity/JS website
-        run: make site
+        run: make SITE_SCOPE=@documentation site
 
       - name: Publish website
         if: github.ref == 'refs/heads/master'
