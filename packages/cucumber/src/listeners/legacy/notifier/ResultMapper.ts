@@ -6,7 +6,7 @@ import {
     ExecutionSkipped,
     ExecutionSuccessful,
     ImplementationPending,
-    Outcome,
+    Outcome, ProblemIndication,
 } from '@serenity-js/core/lib/model';
 
 import { AmbiguousStepDefinitionError } from '../../../errors';
@@ -15,10 +15,11 @@ import { AmbiguousStepDefinitionError } from '../../../errors';
  * @package
  */
 export class ResultMapper {
+
     outcomeFor(status: string, maybeError: Error | string | undefined): Outcome {
         const error = this.errorFrom(maybeError);
 
-        if (error && /timed out/.test(error.message)) {
+        if (this.isTimeoutError(error)) {
             return new ExecutionFailedWithError(error);
         }
 
@@ -35,17 +36,7 @@ export class ResultMapper {
                 return new ExecutionFailedWithError(error);
 
             case status === 'failed':
-                switch (true) {
-                    case error instanceof AssertionError:
-                        return new ExecutionFailedWithAssertionError(error as AssertionError);
-                    // non-Serenity/JS assertion errors
-                    case error instanceof Error && error.name === 'AssertionError' && error.message && hasOwnProperty(error, 'expected') && hasOwnProperty(error, 'actual'):
-                        return new ExecutionFailedWithAssertionError(new AssertionError(error.message, (error as any).expected, (error as any).actual, error));
-                    case error instanceof TestCompromisedError:
-                        return new ExecutionCompromised(error as TestCompromisedError);
-                    default:
-                        return new ExecutionFailedWithError(error);
-                }
+                return this.problemIndicationOutcomeFromError(error);
 
             case status === 'pending':
                 return new ImplementationPending(new ImplementationPendingError('Step not implemented'));
@@ -56,7 +47,6 @@ export class ResultMapper {
             case status === 'skipped':
                 return new ExecutionSkipped();
         }
-
     }
 
     errorFrom(error: Error | string | undefined): Error | undefined {
@@ -66,6 +56,33 @@ export class ResultMapper {
             case 'function': return error as Error;
             default:         return void 0;
         }
+    }
+
+    private isTimeoutError(error?: Error) {
+        return error && /timed out/.test(error.message);
+    }
+
+    private isANonSerenityAssertionError(error?: Error): error is Error & { name: string, message: string, expected: any, actual: any } {
+        return error instanceof Error
+            && error.name === 'AssertionError'
+            && error.message && hasOwnProperty(error, 'expected')
+            && hasOwnProperty(error, 'actual');
+    }
+
+    private problemIndicationOutcomeFromError(error?: Error): ProblemIndication {
+        if (error instanceof AssertionError) {
+            return new ExecutionFailedWithAssertionError(error as AssertionError);
+        }
+
+        if (this.isANonSerenityAssertionError(error)) {
+            return new ExecutionFailedWithAssertionError(new AssertionError(error.message, error.expected, error.actual, error));
+        }
+
+        if (error instanceof TestCompromisedError) {
+            return new ExecutionCompromised(error as TestCompromisedError);
+        }
+
+        return new ExecutionFailedWithError(error);
     }
 }
 

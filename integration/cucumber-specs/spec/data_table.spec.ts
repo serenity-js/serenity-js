@@ -15,8 +15,8 @@ describe(`@serenity-js/cucumber with Cucumber ${ cucumberVersion() }`, function 
 
                 PickEvent.from(res.events)
                     .next(ActivityStarts, event => expect(event.details.name.value).to.match(new RegExp(
-                        '^Given a step that receives a table:\n' +
-                        '| Developer | Website\s+|\n' +
+                        '^Given a step that receives a table:\\n' +
+                        '| Developer | Website\\s+|\\n' +
                         '| Jan Molak | janmolak.com |',
                     )))
                 ;
