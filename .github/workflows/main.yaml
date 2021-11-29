@@ -9,27 +9,8 @@ on:
 
 jobs:
 
-  install:
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-
-      - name: Install Node Modules (all)
-        uses: bahmutov/npm-install@v1
-        with:
-          install-command: make install
-        env:
-          CHROMEDRIVER_FILEPATH: "/usr/bin/chromedriver"
-
   lint:
-    needs:
-      - install
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
@@ -50,8 +31,7 @@ jobs:
         run: make lint
 
   compile:
-    needs:
-      - install
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
     runs-on:  ubuntu-latest
     steps:
       - name: Checkout repository
