@@ -99,7 +99,7 @@ jobs:
   #
 
   test-linux-node-lts-active:
-    name: test-linux-node-lts-active
+    name: test (Linux, LTS)
     needs:
       - compile
     runs-on:  ubuntu-latest
@@ -137,6 +137,7 @@ jobs:
             package.json
 
   test-linux-node-lts-previous:
+    name: test (Linux, LTS-1)
     needs:
       - compile
     runs-on:  ubuntu-latest
@@ -166,6 +167,7 @@ jobs:
         run: make test
 
   test-windows-node-lts-active:
+    name: test (Windows, LTS)
     needs:
       - compile
     runs-on: windows-latest
@@ -197,7 +199,8 @@ jobs:
   # Integration test
   #
 
-  integration-saucelabs:
+  test-integration-saucelabs:
+    name: integration (SauceLabs)
     needs:
       - compile
     runs-on: ubuntu-latest
@@ -207,7 +210,7 @@ jobs:
         with:
           username: ${{ secrets.SAUCE_USERNAME }}
           accessKey: ${{ secrets.SAUCE_ACCESS_KEY }}
-          tunnelIdentifier: github-serenity-js-integration-saucelabs-${{ github.run_number }}-tunnel
+          tunnelIdentifier: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
 
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -235,23 +238,24 @@ jobs:
         env:
           SAUCE_USERNAME: ${{ secrets.SAUCE_USERNAME }}
           SAUCE_ACCESS_KEY: ${{ secrets.SAUCE_ACCESS_KEY }}
-          SAUCE_TUNNEL_ID: github-serenity-js-integration-saucelabs-${{ github.run_number }}-tunnel
+          SAUCE_TUNNEL_ID: github-serenity-js-test-integration-saucelabs-${{ github.run_number }}-tunnel
 
       - uses: actions/upload-artifact@v2
         if: failure()
         with:
-          name: integration-saucelabs
+          name: test-integration-saucelabs
           path: integration/webdriverio-web/target/
 
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 3
-          name: integration-saucelabs-coverage-reports
+          name: test-integration-saucelabs-coverage-reports
           path: |
             target/**/*
             package.json
 
-  integration:
+  test-integration:
+    name: integration (${{ matrix.module }})
     needs:
       - compile
     runs-on: ubuntu-latest
@@ -299,7 +303,7 @@ jobs:
         if: failure()
         with:
           retention-days: 3
-          name: integration-reports-${{ matrix.module }}
+          name: test-integration-reports-${{ matrix.module }}
           path: |
             integration/**/target/**/*
             package.json
@@ -307,7 +311,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           retention-days: 1
-          name: integration-coverage-reports-${{ matrix.module }}
+          name: test-integration-coverage-reports-${{ matrix.module }}
           path: |
             target/**/*
             package.json
@@ -320,8 +324,8 @@ jobs:
     runs-on:  ubuntu-latest
     needs:
       - test-linux-node-lts-active
-      - integration-saucelabs
-      - integration
+      - test-integration-saucelabs
+      - test-integration
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -371,8 +375,8 @@ jobs:
       - test-linux-node-lts-active
       - test-linux-node-lts-previous
       - test-windows-node-lts-active
-      - integration-saucelabs
-      - integration
+      - test-integration-saucelabs
+      - test-integration
     steps:
       - uses: actions/checkout@v2
         with:
