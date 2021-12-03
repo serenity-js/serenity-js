@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+    <title>Main page title</title>
+</head>
+<body>
+    <h1>Main page</h1>
+    <ul>
+        <li><a href="/screenplay/models/page/new_tab.html" target="_blank" id="new-tab-link">open new tab</a></li>
+        <li><a href="javascript:void(0)" onclick="popup()" id="new-popup-link">open new popup</a></li>
+    </ul>
+
+
+    <script>
+        function popup() {
+            var w = window.open('about:blank', 'popup-window', 'width=512,height=256');
+            w.document.write('<h1>Example pop-up window</h1>');
+            w.document.close();
+        }
+    </script>
+</body>
+</html>

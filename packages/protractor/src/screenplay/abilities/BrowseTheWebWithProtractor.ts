@@ -426,6 +426,12 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promiseOf(this.browser.close());
     }
 
+    /**
+     * @desc
+     *  Returns a {@link Page} representing the currently active top-level browsing context.
+     *
+     * @returns {Promise<Page>}
+     */
     async currentPage(): Promise<Page> {
 
         const windowHandle = await this.browser.getWindowHandle();
@@ -433,12 +439,17 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return new ProtractorPage(this.browser, windowHandle);
     }
 
-    async pageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+    /**
+     * @desc
+     *  Returns an array of {@link Page} objects representing all the available
+     *  top-level browsing context, e.g. all the open browser tabs.
+     *
+     * @returns {Promise<Array<Page>>}
+     */
+    async allPages(): Promise<Array<Page>> {
+        const windowHandles = await this.browser.getAllWindowHandles();
 
-        // const windowHandles = await this.browser.getWindowHandle();
-
-        // return new ProtractorPage(this.browser, windowHandle);
-        throw new Error('Not implemented, yet');
+        return windowHandles.map(windowHandle => new ProtractorPage(this.browser, windowHandle));
     }
 
     /**
