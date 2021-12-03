@@ -56,8 +56,22 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract takeScreenshot(): Promise<string>;
 
+    /**
+     * @desc
+     *  Returns a {@link Page} representing the currently active top-level browsing context.
+     *
+     * @returns {Promise<Page>}
+     */
     abstract currentPage(): Promise<Page>;
-    abstract pageCalled(nameOrHandleOrIndex: string | number): Promise<Page>;
+
+    /**
+     * @desc
+     *  Returns an array of {@link Page} objects representing all the available
+     *  top-level browsing context, e.g. all the open browser tabs.
+     *
+     * @returns {Promise<Array<Page>>}
+     */
+    abstract allPages(): Promise<Array<Page>>;
 
     abstract cookie(name: string): Promise<Cookie>;
     abstract deleteAllCookies(): Promise<void>;
@@ -65,14 +79,15 @@ export abstract class BrowseTheWeb implements Ability {
     abstract modalDialog(): Promise<ModalDialog>;
 
     // todo: remove
-    abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
-    abstract switchToParentFrame(): Promise<void>;
-    abstract switchToDefaultContent(): Promise<void>;
     abstract switchToWindow(nameOrHandleOrIndex: string | number): Promise<void>;
     abstract switchToOriginalWindow(): Promise<void>;
     abstract getCurrentWindowHandle(): Promise<string>;
     abstract getAllWindowHandles(): Promise<string[]>;
-
     abstract closeCurrentWindow(): Promise<void>;
+
+    // todo: remove
+    abstract switchToFrame(targetOrIndex: PageElement | number | string): Promise<void>;
+    abstract switchToParentFrame(): Promise<void>;
+    abstract switchToDefaultContent(): Promise<void>;
 }
 

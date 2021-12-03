@@ -157,6 +157,12 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return this.browser.deleteCookies() as Promise<void>;
     }
 
+    /**
+     * @desc
+     *  Returns a {@link Page} representing the currently active top-level browsing context.
+     *
+     * @returns {Promise<Page>}
+     */
     async currentPage(): Promise<Page> {
 
         const windowHandle = await this.browser.getWindowHandle();
@@ -164,12 +170,17 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         return new WebdriverIOPage(this.browser, windowHandle);
     }
 
-    async pageCalled(nameOrHandleOrIndex: string | number): Promise<Page> {
+    /**
+     * @desc
+     *  Returns an array of {@link Page} objects representing all the available
+     *  top-level browsing context, e.g. all the open browser tabs.
+     *
+     * @returns {Promise<Array<Page>>}
+     */
+    async allPages(): Promise<Array<Page>> {
+        const windowHandles = await this.browser.getWindowHandles();
 
-        // const windowHandles = await this.browser.getWindowHandle();
-
-        // return new WebdriverIOPage(this.browser, windowHandle);
-        throw new Error('Not implemented, yet');
+        return windowHandles.map(windowHandle => new WebdriverIOPage(this.browser, windowHandle));
     }
 
     async modalDialog(): Promise<ModalDialog> {
