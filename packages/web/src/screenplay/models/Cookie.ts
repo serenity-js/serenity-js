@@ -1,6 +1,10 @@
 import { Adapter, Answerable, Interaction, Question, Timestamp } from '@serenity-js/core';
+import { formatted } from '@serenity-js/core/lib/io';
+import { ensure, isBoolean, isDefined, isInstanceOf, isOneOf, isPlainObject, isString, Predicate } from 'tiny-types';
 
+import { CookieMissingError } from '../../errors';
 import { BrowseTheWeb } from '../abilities';
+import { CookieData } from './CookieData';
 
 export abstract class Cookie {
 
@@ -20,21 +24,30 @@ export abstract class Cookie {
 
     /**
      * @desc
-     *  Checks if a cookie given by `name` is set.
+     *  Sets a cookie for the current page.
+     *  Make sure that the actor performing this interaction is on the page that should receive the cookie.
+     *  An actor can't set a cookie for an arbitrary page without being on that page.
      *
-     * @param {Answerable<string>} name
-     * @returns {Question<Promise<boolean>>}
+     * @param {Answerable<CookieData>} cookieData
+     * @returns {@serenity-js/core/lib/screenplay~Interaction}
      */
-    static has(name: Answerable<string>): Question<Promise<boolean>> {
-        return Question.about(`presence of "${ name }" cookie`, async actor => {
-            const cookieName = await actor.answer(name);
-            let cookie;
-            try {
-                cookie = await BrowseTheWeb.as(actor).cookie(cookieName);
-                return cookie !== undefined;
-            } catch {
-                return false;
+    static set(cookieData: Answerable<CookieData>): Interaction {
+
+        return Interaction.where(formatted `#actor sets cookie: ${ cookieData }`, async actor => {
+            const cookie = ensure('cookieData', await actor.answer(cookieData), isDefined(), isPlainObject());
+
+            const sanitisedCookieData: CookieData = {
+                name:         ensure(`Cookie.set(cookieData.name)`,     cookie.name,  isDefined(), isString()),
+                value:        ensure(`Cookie.set(cookieData.value)`,    cookie.value, isDefined(), isString()),
+                path:         ensureIfPresent(cookie, 'path',       isString()),
+                domain:       ensureIfPresent(cookie, 'domain',     isString()),
+                secure:       ensureIfPresent(cookie, 'secure',     isBoolean()),
+                httpOnly:     ensureIfPresent(cookie, 'httpOnly',   isBoolean()),
+                expiry:       ensureIfPresent(cookie, 'expiry',     isInstanceOf(Timestamp)),
+                sameSite:     ensureIfPresent(cookie, 'sameSite',   isOneOf<'Lax' | 'Strict' | 'None'>('Lax', 'Strict', 'None')),
             }
+
+            return BrowseTheWeb.as(actor).setCookie(sanitisedCookieData);
         });
     }
 
@@ -50,44 +63,157 @@ export abstract class Cookie {
         });
     }
 
-    constructor(
-        protected readonly cookieName: string,
-        protected readonly cookieValue: string,
-        protected readonly cookieDomain?: string,
-        protected readonly cookiePath?: string,
-        protected readonly cookieExpiryDate?: Timestamp,
-        protected readonly httpOnly?: boolean,
-        protected readonly secure?: boolean,
-    ) {
+    private cookie: CookieData;
+
+    protected constructor(protected readonly cookieName: string) {
+        ensure('browser', cookieName, isDefined());
     }
 
     name(): string {
         return this.cookieName;
     }
 
-    value(): string {
-        return this.cookieValue;
+    /**
+     * @desc
+     *  Checks if a given cookie is set.
+     *
+     * @returns {Promise<boolean>}
+     */
+    async isPresent(): Promise<boolean> {
+        try {
+            const cookie = await this.lazyLoadCookie();
+            return cookie && cookie.name === this.cookieName;
+        }
+        catch(error) {
+            if (error instanceof CookieMissingError) {
+                return false;
+            }
+
+            throw error;
+        }
     }
 
-    path(): string {
-        return this.cookiePath;
+    /**
+     * @desc
+     *  Returns the value of a given cookie.
+     *
+     * @returns {Promise<string>}
+     */
+    async value(): Promise<string> {
+        const cookie = await this.lazyLoadCookie();
+        return cookie.value;
     }
 
-    domain(): string {
-        return this.cookieDomain;
+    /**
+     * @desc
+     *  Returns the path of a given cookie, if any was set.
+     *
+     * @returns {Promise<string>}
+     */
+    async path(): Promise<string> {
+        const cookie = await this.lazyLoadCookie();
+        return cookie.path;
     }
 
-    isHttpOnly(): boolean {
-        return this.httpOnly;
+    /**
+     * @desc
+     *  Returns the domain of a given cookie, if any was set.
+     *
+     * @returns {Promise<string>}
+     */
+    async domain(): Promise<string> {
+        const cookie = await this.lazyLoadCookie();
+        return cookie.domain;
     }
 
-    isSecure(): boolean {
-        return this.secure;
+    /**
+     * @desc
+     *  Checks if a given cookie is HTTP-only.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies
+     *
+     * @returns {Promise<string>}
+     */
+    async isHttpOnly(): Promise<boolean> {
+        const cookie = await this.lazyLoadCookie();
+        return cookie.httpOnly;
     }
 
-    expiry(): Timestamp {
-        return this.cookieExpiryDate;
+    /**
+     * @desc
+     *  Checks if a given cookie is secure.
+     *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#restrict_access_to_cookies
+     *
+     * @returns {Promise<string>}
+     */
+    async isSecure(): Promise<boolean> {
+        const cookie = await this.lazyLoadCookie();
+        return cookie.secure;
     }
 
+    /**
+     * @desc
+     *  Returns the expiry date of a given cookie
+     *
+     * @returns {Promise<Timestamp>}
+     */
+    async expiry(): Promise<Timestamp> {
+        const cookie = await this.lazyLoadCookie();
+        return cookie.expiry;
+    }
+
+    /**
+     * @desc
+     *  Deletes a given cookie.
+     *
+     * @abstract
+     *
+     * @returns {Promise<void>}
+     */
     abstract delete(): Promise<void>;
+
+    /**
+     * @desc
+     *  Reads a given cookie from the browser.
+     *
+     *  This method is to be implemented by integration tool-specific adapters.
+     *  **Please note**: you don't need to implement any response caching here
+     *  since it is covered by {@link Cookie#lazyLoadCookie} method.
+     *
+     * @protected
+     * @abstract
+     *
+     * @returns {Promise<void>}
+     */
+    protected abstract read(): Promise<CookieData>;
+
+    /**
+     * @desc
+     *  Invokes {@link Cookie#read} and caches the result in memory.
+     *
+     * @private
+     * @returns {Promise<CookieData>}
+     */
+    private async lazyLoadCookie(): Promise<CookieData> {
+        if (! this.cookie) {
+            this.cookie = await this.read();
+        }
+
+        return this.cookie;
+    }
+}
+
+/**
+ * @ignore
+ * @private
+ *
+ * @param data
+ * @param property
+ * @param predicates
+ */
+function ensureIfPresent<K extends keyof CookieData>(data: CookieData, property: K, ...predicates: Array<Predicate<CookieData[K]>>): CookieData[K] | undefined {
+    return data[property] !== undefined
+        ? ensure(`Cookie.set(cookieData.${property})`, data[property], ...predicates)
+        : undefined;
 }

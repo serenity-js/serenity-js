@@ -1,17 +1,5 @@
-import { ConfigurationError, Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
-import {
-    BrowserCapabilities,
-    BrowseTheWeb,
-    Cookie,
-    CookieMissingError,
-    Key,
-    ModalDialog,
-    Page,
-    PageElement,
-    PageElementList,
-    PageElementLocation,
-    PageElementLocator,
-} from '@serenity-js/web';
+import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
@@ -132,22 +120,21 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
     }
 
     async cookie(name: string): Promise<Cookie> {
-        const cookie = await this.browser.manage().getCookie(name);
+        return new ProtractorCookie(this.browser, name);
+    }
 
-        if (! cookie) {
-            throw new CookieMissingError(`Cookie '${ name }' not set`);
-        }
-
-        return new ProtractorCookie(
-            this.browser,
-            name,
-            cookie.value,
-            cookie.domain,
-            cookie.path,
-            cookie.expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.round(cookie.expiry)) : undefined,
-            cookie.httpOnly,
-            cookie.secure,
-        );
+    async setCookie(cookieData: CookieData): Promise<void> {
+        return promiseOf(this.browser.manage().addCookie({
+            name:       cookieData.name,
+            value:      cookieData.value,
+            path:       cookieData.path,
+            domain:     cookieData.domain,
+            secure:     cookieData.secure,
+            httpOnly:   cookieData.httpOnly,
+            expiry:     cookieData.expiry
+                ? cookieData.expiry.toSeconds()
+                : undefined,
+        }));
     }
 
     deleteAllCookies(): Promise<void> {

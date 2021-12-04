@@ -1,0 +1,16 @@
+<html lang="en">
+<body>
+<h1>Cookie viewer</h1>
+<pre><code id="viewer"></code></pre>
+<button onclick="showCookies()">Show viewer</button>
+
+<script>
+
+    function showCookies() {
+        document.querySelector('#viewer').innerHTML = document.cookie || 'No cookies found';
+    }
+
+    window.onload = showCookies;
+</script>
+</body>
+</html>

@@ -4,8 +4,9 @@ import { expect } from '@integration/testing-tools';
 import { Ensure, equals, isFalse, isTrue } from '@serenity-js/assertions';
 import { actorCalled, Answerable, Duration, q, Question, Timestamp } from '@serenity-js/core';
 import { LocalServer, ManageALocalServer, StartLocalServer, StopLocalServer } from '@serenity-js/local-server';
-import { Cookie, CookieMissingError, Navigate } from '@serenity-js/web';
+import { by, Click, Cookie, CookieData, CookieMissingError, Navigate, Target, Text } from '@serenity-js/web';
 import express = require('express');
+import { given } from 'mocha-testdata';
 
 describe('Cookie', () => {
 
@@ -47,29 +48,84 @@ describe('Cookie', () => {
         )
     );
 
+    describe('when setting cookies', () => {
+
+        const ShowCookies = {
+            viewer:             Text.of(Target.the('cookie viewer').located(by.id('viewer'))),
+            showCookiesButton:  Target.the('show cookies button').located(by.css('button')),
+        }
+
+        it('allows the actor to add a new cookie', () =>
+            actorCalled('Sid').attemptsTo(
+                Navigate.to('/screenplay/models/cookie/show_cookies.html'),
+                Ensure.that(ShowCookies.viewer, equals('No cookies found')),
+                Ensure.that(Cookie.called('favourite').isPresent(), isFalse()),
+
+                Cookie.set({
+                    name:  'favourite',
+                    value: 'triple chocolate',
+                }),
+
+                Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
+                Click.on(ShowCookies.showCookiesButton),
+                Ensure.that(ShowCookies.viewer, equals('favourite=triple chocolate')),
+            )
+        );
+
+        given(
+            { description: 'missing name',          data: { name: undefined, value: 'OK' },             expectedError: 'Cookie.set(cookieData.name) should be defined'                                                          },
+            { description: 'missing value',         data: { name: 'OK', value: undefined },             expectedError: 'Cookie.set(cookieData.value) should be defined'                                                         },
+            { description: 'invalid path',          data: { name: 'OK', value: 'OK', path: {} },        expectedError: 'Cookie.set(cookieData.path) should be a string'                                                         },
+            { description: 'invalid domain',        data: { name: 'OK', value: 'OK', domain: {} },      expectedError: 'Cookie.set(cookieData.domain) should be a string'                                                       },
+            { description: 'invalid secure',        data: { name: 'OK', value: 'OK', secure: {} },      expectedError: 'Cookie.set(cookieData.secure) should be a boolean value'                                                },
+            { description: 'invalid httpOnly',      data: { name: 'OK', value: 'OK', httpOnly: {} },    expectedError: 'Cookie.set(cookieData.httpOnly) should be a boolean value'                                              },
+            { description: 'non-Timestamp expiry',  data: { name: 'OK', value: 'OK', expiry: 0 },       expectedError: 'Cookie.set(cookieData.expiry) should be instance of Timestamp'                                          },
+            { description: 'invalid sameSite',      data: { name: 'OK', value: 'OK', sameSite: {} },    expectedError: 'Cookie.set(cookieData.sameSite) should either be equal to Lax, be equal to Strict or be equal to None'  },
+        ).
+        it('complains if the cookie name is not set', ({ data, expectedError }) =>
+            expect(actorCalled('Sid').attemptsTo(
+                Navigate.to('/screenplay/models/cookie/show_cookies.html'),
+                Cookie.set(data as unknown as CookieData),
+            )).to.be.rejectedWith(Error, expectedError)
+        );
+
+        it('accepts answerables', () =>
+            actorCalled('Sid').attemptsTo(
+                Navigate.to('/screenplay/models/cookie/show_cookies.html'),
+
+                Cookie.set(Question.about('cookie data', _actor => ({
+                    name:  'favourite',
+                    value: 'triple chocolate',
+                }))),
+
+                Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
+            )
+        );
+    });
+
     describe('over HTTP', () => {
 
         describe('when working with cookies', () => {
             it('allows the actor to check if a given cookie is set', () =>
                 actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor(`/cookie?name=favourite&value=chocolate-chip`)),
-                    Ensure.that(Cookie.has('favourite'), isTrue()),
+                    Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
                 )
             );
 
             it('allows the actor to confirm that a given cooke is not set', () =>
                 actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor(`/cookie?name=favourite&value=chocolate-chip`)),
-                    Ensure.that(Cookie.has('not-so-favourite'), isFalse()),
+                    Ensure.that(Cookie.called('not-so-favourite').isPresent(), isFalse()),
                 )
             );
 
             it('allows the actor to remove a specific cookie', () =>
                 actorCalled('Sid').attemptsTo(
                     Navigate.to(cookieCutterURLFor(`/cookie?name=favourite&value=chocolate-chip`)),
-                    Ensure.that(Cookie.has('favourite'), isTrue()),
+                    Ensure.that(Cookie.called('favourite').isPresent(), isTrue()),
                     Cookie.called('favourite').delete(),
-                    Ensure.that(Cookie.has('favourite'), isFalse()),
+                    Ensure.that(Cookie.called('favourite').isPresent(), isFalse()),
                 )
             );
         });
