@@ -1,5 +1,5 @@
-import { Duration, LogicError, Timestamp, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieMissingError, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
 import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../models';
@@ -130,27 +130,22 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     }
 
     async cookie(name: string): Promise<Cookie> {
-        const [ cookie ] = await this.browser.getCookies(name);
+        return new WebdriverIOCookie(this.browser, name);
+    }
 
-        if (! cookie) {
-            throw new CookieMissingError(`Cookie '${ name }' not set`);
-        }
-
-        // There _might_ be a bug in WDIO where the expiry date is set on "expires" rather than the "expiry" key
-        // and possibly another one around deserialising the timestamp, since WDIO seems to add several hundred milliseconds
-        // to the original expiry date
-        const expiry: number | undefined = cookie.expiry || (cookie as any).expires;
-
-        return new WebdriverIOCookie(
-            this.browser,
-            name,
-            cookie.value,
-            cookie.domain,
-            cookie.path,
-            expiry !== undefined ? Timestamp.fromTimestampInSeconds(Math.round(expiry)) : undefined,
-            cookie.httpOnly,
-            cookie.secure,
-        );
+    async setCookie(cookieData: CookieData): Promise<void> {
+        return this.browser.setCookies({
+            name:       cookieData.name,
+            value:      cookieData.value,
+            path:       cookieData.path,
+            domain:     cookieData.domain,
+            secure:     cookieData.secure,
+            httpOnly:   cookieData.httpOnly,
+            expiry:     cookieData.expiry
+                ? cookieData.expiry.toSeconds()
+                : undefined,
+            sameSite:   cookieData.sameSite,
+        });
     }
 
     deleteAllCookies(): Promise<void> {
