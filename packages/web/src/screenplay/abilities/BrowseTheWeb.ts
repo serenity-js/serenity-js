@@ -1,7 +1,7 @@
 import { Ability, Duration, UsesAbilities } from '@serenity-js/core';
 
 import { Key } from '../../input';
-import { Cookie, CookieData, ModalDialog, Page, PageElement, PageElementList, PageElementLocation } from '../models';
+import { Cookie, CookieData, ModalDialog, Page, PageElement, PageElementList } from '../models';
 import { BrowserCapabilities } from './BrowserCapabilities';
 
 export abstract class BrowseTheWeb implements Ability {
@@ -30,13 +30,23 @@ export abstract class BrowseTheWeb implements Ability {
 
     abstract waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void>;
 
-    abstract locateElementAt(location: PageElementLocation): Promise<PageElement>;
+    abstract findByCss(selector: string): PageElement;
+    abstract findByCssContainingText(selector: string, text: string): PageElement;
+    abstract findById(selector: string): PageElement;
+    abstract findByTagName(selector: string): PageElement;
+    abstract findByXPath(selector: string): PageElement;
 
-    abstract locateAllElementsAt(location: PageElementLocation): Promise<PageElementList>;
-
-    abstract title(): Promise<string>;
-
-    abstract currentUrl(): Promise<string>;
+    abstract findAllByCss(selector: string): PageElementList;
+    abstract findAllByTagName(selector: string): PageElementList;
+    abstract findAllByXPath(selector: string): PageElementList;
+    // todo: consider adding
+    //  findByRole('button')
+    //  findByAccessibilityLabel('Close')
+    //  findByRoleContainingText('button', submit)
+    //
+    //  https://playwright.dev/docs/selectors/#best-practices
+    //  https://webdriver.io/docs/selectors/
+    //  https://docs.cypress.io/guides/references/best-practices#How-It-Works
 
     abstract browserCapabilities(): Promise<BrowserCapabilities>;
 

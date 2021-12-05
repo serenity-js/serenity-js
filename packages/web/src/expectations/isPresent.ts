@@ -15,6 +15,7 @@ import { ElementExpectation } from './ElementExpectation';
  * @see {@link @serenity-js/core/lib/screenplay/questions~Check}
  * @see {@link Wait}
  */
+// todo: make it generic isPresent: Promise<boolean> | boolean
 export function isPresent(): Expectation<boolean, PageElement> {
     return ElementExpectation.forElementTo('become present', actual => actual.isPresent());
 }

@@ -2,7 +2,6 @@ import { Answerable, AnswersQuestions, LogicError, MetaQuestion, Question, UsesA
 
 import { PageElement } from '../models';
 import { ElementQuestion } from './ElementQuestion';
-import { TargetNestedElement } from './targets';
 
 /**
  * @desc
@@ -95,7 +94,7 @@ export class Attribute
         return new Attribute(
             this.name,
             this.element
-                ? new TargetNestedElement(parent, this.element)
+                ? PageElement.of(this.element, parent)
                 : parent
         );
     }

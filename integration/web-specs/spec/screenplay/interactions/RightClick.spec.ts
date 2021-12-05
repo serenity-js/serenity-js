@@ -3,14 +3,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { by, Navigate, RightClick, Target, Text } from '@serenity-js/web';
+import { Navigate, PageElement, RightClick, Text } from '@serenity-js/web';
 
 /** @test {RightClick} */
 describe('RightClick', () => {
 
     const Form = {
-        inputField: Target.the('input field').located(by.css('#field')),
-        result: Target.the('result').located(by.css('#result'))
+        inputField: PageElement.locatedById('field').describedAs('the input field'),
+        result:     PageElement.locatedById('result').describedAs('a result'),
     };
 
     /** @test {RightClick.on} */

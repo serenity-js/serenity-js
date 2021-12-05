@@ -1,8 +1,8 @@
 import { Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement } from '@serenity-js/web';
 import type * as wdio from 'webdriverio';
 
-import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList, WebdriverIOPageElementLocator } from '../models';
+import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIONativeElementSearchContext, WebdriverIOPage, WebdriverIOPageElement, WebdriverIOPageElementList } from '../models';
 
 /**
  * @desc
@@ -12,8 +12,6 @@ import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIO
  *  *Please note*: this class is still marked as experimental while new WebdriverIO Interactions and Questions are being developed.
  *  This means that its interface can change without affecting the major version of Serenity/JS itself.
  *  In particular, please don't rely on the `browser` field to remain `public` in future releases.
- *
- * @experimental
  *
  * @example <caption>Using the WebdriverIO browser</caption>
  *  import { Actor } from '@serenity-js/core';
@@ -40,13 +38,6 @@ import { WebdriverIOCookie, WebdriverIOModalDialog, WebdriverIOPage, WebdriverIO
  * @see {@link @serenity-js/core/lib/screenplay/actor~Actor}
  */
 export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
-    private $:  PageElementLocator<wdio.Element<'async'>>;
-    private $$: PageElementLocator<wdio.ElementArray>;
-
-    /**
-     * @private
-     */
-    private lastScriptExecutionSummary: LastScriptExecutionSummary;
 
     /**
      * @param {@wdio/types~Browser} browserInstance
@@ -70,6 +61,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
     }
 
     /**
+     * @private
+     */
+    private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /**
      * @param {@wdio/types~Browser} browser
      */
     constructor(public readonly browser: wdio.Browser<'async'>) {
@@ -78,9 +74,79 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
         if (! this.browser.$ || ! this.browser.$$) {
             throw new LogicError(`WebdriverIO browser object is not initalised yet, so can't be assigned to an actor. Are you trying to instantiate an actor outside of a test or a test hook?`)
         }
+    }
 
-        this.$  = new WebdriverIOPageElementLocator(this.browser.$.bind(this.browser) as unknown as (selector: string) => Promise<wdio.Element<'async'>>);
-        this.$$ = new WebdriverIOPageElementLocator(this.browser.$$.bind(this.browser));
+    browserCapabilities(): Promise<BrowserCapabilities> {
+        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
+    }
+
+    async cookie(name: string): Promise<Cookie> {
+        return new WebdriverIOCookie(this.browser, name);
+    }
+
+    async setCookie(cookieData: CookieData): Promise<void> {
+        return this.browser.setCookies({
+            name:       cookieData.name,
+            value:      cookieData.value,
+            path:       cookieData.path,
+            domain:     cookieData.domain,
+            secure:     cookieData.secure,
+            httpOnly:   cookieData.httpOnly,
+            expiry:     cookieData.expiry
+                ? cookieData.expiry.toSeconds()
+                : undefined,
+            sameSite:   cookieData.sameSite,
+        });
+    }
+
+    deleteAllCookies(): Promise<void> {
+        return this.browser.deleteCookies() as Promise<void>;
+    }
+
+    findByCss(selector: string): WebdriverIOPageElement {
+        return this.find(context => context.$(selector));
+    }
+
+    findByCssContainingText(selector: string, text: string): WebdriverIOPageElement {
+        return this.find(context => context.$(`${ selector }*=${ text }`));
+    }
+
+    findById(selector: string): WebdriverIOPageElement {
+        return this.find(context => context.$(`#${selector}`));
+    }
+
+    findByTagName(selector: string): WebdriverIOPageElement {
+        return this.find(context => context.$(`<${ selector } />`));
+    }
+
+    findByXPath(selector: string): WebdriverIOPageElement {
+        return this.find(context => context.$(selector));
+    }
+
+    findAllByCss(selector: string): WebdriverIOPageElementList {
+        return this.findAll(context => context.$$(selector));
+    }
+
+    findAllByTagName(selector: string): WebdriverIOPageElementList {
+        return this.findAll(context => context.$$(`<${ selector } />`));
+    }
+
+    findAllByXPath(selector: string): WebdriverIOPageElementList {
+        return this.findAll(context => context.$$(selector));
+    }
+
+    private find(locator: (root: WebdriverIONativeElementSearchContext) => wdio.ChainablePromiseElement<Promise<wdio.Element<'async'>>> | Promise<wdio.Element<'async'>>): WebdriverIOPageElement {
+        return new WebdriverIOPageElement(
+            () => this.browser,
+            locator as unknown as (root: WebdriverIONativeElementSearchContext) => Promise<wdio.Element<'async'>>,    // We don't need the ChainablePromiseElement
+        );
+    }
+
+    private findAll(locator: (root: WebdriverIONativeElementSearchContext) => wdio.ChainablePromiseArray<wdio.ElementArray> | Promise<wdio.ElementArray>): WebdriverIOPageElementList {
+        return new WebdriverIOPageElementList(
+            () => this.browser,
+            locator as unknown as (root: WebdriverIONativeElementSearchContext) => Promise<wdio.ElementArray>,    // We don't need the ChainablePromiseArray
+        );
     }
 
     /**
@@ -105,51 +171,6 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
 
     reloadPage(): Promise<void> {
         return this.browser.refresh();
-    }
-
-    title(): Promise<string> {
-        return this.browser.getTitle();
-    }
-
-    currentUrl(): Promise<string> {
-        return this.browser.getUrl();
-    }
-
-    browserCapabilities(): Promise<BrowserCapabilities> {
-        return Promise.resolve(this.browser.capabilities as BrowserCapabilities);
-    }
-
-    locateElementAt(location: PageElementLocation): Promise<PageElement> {
-        return this.$.locate(location)
-            .then(element => new WebdriverIOPageElement(this.browser, element, location));
-    }
-
-    locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
-        return this.$$.locate(location)
-            .then(elements => new WebdriverIOPageElementList(this.browser, elements, location));
-    }
-
-    async cookie(name: string): Promise<Cookie> {
-        return new WebdriverIOCookie(this.browser, name);
-    }
-
-    async setCookie(cookieData: CookieData): Promise<void> {
-        return this.browser.setCookies({
-            name:       cookieData.name,
-            value:      cookieData.value,
-            path:       cookieData.path,
-            domain:     cookieData.domain,
-            secure:     cookieData.secure,
-            httpOnly:   cookieData.httpOnly,
-            expiry:     cookieData.expiry
-                ? cookieData.expiry.toSeconds()
-                : undefined,
-            sameSite:   cookieData.sameSite,
-        });
-    }
-
-    deleteAllCookies(): Promise<void> {
-        return this.browser.deleteCookies() as Promise<void>;
     }
 
     /**
@@ -293,11 +314,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeScript<Result, InnerArguments extends any[]>(
+    async executeScript<Result, InnerArguments extends any[]>(
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg) as InnerArguments;
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg)) as InnerArguments;
 
         return this.browser.execute(script, ...nativeArguments)
             .then(result => {
@@ -359,11 +380,11 @@ export class BrowseTheWebWithWebdriverIO extends BrowseTheWeb {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeAsyncScript<Result, Parameters extends any[]>(
+    async executeAsyncScript<Result, Parameters extends any[]>(
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg) as Parameters;
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof WebdriverIOPageElement ? arg.nativeElement() : arg)) as Parameters;
 
         return this.browser.executeAsync<Result, Parameters>(script, ...nativeArguments)
             .then(result => {

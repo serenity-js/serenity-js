@@ -36,7 +36,7 @@ exports.config = {
     },
 
     specs: [
-        './node_modules/@integration/web-specs/spec/**/*.spec.ts'
+        './node_modules/@integration/web-specs/spec/**/*.spec.ts',
     ],
 
     mochaOpts: {

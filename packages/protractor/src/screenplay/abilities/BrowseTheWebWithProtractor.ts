@@ -1,10 +1,10 @@
 import { ConfigurationError, Duration, LogicError, UsesAbilities } from '@serenity-js/core';
-import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList, PageElementLocation, PageElementLocator } from '@serenity-js/web';
-import { ActionSequence, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
+import { BrowserCapabilities, BrowseTheWeb, Cookie, CookieData, Key, ModalDialog, Page, PageElement, PageElementList } from '@serenity-js/web';
+import { ActionSequence, by, ElementArrayFinder, ElementFinder, Locator, ProtractorBrowser, WebElementPromise } from 'protractor';
 import { AlertPromise, Capabilities, Navigation, Options } from 'selenium-webdriver';
 
 import { promiseOf } from '../../promiseOf';
-import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPageElement, ProtractorPageElementList, ProtractorPageElementLocator } from '../models';
+import { ProtractorCookie, ProtractorModalDialog, ProtractorNativeElementSearchContext, ProtractorPage, ProtractorPageElement, ProtractorPageElementList } from '../models';
 
 /**
  * @desc
@@ -37,16 +37,131 @@ import { ProtractorCookie, ProtractorModalDialog, ProtractorPage, ProtractorPage
  */
 export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
-    private readonly $:  PageElementLocator<ElementFinder>;
-    private readonly $$: PageElementLocator<ElementArrayFinder>;
+    /**
+     * @desc
+     *  Ability to interact with web front-ends using a given protractor browser instance.
+     *
+     * @param {ProtractorBrowser} browser
+     * @returns {BrowseTheWebWithProtractor}
+     */
+    static using(browser: ProtractorBrowser): BrowseTheWebWithProtractor {
+        return new BrowseTheWebWithProtractor(browser);
+    }
+
+    /**
+     * @desc
+     *  Used to access the Actor's ability to {@link BrowseTheWebWithProtractor} from within the {@link Interaction} classes,
+     *  such as {@link Navigate}.
+     *
+     * @param {UsesAbilities} actor
+     * @return {BrowseTheWebWithProtractor}
+     */
+    static as(actor: UsesAbilities): BrowseTheWebWithProtractor {
+        return actor.abilityTo(BrowseTheWebWithProtractor);
+    }
+
+    /**
+     * @private
+     */
+    private lastScriptExecutionSummary: LastScriptExecutionSummary;
+
+    /**
+     * @param {ProtractorBrowser} browser
+     *  An instance of a protractor browser
+     */
+    constructor(protected browser: ProtractorBrowser) {
+        super();
+    }
+
+    async browserCapabilities(): Promise<BrowserCapabilities> {
+        const capabilities = await promiseOf(this.browser.getCapabilities());
+
+        return {
+            platformName:   capabilities.get('platform'),
+            browserName:    capabilities.get('browserName'),
+            browserVersion: capabilities.get('version'),
+        };
+    }
+
+    async cookie(name: string): Promise<Cookie> {
+        return new ProtractorCookie(this.browser, name);
+    }
+
+    async setCookie(cookieData: CookieData): Promise<void> {
+        return promiseOf(this.browser.manage().addCookie({
+            name:       cookieData.name,
+            value:      cookieData.value,
+            path:       cookieData.path,
+            domain:     cookieData.domain,
+            secure:     cookieData.secure,
+            httpOnly:   cookieData.httpOnly,
+            expiry:     cookieData.expiry
+                ? cookieData.expiry.toSeconds()
+                : undefined,
+        }));
+    }
+
+    deleteAllCookies(): Promise<void> {
+        return promiseOf(this.browser.manage().deleteAllCookies());
+    }
+
+    findByCss(selector: string): PageElement<any, any> {
+        return this.find(context => context.element(by.css(selector)));
+    }
+
+    findByCssContainingText(selector: string, text: string): PageElement<any, any> {
+        return this.find(context => context.element(by.cssContainingText(selector, text)));
+    }
+
+    findById(selector: string): PageElement<any, any> {
+        return this.find(context => context.element(by.id(selector)));
+    }
+
+    findByTagName(selector: string): PageElement<any, any> {
+        return this.find(context => context.element(by.tagName(selector)));
+    }
+
+    findByXPath(selector: string): PageElement<any, any> {
+        return this.find(context => context.element(by.xpath(selector)));
+    }
+
+    findAllByCss(selector: string): PageElementList<any, any, any> {
+        return this.findAll(context => context.all(by.css(selector)));
+    }
+
+    findAllByTagName(selector: string): PageElementList<any, any, any> {
+        return this.findAll(context => {
+            const result = context.all(by.tagName(selector))
+            return result;
+        });
+    }
+
+    findAllByXPath(selector: string): PageElementList<any, any, any> {
+        return this.findAll(context => context.all(by.xpath(selector)));
+    }
+
+    private find(locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementFinder> | ElementFinder): ProtractorPageElement {
+        return new ProtractorPageElement(
+            () => ({
+                element: this.browser.element.bind(this.browser),
+                all: this.browser.element.all.bind(this.browser),
+            }),
+            locator,
+        );
+    }
+
+    private findAll(locator: (root: ProtractorNativeElementSearchContext) => Promise<ElementArrayFinder> | ElementArrayFinder): ProtractorPageElementList {
+        return new ProtractorPageElementList(
+            () => ({
+                element: this.browser.element.bind(this.browser),
+                all: this.browser.element.all.bind(this.browser),
+            }),
+            locator,
+        );
+    }
 
     navigateTo(destination: string): Promise<void> {
-        return promiseOf(this.browser.get(destination)
-            .then(() => this.browser.getWindowHandle())
-            .then(handle => {
-                this.originalWindowHandle = handle;
-            }),
-        );
+        return promiseOf(this.browser.get(destination));
     }
 
     navigateBack(): Promise<void> {
@@ -67,26 +182,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
 
     waitUntil(condition: () => boolean | Promise<boolean>, timeout: Duration): Promise<void> {
         return promiseOf(this.browser.wait(condition, timeout.inMilliseconds())) as unknown as Promise<void>;
-    }
-
-    locateElementAt(location: PageElementLocation): Promise<PageElement> {
-        return this.$.locate(location)
-            .then(elf => new ProtractorPageElement(this.browser, elf, location));
-    }
-
-    locateAllElementsAt(location: PageElementLocation): Promise<PageElementList> {
-        return this.$$.locate(location)
-            .then(elf => new ProtractorPageElementList(this.browser, elf, location));
-    }
-
-    async browserCapabilities(): Promise<BrowserCapabilities> {
-        const capabilities = await promiseOf(this.browser.getCapabilities());
-
-        return {
-            platformName:   capabilities.get('platform'),
-            browserName:    capabilities.get('browserName'),
-            browserVersion: capabilities.get('version'),
-        };
     }
 
     async sendKeys(keys: (string | Key)[]): Promise<void> {
@@ -119,74 +214,8 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
         return promiseOf(keyUpActions.perform());
     }
 
-    async cookie(name: string): Promise<Cookie> {
-        return new ProtractorCookie(this.browser, name);
-    }
-
-    async setCookie(cookieData: CookieData): Promise<void> {
-        return promiseOf(this.browser.manage().addCookie({
-            name:       cookieData.name,
-            value:      cookieData.value,
-            path:       cookieData.path,
-            domain:     cookieData.domain,
-            secure:     cookieData.secure,
-            httpOnly:   cookieData.httpOnly,
-            expiry:     cookieData.expiry
-                ? cookieData.expiry.toSeconds()
-                : undefined,
-        }));
-    }
-
-    deleteAllCookies(): Promise<void> {
-        return promiseOf(this.browser.manage().deleteAllCookies());
-    }
-
     async modalDialog(): Promise<ModalDialog> {
         return new ProtractorModalDialog(this.browser);
-    }
-
-    /**
-     * @private
-     */
-    private lastScriptExecutionSummary: LastScriptExecutionSummary;
-
-    /**
-     * @private
-     */
-    private originalWindowHandle: string;
-
-    /**
-     * @desc
-     *  Ability to interact with web front-ends using a given protractor browser instance.
-     *
-     * @param {ProtractorBrowser} browser
-     * @returns {BrowseTheWebWithProtractor}
-     */
-    static using(browser: ProtractorBrowser): BrowseTheWebWithProtractor {
-        return new BrowseTheWebWithProtractor(browser);
-    }
-
-    /**
-     * @desc
-     *  Used to access the Actor's ability to {@link BrowseTheWebWithProtractor} from within the {@link Interaction} classes,
-     *  such as {@link Navigate}.
-     *
-     * @param {UsesAbilities} actor
-     * @return {BrowseTheWebWithProtractor}
-     */
-    static as(actor: UsesAbilities): BrowseTheWebWithProtractor {
-        return actor.abilityTo(BrowseTheWebWithProtractor);
-    }
-
-    /**
-     * @param {ProtractorBrowser} browser
-     *  An instance of a protractor browser
-     */
-    constructor(protected browser: ProtractorBrowser) {
-        super();
-
-        this.$ = new ProtractorPageElementLocator(this.browser.element.bind(this.browser));
-        this.$$ = new ProtractorPageElementLocator(this.browser.element.all.bind(this.browser.element));    // todo: is this binding correct?
     }
 
     /**
@@ -200,12 +229,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     get(destination: string, timeoutInMillis?: number): Promise<void> {
-        return promiseOf(this.browser.get(destination, timeoutInMillis)
-            .then(() => this.browser.getWindowHandle())
-            .then(handle => {
-                this.originalWindowHandle = handle;
-            }),
-        );
+        return promiseOf(this.browser.get(destination, timeoutInMillis));
     }
 
     /**
@@ -278,13 +302,16 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<void>}
      */
-    switchToFrame(elementOrIndexOrName: number | string | PageElement): Promise<void> {
-        const elf = elementOrIndexOrName instanceof ProtractorPageElement
-            ? elementOrIndexOrName.nativeElement().getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739
-            : elementOrIndexOrName;
+    async switchToFrame(elementOrIndexOrName: number | string | PageElement): Promise<void> {
+        if (elementOrIndexOrName instanceof ProtractorPageElement) {
+            const nativeElement = await elementOrIndexOrName.nativeElement();
+            const webElement = await nativeElement.getWebElement() as unknown as WebElementPromise // https://github.com/angular/protractor/issues/1846#issuecomment-82634739;
+
+            return this.browser.switchTo().frame(webElement);
+        }
 
         // incorrect type definition in selenium-webdriver prevents us from providing a string argument
-        return promiseOf(this.browser.switchTo().frame(elf as any));
+        return this.browser.switchTo().frame(elementOrIndexOrName as any);
     }
 
     /**
@@ -356,9 +383,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @returns {Promise<void>}
      */
     switchToOriginalWindow(): Promise<void> {
-        return this.originalWindowHandle
-            ? promiseOf(this.browser.switchTo().window(this.originalWindowHandle))
-            : Promise.resolve();
+        throw new Error('To be removed');
     }
 
     /**
@@ -371,7 +396,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @see {@link get}
      */
     getOriginalWindowHandle(): Promise<string> {
-        return Promise.resolve(this.originalWindowHandle);
+        throw new Error('To be removed');
     }
 
     /**
@@ -385,7 +410,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      * @see {@link get}
      */
     getCurrentWindowHandle(): Promise<string> {
-        return promiseOf(this.browser.getWindowHandle());
+        throw new Error('To be removed');
     }
 
     /**
@@ -400,7 +425,7 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *  A list of window handles
      */
     getAllWindowHandles(): Promise<string[]> {
-        return promiseOf(this.browser.getAllWindowHandles());
+        throw new Error('To be removed');
     }
 
     /**
@@ -531,11 +556,11 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeScript<Result, InnerArguments extends any[]>(
+    async executeScript<Result, InnerArguments extends any[]>(
         script: string | ((...parameters: InnerArguments) => Result),
         ...args: InnerArguments
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg) as InnerArguments;
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg)) as InnerArguments;
 
         return promiseOf(this.browser.executeScript(script, ...nativeArguments))
             .then(result => {
@@ -555,8 +580,8 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @returns {Promise<ReturnType<fn>>}
      */
-    executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
-        const nativeArguments = args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg) as Parameters<F>;
+    async executeFunction<F extends (...args: any[]) => any>(fn: F, ...args: Parameters<F>): Promise<ReturnType<F>> {
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg)) as Parameters<F>;
 
         return promiseOf(this.browser.executeScriptWithDescription(fn, fn.name, ...nativeArguments));
     }
@@ -613,11 +638,11 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      *
      * @see {@link BrowseTheWeb#getLastScriptExecutionResult}
      */
-    executeAsyncScript<Result, Parameters extends any[]>(
+    async executeAsyncScript<Result, Parameters extends any[]>(
         script: string | ((...args: [...parameters: Parameters, callback: (result: Result) => void]) => void),
         ...args: Parameters
     ): Promise<Result> {
-        const nativeArguments = args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg) as Parameters;
+        const nativeArguments = await Promise.all(args.map(arg => arg instanceof ProtractorPageElement ? arg.nativeElement() : arg)) as Parameters;
 
         return promiseOf(this.browser.executeAsyncScript(script, ...nativeArguments))
             .then(result => {
@@ -642,28 +667,6 @@ export class BrowseTheWebWithProtractor extends BrowseTheWeb {
      */
     takeScreenshot(): Promise<string> {
         return promiseOf(this.browser.takeScreenshot());
-    }
-
-    /**
-     * @desc
-     *  Returns the title of the current page.
-     *
-     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
-     *
-     * @returns {Promise<string>}
-     */
-    title(): Promise<string> {
-        return promiseOf(this.browser.getTitle());
-    }
-
-    /**
-     * @desc
-     *  Returns the url of the current page.
-     *
-     * @returns {Promise<string>}
-     */
-    currentUrl(): Promise<string> {
-        return promiseOf(this.browser.getCurrentUrl());
     }
 
     /**

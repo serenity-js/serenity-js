@@ -26,21 +26,21 @@ import { PageElementInteraction } from './PageElementInteraction';
  *
  * @example <caption>Hovering over an element</caption>
  *  import { actorCalled } from '@serenity-js/core';
- *  import { BrowseTheWeb, Hover, CSSClasses } from '@serenity-js/webdriverio';
+ *  import { BrowseTheWeb, Hover, CssClasses } from '@serenity-js/webdriverio';
  *  import { Ensure, equals } from '@serenity-js/assertions';
  *
  *  actorCalled('Hank')
  *      .whoCan(BrowseTheWeb.using(browser))
  *      .attemptsTo(
- *          Ensure.that(CSSClasses.of(Example.link), equals([ 'off' ])),
+ *          Ensure.that(CssClasses.of(Example.link), equals([ 'off' ])),
  *
  *          Hover.over(Example.link),
- *          Ensure.that(CSSClasses.of(Example.link), equals([ 'on' ])),
+ *          Ensure.that(CssClasses.of(Example.link), equals([ 'on' ])),
  *      );
  *
  * @see {@link BrowseTheWeb}
  * @see {@link Target}
- * @see {@link CSSClasses}
+ * @see {@link CssClasses}
  * @see {@link @serenity-js/assertions~Ensure}
  * @see {@link @serenity-js/assertions/lib/expectations~equals}
  *

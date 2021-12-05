@@ -1,7 +1,7 @@
 import { ConsoleReporter } from '@serenity-js/console-reporter';
 import { ArtifactArchiver } from '@serenity-js/core';
 import { SerenityBDDReporter } from '@serenity-js/serenity-bdd';
-import { Photographer, TakePhotosOfInteractions } from '@serenity-js/web';
+import { Photographer, TakePhotosOfFailures, TakePhotosOfInteractions } from '@serenity-js/web';
 import { WebdriverIOConfig } from '@serenity-js/webdriverio';
 import { resolve } from 'path';
 import { Actors } from './src';
@@ -16,7 +16,8 @@ export const config: WebdriverIOConfig = {
         actors: new Actors(),
         crew: [
             ArtifactArchiver.storingArtifactsAt('./target/site/serenity'),
-            Photographer.whoWill(TakePhotosOfInteractions),
+            Photographer.whoWill(TakePhotosOfFailures),
+            // Photographer.whoWill(TakePhotosOfInteractions),
             ConsoleReporter.forDarkTerminals(),
             new SerenityBDDReporter(),
         ]
@@ -56,8 +57,12 @@ export const config: WebdriverIOConfig = {
         'goog:chromeOptions': {
             args: [
                 // '--headless',
+                '--disable-web-security',
+                '--allow-file-access-from-files',
+                '--allow-file-access',
                 '--disable-infobars',
-                '--no-sandbox',
+                '--ignore-certificate-errors',
+                '--disable-gpu',
                 '--disable-gpu',
                 '--window-size=1024x768',
             ],
@@ -66,9 +71,9 @@ export const config: WebdriverIOConfig = {
 
     logLevel: 'debug',
 
-    waitforTimeout: 10000,
+    waitforTimeout: 10_000,
 
-    connectionRetryTimeout: 90000,
+    connectionRetryTimeout: 90_000,
 
     connectionRetryCount: 3,
 };

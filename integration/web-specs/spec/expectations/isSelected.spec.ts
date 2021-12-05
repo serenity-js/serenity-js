@@ -3,14 +3,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { by, isSelected, Navigate, Target, Wait } from '@serenity-js/web';
+import { isSelected, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isSelected', function () {
 
     const Languages = {
-        typeScript: Target.the('TypeScript option').located(by.css('select[name="languages"] > option[value="TypeScript"]')),
-        javaScript: Target.the('JavaScript option').located(by.css('select[name="languages"] > option[value="JavaScript"]')),
-        java:       Target.the('Java option').located(by.css('select[name="languages"] > option[value="Java"]')),
+        typeScript: PageElement.locatedByCss('select[name="languages"] > option[value="TypeScript"]').describedAs('the TypeScript option'),
+        javaScript: PageElement.locatedByCss('select[name="languages"] > option[value="JavaScript"]').describedAs('the JavaScript option'),
+        java:       PageElement.locatedByCss('select[name="languages"] > option[value="Java"]').describedAs('the Java option'),
     };
 
     beforeEach(() =>

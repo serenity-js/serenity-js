@@ -1,6 +1,5 @@
 export * from './Cookie';
 export * from './CookieData';
-export * from './locations';
 export * from './ModalDialog';
 export * from './Page';
 export * from './PageElement';

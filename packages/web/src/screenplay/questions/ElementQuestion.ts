@@ -9,6 +9,7 @@ import { PageElement, PageElementList } from '../models';
  *
  * @extends {@serenity-js/core/lib/screenplay~Question}
  */
+// todo: remove
 export abstract class ElementQuestion<T>
     extends Question<T>
 {

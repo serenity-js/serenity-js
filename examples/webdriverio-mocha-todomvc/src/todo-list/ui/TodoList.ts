@@ -1,21 +1,23 @@
-import { equals } from '@serenity-js/assertions';
-import { by, Target, Text } from '@serenity-js/web';
+import { PageElement, PageElementList } from '@serenity-js/web';
 
 export class TodoList {
     static newTodoInput =
-        Target.the('"What needs to be done?" input box')
-            .located(by.css('.new-todo'));
+        PageElement.locatedByCss('.new-todo')
+            .describedAs('"What needs to be done?" input box')
+    ;
 
     static editTodoInput =
-        Target.the('"What needs to be done?" input box')
-            .located(by.css('.todo-list li.editing .edit'));
+        PageElement.locatedByCss('.todo-list li.editing .edit').describedAs('edit field');
 
     static items =
-        Target.all('List of Items')
-            .located(by.css('.todo-list li'));
+        PageElementList.locatedByCss('.todo-list li').describedAs('list of items');
 
     static itemCalled = (name: string) =>
         TodoList.items
-            .where(Text, equals(name))
-            .first();
+            .filter(async (item: PageElement) => {
+                const text = await item.text();
+                return text === name;
+            })
+            .first()
+            .describedAs(`item called '${ name }'`);
 }

@@ -1,4 +1,4 @@
-import { Activity, Answerable, AnswersQuestions, Interaction, LogicError, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
+import { Activity, Answerable, AnswersQuestions, Interaction, PerformsActivities, Task, UsesAbilities } from '@serenity-js/core';
 
 import { BrowseTheWeb } from '../abilities';
 import { PageElement } from '../models';
@@ -148,48 +148,6 @@ export class Switch {
     static toDefaultContent(): Interaction {
         return new SwitchToDefaultContent();
     }
-
-    /**
-     * @desc
-     *  Switches the current [browsing context](https://w3c.github.io/webdriver/#dfn-current-browsing-context)
-     *  for future commands to a browser tab/window identified by its
-     *  name, index or [window handle](https://developer.mozilla.org/en-US/docs/Web/WebDriver/Commands/GetWindowHandles).
-     *
-     * @param {Answerable<string | number>} nameOrHandleOrIndex
-     * @returns {SwitchToWindow}
-     */
-    static toWindow(nameOrHandleOrIndex: Answerable<string | number>): SwitchToWindow {
-        return new SwitchToWindow(nameOrHandleOrIndex);
-    }
-
-    /**
-     * @desc
-     *  Switches the current [browsing context](https://w3c.github.io/webdriver/#dfn-current-browsing-context)
-     *  for future commands to the most recently opened browser tab/window.
-     *
-     *  **Please note** that this behaviour might vary in some browsers if there are more than two windows opened
-     *  at the same time.
-     *
-     * @returns {SwitchToNewWindow}
-     */
-    static toNewWindow(): SwitchToNewWindow {
-        return new SwitchToNewWindow();
-    }
-
-    /**
-     * @desc
-     *  Switches the current [browsing context](https://w3c.github.io/webdriver/#dfn-current-browsing-context)
-     *  for future commands to the original window used when the {@link @serenity-js/core/lib/screenplay/actor~Actor}
-     *  performed an interaction to {@link Navigate}.
-     *
-     *  **Please note** that this behaviour might vary in some browsers if there are more than two windows opened
-     *  at the same time, as window handles might be ordered alphabetically instead of the order in which they were created.
-     *
-     * @returns {SwitchToOriginalWindow}
-     */
-    static toOriginalWindow(): SwitchToOriginalWindow {
-        return new SwitchToOriginalWindow();
-    }
 }
 
 /**
@@ -208,8 +166,7 @@ class SwitchToFrame extends Interaction {
         return actor.answer(this.targetOrIndex)
             .then((targetOrIndex: PageElement | number | string) => {
                 return BrowseTheWeb.as(actor).switchToFrame(targetOrIndex);
-            },
-            );
+            });
     }
 
     toString(): string {
@@ -264,126 +221,5 @@ class SwitchToDefaultContent extends Interaction {
 
     toString(): string {
         return `#actor switches to default content`;
-    }
-}
-
-/**
- * @package
- */
-class SwitchToWindow extends Interaction {
-    constructor(private readonly nameOrHandleOrIndex: Answerable<string | number>) {
-        super();
-    }
-
-    and(...activities: Activity[]): Task {
-        return new SwitchToWindowAndPerformActivities(this.nameOrHandleOrIndex, activities);
-    }
-
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return actor.answer(this.nameOrHandleOrIndex).then(index => BrowseTheWeb.as(actor).switchToWindow(index));
-    }
-
-    toString(): string {
-        return `#actor switches to window: ${this.nameOrHandleOrIndex}`;
-    }
-}
-
-/**
- * @package
- */
-class SwitchToWindowAndPerformActivities extends Task {
-    constructor(
-        private readonly nameOrHandleOrIndex: Answerable<string | number>,
-        private readonly activities: Activity[],
-    ) {
-        super();
-    }
-
-    performAs(actor: PerformsActivities & UsesAbilities): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).getCurrentWindowHandle()
-            .then(currentWindow => {
-                return actor.attemptsTo(
-                    new SwitchToWindow(this.nameOrHandleOrIndex),
-                    ...this.activities,
-                    new SwitchToWindow(currentWindow),
-                );
-            });
-    }
-
-    toString(): string {
-        return `#actor switches to window: ${ this.nameOrHandleOrIndex }`;
-    }
-}
-
-/**
- * @package
- */
-class SwitchToNewWindow extends Interaction {
-    constructor() {
-        super();
-    }
-
-    and(...activities: Activity[]): Task {
-        return new SwitchToNewWindowAndPerformActivities(activities);
-    }
-
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return Promise.all([
-            BrowseTheWeb.as(actor).getCurrentWindowHandle(),
-            BrowseTheWeb.as(actor).getAllWindowHandles(),
-        ])
-        .then(([ currentHandle, handles ]: [ string, string[] ]) => handles.filter(handle => handle !== currentHandle))
-        .then(handles => {
-            if (handles.length === 0) {
-                throw new LogicError(`No new window has been opened to switch to`)
-            }
-
-            return BrowseTheWeb.as(actor).switchToWindow(handles[handles.length - 1]);
-        });
-    }
-
-    toString(): string {
-        return `#actor switches to the new browser window`;
-    }
-}
-
-/**
- * @package
- */
-class SwitchToNewWindowAndPerformActivities extends Task {
-    constructor(private readonly activities: Activity[]) {
-        super();
-    }
-
-    performAs(actor: PerformsActivities & UsesAbilities): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).getCurrentWindowHandle()
-            .then(currentWindow => {
-                return actor.attemptsTo(
-                    new SwitchToNewWindow(),
-                    ...this.activities,
-                    new SwitchToWindow(currentWindow),
-                );
-            });
-    }
-
-    toString(): string {
-        return `#actor switches to the new window`;
-    }
-}
-
-/**
- * @package
- */
-class SwitchToOriginalWindow extends Interaction {
-    constructor() {
-        super();
-    }
-
-    performAs(actor: UsesAbilities & AnswersQuestions): PromiseLike<void> {
-        return BrowseTheWeb.as(actor).switchToOriginalWindow();
-    }
-
-    toString(): string {
-        return `#actor switches back to the original browser window`;
     }
 }

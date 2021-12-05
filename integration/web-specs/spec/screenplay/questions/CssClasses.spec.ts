@@ -2,13 +2,13 @@ import 'mocha';
 
 import { contain, Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { by, CSSClasses, Navigate, Target } from '@serenity-js/web';
+import { CssClasses, Navigate, PageElement } from '@serenity-js/web';
 import { given } from 'mocha-testdata';
 
-describe('CSSClasses', () => {
+describe('CssClasses', () => {
 
-    /** @test {CSSClasses} */
-    /** @test {CSSClasses.of} */
+    /** @test {CssClasses} */
+    /** @test {CssClasses.of} */
     describe('of', () => {
 
         before(() =>
@@ -28,18 +28,18 @@ describe('CSSClasses', () => {
         it('allows the actor to read the css classes of a DOM element matching the locator', ({ description, expected }) =>
             actorCalled('Bernie').attemptsTo(
                 Ensure.that(
-                    CSSClasses.of(Target.the(`Element with ${ description }`).located(by.id(description))),
+                    CssClasses.of(PageElement.locatedById(description).describedAs(`Element with ${ description }`)),
                     equals(expected),
                 ),
             ));
 
-        /** @test {CSSClasses} */
-        /** @test {CSSClasses#of} */
+        /** @test {CssClasses} */
+        /** @test {CssClasses#of} */
         it('allows for a question relative to another target to be asked', () => actorCalled('Bernie').attemptsTo(
             Ensure.that(
-                CSSClasses.of(
-                    Target.the(`Element with single-class`).located(by.id('single-class')),
-                ).of(Target.the(`list`).located(by.tagName('ul'))),
+                CssClasses.of(
+                    PageElement.locatedById('single-class').describedAs(`Element with single-class`),
+                ).of(PageElement.locatedByTagName('ul').describedAs(`list`)),
                 contain('pretty'),
             ),
         ));

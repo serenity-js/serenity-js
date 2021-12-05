@@ -3,14 +3,14 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure } from '@serenity-js/assertions';
 import { actorCalled, AssertionError } from '@serenity-js/core';
-import { by, isVisible, Navigate, Target, Wait } from '@serenity-js/web';
+import { isVisible, Navigate, PageElement, Wait } from '@serenity-js/web';
 
 describe('isVisible', function () {
 
     const Page = {
-        visibleHeader:        Target.the('header').located(by.tagName('h1')),
-        invisibleHeader:      Target.the('invisible header').located(by.tagName('h2')),
-        nonExistentHeader:   Target.the('non-existent header').located(by.tagName('h3')),
+        visibleHeader:      PageElement.locatedByCss('h1').describedAs('the header'),
+        invisibleHeader:    PageElement.locatedByCss('h2').describedAs('the invisible header'),
+        nonExistentHeader:  PageElement.locatedByCss('h3').describedAs('the non-existent header'),
     };
 
     beforeEach(() =>

@@ -3,25 +3,25 @@ import 'mocha';
 import { expect } from '@integration/testing-tools';
 import { Ensure, equals } from '@serenity-js/assertions';
 import { actorCalled } from '@serenity-js/core';
-import { by, Navigate, Select, Selected, Target, Text } from '@serenity-js/web';
+import { Navigate, PageElement, PageElementList, Select, Selected, Text } from '@serenity-js/web';
 
 /** @test {Select} */
 describe('Select', () => {
 
     class SingleSelectPage {
         static pageName = 'single-select';
-        static selector = Target.the('country selector').located(by.id('single-option-select'));
-        static countryCode = Target.the('country code').located(by.id('country-of-interest-code'));
-        static countryName = Target.the('country name').located(by.id('country-of-interest-name'));
+        static selector = PageElement.locatedById('single-option-select').describedAs('the country selector');
+        static countryCode = PageElement.locatedById('country-of-interest-code').describedAs('the country code');
+        static countryName = PageElement.locatedById('country-of-interest-name').describedAs('the country name');
     }
 
     class MultiSelectPage {
         static pageName = 'multi-select';
-        static selector = Target.the('country selector').located(by.id('multi-option-select'));
-        static countryCodes = Target.all('country codes').located(by.css('#country-of-interest-codes li'));
-        static countryNames = Target.all('country names').located(by.css('#country-of-interest-names li'));
-        static anotherCountryCode = Target.the('another country code').located(by.css('#another-country-of-interest-code'));
-        static anotherCountryName = Target.the('another country name').located(by.css('#another-country-of-interest-name'));
+        static selector = PageElement.locatedById('multi-option-select').describedAs('the country selector');
+        static countryCodes = PageElementList.locatedByCss('#country-of-interest-codes li').describedAs('country codes');
+        static countryNames = PageElementList.locatedByCss('#country-of-interest-names li').describedAs('country names');
+        static anotherCountryCode = PageElement.locatedByCss('#another-country-of-interest-code').describedAs('another country code');
+        static anotherCountryName = PageElement.locatedByCss('#another-country-of-interest-name').describedAs('another country name');
     }
 
     describe('when working with single-option selects', () => {
@@ -196,7 +196,7 @@ describe('Select', () => {
 
         /** @test {Selected.valuesOf} */
         /** @test {Select#toString} */
-        it('provides a sensible description of Select.valuesOf()', () => {
+        it('provides a sensible description of Selected.valuesOf()', () => {
             expect(Selected.valuesOf(MultiSelectPage.selector).toString())
                 .to.equal(`values selected in the country selector`);
         });
@@ -210,7 +210,7 @@ describe('Select', () => {
                     'France',
                     Text.of(MultiSelectPage.anotherCountryName)
                 ).from(MultiSelectPage.selector).toString()
-            ).to.equal(`#actor selects 'Poland', 'Germany', 'France' and the text of the another country name from the country selector`);
+            ).to.equal(`#actor selects 'Poland', 'Germany', 'France' and the text of another country name from the country selector`);
         });
 
         /** @test {Selected.optionsIn} */

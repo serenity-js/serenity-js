@@ -40,17 +40,23 @@ export function createAdapter<A, Q extends Question<A> = Question<A>>(question: 
                 const originalSubject = inspected(question, { inline: true, markQuestions: true });
 
                 return createAdapter(new DynamicProp(originalSubject + fieldDescription + parameterDescriptions, async actor => {
-                    // convert parameters from Answerable<T> => T
-                    const parameters = await (Promise.all(
-                        originalParameters.map(parameter => actor.answer(parameter))
-                    ));
-
                     // resolve the original answer
                     const answer = await actor.answer(target);
 
                     if (answer === undefined) {
-                        throw new LogicError(`${ target } is undefined, can't read property "${ String(key) }"`);
+                        throw new LogicError(`${ inspected(target, { inline: true, markQuestions: true }) } is undefined, can't read property '${ String(key) }'`);
                     }
+
+                    if (typeof answer[key] !== 'function') {
+                        throw new LogicError(`${ inspected(target, { inline: true, markQuestions: true }) } does not have a method called '${ String(key) }'`);
+                    }
+
+                    // convert parameters from Answerable<T> => T
+                    const parameters = await (Promise.all(
+                        originalParameters.map(parameter => {
+                            return actor.answer(parameter)
+                        })
+                    ));
 
                     // invoke the method call on the original answer
                     return answer[key](...parameters)

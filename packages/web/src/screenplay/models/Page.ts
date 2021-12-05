@@ -72,6 +72,8 @@ export abstract class Page {
      * @desc
      *  Retrieves the document title of the current top-level browsing context, equivalent to calling `document.title`.
      *
+     * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title
+     *
      * @returns {Promise<string>}
      */
     abstract title(): Promise<string>;
